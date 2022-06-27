@@ -1,0 +1,9 @@
+terraform.tfvars
+.terraform/
+terraform.tfstate
+.terraform.*
+terraform.*.*
+node_modules/
+.env
+*.x
+DS_Store
