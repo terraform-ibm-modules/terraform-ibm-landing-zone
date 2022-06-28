@@ -12,5 +12,6 @@ on:
 
 jobs:
   call-terraform-release-pipeline:
-    uses: terraform-ibm-modules/common-dev-assets/.github/workflows/release.yml@main
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-release.yml@v1.0.0
     secrets: inherit
