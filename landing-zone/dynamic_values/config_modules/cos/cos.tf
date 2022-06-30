@@ -128,7 +128,7 @@ module "cos_bucket_to_instance_map" {
           # Null if null keys
           lookup(instance, "keys", null) == null
           ? null
-          # Null if empty list 
+          # Null if empty list
           : length(instance.keys) == 0
           ? null
           # Otherwise get credential
