@@ -484,7 +484,7 @@ object(
     app_id_key_name    = optional(string) # Name of APP ID key
 
     ##############################################################################
-    # A list of maps that contain the user email and the role you want to 
+    # A list of maps that contain the user email and the role you want to
     # associate with them
     ##############################################################################
 
@@ -513,10 +513,10 @@ list(
         resource_group                  = optional(string) # Name of resource group where the teleport VSI will be provisioned, must be in `var.resource_groups`
         subnet_name                     = string           # Name of the subnet where the teleport VSI will be provisioned
         ssh_keys                        = list(string)     # List of SSH Keys from `var.ssh_keys` to use when provisioning.
-        boot_volume_encryption_key_name = string           # Name of boot_volume_encryption_key        
+        boot_volume_encryption_key_name = string           # Name of boot_volume_encryption_key
         image_name                      = string           # Name of the image for the teleport VSI, use `ibmcloud is images` to view
         machine_type                    = string           # Name of machine type. Use `ibmcloud is in-prs` to view
-        
+
         ##############################################################################
         # When creating VSI, users can optionally create a new security group for
         # those instances. These fields function the same as in `var.security_groups`
@@ -621,9 +621,9 @@ Virtual Private endpoints can be created for any number of services. Virtual pri
 
 ### Cloud Object Storage
 
-This module can provision a Cloud Object Storage instance or retrieve an existing Cloud Object Storage instance, then create any number of buckets within the desired instance. 
+This module can provision a Cloud Object Storage instance or retrieve an existing Cloud Object Storage instance, then create any number of buckets within the desired instance.
 
-Cloud Object Storage components can be found in cos.tf. 
+Cloud Object Storage components can be found in cos.tf.
 
 ---
 
@@ -697,10 +697,10 @@ Create feature branches to add additional components. To integrate code changes 
 
 If additional variables or added or existing variables are changed, update the [Module Variables](##module-variables) table. To automate this process, use the nodejs package [tfmdcli](https://www.npmjs.com/package/tfmdcli)
 
-To contribute, be sure to have the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter) installed and then configure the corresponding pre-commit hook. 
+To contribute, be sure to have the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter) installed and then configure the corresponding pre-commit hook.
 
 ```
-$ ln pre-commit.sh .git/hooks/pre-commit 
+$ ln pre-commit.sh .git/hooks/pre-commit
 ```
 
 ---
@@ -795,13 +795,13 @@ module "cluster_pattern" {
 }
 ```
 
---- 
+---
 
 ## Creating an Issue
 
 As we develop the SLZ template, issues are bound to come up. When an issue comes up the following are required. Issues that do not have complete information will be **closed immediately**.
 
-### Enhancement Feature 
+### Enhancement Feature
 
 - A detailed title that is either the source of a bug, or a user story for the feature that needs to be added.
   - example `As a user, I want to be able to provision encryption keys using either HPCS or Key Protect`

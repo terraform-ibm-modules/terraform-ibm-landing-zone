@@ -584,7 +584,7 @@ variable "cos" {
     )
   }
 
-  # https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-classes 
+  # https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-classes
   validation {
     error_message = "Storage class can only be `standard`, `vault`, `cold`, or `smart`."
     condition = length(
@@ -600,7 +600,7 @@ variable "cos" {
     ) == length(flatten([for instance in var.cos : [for bucket in instance.buckets : true]]))
   }
 
-  # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#endpoint_type 
+  # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#endpoint_type
   validation {
     error_message = "Endpoint type can only be `public`, `private`, or `direct`."
     condition = length(

@@ -1,7 +1,7 @@
-#cloud-config                                                                                      
-# This file is used to install teleport on a bastion host, configure teleport with App ID, and    
-# configure teleport with a COS instance.                                                         
-# https://github.com/cloud-native-toolkit/terraform-vsi-bastion-teleport/blob/main/cloud-init.tpl 
+#cloud-config
+# This file is used to install teleport on a bastion host, configure teleport with App ID, and
+# configure teleport with a COS instance.
+# https://github.com/cloud-native-toolkit/terraform-vsi-bastion-teleport/blob/main/cloud-init.tpl
 packages:
   - tar
 write_files:
@@ -70,7 +70,7 @@ write_files:
         client_secret: "${APPID_CLIENT_SECRET}"
         issuer_url: "${APPID_ISSUER_URL}"
         scope: ["openid", "email"]
-        claims_to_roles: 
+        claims_to_roles:
          %{~ for claims in CLAIM_TO_ROLES ~}
           - {claim: "email", value: "${claims.email}", roles: ${jsonencode(claims.roles)}}
          %{~ endfor ~}
@@ -85,7 +85,7 @@ write_files:
         data_dir: /var/lib/teleport
         log:
           output: stderr
-          severity: DEBUG 
+          severity: DEBUG
         storage:
           audit_sessions_uri: "s3://${COS_BUCKET}?endpoint=${COS_BUCKET_ENDPOINT}&region=ibm"
 
@@ -169,9 +169,9 @@ write_files:
       sudo systemctl start teleport
       sudo systemctl enable teleport
 
-      # allow ports for firewall 
+      # allow ports for firewall
       # check if firewalld is used
-      firewall-cmd -h 
+      firewall-cmd -h
       rc=$?
       if [[ $rc -eq 0 ]]; then
          systemctl stop firewalld

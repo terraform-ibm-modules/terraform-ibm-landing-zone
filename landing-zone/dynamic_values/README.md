@@ -18,7 +18,7 @@ prefix                    | A unique identifier for resources. Must begin with a
 region                    | Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.
 vpc_modules               | Direct reference to VPC Modules
 vpcs                      | Direct reference to vpcs variable
-clusters                  | 
+clusters                  |
 cos                       | Direct reference to cos variable
 cos_data_source           | COS Data Resources
 cos_resource              | Created COS instance resources

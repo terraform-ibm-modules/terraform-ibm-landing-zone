@@ -17,7 +17,7 @@ tmos_dhcpv4_tmm:
       domain-name: ${domain}
     '${default_route_interface}':
       routers: ${default_route_gateway}
-  do_enabled: true 
+  do_enabled: true
   do_declaration: ${do_local_declaration}
   do_declaration_url: ${do_declaration_url}
   do_declaration_url_headers:
@@ -56,4 +56,3 @@ tmos_dhcpv4_tmm:
   tgactive_url: ${tgactive_url}
   tgstandby_url: ${tgstandby_url}
   tgrefresh_url: ${tgrefresh_url}
-  
