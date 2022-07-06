@@ -105,6 +105,7 @@ variable "license_username" {
 variable "license_password" {
   description = "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance"
   type        = string
+  sensitive   = true
 }
 
 variable "license_pool" {
