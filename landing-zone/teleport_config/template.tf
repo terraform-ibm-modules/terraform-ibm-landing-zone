@@ -6,21 +6,21 @@ locals {
   user_data = templatefile(
     "${path.module}/cloud-init.tpl",
     {
-      TELEPORT_LICENSE          = base64encode(tostring(var.TELEPORT_LICENSE)),
-      HTTPS_CERT                = base64encode(tostring(var.HTTPS_CERT)),
-      HTTPS_KEY                 = base64encode(tostring(var.HTTPS_KEY)),
-      HOSTNAME                  = tostring(var.HOSTNAME),
-      DOMAIN                    = tostring(var.DOMAIN),
-      COS_BUCKET                = tostring(var.COS_BUCKET),
-      COS_BUCKET_ENDPOINT       = tostring(var.COS_BUCKET_ENDPOINT)
-      HMAC_ACCESS_KEY_ID        = tostring(var.HMAC_ACCESS_KEY_ID),
-      HMAC_SECRET_ACCESS_KEY_ID = tostring(var.HMAC_SECRET_ACCESS_KEY_ID),
-      APPID_CLIENT_ID           = tostring(var.APPID_CLIENT_ID),
-      APPID_CLIENT_SECRET       = tostring(var.APPID_CLIENT_SECRET),
-      APPID_ISSUER_URL          = tostring(var.APPID_ISSUER_URL),
-      TELEPORT_VERSION          = tostring(var.TELEPORT_VERSION),
-      CLAIM_TO_ROLES            = var.CLAIM_TO_ROLES,
-      MESSAGE_OF_THE_DAY        = tostring(var.MESSAGE_OF_THE_DAY)
+      TELEPORT_LICENSE          = base64encode(tostring(var.teleport_licence)),
+      HTTPS_CERT                = base64encode(tostring(var.https_certs)),
+      HTTPS_KEY                 = base64encode(tostring(var.https_key)),
+      HOSTNAME                  = tostring(var.hostname),
+      DOMAIN                    = tostring(var.domain),
+      COS_BUCKET                = tostring(var.cos_bucket),
+      COS_BUCKET_ENDPOINT       = tostring(var.cos_bucket_endpoint)
+      HMAC_ACCESS_KEY_ID        = tostring(var.hmac_access_key_id),
+      HMAC_SECRET_ACCESS_KEY_ID = tostring(var.hmac_secret_access_key_id),
+      APPID_CLIENT_ID           = tostring(var.appid_client_id),
+      APPID_CLIENT_SECRET       = tostring(var.appid_client_secret),
+      APPID_ISSUER_URL          = tostring(var.appid_issuer_url),
+      TELEPORT_VERSION          = tostring(var.teleport_version),
+      CLAIM_TO_ROLES            = var.claim_to_roles,
+      MESSAGE_OF_THE_DAY        = tostring(var.message_of_the_day)
     }
   )
 }

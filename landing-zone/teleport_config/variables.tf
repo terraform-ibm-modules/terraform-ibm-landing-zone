@@ -2,74 +2,74 @@
 # Teleport Config Variables
 ##############################################################################
 
-variable "TELEPORT_LICENSE" {
+variable "teleport_licence" {
   description = "The contents of the PEM license file"
   type        = string
 
 }
-variable "HTTPS_CERT" {
+variable "https_certs" {
   description = "The https certificate used by bastion host for teleport"
   type        = string
 
 }
-variable "HTTPS_KEY" {
+variable "https_key" {
   description = "The https private key used by bastion host for teleport"
   type        = string
 
 }
-variable "HOSTNAME" {
+variable "hostname" {
   description = "The name of the instance or bastion host"
   type        = string
 
 }
-variable "DOMAIN" {
+variable "domain" {
   description = "The domain of the bastion host"
   type        = string
 
 }
-variable "COS_BUCKET" {
+variable "cos_bucket" {
   description = "Name of COS instance"
   type        = string
 
 }
-variable "COS_BUCKET_ENDPOINT" {
+variable "cos_bucket_endpoint" {
   description = "The endpoint of the COS bucket"
   type        = string
 
 }
 
-variable "HMAC_ACCESS_KEY_ID" {
+variable "hmac_access_key_id" {
   description = "The ID of the HMAC Access Key"
   type        = string
 
 }
 
-variable "HMAC_SECRET_ACCESS_KEY_ID" {
+variable "hmac_secret_access_key_id" {
   description = "The ID of the secret HMAC Access Key"
   type        = string
 
 }
-variable "APPID_CLIENT_ID" {
+variable "appid_client_id" {
   description = "The ID of the App ID client"
   type        = string
 
 }
-variable "APPID_CLIENT_SECRET" {
+variable "appid_client_secret" {
   description = "The secret of the App ID client"
   type        = string
 
 }
-variable "APPID_ISSUER_URL" {
+variable "appid_issuer_url" {
   description = "The URL of the App ID Issuer"
   type        = string
 
 }
-variable "TELEPORT_VERSION" {
+variable "teleport_version" {
   description = "Version of Teleport Enterprise to use"
   type        = string
 }
 
-variable "CLAIM_TO_ROLES" {
+variable "claim_to_roles" {
   description = "A list of maps that contain the user email and the role you want to associate with them"
   type = list(
     object({
@@ -79,7 +79,7 @@ variable "CLAIM_TO_ROLES" {
   )
 
 }
-variable "MESSAGE_OF_THE_DAY" {
+variable "message_of_the_day" {
   description = "Banner message that is exposed to the user at authentication time"
   type        = string
 
