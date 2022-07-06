@@ -20,31 +20,10 @@ tmos_dhcpv4_tmm:
   do_enabled: true
   do_declaration: ${do_local_declaration}
   do_declaration_url: ${do_declaration_url}
-  do_declaration_url_headers:
-    PRIVATE-TOKEN: x6VpQuWhiT_KgT3mzyTe
-  do_template_variables:
-    primary_dns: 8.8.8.8
-    secondary_dns: 1.1.1.1
-    timezone: Europe/Paris
-    primary_ntp: 132.163.96.5
-    secondary_ntp: 132.163.97.5
-    primary_radius: 10.20.22.20
-    primary_radius_secret: testing123
-    secondary_radius: 10.20.23.20
-    secondary_radius_secret: testing123
   as3_enabled: true
   as3_declaration_url: ${as3_declaration_url}
-  as3_declaration_url_headers:
-    PRIVATE-TOKEN: x6VpQuWhiT_KgT3mzyTe
-  as3_template_variables:
-    selfip_snat_address: 10.20.40.40
   ts_enabled: true
   ts_declaration_url: ${ts_declaration_url}
-  ts_declaration_url_headers:
-    PRIVATE-TOKEN: x6VpQuWhiT_KgT3mzyTe
-  ts_template_variables:
-    splunk_log_ingest: 10.20.23.30
-    splunk_password: 0f29e5dc-bee8-4898-9054-9b66574a3e14
   phone_home_url: ${phone_home_url}
   phone_home_url_verify_tls: false
   phone_home_url_metadata:
