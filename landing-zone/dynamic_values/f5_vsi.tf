@@ -98,7 +98,6 @@ module "ut_f5" {
     }
   }
   f5_template_data = {
-    tmos_admin_password     = "Gooooooooooooooooodpass1"
     license_type            = "none"
     byol_license_basekey    = null
     license_host            = null

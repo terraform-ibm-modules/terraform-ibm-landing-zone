@@ -1403,8 +1403,7 @@ variable "f5_template_data" {
     tgrefresh_url           = optional(string)
   })
   default = {
-    tmos_admin_password = "Iamapassword2ru"
-    license_type        = "none"
+    license_type = "none"
   }
 
   validation {
