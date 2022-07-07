@@ -108,12 +108,7 @@ module "parent_merge_list_to_map" {
           # For each field to add from parent to child
           for field in var.add_parent_fields_to_child :
           (field.child_key) => (
-            # if not add prefix
-            field.add_prefix == null
-            # return parent data
-            ? lookup(parent, field.parent_field, null)
-            # otherwise prepend prefix
-            : "${field.add_prefix}-${parent[field.parent_field]}"
+            field.add_prefix == null ? lookup(parent, field.parent_field, null) : "${field.add_prefix}-${parent[field.parent_field]}"
           )
         }
       )

@@ -125,14 +125,7 @@ module "cos_bucket_to_instance_map" {
         name        = instance.name                         # Name is instance name
         bucket_name = bucket.name                           # Used as key for map
         bind_key = (                                        # Get cos bind key data
-          # Null if null keys
-          lookup(instance, "keys", null) == null
-          ? null
-          # Null if empty list
-          : length(instance.keys) == 0
-          ? null
-          # Otherwise get credential
-          : var.cos_resource_keys[instance.keys[0].name].credentials.apikey
+          lookup(instance, "keys", null) == null ? null : length(instance.keys) == 0 ? null : var.cos_resource_keys[instance.keys[0].name].credentials.apikey
         )
       }
     ]
