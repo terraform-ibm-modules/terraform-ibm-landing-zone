@@ -72,7 +72,7 @@ locals {
 ##############################################################################
 
 module "f5_vsi" {
-  source                      = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=init-vsi-mod"
+  source                      = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.0.0"
   for_each                    = local.f5_vsi_map
   resource_group_id           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group       = each.value.security_group == null ? false : true
