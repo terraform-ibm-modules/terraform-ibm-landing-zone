@@ -31,5 +31,5 @@ module "landing-zone" {
   prefix                         = var.prefix
   region                         = var.region
   ibmcloud_api_key               = var.ibmcloud_api_key
-  ssh_public_key                 = local.ssh_key_id
+  ssh_public_key                 = tls_private_key.tls_key[0].public_key_openssh
 }
