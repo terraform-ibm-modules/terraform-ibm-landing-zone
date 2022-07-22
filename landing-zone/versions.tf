@@ -5,8 +5,9 @@
 terraform {
   required_providers {
     ibm = {
-      source  = "IBM-Cloud/ibm"
-      version = "~>1.41.0"
+      source = "IBM-Cloud/ibm"
+      # Atracker needs to have the v2 API
+      version = ">= 1.43.0"
     }
     random = {
       source  = "hashicorp/random"
