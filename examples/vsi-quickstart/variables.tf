@@ -8,7 +8,7 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "TF_VERSION" {
+variable "tf_version" {
   default     = "1.0"
   type        = string
   description = "The version of the Terraform engine that's used in the Schematics workspace."

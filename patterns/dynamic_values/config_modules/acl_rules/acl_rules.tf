@@ -56,7 +56,7 @@ output "bastion" {
   ]
 }
 
-output "f5-external" {
+output "f5_external" {
   description = "F5 external allow all"
   value = [
     {

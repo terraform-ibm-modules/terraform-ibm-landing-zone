@@ -51,7 +51,7 @@ output "value" {
       for network_acl in concat(
         [network],
         var.use_teleport && network == var.bastion_vpc_name ? ["bastion"] : [],
-        var.use_f5 && network == var.vpc_list[0] ? ["f5-external"] : []
+        var.use_f5 && network == var.vpc_list[0] ? ["f5_external"] : []
       ) :
       {
         name              = "${network_acl}-acl"

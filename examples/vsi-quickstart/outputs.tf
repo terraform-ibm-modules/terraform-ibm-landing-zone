@@ -2,7 +2,7 @@
 # Outputs
 ##############################################################################
 
-output "landing-zone" {
-  value       = module.landing-zone
+output "landing_zone" {
+  value       = module.landing_zone
   description = "Landing zone configuration"
 }

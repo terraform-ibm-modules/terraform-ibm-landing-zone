@@ -1,4 +1,4 @@
-module "landing-zone" {
+module "landing_zone" {
   source           = "../../patterns/vsi"
   prefix           = var.prefix
   region           = var.region
