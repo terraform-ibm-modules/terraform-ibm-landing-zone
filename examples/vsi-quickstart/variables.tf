@@ -31,12 +31,6 @@ variable "region" {
   default     = "us-south"
 }
 
-variable "tags" {
-  description = "List of tags to apply to resources created by this module."
-  type        = list(string)
-  default     = []
-}
-
 ##############################################################################
 
 
@@ -136,4 +130,16 @@ variable "ssh_key" {
   type        = string
   description = "An existing ssh key name to use for this example, if unset a new ssh key will be created"
   default     = null
+}
+
+variable "resource_group" {
+  type        = string
+  description = "An existing resource group name to use for this example, if unset a new resource group will be created"
+  default     = null
+}
+
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
+  default     = []
 }

@@ -26,7 +26,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "landing-zone")
+	options := setupOptions(t, "land-zone")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
