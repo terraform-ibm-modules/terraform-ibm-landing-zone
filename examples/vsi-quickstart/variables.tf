@@ -31,15 +31,6 @@ variable "region" {
   default     = "us-south"
 }
 
-# variable "ssh_public_key" {
-#   description = "Public SSH Key for VSI creation. Must be a valid SSH key that does not already exist in the deployment region."
-#   type        = string
-#   /*validation {
-#     error_message = "Public SSH Key must be a valid ssh rsa public key."
-#    // condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
-#   }*/
-# }
-
 variable "tags" {
   description = "List of tags to apply to resources created by this module."
   type        = list(string)
