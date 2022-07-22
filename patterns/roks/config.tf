@@ -366,7 +366,7 @@ data "external" "format_output" {
 
 locals {
   # Prevent users from inputting conflicting variables by checking regex
-  # causeing plan to fail when true. 
+  # causeing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
   fail_with_conflicting_bastion = regex("false", tostring(

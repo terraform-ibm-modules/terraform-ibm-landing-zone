@@ -34,7 +34,7 @@ variable "ssh_public_key" {
   type        = string
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ([^@]+@[^@]+)", var.ssh_public_key))
+    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
 }
 
@@ -484,14 +484,14 @@ variable "create_secrets_manager" {
 
 variable "enable_scc" {
   description = "Enable creation of SCC resources"
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "scc_cred_name" {
   description = "The name of the credential"
-  type    = string
-  default = "slz-cred"
+  type        = string
+  default     = "slz-cred"
 
   validation {
     error_message = "SCC Credential Name must be 255 or fewer characters."
@@ -501,8 +501,8 @@ variable "scc_cred_name" {
 
 variable "scc_group_id" {
   description = "Group ID of SCC Credential"
-  type    = string
-  default = null
+  type        = string
+  default     = null
 
   validation {
     error_message = "SCC Credential Group ID must only contain numbers. Group ID must be 50 or fewer characters."
@@ -512,10 +512,10 @@ variable "scc_group_id" {
 
 variable "scc_group_passphrase" {
   description = "Group Passphrase of SCC Credential"
-  type      = string
-  sensitive = true
-  default = null
-  
+  type        = string
+  sensitive   = true
+  default     = null
+
   validation {
     error_message = "SCC Credential Group passphrase must be 255 or fewer characters."
     condition     = var.scc_group_passphrase == null ? true : can(regex("^[a-zA-Z0-9-\\.\\*,_\\s]*$", var.scc_group_passphrase)) && length(var.scc_group_passphrase) <= 255
@@ -524,8 +524,8 @@ variable "scc_group_passphrase" {
 
 variable "scc_cred_description" {
   description = "Description of SCC Credential"
-  type    = string
-  default = "This credential is used for SCC."
+  type        = string
+  default     = "This credential is used for SCC."
 
   validation {
     error_message = "SCC Credential Description must be 255 or fewer characters."
@@ -535,8 +535,8 @@ variable "scc_cred_description" {
 
 variable "scc_collector_description" {
   description = "Description of SCC Collector"
-  type    = string
-  default = "collector description"
+  type        = string
+  default     = "collector description"
   validation {
     error_message = "SCC Collector Description must be 1000 or fewer characters."
     condition     = var.scc_collector_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_collector_description)) && length(var.scc_collector_description) <= 1000
@@ -545,8 +545,8 @@ variable "scc_collector_description" {
 
 variable "scc_scope_description" {
   description = "Description of SCC Scope"
-  type    = string
-  default = "IBM-schema-for-configuration-collection"
+  type        = string
+  default     = "IBM-schema-for-configuration-collection"
   validation {
     error_message = "SCC Scope Description must be 255 or fewer characters."
     condition     = var.scc_scope_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_scope_description)) && length(var.scc_scope_description) <= 255
@@ -555,8 +555,8 @@ variable "scc_scope_description" {
 
 variable "scc_scope_name" {
   description = "The name of the SCC Scope"
-  type    = string
-  default = "scope"
+  type        = string
+  default     = "scope"
 
   validation {
     error_message = "SCC Scope Name must be 50 or fewer characters."

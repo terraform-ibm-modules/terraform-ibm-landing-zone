@@ -2,12 +2,7 @@
 # Outputs
 ##############################################################################
 
-# output "id" {
-#   value       = module.slz_vpc.vpc_id
-#   description = "VPC id"
-# }
-
-# output "crn" {
-#   value       = module.slz_vpc.vpc_crn
-#   description = "VPC crn"
-# }
+output "landing-zone" {
+  value       = module.landing-zone
+  description = "Landing zone configuration"
+}
