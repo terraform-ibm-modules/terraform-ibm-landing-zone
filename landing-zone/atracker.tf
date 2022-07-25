@@ -34,13 +34,13 @@ resource "ibm_atracker_target" "atracker_target" {
 }
 
 resource "ibm_atracker_route" "atracker_route" {
-  count                 = var.atracker.add_route == true && local.valid_atracker_region ? 1 : 0
-  name                  = "${var.prefix}-atracker-route"
-  receive_global_events = lookup(var.atracker, "receive_global_events", null)
+  count = var.atracker.add_route == true && local.valid_atracker_region ? 1 : 0
+  name  = "${var.prefix}-atracker-route"
   rules {
     target_ids = [
       ibm_atracker_target.atracker_target[0].id
     ]
+    locations = ["*", "global"]
   }
 }
 
