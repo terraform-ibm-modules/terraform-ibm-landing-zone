@@ -1,4 +1,4 @@
-module github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi
+module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 
 go 1.18
 
