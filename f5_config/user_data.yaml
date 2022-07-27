@@ -1,0 +1,37 @@
+#cloud-config
+chpasswd:
+  expire: false
+  list: |
+    admin:${tmos_admin_password}
+tmos_dhcpv4_tmm:
+  enabled: true
+  rd_enabled: false
+  icontrollx_trusted_sources: false
+  inject_routes: true
+  configsync_interface: ${configsync_interface}
+  default_route_interface: ${default_route_interface}
+  dhcp_timeout: 120
+  dhcpv4_options:
+    mgmt:
+      host-name: ${hostname}
+      domain-name: ${domain}
+    '${default_route_interface}':
+      routers: ${default_route_gateway}
+  do_enabled: true
+  do_declaration: ${do_local_declaration}
+  do_declaration_url: ${do_declaration_url}
+  as3_enabled: true
+  as3_declaration_url: ${as3_declaration_url}
+  ts_enabled: true
+  ts_declaration_url: ${ts_declaration_url}
+  phone_home_url: ${phone_home_url}
+  phone_home_url_verify_tls: false
+  phone_home_url_metadata:
+    template_source: ${template_source}
+    template_version: ${template_version}
+    zone: ${zone}
+    vpc: ${vpc}
+    app_id: ${app_id}
+  tgactive_url: ${tgactive_url}
+  tgstandby_url: ${tgstandby_url}
+  tgrefresh_url: ${tgrefresh_url}
