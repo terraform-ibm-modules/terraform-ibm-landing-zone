@@ -10,6 +10,9 @@
     }],
     ["@semantic-release/exec", {
       "successCmd": "echo \"SEMVER_VERSION=${nextRelease.version}\" >> $GITHUB_ENV"
+    }],
+    ["@semantic-release/exec",{
+      "publishCmd": "./ci/run-catalog-onboarding-pipeline.sh terraform-ibm-landing-zone 7df1e4ca-d54c-4fd0-82ce-3d13247308cd a87ed9a5-d130-47a3-980b-5ceb1d4f9280 ${nextRelease.version} account vsi-quickstart"
     }]
   ]
 }
