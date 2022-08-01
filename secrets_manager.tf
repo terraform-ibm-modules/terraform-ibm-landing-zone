@@ -9,7 +9,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   location          = var.region
   plan              = "standard"
   resource_group_id = var.secrets_manager.resource_group == null ? null : local.resource_groups[var.secrets_manager.resource_group]
-
+  tags              = var.tags
 
   parameters = {
     kms_key = (

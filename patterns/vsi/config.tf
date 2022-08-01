@@ -60,7 +60,7 @@ locals {
         resource_group                  = "${var.prefix}-${network}-rg"
         subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"]
         image_name                      = var.vsi_image_name
-        vsi_per_subnet                  = 1
+        vsi_per_subnet                  = var.vsi_per_subnet
         machine_type                    = var.vsi_instance_profile
         boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
         security_group = {
@@ -106,8 +106,9 @@ locals {
         # Create VPE for each VPC in VPE tier
         for network in module.dynamic_values.vpc_list :
         {
-          name    = network
-          subnets = ["vpe-zone-1", "vpe-zone-2", "vpe-zone-3"]
+          name                = network
+          subnets             = ["vpe-zone-1", "vpe-zone-2", "vpe-zone-3"]
+          security_group_name = "${network}-vpe-sg"
         }
       ]
     }]
