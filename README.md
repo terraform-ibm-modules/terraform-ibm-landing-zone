@@ -495,7 +495,11 @@ object(
     app_id_key_name    = optional(string) # Name of APP ID key
 
     ##############################################################################
+<<<<<<< HEAD
     # A list of maps that contain the user email and the role you want to
+=======
+    # A list of maps that contain the user email and the role you want to 
+>>>>>>> 4822b7e (feat: update module with fixes)
     # associate with them
     ##############################################################################
 
@@ -524,10 +528,17 @@ list(
         resource_group                  = optional(string) # Name of resource group where the teleport VSI will be provisioned, must be in `var.resource_groups`
         subnet_name                     = string           # Name of the subnet where the teleport VSI will be provisioned
         ssh_keys                        = list(string)     # List of SSH Keys from `var.ssh_keys` to use when provisioning.
+<<<<<<< HEAD
         boot_volume_encryption_key_name = string           # Name of boot_volume_encryption_key
         image_name                      = string           # Name of the image for the teleport VSI, use `ibmcloud is images` to view
         machine_type                    = string           # Name of machine type. Use `ibmcloud is in-prs` to view
 
+=======
+        boot_volume_encryption_key_name = string           # Name of boot_volume_encryption_key        
+        image_name                      = string           # Name of the image for the teleport VSI, use `ibmcloud is images` to view
+        machine_type                    = string           # Name of machine type. Use `ibmcloud is in-prs` to view
+        
+>>>>>>> 4822b7e (feat: update module with fixes)
         ##############################################################################
         # When creating VSI, users can optionally create a new security group for
         # those instances. These fields function the same as in `var.security_groups`
@@ -632,9 +643,15 @@ Virtual Private endpoints can be created for any number of services. Virtual pri
 
 ### Cloud Object Storage
 
+<<<<<<< HEAD
 This module can provision a Cloud Object Storage instance or retrieve an existing Cloud Object Storage instance, then create any number of buckets within the desired instance.
 
 Cloud Object Storage components can be found in cos.tf.
+=======
+This module can provision a Cloud Object Storage instance or retrieve an existing Cloud Object Storage instance, then create any number of buckets within the desired instance. 
+
+Cloud Object Storage components can be found in cos.tf. 
+>>>>>>> 4822b7e (feat: update module with fixes)
 
 ---
 
@@ -708,10 +725,17 @@ Create feature branches to add additional components. To integrate code changes 
 
 If additional variables or added or existing variables are changed, update the [Module Variables](##module-variables) table. To automate this process, use the nodejs package [tfmdcli](https://www.npmjs.com/package/tfmdcli)
 
+<<<<<<< HEAD
 To contribute, be sure to have the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter) installed and then configure the corresponding pre-commit hook.
 
 ```
 $ ln pre-commit.sh .git/hooks/pre-commit
+=======
+To contribute, be sure to have the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter) installed and then configure the corresponding pre-commit hook. 
+
+```
+$ ln pre-commit.sh .git/hooks/pre-commit 
+>>>>>>> 4822b7e (feat: update module with fixes)
 ```
 
 ---
@@ -806,13 +830,21 @@ module "cluster_pattern" {
 }
 ```
 
+<<<<<<< HEAD
 ---
+=======
+--- 
+>>>>>>> 4822b7e (feat: update module with fixes)
 
 ## Creating an Issue
 
 As we develop the SLZ template, issues are bound to come up. When an issue comes up the following are required. Issues that do not have complete information will be **closed immediately**.
 
+<<<<<<< HEAD
 ### Enhancement Feature
+=======
+### Enhancement Feature 
+>>>>>>> 4822b7e (feat: update module with fixes)
 
 - A detailed title that is either the source of a bug, or a user story for the feature that needs to be added.
   - example `As a user, I want to be able to provision encryption keys using either HPCS or Key Protect`
@@ -823,6 +855,7 @@ As we develop the SLZ template, issues are bound to come up. When an issue comes
 - A detailed title that is either the source of a bug
   - example `When provisioning ROKS, network ALBs cannot be provisioned.`
 - If you are creating an issue related to a bug, a list of non-sensitive variables in code block format being used to create the architecture must be added to the issue description. This will enable us to recreate the issue locally and diagnose any problems that occur
+<<<<<<< HEAD
 - Additionally, if there are any logging errors, please include those **as text or as part of a code block**.
 
 ## Submit a new module
@@ -1059,3 +1092,6 @@ Manage > Access (IAM) > Access groups > Access policies.
 You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+=======
+- Additionally, if there are any logging errors, please include those **as text or as part of a code block**.
+>>>>>>> 4822b7e (feat: update module with fixes)

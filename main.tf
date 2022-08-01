@@ -11,6 +11,7 @@ module "vpc" {
   source                      = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v2.0.0"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
+  tags                        = var.tags
   resource_group_id           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   region                      = var.region
   prefix                      = var.prefix
@@ -42,6 +43,7 @@ resource "ibm_is_flow_log" "flow_logs" {
   active         = true
   storage_bucket = ibm_cos_bucket.buckets[each.value.bucket].bucket_name
   resource_group = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
+  tags           = var.tags
 
   depends_on = [ibm_cos_bucket.buckets, ibm_iam_authorization_policy.policy]
 }

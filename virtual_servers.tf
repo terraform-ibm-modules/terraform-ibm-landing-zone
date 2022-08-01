@@ -47,6 +47,7 @@ module "vsi" {
   prefix                = "${var.prefix}-${each.value.name}"
   vpc_id                = module.vpc[each.value.vpc_name].vpc_id
   subnets               = each.value.subnets
+  tags                  = var.tags
   user_data             = lookup(each.value, "user_data", null)
   image_id              = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
