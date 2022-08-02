@@ -60,8 +60,8 @@ locals {
       policies = (
         {
           rotation = {
-          interval_month = 12
-        }}
+            interval_month = 12
+        } }
       )
     }
   ]
