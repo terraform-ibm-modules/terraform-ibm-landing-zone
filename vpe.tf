@@ -24,7 +24,8 @@ resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
   name            = "${var.prefix}-${each.key}"
   vpc             = each.value.vpc_id
   resource_group  = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
-  security_groups = each.value.security_group_name == null ? null : [each.value.security_group_name]
+  security_groups = each.value.security_group_name == null ? null : [ibm_is_security_group.security_group[each.value.security_group_name].id]
+  tags            = var.tags
 
   target {
     crn           = each.value.crn
