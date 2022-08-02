@@ -129,8 +129,9 @@ locals {
         # Create VPE for each VPC in VPE tier
         for network in module.dynamic_values.vpc_list :
         {
-          name    = network
-          subnets = ["vpe-zone-1", "vpe-zone-2", "vpe-zone-3"]
+          name                = network
+          subnets             = ["vpe-zone-1", "vpe-zone-2", "vpe-zone-3"]
+          security_group_name = "${network}-vpe-sg"
         }
       ]
     }]

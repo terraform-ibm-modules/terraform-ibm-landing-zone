@@ -82,7 +82,18 @@ output "vpcs" {
 
 output "security_groups" {
   description = "List of additional security groups to be created by landing-zone module"
-  value       = local.security_groups
+  value = flatten([
+    local.security_groups,
+    [
+      for network in local.vpc_list :
+      {
+        name           = "${network}-vpe-sg"
+        resource_group = "${var.prefix}-${network}-rg"
+        rules          = local.default_vsi_sg_rules_force_tcp
+        vpc_name       = network
+      }
+    ]
+  ])
 }
 
 ##############################################################################
