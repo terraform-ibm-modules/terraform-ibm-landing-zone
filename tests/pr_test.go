@@ -36,7 +36,7 @@ func TestRunBasicExample(t *testing.T) {
 func TestRunUpgradeBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "land-zone-upg")
+	options := setupOptions(t, "lz-upg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
