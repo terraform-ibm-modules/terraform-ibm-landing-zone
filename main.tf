@@ -8,7 +8,7 @@ locals {
 }
 
 module "vpc" {
-  source                      = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v2.0.0"
+  source                      = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v2.1.0"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   resource_group_id           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
