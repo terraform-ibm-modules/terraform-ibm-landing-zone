@@ -25,6 +25,7 @@ resource "ibm_resource_instance" "kms" {
   plan              = "tiered-pricing"
   location          = var.region
   resource_group_id = var.key_management.resource_group_id
+  tags              = var.key_management.tags
 }
 
 data "ibm_resource_instance" "kms" {

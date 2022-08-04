@@ -52,6 +52,7 @@ resource "ibm_resource_instance" "appid" {
   plan              = "graduated-tier"
   location          = var.region
   resource_group_id = local.resource_groups[var.appid.resource_group]
+  tags              = var.tags
 }
 
 ##############################################################################
@@ -82,6 +83,7 @@ resource "ibm_resource_key" "appid_key" {
   name                 = "${var.prefix}-${each.key}-app-id-key"
   resource_instance_id = local.appid_instance_id
   role                 = "Writer"
+  tags                 = var.tags
 }
 
 ##############################################################################

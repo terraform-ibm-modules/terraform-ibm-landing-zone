@@ -21,6 +21,7 @@ variable "key_management" {
     use_hs_crypto     = optional(bool) # can be hpcs or keyprotect
     use_data          = optional(bool)
     resource_group_id = optional(string)
+    tags              = list(string)
   })
 }
 
