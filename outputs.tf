@@ -43,7 +43,7 @@ output "atracker_target_name" {
 
 output "atracker_route_name" {
   description = "Name of atracker route"
-  value       = local.valid_atracker_region ? ibm_atracker_route.atracker_route.*.name[0] : null
+  value       = local.valid_atracker_region && var.atracker.add_route == true ? ibm_atracker_route.atracker_route.*.name[0] : null
 }
 
 ##############################################################################

@@ -57,6 +57,12 @@ locals {
       name     = "${var.prefix}-${service}-key"
       root_key = true
       key_ring = "${var.prefix}-slz-ring"
+      policies = (
+        {
+          rotation = {
+            interval_month = 12
+        } }
+      )
     }
   ]
 }

@@ -16,6 +16,7 @@ resource "ibm_resource_group" "resource_groups" {
     (group.name) => group if group.create == true
   }
   name = each.value.use_prefix == true ? "${var.prefix}-${each.key}" : each.key
+  tags = var.tags
 }
 
 ##############################################################################
