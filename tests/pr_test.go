@@ -8,7 +8,7 @@ import (
 )
 
 const defaultExampleTerraformDir = "examples/vsi-quickstart"
-const resourceGroup = "geretain-test-landing-zone"
+const resourceGroup = "geretain-test-resources"
 const region = "us-south"
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
