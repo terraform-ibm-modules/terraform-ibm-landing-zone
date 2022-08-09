@@ -113,7 +113,7 @@ locals {
   vpn_gateways = [
     {
       name           = "${var.vpcs[0]}-gateway"
-      vpc_name       = "${var.vpcs[0]}"
+      vpc_name       = var.vpcs[0]
       subnet_name    = "vpn-zone-1"
       resource_group = "${var.prefix}-${var.vpcs[0]}-rg"
       connections    = []
