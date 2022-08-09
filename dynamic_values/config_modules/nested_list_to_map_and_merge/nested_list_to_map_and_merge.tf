@@ -98,7 +98,7 @@ module "parent_merge_list_to_map" {
       # Merge to create object
       merge({
         # Create a key for the name with the child value
-        "${var.key_name_field}" = "${child[var.key_name_field]}"
+        (var.key_name_field) = child[var.key_name_field]
         composed_name = "${
           # if use parent key, parent key, otherwise empty string
           local.use_parent_key ? parent[var.prepend_parent_key_value_to_child_name] : ""
@@ -127,7 +127,7 @@ output "value" {
   description = "Map with merged keys"
   value = {
     for child_key in keys(module.list_to_map.value) :
-    "${child_key}" => merge(
+    child_key => merge(
       module.list_to_map.value[child_key],
       module.parent_merge_list_to_map.value[child_key]
     )
