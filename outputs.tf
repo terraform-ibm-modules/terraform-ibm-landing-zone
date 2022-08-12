@@ -229,6 +229,24 @@ output "vsi_names" {
   ])
 }
 
+output "fip_vsi_data" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached."
+  value = flatten([
+    [
+      for group in keys(local.vsi_map) :
+      [
+        for deployment in module.vsi[group].fip_list :
+        merge(deployment, {
+          vpc_name = [
+            for network in keys(local.vpc_map) :
+            module.vpc[network].vpc_name if module.vpc[network].vpc_id == deployment.vpc_id
+          ][0]
+        })
+      ]
+    ]
+  ])
+}
+
 ##############################################################################
 
 ##############################################################################

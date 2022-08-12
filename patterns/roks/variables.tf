@@ -615,4 +615,10 @@ variable "override" {
   default     = false
 }
 
+variable "override_json_string" {
+  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  type        = string
+  default     = ""
+}
+
 ##############################################################################
