@@ -28,7 +28,7 @@ resource "ibm_resource_group" "resource_groups" {
 ##############################################################################
 
 locals {
-  resource_groups = merge(
+  resource_groups_info = merge(
     {
       for group in data.ibm_resource_group.resource_groups :
       group.name => group.id
@@ -38,6 +38,12 @@ locals {
       group.name => group.id
     }
   )
+
+  # if use_prefix is true, strip off the prefix
+  resource_groups = {
+    for group in var.resource_groups :
+    group.name => local.resource_groups_info[group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name]
+  }
 }
 
 ##############################################################################
