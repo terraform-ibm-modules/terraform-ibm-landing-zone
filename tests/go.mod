@@ -1,6 +1,6 @@
 module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 
-go 1.18
+go 1.19
 
 require (
 	github.com/gruntwork-io/terratest v0.40.20
