@@ -108,3 +108,15 @@ func TestRunOverrideExample(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
+
+func TestRunUpgradeOverrideExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsOverride(t, "slz-js-ug")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
