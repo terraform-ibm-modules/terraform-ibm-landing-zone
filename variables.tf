@@ -843,7 +843,7 @@ variable "clusters" {
 
   # worker_pool name validation
   validation {
-    condition     = length([for pools in(var.clusters[*].worker_pools) : false if(length(distinct([for pool in pools : pool.name])) != length([for pool in pools : pool.name]))]) == 0
+    condition     = length([for pools in([for worker_pool in var.clusters[*].worker_pools : worker_pool if worker_pool != null]) : false if(length(distinct([for pool in pools : pool.name])) != length([for pool in pools : pool.name]))]) == 0
     error_message = "Duplicate worker_pool name in list var.cluster.worker_pools. Please provide unique worker_pool names."
   }
 
