@@ -1050,6 +1050,7 @@ Manage > Access (IAM) > Access groups > Access policies.
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
 | <a name="output_vpe_gateway_names"></a> [vpe\_gateway\_names](#output\_vpe\_gateway\_names) | VPE gateway names |
 | <a name="output_vpn_names"></a> [vpn\_names](#output\_vpn\_names) | List of VPN names |
+| <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
