@@ -2,20 +2,20 @@ package test
 
 import (
 	"fmt"
+	"strings"
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"strings"
-	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
 const defaultExampleTerraformDir = "examples/vsi-quickstart"
-const resourceGroup = "geretain-test-resources"
-const region = "us-south"
+const overrideExampleTerraformDir = "examples/override-example"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -44,11 +44,9 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		Region:        region,
+		Testing:      t,
+		TerraformDir: defaultExampleTerraformDir,
+		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
 		},
@@ -78,3 +76,43 @@ func TestRunUpgradeBasicExample(t *testing.T) {
 		assert.NotNil(t, output, "Expected some output")
 	}
 }
+
+func setupOptionsOverride(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: overrideExampleTerraformDir,
+		Prefix:       prefix,
+		TerraformVars: map[string]interface{}{
+			"ssh_key": sshPublicKey,
+		},
+	})
+
+	return options
+}
+
+func TestRunOverrideExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsOverride(t, "slz-json")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Re-introduce when initial version is in master
+
+// func TestRunUpgradeOverrideExample(t *testing.T) {
+// 	t.Parallel()
+
+// 	options := setupOptionsOverride(t, "slz-js-ug")
+
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }

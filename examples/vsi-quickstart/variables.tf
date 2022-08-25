@@ -31,12 +31,6 @@ variable "region" {
   default     = "us-south"
 }
 
-variable "resource_group" {
-  type        = string
-  description = "An existing resource group name to use for this example, if unset a new resource group will be created"
-  default     = null
-}
-
 variable "ssh_key" {
   description = "Public SSH Key for VSI creation. Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
