@@ -16,7 +16,6 @@ import (
 
 const defaultExampleTerraformDir = "examples/vsi-quickstart"
 const overrideExampleTerraformDir = "examples/override-example"
-const region = "us-south"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -48,7 +47,6 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		Testing:      t,
 		TerraformDir: defaultExampleTerraformDir,
 		Prefix:       prefix,
-		Region:       region,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
 		},
@@ -87,7 +85,6 @@ func setupOptionsOverride(t *testing.T, prefix string) *testhelper.TestOptions {
 		Testing:      t,
 		TerraformDir: overrideExampleTerraformDir,
 		Prefix:       prefix,
-		Region:       region,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
 		},
