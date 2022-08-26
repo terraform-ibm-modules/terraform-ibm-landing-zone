@@ -103,16 +103,14 @@ func TestRunOverrideExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// Re-introduce when initial version is in master
+func TestRunUpgradeOverrideExample(t *testing.T) {
+	t.Parallel()
 
-// func TestRunUpgradeOverrideExample(t *testing.T) {
-// 	t.Parallel()
+	options := setupOptionsOverride(t, "slz-js-ug")
 
-// 	options := setupOptionsOverride(t, "slz-js-ug")
-
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
