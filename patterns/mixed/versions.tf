@@ -7,7 +7,7 @@ terraform {
     ibm = {
       source = "IBM-Cloud/ibm"
       # Atracker needs to have the v2 API
-      version = ">= 1.43.0"
+      version = ">= 1.44.3"
     }
     external = {
       source  = "hashicorp/external"
