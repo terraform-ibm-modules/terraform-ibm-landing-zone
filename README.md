@@ -928,8 +928,8 @@ Manage > Access (IAM) > Access groups > Access policies.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | 3.3.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.44.3 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.4.1 |
 
 ## Modules
 
@@ -982,7 +982,7 @@ Manage > Access (IAM) > Access groups > Access policies.
 | [ibm_scc_posture_scope.scc_scope](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/scc_posture_scope) | resource |
 | [ibm_tg_connection.connection](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_gateway.transit_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
-| [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/3.3.2/docs/resources/string) | resource |
+| [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/3.4.1/docs/resources/string) | resource |
 | [ibm_container_cluster_versions.cluster_versions](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_versions) | data source |
 | [ibm_is_image.image](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_image) | data source |
 | [ibm_resource_group.resource_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
