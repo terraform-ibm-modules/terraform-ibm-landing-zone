@@ -12,7 +12,7 @@
       "successCmd": "echo \"SEMVER_VERSION=${nextRelease.version}\" >> $GITHUB_ENV"
     }],
     ["@semantic-release/exec",{
-      "publishCmd": "./ci/run-catalog-onboarding-pipeline.sh terraform-ibm-landing-zone 7df1e4ca-d54c-4fd0-82ce-3d13247308cd 6e3824e7-68a6-4a47-bbbf-2af6e41e7246 v${nextRelease.version} account vsi-quickstart github.com terraform-ibm-modules slz false"
+      "publishCmd": "./ci/run-catalog-onboarding-pipeline.sh --catalog_id==7df1e4ca-d54c-4fd0-82ce-3d13247308cd --offering_id=6e3824e7-68a6-4a47-bbbf-2af6e41e7246 --version=v${nextRelease.version} target=account --validation_dir_list=examples/vsi-quickstart --github_url=github.com --github_org=terraform-ibm-modules"
     }]
   ]
 }
