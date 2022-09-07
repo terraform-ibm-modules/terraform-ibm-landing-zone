@@ -93,7 +93,7 @@ func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-func TestRunOQuickstartExample(t *testing.T) {
+func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsQuickstart(t, "slz-qs")
