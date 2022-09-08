@@ -14,8 +14,8 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const defaultExampleTerraformDir = "examples/vsi-quickstart"
-const overrideExampleTerraformDir = "examples/override-example"
+const defaultExampleTerraformDir = "examples/basic"
+const quickstartExampleTerraformDir = "examples/quickstart"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -77,13 +77,13 @@ func TestRunUpgradeBasicExample(t *testing.T) {
 	}
 }
 
-func setupOptionsOverride(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
-		TerraformDir: overrideExampleTerraformDir,
+		TerraformDir: quickstartExampleTerraformDir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
@@ -93,20 +93,20 @@ func setupOptionsOverride(t *testing.T, prefix string) *testhelper.TestOptions {
 	return options
 }
 
-func TestRunOverrideExample(t *testing.T) {
+func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsOverride(t, "slz-json")
+	options := setupOptionsQuickstart(t, "slz-qs")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeOverrideExample(t *testing.T) {
+func TestRunUpgradeQuickstartExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsOverride(t, "slz-js-ug")
+	options := setupOptionsQuickstart(t, "slz-qs-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
