@@ -31,8 +31,6 @@
                 },
                 {
                     "role_crns": [
-                    "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator",
-                    "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator",
                     "crn:v1:bluemix:public:iam::::role:Administrator"
                     ],
                     "service_name": "iam-identity"
@@ -55,28 +53,44 @@
                 "descriptions": "",
                 "features": [
                     {
-                        "title": "CPU",
-                        "description": "2"
+                        "title": "Separate VPC for management",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Memory",
-                        "description": "4"
+                        "title": "Separate VPC for workloads",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Key management",
-                        "description": "key protect service"
+                        "title": "Virtual Server Instances for every subnet",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Platform services access",
-                        "description": "VPEs"
+                        "title": "Increases security with Key Management",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Activity Tracker",
-                        "description": "Cloud Object Storage"
+                        "title": "Reduces failure events by using multizone regions",
+                        "description": "No"
                     },
                     {
-                        "title": "Object storage buckets",
-                        "description": "Regional"
+                        "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                        "description": "No"
+                    },
+                    {
+                        "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                        "description": "No"
+                    },
+                    {
+                        "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                        "description": "No"
+                    },
+                    {
+                        "title": "Uses an edge VPC for secure access through the public internet",
+                        "description": "No"
+                    },
+                    {
+                        "title": "Uses Floating IP address for access through the public internet",
+                        "description": "Yes"
                     }
                 ],
                 "diagrams": [
@@ -214,28 +228,44 @@
                 "descriptions": "",
                 "features": [
                     {
-                        "title": "CPU",
-                        "description": "2"
+                        "title": "Separate VPC for management",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Memory",
-                        "description": "4"
+                        "title": "Separate VPC for workloads",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Key management",
-                        "description": "key protect service"
+                        "title": "Virtual Server Instances for every subnet",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Platform services access",
-                        "description": "VPEs"
+                        "title": "Increases security with Key Management",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Activity Tracker",
-                        "description": "Cloud Object Storage"
+                        "title": "Reduces failure events by using multizone regions",
+                        "description": "Yes"
                     },
                     {
-                        "title": "Object storage buckets",
-                        "description": "Regional"
+                        "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                        "description": "Yes"
+                    },
+                    {
+                        "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                        "description": "Yes"
+                    },
+                    {
+                        "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                        "description": "Yes"
+                    },
+                    {
+                        "title": "Uses an edge VPC for secure access through the public internet",
+                        "description": "Yes, if enabled"
+                    },
+                    {
+                        "title": "Uses Floating IP address for access through the public internet",
+                        "description": "No"
                     }
                 ],
                 "diagrams": [
