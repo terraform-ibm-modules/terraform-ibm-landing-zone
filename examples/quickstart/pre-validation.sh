@@ -16,6 +16,6 @@ echo "Generating SSH public key to be used for validation.."
 ssh_public_key=$(terraform output -state=${TERRAFORM_SOURCE_DIR}/terraform.tfstate -json ssh_public_key)
 
 echo "Appending SSH public key to ${JSON_FILE}.."
-jq --arg ssh_public_key "${ssh_public_key}" '. + {ssh_key: $ssh_public_key}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}"
+jq -r --arg ssh_public_key "${ssh_public_key}" '. + {ssh_key: $ssh_public_key}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}"
 
 echo "Pre-validation complete"
