@@ -8,12 +8,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "tf_version" {
-  default     = "1.0"
-  type        = string
-  description = "The version of the Terraform engine that's used in the Schematics workspace."
-}
-
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -67,12 +61,6 @@ variable "vpcs" {
       name if length(name) > 16 || !can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", name))
     ]) == 0
   }
-}
-
-variable "enable_transit_gateway" {
-  description = "Create transit gateway"
-  type        = bool
-  default     = true
 }
 
 variable "add_atracker_route" {

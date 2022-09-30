@@ -9,10 +9,8 @@ module "landing_zone" {
   tags                     = var.resource_tags
   ibmcloud_api_key         = var.ibmcloud_api_key
   ssh_public_key           = var.ssh_key
-  tf_version               = "1.0"
   network_cidr             = var.network_cidr
   vpcs                     = var.vpcs
-  enable_transit_gateway   = var.enable_transit_gateway
   add_atracker_route       = var.add_atracker_route
   hs_crypto_instance_name  = var.hs_crypto_instance_name
   hs_crypto_resource_group = var.hs_crypto_resource_group

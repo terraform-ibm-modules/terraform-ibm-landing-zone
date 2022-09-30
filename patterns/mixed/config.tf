@@ -390,6 +390,7 @@ locals {
   # causeing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
+  # tflint-ignore: terraform_unused_declarations
   fail_with_conflicting_bastion = regex("false", tostring(
     var.add_edge_vpc == false && var.create_f5_network_on_management_vpc == false
     ? false
@@ -397,21 +398,25 @@ locals {
   ))
 
   # Prevent users from provisioning bastion subnets without a tier selected
+  # tflint-ignore: terraform_unused_declarations
   fail_with_no_vpn_firewall_type = regex("false", tostring(
     var.vpn_firewall_type == null && var.provision_teleport_in_f5
   ))
 
   # Prevent users from setting firewall type without f5
+  # tflint-ignore: terraform_unused_declarations
   fail_with_no_f5_and_vpn_firewall_type = regex("false", tostring(
   var.vpn_firewall_type != null && (var.add_edge_vpc == false && var.create_f5_network_on_management_vpc == false)))
 
   # Prevent users from provisioning using both external and management fip
   # VSI can only have one floating IP per device
+  # tflint-ignore: terraform_unused_declarations
   fail_with_both_f5_fip = regex("false", tostring(
     var.enable_f5_management_fip == true && var.enable_f5_external_fip == true
   ))
 
   # Prevent users from provisioning bastion on edge and management
+  # tflint-ignore: terraform_unused_declarations
   fail_with_both_bastion_host_types = regex("false", tostring(
     var.provision_teleport_in_f5 && var.teleport_management_zones > 0
   ))
