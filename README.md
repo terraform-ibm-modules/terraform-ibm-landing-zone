@@ -1,3 +1,5 @@
+<!-- BEGIN MODULE HOOK -->
+
 <!-- Update the title to match the module name and add a description -->
 
 # IBM Secure Landing Zone module
@@ -17,7 +19,7 @@ This module creates a secure landing zone within a single region.
 
 ![vpc-module](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/.docs/vpc-module.png?raw=true)
 
-This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Cloud Schematics VPC module](https://github.com/Cloud-Schematics/multizone-vpc-module). The VPC components are described in the [main.tf](./main.tf) file.
+This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone module ](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
 
 ### vpcs variable
 
@@ -29,7 +31,8 @@ The list of VPCs from the `vpcs` variable is converted to a map, which supports 
 - Public gateways
 - VPN gateway and gateway connections
 
-The type of the VPC variable is as follows:
+The following example shows the `vpc` variable type.
+
 
 ```terraform
   type = list(
@@ -185,11 +188,12 @@ You can create a transit gateway that connects any number of VPCs in the same ne
 
 You can provision multiple security groups within any of the provisioned VPCs. You configure security group components in the [security_groups.tf](./security_groups.tf) file.
 
-### Security groups variable
+### security_group variable
 
 The `security_group` variable supports creating security groups dynamically. The list of groups is converted to a map to ensure that changes, updates, and deletions don't affect other resources.
 
-The `security_group` variable type is as follows:
+The following example shows the `security_group` variable type.
+
 
 ```terraform
   list(
@@ -247,19 +251,19 @@ The `security_group` variable type is as follows:
 
 This module uses the [Cloud Schematics VSI Module](https://github.com/Cloud-Schematics/vsi-module) to support multiple VSI workloads. The VSI submodule covers the following resources:
 
-- Virtual Server Instances
-- Block Storage for those Instances
-- VPC Load Balancers for those instances
+- Virtual server instances
+- Block storage for those instances
+- VPC load balancers for those instances
 
 Virtual server components can be found in [virtual_servers.tf](./virtual_servers.tf)
 
-### VPC SSH Keys
+### VPC SSH keys
 
 You can use this template to create or return multiple VPC SSH keys by using the `ssh_keys` variable.
 
-### SSH keys variable
+### ssh_keys variable
 
-Users can add a name and optionally a public key. If `public_key` is not provided, the SSH Key is retrieved by using a `data` block
+Users can add a name and optionally a public key. If `public_key` is not provided, the SSH key is retrieved by using a `data` block
 
 ```terraform
   type = list(
@@ -271,9 +275,10 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-### Virtual Servers Variable
+### vis variable
 
-The virtual server variable type is as follows:
+The following example shows the `vsi` virtual server variable type.
+
 
 ```terraform
 list(
@@ -569,8 +574,6 @@ list(
   )
 ```
 
-## IBM Cloud services
-
 ## Virtual private endpoints
 
 Virtual private endpoints can be created for any number of services. Virtual private endpoint components are defined in the [vpe.tf](vpe.tf) file.
@@ -612,43 +615,11 @@ object(
 
 You can create multiple VPC placement groups in the [vpc_placement_groups.tf](/vpc_placement_groups.tf) file. For more information about VPC placement groups, see [About placement groups](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc&interface=ui) in the IBM Cloud Docs.
 
-## Module variables
-
-The following table describes some commonly configured variables.
-
-| Name                        | Description                                                                                                                                                                                                   |
-|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ibmcloud_api_key            | The IBM Cloud platform API key needed to deploy IAM enabled resources.                                                                                                                                        |
-| prefix                      | A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix is prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters. |
-| region                      | Region where VPC is created. To find your VPC region, use `ibmcloud is regions` command to find available regions.                                                                                            |
-| resource_group              | Name of resource group where all infrastructure is provisioned.                                                                                                                                               |
-| tags                        | List of tags to apply to resources created by this module.                                                                                                                                                    |
-| vpcs                        | A map the describes the VPCs to create in this repo.                                                                                                                                                          |
-| flow_logs                   | List of variables for flow log to connect to each VSI instance. Set `use` to false to disable flow logs.                                                                                                      |
-| enable_transit_gateway      | Create transit gateway.                                                                                                                                                                                       |
-| transit_gateway_connections | Transit gateway vpc connections. Used only if transit gateway is enabled.                                                                                                                                     |
-| ssh_keys                    | SSH Keys to use for VSI Provision. If `public_key` is not provided, the named key is looked up from data.                                                                                                     |
-| vsi                         | A list that describes the VSI workloads to create.                                                                                                                                                            |
-| teleport_vsi                | A list of teleport VSI deployments.                                                                                                                                                                           |
-| teleport_config_data        | Teleport config data. This variable creates a single template for all teleport instances to use. By using a single template, the values remain hidden.                                                        |
-| appid                       | The App ID instance to be used for the teleport VSI deployments.                                                                                                                                              |
-| security_groups             | Security groups for VPC.                                                                                                                                                                                      |
-| virtual_private_endpoints   | Object that describes the private endpoints to create.                                                                                                                                                        |
-| use_atracker                | Use atracker and route                                                                                                                                                                                        |
-| atracker                    | atracker variables                                                                                                                                                                                            |
-| resource_groups             | A list of existing resource groups to reference and new groups to create.                                                                                                                                     |
-| clusters                    | A list of clusters on VPC. Also adds a list of worker_pools to clusters.                                                                                                                                 |
-| cos                         | Object that describes the Cloud Object Storage instance, buckets, and keys. Set `use_data` to `false` to create an instance.                                                                                  |
-| cos_resource_keys           | List of objects that describes the resource keys to create for the Cloud Object Storage instance.                                                                                                             |
-| cos_authorization_policies  | List of authorization policies to create for the Cloud Object Storage instance.                                                                                                                               |
-| cos_buckets                 | List of standard buckets to create in a Cloud Object Storage instance.                                                                                                                              |
-| vpc_placement_groups        | List of VPC placement groups to create.                                                                                                                                                                       |
-
 ## Usage
 
 <!-- Add sample usage of the module itself in the following code block -->
 
-### Template For multiple patterns
+### Template for multiple patterns
 
 You can use the modular design of this module to provision architectures for VSI, clusters, or a combination of both. Include a provider block and a copy of the [variables.tf](variables.tf) file. By referencing this template as a module, you support users who want to add `clusters` or a `vsi` by adding the relevant variable block.
 
@@ -731,28 +702,42 @@ module "cluster_pattern" {
 ```
 
 ## Required IAM access policies
-You need the following permissions to run this module.
+
+<!-- PERMISSIONS REQUIRED TO RUN MODULE
+If this module requires permissions, uncomment the following block and update
+the sample permissions, following the format.
+Replace the sample Account and IBM Cloud service names and roles with the
+information in the console at
+Manage > Access (IAM) > Access groups > Access policies.
+-->
 
 <!--
-Update these sample permissions, following this format. Replace the sample
-Cloud service name and roles with the information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
- -->
+You need the following permissions to run this module.
 
 - Account Management
     - **Sample Account Service** service
         - `Editor` platform access
         - `Manager` service access
-- IAM Services
-    - **Sample Cloud Service** service
-        - `Administrator` platform access
+    - IAM Services
+        - **Sample Cloud Service** service
+            - `Administrator` platform access
+-->
 
+<!-- NO PERMISSIONS FOR MODULE
+If no permissions are required for the module, uncomment the following
+statement instead the previous block.
+-->
+
+<!-- No permissions are needed to run this module.-->
+<!-- END MODULE HOOK -->
+
+<!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-<!-- Update the sample examples in the examples folder and link to them. -->
-- [End to end example with default values](examples/default)
-- [End to end example with nondefault values](examples/non-default)
-- [Example that uses existing resources](examples/existing-resources)
+- [ Default example](examples/default)
+- [ Example that uses existing resources](examples/existing-resources)
+- [ Non default example](examples/non-default)
+<!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -885,27 +870,13 @@ Manage > Access (IAM) > Access groups > Access policies.
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN CONTRIBUTING HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
-
 ## Contributing
 
 You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-
-If you add or change variables, update the [Module variables](#module-variables) table in the main readme file. You can automate this process by using the Node.js [tfmdcli](https://www.npmjs.com/package/tfmdcli) package.
-
-To contribute, be sure to install the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter), and then configure the corresponding pre-commit hook.
-
-```bash
-$ ln pre-commit.sh .git/hooks/pre-commit
-```
-
-### Terraform language resources
-
-For more information about aspects of the Terraform configuration language, see the following documentation.
-
-- [Built-in functions](https://www.terraform.io/language/functions)
-- [Splat expressions)](https://www.terraform.io/language/expressions/splat)
-- [Custom validation rules](https://www.terraform.io/language/values/variables#custom-validation-rules) in input variables.
+<!-- Source for this readme file: https://github.com/terraform-ibm-modules/common-dev-assets/tree/main/module-assets/ci/module-template-automation -->
+<!-- END CONTRIBUTING HOOK -->
