@@ -3,7 +3,6 @@
 ##############################################################################
 
 locals {
-  use_hs_crypto       = var.key_management.use_hs_crypto == true
   key_management_type = module.dynamic_values.key_management_type
   key_management_guid = module.dynamic_values.guid
   keys                = module.dynamic_values.keys
