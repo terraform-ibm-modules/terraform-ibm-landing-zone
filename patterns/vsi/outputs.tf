@@ -33,6 +33,11 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_data
 }
 
+output "schematics_workspace_id" {
+  descritpion = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics"
+  value       = var.IC_SCHEMATICS_WORKSPACE_ID
+}
+
 ##############################################################################
 # Output Configuration
 ##############################################################################
