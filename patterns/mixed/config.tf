@@ -163,7 +163,7 @@ locals {
 
     resource_groups                = module.dynamic_values.resource_groups
     vpcs                           = module.dynamic_values.vpcs
-    enable_transit_gateway         = true
+    enable_transit_gateway         = var.enable_transit_gateway
     transit_gateway_resource_group = "${var.prefix}-service-rg"
     transit_gateway_connections    = module.dynamic_values.vpc_list
     object_storage                 = module.dynamic_values.object_storage

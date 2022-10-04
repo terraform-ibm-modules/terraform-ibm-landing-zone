@@ -65,6 +65,12 @@ variable "vpcs" {
   }
 }
 
+variable "enable_transit_gateway" {
+  description = "Create transit gateway"
+  type        = bool
+  default     = true
+}
+
 variable "add_atracker_route" {
   description = "Atracker can only have one route per zone. Use this value to disable or enable the creation of atracker route"
   type        = bool
