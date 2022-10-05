@@ -62,7 +62,6 @@ module "composed_f5_map" {
 module "f5_cloud_init" {
   for_each                = module.composed_f5_map.value
   source                  = "../../../f5_config"
-  region                  = var.region
   vpc_id                  = each.value.vpc_id
   zone                    = each.value.zone
   secondary_subnets       = each.value.secondary_subnets

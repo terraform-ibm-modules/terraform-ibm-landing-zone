@@ -20,7 +20,6 @@ module "f5" {
 module "f5_cloud_init" {
   for_each                = module.f5.f5_vsi_map
   source                  = "../f5_config"
-  region                  = var.region
   vpc_id                  = each.value.vpc_id
   zone                    = each.value.zone
   secondary_subnets       = each.value.secondary_subnets
