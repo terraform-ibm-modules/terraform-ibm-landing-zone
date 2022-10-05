@@ -126,7 +126,7 @@ For more information, please visit [provisioning a bastion host using Teleport](
 
 ![vpc-module](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/.docs/vpc-module.png?raw=true)
 
-This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone module ](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
+This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone VPC module ](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
 
 ### vpcs variable
 
