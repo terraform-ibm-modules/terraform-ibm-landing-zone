@@ -42,21 +42,28 @@ There are two ways of customizing your environment with Secure Landing Zone.
 
 **Both require editing `terraform.tfvars` with required variables noted by `"< add user data here >"`**
 
-## Using terraform.tfvars
+## Using terraform input variables
 
-The first route is to utilize the fast path method where you edit a couple of required variables noted by `"< add user data here >"` within the `terraform.tfvars` file of your respective pattern and then provision the environment.  You will always be able to edit and be more granular after you use this method since after the run, it will output a json based file which you can use in `override.json`.
+The first route is to utilize the fast path method where you set a couple of required input variables of your respective pattern and then provision the environment.
 
-For example, additional VPC's can be added using the `terraform.tfvars` file by adding the name of the new VPC as a `string` to the end of the list.
+The list of input variables can be found in the `variables.tf` file of your respective pattern directory:
+- [VSI pattern input variables](./patterns/vsi/variables.tf)
+- [ROKS pattern input variables](./patterns/roks/variables.tf)
+- [Mixed pattern input variables](./patterns/mixed/variables.tf)
+
+Terraform supports multiple ways to set input variables - please refer to the [terraform documentation](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables) for details.
+
+For example, additional VPCs can be added by creating a `terraform.tfvars` file in your desirect pattern directory, and adding the name of the new VPC as a `string` in the file as follows.
 
 ```
 vpcs  = ["management", "workload", "<ADDITIONAL VPC>"]
 ```
 
-Provisioned [VPC components](./landing-zone/vpc)
+You will always be able to edit and be more granular after you use this method since after the run, it will output a json based file which you can use in `override.json`.
 
 ## Using override.json
 
-The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, each pattern's `override.json` is set to contain the default environment configuration. Users can use the `override.json` in the respective pattern directory by setting the template `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module which each pattern uses to create your environment.
+The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, each pattern's `override.json` is set to contain the default environment configuration. Users can use the `override.json` in the respective pattern directory by setting the template input `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module which each pattern uses to create your environment.
 
 ### Supported Variables
 
@@ -66,15 +73,13 @@ The `override.json` allows users to pass any variable or supported optional vari
 
 After every execution of `terraform apply` either locally or through the pipeline, a JSON encoded definition of your environment based on the defaults for Landing Zone and any variables changed using `override.json` will be outputted so that you can then use it in the `override.json` file.
 
-- For pipeline runs, you can get the contents within the step labeled `workspace-apply` under the output line **Results for override.json:**
-
-- For locally executed runs, you can get the contents between the output lines of:
+You can get the contents between the output lines of:
 ```
 config = <<EOT
 EOT
 ```
 
-After replacing the contents of `override.json` with your configuration, you will be able to then edit the resources within.  Please make use you set the template `override` variable to `true` with the `terraform.tfvars` file.
+After replacing the contents of `override.json` with your configuration, you will be able to then edit the resources within.  Please make use you set the template `override` variable to `true` as input variable - for instance within the `terraform.tfvars` file.
 
 Locally executed run configurations do not require an apply to for `override.json` to be generated. To view your current configuration use the command `terraform refresh`.
 
