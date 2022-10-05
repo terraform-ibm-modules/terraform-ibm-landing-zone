@@ -27,7 +27,7 @@ override                            | bool         | Override default values wit
 
 ### Variables for Patterns Including Virtual Servers
 
-For the [mixed pattern](./patterns/mixed/) and [vsi pattern](./patterns/vsi):
+For the [mixed pattern](../patterns/mixed/) and [vsi pattern](../patterns/vsi):
 
 
 Name                                | Type         | Description                                                                                                                                                                                                                                                                                                                                                     | Sensitive | Default
@@ -41,7 +41,7 @@ vsi_per_subnet                      | number       | Number of Virtual Servers t
 
 ### Variables for Patterns Including OpenShift Clusters
 
-For the [mixed pattern](./patterns/mixed/) and the [roks pattern](./patterns/roks/) these variables are available to the user.
+For the [mixed pattern](../patterns/mixed/) and the [roks pattern](../patterns/roks/) these variables are available to the user.
 
 Name                                | Type         | Description                                                                                                                                                                                                                                                                                                                                                     | Sensitive | Default
 ----------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------
