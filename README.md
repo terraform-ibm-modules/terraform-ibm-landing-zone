@@ -13,7 +13,111 @@
 
 # Secure Landing Zone
 
-This module creates a secure landing zone within a single region.
+The landing zone module can be used to create a fully customizable VPC environment within a single region. The three patterns below are each starting templates that can be used to quickly get started with Landing Zone. These patterns can be found in the [patterns](./patterns/) directory.
+
+Each of these patterns creates:
+- A resource group for cloud services and for each VPC.
+- Object storage instances for flow logs and activity tracker
+- Encryption keys in either a Key Protect or Hyper Protect Crypto Services instance
+- A management and workload VPC connected by a transit gateway
+- A flow log collector for each VPC
+- All necessary networking rules to allow communication
+- Virtual Private endpoints for Cloud Object storage in each VPC
+- A VPN Gateway in the Management VPC
+
+Each pattern will create an identical deployment on the VPC
+- Virtual Server (VSI) Pattern will deploy identical virtual servers across the VSI subnet tier in each VPC
+- Red Hat OpenShift Kubernetes (ROKS) Pattern will deploy identical clusters across the VSI subnet tier in each VPC
+- The Mixed pattern will provision both of the above
+
+To read more detailed documentation about the default configuration, read the pattern defaults [here](.docs/pattern-defaults.md).
+
+| Virtual Server Pattern           | Red Hat Openshift Pattern        | Mixed Pattern                      |
+| -------------------------------- | -------------------------------- | ---------------------------------- |
+| ![vsi](./.docs/images/vsi.png)   | ![roks](./.docs/images/roks.png) | ![mixed](./.docs/images/mixed.png) |
+
+# Customizing Your Environment
+
+There are two ways of customizing your environment with Secure Landing Zone.
+
+**Both require editing `terraform.tfvars` with required variables noted by `"< add user data here >"`**
+
+## Using terraform.tfvars
+
+The first route is to utilize the fast path method where you edit a couple of required variables noted by `"< add user data here >"` within the `terraform.tfvars` file of your respective pattern and then provision the environment.  You will always be able to edit and be more granular after you use this method since after the run, it will output a json based file which you can use in `override.json`.
+
+For example, additional VPC's can be added using the `terraform.tfvars` file by adding the name of the new VPC as a `string` to the end of the list.
+
+```
+vpcs  = ["management", "workload", "<ADDITIONAL VPC>"]
+```
+
+Provisioned [VPC components](./landing-zone/vpc)
+
+## Using override.json
+
+The second route is to use the `override.json` to create a fully customized environment based on the starting template. By default, each pattern's `override.json` is set to contain the default environment configuration. Users can use the `override.json` in the respective pattern directory by setting the template `override` variable to `true`. Each value in `override.json` corresponds directly to a variable value from this root module which each pattern uses to create your environment.
+
+### Supported Variables
+
+The `override.json` allows users to pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes see the [variables file](./variables.tf).
+
+### Overriding Variables
+
+After every execution of `terraform apply` either locally or through the pipeline, a JSON encoded definition of your environment based on the defaults for Landing Zone and any variables changed using `override.json` will be outputted so that you can then use it in the `override.json` file.
+
+- For pipeline runs, you can get the contents within the step labeled `workspace-apply` under the output line **Results for override.json:**
+
+- For locally executed runs, you can get the contents between the output lines of:
+```
+config = <<EOT
+EOT
+```
+
+After replacing the contents of `override.json` with your configuration, you will be able to then edit the resources within.  Please make use you set the template `override` variable to `true` with the `terraform.tfvars` file.
+
+Locally executed run configurations do not require an apply to for `override.json` to be generated. To view your current configuration use the command `terraform refresh`.
+
+### Overriding Only Some Variables
+
+`override.json` does not need to contain all elements. As an example override.json could be:
+```json
+{
+    "enable_transit_gateway": false
+}
+```
+
+---
+
+# (Optional) F5 BIG-IP
+
+The F5 BIG-IP Virtual Edition will enable you to setup a client-to-site full tunnel VPN to connect to your management/edge VPC and/or a web application firewall (WAF) to enable consumers to connect to your workload VPC over the public internet.
+
+Through Secure Landing Zone, users can optionally provision the F5 BIG-IP so that one can either setup the implemented solution of a client-to-site VPN or web application firewall (WAF) which is described [here](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-f5-tutorial)
+
+For more information, please visit [provisioning a F5 BIG-IP](.docs/f5-big-ip/f5-big-ip.md).
+
+---
+
+# (Optional) Bastion host using Teleport
+
+Teleport allows you to configure a virtual server instance in a VPC as a bastion host.  Some of Teleport features include Single sign-on to access the SSH server, auditing, and recording of your interactive sessions.  To learn more about teleport, see the following [documentation](https://goteleport.com/docs/).
+
+Through Secure Landing Zone, users can optionally provision the implemented solution described [here](https://cloud.ibm.com/docs/allowlist/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-bastion-tutorial-teleport) which configures a bastion host in your VPC using Teleport Enterprise Edition, along with provisioning a Object Storage bucket and App ID for enhanced security.
+ [App ID](https://cloud.ibm.com/docs/appid) will be used to authenticate users to access teleport. Teleport session recordings will be stored in the Object Storage bucket.
+This [cloud-init file](./teleport_config/cloud-init.tpl) will install teleport, and configure App ID and the Object Storage. These [variables](./teleport_config/variables.tf) will be used for the configuration.
+
+For more information, please visit [provisioning a bastion host using Teleport](.docs/bastion/bastion.md).
+
+---
+# Module Recommendations for Additional Features
+
+| Feature | Description | Module | Version |
+| --- | --- | --- | --- |
+| Logging and Monitoring | Configure logging and/or monitoring for an existing Openshift cluster | [slzone/terraform-logmon-module](https://github.com/slzone/terraform-logmon-module) | v1.0.0 |
+
+---
+# Secure Landing Zone Module: Details
 
 ## VPC
 
