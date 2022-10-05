@@ -2,20 +2,6 @@
 
 Secure Landing Zone can provision the implemented solution described in the following [document](https://cloud.ibm.com/docs/allowlist/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-bastion-tutorial-teleport).
 
-## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Provision with Secure Landing Zone](#provision-with-secure-landing-zone)
-   1. [Provisioning Bastion Host in the Management VPC](#provisioning-bastion-host-in-the-management-vpc)
-   2. [Provisioning Bastion Host on the Edge VPC with F5 Big-IP](#provisioning-bastion-host-on-the-edge-vpc-with-f5-big-ip)
-   3. [Teleport configuration variables.](#teleport-configuration-variables)
-   4. [Toolchain provisioning](#toolchain-provisioning)
-3. [Accessing Teleport](#accessing-teleport)
-   1. [Log in through the web console](#log-in-through-the-web-console)
-   2. [Log in through the tsh client](#log-in-through-the-tsh-client)
-4. [Debbuging Bastion Host VSI](#debbuging-bastion-host-vsi)
-5. [ACL and Security Groups](#acl-and-security-groups)
-
 ## Prerequisites
 
 You need the following items to deploy and configure bastion host using Teleport:
