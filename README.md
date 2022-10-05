@@ -1,3 +1,5 @@
+<!-- BEGIN MODULE HOOK -->
+
 <!-- Update the title to match the module name and add a description -->
 
 # IBM Secure Landing Zone module
@@ -13,52 +15,24 @@
 
 This module creates a secure landing zone within a single region.
 
----
-
-## Table of Contents
-
-1. [VPC](#vpc)
-    - [VPCs Variable](#vpcs-variable)
-    - [Flow Logs](#flow-logs)
-3. [Transit Gateway](#transit-gateway)
-4. [Security Groups](#security-groups)
-    - [Security Groups Variable](#security-groups-variable)
-5. [Virtual Servers](#virtual-servers)
-    - [VPC SSH Keys](#vpc-ssh-keys)
-    - [SSH Keys Variable](#ssh-keys-variable)
-    - [Virtual Servers Variable](#virtual-servers-variable)
-6. [Cluster and Worker pool](#cluster-and-worker-pool)
-7. [IBM Cloud Services](#ibm-cloud-services)
-8. [Virtual Private Endpoints](#virtual-private-endpoints)
-9. [IBM Cloud Services](#ibm-cloud-services-1)
-    - [Cloud Object Storage](#cloud-object-storage)
-10. [VPC Placement Groups](#vpc-placement-groups)
-11. [Security and Compliance Center](#security-and-compliance-center)
-12. [Module Variables](#module-variables)
-13. [Contributing](#contributing)
-14. [Terraform Language Resources](#terraform-language-resources)
-15. [Using This Architecure as a Template for Multiple Patterns](#as-a-template-for-multiple-patterns)
-16. [Creating An Issue](#creating-an-issue)
-
----
-
 ## VPC
 
-![vpc-module](../.docs/vpc-module.png)
+![vpc-module](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/.docs/vpc-module.png?raw=true)
 
-This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Cloud Schematics VPC module](https://github.com/Cloud-Schematics/multizone-vpc-module). VPC components can be found in [main.tf](./main.tf)
+This template allows users to create any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone module ](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
 
-### VPCs Variable
+### vpcs variable
 
-The list of VPCs from the `vpcs` variable is transformed into a map, allowing for additions and deletion of resources without forcing updates. The VPC Network includes:
+The list of VPCs from the `vpcs` variable is converted to a map, which supports adding and deleting resources without the need for an update. The VPC network includes the following aspects:
 
 - VPC
 - Subnets
 - Network ACLs
-- Public Gateways
-- VPN Gateway and Gateway Connections
+- Public gateways
+- VPN gateway and gateway connections
 
-The type of the VPC Variable is as follows:
+The following example shows the `vpc` variable type.
+
 
 ```terraform
   type = list(
@@ -202,33 +176,24 @@ The type of the VPC Variable is as follows:
   ##############################################################################
 ```
 
----
+## Flow logs
 
-## Flow Logs
+You can add flow log collectors to a VPC by adding the `flow_logs_bucket_name` parameter to the `vpc` object. You declare each bucket in the `cos` variable that manages Cloud Object Storage. For more information about provisioning Cloud Object Storage with this template, see the [Cloud Object Storage](#cloud-object-storage) section.
 
-Flow log collectors can be added to a VPC by adding the `flow_logs_bucket_name` parameter to the `vpc` object. Any bucket must be declared in the `cos` variable that manages Cloud Object Storage. Click [here](#cloud-object-storage) to read more about provisioning Cloud Object Storage with this template
+## Transit gateway
 
----
+You can create a transit gateway that connects any number of VPCs in the same network by setting the `enable_transit_gateway` variable to `true`. A connection is created for each VPC that you specify in the `transit_gateway_connections` variable. You configure the transit gateway resource in the [transit_gateway.tf](/transit_gateway.tf) file.
 
-## Transit Gateway
+## Security groups
 
-A transit gateway connecting any number of VPC to the same network can optionally be created by setting the `enable_transit_gateway` variable to `true`. A connection will be dynamically created for each vpc specified in the `transit_gateway_connections` variable.
+You can provision multiple security groups within any of the provisioned VPCs. You configure security group components in the [security_groups.tf](./security_groups.tf) file.
 
-Transit Gateway resource can be found in `transit_gateway.tf`.
+### security_group variable
 
----
+The `security_group` variable supports creating security groups dynamically. The list of groups is converted to a map to ensure that changes, updates, and deletions don't affect other resources.
 
-## Security Groups
+The following example shows the `security_group` variable type.
 
-This module can provision any number of security groups within any of the provisioned VPC.
-
-Security Group components can be found in [security_groups.tf](./security_groups.tf).
-
-### Security Groups Variable
-
-The `security_group` variable allows for the dynamic creation of security groups. This list is converted into a map before provision to ensure that changes, updates, and deletions won't impact other existing resources.
-
-The `security_group` variable type is as follows:
 
 ```terraform
   list(
@@ -280,27 +245,25 @@ The `security_group` variable type is as follows:
   )
 ```
 
----
+## Virtual servers
 
-## Virtual Servers
+![Virtual servers](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi/blob/main/.docs/vsi-lb.png?raw=true)
 
-![Virtual Servers](../.docs/vsi-lb.png)
+This module uses the [Cloud Schematics VSI Module](https://github.com/Cloud-Schematics/vsi-module) to support multiple VSI workloads. The VSI submodule covers the following resources:
 
-This module uses the [Cloud Schematics VSI Module](https://github.com/Cloud-Schematics/vsi-module) to let users create any number of VSI workloads. The VSI Module covers the following resources:
+- Virtual server instances
+- Block storage for those instances
+- VPC load balancers for those instances
 
-- Virtual Server Instances
-- Block Storage for those Instances
-- VPC Load Balancers for those instances
+Virtual server components can be found in [virtual_servers.tf](./virtual_servers.tf)
 
-Virtual server components can be found in [virual_servers.tf](./virtual_servers.tf)
+### VPC SSH keys
 
-### VPC SSH Keys
+You can use this template to create or return multiple VPC SSH keys by using the `ssh_keys` variable.
 
-This Template allows users to create or get from data any number of VPC SSH Keys using the `ssh_keys` variable.
+### ssh_keys variable
 
-### SSH Keys Variable
-
-Users can add a name and optionally a public key. If `public_key` is not provided, the SSH Key will be retrieved using a `data` block
+Users can add a name and optionally a public key. If `public_key` is not provided, the SSH key is retrieved by using a `data` block
 
 ```terraform
   type = list(
@@ -312,9 +275,10 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-### Virtual Servers Variable
+### vis variable
 
-The virtual server variable type is as follows:
+The following example shows the `vsi` virtual server variable type.
+
 
 ```terraform
 list(
@@ -450,20 +414,15 @@ list(
   )
 ```
 
----
+## (Optional) Bastion host
 
-## (Optional) Bastion Host
+You can provision a bastion host that uses Teleport. App ID is used to authenticate users to Teleport. Teleport session recordings are stored in a Cloud Object Storage bucket. You configure the bastion host components in the [bastion_host.tf](./bastion_host.tf) file.
 
-Users can optionally provision a bastion host that have teleport installed. App ID will be used to authenticate users to access teleport. Teleport session recordings will be stored in a COS bucket.
+### App ID variable
 
-Bastion host components can be found in [bastion_host.tf](./bastion_host.tf)
+To use the bastion host, either create an App ID instance or use an existing one. If the `use_data` variable is set to `true`, an existing App ID instance is used. Set the variable to `false` create an App ID instance.
 
-### App ID Variable
-
-To use the bastion host, users has 2 options: either create new App ID instance or use an existing one.
-If `use_data` is set to true then an existing App ID instance. If it's set to false then an App ID instance will be created.
-
-```
+```terraform
 object(
   {
     name                = optional(string)         # Name of existing or to be created APP ID instance
@@ -476,11 +435,11 @@ object(
 
 ```
 
-### Teleport Config Data Variable
+### Teleport config data variable
 
-Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive.
+The `teleport_config` block creates a single template for all teleport instances. By using a single template, the values remain hidden.
 
-```
+```terraform
 object(
   {
     teleport_license   = optional(string) # The PEM license file
@@ -511,11 +470,11 @@ object(
 )
 ```
 
-### Teleport VSI Variable
+### Teleport VSI variable
 
-The teleport vsi variable type is as follows:
+The following example shows the `teleport_vsi` variable type.
 
-```
+```terraform
 list(
     object(
       {
@@ -570,13 +529,12 @@ list(
     )
   )
 ```
----
 
-## Cluster and Worker pool
+## Cluster and worker pool
 
-You can create as many `iks` or `openshift` clusters and worker pools on vpc. Cluster variable type is as follows:
+You can create as many `iks` or `openshift` clusters and worker pools on VPC. For `ROKS` clusters, make sure to enable public gateways to allow your cluster to correctly provision ingress application load balancers.
 
-For `ROKS` clusters, ensure public gateways are enabled to allow your cluster to correctly provision ingress ALBs.
+The following example shows the `cluster` variable type.
 
 ```terraform
 list(
@@ -616,39 +574,29 @@ list(
   )
 ```
 
----
+## Virtual private endpoints
 
-## IBM Cloud Services
+Virtual private endpoints can be created for any number of services. Virtual private endpoint components are defined in the [vpe.tf](vpe.tf) file.
 
----
+## IBM Cloud services
 
-## Virtual Private Endpoints
-
-Virtual Private endpoints can be created for any number of services. Virtual private endpoint components can be found in [vpe.tf](vpe.tf).
-
----
-
-## IBM Cloud Services
+You can configure the following IBM Cloud services from this module.
 
 ### Cloud Object Storage
 
-This module can provision a Cloud Object Storage instance or retrieve an existing Cloud Object Storage instance, then create any number of buckets within the desired instance.
+This module can provision a Cloud Object Storage instance or retrieve an existing one, and then create any number of buckets within the instance.
 
-Cloud Object Storage components can be found in cos.tf.
-
----
+You define Cloud Object Storage components in the [cos.tf](cos.tf) file.
 
 ## Security and Compliance Center
 
-Credentials need to be created from the patterns using an IBM Cloud API key for scc.tf to create a scope.
+You create credentials from the patterns by using an IBM Cloud API key for the scc.tf file to create a scope. You define the components, account_settings, collector, and scope for IBM Cloud Security and Compliance Center in the [scc.tf](./scc.tf) file. You configure credentials in a `main.tf` file in the [patterns](/patterns/) directory.
 
-Security and Compliance Center components account_settings, collector, and scope can be found in [scc.tf](./scc.tf) and credential can be found in [main.tf](./patterns/PATTERN/main.tf).
+### Security and Compliance Center variable
 
-### Security and Compliance Center Variable
+The `location_id` variable represents the geographic area where Posture Management requests are handled and processed. When `is_public` is set to `true`, the collector connects to resources in your account over a public network. When set to `false`, the collector connects to resources by using a private IP address that is accessible only through IBM Cloud Private network. The `collector_passphrase` is necessary only if credential passphrase is enabled.
 
-The `location_id` represents the geographic area where Posture Management requests are handled and processed. If `is_public` is set to true, then the collector connects to resources in your account over a public network. If set to false, the collector connects to resources by using a private IP that is accessible only through IBM Cloud private network. The `collector_passphrase` is only necessary if credential passphrase is enabled.
-
-```
+```terraform
 object(
   {
     enable_scc            = bool
@@ -662,265 +610,134 @@ object(
   }
 )
 ```
-## VPC Placement Groups
 
-Any number of VPC placement groups can be created. For more information about VPC Placement groups see the documentation [here](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc&interface=ui)
+## VPC placement groups
 
-VPC placement groups can be found in vpc_placement_group.tf
-
----
-
-## Module Variables
-
-| Name                        | Description                                                                                                                               |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| ibmcloud_api_key            | The IBM Cloud platform API key needed to deploy IAM enabled resources.                                                                    |
-| prefix                      | A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters. |
-| region                      | Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.                   |
-| resource_group              | Name of resource group where all infrastructure will be provisioned.                                                                      |
-| tags                        | List of tags to apply to resources created by this module.                                                                                |
-| vpcs                        | A map describing VPCs to be created in this repo.                                                                                         |
-| flow_logs                   | List of variables for flow log to connect to each VSI instance. Set `use` to false to disable flow logs.                                  |
-| enable_transit_gateway      | Create transit gateway                                                                                                                    |
-| transit_gateway_connections | Transit gateway vpc connections. Will only be used if transit gateway is enabled.                                                         |
-| ssh_keys                    | SSH Keys to use for VSI Provision. If `public_key` is not provided, the named key will be looked up from data.                            |
-| vsi                         | A list describing VSI workloads to create                                                                                                 |
-| teleport_vsi                | A list of teleport vsi deployments                                                                                                        |
-| teleport_config_data        | Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive |
-| appid                       | The App ID instance to be used for the teleport vsi deployments                                                                           |
-| security_groups             | Security groups for VPC                                                                                                                   |
-| virtual_private_endpoints   | Object describing VPE to be created                                                                                                       |
-| use_atracker                | Use atracker and route                                                                                                                    |
-| atracker                    | atracker variables                                                                                                                        |
-| resource_groups             | A list of existing resource groups to reference and new groups to create                                                                  |
-| clusters                    | A list of clusters on vpc. Also can add list of worker_pools to the clusters                                                              |
-| cos                         |"Object describing the cloud object storage instance, buckets, and keys. Set `use_data` to false to create instance
-| cos_resource_keys           | List of objects describing resource keys to create for cos instance                                                                       |
-| cos_authorization_policies  | List of authorization policies to be created for cos instance                                                                             |
-| cos_buckets                 | List of standard buckets to be created in desired cloud object storage instance                                                           |
-| vpc_placement_groups        | List of VPC placement groups to create |
-
----
-
-## Contributing
-
-Create feature branches to add additional components. To integrate code changes create a pull request and tag @Jennifer-Valle.
-
-If additional variables or added or existing variables are changed, update the [Module Variables](##module-variables) table. To automate this process, use the nodejs package [tfmdcli](https://www.npmjs.com/package/tfmdcli)
-
-To contribute, be sure to have the [GCAT TF Linter](https://github.ibm.com/GCAT/tf-linter) installed and then configure the corresponding pre-commit hook.
-
-```
-$ ln pre-commit.sh .git/hooks/pre-commit
-```
-
----
-
-## Terraform Language Resources
-
-- [Terraform Functions](https://www.terraform.io/language/functions)
-- [Using the \* Operator (splat operator)](https://www.terraform.io/language/expressions/splat)
-- [Custom Variable Validation Rules](https://www.terraform.io/language/values/variables#custom-validation-rules)
-
----
-
-## As A Template For Multiple Patterns
-
-The modular nature of this template allwos it to be used to provisioned architectures for VSI, Clusters, or a combination of both VSI and clusters. For each of these, a provider block anda copy of [variables.tf](variables.tf). By referencing this template as a module, it allows uers to add `clusters` or `vsi` by adding the relevant variable block.
-
-### VSI
-
-```terraform
-module "vsi_pattern" {
-  source                         = "github.ibm.com/slz-v2-poc/vpc-and-vsi-pattern2.git"
-  prefix                         = var.prefix
-  region                         = var.region
-  tags                           = var.tags
-  resource_groups                = var.resource_groups
-  vpcs                           = var.vpcs
-  flow_logs                      = var.flow_logs
-  enable_transit_gateway         = var.enable_transit_gateway
-  transit_gateway_resource_group = var.transit_gateway_resource_group
-  transit_gateway_connections    = var.transit_gateway_connections
-  ssh_keys                       = var.ssh_keys
-  vsi                            = var.vsi
-  security_groups                = var.security_groups
-  virtual_private_endpoints      = var.virtual_private_endpoints
-  cos                            = var.cos
-  service_endpoints              = var.service_endpoints
-  key_protect                    = var.key_protect
-  atracker                       = var.atracker
-}
-```
-
-### Cluster and VSI
-
-```terraform
-module "cluster_vsi_pattern" {
-  source                         = "github.ibm.com/slz-v2-poc/vpc-and-vsi-pattern2.git"
-  prefix                         = var.prefix
-  region                         = var.region
-  tags                           = var.tags
-  resource_groups                = var.resource_groups
-  vpcs                           = var.vpcs
-  flow_logs                      = var.flow_logs
-  enable_transit_gateway         = var.enable_transit_gateway
-  transit_gateway_resource_group = var.transit_gateway_resource_group
-  transit_gateway_connections    = var.transit_gateway_connections
-  ssh_keys                       = var.ssh_keys
-  vsi                            = var.vsi
-  security_groups                = var.security_groups
-  virtual_private_endpoints      = var.virtual_private_endpoints
-  cos                            = var.cos
-  service_endpoints              = var.service_endpoints
-  key_protect                    = var.key_protect
-  atracker                       = var.atracker
-  clusters                       = var.clusters
-  wait_till                      = var.wait_till
-}
-```
-
-### Cluster
-
-```terraform
-module "cluster_pattern" {
-  source                         = "github.ibm.com/slz-v2-poc/vpc-and-vsi-pattern2.git"
-  prefix                         = var.prefix
-  region                         = var.region
-  tags                           = var.tags
-  resource_groups                = var.resource_groups
-  vpcs                           = var.vpcs
-  flow_logs                      = var.flow_logs
-  enable_transit_gateway         = var.enable_transit_gateway
-  transit_gateway_resource_group = var.transit_gateway_resource_group
-  transit_gateway_connections    = var.transit_gateway_connections
-  ssh_keys                       = var.ssh_keys
-  security_groups                = var.security_groups
-  virtual_private_endpoints      = var.virtual_private_endpoints
-  cos                            = var.cos
-  service_endpoints              = var.service_endpoints
-  key_protect                    = var.key_protect
-  atracker                       = var.atracker
-  clusters                       = var.clusters
-  wait_till                      = var.wait_till
-}
-```
-
----
-
-## Creating an Issue
-
-As we develop the SLZ template, issues are bound to come up. When an issue comes up the following are required. Issues that do not have complete information will be **closed immediately**.
-
-### Enhancement Feature
-
-- A detailed title that is either the source of a bug, or a user story for the feature that needs to be added.
-  - example `As a user, I want to be able to provision encryption keys using either HPCS or Key Protect`
-- Any additional information about the use case is helpful, so please be sure to include it.
-
-### Bug Fixes
-
-- A detailed title that is either the source of a bug
-  - example `When provisioning ROKS, network ALBs cannot be provisioned.`
-- If you are creating an issue related to a bug, a list of non-sensitive variables in code block format being used to create the architecture must be added to the issue description. This will enable us to recreate the issue locally and diagnose any problems that occur
-- Additionally, if there are any logging errors, please include those **as text or as part of a code block**.
-
-## Submit a new module
-
-:+1::tada: Thank you for taking the time to contribute! :tada::+1:
-
-This template repository exists to help you create Terraform modules for IBM Cloud.
-
-The default structure includes the following files:
-
-- `README.md`: A description of the module
-- `main.tf`: The logic for the module
-- `version.tf`: The required terraform and provider versions
-- `variables.tf`: The input variables for the module
-- `outputs.tf`: The values that are output from the module
-
-For more information, see [Module structure](https://terraform-ibm-modules.github.io/documentation/#/module-structure) in the project documentation.
-
-You can add other content to support what your module does and how it works. For example, you might add a `scripts/` directory that contains shell scripts that are run by a `local-exec` `null_resource` in the Terraform module.
-
-Follow this process to create and submit a Terraform module.
-
-### Create a repo from this repo template
-
-1.  Create a repository from this repository template by clicking `Use this template` in the upper right of the GitHub UI.
-
-    For more information about creating a repository from a template, see the [GitHub docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-1.  Select `terraform-ibm-modules` as the owner.
-1.  Enter a name for the module in format `terraform-ibm-<NAME>`, where `<NAME>` reflects the type of infrastructure that the module manages.
-
-    Use hyphens as delimiters for names with multiple words (for example, terraform-ibm-`activity-tracker`).
-1.  Provide a short description of the module.
-
-    The description is displayed under the repository title on the [organization page](https://github.com/terraform-ibm-modules) and in the **About** section of the repository. Use the description to help users understand what your repo does by looking at the description.
-
-### Clone the repo and set up your development environment
-
-Locally clone the new repository and set up your development environment by completing the tasks in [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-
-### Update the Terraform files
-
-Implement the logic for your module by updating the `main.tf`, `version.tf`, `variables.tf`, and `outputs.tf` Terraform files. For more information, see [Creating Terraform on IBM Cloud templates](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-create-tf-config).
-
-### Create examples and tests
-
-Add one or more examples in the `examples` directory that consume your new module, and configure tests for them in the `tests` directory.
-
-### Update the content in the readme file
-
-After you implement the logic for your module and create examples and tests, update this readme file in your repository by following these steps:
-
-1.  Update the title heading and add a description about your module.
-1.  Update the badge links.
-1.  Remove all the content in this H2 heading section.
-1.  Complete the [Usage](#usage), [Required IAM access policies](#required-iam-access-policies), and [Examples](#examples) sections. The [Requirements](#requirements) section is populated by a pre-commit hook.
-
-### Commit your code and submit your module for review
-
-1.  Before you commit any code, review [Contributing to the IBM Cloud Terraform modules project](https://terraform-ibm-modules.github.io/documentation/#/contribute-module) in the project documentation.
-1.  Create a pull request for review.
-
-### Post-merge steps
-After the first PR for your module is merged, follow these post-merge steps:
-
-1.  Create a PR to enable the upgrade test by removing the `t.Skip` line in `tests/pr_test.go`.
-
-<!-- Remove the content in this previous H2 heading -->
+You can create multiple VPC placement groups in the [vpc_placement_groups.tf](/vpc_placement_groups.tf) file. For more information about VPC placement groups, see [About placement groups](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc&interface=ui) in the IBM Cloud Docs.
 
 ## Usage
 
 <!-- Add sample usage of the module itself in the following code block -->
-```hcl
 
+### Template for multiple patterns
+
+You can use the modular design of this module to provision architectures for VSI, clusters, or a combination of both. Include a provider block and a copy of the [variables.tf](variables.tf) file. By referencing this template as a module, you support users who want to add `clusters` or a `vsi` by adding the relevant variable block.
+
+#### VSI example
+
+```terraform
+module "vsi_pattern" {
+  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  prefix                         = var.prefix
+  region                         = var.region
+  tags                           = var.tags
+  resource_groups                = var.resource_groups
+  vpcs                           = var.vpcs
+  flow_logs                      = var.flow_logs
+  enable_transit_gateway         = var.enable_transit_gateway
+  transit_gateway_resource_group = var.transit_gateway_resource_group
+  transit_gateway_connections    = var.transit_gateway_connections
+  ssh_keys                       = var.ssh_keys
+  vsi                            = var.vsi
+  security_groups                = var.security_groups
+  virtual_private_endpoints      = var.virtual_private_endpoints
+  cos                            = var.cos
+  service_endpoints              = var.service_endpoints
+  key_protect                    = var.key_protect
+  atracker                       = var.atracker
+}
+```
+
+#### Cluster and VSI example
+
+```terraform
+module "cluster_vsi_pattern" {
+  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  prefix                         = var.prefix
+  region                         = var.region
+  tags                           = var.tags
+  resource_groups                = var.resource_groups
+  vpcs                           = var.vpcs
+  flow_logs                      = var.flow_logs
+  enable_transit_gateway         = var.enable_transit_gateway
+  transit_gateway_resource_group = var.transit_gateway_resource_group
+  transit_gateway_connections    = var.transit_gateway_connections
+  ssh_keys                       = var.ssh_keys
+  vsi                            = var.vsi
+  security_groups                = var.security_groups
+  virtual_private_endpoints      = var.virtual_private_endpoints
+  cos                            = var.cos
+  service_endpoints              = var.service_endpoints
+  key_protect                    = var.key_protect
+  atracker                       = var.atracker
+  clusters                       = var.clusters
+  wait_till                      = var.wait_till
+}
+```
+
+#### Cluster example
+
+```terraform
+module "cluster_pattern" {
+  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  prefix                         = var.prefix
+  region                         = var.region
+  tags                           = var.tags
+  resource_groups                = var.resource_groups
+  vpcs                           = var.vpcs
+  flow_logs                      = var.flow_logs
+  enable_transit_gateway         = var.enable_transit_gateway
+  transit_gateway_resource_group = var.transit_gateway_resource_group
+  transit_gateway_connections    = var.transit_gateway_connections
+  ssh_keys                       = var.ssh_keys
+  security_groups                = var.security_groups
+  virtual_private_endpoints      = var.virtual_private_endpoints
+  cos                            = var.cos
+  service_endpoints              = var.service_endpoints
+  key_protect                    = var.key_protect
+  atracker                       = var.atracker
+  clusters                       = var.clusters
+  wait_till                      = var.wait_till
+}
 ```
 
 ## Required IAM access policies
-You need the following permissions to run this module.
+
+<!-- PERMISSIONS REQUIRED TO RUN MODULE
+If this module requires permissions, uncomment the following block and update
+the sample permissions, following the format.
+Replace the sample Account and IBM Cloud service names and roles with the
+information in the console at
+Manage > Access (IAM) > Access groups > Access policies.
+-->
 
 <!--
-Update these sample permissions, following this format. Replace the sample
-Cloud service name and roles with the information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
- -->
+You need the following permissions to run this module.
 
 - Account Management
     - **Sample Account Service** service
         - `Editor` platform access
         - `Manager` service access
-- IAM Services
-    - **Sample Cloud Service** service
-        - `Administrator` platform access
+    - IAM Services
+        - **Sample Cloud Service** service
+            - `Administrator` platform access
+-->
 
+<!-- NO PERMISSIONS FOR MODULE
+If no permissions are required for the module, uncomment the following
+statement instead the previous block.
+-->
+
+<!-- No permissions are needed to run this module.-->
+<!-- END MODULE HOOK -->
+
+<!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-<!-- Update the sample examples in the examples folder and link to them. -->
-- [End to end example with default values](examples/default)
-- [End to end example with nondefault values](examples/non-default)
-- [Example that uses existing resources](examples/existing-resources)
+- [ Basic example](examples/basic)
+- [ Override.json example](examples/override-example)
+- [ Quick start example](examples/quickstart)
+<!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -1053,11 +870,13 @@ Manage > Access (IAM) > Access groups > Access policies.
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN CONTRIBUTING HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
-
 ## Contributing
 
 You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+<!-- Source for this readme file: https://github.com/terraform-ibm-modules/common-dev-assets/tree/main/module-assets/ci/module-template-automation -->
+<!-- END CONTRIBUTING HOOK -->
