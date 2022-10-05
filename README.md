@@ -40,8 +40,6 @@ To read more detailed documentation about the default configuration, read the pa
 
 There are two ways of customizing your environment with Secure Landing Zone.
 
-**Both require editing `terraform.tfvars` with required variables noted by `"< add user data here >"`**
-
 ## Using terraform input variables
 
 The first route is to utilize the fast path method where you set a couple of required input variables of your respective pattern and then provision the environment.
