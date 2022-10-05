@@ -1,10 +1,8 @@
-# Quickstart Example
+# Quick start example
 
-This quickstart example will:
+This example deploys the following infrastructure:
 
-1. Deploy an edge VPC with 3 subnets with:
-   - 1 VSI in one of the 3 subnet
-   - A VPC Loadbalancer in the edge vpc, exposing publically the VSI.
-2. Deploy a 'jump-box' VSI in the management VPC, exposing a public floating IP.
+- An edge VPC with 1 VSI in one of the three subnets and a VPC load balancer in the edge VPC, exposing the VSI publicly.
+- A jump server VSI in the management VPC, exposing a public floating IP address.
 
-:exclamation: This is a quickstart example. The resulting topology is not HA, nor FS-Cloud compliant.
+:exclamation: **Important:** This example helps you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services.
