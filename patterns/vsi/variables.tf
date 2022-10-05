@@ -8,12 +8,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "tf_version" {
-  default     = "1.0"
-  type        = string
-  description = "The version of the Terraform engine that's used in the Schematics workspace."
-}
-
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -211,12 +205,6 @@ variable "domain" {
   description = "The F5 BIG-IP domain name"
   type        = string
   default     = "local"
-}
-
-variable "default_route_interface" {
-  description = "The F5 BIG-IP interface name for the default route. Leave null to auto assign."
-  type        = string
-  default     = null
 }
 
 variable "tmos_admin_password" {
@@ -580,6 +568,19 @@ variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
   type        = string
   default     = ""
+}
+
+##############################################################################
+
+##############################################################################
+# Schematics Output
+##############################################################################
+
+# tflint-ignore: terraform_naming_convention
+variable "IC_SCHEMATICS_WORKSPACE_ID" {
+  default     = ""
+  type        = string
+  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
 }
 
 ##############################################################################
