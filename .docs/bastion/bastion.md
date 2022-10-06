@@ -19,7 +19,7 @@ There are two locations that SLZ will provision the bastion host.  You can eithe
 
 ### Provisioning a bastion host in the management VPC
 
-To provision Teleport within the management zone, you must set `teleport_management_zones` to the number of bastion hosts to deploy up to a max of 3.  For example, if you set the number to `1`, it will provision a bastion host in zone-1 of your Management VPC.  If you set the number to `2`, it will provision a bastion within zone-1 and zone-2 of your Management VPC.  Other variables that are needed for the setup and configuration of Teleport are mentioned below.
+To provision Teleport within the management zone, you must set `teleport_management_zones` to the number of bastion hosts to deploy, up to a maximum of 3.  For example, if you set the number to `1`, it will provision a bastion host in zone-1 of your management VPC.  If you set the number to `2`, it will provision a bastion within zone-1 and zone-2 of your management VPC.  Other variables that are needed for the setup and configuration of Teleport are mentioned in the following sections.
 
 ### Provisioning Bastion Host on the Edge VPC with F5 Big-IP
 
