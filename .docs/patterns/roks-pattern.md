@@ -1,4 +1,4 @@
-# IBM Secure Landing Zone for IBM Cloud Red Hat OpenShift Kubernetes Pattern
+# IBM Secure Landing Zone for IBM Cloud Red Hat OpenShift Kubernetes pattern
 
 ## Architecture diagram
 
