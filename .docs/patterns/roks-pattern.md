@@ -1,6 +1,6 @@
 # IBM Secure Landing Zone for IBM Cloud Red Hat OpenShift Kubernetes Pattern
 
-## Artchitecture Diagram
+## Architecture diagram
 
 <img src="../images/patterns/roks-pattern.png">
 
