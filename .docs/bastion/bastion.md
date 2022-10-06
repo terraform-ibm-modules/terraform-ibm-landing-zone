@@ -2,7 +2,7 @@
 
 Secure Landing Zone can provision the implemented solution described in the following [document](https://cloud.ibm.com/docs/allowlist/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-bastion-tutorial-teleport).
 
-## Prerequisites
+## Before you begin
 
 You need the following items to deploy and configure bastion host using Teleport:
 
