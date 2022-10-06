@@ -74,7 +74,7 @@ Failed SCC goals:
 
 After App ID is successfully configured to Teleport, you can log in to Teleport through a web console or tsh client. tsh is the Teleport client tool that is the command line tool for Teleport. For more information, see [Installing tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh). You need the fully qualified domain name (FQDN) of the Teleport server to log in.
 
-### Log In through the Web Console
+### Log in through the web console
 
 1. Access the web console on port 3080. ```https://<User defined FQDN of teleport server>:3080```
 
