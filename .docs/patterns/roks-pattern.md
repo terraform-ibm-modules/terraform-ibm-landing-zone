@@ -8,7 +8,6 @@
 
 The following components are configured through automation:
 
-## Configured Components and Services
 ----------------------------------------------------------------
 * Resource groups
 * KMS Service
