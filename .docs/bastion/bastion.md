@@ -80,7 +80,7 @@ After App ID is successfully configured to Teleport, you can log in to Teleport 
 
 2. Start a terminal session under Servers. There should be a single server with a connect button. Click connect and select the user that you would like to log in with.
 
-### Log In through the Tsh Client
+### Log in through the tsh client
 
 1. Install the [Teleport client tool tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh)
 
