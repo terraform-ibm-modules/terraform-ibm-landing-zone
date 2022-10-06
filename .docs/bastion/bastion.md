@@ -7,7 +7,7 @@ Secure Landing Zone can provision the implemented solution described in the foll
 You need the following items to deploy and configure a bastion host that uses Teleport:
 
 - A Teleport Enterprise Edition license
-- A generated SSL certificate and key for each of the provisioned virtual server instances or use a wildcard certificate
+- A generated SSL certificate and key for each of the provisioned virtual server instances or a wildcard certificate
 
 ## Provision with Secure Landing Zone
 
