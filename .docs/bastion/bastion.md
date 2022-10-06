@@ -25,7 +25,7 @@ To provision Teleport within the management zone, you must set `teleport_managem
 
 The `provision_teleport_in_f5` and `add_edge_vpc` variables must both be set to true. For more information about F5 deployment, see [Provisioning a F5 BIG-IP host using Secure Landing Zone](../f5-big-ip/f5-big-ip.md) and the following variables that are needed for the setup and configuration of Teleport.
 
-You can't set both `create_f5_network_on_management_vpc` to true and set `teleport_management_zones` to a value greater than `0`.
+Don't set both `create_f5_network_on_management_vpc` to true and `teleport_management_zones` to a value greater than `0`.
 
 ### Teleport configuration variables
 
