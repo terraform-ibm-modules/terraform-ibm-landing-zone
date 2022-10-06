@@ -49,7 +49,7 @@ teleport_admin_email      # Email for teleport vsi admin.
 teleport_management_zones # Number of zones to create teleport VSI on Management VPC if not using F5. If you are using F5, ignore this value
 ```
 
-More information in regards to the meaning of each Teleport configuration variable can be found within the documentation for the pattern:
+For more information about the Teleport configuration variables, see the following documentation for the pattern:
 
 - [VSI](../../patterns/vsi/README.md#module-variables)
 - [Mixed](../../patterns/mixed/README.md#module-variables)
