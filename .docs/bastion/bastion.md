@@ -72,7 +72,7 @@ Failed SCC goals:
 
 ## Accessing Teleport
 
-Once App ID has been successfully configured to teleport, you can log in to teleport through a web console or tsh client. Tsh is the Teleport client tool which is the command line tool for teleport. For more information about Tsh, visit this [link](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh). The fully qaulified domain name (FQDN) of the teleport server is also needed to log in.
+After App ID is successfully configured to Teleport, you can log in to Teleport through a web console or tsh client. tsh is the Teleport client tool that is the command line tool for Teleport. For more information, see [Installing tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh). You need the fully qualified domain name (FQDN) of the Teleport server to log in.
 
 ### Log In through the Web Console
 
