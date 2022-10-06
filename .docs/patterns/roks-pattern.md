@@ -4,7 +4,7 @@
 
 <img src="../images/patterns/roks-pattern.png">
 
-## Configured Components and Services
+## Configured components and services
 
 The following components are configured through automation:
 
