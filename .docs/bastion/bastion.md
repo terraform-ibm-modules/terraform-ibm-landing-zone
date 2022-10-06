@@ -11,7 +11,7 @@ You need the following items to deploy and configure a bastion host that uses Te
 
 ## Provision with Secure Landing Zone
 
-There are two locations that SLZ will provision the bastion host.  You can either place the bastion within the management VPC or in the edge VPC if the Big-IP F5 provisioned.
+There are two locations that SLZ will provision the bastion host.  You can either place the bastion within the management VPC or in the edge VPC if you're using BIG-IP from F5.
 
 | Management VPC                                     | Edge/Transit VPC              |
 | ---------------------------------------------------| ----------------------------- |
