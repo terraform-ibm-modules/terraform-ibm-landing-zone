@@ -69,7 +69,7 @@ The `override.json` allows users to pass any variable or supported optional vari
 
 ### Overriding Variables
 
-After every execution of `terraform apply` either locally or through the pipeline, a JSON encoded definition of your environment based on the defaults for Landing Zone and any variables changed using `override.json` will be outputted so that you can then use it in the `override.json` file.
+After every execution of `terraform apply`, a JSON encoded definition of your environment based on the defaults for Landing Zone and any variables changed using `override.json` will be outputted so that you can then use it in the `override.json` file.
 
 You can get the contents between the output lines of:
 ```
