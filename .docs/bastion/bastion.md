@@ -56,20 +56,6 @@ For more information about the Teleport configuration variables, see the followi
 - [ROKS](../../patterns/roks/README.md#module-variables)
 
 
-### Toolchain provisioning
-
-If you use the IBM Cloud DevOps toolchain for Secure Landing Zone, Code Risk Analyzer will fail due to allowing in_addr_any traffic.  The reason for this is to fetch the Teleport binary.  To skip the failure, you can set the **cra-skip-failure** to `true`.  More information on the toolchain variables can be found [here](../toolchain/toolchain.md).
-
-```
-Failed SCC goals:
-	 Goal ID 3000410: Ensure Virtual Private Cloud (VPC) security groups have no inbound ports open to the internet (0.0.0.0/0)
-		Found in:
-			resource_address: module.landing-zone.ibm_is_security_group_rule.security_group_rules["bastion-vsi-sg-allow-inbound-443"]
-	 Goal ID 3000411: Ensure Virtual Private Cloud (VPC) security groups have no outbound ports open to the internet (0.0.0.0/0)
-		Found in:
-			resource_address: module.landing-zone.ibm_is_security_group_rule.security_group_rules["bastion-vsi-sg-allow-all-outbound"]
-```
-
 ## Accessing Teleport
 
 After App ID is successfully configured to Teleport, you can log in to Teleport through a web console or tsh client. tsh is the Teleport client tool that is the command line tool for Teleport. For more information, see [Installing tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh). You need the fully qualified domain name (FQDN) of the Teleport server to log in.
