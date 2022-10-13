@@ -29,7 +29,7 @@ Don't set both `create_f5_network_on_management_vpc` to true and `teleport_manag
 
 ### Teleport configuration variables
 
-In the `terraform.tfvars` file, there is a section labeled **Bastion Host Deployment**.  These variables are needed to provision the bastion host using Teleport.
+The following variables need to be set to provision the bastion host using Teleport.
 
 ```
 provision_teleport_in_f5  # Provision Teleport in the Edge VPC alongside the F5
@@ -48,6 +48,8 @@ message_of_the_day        # Banner message that is exposed to the user at authen
 teleport_admin_email      # Email for teleport vsi admin.
 teleport_management_zones # Number of zones to create teleport VSI on Management VPC if not using F5. If you are using F5, ignore this value
 ```
+
+For more details about specifying input variables, see [Customizing Your Environment](../../README.md#using-terraform-input-variables)
 
 For more information about the Teleport configuration variables, see the following documentation for the pattern:
 
