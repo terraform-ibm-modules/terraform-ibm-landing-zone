@@ -1,39 +1,35 @@
-# IBM Secure Landing Zone for IBM Cloud Red Hat OpenShift Kubernetes pattern
+# IBM Secure Landing Zone for the IBM Cloud Red Hat OpenShift Kubernetes pattern
 
 ## Architecture diagram
 
-<img src="../images/patterns/roks-pattern.png">
+![ROKS pattern architecture diagram](../images/patterns/roks-pattern.png)
 
 ## Configured components and services
 
 The following components are configured through automation:
 
-----------------------------------------------------------------
 * Resource groups
-* KMS Service
-
-* Management Access Group
-* Management KMS Key
-* Management COS Instance and COS buckets
-* Management COS Authorization for KMS
-* Management Flow Log, Flow log COS buckets and authorization
+* KMS service
+* Management access group
+* Management KMS key
+* Management Cloud Object Storage instance and Cloud Object Storage buckets
+* Management Cloud Object Storage authorization for KMS
+* Management flow log, Flow log Cloud Object Storage buckets and authorization
 * Management VPC
-* Management OCP Cluster
+* Management OpenShift Container Platform cluster
 * Management VPC Kubernetes encryption authorization
-* Management Subnets for OCP Cluster, VPE and VPN resources
-* Management VPE Gateway (for COS)
-* Management VPE Gateway (for Container Registry)
-
-* Workload Access Group
-* Workload KMS Key
-* Workload COS Instance and COS buckets
-* Workload COS Authorization for KMS
-* Workoad Flow Log, Flow log COS buckets and authorization
+* Management subnets for OpenShift Container Platform cluster, VPE, and VPN resources
+* Management VPE gateway (for Cloud Object Storage)
+* Management VPE gateway (for Container Registry)
+* Workload access group
+* Workload KMS key
+* Workload Cloud Object Storage instance and Cloud Object Storage buckets
+* Workload Cloud Object Storage authorization for KMS
+* Workload Flow log, Flow log Cloud Object Storage buckets and authorization
 * Workload VPC
-* Workload OCP Cluster
+* Workload OpenShift Container Platform cluster
 * Workload VPC Kubernetes encryption authorization
-* Workload Subnets for VPC OCP Cluster, VPE and VPN resources
-* Workload VPE Gateway (for COS)
-* Workload VPE Gateway (for Container Registry)
-
-* IBM Transit Gateway
+* Workload subnets for VPC OpenShift Container Platform Cluster, VPE, and VPN resources
+* Workload VPE gateway (for Cloud Object Storage)
+* Workload VPE gateway (for Container Registry)
+* IBM transit gateway
