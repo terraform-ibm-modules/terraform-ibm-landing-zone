@@ -1,39 +1,35 @@
-# IBM Secure Landing Zone for VSI Pattern
+# IBM Secure Landing Zone for the VSI pattern
 
-## Artchitecture Diagram
+## Architecture diagram
 
-<img src="../images/patterns/vsi-pattern.png">
+![VSI pattern architecture diagram](../images/patterns/vsi-pattern.png)
 
 ## Configured components and services
 
-The following components are configured through automation
+The following components are configured through automation:
 
-----------------------------------------------------------------
 * Resource groups
-* KMS Service
-
-* Management Access Group
-* Management KMS Key
-* Management COS Instance and COS buckets
-* Management COS Authorization for HPCS
-* Management Flow Log, Flow log COS buckets and authorization
+* KMS service
+* Management access group
+* Management KMS key
+* Management Cloud Object Storage instance and Cloud Object Storage buckets
+* Management Cloud Object Storage authorization for Hyper Protect Crypto Services
+* Management Flow log, Flow log Cloud Object Storage buckets and authorization
 * Management VPC
 * Management VPC VSI
 * Management VPC VSI encryption authorization
 * Management VPC VSI SSH module
-* Management Subnets for VSI, VPE and VPN resources
-* Management VPE Gateway (for COS)
-
-* Workload Access Group
-* Workload KMS Key
-* Workload COS Instance and COS buckets
-* Workload COS Authorization for HPCS
-* Workoad Flow Log, Flow log COS buckets and authorization
+* Management Subnets for VSI, VPE, and VPN resources
+* Management VPE gateway (for Cloud Object Storage)
+* Workload access group
+* Workload KMS key
+* Workload Cloud Object Storage instance and Cloud Object Storage buckets
+* Workload Cloud Object Storage authorization for Hyper Protect Crypto Services
+* Workload Flow log, Flow log Cloud Object Storage buckets and authorization
 * Workload VPC
 * Workload VPC VSI
 * Workload VPC VSI encryption authorization
 * Workload VPC VSI SSH module
-* Workload Subnets for VPC VSI, VPE and VPN resources
-* Workload VPE Gateway (for COS)
-
-* IBM Transit Gateway
+* Workload subnets for VPC VSI, VPE, and VPN resources
+* Workload VPE gateway (for Cloud Object Storage)
+* IBM Transit gateway
