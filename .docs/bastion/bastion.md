@@ -31,9 +31,7 @@ Don't set both `create_f5_network_on_management_vpc` to true and `teleport_manag
 
 ### Teleport configuration variables
 
-The following variables are needed to provision the bastion host that uses Teleport.
-The following variables need to be set to provision the bastion host that uses Teleport.
-
+The following variables need to be set to provision the bastion host using Teleport.
 
 ```
 provision_teleport_in_f5  # Provision Teleport in the Edge VPC alongside the F5
