@@ -156,7 +156,7 @@ Using the Cloud Object Storage bucket provisioned for each VPC network, a flow l
 
 ![Flow logs](./images/flowlogs.png)
 
-### Virtual Private Endpoints
+### Virtual private endpoints
 
 Each VPC dynamically has a Virtual Private Endpoint address for the `cos` instance that is created in each zone of that VPC's `vpe` subnet tier.
 
