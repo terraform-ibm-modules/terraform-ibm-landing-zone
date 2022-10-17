@@ -43,7 +43,7 @@ You need the following items to deploy and configure the reference architecture 
 
 ## Provision with Secure Landing Zone
 
-The F5 BIG-IP can be provisioned in the management or edge/transit VPC. In this case, use the edge/transit VPC. By default, it provisions an F5 BIG-IP within each zone of the region. You can change this setting in the [override.json](../../README.md#using-overridejson) file.
+The F5 BIG-IP can be provisioned in the management or edge/transit VPC. In this case, use the edge/transit VPC. By default, it provisions an F5 BIG-IP within each zone of the region. You can change this setting in the [override.json](../../README.md#customizing-by-using-the-overridejson-file) file.
 
 | Management VPC                               | Edge/Transit VPC              |
 | -------------------------------------------- | ----------------------------- |
