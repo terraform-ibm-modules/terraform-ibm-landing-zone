@@ -75,7 +75,7 @@ After App ID is successfully configured to Teleport, you can log in to Teleport 
     tsh login --proxy=<User defined FQDN of teleport server>:3080
     ```
 
-1.  Run the shell or run a command on a remote SSH node by using the [tsh ssh command](https://goteleport.com/docs/setup/reference/cli/#tsh-ssh)
+1.  Run the shell or run a command on a remote SSH node by using the [tsh ssh command](https://goteleport.com/docs/setup/reference/cli/#tsh-ssh).
 
     ```sh
     tsh ssh <[user@]host>
