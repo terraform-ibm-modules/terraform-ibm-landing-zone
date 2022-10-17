@@ -63,7 +63,7 @@ After App ID is successfully configured to Teleport, you can log in to Teleport 
 
 ### Log in through the web console
 
-1.  Access the web console on port 3080. (`https://<User defined FQDN of teleport server>:3080`)
+1.  Access the web console on port 3080. (`https://<User defined FQDN of teleport server>:3080`).
 1.  Start a terminal session under **Servers**. Look for a single server with a connect button. Click **Connect** and select the user that you would like to log in with.
 
 ### Log in through the tsh client
