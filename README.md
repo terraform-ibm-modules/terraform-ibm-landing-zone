@@ -117,7 +117,7 @@ Secure Landing Zone can set up a bastion host that uses Teleport. For more infor
 
 ![vpc-module](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/.docs/vpc-module.png?raw=true)
 
-This template supports creating any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone VPC module ](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
+This template supports creating any number of VPCs in a single region. The VPC network and components are created by the [Secure Landing Zone VPC module](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc). The VPC components are described in the [main.tf](./main.tf) file.
 
 #### vpcs variable
 
