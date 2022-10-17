@@ -68,7 +68,7 @@ After App ID is successfully configured to Teleport, you can log in to Teleport 
 
 ### Log in through the tsh client
 
-1.  Install the [Teleport client tool tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh)
+1.  Install the [Teleport client tool tsh](https://goteleport.com/docs/server-access/guides/tsh/#installing-tsh).
 1.  [Log in using tsh](https://goteleport.com/docs/server-access/guides/tsh/#logging-in).
 
     ```sh
