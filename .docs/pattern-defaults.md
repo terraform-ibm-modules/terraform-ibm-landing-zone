@@ -192,7 +192,7 @@ ibmcloud is instance-profiles
 
 ### Additional components
 
-Virtual Server components like additional block storage and Load Balancers can be configured using `override.json` and those variable definitions can be found in the [landing-zone module](../landing-zone/variables.tf#L457)
+Virtual Server components, like additional block storage and load balancers, can be configured by using the `override.json` file. You can find the variable definitions in the [variables.tf](../variables.tf) file.
 
 ## Red Hat OpenShift cluster deployments
 
