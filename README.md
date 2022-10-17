@@ -722,7 +722,8 @@ You can use the modular design of this module to provision architectures for VSI
 
 ```terraform
 module "vsi_pattern" {
-  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  # Replace "main" with a GIT release version to lock into a specific release
+  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -747,7 +748,8 @@ module "vsi_pattern" {
 
 ```terraform
 module "cluster_vsi_pattern" {
-  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  # Replace "main" with a GIT release version to lock into a specific release
+  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -774,7 +776,8 @@ module "cluster_vsi_pattern" {
 
 ```terraform
 module "cluster_pattern" {
-  source                         = "github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git"
+  # Replace "main" with a GIT release version to lock into a specific release
+  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
