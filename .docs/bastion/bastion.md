@@ -129,4 +129,4 @@ You might not be able to access Teleport that is installed on your virtual serve
 
 ## ACL and security groups
 
-By default, Secure Landing Zone provisions ACLs and security groups that are more open and not customer dependent. Use the [override.json](../../README.md#using-overridejson) file to change, add, or delete rules for your environment.
+By default, Secure Landing Zone provisions ACLs and security groups that are more open and not customer dependent. Use the [override.json](../../README.md#customizing-by-using-the-overridejson-file) file to change, add, or delete rules for your environment.
