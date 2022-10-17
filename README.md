@@ -103,7 +103,7 @@ Through Secure Landing Zone, you can optionally provision the F5 BIG-IP so that 
 
 With Teleport, you can configure a virtual server instance in a VPC as a bastion host. Some of Teleport features include single sign-on to access the SSH server, auditing, and recording of your interactive sessions. For more information about Teleport, see the [Teleport documentation](https://goteleport.com/docs/).
 
-Secure Landing Zone can set up a bastion host that uses Teleport. For more information, see [Provisioning a bastion host by using Teleport with Secure Landing Zone](.docs/bastion/bastion.md)
+Secure Landing Zone can set up a bastion host that uses Teleport. For more information, see [Provisioning a bastion host by using Teleport with Secure Landing Zone](.docs/bastion/bastion.md).
 
 ## Module recommendations for more features
 
