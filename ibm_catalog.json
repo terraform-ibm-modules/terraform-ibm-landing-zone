@@ -5,7 +5,7 @@
             "label": "QuickStart",
             "name": "quickstart",
             "working_directory": "examples/quickstart",
-            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd\u0026flavor=quickstart\u0026kind=terraform\u0026name=slz-vpc-with-vsis\u0026version=1.1.3\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/quickstart?archive=tgz\u0026catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd\u0026flavor=quickstart\u0026kind=terraform\u0026name=slz-vpc-with-vsis\u0026version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
             "compliance": {
                 "controls": [
                 ]
@@ -109,7 +109,7 @@
             "label": "Standard",
             "name": "standard",
             "working_directory": "patterns/vsi",
-            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd\u0026flavor=standard\u0026kind=terraform\u0026name=slz-vpc-with-vsis\u0026version=1.1.3\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/vsi?archive=tgz\u0026catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd\u0026flavor=standard\u0026kind=terraform\u0026name=slz-vpc-with-vsis\u0026version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
             "compliance": {
                 "controls": [
                     {
