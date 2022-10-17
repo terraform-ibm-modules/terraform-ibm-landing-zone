@@ -87,7 +87,7 @@ The following example shows how to provision an F5 with the following configurat
    enable_f5_management_fip            = false
    ```
 
-For more details about specifying input variables, see [Customizing your environment](../../README.md#using-terraform-input-variables). For more information about the F5 configuration variables, see the following documentation for the pattern:
+For more details about specifying input variables, see [Customizing your environment](../../README.md#customizing-your-environment). For more information about the F5 configuration variables, see the following documentation for the pattern:
 
 - [VSI](../../patterns/vsi#module-variables)
 - [Mixed](../../patterns/mixed#module-variables)
