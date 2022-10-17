@@ -98,7 +98,7 @@ An API key is generated for the `atracker-cos` instance to allow Activity Tracke
 
 ### Activity Tracker
 
-An [Activity Tracker](url-here) instance is provisioned for this architecture.
+An [Activity Tracker](https://cloud.ibm.com/docs/activity-tracker) instance is provisioned for this architecture.
 
 ## VPC infrastructure
 
