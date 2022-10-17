@@ -182,7 +182,7 @@ To find available virtual servers in your region, use the following IBM Cloud CL
 ibmcloud is images
 ```
 
-### Virtual Server Profile
+### Virtual server profile
 
 To find available hardware configurations in your region, use the following IBM Cloud CLI command:
 
