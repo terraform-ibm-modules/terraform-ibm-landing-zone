@@ -3,7 +3,7 @@ module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 go 1.19
 
 require (
-	github.com/gruntwork-io/terratest v0.40.22
+	github.com/gruntwork-io/terratest v0.40.24
 	github.com/stretchr/testify v1.8.0
 	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.1.3
 )
