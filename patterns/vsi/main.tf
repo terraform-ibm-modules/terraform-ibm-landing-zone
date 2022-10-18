@@ -34,6 +34,7 @@ module "landing_zone" {
   cos                            = local.env.cos
   service_endpoints              = local.env.service_endpoints
   key_management                 = local.env.key_management
+  add_kms_block_storage_s2s      = local.env.add_kms_block_storage_s2s
   atracker                       = local.env.atracker
   clusters                       = local.env.clusters
   wait_till                      = local.env.wait_till

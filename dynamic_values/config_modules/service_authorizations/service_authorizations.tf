@@ -22,6 +22,10 @@ variable "use_secrets_manager" {
   description = "Use secrets manager"
 }
 
+variable "add_kms_block_storage_s2s" {
+  description = "Add kms to block storage s2s"
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -30,16 +34,21 @@ variable "use_secrets_manager" {
 
 locals {
   target_key_management_service = lookup(var.key_management, "use_hs_crypto", false) == true ? "hs-crypto" : "kms"
-  service_authorization_vpc_to_key_management = {
-    # Create authorization to allow key management to access VPC block storage
-    "block-storage" = {
+}
+
+module "kms_to_block_storage" {
+  source = "../list_to_map"
+  list = [
+    for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
+    {
+      name                        = instance
       source_service_name         = "server-protect"
       description                 = "Allow block storage volumes to be encrypted by KMS instance"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
     }
-  }
+  ]
 }
 
 ##############################################################################
@@ -104,7 +113,7 @@ module "secrets_manager_to_cos" {
 output "authorizations" {
   description = "Map of service authorizations"
   value = merge(
-    local.service_authorization_vpc_to_key_management,
+    module.kms_to_block_storage.value,
     module.cos_to_key_management.value,
     module.flow_logs_to_cos.value,
     module.secrets_manager_to_cos.value
