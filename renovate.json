@@ -1,4 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>terraform-ibm-modules/common-dev-assets:commonRenovateConfig"]
+  "extends": ["local>terraform-ibm-modules/common-dev-assets:commonRenovateConfig"],
+  "packageRules": [
+    {
+      "description": "Use fix as Semantic Commit prefix for all dependency updates in these folders to generate release",
+      "matchPaths": [
+        "examples/quickstart",
+        "patterns/vsi"
+      ],
+      "semanticCommitType": "fix"
+    }
+  ]
 }
