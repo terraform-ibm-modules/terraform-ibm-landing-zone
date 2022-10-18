@@ -1,6 +1,6 @@
 # Provisioning a F5 BIG-IP host by using Secure Landing Zone
 
-Through Secure Landing Zone, you can optionally provision the F5 BIG-IP so that you can set up the implemented solution of a client-to-site VPN or web application firewall (WAF). For more information, see [Deploying and configuring F5 BIG-IP](https://cloud.ibm.com/docs/allowlist/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-f5-tutorial) (available by allowlist).
+Through Secure Landing Zone, you can optionally provision the F5 BIG-IP so that you can set up the implemented solution of a client-to-site VPN or web application firewall (WAF). For more information, see [Deploying and configuring F5 BIG-IP](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-f5-tutorial).
 
 ## Before you begin
 
