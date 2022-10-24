@@ -6,3 +6,6 @@
 # the settings of this repository are updated immediately.
 
 _extends: repo-settings
+
+repository:
+  name: terraform-ibm-landing-zone
