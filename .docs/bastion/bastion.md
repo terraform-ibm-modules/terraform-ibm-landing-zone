@@ -1,6 +1,6 @@
 # Provisioning a bastion host by using Teleport with Secure Landing Zone
 
-Secure Landing Zone can provision the solution that is described in [Setting up a bastion host that uses Teleport](https://cloud.ibm.com/docs/allowlist/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-bastion-tutorial-teleport) (available by allowlist). This solution configures a bastion host in your VPC using Teleport Enterprise Edition, and provisions a Cloud Object Storage bucket and App ID for enhanced security.
+Secure Landing Zone can provision the solution that is described in [Setting up a bastion host that uses Teleport](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-connectivity-bastion-tutorial-teleport). This solution configures a bastion host in your VPC using Teleport Enterprise Edition, and provisions a Cloud Object Storage bucket and App ID for enhanced security.
 
 [App ID](https://cloud.ibm.com/docs/appid) is used to authenticate users to Teleport. Teleport session recordings are stored in the Object Storage bucket. The [cloud-init file](../../teleport_config/cloud-init.tpl) file installs teleport and configures App ID and Object Storage. The Teleport [variables.tf](../../teleport_config/variables.tf) file is used for the configuration.
 

@@ -6,3 +6,8 @@
 # the settings of this repository are updated immediately.
 
 _extends: repo-settings
+
+# repo specific settings
+repository:
+  name: terraform-ibm-landing-zone
+  description: "Creates a fully customizable VPC environment and compute resources (VSI, Red Hat OpenShift) with presets designed to meet strict compliance needs."
