@@ -31,6 +31,7 @@ module "dynamic_values" {
   f5_vsi                    = var.f5_vsi
   f5_template_data          = var.f5_template_data
   secrets_manager           = var.secrets_manager
+  add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
 }
 
 ##############################################################################

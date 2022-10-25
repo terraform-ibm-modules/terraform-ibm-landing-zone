@@ -11,6 +11,16 @@
         "line": 1116
       }
     },
+    "add_kms_block_storage_s2s": {
+      "name": "add_kms_block_storage_s2s",
+      "type": "bool",
+      "description": "add kms to block storage s2s authorization",
+      "default": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 1534
+      }
+    },
     "appid": {
       "name": "appid",
       "type": "object({\n    name           = optional(string)\n    resource_group = optional(string)\n    use_data       = optional(bool)\n    keys           = optional(list(string))\n    use_appid      = bool\n  })",
@@ -1126,6 +1136,7 @@
       "source": "./dynamic_values",
       "attributes": {
         "access_groups": "access_groups",
+        "add_kms_block_storage_s2s": "add_kms_block_storage_s2s",
         "appid": "appid",
         "bastion_vsi": "teleport_vsi",
         "clusters": "clusters",

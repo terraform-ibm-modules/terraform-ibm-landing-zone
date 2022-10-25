@@ -137,6 +137,13 @@ locals {
     ##############################################################################
 
     ##############################################################################
+    # S2S Authorization
+    ##############################################################################
+    add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
+
+    ##############################################################################
+
+    ##############################################################################
     # IAM Account Settings
     ##############################################################################
     iam_account_settings = {
@@ -276,6 +283,7 @@ locals {
     virtual_private_endpoints      = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
     cos                            = lookup(local.override[local.override_type], "cos", local.config.object_storage)
     service_endpoints              = lookup(local.override[local.override_type], "service_endpoints", "private")
+    add_kms_block_storage_s2s      = lookup(local.override[local.override_type], "add_kms_block_storage_s2s", local.config.add_kms_block_storage_s2s)
     key_management                 = lookup(local.override[local.override_type], "key_management", local.config.key_management)
     atracker                       = lookup(local.override[local.override_type], "atracker", local.config.atracker)
     clusters                       = lookup(local.override[local.override_type], "clusters", local.config.clusters)
