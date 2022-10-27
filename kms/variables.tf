@@ -56,7 +56,7 @@ variable "keys" {
 
   validation {
     error_message = "Each key must have a unique name."
-    condition     = length(distinct(var.keys.*.name)) == length(var.keys.*.name)
+    condition     = length(distinct(var.keys[*].name)) == length(var.keys[*].name)
   }
 
   validation {
