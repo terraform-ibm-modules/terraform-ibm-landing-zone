@@ -42,7 +42,7 @@ variable "resource_groups" {
 
   validation {
     error_message = "Each group must have a unique name."
-    condition     = length(distinct(var.resource_groups.*.name)) == length(var.resource_groups.*.name)
+    condition     = length(distinct(var.resource_groups[*].name)) == length(var.resource_groups[*].name)
   }
 }
 
@@ -234,7 +234,7 @@ variable "ssh_keys" {
 
   validation {
     error_message = "Each SSH key must have a unique name."
-    condition     = length(distinct(var.ssh_keys.*.name)) == length(var.ssh_keys.*.name)
+    condition     = length(distinct(var.ssh_keys[*].name)) == length(var.ssh_keys[*].name)
   }
 
   validation {
@@ -408,7 +408,7 @@ variable "security_groups" {
     error_message = "Each security group rule must have a unique name."
     condition = length([
       for security_group in var.security_groups :
-      true if length(distinct(security_group.rules.*.name)) != length(security_group.rules.*.name)
+      true if length(distinct(security_group.rules[*].name)) != length(security_group.rules[*].name)
     ]) == 0
   }
 
@@ -572,13 +572,13 @@ variable "cos" {
     condition = length(
       flatten([
         for instance in var.cos :
-        instance.buckets.*.name
+        instance.buckets[*].name
       ])
       ) == length(
       distinct(
         flatten([
           for instance in var.cos :
-          instance.buckets.*.name
+          instance.buckets[*].name
         ])
       )
     )
@@ -1513,7 +1513,7 @@ variable "vpc_placement_groups" {
 
   validation {
     error_message = "Each VPC Placement group must have a unique name."
-    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups.*.name) != distinct(length(var.vpc_placement_groups.*.name))
+    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups[*].name) != distinct(length(var.vpc_placement_groups[*].name))
   }
 
   validation {

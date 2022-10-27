@@ -27,7 +27,7 @@ output "appid_key_names" {
 
 output "appid_redirect_urls" {
   description = "List of appid redirect urls"
-  value       = ibm_appid_redirect_urls.urls.*.urls
+  value       = ibm_appid_redirect_urls.urls[*].urls
 }
 
 ##############################################################################
@@ -43,7 +43,7 @@ output "atracker_target_name" {
 
 output "atracker_route_name" {
   description = "Name of atracker route"
-  value       = local.valid_atracker_region && var.atracker.add_route == true ? ibm_atracker_route.atracker_route.*.name[0] : null
+  value       = local.valid_atracker_region && var.atracker.add_route == true ? tolist(ibm_atracker_route.atracker_route[*].name)[0] : null
 }
 
 ##############################################################################
@@ -56,7 +56,7 @@ output "bastion_host_names" {
   description = "List of bastion host names"
   value = flatten([
     for instance in keys(module.bastion_host) :
-    module.bastion_host[instance].list.*.name
+    module.bastion_host[instance].list[*].name
   ])
 }
 
@@ -120,7 +120,7 @@ output "f5_host_names" {
   description = "List of bastion host names"
   value = flatten([
     for instance in keys(module.f5_vsi) :
-    module.f5_vsi[instance].list.*.name
+    module.f5_vsi[instance].list[*].name
   ])
 }
 
@@ -142,7 +142,7 @@ output "subnet_names" {
   description = "List of Subnet names created"
   value = flatten([
     for network in module.vpc :
-    network.subnet_zone_list.*.name
+    network.subnet_zone_list[*].name
   ])
 }
 
@@ -201,7 +201,7 @@ output "service_authorization_names" {
 
 output "ssh_key_names" {
   description = "List of SSH Key names"
-  value       = module.ssh_keys.ssh_keys.*.name
+  value       = module.ssh_keys.ssh_keys[*].name
 }
 
 ##############################################################################
@@ -225,7 +225,7 @@ output "vsi_names" {
   description = "List of VSI names"
   value = flatten([
     for group in module.vsi :
-    group.list.*.name
+    group.list[*].name
   ])
 }
 
