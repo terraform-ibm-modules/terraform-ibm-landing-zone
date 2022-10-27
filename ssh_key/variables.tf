@@ -37,7 +37,7 @@ variable "ssh_keys" {
 
   validation {
     error_message = "Each SSH key must have a unique name."
-    condition     = length(distinct(var.ssh_keys.*.name)) == length(var.ssh_keys.*.name)
+    condition     = length(distinct(var.ssh_keys[*].name)) == length(var.ssh_keys[*].name)
   }
 
   validation {
