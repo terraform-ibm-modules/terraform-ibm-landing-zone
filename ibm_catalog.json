@@ -1,284 +1,470 @@
 {
-    "name": "secure-landing-zone-w-vsis",
-    "flavors": [
+    "products": [
         {
-            "label": "QuickStart",
-            "name": "quickstart",
-            "working_directory": "examples/quickstart",
-            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/quickstart?archive=tgz&catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd&flavor=quickstart&kind=terraform&name=slz-vpc-with-vsis&version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
-            "compliance": {
-                "controls": [
-                ]
-            },
-            "iam_permissions": [
+            "name": "slz-vpc-with-vsis",
+            "label": "Secure infrastructure on VPC for regulated industries",
+            "flavors": [
                 {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "appid"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "cloud-object-storage"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "hs-crypto"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::role:Administrator"
-                    ],
-                    "service_name": "iam-identity"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "kms"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                    "crn:v1:bluemix:public:iam::::role:Administrator"
-                    ],
-                    "service_name": "is.vpc"
-                }
-            ],
-            "architecture": {
-                "descriptions": "",
-                "features": [
-                    {
-                        "title": "Separate VPC for management",
-                        "description": "Yes"
+                    "label": "QuickStart",
+                    "name": "quickstart",
+                    "working_directory": "examples/quickstart",
+                    "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/quickstart?archive=tgz&catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd&flavor=quickstart&kind=terraform&name=slz-vpc-with-vsis&version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "compliance": {
+                        "controls": [
+                        ]
                     },
-                    {
-                        "title": "Separate VPC for workloads",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Virtual Server Instances for every subnet",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Increases security with Key Management",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Reduces failure events by using multizone regions",
-                        "description": "No"
-                    },
-                    {
-                        "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                        "description": "No"
-                    },
-                    {
-                        "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                        "description": "No"
-                    },
-                    {
-                        "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                        "description": "No"
-                    },
-                    {
-                        "title": "Uses an edge VPC for secure access through the public internet",
-                        "description": "No"
-                    },
-                    {
-                        "title": "Uses Floating IP address for access through the public internet",
-                        "description": "Yes"
-                    }
-                ],
-                "diagrams": [
-                    {
-                        "diagram": {
-                            "caption": "Secure Landing Zone with VSIs",
-                            "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
-                            "metadata": []
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
                         },
-                        "description": "The **QuickStart** flavor of Secure Landing Zone with VSIs requires at least 2 CPUs and 4 GB of memory.\n\nSecure Landing Zone with virtual server instances is implemented with virtual servers. It utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        }
+                    ],
+                    "architecture": {
+                        "descriptions": "",
+                        "features": [
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for workloads",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Virtual Server Instances for every subnet",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Reduces failure events by using multizone regions",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Uses an edge VPC for secure access through the public internet",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Uses Floating IP address for access through the public internet",
+                                "description": "Yes"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Secure Landing Zone with VSIs",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
+                                    "metadata": []
+                                },
+                                "description": "The **QuickStart** flavor of Secure Landing Zone with VSIs requires at least 2 CPUs and 4 GB of memory.\n\nSecure Landing Zone with virtual server instances is implemented with virtual servers. It utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                            }
+                        ]
                     }
-                ]
-            }
+                },
+                {
+                    "label": "Standard",
+                    "name": "standard",
+                    "working_directory": "patterns/vsi",
+                    "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/vsi?archive=tgz&catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd&flavor=standard&kind=terraform&name=slz-vpc-with-vsis&version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "compliance": {
+                        "controls": [
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(1)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(c)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(i)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(j)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-3"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-4"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-6-0"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AU-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CA-7(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CM-2"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CM-8(4)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "IA-4"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-8-0"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "RA-5(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-12"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-13"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-36"
+                            }
+                        ]
+                    },
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        }
+                    ],
+                    "architecture": {
+                        "descriptions": "",
+                        "features": [
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for workloads",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Virtual Server Instances for every subnet",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Reduces failure events by using multizone regions",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Uses an edge VPC for secure access through the public internet",
+                                "description": "Yes, if enabled"
+                            },
+                            {
+                                "title": "Uses Floating IP address for access through the public internet",
+                                "description": "No"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Secure infrastructure on VPC for regulated industries",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
+                                    "metadata": []
+                                },
+                                "description": "Secure infrastructure on VPC for regulated industries is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                            }
+                        ]
+                    }
+                }
+            ]
         },
         {
-            "label": "Standard",
-            "name": "standard",
-            "working_directory": "patterns/vsi",
-            "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/vsi?archive=tgz&catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd&flavor=standard&kind=terraform&name=slz-vpc-with-vsis&version=1.7.1\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
-            "compliance": {
-                "controls": [
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-2(1)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-2(a)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-2(c)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-2(i)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-2(j)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-3"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-4"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AC-6-0"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "AU-2(a)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "CA-7(a)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "CM-2"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "CM-8(4)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "IA-4"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "SC-8-0"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "RA-5(a)"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "SC-12"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "SC-13"
-                    },
-                    {
-                        "profile_name": "SLZ compliance v0.1.1",
-                        "control_id": "SC-36"
-                    }
-                ]
-            },
-            "iam_permissions": [
+            "name": "slz-vpc-with-roks",
+            "label": "Secure infrastructure on VPC with ROKS",
+            "flavors": [
                 {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "appid"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "cloud-object-storage"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "hs-crypto"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::role:Administrator"
-                    ],
-                    "service_name": "iam-identity"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                    ],
-                    "service_name": "kms"
-                },
-                {
-                    "role_crns": [
-                    "crn:v1:bluemix:public:iam::::role:Administrator"
-                    ],
-                    "service_name": "is.vpc"
-                }
-            ],
-            "architecture": {
-                "descriptions": "",
-                "features": [
-                    {
-                        "title": "Separate VPC for management",
-                        "description": "Yes"
+                    "label": "Standard",
+                    "name": "standard",
+                    "working_directory": "patterns/roks",
+                    "usage": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&catalogID=7df1e4ca-d54c-4fd0-82ce-3d13247308cd&flavor=standard&kind=terraform&name=slz-vpc-with-roks&version=1.9.2\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "compliance": {
+                        "controls": [
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(1)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(c)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(i)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-2(j)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-3"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-4"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AC-6-0"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "AU-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CA-7(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CM-2"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "CM-8(4)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "IA-4"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-8-0"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "RA-5(a)"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-12"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-13"
+                            },
+                            {
+                                "profile_name": "SLZ compliance v0.1.1",
+                                "control_id": "SC-36"
+                            }
+                        ]
                     },
-                    {
-                        "title": "Separate VPC for workloads",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Virtual Server Instances for every subnet",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Increases security with Key Management",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Reduces failure events by using multizone regions",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                        "description": "Yes"
-                    },
-                    {
-                        "title": "Uses an edge VPC for secure access through the public internet",
-                        "description": "Yes, if enabled"
-                    },
-                    {
-                        "title": "Uses Floating IP address for access through the public internet",
-                        "description": "No"
-                    }
-                ],
-                "diagrams": [
-                    {
-                        "diagram": {
-                            "caption": "Secure infrastructure on VPC for regulated industries",
-                            "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
-                            "metadata": []
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
                         },
-                        "description": "Secure infrastructure on VPC for regulated industries is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        }
+                    ],
+                    "architecture": {
+                        "descriptions": "",
+                        "features": [
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for workloads",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Virtual Server Instances for every subnet",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Reduces failure events by using multizone regions",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Uses an edge VPC for secure access through the public internet",
+                                "description": "Yes, if enabled"
+                            },
+                            {
+                                "title": "Uses Floating IP address for access through the public internet",
+                                "description": "No"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Secure infrastructure on VPC with ROKS",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/patterns/diagrams/svgs/roks/roks.drawio.svg",
+                                    "metadata": []
+                                },
+                                "description": "Secure infrastructure on VPC with ROKS is implemented with a Red Hat Openshift cluster running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                            }
+                        ]
                     }
-                ]
-            }
+                }
+            ]
         }
     ]
 }
