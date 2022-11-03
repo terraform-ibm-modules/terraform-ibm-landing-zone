@@ -25,7 +25,7 @@ JSON_FILE="../../../catalogValidationValues.json"
 
   ssh_public_key=$(terraform output -state=terraform.tfstate -raw ssh_public_key)
   echo "Appending SSH public key to $(basename ${JSON_FILE}).."
-  jq -r --arg var_name "${var_name}" --arg ssh_public_key "${ssh_public_key}" '. + {$var_name: $ssh_public_key}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+  jq -r --arg var_name "${var_name}" --arg ssh_public_key "${ssh_public_key}" '. + {($var_name): $ssh_public_key}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )
