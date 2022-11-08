@@ -1,3 +1,4 @@
+// Tests in this file are NOT run in the PR pipeline. They are run in the continuous testing pipeline along with the ones in pr_test.go
 package test
 
 import (
@@ -14,8 +15,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const quickstartExampleTerraformDir = "examples/quickstart"
-const roksPatternTerraformDir = "patterns/roks"
+const defaultExampleTerraformDir = "examples/basic"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -39,13 +39,13 @@ func sshPublicKey(t *testing.T) string {
 	return terraform.Output(t, terraformOptions, "ssh_public_key")
 }
 
-func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
-		TerraformDir: quickstartExampleTerraformDir,
+		TerraformDir: defaultExampleTerraformDir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
@@ -55,58 +55,20 @@ func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-func TestRunQuickstartExample(t *testing.T) {
+func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickstart(t, "slz-qs")
+	options := setupOptions(t, "land-zone")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeQuickstartExample(t *testing.T) {
+func TestRunUpgradeBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickstart(t, "slz-qs-ug")
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
-
-func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
-
-	sshPublicKey := sshPublicKey(t)
-
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:      t,
-		TerraformDir: roksPatternTerraformDir,
-		Prefix:       prefix,
-		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
-		},
-	})
-
-	return options
-}
-
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "slz-roks")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeRoksPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "slz-roks-ug")
+	options := setupOptions(t, "lz-upg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
