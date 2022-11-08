@@ -16,6 +16,7 @@ import (
 
 const defaultExampleTerraformDir = "examples/basic"
 const quickstartExampleTerraformDir = "examples/quickstart"
+const roksPatternTerraformDir = "patterns/roks"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -107,6 +108,44 @@ func TestRunUpgradeQuickstartExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsQuickstart(t, "slz-qs-ug")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: roksPatternTerraformDir,
+		Prefix:       prefix,
+		TerraformVars: map[string]interface{}{
+			"ssh_key": sshPublicKey,
+		},
+	})
+
+	return options
+}
+
+func TestRunRoksPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "slz-roks")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeRoksPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "slz-roks-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
