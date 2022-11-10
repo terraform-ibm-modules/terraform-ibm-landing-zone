@@ -92,7 +92,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	options.TerraformVars = map[string]interface{}{
 		"ssh_key":         sshPublicKey,
 		"prefix":          options.Prefix,
-		"resource_groups": options.ResourceGroup,
 		"tags":            options.Tags,
 		"region":          options.Region,
 	}

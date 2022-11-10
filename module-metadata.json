@@ -21,7 +21,7 @@
       "default": true,
       "required": true,
       "source": [
-        "module.dynamic_values.module.service_authorizations.module.kms_to_block_storage"
+        "module.dynamic_values.module.service_authorizations"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -1601,8 +1601,8 @@
       "data_resources": {},
       "outputs": {
         "access_groups_object": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "access_groups_object",
+          "description": "Convert access group list to map",
           "value": "module.access_group_object.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1610,8 +1610,8 @@
           }
         },
         "access_groups_with_invites": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "access_groups_with_invites",
+          "description": "map of access groups with invite users",
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1619,8 +1619,8 @@
           }
         },
         "access_policies": {
-          "name": "value",
-          "description": "Map with merged keys",
+          "name": "access_policies",
+          "description": "Map of access policies",
           "value": "module.access_policies.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1628,8 +1628,8 @@
           }
         },
         "account_management_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "account_management_map",
+          "description": "Map of account management policies by group",
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1637,8 +1637,8 @@
           }
         },
         "appid_redirect_urls": {
-          "name": "redirect_urls",
-          "description": "List of teleport appid redirect urls",
+          "name": "appid_redirect_urls",
+          "description": "List of redirect urls from teleport VSI names",
           "value": "module.appid.redirect_urls",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1646,8 +1646,8 @@
           }
         },
         "bastion_vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "bastion_vsi_map",
+          "description": "Map of Bastion Host VSI deployments",
           "value": "module.bastion_vsi_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1655,8 +1655,8 @@
           }
         },
         "bucket_to_instance_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "bucket_to_instance_map",
+          "description": "Maps bucket names to instance ids and api keys",
           "value": "module.cos.bucket_to_instance_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1664,8 +1664,8 @@
           }
         },
         "clusters_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "clusters_map",
+          "description": "Cluster Map for dynamic cluster creation",
           "value": "module.clusters.map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1673,8 +1673,8 @@
           }
         },
         "cos_bucket_map": {
-          "name": "value",
-          "description": "Map with merged keys",
+          "name": "cos_bucket_map",
+          "description": "Map including key of bucket names with bucket data as values",
           "value": "module.cos.cos_bucket_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1682,8 +1682,8 @@
           }
         },
         "cos_data_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "cos_data_map",
+          "description": "Map of COS data resources",
           "value": "module.cos.cos_data_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1692,7 +1692,7 @@
         },
         "cos_instance_ids": {
           "name": "cos_instance_ids",
-          "description": "Map of cos ids",
+          "description": "Instance map for cloud object storage instance IDs",
           "value": "module.cos.cos_instance_ids",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1700,8 +1700,8 @@
           }
         },
         "cos_key_map": {
-          "name": "value",
-          "description": "Map with merged keys",
+          "name": "cos_key_map",
+          "description": "Map of COS keys",
           "value": "module.cos.cos_key_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1709,8 +1709,8 @@
           }
         },
         "cos_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "cos_map",
+          "description": "Map of COS resources",
           "value": "module.cos.cos_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1718,8 +1718,8 @@
           }
         },
         "dynamic_rules": {
-          "name": "value",
-          "description": "Map with merged keys",
+          "name": "dynamic_rules",
+          "description": "Map of dynamic rules",
           "value": "module.dynamic_rules.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1736,8 +1736,8 @@
           }
         },
         "f5_vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "f5_vsi_map",
+          "description": "Map of VSI deployments",
           "value": "module.f5.f5_vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1745,8 +1745,8 @@
           }
         },
         "flow_logs_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "flow_logs_map",
+          "description": "Map of flow logs instances to create",
           "value": "module.flow_logs_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1754,8 +1754,8 @@
           }
         },
         "security_group_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "security_group_map",
+          "description": "Map of Security Group Components",
           "value": "module.security_group_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1763,8 +1763,8 @@
           }
         },
         "security_group_rules_map": {
-          "name": "value",
-          "description": "Map with merged keys",
+          "name": "security_group_rules_map",
+          "description": "Map of all security group rules",
           "value": "module.security_group_rules_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1772,8 +1772,8 @@
           }
         },
         "service_authorizations": {
-          "name": "authorizations",
-          "description": "Map of service authorizations",
+          "name": "service_authorizations",
+          "description": "Map of service authorizations to create",
           "value": "module.service_authorizations.authorizations",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1781,8 +1781,8 @@
           }
         },
         "ssh_keys": {
-          "name": "ssh_key_list",
-          "description": "List of SSH keys with resource group added",
+          "name": "ssh_keys",
+          "description": "List of SSH keys with resource group ID added",
           "value": "module.vsi.ssh_key_list",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1790,8 +1790,8 @@
           }
         },
         "vpc_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpc_map",
+          "description": "VPC Map",
           "value": "module.vpc_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1799,8 +1799,8 @@
           }
         },
         "vpe_gateway_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpe_gateway_map",
+          "description": "Map of gateways to be created",
           "value": "module.vpe.vpe_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1808,8 +1808,8 @@
           }
         },
         "vpe_services": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpe_services",
+          "description": "Map of VPE services to be created. Currently only COS is supported.",
           "value": "module.vpe.vpe_services",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1817,8 +1817,8 @@
           }
         },
         "vpe_subnet_reserved_ip_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpe_subnet_reserved_ip_map",
+          "description": "Map of reserved subnet ips for vpes",
           "value": "module.vpe.vpe_subnet_reserved_ip_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1826,8 +1826,8 @@
           }
         },
         "vpn_connection_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpn_connection_map",
+          "description": "Map of VPN gateway connections",
           "value": "module.vpn.vpn_connection_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1835,8 +1835,8 @@
           }
         },
         "vpn_gateway_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vpn_gateway_map",
+          "description": "Map of VPN Gateways with VPC data",
           "value": "module.vpn.vpn_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1844,8 +1844,8 @@
           }
         },
         "vsi_images_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vsi_images_map",
+          "description": "Map of VSI vsi_image_map",
           "value": "module.vsi.vsi_image_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1853,8 +1853,8 @@
           }
         },
         "vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "vsi_map",
+          "description": "Map of VSI for creation",
           "value": "module.vsi.vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -1862,8 +1862,8 @@
           }
         },
         "worker_pools_map": {
-          "name": "value",
-          "description": "List converted into map",
+          "name": "worker_pools_map",
+          "description": "Cluster worker pools map",
           "value": "module.worker_pools.map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
@@ -2595,9 +2595,7 @@
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
             "line": 15
-          },
-          "type": "TypeString",
-          "cloud_data_type": "crn"
+          }
         },
         "vpc_id": {
           "name": "vpc_id",
@@ -2621,8 +2619,7 @@
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
             "line": 5
-          },
-          "type": "TypeString"
+          }
         }
       },
       "pos": {
