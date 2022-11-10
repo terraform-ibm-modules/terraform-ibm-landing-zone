@@ -16,6 +16,7 @@ import (
 
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
+const resourceGroup = "geretain-test-resources"
 
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
@@ -81,14 +82,20 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 
 	sshPublicKey := sshPublicKey(t)
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:      t,
-		TerraformDir: roksPatternTerraformDir,
-		Prefix:       prefix,
-		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
-		},
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  roksPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
 	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_key":         sshPublicKey,
+		"prefix":          options.Prefix,
+		"resource_groups": options.ResourceGroup,
+		"tags":            options.Tags,
+		"region":          options.Region,
+	}
 
 	return options
 }
