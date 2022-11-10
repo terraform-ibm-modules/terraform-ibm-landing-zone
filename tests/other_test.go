@@ -17,28 +17,6 @@ import (
 
 const defaultExampleTerraformDir = "examples/basic"
 
-func sshPublicKey(t *testing.T) string {
-	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
-	actualTerraformDir := "./resources"
-	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
-	logger.Log(t, "Tempdir: ", tempTerraformDir)
-
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: tempTerraformDir,
-		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
-		// This is the same as setting the -upgrade=true flag with terraform.
-		Upgrade: true,
-	})
-
-	terraform.WorkspaceSelectOrNew(t, terraformOptions, prefix)
-	_, existErr := terraform.InitAndApplyE(t, terraformOptions)
-	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
-	}
-
-	return terraform.Output(t, terraformOptions, "ssh_public_key")
-}
-
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
@@ -63,16 +41,4 @@ func TestRunBasicExample(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeBasicExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "lz-upg")
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
 }
