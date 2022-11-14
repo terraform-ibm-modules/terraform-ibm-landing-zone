@@ -403,6 +403,12 @@
                         },
                         {
                             "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "containers-kubernetes"
+                        },
+                        {
+                            "role_crns": [
                             "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "is.vpc"
@@ -420,7 +426,7 @@
                                 "description": "Yes"
                             },
                             {
-                                "title": "Virtual Server Instances for every subnet",
+                                "title": "Red Hat OpenShift",
                                 "description": "Yes"
                             },
                             {
