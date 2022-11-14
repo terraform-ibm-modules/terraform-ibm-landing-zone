@@ -2381,25 +2381,12 @@
         "teleport_version": "teleport_config_data"
       },
       "managed_resources": {},
-      "data_resources": {
-        "data.template_cloudinit_config.cloud_init": {
-          "mode": "data",
-          "type": "template_cloudinit_config",
-          "name": "cloud_init",
-          "provider": {
-            "name": "template"
-          },
-          "pos": {
-            "filename": "teleport_config/template.tf",
-            "line": 28
-          }
-        }
-      },
+      "data_resources": {},
       "outputs": {
         "cloud_init": {
           "name": "cloud_init",
           "description": "Description of my output",
-          "value": "data.template_cloudinit_config.cloud_init.rendered",
+          "value": "local.user_data",
           "pos": {
             "filename": "teleport_config/outputs.tf",
             "line": 5
