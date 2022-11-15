@@ -25,12 +25,4 @@ locals {
   )
 }
 
-data "template_cloudinit_config" "cloud_init" {
-  base64_encode = false
-  gzip          = false
-  part {
-    content = local.user_data
-  }
-}
-
 ##############################################################################
