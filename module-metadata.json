@@ -2606,7 +2606,13 @@
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
             "line": 10
-          }
+          },
+          "type": "TypeString",
+          "cloud_data_type": "is",
+          "cloud_data_range": [
+            "service:vpc",
+            "resolved_to:id"
+          ]
         },
         "vpc_name": {
           "name": "vpc_name",
