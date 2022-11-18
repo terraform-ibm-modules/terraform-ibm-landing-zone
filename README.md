@@ -38,6 +38,63 @@ For more information about the default configuration, see [Default Secure Landin
 | -------------------------------- | -------------------------------- | ---------------------------------- |
 | ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
+## Prerequisites
+
+To ensure that Secure Landing Zone can be deployed, ensure that the following steps have been completed before deployment.
+
+### Setup an IBM Cloud Account
+
+An IBM Cloud account is required. An Enterprise account is recommended but Pay as you Go account suffices to deploy secure landing zone cloud resources.
+
+If you do not already have an account, follow instructions [to create the account](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-createlite) and [upgrade to Pay-as-you-Go](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-upgrade)
+
+- Have access to an [IBM Cloud account](https://cloud.ibm.com/docs/account?topic=account-account-getting-started). An Enterprise account is recommended but a Pay as you Go account should also work with this automation.
+
+### Setup IBM Cloud Account for Secure Landing Zone
+
+1. Log into IBM Cloud [console](https://cloud.ibm.com) using the IBMid you used to setup the account. This IBMid user is the account __owner__ and has all the IAM accesses.
+
+2. [Complete the company profile and contacts information](https://cloud.ibm.com/docs/account?topic=account-contact-info) for the account. This is required to stay in compliance with IBM Cloud Financial Service profile.
+
+3. [Enable the flag](https://cloud.ibm.com/docs/account?topic=account-enabling-fs-validated) to designate your IBM Cloud account to be Financial Services Validated.
+
+4. Enable VRF and Service Endpoints. This requires creating a support case. Follow [instructions](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint#vrf) carefully.
+
+### Setup Account Access (Cloud IAM)
+
+1. [Create an IBM Cloud API Key](https://cloud.ibm.com/docs/account?topic=account-userapikey#create_user_key). User owning this key should be part of __admins__ group. **Necessary if manually provisioning**
+
+2. [Setup MFA for all IBM Cloud IAM users](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-mfa).
+
+3. [Setup Cloud IAM Access Groups](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-accessgroups). User access to cloud resources will be controlled using the Access Policies assigned to Access Groups. IBM Cloud Financial Services profile requires that all IAM users do not get assigned any accesses directly to any cloud resources. When assigning Access policies, Click "All Identity Access Enabled Services" from drop down menu.
+
+### (Optional) Setup Hyper Protect Crypto Services
+
+For Key Management services, user can optionally use Hyper Protect Crypto Services. This instance will need to be created before creating the Secure Landing Zone.
+
+#### Hyper Crypto Service and Initialization
+
+##### Creating HPCS Using the IBM Cloud CLI
+
+To provision an instance of Hyper Protect Crypto Services IBM Cloud Console, complete the following steps:
+
+1. Log in to your [IBM Cloud account](https://cloud.ibm.com).
+2. (Optional) [Create a resource group](https://cloud.ibm.com/docs/account?topic=account-rgs&interface=ui) for your HPCS instance
+3. Click Catalog to view the list of services that are available on IBM Cloud.
+4. From the Catalog navigation pane, click Services. And then, under Category, select Security.
+5. From the list of services displayed, click the Hyper Protect Crypto Services tile.
+6. On the service page, select the pricing plan of choice.
+7. Fill in the form with the details that are required.
+
+##### Initializing HPCS
+
+To initialize the provisioned Hyper Protect Crypto Service instance, we recommend to follow the product docs to perform the quick initialization.
+
+[Hyper Protect Crypto Service Documentation](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-get-started)
+
+For proof of technology environments we recommend using the `auto-init` feature. [Auto Init Documentation](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-initialize-hsm-recovery-crypto-unit)
+
+
 ## Customizing your environment
 
 You can customize your environment with Secure Landing Zone in two ways: by using Terraform input variables and by using the `override.json` file.
