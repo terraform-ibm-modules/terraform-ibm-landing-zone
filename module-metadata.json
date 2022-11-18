@@ -6,9 +6,6 @@
       "type": "list(\n    object({\n      name        = string # Name of the group\n      description = string # Description of group\n      policies = list(\n        object({\n          name  = string       # Name of the policy\n          roles = list(string) # list of roles for the policy\n          resources = object({\n            resource_group       = optional(string) # Name of the resource group the policy will apply to\n            resource_type        = optional(string) # Name of the resource type for the policy ex. \"resource-group\"\n            resource             = optional(string) # The resource of the policy definition\n            service              = optional(string) # Name of the service type for the policy ex. \"cloud-object-storage\"\n            resource_instance_id = optional(string) # ID of a service instance to give permissions\n          })\n        })\n      )\n      dynamic_policies = optional(\n        list(\n          object({\n            name              = string # Dynamic group name\n            identity_provider = string # URI for identity provider\n            expiration        = number # How many hours authenticated users can work before refresh\n            conditions = object({\n              claim    = string # key value to evaluate the condition against.\n              operator = string # The operation to perform on the claim. Supported values are EQUALS, EQUALS_IGNORE_CASE, IN, NOT_EQUALS_IGNORE_CASE, NOT_EQUALS, and CONTAINS.\n              value    = string # Value to be compared agains\n            })\n          })\n        )\n      )\n      account_management_policies = optional(list(string))\n      invite_users                = optional(list(string)) # Users to invite to the access group\n    })\n  )",
       "description": "A list of access groups to create",
       "default": [],
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1116
@@ -19,10 +16,6 @@
       "type": "bool",
       "description": "add kms to block storage s2s authorization",
       "default": true,
-      "required": true,
-      "source": [
-        "module.dynamic_values.module.service_authorizations.module.kms_to_block_storage"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1534
@@ -35,11 +28,6 @@
       "default": {
         "use_appid": false
       },
-      "source": [
-        "data.ibm_resource_instance.appid.name",
-        "ibm_resource_key.appid_key.for_each",
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 873
@@ -50,9 +38,6 @@
       "type": "object({\n    resource_group        = string\n    receive_global_events = bool\n    collector_bucket_name = string\n    add_route             = bool\n  })",
       "description": "atracker variables",
       "required": true,
-      "source": [
-        "ibm_atracker_route.atracker_route.count"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 755
@@ -63,9 +48,6 @@
       "type": "list(\n    object({\n      name               = string           # Name of Cluster\n      vpc_name           = string           # Name of VPC\n      subnet_names       = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet = number           # Worker nodes per subnet.\n      machine_type       = string           # Worker node flavor\n      kube_type          = string           # iks or openshift\n      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `default`\n      entitlement        = optional(string) # entitlement option for openshift\n      pod_subnet         = optional(string) # Portable subnet for pods\n      service_subnet     = optional(string) # Portable subnet for services\n      resource_group     = string           # Resource Group used for cluster\n      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 771
@@ -76,9 +58,6 @@
       "type": "list(\n    object({\n      name           = string\n      use_data       = optional(bool)\n      resource_group = string\n      plan           = optional(string)\n      random_suffix  = optional(bool) # Use a random suffix for COS instance\n      buckets = list(object({\n        name                  = string\n        storage_class         = string\n        endpoint_type         = string\n        force_delete          = bool\n        single_site_location  = optional(string)\n        region_location       = optional(string)\n        cross_region_location = optional(string)\n        kms_key               = optional(string)\n        allowed_ip            = optional(list(string))\n        hard_quota            = optional(number)\n        archive_rule = optional(object({\n          days    = number\n          enable  = bool\n          rule_id = optional(string)\n          type    = string\n        }))\n        activity_tracking = optional(object({\n          activity_tracker_crn = string\n          read_data_events     = bool\n          write_data_events    = bool\n        }))\n        metrics_monitoring = optional(object({\n          metrics_monitoring_crn  = string\n          request_metrics_enabled = optional(bool)\n          usage_metrics_enabled   = optional(bool)\n        }))\n      }))\n      keys = optional(\n        list(object({\n          name        = string\n          role        = string\n          enable_HMAC = bool\n        }))\n      )\n\n    })\n  )",
       "description": "Object describing the cloud object storage instance, buckets, and keys. Set `use_data` to false to create instance",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 487
@@ -89,10 +68,6 @@
       "type": "bool",
       "description": "Create transit gateway",
       "default": true,
-      "source": [
-        "ibm_tg_connection.connection.for_each",
-        "ibm_tg_gateway.transit_gateway.count"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 203
@@ -106,9 +81,6 @@
         "license_type": "none"
       },
       "sensitive": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1380
@@ -119,9 +91,6 @@
       "type": "list(\n    object({\n      name                   = string\n      vpc_name               = string\n      primary_subnet_name    = string\n      secondary_subnet_names = list(string)\n      secondary_subnet_security_group_names = list(\n        object({\n          group_name     = string\n          interface_name = string\n        })\n      )\n      ssh_keys                        = list(string)\n      f5_image_name                   = string\n      machine_type                    = string\n      resource_group                  = optional(string)\n      enable_management_floating_ip   = optional(bool)\n      enable_external_floating_ip     = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      hostname                        = string\n      domain                          = string\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
       "description": "A list describing F5 VSI workloads to create",
       "default": [],
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1248
@@ -134,18 +103,6 @@
       "default": {
         "enable": false
       },
-      "source": [
-        "ibm_iam_account_settings.iam_account_settings.allowed_ip_addresses",
-        "ibm_iam_account_settings.iam_account_settings.count",
-        "ibm_iam_account_settings.iam_account_settings.if_match",
-        "ibm_iam_account_settings.iam_account_settings.include_history",
-        "ibm_iam_account_settings.iam_account_settings.max_sessions_per_identity",
-        "ibm_iam_account_settings.iam_account_settings.mfa",
-        "ibm_iam_account_settings.iam_account_settings.restrict_create_platform_apikey",
-        "ibm_iam_account_settings.iam_account_settings.restrict_create_service_id",
-        "ibm_iam_account_settings.iam_account_settings.session_expiration_in_seconds",
-        "ibm_iam_account_settings.iam_account_settings.session_invalidation_in_seconds"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1010
@@ -156,11 +113,6 @@
       "type": "object({\n    name           = string\n    resource_group = string\n    use_data       = optional(bool)\n    use_hs_crypto  = optional(bool)\n    keys = optional(\n      list(\n        object({\n          name            = string\n          root_key        = optional(bool)\n          payload         = optional(string)\n          key_ring        = optional(string) # Any key_ring added will be created\n          force_delete    = optional(bool)\n          endpoint        = optional(string) # can be public or private\n          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          policies = optional(\n            object({\n              rotation = optional(\n                object({\n                  interval_month = number\n                })\n              )\n              dual_auth_delete = optional(\n                object({\n                  enabled = bool\n                })\n              )\n            })\n          )\n        })\n      )\n    )\n  })",
       "description": "Key Protect instance variables",
       "required": true,
-      "source": [
-        "module.dynamic_values",
-        "module.key_management",
-        "module.key_management"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 710
@@ -171,9 +123,6 @@
       "type": "string",
       "description": "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning.",
       "default": "10.0.0.0/8",
-      "source": [
-        "module.vpc.module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 56
@@ -183,97 +132,27 @@
       "name": "prefix",
       "type": "string",
       "description": "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-      "default": "gcat-multizone-schematics",
       "required": true,
-      "source": [
-        "ibm_atracker_route.atracker_route.name",
-        "ibm_atracker_target.atracker_target.name",
-        "ibm_container_vpc_cluster.cluster.name",
-        "ibm_cos_bucket.buckets.bucket_name",
-        "ibm_iam_access_group_dynamic_rule.dynamic_rules.name",
-        "ibm_is_placement_group.placement_group.name",
-        "ibm_is_virtual_endpoint_gateway.endpoint_gateway.name",
-        "ibm_is_vpn_gateway.gateway.name",
-        "ibm_resource_instance.appid.name",
-        "ibm_resource_instance.cos.name",
-        "ibm_resource_key.appid_key.name",
-        "ibm_resource_key.key.name",
-        "ibm_scc_posture_collector.collector.name",
-        "ibm_scc_posture_scope.scc_scope.name",
-        "ibm_tg_connection.connection.name",
-        "ibm_tg_gateway.transit_gateway.name",
-        "module.bastion_host.ibm_is_lb.lb.name",
-        "module.bastion_host.ibm_is_lb_pool.pool.name",
-        "module.dynamic_values.module.access_group_object",
-        "module.dynamic_values.module.access_groups_with_invites_map",
-        "module.dynamic_values.module.access_policies",
-        "module.dynamic_values.module.appid",
-        "module.dynamic_values.module.bastion_vsi_map.module.composed_bastion_vsi_map",
-        "module.dynamic_values.module.bastion_vsi_map.module.vsi_subnets",
-        "module.dynamic_values.module.clusters.module.composed_cluster_map",
-        "module.dynamic_values.module.cos",
-        "module.dynamic_values.module.dynamic_rules",
-        "module.dynamic_values.module.f5.module.composed_f5_map",
-        "module.dynamic_values.module.f5.module.f5_primary_subnets",
-        "module.dynamic_values.module.flow_logs_map",
-        "module.dynamic_values.module.vpe",
-        "module.dynamic_values.module.vpn",
-        "module.dynamic_values.module.vsi.module.composed_vsi_map",
-        "module.dynamic_values.module.vsi.module.vsi_list_to_map",
-        "module.dynamic_values.module.worker_pools",
-        "module.f5_vsi.ibm_is_lb.lb.name",
-        "module.f5_vsi.ibm_is_lb_pool.pool.name",
-        "module.ssh_keys.ibm_is_ssh_key.ssh_key.name",
-        "module.vpc.ibm_is_network_acl.network_acl.name",
-        "module.vpc.ibm_is_public_gateway.gateway.name",
-        "module.vpc.ibm_is_vpc.vpc.name",
-        "module.vpc.ibm_is_vpc_routing_table.route_table.name",
-        "module.vpc.module.dynamic_values",
-        "module.vsi.ibm_is_lb.lb.name",
-        "module.vsi.ibm_is_lb_pool.pool.name"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 5
-      },
-      "immutable": true,
-      "options": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$}",
-      "min_length": 1,
-      "max_length": 1000,
-      "matches": "^[a-zA-Z0-9 -._:]+$",
-      "computed": true
+      }
     },
     "region": {
       "name": "region",
       "type": "string",
       "description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
       "required": true,
-      "source": [
-        "ibm_resource_instance.appid.location",
-        "ibm_resource_instance.secrets_manager.location",
-        "ibm_tg_gateway.transit_gateway.location",
-        "module.dynamic_values.module.f5",
-        "module.dynamic_values.module.vpe",
-        "module.key_management.ibm_resource_instance.kms.location",
-        "module.vpc.ibm_is_vpc_routing_table_route.routing_table_routes.zone",
-        "module.vpc.module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 15
-      },
-      "cloud_data_type": "region",
-      "immutable": true
+      }
     },
     "resource_groups": {
       "name": "resource_groups",
       "type": "list(\n    object({\n      name       = string\n      create     = optional(bool)\n      use_prefix = optional(bool)\n    })\n  )",
       "description": "Object describing resource groups to create or reference",
       "required": true,
-      "source": [
-        "data.ibm_resource_group.resource_groups.for_each",
-        "ibm_resource_group.resource_groups.for_each"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 33
@@ -286,13 +165,6 @@
       "default": {
         "use_secrets_manager": false
       },
-      "source": [
-        "ibm_resource_instance.secrets_manager.count",
-        "ibm_resource_instance.secrets_manager.name",
-        "ibm_resource_instance.secrets_manager.parameters",
-        "ibm_resource_instance.secrets_manager.resource_group_id",
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1426
@@ -305,15 +177,6 @@
       "default": {
         "enable_scc": false
       },
-      "source": [
-        "ibm_scc_account_settings.ibm_scc_account_settings_instance.count",
-        "ibm_scc_posture_collector.collector.count",
-        "ibm_scc_posture_collector.collector.description",
-        "ibm_scc_posture_collector.collector.is_public",
-        "ibm_scc_posture_scope.scc_scope.count",
-        "ibm_scc_posture_scope.scc_scope.credential_id",
-        "ibm_scc_posture_scope.scc_scope.description"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1442
@@ -324,9 +187,6 @@
       "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      resource_group = optional(string)\n      rules = list(\n        object({\n          name      = string\n          direction = string\n          source    = string\n          tcp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          udp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          icmp = optional(\n            object({\n              type = number\n              code = number\n            })\n          )\n        })\n      )\n    })\n  )",
       "description": "Security groups for VPC",
       "default": [],
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 370
@@ -345,11 +205,8 @@
     "ssh_keys": {
       "name": "ssh_keys",
       "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n    })\n  )",
-      "description": "SSH Keys to use for VSI Provision. If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`",
+      "description": "SSH Keys to use for VSI Provision. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 225
@@ -360,42 +217,9 @@
       "type": "list(string)",
       "description": "List of tags to apply to resources created by this module.",
       "default": [],
-      "source": [
-        "ibm_container_vpc_cluster.cluster.tags",
-        "ibm_iam_access_group.groups.tags",
-        "ibm_is_flow_log.flow_logs.tags",
-        "ibm_is_placement_group.placement_group.tags",
-        "ibm_is_security_group.security_group.tags",
-        "ibm_is_virtual_endpoint_gateway.endpoint_gateway.tags",
-        "ibm_is_vpn_gateway.gateway.tags",
-        "ibm_resource_group.resource_groups.tags",
-        "ibm_resource_instance.appid.tags",
-        "ibm_resource_instance.cos.tags",
-        "ibm_resource_instance.secrets_manager.tags",
-        "ibm_resource_key.appid_key.tags",
-        "ibm_resource_key.key.tags",
-        "module.ssh_keys.ibm_is_ssh_key.ssh_key.tags",
-        "module.vpc.ibm_is_public_gateway.gateway.tags",
-        "module.vpc.ibm_is_subnet.subnet.tags",
-        "module.vpc.ibm_is_vpc.vpc.tags",
-        "module.vsi.ibm_is_floating_ip.secondary_fip.tags",
-        "module.vsi.ibm_is_floating_ip.vsi_fip.tags",
-        "module.vsi.ibm_is_instance.vsi.tags",
-        "module.vsi.ibm_is_lb.lb.tags",
-        "module.vsi.ibm_is_security_group.security_group.tags",
-        "module.vsi.ibm_is_volume.volume.tags"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 20
-      },
-      "cloud_data_type": "tags",
-      "min_length": 1,
-      "max_length": 128,
-      "matches": "^[A-Za-z0-9:_ .-]+$",
-      "computed": true,
-      "elem": {
-        "type": "TypeString"
       }
     },
     "teleport_config_data": {
@@ -403,17 +227,6 @@
       "type": "object({\n    teleport_license   = optional(string)\n    https_cert         = optional(string)\n    https_key          = optional(string)\n    domain             = optional(string)\n    cos_bucket_name    = optional(string)\n    cos_key_name       = optional(string)\n    teleport_version   = optional(string)\n    message_of_the_day = optional(string)\n    hostname           = optional(string)\n    app_id_key_name    = optional(string)\n    claims_to_roles = optional(\n      list(\n        object({\n          email = string\n          roles = list(string)\n        })\n      )\n    )\n  })",
       "description": "Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive",
       "sensitive": true,
-      "source": [
-        "module.dynamic_values",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config",
-        "module.teleport_config"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 917
@@ -424,9 +237,6 @@
       "type": "list(\n    object(\n      {\n        name                            = string\n        vpc_name                        = string\n        resource_group                  = optional(string)\n        subnet_name                     = string\n        ssh_keys                        = list(string)\n        boot_volume_encryption_key_name = string\n        image_name                      = string\n        machine_type                    = string\n        security_groups                 = optional(list(string))\n        security_group = optional(\n          object({\n            name = string\n            rules = list(\n              object({\n                name      = string\n                direction = string\n                source    = string\n                tcp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                udp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                icmp = optional(\n                  object({\n                    type = number\n                    code = number\n                  })\n                )\n              })\n            )\n          })\n        )\n\n\n      }\n    )\n  )",
       "description": "A list of teleport vsi deployments",
       "default": [],
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 943
@@ -457,9 +267,6 @@
       "type": "list(\n    object({\n      service_name   = string\n      service_type   = string\n      resource_group = optional(string)\n      vpcs = list(\n        object({\n          name                = string\n          subnets             = list(string)\n          security_group_name = optional(string)\n        })\n      )\n    })\n  )",
       "description": "Object describing VPE to be created",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 462
@@ -470,9 +277,6 @@
       "type": "list(\n    object({\n      access_tags    = optional(list(string))\n      name           = string\n      resource_group = optional(string)\n      strategy       = string\n    })\n  )",
       "description": "List of VPC placement groups to create",
       "default": [],
-      "source": [
-        "module.placement_group_map"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 1502
@@ -483,9 +287,6 @@
       "type": "list(\n    object({\n      prefix                      = string           # VPC prefix\n      resource_group              = optional(string) # Name of the group where VPC will be created\n      use_manual_address_prefixes = optional(bool)\n      classic_access              = optional(bool)\n      default_network_acl_name    = optional(string)\n      default_security_group_name = optional(string)\n      default_security_group_rules = optional(\n        list(\n          object({\n            name      = string\n            direction = string\n            remote    = string\n            tcp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            udp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            icmp = optional(\n              object({\n                type = optional(number)\n                code = optional(number)\n              })\n            )\n          })\n        )\n      )\n      default_routing_table_name = optional(string)\n      flow_logs_bucket_name      = optional(string)\n      address_prefixes = optional(\n        object({\n          zone-1 = optional(list(string))\n          zone-2 = optional(list(string))\n          zone-3 = optional(list(string))\n        })\n      )\n      network_acls = list(\n        object({\n          name              = string\n          add_cluster_rules = optional(bool)\n          rules = list(\n            object({\n              name        = string\n              action      = string\n              destination = string\n              direction   = string\n              source      = string\n              tcp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              udp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              icmp = optional(\n                object({\n                  type = optional(number)\n                  code = optional(number)\n                })\n              )\n            })\n          )\n        })\n      )\n      use_public_gateways = object({\n        zone-1 = optional(bool)\n        zone-2 = optional(bool)\n        zone-3 = optional(bool)\n      })\n      subnets = object({\n        zone-1 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-2 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-3 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n      })\n    })\n  )",
       "description": "A map describing VPCs to be created in this repo.",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 62
@@ -496,9 +297,6 @@
       "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      subnet_name    = string # Do not include prefix, use same name as in `var.subnets`\n      mode           = optional(string)\n      resource_group = optional(string)\n      connections = list(\n        object({\n          peer_address   = string\n          preshared_key  = string\n          local_cidrs    = optional(list(string))\n          peer_cidrs     = optional(list(string))\n          admin_state_up = optional(bool)\n        })\n      )\n    })\n  )",
       "description": "List of VPN Gateways to create.",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 174
@@ -509,9 +307,6 @@
       "type": "list(\n    object({\n      name                            = string\n      vpc_name                        = string\n      subnet_names                    = list(string)\n      ssh_keys                        = list(string)\n      image_name                      = string\n      machine_type                    = string\n      vsi_per_subnet                  = number\n      user_data                       = optional(string)\n      resource_group                  = optional(string)\n      enable_floating_ip              = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
       "description": "A list describing VSI workloads to create",
       "required": true,
-      "source": [
-        "module.dynamic_values"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 258
@@ -522,9 +317,6 @@
       "type": "string",
       "description": "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`",
       "default": "IngressReady",
-      "source": [
-        "ibm_container_vpc_cluster.cluster.wait_till"
-      ],
       "pos": {
         "filename": "variables.tf",
         "line": 852
@@ -1332,242 +1124,8 @@
       "attributes": {
         "prefix": "prefix"
       },
-      "managed_resources": {
-        "ibm_is_floating_ip.secondary_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "secondary_fip",
-          "attributes": {
-            "for_each": "secondary_floating_ips",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 127
-          }
-        },
-        "ibm_is_floating_ip.vsi_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "vsi_fip",
-          "attributes": {
-            "for_each": "enable_floating_ip",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 120
-          }
-        },
-        "ibm_is_instance.vsi": {
-          "mode": "managed",
-          "type": "ibm_is_instance",
-          "name": "vsi",
-          "attributes": {
-            "image": "image_id",
-            "keys": "ssh_key_ids",
-            "profile": "machine_type",
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "user_data": "user_data",
-            "volumes": "block_storage_volumes",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 67
-          }
-        },
-        "ibm_is_lb.lb": {
-          "mode": "managed",
-          "type": "ibm_is_lb",
-          "name": "lb",
-          "attributes": {
-            "name": "prefix",
-            "resource_group": "resource_group_id",
-            "subnets": "subnets",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 12
-          }
-        },
-        "ibm_is_lb_listener.listener": {
-          "mode": "managed",
-          "type": "ibm_is_lb_listener",
-          "name": "listener",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 80
-          }
-        },
-        "ibm_is_lb_pool.pool": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool",
-          "name": "pool",
-          "attributes": {
-            "name": "prefix"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 29
-          }
-        },
-        "ibm_is_lb_pool_member.pool_members": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool_member",
-          "name": "pool_members",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 64
-          }
-        },
-        "ibm_is_security_group.security_group": {
-          "mode": "managed",
-          "type": "ibm_is_security_group",
-          "name": "security_group",
-          "attributes": {
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/security_group.tf",
-            "line": 26
-          }
-        },
-        "ibm_is_security_group_rule.security_group_rules": {
-          "mode": "managed",
-          "type": "ibm_is_security_group_rule",
-          "name": "security_group_rules",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/security_group.tf",
-            "line": 62
-          }
-        },
-        "ibm_is_volume.volume": {
-          "mode": "managed",
-          "type": "ibm_is_volume",
-          "name": "volume",
-          "attributes": {
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/storage.tf",
-            "line": 41
-          }
-        }
-      },
-      "data_resources": {
-        "data.ibm_is_vpc.vpc": {
-          "mode": "data",
-          "type": "ibm_is_vpc",
-          "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 54
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
-          "attributes": {
-            "depends_on": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 48
-          }
-        }
-      },
-      "outputs": {
-        "fip_list": {
-          "name": "fip_list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 33
-          }
-        },
-        "ids": {
-          "name": "ids",
-          "description": "The IDs of the VSI",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 5
-          }
-        },
-        "lb_hostnames": {
-          "name": "lb_hostnames",
-          "description": "Hostnames for the Load Balancer created",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 54
-          }
-        },
-        "lb_security_groups": {
-          "name": "lb_security_groups",
-          "description": "Load Balancer security groups",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 62
-          }
-        },
-        "list": {
-          "name": "list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 18
-          }
-        },
-        "vsi_security_group": {
-          "name": "vsi_security_group",
-          "description": "Security group for the VSI",
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 13
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "bastion_host.tf",
         "line": 43
@@ -1597,280 +1155,8 @@
         "vpn_gateways": "vpn_gateways",
         "vsi": "vsi"
       },
-      "managed_resources": {},
-      "data_resources": {},
-      "outputs": {
-        "access_groups_object": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.access_group_object.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 140
-          }
-        },
-        "access_groups_with_invites": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.account_management_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 160
-          }
-        },
-        "access_policies": {
-          "name": "value",
-          "description": "Map with merged keys",
-          "value": "module.access_policies.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 145
-          }
-        },
-        "account_management_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.account_management_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 155
-          }
-        },
-        "appid_redirect_urls": {
-          "name": "redirect_urls",
-          "description": "List of teleport appid redirect urls",
-          "value": "module.appid.redirect_urls",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 182
-          }
-        },
-        "bastion_vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.bastion_vsi_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 171
-          }
-        },
-        "bucket_to_instance_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.cos.bucket_to_instance_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 46
-          }
-        },
-        "clusters_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.clusters.map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 5
-          }
-        },
-        "cos_bucket_map": {
-          "name": "value",
-          "description": "Map with merged keys",
-          "value": "module.cos.cos_bucket_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 36
-          }
-        },
-        "cos_data_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.cos.cos_data_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 21
-          }
-        },
-        "cos_instance_ids": {
-          "name": "cos_instance_ids",
-          "description": "Map of cos ids",
-          "value": "module.cos.cos_instance_ids",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 31
-          }
-        },
-        "cos_key_map": {
-          "name": "value",
-          "description": "Map with merged keys",
-          "value": "module.cos.cos_key_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 41
-          }
-        },
-        "cos_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.cos.cos_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 26
-          }
-        },
-        "dynamic_rules": {
-          "name": "value",
-          "description": "Map with merged keys",
-          "value": "module.dynamic_rules.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 150
-          }
-        },
-        "f5_template_map": {
-          "name": "f5_template_map",
-          "description": "Map of template data for f5 deployments",
-          "value": "module.f5_cloud_init",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 219
-          }
-        },
-        "f5_vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.f5.f5_vsi_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 214
-          }
-        },
-        "flow_logs_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.flow_logs_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 57
-          }
-        },
-        "security_group_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.security_group_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 73
-          }
-        },
-        "security_group_rules_map": {
-          "name": "value",
-          "description": "Map with merged keys",
-          "value": "module.security_group_rules_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 78
-          }
-        },
-        "service_authorizations": {
-          "name": "authorizations",
-          "description": "Map of service authorizations",
-          "value": "module.service_authorizations.authorizations",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 89
-          }
-        },
-        "ssh_keys": {
-          "name": "ssh_key_list",
-          "description": "List of SSH keys with resource group added",
-          "value": "module.vsi.ssh_key_list",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 203
-          }
-        },
-        "vpc_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpc_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 62
-          }
-        },
-        "vpe_gateway_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpe.vpe_gateway_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 105
-          }
-        },
-        "vpe_services": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpe.vpe_services",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 100
-          }
-        },
-        "vpe_subnet_reserved_ip_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpe.vpe_subnet_reserved_ip_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 110
-          }
-        },
-        "vpn_connection_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpn.vpn_connection_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 128
-          }
-        },
-        "vpn_gateway_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpn.vpn_gateway_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 122
-          }
-        },
-        "vsi_images_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vsi.vsi_image_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 193
-          }
-        },
-        "vsi_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vsi.vsi_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 198
-          }
-        },
-        "worker_pools_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.worker_pools.map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 10
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "dynamic_values.tf",
         "line": 5
@@ -1882,242 +1168,8 @@
       "attributes": {
         "prefix": "prefix"
       },
-      "managed_resources": {
-        "ibm_is_floating_ip.secondary_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "secondary_fip",
-          "attributes": {
-            "for_each": "secondary_floating_ips",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 127
-          }
-        },
-        "ibm_is_floating_ip.vsi_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "vsi_fip",
-          "attributes": {
-            "for_each": "enable_floating_ip",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 120
-          }
-        },
-        "ibm_is_instance.vsi": {
-          "mode": "managed",
-          "type": "ibm_is_instance",
-          "name": "vsi",
-          "attributes": {
-            "image": "image_id",
-            "keys": "ssh_key_ids",
-            "profile": "machine_type",
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "user_data": "user_data",
-            "volumes": "block_storage_volumes",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 67
-          }
-        },
-        "ibm_is_lb.lb": {
-          "mode": "managed",
-          "type": "ibm_is_lb",
-          "name": "lb",
-          "attributes": {
-            "name": "prefix",
-            "resource_group": "resource_group_id",
-            "subnets": "subnets",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 12
-          }
-        },
-        "ibm_is_lb_listener.listener": {
-          "mode": "managed",
-          "type": "ibm_is_lb_listener",
-          "name": "listener",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 80
-          }
-        },
-        "ibm_is_lb_pool.pool": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool",
-          "name": "pool",
-          "attributes": {
-            "name": "prefix"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 29
-          }
-        },
-        "ibm_is_lb_pool_member.pool_members": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool_member",
-          "name": "pool_members",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 64
-          }
-        },
-        "ibm_is_security_group.security_group": {
-          "mode": "managed",
-          "type": "ibm_is_security_group",
-          "name": "security_group",
-          "attributes": {
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/security_group.tf",
-            "line": 26
-          }
-        },
-        "ibm_is_security_group_rule.security_group_rules": {
-          "mode": "managed",
-          "type": "ibm_is_security_group_rule",
-          "name": "security_group_rules",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/security_group.tf",
-            "line": 62
-          }
-        },
-        "ibm_is_volume.volume": {
-          "mode": "managed",
-          "type": "ibm_is_volume",
-          "name": "volume",
-          "attributes": {
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/storage.tf",
-            "line": 41
-          }
-        }
-      },
-      "data_resources": {
-        "data.ibm_is_vpc.vpc": {
-          "mode": "data",
-          "type": "ibm_is_vpc",
-          "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 54
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
-          "attributes": {
-            "depends_on": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 48
-          }
-        }
-      },
-      "outputs": {
-        "fip_list": {
-          "name": "fip_list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 33
-          }
-        },
-        "ids": {
-          "name": "ids",
-          "description": "The IDs of the VSI",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 5
-          }
-        },
-        "lb_hostnames": {
-          "name": "lb_hostnames",
-          "description": "Hostnames for the Load Balancer created",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 54
-          }
-        },
-        "lb_security_groups": {
-          "name": "lb_security_groups",
-          "description": "Load Balancer security groups",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 62
-          }
-        },
-        "list": {
-          "name": "list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 18
-          }
-        },
-        "vsi_security_group": {
-          "name": "vsi_security_group",
-          "description": "Security group for the VSI",
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 13
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "f5_vsi.tf",
         "line": 74
@@ -2131,148 +1183,8 @@
         "keys": "key_management",
         "region": "region"
       },
-      "managed_resources": {
-        "ibm_kms_key.key": {
-          "mode": "managed",
-          "type": "ibm_kms_key",
-          "name": "key",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 63
-          }
-        },
-        "ibm_kms_key_policies.key_policy": {
-          "mode": "managed",
-          "type": "ibm_kms_key_policies",
-          "name": "key_policy",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 83
-          }
-        },
-        "ibm_kms_key_rings.rings": {
-          "mode": "managed",
-          "type": "ibm_kms_key_rings",
-          "name": "rings",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 50
-          }
-        },
-        "ibm_resource_instance.kms": {
-          "mode": "managed",
-          "type": "ibm_resource_instance",
-          "name": "kms",
-          "attributes": {
-            "location": "region",
-            "name": "key_management",
-            "resource_group_id": "key_management",
-            "tags": "key_management"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 20
-          }
-        }
-      },
-      "data_resources": {
-        "data.ibm_resource_instance.hpcs_instance": {
-          "mode": "data",
-          "type": "ibm_resource_instance",
-          "name": "hpcs_instance",
-          "attributes": {
-            "name": "key_management",
-            "resource_group_id": "key_management"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 36
-          }
-        },
-        "data.ibm_resource_instance.kms": {
-          "mode": "data",
-          "type": "ibm_resource_instance",
-          "name": "kms",
-          "attributes": {
-            "name": "key_management",
-            "resource_group_id": "key_management"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "kms/main.tf",
-            "line": 30
-          }
-        }
-      },
-      "outputs": {
-        "key_management_crn": {
-          "name": "key_management_crn",
-          "description": "CRN for KMS instance",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 10
-          }
-        },
-        "key_management_guid": {
-          "name": "key_management_guid",
-          "description": "GUID for KMS instance",
-          "value": "local.key_management_guid",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 15
-          }
-        },
-        "key_management_name": {
-          "name": "key_management_name",
-          "description": "Name of key management service",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 5
-          }
-        },
-        "key_map": {
-          "name": "key_map",
-          "description": "Map of ids and keys for keys created",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 52
-          }
-        },
-        "key_rings": {
-          "name": "key_rings",
-          "description": "Key rings created by module",
-          "value": "ibm_kms_key_rings.rings",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 27
-          }
-        },
-        "keys": {
-          "name": "keys",
-          "description": "List of names and ids for keys created.",
-          "pos": {
-            "filename": "kms/outputs.tf",
-            "line": 39
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "services.tf",
         "line": 5
@@ -2284,18 +1196,8 @@
       "attributes": {
         "list": "vpc_placement_groups"
       },
-      "managed_resources": {},
-      "data_resources": {},
-      "outputs": {
-        "value": {
-          "name": "value",
-          "description": "List converted into map",
-          "pos": {
-            "filename": "dynamic_values/config_modules/list_to_map/list_to_map.tf",
-            "line": 40
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "vpc_placement_groups.tf",
         "line": 5
@@ -2308,60 +1210,8 @@
         "prefix": "prefix",
         "tags": "tags"
       },
-      "managed_resources": {
-        "ibm_is_ssh_key.ssh_key": {
-          "mode": "managed",
-          "type": "ibm_is_ssh_key",
-          "name": "ssh_key",
-          "attributes": {
-            "for_each": "ssh_keys",
-            "name": "prefix",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "ssh_key/main.tf",
-            "line": 5
-          }
-        }
-      },
-      "data_resources": {
-        "data.ibm_is_ssh_key.ssh_key": {
-          "mode": "data",
-          "type": "ibm_is_ssh_key",
-          "name": "ssh_key",
-          "attributes": {
-            "for_each": "ssh_keys"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "ssh_key/main.tf",
-            "line": 23
-          }
-        }
-      },
-      "outputs": {
-        "ssh_key_map": {
-          "name": "ssh_key_map",
-          "description": "map of ssh keys",
-          "pos": {
-            "filename": "ssh_key/outputs.tf",
-            "line": 31
-          }
-        },
-        "ssh_keys": {
-          "name": "ssh_keys",
-          "description": "List of SSH keys from this module.",
-          "pos": {
-            "filename": "ssh_key/outputs.tf",
-            "line": 5
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "virtual_servers.tf",
         "line": 17
@@ -2380,19 +1230,8 @@
         "teleport_licence": "teleport_config_data",
         "teleport_version": "teleport_config_data"
       },
-      "managed_resources": {},
-      "data_resources": {},
-      "outputs": {
-        "cloud_init": {
-          "name": "cloud_init",
-          "description": "Description of my output",
-          "value": "local.user_data",
-          "pos": {
-            "filename": "teleport_config/outputs.tf",
-            "line": 5
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "bastion_host.tf",
         "line": 16
@@ -2407,224 +1246,8 @@
         "region": "region",
         "tags": "tags"
       },
-      "managed_resources": {
-        "ibm_is_network_acl.network_acl": {
-          "mode": "managed",
-          "type": "ibm_is_network_acl",
-          "name": "network_acl",
-          "attributes": {
-            "name": "prefix",
-            "resource_group": "resource_group_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 121
-          }
-        },
-        "ibm_is_public_gateway.gateway": {
-          "mode": "managed",
-          "type": "ibm_is_public_gateway",
-          "name": "gateway",
-          "attributes": {
-            "name": "prefix",
-            "resource_group": "resource_group_id",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 81
-          }
-        },
-        "ibm_is_security_group_rule.default_vpc_rule": {
-          "mode": "managed",
-          "type": "ibm_is_security_group_rule",
-          "name": "default_vpc_rule",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/default_security_group.tf",
-            "line": 13
-          }
-        },
-        "ibm_is_subnet.subnet": {
-          "mode": "managed",
-          "type": "ibm_is_subnet",
-          "name": "subnet",
-          "attributes": {
-            "resource_group": "resource_group_id",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/subnet.tf",
-            "line": 32
-          }
-        },
-        "ibm_is_vpc.vpc": {
-          "mode": "managed",
-          "type": "ibm_is_vpc",
-          "name": "vpc",
-          "attributes": {
-            "address_prefix_management": "use_manual_address_prefixes",
-            "classic_access": "classic_access",
-            "default_network_acl_name": "default_network_acl_name",
-            "default_routing_table_name": "default_routing_table_name",
-            "default_security_group_name": "default_security_group_name",
-            "name": "prefix",
-            "resource_group": "resource_group_id",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 5
-          }
-        },
-        "ibm_is_vpc_address_prefix.address_prefixes": {
-          "mode": "managed",
-          "type": "ibm_is_vpc_address_prefix",
-          "name": "address_prefixes",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 31
-          }
-        },
-        "ibm_is_vpc_address_prefix.subnet_prefix": {
-          "mode": "managed",
-          "type": "ibm_is_vpc_address_prefix",
-          "name": "subnet_prefix",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/subnet.tf",
-            "line": 16
-          }
-        },
-        "ibm_is_vpc_routing_table.route_table": {
-          "mode": "managed",
-          "type": "ibm_is_vpc_routing_table",
-          "name": "route_table",
-          "attributes": {
-            "name": "prefix"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 46
-          }
-        },
-        "ibm_is_vpc_routing_table_route.routing_table_routes": {
-          "mode": "managed",
-          "type": "ibm_is_vpc_routing_table_route",
-          "name": "routing_table_routes",
-          "attributes": {
-            "zone": "region"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 55
-          }
-        }
-      },
-      "data_resources": {},
-      "outputs": {
-        "network_acls": {
-          "name": "network_acls",
-          "description": "List of shortnames and IDs of network ACLs",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 87
-          }
-        },
-        "public_gateways": {
-          "name": "public_gateways",
-          "description": "Map of public gateways by zone",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 26
-          }
-        },
-        "subnet_detail_list": {
-          "name": "subnet_detail_list",
-          "description": "A list of subnets containing names, CIDR blocks, and zones.",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 52
-          }
-        },
-        "subnet_ids": {
-          "name": "subnet_ids",
-          "description": "The IDs of the subnets",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 44
-          }
-        },
-        "subnet_zone_list": {
-          "name": "subnet_zone_list",
-          "description": "A list containing subnet IDs and subnet zones",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 69
-          }
-        },
-        "vpc_crn": {
-          "name": "vpc_crn",
-          "description": "CRN of VPC created",
-          "value": "ibm_is_vpc.vpc.crn",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 15
-          },
-          "type": "TypeString",
-          "cloud_data_type": "crn"
-        },
-        "vpc_id": {
-          "name": "vpc_id",
-          "description": "ID of VPC created",
-          "value": "ibm_is_vpc.vpc.id",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 10
-          },
-          "type": "TypeString",
-          "cloud_data_type": "is",
-          "cloud_data_range": [
-            "service:vpc",
-            "resolved_to:id"
-          ]
-        },
-        "vpc_name": {
-          "name": "vpc_name",
-          "description": "Name of VPC created",
-          "value": "ibm_is_vpc.vpc.name",
-          "pos": {
-            "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 5
-          },
-          "type": "TypeString"
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 10
@@ -2637,242 +1260,8 @@
         "prefix": "prefix",
         "tags": "tags"
       },
-      "managed_resources": {
-        "ibm_is_floating_ip.secondary_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "secondary_fip",
-          "attributes": {
-            "for_each": "secondary_floating_ips",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 127
-          }
-        },
-        "ibm_is_floating_ip.vsi_fip": {
-          "mode": "managed",
-          "type": "ibm_is_floating_ip",
-          "name": "vsi_fip",
-          "attributes": {
-            "for_each": "enable_floating_ip",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 120
-          }
-        },
-        "ibm_is_instance.vsi": {
-          "mode": "managed",
-          "type": "ibm_is_instance",
-          "name": "vsi",
-          "attributes": {
-            "image": "image_id",
-            "keys": "ssh_key_ids",
-            "profile": "machine_type",
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "user_data": "user_data",
-            "volumes": "block_storage_volumes",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 67
-          }
-        },
-        "ibm_is_lb.lb": {
-          "mode": "managed",
-          "type": "ibm_is_lb",
-          "name": "lb",
-          "attributes": {
-            "name": "prefix",
-            "resource_group": "resource_group_id",
-            "subnets": "subnets",
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 12
-          }
-        },
-        "ibm_is_lb_listener.listener": {
-          "mode": "managed",
-          "type": "ibm_is_lb_listener",
-          "name": "listener",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 80
-          }
-        },
-        "ibm_is_lb_pool.pool": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool",
-          "name": "pool",
-          "attributes": {
-            "name": "prefix"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 29
-          }
-        },
-        "ibm_is_lb_pool_member.pool_members": {
-          "mode": "managed",
-          "type": "ibm_is_lb_pool_member",
-          "name": "pool_members",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 64
-          }
-        },
-        "ibm_is_security_group.security_group": {
-          "mode": "managed",
-          "type": "ibm_is_security_group",
-          "name": "security_group",
-          "attributes": {
-            "resource_group": "resource_group_id",
-            "tags": "tags",
-            "vpc": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/security_group.tf",
-            "line": 26
-          }
-        },
-        "ibm_is_security_group_rule.security_group_rules": {
-          "mode": "managed",
-          "type": "ibm_is_security_group_rule",
-          "name": "security_group_rules",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/security_group.tf",
-            "line": 62
-          }
-        },
-        "ibm_is_volume.volume": {
-          "mode": "managed",
-          "type": "ibm_is_volume",
-          "name": "volume",
-          "attributes": {
-            "tags": "tags"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/storage.tf",
-            "line": 41
-          }
-        }
-      },
-      "data_resources": {
-        "data.ibm_is_vpc.vpc": {
-          "mode": "data",
-          "type": "ibm_is_vpc",
-          "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 54
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
-          "attributes": {
-            "depends_on": "vpc_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 48
-          }
-        }
-      },
-      "outputs": {
-        "fip_list": {
-          "name": "fip_list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 33
-          }
-        },
-        "ids": {
-          "name": "ids",
-          "description": "The IDs of the VSI",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 5
-          }
-        },
-        "lb_hostnames": {
-          "name": "lb_hostnames",
-          "description": "Hostnames for the Load Balancer created",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 54
-          }
-        },
-        "lb_security_groups": {
-          "name": "lb_security_groups",
-          "description": "Load Balancer security groups",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 62
-          }
-        },
-        "list": {
-          "name": "list",
-          "description": "A list of VSI with name, id, zone, and primary ipv4 address",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 18
-          }
-        },
-        "vsi_security_group": {
-          "name": "vsi_security_group",
-          "description": "Security group for the VSI",
-          "pos": {
-            "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 13
-          }
-        }
-      },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "virtual_servers.tf",
         "line": 42
