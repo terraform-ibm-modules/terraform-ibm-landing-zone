@@ -1328,7 +1328,7 @@
   "module_calls": {
     "bastion_host": {
       "name": "bastion_host",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.4",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.5",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1878,7 +1878,7 @@
     },
     "f5_vsi": {
       "name": "f5_vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.4",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.5",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2632,7 +2632,7 @@
     },
     "vsi": {
       "name": "vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.4",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v1.1.5",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
