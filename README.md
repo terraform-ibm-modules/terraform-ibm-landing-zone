@@ -859,7 +859,7 @@ statement instead the previous block.
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v2.3.2 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v2.3.3 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v1.1.5 |
 
 ## Resources
