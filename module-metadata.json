@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1116
+        "line": 1095
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1534
+        "line": 1513
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 873
+        "line": 852
       }
     },
     "atracker": {
@@ -55,7 +55,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 755
+        "line": 734
       }
     },
     "clusters": {
@@ -68,7 +68,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 771
+        "line": 750
       }
     },
     "cos": {
@@ -81,7 +81,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 487
+        "line": 466
       }
     },
     "enable_transit_gateway": {
@@ -111,7 +111,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1380
+        "line": 1359
       }
     },
     "f5_vsi": {
@@ -124,7 +124,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1248
+        "line": 1227
       }
     },
     "iam_account_settings": {
@@ -148,7 +148,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1010
+        "line": 989
       }
     },
     "key_management": {
@@ -163,7 +163,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 710
+        "line": 689
       }
     },
     "network_cidr": {
@@ -295,7 +295,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1426
+        "line": 1405
       }
     },
     "security_compliance_center": {
@@ -316,7 +316,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1442
+        "line": 1421
       }
     },
     "security_groups": {
@@ -339,7 +339,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 699
+        "line": 678
       }
     },
     "ssh_keys": {
@@ -416,7 +416,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 917
+        "line": 896
       }
     },
     "teleport_vsi": {
@@ -429,7 +429,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 943
+        "line": 922
       }
     },
     "transit_gateway_connections": {
@@ -462,7 +462,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 462
+        "line": 441
       }
     },
     "vpc_placement_groups": {
@@ -475,7 +475,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1502
+        "line": 1481
       }
     },
     "vpcs": {
@@ -527,7 +527,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 852
+        "line": 831
       }
     }
   },
