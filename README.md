@@ -76,7 +76,7 @@ For Key Management services, you can use IBM Cloud Hyper Protect Crypto Services
 
 1.  Initialize Hyper Protect Crypto Services:
 
-    To initialize the provisioned Hyper Protect Crypto Service instance, follow the steps in [Getting started with IBM Cloud Hyper Protect Crypto Services](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-get-started) and perform the quick initialization.
+    To initialize the provisioned Hyper Protect Crypto Service instance, follow the steps in [Getting started with IBM Cloud Hyper Protect Crypto Services](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-get-started).
 
     For proof-of-technology environments, use the `auto-init` flag. For more information, see [Initializing service instances using recovery crypto units](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-initialize-hsm-recovery-crypto-unit).
 
