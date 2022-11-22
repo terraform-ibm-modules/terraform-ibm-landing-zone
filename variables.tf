@@ -223,7 +223,7 @@ variable "transit_gateway_connections" {
 ##############################################################################
 
 variable "ssh_keys" {
-  description = "SSH Keys to use for VSI Provision. If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`"
+  description = "SSH Keys to use for VSI Provision. Must be RSA keys with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`"
   type = list(
     object({
       name           = string
