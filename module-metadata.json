@@ -345,7 +345,7 @@
     "ssh_keys": {
       "name": "ssh_keys",
       "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n    })\n  )",
-      "description": "SSH Keys to use for VSI Provision. Must be RSA keys with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`",
+      "description": "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
       "required": true,
       "source": [
         "module.dynamic_values"
