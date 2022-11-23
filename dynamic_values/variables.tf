@@ -29,7 +29,7 @@ variable "vsi" {
 }
 
 variable "ssh_keys" {
-  description = "Direct reference to SSH Keys"
+  description = "Direct reference to SSH keys"
 }
 
 ##############################################################################
@@ -39,7 +39,7 @@ variable "ssh_keys" {
 ##############################################################################
 
 variable "vpc_modules" {
-  description = "Direct reference to VPC Modules"
+  description = "Direct reference to VPC modules"
 }
 
 variable "vpcs" {

@@ -662,7 +662,7 @@
     },
     "ssh_key_names": {
       "name": "ssh_key_names",
-      "description": "List of SSH Key names",
+      "description": "List of SSH key names",
       "pos": {
         "filename": "outputs.tf",
         "line": 202
