@@ -200,7 +200,7 @@ output "service_authorization_names" {
 ##############################################################################
 
 output "ssh_key_names" {
-  description = "List of SSH Key names"
+  description = "List of SSH key names"
   value       = module.ssh_keys.ssh_keys[*].name
 }
 

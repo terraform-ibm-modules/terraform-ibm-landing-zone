@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "ssh_keys" {
-  description = "Direct reference to SSH Keys"
+  description = "Direct reference to SSH keys"
 }
 
 ##############################################################################
