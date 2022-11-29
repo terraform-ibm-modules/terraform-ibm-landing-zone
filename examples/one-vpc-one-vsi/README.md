@@ -14,8 +14,8 @@ An example showing how the landing-zone module can be used to create a basic, mi
    - Open Security Groups
 
 This example also create the minimum encryption and audit infrastructure:
-- Key protect instance and key used to encrypted the VSI volume
-- Activity Tracker infrastructure (encrypted COS bucket storing audit logs, and activity tracker route)
+- Key protect instance and key used to encrypted the VSI boot volume
+- Activity Tracker infrastructure (activity tracker route to an encrypted COS bucket storing audit events)
 
 :exclamation: **Important:** This example shows an example of basic topology. The topology is not highly available or validated for the IBM Cloud Framework for Financial Services.
 
