@@ -20,7 +20,7 @@ variable "tags" {
 }
 
 variable "ssh_keys" {
-  description = "SSH Keys to use for VSI Provision. If `public_key` is not provided, the named key will be looked up from data."
+  description = "SSH keys to use to provision a VSI. If `public_key` is not provided, the named key will be looked up from data. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type = list(
     object({
       name              = string
