@@ -1,17 +1,10 @@
 # No compute example
 
-This example shows how the landing-zone module can be used to create the networking infrastructure (VPC) without any compute resource (no VSI, nor OpenShift cluster).
+This example shows how the landing-zone module can be used to create a networking infrastructure layer, without any compute resource (no VSI, nor OpenShift cluster).
 
-This example can be used as a starting point where landing-zone lays out the network layers, and where other modules deploy compute resources on top of it.
+This example deploys all of the network components and associated compliance services defined in the [mixed](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/mixed) pattern - but does not deploy ANY compute resource (no VSI, nor any OpenShift cluster).
 
-This examples creates one single VPC:
-  - Named "management" in this example
-  - With 3 subnets across the 3 availability zone to host VSIs
-  - Default, open network ACLs
-
-This example also create the minimum encryption and audit infrastructure:
-- Key protect instance and key used to encrypted the VSI boot volume
-- Activity Tracker infrastructure (activity tracker route to an encrypted COS bucket storing audit events)
+This network layer can be used as a base upon which compute resources are deployed, possibly through separate terraform modules. As such, this examples provides a base to a modular solution.
 
 Example usage:
 ```
