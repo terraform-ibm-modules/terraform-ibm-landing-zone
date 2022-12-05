@@ -1,4 +1,4 @@
-# Basic, barebone topology
+# One VPC, with one VSI
 
 This example can be used as a starting point to incrementally add more capabilities, as part of a Proof of Concept for instance.
 
