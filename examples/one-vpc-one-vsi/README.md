@@ -2,7 +2,7 @@
 
 You can use this example as a starting point to add capabilities incrementally. For example, adding features as part of a proof of concept.
 
-An example showing how the landing-zone module can be used to create a basic, minimal topology by using an `override.json` file:
+The examples shows how you can use the landing zone module to create a basic, minimal topology by using an `override.json` file.
 1. One single VPC:
    - Named "management" in this example
    - 3 subnets across the 3 availability zone to host VSIs
