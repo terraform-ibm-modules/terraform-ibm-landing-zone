@@ -1,6 +1,6 @@
 # One VPC with one VSI
 
-This example can be used as a starting point to incrementally add more capabilities, as part of a Proof of Concept for instance.
+You can use this example as a starting point to add capabilities incrementally. For example, adding features as part of a proof of concept.
 
 An example showing how the landing-zone module can be used to create a basic, minimal topology by using an `override.json` file:
 1. One single VPC:
