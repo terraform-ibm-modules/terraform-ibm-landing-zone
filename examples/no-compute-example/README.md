@@ -7,7 +7,7 @@ The example deploys all the network components and associated compliance service
 This example provides a base to a modular solution because you can use this network layer as a base on which the compute resources are deployed, possibly through separate Terraform modules.
 
 Example usage:
-```
+```bash
 export TF_VAR_ibmcloud_api_key=<your api key> # pragma: allowlist secret
 terraform apply -var=ssh_key='ssh-rsa ...' -var=region=eu-gb -var=prefix=my_slz
 ```
