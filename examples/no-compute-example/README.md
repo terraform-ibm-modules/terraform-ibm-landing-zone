@@ -1,6 +1,6 @@
 # No compute example
 
-This example shows how the landing-zone module can be used to create a networking infrastructure layer, without any compute resource (no VSI, nor OpenShift cluster).
+This example shows how you can use the landing zone module to create a networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster).
 
 This example deploys all of the network components and associated compliance services defined in the [mixed](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/mixed) pattern - but does not deploy ANY compute resource (no VSI, nor any OpenShift cluster).
 
