@@ -4,7 +4,7 @@ This example shows how you can use the landing zone module to create a networkin
 
 The example deploys all the network components and associated compliance services that are defined in the [mixed](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/mixed) pattern, but does not deploy any compute resource (no VSI or any OpenShift cluster).
 
-This network layer can be used as a base upon which compute resources are deployed, possibly through separate terraform modules. As such, this examples provides a base to a modular solution.
+This example provides a base to a modular solution because you can use this network layer as a base on which the compute resources are deployed, possibly through separate Terraform modules.
 
 Example usage:
 ```
