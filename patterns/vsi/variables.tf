@@ -487,29 +487,6 @@ variable "scc_cred_name" {
   }
 }
 
-variable "scc_group_id" {
-  description = "Group ID of SCC Credential"
-  type        = string
-  default     = null
-
-  validation {
-    error_message = "SCC Credential Group ID must only contain numbers. Group ID must be 50 or fewer characters."
-    condition     = var.scc_group_id == null ? true : can(regex("^[0-9]*$", var.scc_group_id)) && length(var.scc_group_id) <= 50
-  }
-}
-
-variable "scc_group_passphrase" {
-  description = "Group Passphrase of SCC Credential"
-  type        = string
-  sensitive   = true
-  default     = null
-
-  validation {
-    error_message = "SCC Credential Group passphrase must be 255 or fewer characters."
-    condition     = var.scc_group_passphrase == null ? true : can(regex("^[a-zA-Z0-9-\\.\\*,_\\s]*$", var.scc_group_passphrase)) && length(var.scc_group_passphrase) <= 255
-  }
-}
-
 variable "scc_cred_description" {
   description = "Description of SCC Credential"
   type        = string
