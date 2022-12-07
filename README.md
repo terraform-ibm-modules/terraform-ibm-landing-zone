@@ -878,7 +878,7 @@ statement instead the previous block.
 
 - [ Basic example](examples/basic)
 - [ No compute example](examples/no-compute-example)
-- [ One VPC, with one VSI](examples/one-vpc-one-vsi)
+- [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
 - [ Quick start example](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
