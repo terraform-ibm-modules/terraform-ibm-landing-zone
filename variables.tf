@@ -1424,7 +1424,6 @@ variable "security_compliance_center" {
     enable_scc            = bool
     location_id           = optional(string)
     is_public             = optional(bool)
-    collector_passphrase  = optional(string)
     collector_description = optional(string)
     credential_id         = optional(string)
     scope_name            = optional(string)

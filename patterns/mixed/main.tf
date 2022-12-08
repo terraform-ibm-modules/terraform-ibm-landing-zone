@@ -67,10 +67,6 @@ resource "ibm_scc_posture_credential" "credentials" {
     ibm_api_key = var.ibmcloud_api_key
   }
   enabled = true
-  group {
-    id         = var.scc_group_id
-    passphrase = var.scc_group_passphrase
-  }
   name    = var.scc_cred_name
   purpose = "discovery_fact_collection_remediation"
   type    = "ibm_cloud"
