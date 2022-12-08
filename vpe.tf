@@ -15,11 +15,13 @@ locals {
 ##############################################################################
 
 resource "ibm_is_subnet_reserved_ip" "ip" {
-  for_each = local.reserved_ip_map
-  subnet   = each.value.id
+  for_each   = local.reserved_ip_map
+  subnet     = each.value.id
+  depends_on = [module.vpc]
 }
 
 resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
+  depends_on      = [ibm_is_subnet_reserved_ip.ip]
   for_each        = local.vpe_gateway_map
   name            = "${var.prefix}-${each.key}"
   vpc             = each.value.vpc_id
