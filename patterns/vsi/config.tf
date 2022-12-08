@@ -235,7 +235,6 @@ locals {
       enable_scc            = var.enable_scc
       is_public             = false
       location_id           = lookup(local.scc_region_map, var.region)
-      collector_passphrase  = var.scc_group_passphrase
       collector_description = var.scc_collector_description
       scope_name            = var.scc_scope_name
       scope_description     = var.scc_scope_description
