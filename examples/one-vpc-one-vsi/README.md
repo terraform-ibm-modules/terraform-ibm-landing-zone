@@ -1,21 +1,21 @@
-# One VPC, with one VSI
+# One VPC with one VSI
 
-This example can be used as a starting point to incrementally add more capabilities, as part of a Proof of Concept for instance.
+You can use this example as a starting point to add capabilities incrementally. For example, adding features as part of a proof of concept.
 
-An example showing how the landing-zone module can be used to create a basic, minimal topology by using an `override.json` file:
-1. One single VPC:
-   - Named "management" in this example
-   - 3 subnets across the 3 availability zone to host VSIs
+The examples shows how you can use the landing zone module to create a basic, minimal topology by using an `override.json` file.
+1. A single VPC:
+   - Named `management` in this example
+   - Includes three subnets across the three availability zone to host VSIs
    - Default, open network ACLs
 2. One single VSI:
    - Named 'jump-box' in this example
    - Located in one of the 'vsi' subnets of the VPC
-   - Publicly exposed via a floating IP.
-   - Open Security Groups
+   - Publicly exposed via a floating IP address.
+   - Open security groups
 
-This example also create the minimum encryption and audit infrastructure:
-- Key protect instance and key used to encrypted the VSI boot volume
-- Activity Tracker infrastructure (activity tracker route to an encrypted COS bucket storing audit events)
+This example also creates the minimum encryption and audit infrastructure.
+- A Key Protect instance and key that is used to encrypt the VSI boot volume
+- The Activity Tracker infrastructure (Activity Tracker route to an encrypted COS bucket that stores audit events)
 
 :exclamation: **Important:** This example shows an example of basic topology. The topology is not highly available or validated for the IBM Cloud Framework for Financial Services.
 
