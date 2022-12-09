@@ -102,7 +102,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-r")
+	options := setupOptionsRoksPattern(t, "r-no")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -112,7 +112,7 @@ func TestRunRoksPattern(t *testing.T) {
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-roks-ug")
+	options := setupOptionsRoksPattern(t, "r-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
