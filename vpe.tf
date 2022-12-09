@@ -33,10 +33,6 @@ resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
     crn           = each.value.crn
     resource_type = "provider_cloud_service"
   }
-
-  timeouts = {
-    destroy = "2h"
-  }
 }
 
 resource "ibm_is_virtual_endpoint_gateway_ip" "endpoint_gateway_ip" {
