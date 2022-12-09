@@ -22,7 +22,7 @@ resource "ibm_is_security_group" "security_group" {
   tags           = var.tags
 
   timeouts = {
-    destroy = "2h"
+    delete = "2h"
   }
 }
 
