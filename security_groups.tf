@@ -21,7 +21,7 @@ resource "ibm_is_security_group" "security_group" {
   vpc            = each.value.vpc_id
   tags           = var.tags
 
-  timeouts = {
+  timeouts {
     delete = "2h"
   }
 }
