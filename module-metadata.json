@@ -25,11 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-<<<<<<< HEAD
         "line": 1516
-=======
-        "line": 1517
->>>>>>> 4236f6e (feat: update module metadata)
       }
     },
     "appid": {
@@ -479,11 +475,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-<<<<<<< HEAD
         "line": 1484
-=======
-        "line": 1485
->>>>>>> 4236f6e (feat: update module metadata)
       }
     },
     "vpcs": {
