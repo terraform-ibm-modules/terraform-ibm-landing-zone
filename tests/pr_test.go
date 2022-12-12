@@ -109,14 +109,24 @@ func TestRunRoksPattern(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeRoksPattern(t *testing.T) {
+func TestRunRoksPattern2(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-ug")
+	options := setupOptionsRoksPattern(t, "r-no2")
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
+
+// func TestRunUpgradeRoksPattern(t *testing.T) {
+// 	t.Parallel()
+
+// 	options := setupOptionsRoksPattern(t, "r-ug")
+
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }
