@@ -987,7 +987,7 @@
       },
       "pos": {
         "filename": "security_groups.tf",
-        "line": 32
+        "line": 36
       }
     },
     "ibm_is_subnet_reserved_ip.ip": {
