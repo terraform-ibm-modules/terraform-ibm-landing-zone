@@ -93,7 +93,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"ssh_public_key": sshPublicKey,
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
-		"region":         options.Region,
+		"region":         "eu-de",
 	}
 
 	return options
