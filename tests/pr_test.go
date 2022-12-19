@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"testing"
 
@@ -19,6 +20,7 @@ const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
 func sshPublicKey(t *testing.T) string {
+	os.Setenv("TF_LOG", "trace")
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
 	actualTerraformDir := "./resources"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
@@ -94,7 +96,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
 		"region":         options.Region,
-		"TF_LOG":         "trace",
 	}
 
 	return options
