@@ -1,14 +1,11 @@
 package test
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
@@ -152,30 +149,30 @@ func TestRunRoksPattern2(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunRoksPatternPrintLogs(t *testing.T) {
-	t.Parallel()
-	for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
-		time.Sleep(60 * time.Second)
-		fmt.Println("******* Logs not ready yet **********")
-	}
+// func TestRunRoksPatternPrintLogs(t *testing.T) {
+// 	t.Parallel()
+// 	for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
+// 		time.Sleep(60 * time.Second)
+// 		fmt.Println("******* Logs not ready yet **********")
+// 	}
 
-	fmt.Println("******* Print Logs **********")
-	file, err := os.Open(complete)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer func() {
-		if err = file.Close(); err != nil {
-			log.Fatal(err)
-		}
-	}()
+// 	fmt.Println("******* Print Logs **********")
+// 	file, err := os.Open(complete)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer func() {
+// 		if err = file.Close(); err != nil {
+// 			log.Fatal(err)
+// 		}
+// 	}()
 
-	scanner := bufio.NewScanner(file)
+// 	scanner := bufio.NewScanner(file)
 
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-	}
-}
+// 	for scanner.Scan() {
+// 		fmt.Println(scanner.Text())
+// 	}
+// }
 
 // func TestRunUpgradeRoksPattern(t *testing.T) {
 // 	t.Parallel()
