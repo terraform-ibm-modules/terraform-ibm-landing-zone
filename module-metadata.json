@@ -1015,7 +1015,7 @@
       },
       "pos": {
         "filename": "vpe.tf",
-        "line": 26
+        "line": 22
       }
     },
     "ibm_is_virtual_endpoint_gateway_ip.endpoint_gateway_ip": {
@@ -1027,7 +1027,7 @@
       },
       "pos": {
         "filename": "vpe.tf",
-        "line": 44
+        "line": 37
       }
     },
     "ibm_is_vpn_gateway.gateway": {

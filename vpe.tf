@@ -17,10 +17,6 @@ locals {
 resource "ibm_is_subnet_reserved_ip" "ip" {
   for_each = local.reserved_ip_map
   subnet   = each.value.id
-
-  timeouts {
-    delete = "2h"
-  }
 }
 
 resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
@@ -36,9 +32,6 @@ resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
     resource_type = "provider_cloud_service"
   }
 
-  timeouts {
-    delete = "2h"
-  }
 }
 
 resource "ibm_is_virtual_endpoint_gateway_ip" "endpoint_gateway_ip" {
