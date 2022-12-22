@@ -179,7 +179,7 @@ func TestRunRoksPatternPrintLogs(t *testing.T) {
 	client := s3.New(sess, conf)
 
 	bucketName := "conall-49-cos-cos-standard-uja"
-	key := "TF_logs_4.log"
+	key := "TF_logs_5.log"
 
 	file, err := os.Open(complete)
 	fmt.Println(err)
