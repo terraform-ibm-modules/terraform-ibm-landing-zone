@@ -1027,7 +1027,7 @@
       },
       "pos": {
         "filename": "vpe.tf",
-        "line": 37
+        "line": 40
       }
     },
     "ibm_is_vpn_gateway.gateway": {

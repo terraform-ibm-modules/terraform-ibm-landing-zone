@@ -20,6 +20,9 @@ resource "ibm_is_subnet_reserved_ip" "ip" {
 }
 
 resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
+  depends_on = [
+    ibm_is_security_group.security_group
+  ]
   for_each        = local.vpe_gateway_map
   name            = "${var.prefix}-${each.key}"
   vpc             = each.value.vpc_id
