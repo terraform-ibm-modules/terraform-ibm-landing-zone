@@ -20,9 +20,6 @@ resource "ibm_is_subnet_reserved_ip" "ip" {
 }
 
 resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
-  depends_on = [
-    ibm_is_security_group.security_group
-  ]
   for_each        = local.vpe_gateway_map
   name            = "${var.prefix}-${each.key}"
   vpc             = each.value.vpc_id
@@ -35,6 +32,13 @@ resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
     resource_type = "provider_cloud_service"
   }
 
+  depends_on = [time_sleep.wait_30_seconds]
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [ibm_is_security_group.security_group]
+
+  destroy_duration = "30s"
 }
 
 resource "ibm_is_virtual_endpoint_gateway_ip" "endpoint_gateway_ip" {
