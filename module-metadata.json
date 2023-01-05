@@ -740,7 +740,8 @@
       "version_constraints": [
         "\u003e= 3.4.2"
       ]
-    }
+    },
+    "time": {}
   },
   "managed_resources": {
     "ibm_appid_redirect_urls.urls": {
@@ -1027,7 +1028,7 @@
       },
       "pos": {
         "filename": "vpe.tf",
-        "line": 36
+        "line": 44
       }
     },
     "ibm_is_vpn_gateway.gateway": {
@@ -1254,6 +1255,18 @@
       "pos": {
         "filename": "cos.tf",
         "line": 22
+      }
+    },
+    "time_sleep.wait_30_seconds": {
+      "mode": "managed",
+      "type": "time_sleep",
+      "name": "wait_30_seconds",
+      "provider": {
+        "name": "time"
+      },
+      "pos": {
+        "filename": "vpe.tf",
+        "line": 38
       }
     }
   },
