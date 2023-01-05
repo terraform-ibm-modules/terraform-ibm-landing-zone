@@ -6,17 +6,12 @@ import (
 	"os"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 
-	"github.com/IBM/ibm-cos-sdk-go/aws"
-	"github.com/IBM/ibm-cos-sdk-go/aws/credentials/ibmiam"
-	"github.com/IBM/ibm-cos-sdk-go/aws/session"
-	"github.com/IBM/ibm-cos-sdk-go/service/s3"
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
@@ -45,7 +40,7 @@ func setLogs() {
 }
 
 func sshPublicKey(t *testing.T) string {
-	setLogs()
+	// setLogs()
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
 	actualTerraformDir := "./resources"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
@@ -154,50 +149,50 @@ func TestRunRoksPattern2(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunRoksPatternPrintLogs(t *testing.T) {
-	t.Parallel()
-	// for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
+// func TestRunRoksPatternPrintLogs(t *testing.T) {
+// 	t.Parallel()
+// 	// for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
 
-	// 	fmt.Println("******* Logs not ready yet **********")
-	// }
-	time.Sleep(11000 * time.Second)
-	fmt.Println("******* Store Logs to COS  **********")
+// 	// 	fmt.Println("******* Logs not ready yet **********")
+// 	// }
+// 	time.Sleep(11000 * time.Second)
+// 	fmt.Println("******* Store Logs to COS  **********")
 
-	const (
-		serviceInstanceID = "crn:v1:bluemix:public:cloud-object-storage:global:a/abac0df06b644a9cabc6e44f55b3880e:d58124a5-785d-46bd-b2c4-96cdcd4ec18b::"
-		authEndpoint      = "https://iam.cloud.ibm.com/identity/token"
-		serviceEndpoint   = "s3.eu-de.cloud-object-storage.appdomain.cloud"
-	)
-	apiKey := os.Getenv("TF_VAR_ibmcloud_api_key")
-	conf := aws.NewConfig().
-		WithEndpoint(serviceEndpoint).
-		WithCredentials(ibmiam.NewStaticCredentials(aws.NewConfig(),
-			authEndpoint, apiKey, serviceInstanceID)).
-		WithS3ForcePathStyle(true)
+// 	const (
+// 		serviceInstanceID = "crn:v1:bluemix:public:cloud-object-storage:global:a/abac0df06b644a9cabc6e44f55b3880e:d58124a5-785d-46bd-b2c4-96cdcd4ec18b::"
+// 		authEndpoint      = "https://iam.cloud.ibm.com/identity/token"
+// 		serviceEndpoint   = "s3.eu-de.cloud-object-storage.appdomain.cloud"
+// 	)
+// 	apiKey := os.Getenv("TF_VAR_ibmcloud_api_key")
+// 	conf := aws.NewConfig().
+// 		WithEndpoint(serviceEndpoint).
+// 		WithCredentials(ibmiam.NewStaticCredentials(aws.NewConfig(),
+// 			authEndpoint, apiKey, serviceInstanceID)).
+// 		WithS3ForcePathStyle(true)
 
-	sess := session.Must(session.NewSession())
-	client := s3.New(sess, conf)
+// 	sess := session.Must(session.NewSession())
+// 	client := s3.New(sess, conf)
 
-	bucketName := "conall-49-cos-cos-standard-uja"
-	key := "TF_logs_5.log"
+// 	bucketName := "conall-49-cos-cos-standard-uja"
+// 	key := "TF_logs_5.log"
 
-	file, err := os.Open(complete)
-	fmt.Println(err)
+// 	file, err := os.Open(complete)
+// 	fmt.Println(err)
 
-	defer file.Close()
+// 	defer file.Close()
 
-	// content := bytes.NewReader([]byte(file))
+// 	// content := bytes.NewReader([]byte(file))
 
-	input := s3.PutObjectInput{
-		Bucket: aws.String(bucketName),
-		Key:    aws.String(key),
-		Body:   file,
-	}
+// 	input := s3.PutObjectInput{
+// 		Bucket: aws.String(bucketName),
+// 		Key:    aws.String(key),
+// 		Body:   file,
+// 	}
 
-	// Call Function to upload (Put) an object
-	result, _ := client.PutObject(&input)
-	fmt.Println(result)
-}
+// 	// Call Function to upload (Put) an object
+// 	result, _ := client.PutObject(&input)
+// 	fmt.Println(result)
+// }
 
 // func TestRunUpgradeRoksPattern(t *testing.T) {
 // 	t.Parallel()
