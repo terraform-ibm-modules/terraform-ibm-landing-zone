@@ -121,6 +121,7 @@ func TestRunRoksPattern2(t *testing.T) {
 
 // func TestRunRoksPatternPrintLogs(t *testing.T) {
 // 	t.Parallel()
+//
 // 	// for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
 
 // 	// 	fmt.Println("******* Logs not ready yet **********")
