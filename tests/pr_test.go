@@ -119,60 +119,14 @@ func TestRunRoksPattern2(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// func TestRunRoksPatternPrintLogs(t *testing.T) {
-// 	t.Parallel()
-//
-// 	// for testRunQuickstartExample == false && testRunUpgradeQuickstartExample == false && testRunRoksPattern == false && testRunRoksPattern2 == false {
+func TestRunUpgradeRoksPattern(t *testing.T) {
+	t.Parallel()
 
-// 	// 	fmt.Println("******* Logs not ready yet **********")
-// 	// }
-// 	time.Sleep(11000 * time.Second)
-// 	fmt.Println("******* Store Logs to COS  **********")
+	options := setupOptionsRoksPattern(t, "r-ug")
 
-// 	const (
-// 		serviceInstanceID = "crn:v1:bluemix:public:cloud-object-storage:global:a/abac0df06b644a9cabc6e44f55b3880e:d58124a5-785d-46bd-b2c4-96cdcd4ec18b::"
-// 		authEndpoint      = "https://iam.cloud.ibm.com/identity/token"
-// 		serviceEndpoint   = "s3.eu-de.cloud-object-storage.appdomain.cloud"
-// 	)
-// 	apiKey := os.Getenv("TF_VAR_ibmcloud_api_key")
-// 	conf := aws.NewConfig().
-// 		WithEndpoint(serviceEndpoint).
-// 		WithCredentials(ibmiam.NewStaticCredentials(aws.NewConfig(),
-// 			authEndpoint, apiKey, serviceInstanceID)).
-// 		WithS3ForcePathStyle(true)
-
-// 	sess := session.Must(session.NewSession())
-// 	client := s3.New(sess, conf)
-
-// 	bucketName := "conall-49-cos-cos-standard-uja"
-// 	key := "TF_logs_5.log"
-
-// 	file, err := os.Open(complete)
-// 	fmt.Println(err)
-
-// 	defer file.Close()
-
-// 	// content := bytes.NewReader([]byte(file))
-
-// 	input := s3.PutObjectInput{
-// 		Bucket: aws.String(bucketName),
-// 		Key:    aws.String(key),
-// 		Body:   file,
-// 	}
-
-// 	// Call Function to upload (Put) an object
-// 	result, _ := client.PutObject(&input)
-// 	fmt.Println(result)
-// }
-
-// func TestRunUpgradeRoksPattern(t *testing.T) {
-// 	t.Parallel()
-
-// 	options := setupOptionsRoksPattern(t, "r-ug")
-
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
