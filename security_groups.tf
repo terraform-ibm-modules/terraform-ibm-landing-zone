@@ -20,10 +20,6 @@ resource "ibm_is_security_group" "security_group" {
   resource_group = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   vpc            = each.value.vpc_id
   tags           = var.tags
-
-  timeouts {
-    delete = "2h"
-  }
 }
 
 ##############################################################################
