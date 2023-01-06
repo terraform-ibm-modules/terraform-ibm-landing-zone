@@ -2,8 +2,6 @@ package test
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
 	"strings"
 	"testing"
 
@@ -20,27 +18,7 @@ const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
-var testRunQuickstartExample bool
-var testRunUpgradeQuickstartExample bool
-var testRunRoksPattern bool
-var testRunRoksPattern2 bool
-var logsSet = false
-var complete string
-
-func setLogs() {
-	if logsSet == false {
-		logsSet = true
-		os.Setenv("TF_LOG", "trace")
-		tempDir, err := ioutil.TempDir("", "terraform")
-		fmt.Println(err)
-		complete = tempDir + "/terraform.log"
-		fmt.Println("logs path", complete)
-		os.Setenv("TF_LOG_PATH", complete)
-	}
-}
-
 func sshPublicKey(t *testing.T) string {
-	// setLogs()
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
 	actualTerraformDir := "./resources"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
@@ -79,25 +57,21 @@ func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions
 }
 
 func TestRunQuickstartExample(t *testing.T) {
-	testRunQuickstartExample = false
 	t.Parallel()
 
 	options := setupOptionsQuickstart(t, "slz-qs")
 
 	output, err := options.RunTestConsistency()
-	testRunQuickstartExample = true
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeQuickstartExample(t *testing.T) {
-	testRunUpgradeQuickstartExample = false
 	t.Parallel()
 
 	options := setupOptionsQuickstart(t, "slz-qs-ug")
 
 	output, err := options.RunTestUpgrade()
-	testRunUpgradeQuickstartExample = true
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
@@ -126,25 +100,21 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 }
 
 func TestRunRoksPattern(t *testing.T) {
-	testRunRoksPattern = false
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-no")
 
 	output, err := options.RunTestConsistency()
-	testRunRoksPattern = true
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunRoksPattern2(t *testing.T) {
-	testRunRoksPattern2 = false
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-no2")
 
 	output, err := options.RunTestConsistency()
-	testRunRoksPattern2 = true
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
