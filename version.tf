@@ -13,6 +13,10 @@ terraform {
       source  = "hashicorp/random"
       version = ">= 3.4.3"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
+    }
   }
   required_version = ">= 1.0.0"
   experiments      = [module_variable_optional_attrs]

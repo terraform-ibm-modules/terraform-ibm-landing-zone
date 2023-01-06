@@ -31,6 +31,14 @@ resource "ibm_is_virtual_endpoint_gateway" "endpoint_gateway" {
     crn           = each.value.crn
     resource_type = "provider_cloud_service"
   }
+
+  depends_on = [time_sleep.wait_30_seconds]
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [ibm_is_security_group.security_group]
+
+  destroy_duration = "30s"
 }
 
 resource "ibm_is_virtual_endpoint_gateway_ip" "endpoint_gateway_ip" {

@@ -740,6 +740,12 @@
       "version_constraints": [
         "\u003e= 3.4.3"
       ]
+    },
+    "time": {
+      "source": "hashicorp/time",
+      "version_constraints": [
+        "0.9.1"
+      ]
     }
   },
   "managed_resources": {
@@ -1027,7 +1033,7 @@
       },
       "pos": {
         "filename": "vpe.tf",
-        "line": 36
+        "line": 44
       }
     },
     "ibm_is_vpn_gateway.gateway": {
@@ -1254,6 +1260,18 @@
       "pos": {
         "filename": "cos.tf",
         "line": 22
+      }
+    },
+    "time_sleep.wait_30_seconds": {
+      "mode": "managed",
+      "type": "time_sleep",
+      "name": "wait_30_seconds",
+      "provider": {
+        "name": "time"
+      },
+      "pos": {
+        "filename": "vpe.tf",
+        "line": 38
       }
     }
   },
