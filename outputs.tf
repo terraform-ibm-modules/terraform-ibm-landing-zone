@@ -146,6 +146,24 @@ output "subnet_names" {
   ])
 }
 
+output "vpcs" {
+  description = "List of vpc created and vpc_id"
+  value = flatten([
+    for network in module.vpc : {
+      name   = network.vpc_name
+      vpc_id = network.vpc_id
+    }
+  ])
+}
+
+output "subnet_details" {
+  description = "List of Subnet created"
+  value = flatten([
+    for network in module.vpc :
+    network.subnet_zone_list[*]
+  ])
+}
+
 ##############################################################################
 
 ##############################################################################

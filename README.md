@@ -1009,9 +1009,11 @@ statement instead the previous block.
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group names |
 | <a name="output_service_authorization_names"></a> [service\_authorization\_names](#output\_service\_authorization\_names) | List of service authorization names |
 | <a name="output_ssh_key_names"></a> [ssh\_key\_names](#output\_ssh\_key\_names) | List of SSH key names |
+| <a name="output_subnet_details"></a> [subnet\_details](#output\_subnet\_details) | List of Subnet created |
 | <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | List of Subnet names created |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | Name of created transit gateway |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
+| <a name="output_vpcs"></a> [vpcs](#output\_vpcs) | List of vpc created and vpc\_id |
 | <a name="output_vpe_gateway_names"></a> [vpe\_gateway\_names](#output\_vpe\_gateway\_names) | VPE gateway names |
 | <a name="output_vpn_names"></a> [vpn\_names](#output\_vpn\_names) | List of VPN names |
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |

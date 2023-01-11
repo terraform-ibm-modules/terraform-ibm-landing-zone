@@ -625,7 +625,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 232
+        "line": 250
       }
     },
     "resource_group_names": {
@@ -633,7 +633,7 @@
       "description": "List of resource groups names used within landing zone.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 155
+        "line": 173
       }
     },
     "secrets_manager_name": {
@@ -641,7 +641,7 @@
       "description": "Name of secrets manager instance",
       "pos": {
         "filename": "outputs.tf",
-        "line": 166
+        "line": 184
       }
     },
     "security_group_names": {
@@ -649,7 +649,7 @@
       "description": "List of security group names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 177
+        "line": 195
       }
     },
     "service_authorization_names": {
@@ -657,7 +657,7 @@
       "description": "List of service authorization names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 191
+        "line": 209
       }
     },
     "ssh_key_names": {
@@ -665,7 +665,15 @@
       "description": "List of SSH key names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 202
+        "line": 220
+      }
+    },
+    "subnet_details": {
+      "name": "subnet_details",
+      "description": "List of Subnet created",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 159
       }
     },
     "subnet_names": {
@@ -681,7 +689,7 @@
       "description": "Name of created transit gateway",
       "pos": {
         "filename": "outputs.tf",
-        "line": 213
+        "line": 231
       }
     },
     "vpc_names": {
@@ -692,12 +700,20 @@
         "line": 133
       }
     },
+    "vpcs": {
+      "name": "vpcs",
+      "description": "List of vpc created and vpc_id",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 149
+      }
+    },
     "vpe_gateway_names": {
       "name": "vpe_gateway_names",
       "description": "VPE gateway names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 274
+        "line": 292
       }
     },
     "vpn_names": {
@@ -705,7 +721,7 @@
       "description": "List of VPN names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 288
+        "line": 306
       }
     },
     "vsi_data": {
@@ -713,7 +729,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 250
+        "line": 268
       }
     },
     "vsi_names": {
@@ -721,7 +737,7 @@
       "description": "List of VSI names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 224
+        "line": 242
       }
     }
   },
