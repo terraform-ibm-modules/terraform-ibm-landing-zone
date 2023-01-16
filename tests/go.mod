@@ -3,17 +3,17 @@ module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 go 1.19
 
 require (
-	github.com/gruntwork-io/terratest v0.41.7
+	github.com/gruntwork-io/terratest v0.41.9
 	github.com/stretchr/testify v1.8.1
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.3.1
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.3.8
 )
 
 require (
 	cloud.google.com/go v0.83.0 // indirect
 	cloud.google.com/go/storage v1.10.0 // indirect
-	github.com/IBM-Cloud/bluemix-go v0.0.0-20221026143540-4d6050d2dbc5 // indirect
+	github.com/IBM-Cloud/bluemix-go v0.0.0-20230111122142-28d386bfaaf5 // indirect
 	github.com/IBM-Cloud/power-go-client v1.2.2 // indirect
-	github.com/IBM/go-sdk-core/v5 v5.10.2 // indirect
+	github.com/IBM/go-sdk-core/v5 v5.12.0 // indirect
 	github.com/IBM/platform-services-go-sdk v0.31.2 // indirect
 	github.com/IBM/vpc-go-sdk v1.0.2 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
