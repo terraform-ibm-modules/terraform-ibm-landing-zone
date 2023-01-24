@@ -2,6 +2,12 @@
 # Account Variables
 ##############################################################################
 
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+}
+
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -751,19 +757,23 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name               = string           # Name of Cluster
-      vpc_name           = string           # Name of VPC
-      subnet_names       = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet = number           # Worker nodes per subnet.
-      machine_type       = string           # Worker node flavor
-      kube_type          = string           # iks or openshift
-      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      entitlement        = optional(string) # entitlement option for openshift
-      pod_subnet         = optional(string) # Portable subnet for pods
-      service_subnet     = optional(string) # Portable subnet for services
-      resource_group     = string           # Resource Group used for cluster
-      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters
-      update_all_workers = optional(bool)   # If true force workers to update
+      name                    = string           # Name of Cluster
+      vpc_name                = string           # Name of VPC
+      subnet_names            = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet      = number           # Worker nodes per subnet.
+      machine_type            = string           # Worker node flavor
+      kube_type               = string           # iks or openshift
+      logdna_plan             = optional(string) # Logging plan to provision
+      sysdig_plan             = optional(string) # Monitoring plan to provision
+      enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.
+      enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.
+      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement             = optional(string) # entitlement option for openshift
+      pod_subnet              = optional(string) # Portable subnet for pods
+      service_subnet          = optional(string) # Portable subnet for services
+      resource_group          = string           # Resource Group used for cluster
+      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters
+      update_all_workers      = optional(bool)   # If true force workers to update
       kms_config = optional(
         object({
           crk_name         = string         # Name of key
@@ -841,6 +851,64 @@ variable "wait_till" {
       "IngressReady"
     ], var.wait_till)
   }
+}
+
+variable "ocp_version" {
+  description = "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'default' is passed, the current default OCP version will be used."
+  type        = string
+  default     = null
+  validation {
+    condition = anytrue([
+      var.ocp_version == null,
+      var.ocp_version == "default",
+      var.ocp_version == "4.8",
+      var.ocp_version == "4.9",
+      var.ocp_version == "4.10",
+      var.ocp_version == "4.11"
+    ])
+    error_message = "The specified ocp_version is not one of the validated versions."
+  }
+}
+
+variable "worker_pools" {
+  type = list(object({
+    subnet_prefix     = string
+    pool_name         = string
+    machine_type      = string
+    workers_per_zone  = number
+    resource_group_id = optional(string)
+    labels            = optional(map(string))
+  }))
+  default = [
+    {
+      subnet_prefix    = "vsi-zone-1"
+      pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
+      machine_type     = "bx2.4x16"
+      workers_per_zone = 2
+      labels           = {}
+    },
+    {
+      subnet_prefix    = "vsi-zone-2"
+      pool_name        = "vsi-zone-2"
+      machine_type     = "bx2.4x16"
+      workers_per_zone = 2
+      labels           = { "dedicated" : "vsi-zone-2" }
+    },
+    {
+      subnet_prefix    = "vsi-zone-3"
+      pool_name        = "vsi-zone-3"
+      machine_type     = "bx2.4x16"
+      workers_per_zone = 2
+      labels           = { "dedicated" : "vsi-zone-3" }
+    }
+  ]
+  description = "List of worker pools"
+}
+
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
+  default     = []
 }
 
 ##############################################################################

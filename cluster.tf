@@ -1,104 +1,124 @@
 ##############################################################################
-# Find valid IKS/ROKS Cluster versions for region
-##############################################################################
-
-data "ibm_container_cluster_versions" "cluster_versions" {}
-
-##############################################################################
-
-
-##############################################################################
 # Cluster Locals
 ##############################################################################
 
 locals {
-  worker_pools_map = module.dynamic_values.worker_pools_map # Convert list to map
-  clusters_map     = module.dynamic_values.clusters_map     # Convert list to map
-  default_kube_version = {
-    openshift = "${data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions) - 1]}_openshift"
-    iks       = data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions) - 1]
-  }
+  workload_cluster = length(module.dynamic_values.clusters_map) >= 1 ? module.dynamic_values.clusters_map["${var.prefix}-workload-cluster"] : null
 }
-
-##############################################################################
-
 
 ##############################################################################
 # Create IKS/ROKS on VPC Cluster
 ##############################################################################
 
-resource "ibm_container_vpc_cluster" "cluster" {
-  for_each          = local.clusters_map
-  name              = "${var.prefix}-${each.value.name}"
-  vpc_id            = each.value.vpc_id
-  resource_group_id = local.resource_groups[each.value.resource_group]
-  flavor            = each.value.machine_type
-  worker_count      = each.value.workers_per_subnet
-  kube_version = (
-    lookup(each.value, "kube_version", null) == "default" # if version is default
-    || lookup(each.value, "kube_version", null) == null   # or if version is null
-    ? local.default_kube_version[each.value.kube_type]    # use default
-    : each.value.kube_version                             # otherwise use value
-  )
-  update_all_workers = lookup(each.value, "update_all_workers", null)
-  tags               = var.tags
-  wait_till          = var.wait_till
-  entitlement        = each.value.entitlement
-  cos_instance_crn   = each.value.cos_instance_crn
-  pod_subnet         = each.value.pod_subnet
-  service_subnet     = each.value.service_subnet
 
-  dynamic "zones" {
-    for_each = each.value.subnets
-    content {
-      subnet_id = zones.value["id"]
-      name      = zones.value["zone"]
-    }
+module "workload_cluster" {
+  depends_on = [
+    module.vpc, module.observability_instances
+  ]
+  count             = length(module.dynamic_values.clusters_map) >= 1 ? 1 : 0
+  source            = "./ocp-all-inclusive"
+  ibmcloud_api_key  = var.ibmcloud_api_key
+  resource_group_id = local.resource_groups[local.workload_cluster.resource_group]
+  region            = var.region
+  cluster_name      = local.workload_cluster.cluster_name
+  vpc_id            = local.workload_cluster.vpc_id
+  vpc_subnets = {
+    vsi-zone-1 = [
+      for index, zone in local.workload_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 0
+    ],
+    vsi-zone-2 = [
+      for index, zone in local.workload_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 1
+    ],
+    vsi-zone-3 = [
+      for index, zone in local.workload_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 2
+    ]
   }
-
-  dynamic "kms_config" {
-    for_each = each.value.kms_config == null ? [] : [each.value.kms_config]
-    content {
-      crk_id           = module.key_management.key_map[kms_config.value.crk_name].key_id
-      instance_id      = module.key_management.key_management_guid
-      private_endpoint = kms_config.value.private_endpoint
-    }
-  }
-
-  disable_public_service_endpoint = true
-
-  timeouts {
-    create = "3h"
-    delete = "2h"
-    update = "3h"
-  }
-
-}
-
-##############################################################################
-
-
-##############################################################################
-# Create Worker Pools
-##############################################################################
-
-resource "ibm_container_vpc_worker_pool" "pool" {
-  for_each          = local.worker_pools_map
-  vpc_id            = each.value.vpc_id
-  resource_group_id = local.resource_groups[each.value.resource_group]
-  entitlement       = each.value.entitlement
-  cluster           = ibm_container_vpc_cluster.cluster[each.value.cluster_name].id
-  worker_pool_name  = each.value.name
-  flavor            = each.value.flavor
-  worker_count      = each.value.workers_per_subnet
-
-  dynamic "zones" {
-    for_each = each.value.subnets
-    content {
-      subnet_id = zones.value["id"]
-      name      = zones.value["zone"]
-    }
+  worker_pools                       = var.worker_pools
+  ocp_version                        = var.ocp_version
+  cluster_tags                       = var.resource_tags
+  use_existing_cos                   = true
+  existing_cos_id                    = local.workload_cluster.cos_instance_crn
+  existing_key_protect_root_key_id   = module.key_management.key_map[local.workload_cluster.kms_config.crk_name].key_id
+  existing_key_protect_instance_guid = module.key_management.key_management_guid
+  logdna_instance_name               = module.observability_instances[local.workload_cluster.cluster_name].logdna_name
+  logdna_ingestion_key               = module.observability_instances[local.workload_cluster.cluster_name].logdna_ingestion_key
+  sysdig_instance_name               = module.observability_instances[local.workload_cluster.cluster_name].sysdig_name
+  sysdig_access_key                  = module.observability_instances[local.workload_cluster.cluster_name].sysdig_access_key
+  # service_mesh_control_planes        = [module.service_mesh_profiles.public_ingress_egress_no_transit]
+  providers = {
+    helm = helm.workload_cluster
   }
 }
 
-##############################################################################
+locals {
+  management_cluster = length(module.dynamic_values.clusters_map) == 2 ? module.dynamic_values.clusters_map["${var.prefix}-management-cluster"] : null
+}
+
+module "management_cluster" {
+  depends_on = [
+    module.vpc, module.observability_instances
+  ]
+  count             = length(module.dynamic_values.clusters_map) == 2 ? 1 : 0
+  source            = "./ocp-all-inclusive"
+  ibmcloud_api_key  = var.ibmcloud_api_key
+  resource_group_id = local.resource_groups[local.management_cluster.resource_group]
+  region            = var.region
+  cluster_name      = local.management_cluster.cluster_name
+  vpc_id            = local.management_cluster.vpc_id
+  vpc_subnets = {
+    vsi-zone-1 = [
+      for index, zone in local.management_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 0
+    ],
+    vsi-zone-2 = [
+      for index, zone in local.management_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 1
+    ],
+    vsi-zone-3 = [
+      for index, zone in local.management_cluster.subnets :
+      {
+        id         = zone.id
+        zone       = zone.zone
+        cidr_block = zone.cidr
+      } if index == 2
+    ]
+  }
+  worker_pools                       = var.worker_pools
+  ocp_version                        = var.ocp_version
+  cluster_tags                       = var.resource_tags
+  use_existing_cos                   = true
+  existing_cos_id                    = local.management_cluster.cos_instance_crn
+  existing_key_protect_root_key_id   = module.key_management.key_map[local.management_cluster.kms_config.crk_name].key_id
+  existing_key_protect_instance_guid = module.key_management.key_management_guid
+  logdna_instance_name               = module.observability_instances[local.management_cluster.cluster_name].logdna_name
+  logdna_ingestion_key               = module.observability_instances[local.management_cluster.cluster_name].logdna_ingestion_key
+  sysdig_instance_name               = module.observability_instances[local.management_cluster.cluster_name].sysdig_name
+  sysdig_access_key                  = module.observability_instances[local.management_cluster.cluster_name].sysdig_access_key
+  # service_mesh_control_planes        = [module.service_mesh_profiles.public_ingress_egress_no_transit]
+  providers = {
+    helm = helm.management_cluster
+  }
+}

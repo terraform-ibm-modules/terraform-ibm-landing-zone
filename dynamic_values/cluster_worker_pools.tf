@@ -20,13 +20,17 @@ module "ut_worker_pools" {
   prefix = "ut"
   clusters = [
     {
-      name           = "test-cluster"
-      vpc_name       = "test"
-      subnet_names   = ["subnet-1", "subnet-3"]
-      resource_group = "test-resource-group"
-      kube_type      = "openshift"
-      cos_name       = "data-cos"
-      entitlement    = "cloud_pak"
+      name                    = "test-cluster"
+      vpc_name                = "test"
+      subnet_names            = ["subnet-1", "subnet-3"]
+      resource_group          = "test-resource-group"
+      kube_type               = "openshift"
+      cos_name                = "data-cos"
+      entitlement             = "cloud_pak"
+      logdna_plan             = "7-day"
+      sysdig_plan             = "graduated-tier"
+      enable_platform_logs    = false
+      enable_platform_metrics = false
       worker_pools = [
         {
           name               = "logging-worker-pool"
