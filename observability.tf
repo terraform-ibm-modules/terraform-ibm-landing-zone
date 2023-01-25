@@ -9,7 +9,7 @@ locals {
 
 module "observability_instances" {
   for_each                   = local.observability_map
-  source                     = "git::https://github.ibm.com/GoldenEye/observability-instances-module?ref=5.1.5"
+  source                     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-observability-instances?ref=v1.1.1"
   region                     = var.region
   resource_group_id          = local.resource_groups[each.value.resource_group]
   activity_tracker_provision = false
