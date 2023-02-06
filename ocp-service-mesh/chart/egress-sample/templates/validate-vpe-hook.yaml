@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: validate-vpe-hook
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    helm.sh/hook: post-install,post-upgrade,post-rollback
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded,hook-failed
+    {{- range .Values.checkov_skips }}
+    {{- . | toYaml | nindent 4 -}}
+    {{- end }}
+spec:
+  template:
+    metadata:
+      name: validate-vpe-hook
+      labels:
+        pod: validate-vpe-hook
+      annotations:
+        sidecar.istio.io/inject: "true"
+        proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: validate-vpe-hook-job
+          image: "icr.io/goldeneye_images/ubi8-cluster-tools:stable"
+          # Validate Host can be reached, Passes on any return code expected return code 403
+          # Note: curl -sf -XPOST http://127.0.0.1:15020/quitquitquit tells the istio sidecar to quit so the job can complete
+          command:
+            - "/bin/bash"
+            - "-c"
+            - "curl https://{{ .Values.host }} -H \"Authorization: Bearer notoken\" -H \"ibm-service-instance-id: fake-id\" -vv && STATUS=$? && curl -sf -XPOST http://127.0.0.1:15020/quitquitquit && exit $STATUS"

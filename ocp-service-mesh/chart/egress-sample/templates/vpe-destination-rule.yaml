@@ -1,0 +1,14 @@
+## This destination rule is only needed in the case where mTLS is enabled - it override the *.local destinationrule setting mutual TLS within the SM
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ .Values.service }}-destination-rule
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- range .Values.checkov_skips }}
+    {{- . | toYaml | nindent 4 -}}
+    {{- end }}
+spec:
+  host: {{.Values.service}}-egressgateway.{{ .Release.Namespace }}.svc.cluster.local
+  subsets:
+    - name: {{ .Values.service }}

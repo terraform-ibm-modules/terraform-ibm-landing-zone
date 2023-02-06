@@ -1,0 +1,37 @@
+# cse-proxy-envoy-filter.yaml
+{{- range .Values.controlplanes }}
+{{- if .gateways }}
+{{- if .gateways.additionalIngress }}
+{{- range $key, $value := .gateways.additionalIngress }}
+{{- if $value.sDNLB }}
+{{- if $value.sDNLB.enableCSEProxy }}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: {{ $key }}-proxy-protocol
+  namespace: {{ .namespace }}
+spec:
+  configPatches:
+  - applyTo: LISTENER
+    match:
+      listener:
+        {{- if $value.sDNLB.cseProxyPort }}
+        portNumber: {{ $value.sDNLB.cseProxyPort }}
+        {{- else }}
+        portNumber: 3443
+        {{- end }}
+    patch:
+      operation: MERGE
+      value:
+        listener_filters:
+        - name: envoy.listener.proxy_protocol
+        - name: envoy.listener.tls_inspector
+  workloadSelector:
+    labels:
+      istio: {{ $value.sDNLB.cseProxyIstioLabel }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

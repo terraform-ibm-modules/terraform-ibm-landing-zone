@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{.Values.service}}-egressgateway
+  namespace: {{ .Release.Namespace }}
+  labels:
+    service: {{ .Values.service }}
+  annotations:
+    {{- range .Values.checkov_skips }}
+    {{- . | toYaml | nindent 4 -}}
+    {{- end }}
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+    - port:
+        number: {{ .Values.port }}
+        name: {{ .Values.service }}
+        protocol: {{ .Values.protocol }}
+      hosts:
+        - {{ .Values.host }}
+      tls:
+        mode: PASSTHROUGH

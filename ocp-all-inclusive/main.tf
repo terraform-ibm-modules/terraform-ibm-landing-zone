@@ -94,23 +94,24 @@ module "observability_agents" {
   logdna_sts_agent_version     = var.logdna_sts_agent_version
 }
 
-# ##############################################################################
-# # ocp-service-mesh-module
-# ##############################################################################
+##############################################################################
+# ocp-service-mesh-module
+##############################################################################
 
-# locals {
-#   run_service_mesh_module = length(var.service_mesh_control_planes) != 0 ? true : false
-# }
+locals {
+  run_service_mesh_module = length(var.service_mesh_control_planes) != 0 ? true : false
+}
 
-# module "service_mesh" {
+module "service_mesh" {
 
-#   # cluster-proxy required so service mesh images can be pulled from public registry
-#   depends_on                  = [module.cluster_proxy]
-#   count                       = local.run_service_mesh_module == true ? 1 : 0
-#   source                      = "git::https://github.ibm.com/GoldenEye/ocp-service-mesh-module?ref=1.21.3"
-#   cluster_id                  = module.ocp_base.cluster_id
-#   service_mesh_control_planes = var.service_mesh_control_planes
-#   # supplying both of the subnet variables so that ALB and NLB will work, and is safe to provide both
-#   lb_subnet_ids           = [for subnet in lookup(var.vpc_subnets, "edge") : lookup(subnet, "id")]
-#   lb_subnet_ids_and_zones = { for subnet in lookup(var.vpc_subnets, "edge") : lookup(subnet, "id") => lookup(subnet, "zone") }
-# }
+  # cluster-proxy required so service mesh images can be pulled from public registry
+  # Prateek : TBD - THis has to be checked as cluster proxy is not present here but need to pull Images
+  depends_on                  = [module.cluster_proxy]
+  count                       = local.run_service_mesh_module == true ? 1 : 0
+  source                      = "../ocp-service-mesh"
+  cluster_id                  = module.ocp_base.cluster_id
+  service_mesh_control_planes = var.service_mesh_control_planes
+  # supplying both of the subnet variables so that ALB and NLB will work, and is safe to provide both
+  lb_subnet_ids           = [for subnet in lookup(var.vpc_subnets, "edge") : lookup(subnet, "id")]
+  lb_subnet_ids_and_zones = { for subnet in lookup(var.vpc_subnets, "edge") : lookup(subnet, "id") => lookup(subnet, "zone") }
+}

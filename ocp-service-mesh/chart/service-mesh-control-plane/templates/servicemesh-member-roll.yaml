@@ -1,0 +1,16 @@
+# servicemesh-member-roll.yaml
+{{- range .Values.controlplanes }}
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: {{ .namespace }}
+spec:
+  members:
+  {{- if .enrolled_namespaces }}
+  {{- range .enrolled_namespaces }}
+  - {{ . }}
+  {{- end }}
+  {{- end }}
+---
+{{- end}}

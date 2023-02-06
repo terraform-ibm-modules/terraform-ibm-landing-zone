@@ -1,0 +1,13 @@
+# service-mesh-operator.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: service-mesh-operator
+  namespace: {{ .Values.operators.namespace }}
+spec:
+  channel: stable
+  installPlanApproval: Manual
+  name: servicemeshoperator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  #startingCSV: <CurrentCSV>

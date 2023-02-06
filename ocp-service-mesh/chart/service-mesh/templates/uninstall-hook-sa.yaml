@@ -1,0 +1,12 @@
+# The OLM created csv objects on the cluster during install - there is a need to clean up csv created by the OLM, in addition to removing the subscription
+# See https://olm.operatorframework.io/docs/tasks/uninstall-operator/#combine-steps-2-and-3 for context
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: service-mesh-uninstall-hook-role-sa
+  namespace:  {{ .Values.operators.namespace }}
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded,hook-failed
+    "helm.sh/hook-weight": "1"

@@ -1,0 +1,96 @@
+# This values.yaml file is not used, and only required to pass helm linting
+# The actual values.yaml is created on the execution of main.tf (root dir)
+# Below is provided as a template to aid development
+
+controlplanes:
+  - namespace: istio-system
+    name: istio-control-plane
+    runtime:
+      pod:
+        nodeSelector:
+          name: nodeSelectorName
+          value: nodeSelectorValue
+        tolerations:
+          - key: dedicated
+            value: transit
+            effect: NoExecute
+    gateways:
+      egress:
+        nodeSelector:
+          name: nodeSelectorName
+          value: nodeSelectorValue
+        tolerations:
+          - key: dedicated
+            value: transit
+            effect: NoExecute
+        haAntiAffinity:
+      ingress:
+        nodeSelector:
+          name: nodeSelectorName
+          value: nodeSelectorValue
+        tolerations:
+          - key: dedicated
+            value: transit
+            effect: NoExecute
+        haAntiAffinity:
+        service:
+          type: LoadBalancer
+          externalTrafficPolicy: Local
+          metadata:
+            labels:
+            annotations:
+      additionalIngress:
+        testAdditionalIngress:
+          sDNLB:
+            enableCSEProxy: true
+            createSDNLB: true
+            vpcServiceCRN: serviceCRN
+          nodeSelector:
+            name: nodeSelectorName
+            value: nodeSelectorValue
+          tolerations:
+            - key: dedicated
+              value: transit
+              effect: NoExecute
+          haAntiAffinity: true
+          service:
+            type: LoadBalancer
+            externalTrafficPolicy: Local
+            metadata:
+              labels:
+                - name: "l1"
+                  value: "v1"
+              annotations:
+                - name: "a1"
+                  value: "v1"
+        testAdditionalIngress2:
+          sDNLB:
+            enableCSEProxy: false
+            createSDNLB: true
+            vpcServiceCRN: serviceCRN
+          nodeSelector:
+            name: nodeSelectorName
+            value: nodeSelectorValue
+          tolerations:
+            - key: dedicated
+              value: transit
+              effect: NoExecute
+          haAntiAffinity: true
+          service:
+            type: LoadBalancer
+            externalTrafficPolicy: Local
+            metadata:
+              labels:
+                - name: "l1"
+                  value: "v1"
+              annotations:
+                - name: "a1"
+                  value: "v1"
+    proxy:
+      accessLogging:
+        file:
+          encoding: encording
+          format: format
+    enrolled_namespaces:
+      - namespace1
+      - namespace2

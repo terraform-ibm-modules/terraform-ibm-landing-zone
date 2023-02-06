@@ -1,0 +1,417 @@
+# servicemesh-controlplane.yaml
+{{- range .Values.controlplanes }}
+apiVersion: maistra.io/v2
+kind: ServiceMeshControlPlane
+metadata:
+  namespace: {{ .namespace }}
+  name: {{ .name }}
+spec:
+  {{- if .runtime }}
+  runtime:
+    components:
+      pilot:
+        pod:
+          {{- if .runtime.pod.nodeSelector }}
+          nodeSelector:
+            {{ .runtime.pod.nodeSelector.name }}: {{ .runtime.pod.nodeSelector.value | quote }}
+          {{- end }}
+
+          {{- if .runtime.pod.tolerations }}
+          tolerations:
+          {{- range $val := .runtime.pod.tolerations }}
+            - effect: {{ $val.effect | quote }}
+              key: {{ $val.key | quote }}
+              value: {{ $val.value | quote }}
+              operator: Equal
+          {{- end}}
+          {{- end}}
+  {{- end}}
+  gateways:
+    egress:
+      enabled: true
+      runtime:
+        {{- /* cannot use 'and' here, as not shortcircuiting in go templates  */}}
+        {{- if .gateways}}
+        {{- if .gateways.egress}}
+        {{- if or .gateways.egress.nodeSelector .gateways.egress.haAntiAffinity }}
+        pod:
+          {{- if .gateways.egress.nodeSelector }}
+          nodeSelector:
+            {{ .gateways.egress.nodeSelector.name }}: {{ .gateways.egress.nodeSelector.value | quote }}
+          {{- end }}
+          {{- if .gateways.egress.tolerations }}
+          tolerations:
+          {{- range $val := .gateways.egress.tolerations }}
+            - effect: {{ $val.effect | quote }}
+              key: {{ $val.key | quote }}
+              value: {{ $val.value | quote }}
+              operator: Equal
+          {{- end}}
+          {{- end}}
+
+          {{- if .gateways.egress.haAntiAffinity}}
+          affinity:
+            podAntiAffinity:
+              preferredDuringScheduling:
+                - topologyKey: topology.kubernetes.io/zone
+                  key: maistra.io/gateway
+                  values:
+                    - istio-egressgateway.{{ .namespace }}
+                  operator: In
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        deployment:
+          autoScaling:
+            enabled: true
+            maxReplicas: 10
+            minReplicas: 3
+      service:
+        metadata:
+          {{- /* add extra label to gateway pods + service to distinguish svc podSelector if we have mulitple egresses */}}
+          labels:
+            gateway-instance: istio-egressgateway
+    enabled: true
+    ingress:
+      enabled: true
+      runtime:
+        {{- /* cannot use 'and' here, as not shortcircuiting in go templates  */}}
+        {{- if .gateways}}
+        {{- if .gateways.ingress}}
+        {{- if or .gateways.ingress.nodeSelector .gateways.ingress.haAntiAffinity }}
+        pod:
+          {{- if .gateways.ingress.nodeSelector }}
+          nodeSelector:
+            {{- if .gateways.ingress.nlb }}
+            {{- range $lb_subnet, $lb_subnet_zone := $.Values.lb_subnet_ids_and_zones }}
+            ibm-cloud.kubernetes.io/zone: {{ $lb_subnet_zone | quote }}
+            {{- end }}
+            {{- end }}
+            {{ .gateways.ingress.nodeSelector.name }}: {{ .gateways.ingress.nodeSelector.value | quote }}
+          {{- end }}
+          {{- if .gateways.ingress.tolerations }}
+          tolerations:
+          {{- range $val := .gateways.ingress.tolerations }}
+            - effect: {{ $val.effect | quote }}
+              key: {{ $val.key | quote }}
+              value: {{ $val.value | quote }}
+              operator: Equal
+          {{- end}}
+          {{- end}}
+          {{- if .gateways.ingress.haAntiAffinity}}
+          affinity:
+            podAntiAffinity:
+              preferredDuringScheduling:
+                - topologyKey: topology.kubernetes.io/zone
+                  key: maistra.io/gateway
+                  values:
+                    - istio-ingressgateway.{{ .namespace }}
+                  operator: In
+          {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        deployment:
+          autoScaling:
+            enabled: true
+            maxReplicas: 10
+            minReplicas: 3
+      {{- if .gateways}}
+      {{- if .gateways.ingress}}
+      {{- if .gateways.ingress.service}}
+      service:
+        {{- if .gateways.ingress.service.type}}
+        type: {{ .gateways.ingress.service.type | quote }}
+        {{- end }}
+        {{- if .gateways.ingress.service.additionalPorts }}
+        # Any entry replaces the defaults at https://github.com/maistra/istio-operator/blob/b59f165e98dddb602261d936abfb271284f997ba/resources/helm/v2.3/gateways/istio-ingress/values.yaml#L10
+        # which means we need to add the default and our custom additional ports here:
+        ports:
+        - port: 15021
+          targetPort: 15021
+          name: status-port
+          protocol: TCP
+        - port: 443
+          targetPort: 8443
+          name: https
+          protocol: TCP
+          {{- with .gateways.ingress.service.additionalPorts }}
+            {{- toYaml . | nindent 8 }}
+          {{- end }}
+        {{- end }}
+        {{- if .gateways.ingress.service.externalTrafficPolicy}}
+        externalTrafficPolicy: {{ .gateways.ingress.service.externalTrafficPolicy | quote }}
+        {{- end }}
+        {{- if .gateways.ingress.service.metadata }}
+        metadata:
+          {{- if .gateways.ingress.service.metadata.labels }}
+          labels:
+            {{- range .gateways.ingress.service.metadata.labels }}
+            {{ .name }}: {{ .value | quote }}
+            {{- end }}
+          {{- end }}
+          {{- if .gateways.ingress.service.metadata.annotations }}
+          annotations:
+            {{- range .gateways.ingress.service.metadata.annotations }}
+            {{ .name }}: {{ .value | quote }}
+            {{- end }}
+            {{- if .gateways.ingress.nlb }}
+            service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "nlb"
+            {{- range $lb_subnet, $lb_subnet_zone := $.Values.lb_subnet_ids_and_zones }}
+            service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: {{ $lb_subnet | quote}}
+            {{- end }}
+            {{- else }}
+            {{- if $.Values.lb_subnets}}
+            service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: {{ join "," $.Values.lb_subnets | quote}}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- if .gateways}}
+    {{- if .gateways.additionalIngress}}
+    additionalIngress:
+      {{- range $key, $value := .gateways.additionalIngress }}
+      {{- if $value.nlb }}
+      {{- range $lb_subnet, $lb_subnet_zone := $.Values.lb_subnet_ids_and_zones }}
+      {{ $key }}-nlb-{{ $lb_subnet_zone }}:
+        enabled: true
+        runtime:
+          {{- if $value.nodeSelector }}
+          pod:
+            nodeSelector:
+              {{ $value.nodeSelector.name }}: {{ $value.nodeSelector.value | quote }}
+              ibm-cloud.kubernetes.io/zone: {{ $lb_subnet_zone | quote }}
+            {{- if $value.tolerations }}
+            tolerations:
+            {{- range $val := $value.tolerations }}
+              - effect: {{ $val.effect | quote }}
+                key: {{ $val.key | quote }}
+                value: {{ $val.value | quote }}
+                operator: Equal
+            {{- end}}
+            {{- end}}
+          {{- end }}
+        {{- if $value.service}}
+        service:
+          {{- if $value.service.type}}
+          type: {{ $value.service.type | quote }}
+          {{- end }}
+          {{- if $value.service.externalTrafficPolicy}}
+          externalTrafficPolicy: {{ $value.service.externalTrafficPolicy | quote }}
+          {{- end }}
+          {{- if $value.service.metadata }}
+          metadata:
+            {{- if $value.service.metadata.labels }}
+            labels:
+              {{- range $value.service.metadata.labels }}
+              {{ .name }}: {{ .value | quote }}
+              {{- end }}
+            {{- end }}
+            {{- if $value.service.metadata.annotations }}
+            annotations:
+              {{- range $value.service.metadata.annotations }}
+              {{ .name }}: {{ .value | quote }}
+              {{- end }}
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-subnets: {{ $lb_subnet | quote}}
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "nlb"
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- else }}
+      {{ $key }}:
+        enabled: true
+        runtime:
+        {{- if or $value.nodeSelector $value.haAntiAffinity }}
+          pod:
+            {{- if $value.nodeSelector }}
+            nodeSelector:
+              {{ $value.nodeSelector.name }}: {{ $value.nodeSelector.value | quote }}
+            {{- end }}
+            {{- if $value.tolerations }}
+            tolerations:
+              {{- range $val := $value.tolerations }}
+              - effect: {{ $val.effect | quote }}
+                key: {{ $val.key | quote }}
+                value: {{ $val.value | quote }}
+                operator: Equal
+              {{- end}}
+            {{- end }}
+          {{- end }}
+          deployment:
+            autoScaling:
+              enabled: true
+              maxReplicas: 10
+              minReplicas: 3
+        {{- if $value.service}}
+        service:
+          {{- if $value.service.externalTrafficPolicy}}
+          externalTrafficPolicy: {{ $value.service.externalTrafficPolicy | quote }}
+          {{- end }}
+          metadata:
+            labels:
+              {{- if $value.service.metadata }}
+              {{- if $value.service.metadata.labels }}
+              {{- range $value.service.metadata.labels }}
+              {{ .name }}: {{ .value | quote }}
+              {{- end }}
+              {{- end }}
+              {{- end }}
+            annotations:
+              {{- if $value.service.metadata }}
+              {{- if $value.service.metadata.annotations }}
+              {{- range $value.service.metadata.annotations }}
+              {{ .name }}: {{ .value | quote }}
+              {{- end }}
+              {{- end }}
+              {{- end }}
+              {{- if $value.sDNLB}}
+              {{- if $value.sDNLB.createSDNLB}}
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-enable-features: "service-dnlb"
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+              {{- if $value.nodeSelector}}
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-node-selector: "{{ $value.nodeSelector.name }}={{ $value.nodeSelector.value }}"
+              {{- end}}
+              {{- if $value.sDNLB.vpcServiceCRN}}
+              service.kubernetes.io/ibm-load-balancer-cloud-provider-vpc-service-crn: {{ $value.sDNLB.vpcServiceCRN | quote }}
+              {{- end}}
+              {{- end}}
+              {{- end}}
+          {{- if $value.sDNLB}}
+          {{- if or $value.sDNLB.enableCSEProxy $value.sDNLB.additionalPorts }}
+          ports:
+            - name: status-port
+              port: 15021
+              protocol: TCP
+              targetPort: 15021
+            - name: https
+              port: 443
+              protocol: TCP
+              targetPort: 8443
+            - name: tls
+              port: 15443
+              protocol: TCP
+              targetPort: 15443
+            {{- if $value.sDNLB.enableCSEProxy }}
+            - name: cse-proxy-port
+              {{- if $value.sDNLB.cseProxyPort }}
+              port: {{ $value.sDNLB.cseProxyPort }}
+              {{- else }}
+              port: 3443
+              {{- end }}
+              protocol: TCP
+              {{- if $value.sDNLB.cseProxyPort }}
+              targetPort: {{ $value.sDNLB.cseProxyPort}}
+              {{- else }}
+              targetPort: 3443
+              {{- end }}
+            {{- end }}
+            {{- if $value.sDNLB.additionalPorts }}
+            {{- range $value.sDNLB.additionalPorts }}
+            - name: additional-port-{{ . | toString }}
+              port: {{ . }}
+              protocol: TCP
+              targetPort: {{ . }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
+          {{- end }}
+          type: LoadBalancer
+        {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- if .gateways}}
+    {{- if .gateways.additionalEgress}}
+    additionalEgress:
+      {{- range $key, $value := .gateways.additionalEgress }}
+      {{ $key }}:
+        enabled: true
+        runtime:
+        {{- if or $value.nodeSelector $value.haAntiAffinity }}
+          pod:
+            {{- if $value.nodeSelector }}
+            nodeSelector:
+              {{ $value.nodeSelector.name }}: {{ $value.nodeSelector.value | quote }}
+            {{- end }}
+            {{- if $value.tolerations }}
+            tolerations:
+              {{- range $val := $value.tolerations }}
+              - effect: {{ $val.effect | quote }}
+                key: {{ $val.key | quote }}
+                value: {{ $val.value | quote }}
+                operator: Equal
+              {{- end}}
+            {{- end }}
+          {{- end }}
+          deployment:
+            autoScaling:
+              enabled: true
+              maxReplicas: 10
+              minReplicas: 3
+        service:
+          metadata:
+            {{- /* add extra label to gateway pods + service to distinguish svc podSelector if we have mulitple egresses */}}
+            labels:
+              gateway-instance: {{ $key }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+    openshiftRoute:
+      enabled: false
+  proxy:
+    accessLogging:
+      file:
+        name: /dev/stdout
+        {{- if .proxy}}
+        {{- if .proxy.accessLogging}}
+        {{- if .proxy.accessLogging.file}}
+        {{- if .proxy.accessLogging.file.encoding}}
+        encoding: {{ .proxy.accessLogging.file.encoding | quote }}
+        {{- end }}
+        {{- if .proxy.accessLogging.file.format}}
+        format: {{ .proxy.accessLogging.file.format | quote }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
+    networking:
+      trafficControl:
+        inbound: {}
+        outbound:
+          policy: REGISTRY_ONLY
+  security:
+    controlPlane:
+      tls:
+        minProtocolVersion: TLSV1_2
+        cipherSuites:
+        # Intersection of the list at https://pages.github.ibm.com/ibmcloud/Security/guidance/crypto_reqs.html#cipher-suites
+        # and NIST SP 800-52 recommendations https://csrc.nist.gov/publications/detail/sp/800-52/rev-2/final
+        # Below is also on the FIPS 140-2 criterias https://csrc.nist.gov/csrc/media/publications/fips/140/2/final/documents/fips1402annexa.pdf
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+      mtls: true
+    dataPlane:
+      mtls: true
+  tracing:
+    type: None
+  policy:
+    type: Istiod
+  addons:
+    grafana:
+      enabled: false
+    kiali:
+      enabled: false
+    prometheus:
+      enabled: false
+    #telemetry:
+    #  enabled: false
+---
+{{- end }}
