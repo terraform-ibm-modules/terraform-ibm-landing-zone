@@ -106,9 +106,9 @@ module "service_mesh" {
 
   # cluster-proxy required so service mesh images can be pulled from public registry
   # Prateek : TBD - THis has to be checked as cluster proxy is not present here but need to pull Images
-  depends_on                  = [module.cluster_proxy]
+  # depends_on                  = [module.cluster_proxy]
   count                       = local.run_service_mesh_module == true ? 1 : 0
-  source                      = "../ocp-service-mesh"
+  source                      = module.ocp-service-mesh
   cluster_id                  = module.ocp_base.cluster_id
   service_mesh_control_planes = var.service_mesh_control_planes
   # supplying both of the subnet variables so that ALB and NLB will work, and is safe to provide both
