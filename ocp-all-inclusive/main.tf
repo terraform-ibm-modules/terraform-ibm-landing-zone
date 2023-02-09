@@ -20,7 +20,7 @@ locals {
 }
 
 module "ocp_base" {
-  source                          = "git::https://github.ibm.com/GoldenEye/base-ocp-vpc-module.git?ref=2.1.1"
+  source                          = "git::https://github.ibm.com/GoldenEye/base-ocp-vpc-module.git?ref=4.0.1"
   cluster_name                    = var.cluster_name
   ocp_version                     = var.ocp_version
   resource_group_id               = var.resource_group_id
@@ -39,6 +39,7 @@ module "ocp_base" {
   disable_public_endpoint         = var.disable_public_endpoint
   ignore_worker_pool_size_changes = var.ignore_worker_pool_size_changes
   kms_config                      = local.kms_config
+  ibmcloud_api_key                = var.ibmcloud_api_key
 }
 
 
@@ -74,7 +75,7 @@ locals {
 module "observability_agents" {
   # cluster-proxy required so observability images can be pulled from public registry
   count                        = local.run_observability_agents_module == true ? 1 : 0
-  source                       = "git::https://github.ibm.com/GoldenEye/observability-agents-module?ref=2.4.6"
+  source                       = "git::https://github.ibm.com/GoldenEye/observability-agents-module?ref=2.6.0"
   cluster_id                   = module.ocp_base.cluster_id
   cluster_resource_group_id    = var.resource_group_id
   logdna_enabled               = local.provision_logdna_agent
