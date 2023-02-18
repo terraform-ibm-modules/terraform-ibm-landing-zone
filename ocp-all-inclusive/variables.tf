@@ -241,38 +241,6 @@ variable "logdna_agent_version" {
 }
 
 ##############################################################################
-# STS (Super Tenancy Sender) LogDNA Agent Variables
-#
-# More info on STS see:
-# https://test.cloud.ibm.com/docs/observability?topic=observability-understand_st
-##############################################################################
-
-variable "logdna_sts_instance_name" {
-  type        = string
-  description = "The name of the STS LogDNA instance to point the LogDNA agent to. If left at null, no STS agent will be deployed."
-  default     = null
-}
-
-variable "logdna_sts_ingestion_key" {
-  type        = string
-  description = "Ingestion key for the STS LogDNA agent to communicate with the instance."
-  sensitive   = true
-  default     = null
-}
-
-variable "logdna_sts_resource_group_id" {
-  type        = string
-  description = "Resource group id that the STS LogDNA instance is in. If left at null, the value of var.resource_group_id will be used."
-  default     = null
-}
-
-variable "logdna_sts_agent_version" {
-  type        = string
-  description = "Optionally override the default LogDNA STS agent version. If the value is null, this version is set to the version of 'logdna_sts_agent_version' variable in the Observability agents module. To list available versions, run: `ibmcloud cr images --restrict ext/logdna-agent`."
-  default     = null
-}
-
-##############################################################################
 # Sysdig Agent Variables
 ##############################################################################
 

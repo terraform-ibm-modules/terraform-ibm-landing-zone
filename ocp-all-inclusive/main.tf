@@ -49,14 +49,11 @@ module "ocp_base" {
 
 locals {
   # Locals
-  run_observability_agents_module = (local.provision_logdna_agent == true || local.provision_sysdig_agent || local.provision_logdna_sts_agent) ? true : false
+  run_observability_agents_module = (local.provision_logdna_agent == true || local.provision_sysdig_agent) ? true : false
   provision_logdna_agent          = var.logdna_instance_name != null ? true : false
   provision_sysdig_agent          = var.sysdig_instance_name != null ? true : false
-  provision_logdna_sts_agent      = var.logdna_sts_instance_name != null ? true : false
   logdna_resource_group_id        = var.logdna_resource_group_id != null ? var.logdna_resource_group_id : var.resource_group_id
   sysdig_resource_group_id        = var.sysdig_resource_group_id != null ? var.sysdig_resource_group_id : var.resource_group_id
-  logdna_sts_resource_group_id    = var.logdna_sts_resource_group_id != null ? var.logdna_sts_resource_group_id : var.resource_group_id
-
   # Some input variable validation (approach based on https://stackoverflow.com/a/66682419)
   logdna_validate_condition = var.logdna_instance_name != null && var.logdna_ingestion_key == null
   logdna_validate_msg       = "A value for var.logdna_ingestion_key must be passed when providing a value for var.logdna_instance_name"
@@ -65,34 +62,25 @@ locals {
   sysdig_validate_condition = var.sysdig_instance_name != null && var.sysdig_access_key == null
   sysdig_validate_msg       = "A value for var.sysdig_access_key must be passed when providing a value for var.sysdig_instance_name"
   # tflint-ignore: terraform_unused_declarations
-  sysdig_validate_check         = regex("^${local.sysdig_validate_msg}$", (!local.sysdig_validate_condition ? local.sysdig_validate_msg : ""))
-  logdna_sts_validate_condition = var.logdna_sts_instance_name != null && var.logdna_sts_ingestion_key == null
-  logdna_sts_validate_msg       = "A value for var.logdna_sts_ingestion_key must be passed when providing a value for var.logdna_sts_instance_name"
-  # tflint-ignore: terraform_unused_declarations
-  logdna_sts_validate_check = regex("^${local.logdna_sts_validate_msg}$", (!local.logdna_sts_validate_condition ? local.logdna_sts_validate_msg : ""))
+  sysdig_validate_check = regex("^${local.sysdig_validate_msg}$", (!local.sysdig_validate_condition ? local.sysdig_validate_msg : ""))
 }
 
 module "observability_agents" {
   # cluster-proxy required so observability images can be pulled from public registry
-  count                        = local.run_observability_agents_module == true ? 1 : 0
-  source                       = "git::https://github.ibm.com/GoldenEye/observability-agents-module?ref=2.6.0"
-  cluster_id                   = module.ocp_base.cluster_id
-  cluster_resource_group_id    = var.resource_group_id
-  logdna_enabled               = local.provision_logdna_agent
-  logdna_instance_name         = var.logdna_instance_name
-  logdna_ingestion_key         = var.logdna_ingestion_key
-  logdna_resource_group_id     = local.logdna_resource_group_id
-  logdna_agent_version         = var.logdna_agent_version
-  sysdig_enabled               = local.provision_sysdig_agent
-  sysdig_instance_name         = var.sysdig_instance_name
-  sysdig_access_key            = var.sysdig_access_key
-  sysdig_resource_group_id     = local.sysdig_resource_group_id
-  sysdig_agent_version         = var.sysdig_agent_version
-  logdna_sts_provision         = local.provision_logdna_sts_agent
-  logdna_sts_instance_name     = var.logdna_sts_instance_name
-  logdna_sts_ingestion_key     = var.logdna_sts_ingestion_key
-  logdna_sts_resource_group_id = local.logdna_sts_resource_group_id
-  logdna_sts_agent_version     = var.logdna_sts_agent_version
+  count                     = local.run_observability_agents_module == true ? 1 : 0
+  source                    = "git::https://github.com/terraform-ibm-modules/terraform-ibm-observability-agents?ref=v1.0.0"
+  cluster_id                = module.ocp_base.cluster_id
+  cluster_resource_group_id = var.resource_group_id
+  logdna_enabled            = local.provision_logdna_agent
+  logdna_instance_name      = var.logdna_instance_name
+  logdna_ingestion_key      = var.logdna_ingestion_key
+  logdna_resource_group_id  = local.logdna_resource_group_id
+  logdna_agent_version      = var.logdna_agent_version
+  sysdig_enabled            = local.provision_sysdig_agent
+  sysdig_instance_name      = var.sysdig_instance_name
+  sysdig_access_key         = var.sysdig_access_key
+  sysdig_resource_group_id  = local.sysdig_resource_group_id
+  sysdig_agent_version      = var.sysdig_agent_version
 }
 
 # ##############################################################################
