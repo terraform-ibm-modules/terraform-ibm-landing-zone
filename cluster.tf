@@ -16,7 +16,7 @@ module "workload_cluster" {
     module.vpc, module.observability_instances
   ]
   count             = length(module.dynamic_values.clusters_map) >= 1 ? 1 : 0
-  source            = "./ocp-all-inclusive"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.workload_cluster.resource_group]
   region            = var.region
@@ -59,7 +59,7 @@ module "management_cluster" {
     module.vpc, module.observability_instances
   ]
   count             = length(module.dynamic_values.clusters_map) == 2 ? 1 : 0
-  source            = "./ocp-all-inclusive"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.management_cluster.resource_group]
   region            = var.region

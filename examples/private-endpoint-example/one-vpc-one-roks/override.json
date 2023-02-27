@@ -46,7 +46,7 @@
                 }
             ],
             "workers_per_subnet": 2
-        }  
+        }
     ],
     "cos": [
         {
@@ -251,7 +251,7 @@
     "vpn_gateways": [
     ],
     "vsi": [
-        
+
     ],
     "wait_till": "IngressReady"
   }
