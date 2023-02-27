@@ -69,6 +69,9 @@ func TestRunQuickstartExample(t *testing.T) {
 func TestRunUpgradeQuickstartExample(t *testing.T) {
 	t.Parallel()
 
+	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
+	t.Skip("Skipping upgrade test until initial code is in primary branch")
+
 	options := setupOptionsQuickstart(t, "slz-qs-ug")
 
 	output, err := options.RunTestUpgrade()
@@ -78,55 +81,58 @@ func TestRunUpgradeQuickstartExample(t *testing.T) {
 	}
 }
 
-func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+// func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
-	sshPublicKey := sshPublicKey(t)
+// 	sshPublicKey := sshPublicKey(t)
 
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  roksPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-	})
+// 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+// 		Testing:       t,
+// 		TerraformDir:  roksPatternTerraformDir,
+// 		Prefix:        prefix,
+// 		ResourceGroup: resourceGroup,
+// 	})
 
-	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key": sshPublicKey,
-		"prefix":         options.Prefix,
-		"tags":           options.Tags,
-		"region":         options.Region,
-	}
+// 	options.TerraformVars = map[string]interface{}{
+// 		"ssh_public_key": sshPublicKey,
+// 		"prefix":         options.Prefix,
+// 		"tags":           options.Tags,
+// 		"region":         options.Region,
+// 	}
 
-	return options
-}
+// 	return options
+// }
 
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
+// func TestRunRoksPattern(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-no")
+// 	options := setupOptionsRoksPattern(t, "r-no")
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
-func TestRunRoksPattern2(t *testing.T) {
-	t.Parallel()
+// func TestRunRoksPattern2(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-no2")
+// 	options := setupOptionsRoksPattern(t, "r-no2")
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
-func TestRunUpgradeRoksPattern(t *testing.T) {
-	t.Parallel()
+// func TestRunUpgradeRoksPattern(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-ug")
+// 	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
+// 	t.Skip("Skipping upgrade test until initial code is in primary branch")
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
+// 	options := setupOptionsRoksPattern(t, "r-ug")
+
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }

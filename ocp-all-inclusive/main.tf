@@ -20,7 +20,8 @@ locals {
 }
 
 module "ocp_base" {
-  source                          = "git::https://github.ibm.com/GoldenEye/base-ocp-vpc-module.git?ref=4.0.1"
+  # source                          = "git::https://github.ibm.com/GoldenEye/base-ocp-vpc-module.git?ref=4.0.1"
+  source                          = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=add-base-ocp"
   cluster_name                    = var.cluster_name
   ocp_version                     = var.ocp_version
   resource_group_id               = var.resource_group_id
