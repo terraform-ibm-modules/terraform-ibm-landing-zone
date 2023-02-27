@@ -9,12 +9,12 @@ import (
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const quickstartExampleTerraformDir = "examples/quickstart"
+// const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
@@ -40,95 +40,39 @@ func sshPublicKey(t *testing.T) string {
 	return terraform.Output(t, terraformOptions, "ssh_public_key")
 }
 
-func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
-
-	sshPublicKey := sshPublicKey(t)
-
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:      t,
-		TerraformDir: quickstartExampleTerraformDir,
-		Prefix:       prefix,
-		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
-		},
-	})
-
-	return options
-}
-
-func TestRunQuickstartExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsQuickstart(t, "slz-qs")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeQuickstartExample(t *testing.T) {
-	t.Parallel()
-
-	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
-	t.Skip("Skipping upgrade test until initial code is in primary branch")
-
-	options := setupOptionsQuickstart(t, "slz-qs-ug")
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
-
-// func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+// func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
 
 // 	sshPublicKey := sshPublicKey(t)
 
-// 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-// 		Testing:       t,
-// 		TerraformDir:  roksPatternTerraformDir,
-// 		Prefix:        prefix,
-// 		ResourceGroup: resourceGroup,
+// 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+// 		Testing:      t,
+// 		TerraformDir: quickstartExampleTerraformDir,
+// 		Prefix:       prefix,
+// 		TerraformVars: map[string]interface{}{
+// 			"ssh_key": sshPublicKey,
+// 		},
 // 	})
-
-// 	options.TerraformVars = map[string]interface{}{
-// 		"ssh_public_key": sshPublicKey,
-// 		"prefix":         options.Prefix,
-// 		"tags":           options.Tags,
-// 		"region":         options.Region,
-// 	}
 
 // 	return options
 // }
 
-// func TestRunRoksPattern(t *testing.T) {
+// func TestRunQuickstartExample(t *testing.T) {
 // 	t.Parallel()
 
-// 	options := setupOptionsRoksPattern(t, "r-no")
+// 	options := setupOptionsQuickstart(t, "slz-qs")
 
 // 	output, err := options.RunTestConsistency()
 // 	assert.Nil(t, err, "This should not have errored")
 // 	assert.NotNil(t, output, "Expected some output")
 // }
 
-// func TestRunRoksPattern2(t *testing.T) {
-// 	t.Parallel()
-
-// 	options := setupOptionsRoksPattern(t, "r-no2")
-
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
-
-// func TestRunUpgradeRoksPattern(t *testing.T) {
+// func TestRunUpgradeQuickstartExample(t *testing.T) {
 // 	t.Parallel()
 
 // 	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
 // 	t.Skip("Skipping upgrade test until initial code is in primary branch")
 
-// 	options := setupOptionsRoksPattern(t, "r-ug")
+// 	options := setupOptionsQuickstart(t, "slz-qs-ug")
 
 // 	output, err := options.RunTestUpgrade()
 // 	if !options.UpgradeTestSkipped {
@@ -136,3 +80,59 @@ func TestRunUpgradeQuickstartExample(t *testing.T) {
 // 		assert.NotNil(t, output, "Expected some output")
 // 	}
 // }
+
+func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  roksPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key": sshPublicKey,
+		"prefix":         options.Prefix,
+		"tags":           options.Tags,
+		"region":         options.Region,
+	}
+
+	return options
+}
+
+func TestRunRoksPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "r-no")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunRoksPattern2(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "r-no2")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeRoksPattern(t *testing.T) {
+	t.Parallel()
+
+	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
+	t.Skip("Skipping upgrade test until initial code is in primary branch")
+
+	options := setupOptionsRoksPattern(t, "r-ug")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
