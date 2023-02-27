@@ -29,6 +29,7 @@ module "ut_worker_pools" {
       entitlement             = "cloud_pak"
       logdna_plan             = "7-day"
       sysdig_plan             = "graduated-tier"
+      disable_public_endpoint = false
       enable_platform_logs    = false
       enable_platform_metrics = false
       worker_pools = [

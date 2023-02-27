@@ -765,6 +765,7 @@ variable "clusters" {
       kube_type               = string           # iks or openshift
       logdna_plan             = optional(string) # Logging plan to provision
       sysdig_plan             = optional(string) # Monitoring plan to provision
+      disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled
       enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.
       enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.
       kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
@@ -884,22 +885,8 @@ variable "worker_pools" {
       subnet_prefix    = "vsi-zone-1"
       pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
       machine_type     = "bx2.4x16"
-      workers_per_zone = 2
+      workers_per_zone = 3
       labels           = {}
-    },
-    {
-      subnet_prefix    = "vsi-zone-2"
-      pool_name        = "vsi-zone-2"
-      machine_type     = "bx2.4x16"
-      workers_per_zone = 2
-      labels           = { "dedicated" : "vsi-zone-2" }
-    },
-    {
-      subnet_prefix    = "vsi-zone-3"
-      pool_name        = "vsi-zone-3"
-      machine_type     = "bx2.4x16"
-      workers_per_zone = 2
-      labels           = { "dedicated" : "vsi-zone-3" }
     }
   ]
   description = "List of worker pools"

@@ -198,6 +198,12 @@ variable "update_all_workers" {
   default     = false
 }
 
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = false
+}
+
 variable "logdna_plan" {
   type        = string
   description = "The IBM Cloud Logging plan to provision. Available: lite, 7-day, 14-day, 30-day, hipaa-30-day"

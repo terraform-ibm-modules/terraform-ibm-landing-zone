@@ -98,6 +98,7 @@ locals {
         cos_name                = "cos"
         entitlement             = var.entitlement
         update_all_workers      = var.update_all_workers
+        disable_public_endpoint = var.disable_public_endpoint
         logdna_plan             = var.logdna_plan
         sysdig_plan             = var.sysdig_plan
         enable_platform_logs    = var.enable_platform_logs

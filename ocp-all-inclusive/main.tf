@@ -31,7 +31,6 @@ module "ocp_base" {
   vpc_subnets                     = var.vpc_subnets
   worker_pools                    = var.worker_pools
   cluster_ready_when              = var.cluster_ready_when
-  worker_pools_taints             = var.worker_pools_taints
   cos_name                        = var.cos_name
   use_existing_cos                = var.use_existing_cos
   existing_cos_id                 = var.existing_cos_id

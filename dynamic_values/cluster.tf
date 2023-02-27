@@ -29,6 +29,7 @@ module "ut_cluster_map" {
       cos_name                = "data-cos"
       logdna_plan             = "7-day"
       sysdig_plan             = "graduated-tier"
+      disable_public_endpoint = false
       enable_platform_logs    = false
       enable_platform_metrics = false
       entitlement             = "cloud_pak"

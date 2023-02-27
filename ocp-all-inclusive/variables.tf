@@ -76,52 +76,11 @@ variable "worker_pools" {
       subnet_prefix    = "vsi-zone-1"
       pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
       machine_type     = "bx2.4x16"
-      workers_per_zone = 2
+      workers_per_zone = 3
       labels           = {}
-    },
-    {
-      subnet_prefix    = "vsi-zone-2"
-      pool_name        = "vsi-zone-2"
-      machine_type     = "bx2.4x16"
-      workers_per_zone = 2
-      labels           = { "dedicated" : "vsi-zone-2" }
-    },
-    {
-      subnet_prefix    = "vsi-zone-3"
-      pool_name        = "vsi-zone-3"
-      machine_type     = "bx2.4x16"
-      workers_per_zone = 2
-      labels           = { "dedicated" : "vsi-zone-3" }
     }
   ]
   description = "List of worker pools"
-}
-
-variable "worker_pools_taints" {
-  type        = map(list(object({ key = string, value = string, effect = string })))
-  description = "Map of lists containing node taints by node-pool name"
-  default = {
-    all = []
-    vsi-zone-3 = [
-      {
-        key   = "dedicated"
-        value = "vsi-zone-3"
-        # Pod is evicted from the node if it is already running on the node,
-        # and is not scheduled onto the node if it is not yet running on the node.
-        effect = "NoExecute"
-      }
-    ]
-    vsi-zone-2 = [
-      {
-        key   = "dedicated"
-        value = "vsi-zone-2"
-        # Pod is evicted from the node if it is already running on the node,
-        # and is not scheduled onto the node if it is not yet running on the node.
-        effect = "NoExecute"
-      }
-    ]
-    default = []
-  }
 }
 
 variable "cluster_tags" {
@@ -269,127 +228,127 @@ variable "sysdig_agent_version" {
   default     = null
 }
 
-##############################################################################
-# Service Mesh
-##############################################################################
+# ##############################################################################
+# # Service Mesh
+# ##############################################################################
 
-variable "service_mesh_control_planes" {
-  type = list(object({
-    name      = string
-    namespace = string
-    runtime = optional(object({
-      pod = optional(object({
-        nodeSelector = optional(object({
-          name  = string
-          value = string
-        }))
-        tolerations = optional(list(object({
-          key    = string
-          value  = string
-          effect = string
-        })))
-      }))
-    }))
-    gateways = optional(object({
-      egress = optional(object({
-        nodeSelector = optional(object({
-          name  = string
-          value = string
-        }))
-        tolerations = optional(list(object({
-          key    = string
-          value  = string
-          effect = string
-        })))
-        haAntiAffinity = optional(bool)
-      }))
-      ingress = optional(object({
-        nlb = optional(bool)
-        nodeSelector = optional(object({
-          name  = string
-          value = string
-        }))
-        tolerations = optional(list(object({
-          key    = string
-          value  = string
-          effect = string
-        })))
-        haAntiAffinity = optional(bool)
-        service = optional(object({
-          type                  = optional(string)
-          externalTrafficPolicy = optional(string)
-          metadata = optional(object({
-            annotations = optional(list(object({
-              name  = string
-              value = string
-            })))
-            labels = optional(list(object({
-              name  = string
-              value = string
-            })))
-          }))
-        }))
-      }))
-      additionalIngress = optional(map(object({
-        nlb = optional(bool)
-        sDNLB = optional(object({
-          createSDNLB        = bool
-          enableCSEProxy     = bool
-          cseProxyIstioLabel = optional(string)
-          cseProxyPort       = optional(number)
-          vpcServiceCRN      = optional(string)
-          additionalPorts    = optional(list(number))
-        }))
-        nodeSelector = optional(object({
-          name  = string
-          value = string
-        }))
-        tolerations = optional(list(object({
-          key    = string
-          value  = string
-          effect = string
-        })))
-        haAntiAffinity = optional(bool)
-        service = optional(object({
-          type                  = optional(string)
-          externalTrafficPolicy = optional(string)
-          metadata = optional(object({
-            annotations = optional(list(object({
-              name  = string
-              value = string
-            })))
-            labels = optional(list(object({
-              name  = string
-              value = string
-            })))
-          }))
-        }))
-      })))
-      additionalEgress = optional(map(object({
-        enabled   = optional(bool)
-        namespace = optional(string)
-        nodeSelector = optional(object({
-          name  = string
-          value = string
-        }))
-        tolerations = optional(list(object({
-          key    = string
-          value  = string
-          effect = string
-        })))
-        haAntiAffinity = optional(bool)
-      })))
-    }))
-    proxy = optional(object({
-      accessLogging = optional(object({
-        file = optional(object({
-          encoding = optional(string)
-          format   = optional(string)
-        }))
-      }))
-    }))
-    enrolled_namespaces = optional(list(string))
-  }))
-  description = "List of Service Mesh control plane configurations. If left empty, service mesh will not be deployed to cluster."
-  default     = []
-}
+# variable "service_mesh_control_planes" {
+#   type = list(object({
+#     name      = string
+#     namespace = string
+#     runtime = optional(object({
+#       pod = optional(object({
+#         nodeSelector = optional(object({
+#           name  = string
+#           value = string
+#         }))
+#         tolerations = optional(list(object({
+#           key    = string
+#           value  = string
+#           effect = string
+#         })))
+#       }))
+#     }))
+#     gateways = optional(object({
+#       egress = optional(object({
+#         nodeSelector = optional(object({
+#           name  = string
+#           value = string
+#         }))
+#         tolerations = optional(list(object({
+#           key    = string
+#           value  = string
+#           effect = string
+#         })))
+#         haAntiAffinity = optional(bool)
+#       }))
+#       ingress = optional(object({
+#         nlb = optional(bool)
+#         nodeSelector = optional(object({
+#           name  = string
+#           value = string
+#         }))
+#         tolerations = optional(list(object({
+#           key    = string
+#           value  = string
+#           effect = string
+#         })))
+#         haAntiAffinity = optional(bool)
+#         service = optional(object({
+#           type                  = optional(string)
+#           externalTrafficPolicy = optional(string)
+#           metadata = optional(object({
+#             annotations = optional(list(object({
+#               name  = string
+#               value = string
+#             })))
+#             labels = optional(list(object({
+#               name  = string
+#               value = string
+#             })))
+#           }))
+#         }))
+#       }))
+#       additionalIngress = optional(map(object({
+#         nlb = optional(bool)
+#         sDNLB = optional(object({
+#           createSDNLB        = bool
+#           enableCSEProxy     = bool
+#           cseProxyIstioLabel = optional(string)
+#           cseProxyPort       = optional(number)
+#           vpcServiceCRN      = optional(string)
+#           additionalPorts    = optional(list(number))
+#         }))
+#         nodeSelector = optional(object({
+#           name  = string
+#           value = string
+#         }))
+#         tolerations = optional(list(object({
+#           key    = string
+#           value  = string
+#           effect = string
+#         })))
+#         haAntiAffinity = optional(bool)
+#         service = optional(object({
+#           type                  = optional(string)
+#           externalTrafficPolicy = optional(string)
+#           metadata = optional(object({
+#             annotations = optional(list(object({
+#               name  = string
+#               value = string
+#             })))
+#             labels = optional(list(object({
+#               name  = string
+#               value = string
+#             })))
+#           }))
+#         }))
+#       })))
+#       additionalEgress = optional(map(object({
+#         enabled   = optional(bool)
+#         namespace = optional(string)
+#         nodeSelector = optional(object({
+#           name  = string
+#           value = string
+#         }))
+#         tolerations = optional(list(object({
+#           key    = string
+#           value  = string
+#           effect = string
+#         })))
+#         haAntiAffinity = optional(bool)
+#       })))
+#     }))
+#     proxy = optional(object({
+#       accessLogging = optional(object({
+#         file = optional(object({
+#           encoding = optional(string)
+#           format   = optional(string)
+#         }))
+#       }))
+#     }))
+#     enrolled_namespaces = optional(list(string))
+#   }))
+#   description = "List of Service Mesh control plane configurations. If left empty, service mesh will not be deployed to cluster."
+#   default     = []
+# }

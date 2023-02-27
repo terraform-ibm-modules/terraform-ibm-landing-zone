@@ -79,6 +79,7 @@ locals {
         machine_type            = var.flavor
         kube_type               = "openshift"
         kube_version            = var.kube_version
+        disable_public_endpoint = var.disable_public_endpoint
         logdna_plan             = var.logdna_plan
         sysdig_plan             = var.sysdig_plan
         enable_platform_logs    = var.enable_platform_logs
