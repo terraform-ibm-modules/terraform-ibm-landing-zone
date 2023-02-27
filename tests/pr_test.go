@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// const quickstartExampleTerraformDir = "examples/quickstart"
+const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
@@ -40,46 +40,46 @@ func sshPublicKey(t *testing.T) string {
 	return terraform.Output(t, terraformOptions, "ssh_public_key")
 }
 
-// func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
 
-// 	sshPublicKey := sshPublicKey(t)
+	sshPublicKey := sshPublicKey(t)
 
-// 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-// 		Testing:      t,
-// 		TerraformDir: quickstartExampleTerraformDir,
-// 		Prefix:       prefix,
-// 		TerraformVars: map[string]interface{}{
-// 			"ssh_key": sshPublicKey,
-// 		},
-// 	})
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: quickstartExampleTerraformDir,
+		Prefix:       prefix,
+		TerraformVars: map[string]interface{}{
+			"ssh_key": sshPublicKey,
+		},
+	})
 
-// 	return options
-// }
+	return options
+}
 
-// func TestRunQuickstartExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunQuickstartExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptionsQuickstart(t, "slz-qs")
+	options := setupOptionsQuickstart(t, "slz-qs")
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
-// func TestRunUpgradeQuickstartExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeQuickstartExample(t *testing.T) {
+	t.Parallel()
 
-// 	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
-// 	t.Skip("Skipping upgrade test until initial code is in primary branch")
+	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
+	t.Skip("Skipping upgrade test until initial code is in primary branch")
 
-// 	options := setupOptionsQuickstart(t, "slz-qs-ug")
+	options := setupOptionsQuickstart(t, "slz-qs-ug")
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
 
 func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
