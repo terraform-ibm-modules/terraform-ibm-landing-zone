@@ -21,5 +21,4 @@ module "observability_instances" {
   enable_platform_metrics    = each.value.enable_platform_metrics
   logdna_tags                = var.resource_tags
   sysdig_tags                = var.resource_tags
-  sysdig_provision           = false
 }
