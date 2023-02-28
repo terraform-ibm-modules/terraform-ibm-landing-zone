@@ -184,13 +184,13 @@ variable "sysdig_plan" {
 variable "enable_platform_logs" {
   type        = bool
   description = "Receive platform logs in the provisioned IBM Cloud Logging instance."
-  default     = true
+  default     = false
 }
 
 variable "enable_platform_metrics" {
   type        = bool
   description = "Receive platform metrics in the provisioned IBM Cloud Monitoring instance."
-  default     = true
+  default     = false
 }
 
 ##############################################################################
