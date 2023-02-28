@@ -178,7 +178,7 @@ variable "logdna_plan" {
 variable "sysdig_plan" {
   type        = string
   description = "The IBM Cloud Monitoring plan to provision. Available: lite, graduated-tier, graduated-tier-sysdig-secure-plus-monitor"
-  default     = "lite"
+  default     = "graduated-tier"
 }
 
 variable "enable_platform_logs" {
