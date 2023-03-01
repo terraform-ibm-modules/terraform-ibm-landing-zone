@@ -2416,7 +2416,7 @@
     },
     "management_cluster": {
       "name": "management_cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
       "attributes": {
         "cluster_tags": "resource_tags",
         "ibmcloud_api_key": "ibmcloud_api_key",
@@ -2539,7 +2539,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 57
+        "line": 56
       }
     },
     "observability_instances": {
@@ -3436,7 +3436,7 @@
     },
     "workload_cluster": {
       "name": "workload_cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
       "attributes": {
         "cluster_tags": "resource_tags",
         "ibmcloud_api_key": "ibmcloud_api_key",

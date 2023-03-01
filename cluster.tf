@@ -16,7 +16,7 @@ module "workload_cluster" {
     module.vpc, module.observability_instances
   ]
   count             = length(module.dynamic_values.clusters_map) >= 1 ? 1 : 0
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.workload_cluster.resource_group]
   region            = var.region
@@ -44,7 +44,6 @@ module "workload_cluster" {
   logdna_ingestion_key               = module.observability_instances[local.workload_cluster.cluster_name].logdna_ingestion_key
   sysdig_instance_name               = module.observability_instances[local.workload_cluster.cluster_name].sysdig_name
   sysdig_access_key                  = module.observability_instances[local.workload_cluster.cluster_name].sysdig_access_key
-  # service_mesh_control_planes        = [module.service_mesh_profiles.public_ingress_egress_no_transit]
   providers = {
     helm = helm.workload_cluster
   }
@@ -59,7 +58,7 @@ module "management_cluster" {
     module.vpc, module.observability_instances
   ]
   count             = length(module.dynamic_values.clusters_map) == 2 ? 1 : 0
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=public"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.management_cluster.resource_group]
   region            = var.region
@@ -87,7 +86,6 @@ module "management_cluster" {
   logdna_ingestion_key               = module.observability_instances[local.management_cluster.cluster_name].logdna_ingestion_key
   sysdig_instance_name               = module.observability_instances[local.management_cluster.cluster_name].sysdig_name
   sysdig_access_key                  = module.observability_instances[local.management_cluster.cluster_name].sysdig_access_key
-  # service_mesh_control_planes        = [module.service_mesh_profiles.public_ingress_egress_no_transit]
   providers = {
     helm = helm.management_cluster
   }
