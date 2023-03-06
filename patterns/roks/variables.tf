@@ -118,7 +118,7 @@ variable "cluster_zones" {
   }
 }
 
-variable "kube_version" {
+variable "ocp_version" {
   description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as default. Updates to the default versions may force this to change."
   type        = string
   default     = "default"

@@ -768,7 +768,7 @@ variable "clusters" {
       disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled
       enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.
       enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.
-      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      ocp_version             = optional(string) # Can be a version from `ibmcloud oc versions` or `default`
       entitlement             = optional(string) # entitlement option for openshift
       pod_subnet              = optional(string) # Portable subnet for pods
       service_subnet          = optional(string) # Portable subnet for services
@@ -865,7 +865,8 @@ variable "ocp_version" {
       var.ocp_version == "4.8",
       var.ocp_version == "4.9",
       var.ocp_version == "4.10",
-      var.ocp_version == "4.11"
+      var.ocp_version == "4.11",
+      var.ocp_version == "4.12"
     ])
     error_message = "The specified ocp_version is not one of the validated versions."
   }

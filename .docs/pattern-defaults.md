@@ -43,7 +43,7 @@ The following variables apply to the [mixed pattern](../patterns/mixed/) and the
 | Name | Type | Description | Sensitive | Default |
 |---|---|---|---|---|
 | cluster_zones | number | Number of zones to provision clusters for each VPC. At least one zone is required. Can be 1, 2, or 3 zones. |  | 3 |
-| kube_version | string | Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as `default`. Updates to the default versions might force this to change. |  | default |
+| ocp_version | string | Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as `default`. Updates to the default versions might force this to change. |  | default |
 | flavor | string | Machine type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types |  | bx2.16x64 |
 | workers_per_zone | number | Number of workers in each zone of the cluster. Red Hat OpenShift requires at least two workers. |  | 1 |
 | wait_till | string | To avoid long waiting times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady` |  | IngressReady |

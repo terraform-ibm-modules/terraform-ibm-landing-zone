@@ -3,7 +3,7 @@
 ##############################################################################
 
 locals {
-  workload_cluster = length(module.dynamic_values.clusters_map) >= 1 ? module.dynamic_values.clusters_map["${var.prefix}-workload-cluster"] : null
+  workload_cluster = lookup(module.dynamic_values.clusters_map, "${var.prefix}-workload-cluster", false) != false ? module.dynamic_values.clusters_map["${var.prefix}-workload-cluster"] : null
 }
 
 ##############################################################################
@@ -15,7 +15,7 @@ module "workload_cluster" {
   depends_on = [
     module.vpc, module.observability_instances
   ]
-  count             = length(module.dynamic_values.clusters_map) >= 1 ? 1 : 0
+  count             = lookup(module.dynamic_values.clusters_map, "${var.prefix}-workload-cluster", false) != false ? 1 : 0
   source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.workload_cluster.resource_group]
@@ -33,7 +33,7 @@ module "workload_cluster" {
     ]
   }
   worker_pools                       = var.worker_pools
-  ocp_version                        = var.ocp_version
+  ocp_version                        = local.workload_cluster.ocp_version
   cluster_tags                       = var.resource_tags
   use_existing_cos                   = true
   disable_public_endpoint            = local.workload_cluster.disable_public_endpoint
@@ -50,14 +50,14 @@ module "workload_cluster" {
 }
 
 locals {
-  management_cluster = length(module.dynamic_values.clusters_map) == 2 ? module.dynamic_values.clusters_map["${var.prefix}-management-cluster"] : null
+  management_cluster = lookup(module.dynamic_values.clusters_map, "${var.prefix}-management-cluster", false) != false ? module.dynamic_values.clusters_map["${var.prefix}-management-cluster"] : null
 }
 
 module "management_cluster" {
   depends_on = [
     module.vpc, module.observability_instances
   ]
-  count             = length(module.dynamic_values.clusters_map) == 2 ? 1 : 0
+  count             = lookup(module.dynamic_values.clusters_map, "${var.prefix}-management-cluster", false) != false ? 1 : 0
   source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[local.management_cluster.resource_group]
@@ -75,7 +75,7 @@ module "management_cluster" {
     ]
   }
   worker_pools                       = var.worker_pools
-  ocp_version                        = var.ocp_version
+  ocp_version                        = local.management_cluster.ocp_version
   cluster_tags                       = var.resource_tags
   use_existing_cos                   = true
   disable_public_endpoint            = local.management_cluster.disable_public_endpoint
