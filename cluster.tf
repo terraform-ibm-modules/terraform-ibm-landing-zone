@@ -14,7 +14,7 @@ data "ibm_container_cluster_versions" "cluster_versions" {}
 locals {
   worker_pools_map = module.dynamic_values.worker_pools_map # Convert list to map
   clusters_map     = module.dynamic_values.clusters_map     # Convert list to map
-  default_kube_version = {
+  latest_kube_version = {
     openshift = "${data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions) - 1]}_openshift"
     iks       = data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions) - 1]
   }
@@ -35,9 +35,9 @@ resource "ibm_container_vpc_cluster" "cluster" {
   flavor            = each.value.machine_type
   worker_count      = each.value.workers_per_subnet
   kube_version = (
-    lookup(each.value, "kube_version", null) == "default" # if version is default
+    lookup(each.value, "kube_version", null) == "latest"  # if version is latest
     || lookup(each.value, "kube_version", null) == null   # or if version is null
-    ? local.default_kube_version[each.value.kube_type]    # use default
+    ? local.latest_kube_version[each.value.kube_type]    # use latest
     : each.value.kube_version                             # otherwise use value
   )
   update_all_workers = lookup(each.value, "update_all_workers", null)
