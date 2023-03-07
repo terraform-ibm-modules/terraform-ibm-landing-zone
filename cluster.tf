@@ -35,10 +35,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
   flavor            = each.value.machine_type
   worker_count      = each.value.workers_per_subnet
   kube_version = (
-    lookup(each.value, "kube_version", null) == "latest"  # if version is latest
-    || lookup(each.value, "kube_version", null) == null   # or if version is null
+    lookup(each.value, "kube_version", null) == "latest" # if version is latest
+    || lookup(each.value, "kube_version", null) == null  # or if version is null
     ? local.latest_kube_version[each.value.kube_type]    # use latest
-    : each.value.kube_version                             # otherwise use value
+    : each.value.kube_version                            # otherwise use value
   )
   update_all_workers = lookup(each.value, "update_all_workers", null)
   tags               = var.tags
