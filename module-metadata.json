@@ -2418,7 +2418,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v3.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v4.0.0",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2439,7 +2439,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 121
+            "line": 133
           }
         },
         "ibm_is_public_gateway.gateway": {
