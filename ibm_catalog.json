@@ -286,8 +286,8 @@
             ]
         },
         {
-            "name": "slz-vpc-with-roks",
-            "label": "Secure infrastructure on VPC with ROKS",
+            "name": "deploy-arch-ibm-slz-ocp",
+            "label": "OpenShift Container Platform on VPC for regulated industries",
             "flavors": [
                 {
                     "label": "Standard",
