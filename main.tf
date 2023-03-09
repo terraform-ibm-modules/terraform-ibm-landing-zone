@@ -25,9 +25,9 @@ module "vpc" {
   network_acls                           = each.value.network_acls
   use_public_gateways                    = each.value.use_public_gateways
   subnets                                = each.value.subnets
-  enable_vpc_flow_logs                   = true
+  enable_vpc_flow_logs                   = (each.value.flow_logs_bucket_name != null) ? true : false
   create_authorization_policy_vpc_to_cos = false
-  existing_storage_bucket_name           = ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name
+  existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
   depends_on                             = [ibm_cos_bucket.buckets, ibm_iam_authorization_policy.policy]
 }
 
