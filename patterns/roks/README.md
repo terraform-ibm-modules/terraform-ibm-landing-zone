@@ -1,4 +1,4 @@
-# Landing Zone Mixed Pattern
+# Landing Zone Red Hat OpenShift Pattern
 
 This template allows a user to create a landing zone
 
