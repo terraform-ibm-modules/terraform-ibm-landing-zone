@@ -66,14 +66,14 @@ output "bastion_host_names" {
 # Cluster Outputs
 ##############################################################################
 
-output "workload_cluster_name" {
+output "cluster_1_name" {
   description = "List of create cluster names"
-  value       = length(module.workload_cluster) != 0 ? module.workload_cluster[0].cluster_name : null
+  value       = length(module.dynamic_values.clusters_map) == 1 ? module.cluster_1[0].cluster_name : null
 }
 
-output "management_cluster_name" {
+output "cluster_2_name" {
   description = "List of create cluster names"
-  value       = length(module.management_cluster) != 0 ? module.management_cluster[0].cluster_name : null
+  value       = length(module.dynamic_values.clusters_map) == 2 ? module.cluster_2[0].cluster_name : null
 }
 
 ##############################################################################

@@ -159,8 +159,8 @@
       "required": true,
       "sensitive": true,
       "source": [
-        "module.management_cluster.module.ocp_base",
-        "module.workload_cluster.module.ocp_base"
+        "module.cluster_1.module.ocp_base",
+        "module.cluster_2.module.ocp_base"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -278,16 +278,16 @@
         "ibm_resource_instance.appid.location",
         "ibm_resource_instance.secrets_manager.location",
         "ibm_tg_gateway.transit_gateway.location",
+        "module.cluster_1.module.ocp_base",
+        "module.cluster_2.module.ocp_base",
         "module.dynamic_values.module.f5",
         "module.dynamic_values.module.vpe",
         "module.key_management.ibm_resource_instance.kms.location",
-        "module.management_cluster.module.ocp_base",
         "module.observability_instances.ibm_resource_instance.activity_tracker.location",
         "module.observability_instances.ibm_resource_instance.logdna.location",
         "module.observability_instances.ibm_resource_instance.sysdig.location",
         "module.vpc.ibm_is_vpc_routing_table_route.routing_table_routes.zone",
-        "module.vpc.module.dynamic_values",
-        "module.workload_cluster.module.ocp_base"
+        "module.vpc.module.dynamic_values"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -316,12 +316,12 @@
       "description": "Optional list of tags to be added to created resources",
       "default": [],
       "source": [
-        "module.management_cluster.module.ocp_base.ibm_container_vpc_cluster.autoscaling_cluster.tags",
-        "module.management_cluster.module.ocp_base.ibm_container_vpc_cluster.cluster.tags",
+        "module.cluster_1.module.ocp_base.ibm_container_vpc_cluster.autoscaling_cluster.tags",
+        "module.cluster_1.module.ocp_base.ibm_container_vpc_cluster.cluster.tags",
+        "module.cluster_2.module.ocp_base.ibm_container_vpc_cluster.autoscaling_cluster.tags",
+        "module.cluster_2.module.ocp_base.ibm_container_vpc_cluster.cluster.tags",
         "module.observability_instances.ibm_resource_instance.logdna.tags",
-        "module.observability_instances.ibm_resource_instance.sysdig.tags",
-        "module.workload_cluster.module.ocp_base.ibm_container_vpc_cluster.autoscaling_cluster.tags",
-        "module.workload_cluster.module.ocp_base.ibm_container_vpc_cluster.cluster.tags"
+        "module.observability_instances.ibm_resource_instance.sysdig.tags"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -596,8 +596,8 @@
         }
       ],
       "source": [
-        "module.management_cluster",
-        "module.workload_cluster"
+        "module.cluster_1",
+        "module.cluster_2"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -654,6 +654,22 @@
         "line": 55
       }
     },
+    "cluster_1_name": {
+      "name": "cluster_1_name",
+      "description": "List of create cluster names",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 69
+      }
+    },
+    "cluster_2_name": {
+      "name": "cluster_2_name",
+      "description": "List of create cluster names",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 74
+      }
+    },
     "cos_bucket_names": {
       "name": "cos_bucket_names",
       "description": "List of names for COS buckets creaed",
@@ -692,14 +708,6 @@
       "pos": {
         "filename": "outputs.tf",
         "line": 234
-      }
-    },
-    "management_cluster_name": {
-      "name": "management_cluster_name",
-      "description": "List of create cluster names",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 74
       }
     },
     "resource_group_names": {
@@ -797,14 +805,6 @@
         "filename": "outputs.tf",
         "line": 226
       }
-    },
-    "workload_cluster_name": {
-      "name": "workload_cluster_name",
-      "description": "List of create cluster names",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 69
-      }
     }
   },
   "required_core": [
@@ -843,24 +843,24 @@
     }
   },
   "provider_configs": {
-    "helm.management_cluster": {
+    "helm.cluster_1": {
       "name": "helm",
-      "alias": "management_cluster"
+      "alias": "cluster_1"
     },
-    "helm.workload_cluster": {
+    "helm.cluster_2": {
       "name": "helm",
-      "alias": "workload_cluster"
+      "alias": "cluster_2"
     },
     "ibm": {
       "name": "ibm"
     },
-    "kubernetes.management_cluster": {
+    "kubernetes.cluster_1": {
       "name": "kubernetes",
-      "alias": "management_cluster"
+      "alias": "cluster_1"
     },
-    "kubernetes.workload_cluster": {
+    "kubernetes.cluster_2": {
       "name": "kubernetes",
-      "alias": "workload_cluster"
+      "alias": "cluster_2"
     }
   },
   "managed_resources": {
@@ -1362,28 +1362,28 @@
     }
   },
   "data_resources": {
-    "data.ibm_container_cluster_config.management_cluster": {
+    "data.ibm_container_cluster_config.cluster_1": {
       "mode": "data",
       "type": "ibm_container_cluster_config",
-      "name": "management_cluster",
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "provider.tf",
-        "line": 15
-      }
-    },
-    "data.ibm_container_cluster_config.workload_cluster": {
-      "mode": "data",
-      "type": "ibm_container_cluster_config",
-      "name": "workload_cluster",
+      "name": "cluster_1",
       "provider": {
         "name": "ibm"
       },
       "pos": {
         "filename": "provider.tf",
         "line": 10
+      }
+    },
+    "data.ibm_container_cluster_config.cluster_2": {
+      "mode": "data",
+      "type": "ibm_container_cluster_config",
+      "name": "cluster_2",
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "provider.tf",
+        "line": 15
       }
     },
     "data.ibm_is_image.image": {
@@ -1705,6 +1705,260 @@
         "line": 43
       }
     },
+    "cluster_1": {
+      "name": "cluster_1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
+      "attributes": {
+        "cluster_tags": "resource_tags",
+        "ibmcloud_api_key": "ibmcloud_api_key",
+        "region": "region",
+        "worker_pools": "worker_pools"
+      },
+      "managed_resources": {},
+      "data_resources": {},
+      "outputs": {
+        "cluster_crn": {
+          "name": "cluster_crn",
+          "description": "CRN for the created cluster",
+          "value": "module.ocp_base.cluster_crn",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 15
+          }
+        },
+        "cluster_id": {
+          "name": "cluster_id",
+          "description": "ID of cluster created",
+          "value": "module.ocp_base.cluster_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 5
+          }
+        },
+        "cluster_name": {
+          "name": "cluster_name",
+          "description": "Name of the created cluster",
+          "value": "module.ocp_base.cluster_name",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 10
+          }
+        },
+        "cos_crn": {
+          "name": "cos_crn",
+          "description": "CRN of the COS instance",
+          "value": "module.ocp_base.cos_crn",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 30
+          }
+        },
+        "ingress_hostname": {
+          "name": "ingress_hostname",
+          "description": "Ingress hostname",
+          "value": "module.ocp_base.ingress_hostname",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 50
+          }
+        },
+        "ocp_version": {
+          "name": "ocp_version",
+          "description": "Openshift Version of the cluster",
+          "value": "module.ocp_base.ocp_version",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 25
+          }
+        },
+        "private_service_endpoint_url": {
+          "name": "private_service_endpoint_url",
+          "description": "Private service endpoint URL",
+          "value": "module.ocp_base.private_service_endpoint_url",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 55
+          }
+        },
+        "public_service_endpoint_url": {
+          "name": "public_service_endpoint_url",
+          "description": "Public service endpoint URL",
+          "value": "module.ocp_base.public_service_endpoint_url",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 60
+          }
+        },
+        "region": {
+          "name": "region",
+          "description": "The IBM Cloud region where all resources will be provisioned.",
+          "value": "var.region",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 40
+          },
+          "type": "string"
+        },
+        "resource_group_id": {
+          "name": "resource_group_id",
+          "description": "Resource group ID the cluster is deployed in",
+          "value": "module.ocp_base.resource_group_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 45
+          }
+        },
+        "vpc_id": {
+          "name": "vpc_id",
+          "description": "ID of the clusters VPC",
+          "value": "module.ocp_base.vpc_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 35
+          }
+        },
+        "workerpools": {
+          "name": "workerpools",
+          "description": "Worker pools created",
+          "value": "module.ocp_base.workerpools",
+          "pos": {
+            "filename": ".terraform/modules/cluster_1/outputs.tf",
+            "line": 20
+          }
+        }
+      },
+      "pos": {
+        "filename": "cluster.tf",
+        "line": 15
+      }
+    },
+    "cluster_2": {
+      "name": "cluster_2",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
+      "attributes": {
+        "cluster_tags": "resource_tags",
+        "ibmcloud_api_key": "ibmcloud_api_key",
+        "region": "region",
+        "worker_pools": "worker_pools"
+      },
+      "managed_resources": {},
+      "data_resources": {},
+      "outputs": {
+        "cluster_crn": {
+          "name": "cluster_crn",
+          "description": "CRN for the created cluster",
+          "value": "module.ocp_base.cluster_crn",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 15
+          }
+        },
+        "cluster_id": {
+          "name": "cluster_id",
+          "description": "ID of cluster created",
+          "value": "module.ocp_base.cluster_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 5
+          }
+        },
+        "cluster_name": {
+          "name": "cluster_name",
+          "description": "Name of the created cluster",
+          "value": "module.ocp_base.cluster_name",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 10
+          }
+        },
+        "cos_crn": {
+          "name": "cos_crn",
+          "description": "CRN of the COS instance",
+          "value": "module.ocp_base.cos_crn",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 30
+          }
+        },
+        "ingress_hostname": {
+          "name": "ingress_hostname",
+          "description": "Ingress hostname",
+          "value": "module.ocp_base.ingress_hostname",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 50
+          }
+        },
+        "ocp_version": {
+          "name": "ocp_version",
+          "description": "Openshift Version of the cluster",
+          "value": "module.ocp_base.ocp_version",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 25
+          }
+        },
+        "private_service_endpoint_url": {
+          "name": "private_service_endpoint_url",
+          "description": "Private service endpoint URL",
+          "value": "module.ocp_base.private_service_endpoint_url",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 55
+          }
+        },
+        "public_service_endpoint_url": {
+          "name": "public_service_endpoint_url",
+          "description": "Public service endpoint URL",
+          "value": "module.ocp_base.public_service_endpoint_url",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 60
+          }
+        },
+        "region": {
+          "name": "region",
+          "description": "The IBM Cloud region where all resources will be provisioned.",
+          "value": "var.region",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 40
+          },
+          "type": "string"
+        },
+        "resource_group_id": {
+          "name": "resource_group_id",
+          "description": "Resource group ID the cluster is deployed in",
+          "value": "module.ocp_base.resource_group_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 45
+          }
+        },
+        "vpc_id": {
+          "name": "vpc_id",
+          "description": "ID of the clusters VPC",
+          "value": "module.ocp_base.vpc_id",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 35
+          }
+        },
+        "workerpools": {
+          "name": "workerpools",
+          "description": "Worker pools created",
+          "value": "module.ocp_base.workerpools",
+          "pos": {
+            "filename": ".terraform/modules/cluster_2/outputs.tf",
+            "line": 20
+          }
+        }
+      },
+      "pos": {
+        "filename": "cluster.tf",
+        "line": 53
+      }
+    },
     "dynamic_values": {
       "name": "dynamic_values",
       "source": "./dynamic_values",
@@ -1738,7 +1992,7 @@
           "value": "module.access_group_object.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 140
+            "line": 145
           }
         },
         "access_groups_with_invites": {
@@ -1747,7 +2001,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 160
+            "line": 165
           }
         },
         "access_policies": {
@@ -1756,7 +2010,7 @@
           "value": "module.access_policies.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 145
+            "line": 150
           }
         },
         "account_management_map": {
@@ -1765,7 +2019,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 155
+            "line": 160
           }
         },
         "appid_redirect_urls": {
@@ -1774,7 +2028,7 @@
           "value": "module.appid.redirect_urls",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 182
+            "line": 187
           }
         },
         "bastion_vsi_map": {
@@ -1783,7 +2037,7 @@
           "value": "module.bastion_vsi_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 171
+            "line": 176
           }
         },
         "bucket_to_instance_map": {
@@ -1792,7 +2046,16 @@
           "value": "module.cos.bucket_to_instance_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 46
+            "line": 51
+          }
+        },
+        "clusters_list": {
+          "name": "list",
+          "description": "List of clusters",
+          "value": "module.clusters.list",
+          "pos": {
+            "filename": "dynamic_values/outputs.tf",
+            "line": 10
           }
         },
         "clusters_map": {
@@ -1810,7 +2073,7 @@
           "value": "module.cos.cos_bucket_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 36
+            "line": 41
           }
         },
         "cos_data_map": {
@@ -1819,7 +2082,7 @@
           "value": "module.cos.cos_data_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 21
+            "line": 26
           }
         },
         "cos_instance_ids": {
@@ -1828,7 +2091,7 @@
           "value": "module.cos.cos_instance_ids",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 31
+            "line": 36
           }
         },
         "cos_key_map": {
@@ -1837,7 +2100,7 @@
           "value": "module.cos.cos_key_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 41
+            "line": 46
           }
         },
         "cos_map": {
@@ -1846,7 +2109,7 @@
           "value": "module.cos.cos_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 26
+            "line": 31
           }
         },
         "dynamic_rules": {
@@ -1855,7 +2118,7 @@
           "value": "module.dynamic_rules.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 150
+            "line": 155
           }
         },
         "f5_template_map": {
@@ -1864,7 +2127,7 @@
           "value": "module.f5_cloud_init",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 219
+            "line": 224
           }
         },
         "f5_vsi_map": {
@@ -1873,7 +2136,7 @@
           "value": "module.f5.f5_vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 214
+            "line": 219
           }
         },
         "flow_logs_map": {
@@ -1882,7 +2145,7 @@
           "value": "module.flow_logs_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 57
+            "line": 62
           }
         },
         "security_group_map": {
@@ -1891,7 +2154,7 @@
           "value": "module.security_group_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 73
+            "line": 78
           }
         },
         "security_group_rules_map": {
@@ -1900,7 +2163,7 @@
           "value": "module.security_group_rules_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 78
+            "line": 83
           }
         },
         "service_authorizations": {
@@ -1909,7 +2172,7 @@
           "value": "module.service_authorizations.authorizations",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 89
+            "line": 94
           }
         },
         "ssh_keys": {
@@ -1918,7 +2181,7 @@
           "value": "module.vsi.ssh_key_list",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 203
+            "line": 208
           }
         },
         "vpc_map": {
@@ -1927,7 +2190,7 @@
           "value": "module.vpc_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 62
+            "line": 67
           }
         },
         "vpe_gateway_map": {
@@ -1936,7 +2199,7 @@
           "value": "module.vpe.vpe_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 105
+            "line": 110
           }
         },
         "vpe_services": {
@@ -1945,7 +2208,7 @@
           "value": "module.vpe.vpe_services",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 100
+            "line": 105
           }
         },
         "vpe_subnet_reserved_ip_map": {
@@ -1954,7 +2217,7 @@
           "value": "module.vpe.vpe_subnet_reserved_ip_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 110
+            "line": 115
           }
         },
         "vpn_connection_map": {
@@ -1963,7 +2226,7 @@
           "value": "module.vpn.vpn_connection_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 128
+            "line": 133
           }
         },
         "vpn_gateway_map": {
@@ -1972,7 +2235,7 @@
           "value": "module.vpn.vpn_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 122
+            "line": 127
           }
         },
         "vsi_images_map": {
@@ -1981,7 +2244,7 @@
           "value": "module.vsi.vsi_image_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 193
+            "line": 198
           }
         },
         "vsi_map": {
@@ -1990,7 +2253,7 @@
           "value": "module.vsi.vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 198
+            "line": 203
           }
         },
         "worker_pools_map": {
@@ -1999,7 +2262,7 @@
           "value": "module.worker_pools.map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 10
+            "line": 15
           }
         }
       },
@@ -2408,133 +2671,6 @@
       "pos": {
         "filename": "services.tf",
         "line": 5
-      }
-    },
-    "management_cluster": {
-      "name": "management_cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
-      "attributes": {
-        "cluster_tags": "resource_tags",
-        "ibmcloud_api_key": "ibmcloud_api_key",
-        "region": "region",
-        "worker_pools": "worker_pools"
-      },
-      "managed_resources": {},
-      "data_resources": {},
-      "outputs": {
-        "cluster_crn": {
-          "name": "cluster_crn",
-          "description": "CRN for the created cluster",
-          "value": "module.ocp_base.cluster_crn",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 15
-          }
-        },
-        "cluster_id": {
-          "name": "cluster_id",
-          "description": "ID of cluster created",
-          "value": "module.ocp_base.cluster_id",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 5
-          }
-        },
-        "cluster_name": {
-          "name": "cluster_name",
-          "description": "Name of the created cluster",
-          "value": "module.ocp_base.cluster_name",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 10
-          }
-        },
-        "cos_crn": {
-          "name": "cos_crn",
-          "description": "CRN of the COS instance",
-          "value": "module.ocp_base.cos_crn",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 30
-          }
-        },
-        "ingress_hostname": {
-          "name": "ingress_hostname",
-          "description": "Ingress hostname",
-          "value": "module.ocp_base.ingress_hostname",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 50
-          }
-        },
-        "ocp_version": {
-          "name": "ocp_version",
-          "description": "Openshift Version of the cluster",
-          "value": "module.ocp_base.ocp_version",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 25
-          }
-        },
-        "private_service_endpoint_url": {
-          "name": "private_service_endpoint_url",
-          "description": "Private service endpoint URL",
-          "value": "module.ocp_base.private_service_endpoint_url",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 55
-          }
-        },
-        "public_service_endpoint_url": {
-          "name": "public_service_endpoint_url",
-          "description": "Public service endpoint URL",
-          "value": "module.ocp_base.public_service_endpoint_url",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 60
-          }
-        },
-        "region": {
-          "name": "region",
-          "description": "The IBM Cloud region where all resources will be provisioned.",
-          "value": "var.region",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 40
-          },
-          "type": "string"
-        },
-        "resource_group_id": {
-          "name": "resource_group_id",
-          "description": "Resource group ID the cluster is deployed in",
-          "value": "module.ocp_base.resource_group_id",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 45
-          }
-        },
-        "vpc_id": {
-          "name": "vpc_id",
-          "description": "ID of the clusters VPC",
-          "value": "module.ocp_base.vpc_id",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 35
-          }
-        },
-        "workerpools": {
-          "name": "workerpools",
-          "description": "Worker pools created",
-          "value": "module.ocp_base.workerpools",
-          "pos": {
-            "filename": ".terraform/modules/management_cluster/outputs.tf",
-            "line": 20
-          }
-        }
-      },
-      "pos": {
-        "filename": "cluster.tf",
-        "line": 56
       }
     },
     "observability_instances": {
@@ -3427,133 +3563,6 @@
       "pos": {
         "filename": "virtual_servers.tf",
         "line": 42
-      }
-    },
-    "workload_cluster": {
-      "name": "workload_cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git?ref=v1.0.0",
-      "attributes": {
-        "cluster_tags": "resource_tags",
-        "ibmcloud_api_key": "ibmcloud_api_key",
-        "region": "region",
-        "worker_pools": "worker_pools"
-      },
-      "managed_resources": {},
-      "data_resources": {},
-      "outputs": {
-        "cluster_crn": {
-          "name": "cluster_crn",
-          "description": "CRN for the created cluster",
-          "value": "module.ocp_base.cluster_crn",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 15
-          }
-        },
-        "cluster_id": {
-          "name": "cluster_id",
-          "description": "ID of cluster created",
-          "value": "module.ocp_base.cluster_id",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 5
-          }
-        },
-        "cluster_name": {
-          "name": "cluster_name",
-          "description": "Name of the created cluster",
-          "value": "module.ocp_base.cluster_name",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 10
-          }
-        },
-        "cos_crn": {
-          "name": "cos_crn",
-          "description": "CRN of the COS instance",
-          "value": "module.ocp_base.cos_crn",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 30
-          }
-        },
-        "ingress_hostname": {
-          "name": "ingress_hostname",
-          "description": "Ingress hostname",
-          "value": "module.ocp_base.ingress_hostname",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 50
-          }
-        },
-        "ocp_version": {
-          "name": "ocp_version",
-          "description": "Openshift Version of the cluster",
-          "value": "module.ocp_base.ocp_version",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 25
-          }
-        },
-        "private_service_endpoint_url": {
-          "name": "private_service_endpoint_url",
-          "description": "Private service endpoint URL",
-          "value": "module.ocp_base.private_service_endpoint_url",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 55
-          }
-        },
-        "public_service_endpoint_url": {
-          "name": "public_service_endpoint_url",
-          "description": "Public service endpoint URL",
-          "value": "module.ocp_base.public_service_endpoint_url",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 60
-          }
-        },
-        "region": {
-          "name": "region",
-          "description": "The IBM Cloud region where all resources will be provisioned.",
-          "value": "var.region",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 40
-          },
-          "type": "string"
-        },
-        "resource_group_id": {
-          "name": "resource_group_id",
-          "description": "Resource group ID the cluster is deployed in",
-          "value": "module.ocp_base.resource_group_id",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 45
-          }
-        },
-        "vpc_id": {
-          "name": "vpc_id",
-          "description": "ID of the clusters VPC",
-          "value": "module.ocp_base.vpc_id",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 35
-          }
-        },
-        "workerpools": {
-          "name": "workerpools",
-          "description": "Worker pools created",
-          "value": "module.ocp_base.workerpools",
-          "pos": {
-            "filename": ".terraform/modules/workload_cluster/outputs.tf",
-            "line": 20
-          }
-        }
-      },
-      "pos": {
-        "filename": "cluster.tf",
-        "line": 14
       }
     }
   }

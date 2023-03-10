@@ -905,17 +905,17 @@ statement instead the previous block.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_cluster_1"></a> [cluster\_1](#module\_cluster\_1) | git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git | v1.0.0 |
+| <a name="module_cluster_2"></a> [cluster\_2](#module\_cluster\_2) | git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git | v1.0.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
-| <a name="module_management_cluster"></a> [management\_cluster](#module\_management\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git | v1.0.0 |
 | <a name="module_observability_instances"></a> [observability\_instances](#module\_observability\_instances) | git::https://github.com/terraform-ibm-modules/terraform-ibm-observability-instances | v1.1.1 |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v3.0.0 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
-| <a name="module_workload_cluster"></a> [workload\_cluster](#module\_workload\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-ocp-all-inclusive.git | v1.0.0 |
 
 ## Resources
 
@@ -954,8 +954,8 @@ statement instead the previous block.
 | [ibm_tg_gateway.transit_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
 | [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/0.9.1/docs/resources/sleep) | resource |
-| [ibm_container_cluster_config.management_cluster](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
-| [ibm_container_cluster_config.workload_cluster](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
+| [ibm_container_cluster_config.cluster_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
+| [ibm_container_cluster_config.cluster_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
 | [ibm_is_image.image](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_image) | data source |
 | [ibm_is_vpc.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_vpc) | data source |
 | [ibm_resource_group.resource_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
@@ -1012,12 +1012,13 @@ statement instead the previous block.
 | <a name="output_atracker_route_name"></a> [atracker\_route\_name](#output\_atracker\_route\_name) | Name of atracker route |
 | <a name="output_atracker_target_name"></a> [atracker\_target\_name](#output\_atracker\_target\_name) | Name of atracker target |
 | <a name="output_bastion_host_names"></a> [bastion\_host\_names](#output\_bastion\_host\_names) | List of bastion host names |
+| <a name="output_cluster_1_name"></a> [cluster\_1\_name](#output\_cluster\_1\_name) | List of create cluster names |
+| <a name="output_cluster_2_name"></a> [cluster\_2\_name](#output\_cluster\_2\_name) | List of create cluster names |
 | <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets creaed |
 | <a name="output_cos_key_names"></a> [cos\_key\_names](#output\_cos\_key\_names) | List of names for created COS keys |
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
 | <a name="output_f5_host_names"></a> [f5\_host\_names](#output\_f5\_host\_names) | List of bastion host names |
 | <a name="output_fip_vsi_data"></a> [fip\_vsi\_data](#output\_fip\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached. |
-| <a name="output_management_cluster_name"></a> [management\_cluster\_name](#output\_management\_cluster\_name) | List of create cluster names |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
 | <a name="output_secrets_manager_name"></a> [secrets\_manager\_name](#output\_secrets\_manager\_name) | Name of secrets manager instance |
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group names |
@@ -1030,7 +1031,6 @@ statement instead the previous block.
 | <a name="output_vpn_names"></a> [vpn\_names](#output\_vpn\_names) | List of VPN names |
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
-| <a name="output_workload_cluster_name"></a> [workload\_cluster\_name](#output\_workload\_cluster\_name) | List of create cluster names |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 <!-- BEGIN CONTRIBUTING HOOK -->
 
