@@ -11,7 +11,7 @@
             "cos_name": "cos",
             "entitlement": "cloud_pak",
             "kube_type": "openshift",
-            "ocp_version": "default",
+            "ocp_version": "latest",
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
