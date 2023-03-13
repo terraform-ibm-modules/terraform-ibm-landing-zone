@@ -75,8 +75,7 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet      = var.workers_per_zone
-        machine_type            = var.flavor
+        machine_type            = var.machine_type
         kube_type               = "openshift"
         ocp_version             = var.ocp_version
         disable_public_endpoint = var.disable_public_endpoint
@@ -90,17 +89,13 @@ locals {
         entitlement             = var.entitlement
         # By default, create dedicated pool for logging
         worker_pools = [
-          # {
-          #   name     = "logging-worker-pool"
-          #   vpc_name = network
-          #   subnet_names = [
-          #     for zone in range(1, var.cluster_zones + 1) :
-          #     "vsi-zone-${zone}"
-          #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
-          # }
+          {
+            subnet_prefix    = "vsi-zone-1"
+            pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
+            machine_type     = var.machine_type
+            workers_per_zone = var.workers_per_zone
+            labels           = {}
+          }
         ]
       }
     ]

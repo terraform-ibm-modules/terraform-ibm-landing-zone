@@ -760,7 +760,6 @@ variable "clusters" {
       name                    = string           # Name of Cluster
       vpc_name                = string           # Name of VPC
       subnet_names            = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet      = number           # Worker nodes per subnet.
       machine_type            = string           # Worker node flavor
       kube_type               = string           # iks or openshift
       logdna_plan             = optional(string) # Logging plan to provision
@@ -782,16 +781,14 @@ variable "clusters" {
         })
       )
       worker_pools = optional(
-        list(
-          object({
-            name               = string           # Worker pool name
-            vpc_name           = string           # VPC name
-            workers_per_subnet = number           # Worker nodes per subnet
-            flavor             = string           # Worker node flavor
-            subnet_names       = list(string)     # List of vpc subnets for worker pool
-            entitlement        = optional(string) # entitlement option for openshift
-          })
-        )
+        list(object({
+          subnet_prefix     = string
+          pool_name         = string
+          machine_type      = string
+          workers_per_zone  = number
+          resource_group_id = optional(string)
+          labels            = optional(map(string))
+        }))
       )
     })
   )
@@ -825,15 +822,15 @@ variable "clusters" {
     error_message = "Duplicate cluster name. Please provide unique cluster names."
   }
 
-  # min. workers_per_subnet=2 (default pool) for openshift validation
+  # min. workers_per_zone=2 (default pool) for openshift validation
   validation {
-    condition     = length([for n in flatten(var.clusters[*]) : false if(n.kube_type == "openshift" && (length(n.subnet_names) * n.workers_per_subnet < 2))]) == 0
+    condition     = alltrue([for pools in([for worker_pool in var.clusters[*].worker_pools : worker_pool if worker_pool != null]) : alltrue([for pool in pools : contains([1], pool.workers_per_zone) == false])])
     error_message = "For openshift cluster workers needs to be 2 or more."
   }
 
   # worker_pool name validation
   validation {
-    condition     = length([for pools in([for worker_pool in var.clusters[*].worker_pools : worker_pool if worker_pool != null]) : false if(length(distinct([for pool in pools : pool.name])) != length([for pool in pools : pool.name]))]) == 0
+    condition     = length([for pools in([for worker_pool in var.clusters[*].worker_pools : worker_pool if worker_pool != null]) : false if(length(distinct([for pool in pools : pool.pool_name])) != length([for pool in pools : pool.pool_name]))]) == 0
     error_message = "Duplicate worker_pool name in list var.cluster.worker_pools. Please provide unique worker_pool names."
   }
 
@@ -870,27 +867,6 @@ variable "ocp_version" {
     ])
     error_message = "The specified ocp_version is not one of the validated versions."
   }
-}
-
-variable "worker_pools" {
-  type = list(object({
-    subnet_prefix     = string
-    pool_name         = string
-    machine_type      = string
-    workers_per_zone  = number
-    resource_group_id = optional(string)
-    labels            = optional(map(string))
-  }))
-  default = [
-    {
-      subnet_prefix    = "vsi-zone-1"
-      pool_name        = "default" # ibm_container_vpc_cluster automatically names default pool "default" (See https://github.com/IBM-Cloud/terraform-provider-ibm/issues/2849)
-      machine_type     = "bx2.4x16"
-      workers_per_zone = 3
-      labels           = {}
-    }
-  ]
-  description = "List of worker pools"
 }
 
 variable "resource_tags" {

@@ -31,19 +31,13 @@
             "vpc_name": "workload",
             "worker_pools": [
                 {
-                    "entitlement": "cloud_pak",
-                    "flavor": "bx2.16x64",
-                    "name": "logging-worker-pool",
-                    "subnet_names": [
-                        "vsi-zone-1",
-                        "vsi-zone-2",
-                        "vsi-zone-3"
-                    ],
-                    "vpc_name": "workload",
-                    "workers_per_subnet": 2
+                    "subnet_prefix": "vsi-zone-1",
+                    "machine_type": "bx2.16x64",
+                    "pool_name": "default",
+                    "labels": {},
+                    "workers_per_zone": 3
                 }
-            ],
-            "workers_per_subnet": 2
+            ]
         }
     ],
     "cos": [

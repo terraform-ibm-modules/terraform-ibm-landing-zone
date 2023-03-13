@@ -7,16 +7,6 @@ output "clusters_map" {
   value       = module.clusters.map
 }
 
-output "clusters_list" {
-  description = "Cluster List for dynamic cluster creation"
-  value       = module.clusters.list
-}
-
-output "worker_pools_map" {
-  description = "Cluster worker pools map"
-  value       = module.worker_pools.map
-}
-
 ##############################################################################
 
 ##############################################################################

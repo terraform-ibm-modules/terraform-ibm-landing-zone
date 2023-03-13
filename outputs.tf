@@ -66,14 +66,12 @@ output "bastion_host_names" {
 # Cluster Outputs
 ##############################################################################
 
-output "cluster_1_name" {
+output "cluster_names" {
   description = "List of create cluster names"
-  value       = length(module.dynamic_values.clusters_map) == 1 ? module.cluster_1[0].cluster_name : null
-}
-
-output "cluster_2_name" {
-  description = "List of create cluster names"
-  value       = length(module.dynamic_values.clusters_map) == 2 ? module.cluster_2[0].cluster_name : null
+  value = [
+    for cluster in module.cluster :
+    cluster.cluster_name
+  ]
 }
 
 ##############################################################################
