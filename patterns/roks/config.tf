@@ -88,19 +88,18 @@ locals {
         update_all_workers      = var.update_all_workers
         cos_name                = "cos"
         entitlement             = var.entitlement
-        # By default, create dedicated pool for logging
         worker_pools = [
-          # {
-          #   name     = "default"
-          #   vpc_name = network
-          #   subnet_names = [
-          #     for zone in range(1, var.cluster_zones + 1) :
-          #     "vsi-zone-${zone}"
-          #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
-          # }
+          {
+            name     = "default"
+            vpc_name = var.vpcs[1]
+            subnet_names = [
+              for zone in range(1, var.cluster_zones + 1) :
+              "vsi-zone-${zone}"
+            ]
+            entitlement        = var.entitlement
+            workers_per_subnet = var.workers_per_zone
+            flavor             = var.flavor
+          }
         ]
       }
     ]
