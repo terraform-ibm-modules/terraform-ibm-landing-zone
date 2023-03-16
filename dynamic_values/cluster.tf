@@ -35,11 +35,11 @@ module "ut_cluster_map" {
       entitlement             = "cloud_pak"
       worker_pools = [
         {
-          subnet_prefix    = "vsi-zone-1"
-          pool_name        = "default"
-          machine_type     = "bx2.4x16"
-          workers_per_zone = 3
-          labels           = {}
+          name               = "default"
+          vpc_name           = "test"
+          subnet_names       = ["subnet-1", "subnet-3"]
+          workers_per_subnet = 2
+          flavor             = "spicy"
         }
       ]
     }

@@ -31,13 +31,19 @@
         "vpc_name": "management",
         "worker_pools": [
             {
-                "subnet_prefix": "vsi-zone-1",
-                "machine_type": "bx2.16x64",
-                "pool_name": "default",
-                "labels": {},
-                "workers_per_zone": 3
+                "entitlement": "cloud_pak",
+                "flavor": "bx2.16x64",
+                "name": "default",
+                "subnet_names": [
+                    "vsi-zone-1",
+                    "vsi-zone-2",
+                    "vsi-zone-3"
+                ],
+                "vpc_name": "management",
+                "workers_per_subnet": 2
             }
-        ]
+        ],
+        "workers_per_subnet": 2
     },
     {
         "cos_name": "cos",
@@ -64,13 +70,19 @@
         "vpc_name": "workload",
         "worker_pools": [
             {
-                "subnet_prefix": "vsi-zone-1",
-                "machine_type": "bx2.16x64",
-                "pool_name": "default",
-                "labels": {},
-                "workers_per_zone": 3
+                "entitlement": "cloud_pak",
+                "flavor": "bx2.16x64",
+                "name": "logging-worker-pool",
+                "subnet_names": [
+                    "vsi-zone-1",
+                    "vsi-zone-2",
+                    "vsi-zone-3"
+                ],
+                "vpc_name": "workload",
+                "workers_per_subnet": 2
             }
-        ]
+        ],
+        "workers_per_subnet": 2
     }
 ],
   "cos": [

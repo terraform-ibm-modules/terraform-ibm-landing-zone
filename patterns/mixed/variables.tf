@@ -158,7 +158,7 @@ variable "ocp_version" {
   default     = "latest"
 }
 
-variable "machine_type" {
+variable "flavor" {
   description = "Machine type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types"
   type        = string
   default     = "bx2.16x64"

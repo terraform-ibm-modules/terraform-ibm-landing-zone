@@ -32,7 +32,15 @@ module "cluster" {
       }
     ]
   }
-  worker_pools            = each.value.worker_pools
+  worker_pools = [
+    for pool in each.value.worker_pools :
+    {
+      subnet_prefix    = pool.subnet_names[0]
+      pool_name        = pool.name
+      machine_type     = pool.flavor
+      workers_per_zone = pool.workers_per_subnet
+    }
+  ]
   ocp_version             = each.value.ocp_version
   tags                    = var.resource_tags
   use_existing_cos        = true
