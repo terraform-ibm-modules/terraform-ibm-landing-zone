@@ -18,3 +18,4 @@ jobs:
     with:
       craTarget: "patterns/roks"
       craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
+      craEnvironmentVariables: "TF_VAR_prefix=landzone-roks,TF_VAR_region=us-south"
