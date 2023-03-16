@@ -763,6 +763,7 @@ variable "clusters" {
       workers_per_subnet      = number           # Worker nodes per subnet.
       machine_type            = string           # Worker node flavor
       kube_type               = string           # iks or openshift
+      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
       logdna_plan             = optional(string) # Logging plan to provision
       sysdig_plan             = optional(string) # Monitoring plan to provision
       disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled

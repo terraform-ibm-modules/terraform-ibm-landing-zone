@@ -106,7 +106,7 @@ locals {
         # By default, create dedicated pool for logging
         worker_pools = [
           {
-            name     = "logging-worker-pool"
+            name     = "default"
             vpc_name = var.vpcs[1]
             subnet_names = [
               for zone in range(1, var.cluster_zones + 1) :
