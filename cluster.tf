@@ -22,6 +22,7 @@ module "cluster" {
   region            = var.region
   cluster_name      = each.value.cluster_name
   vpc_id            = each.value.vpc_id
+  ocp_entitlement   = each.value.entitlement
   vpc_subnets = {
     vsi-zone-1 = [
       for zone in each.value.subnets :
@@ -32,15 +33,24 @@ module "cluster" {
       }
     ]
   }
-  worker_pools = [
-    for pool in each.value.worker_pools :
-    {
-      subnet_prefix    = pool.subnet_names[0]
-      pool_name        = pool.name
-      machine_type     = pool.flavor
-      workers_per_zone = pool.workers_per_subnet
-    }
-  ]
+  worker_pools = concat(
+    [
+      {
+        subnet_prefix    = each.value.subnet_names[0]
+        pool_name        = "default"
+        machine_type     = each.value.machine_type
+        workers_per_zone = each.value.workers_per_subnet
+      }
+    ],
+    [
+      for pool in each.value.worker_pools :
+      {
+        subnet_prefix    = pool.subnet_names[0]
+        pool_name        = pool.name
+        machine_type     = pool.flavor
+        workers_per_zone = pool.workers_per_subnet
+      }
+  ])
   ocp_version             = each.value.ocp_version
   tags                    = var.resource_tags
   use_existing_cos        = true
