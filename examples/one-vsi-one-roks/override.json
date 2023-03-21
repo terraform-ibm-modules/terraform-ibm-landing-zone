@@ -33,7 +33,7 @@
             {
                 "entitlement": "cloud_pak",
                 "flavor": "bx2.16x64",
-                "name": "default",
+                "name": "logging-worker-pool",
                 "subnet_names": [
                     "vsi-zone-1",
                     "vsi-zone-2",
