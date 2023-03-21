@@ -40,6 +40,10 @@ module "cluster" {
         pool_name        = "default"
         machine_type     = each.value.machine_type
         workers_per_zone = each.value.workers_per_subnet
+        boot_volume_encryption_kms_config = {
+          crk             = module.key_management.key_management_guid
+          kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+        }
       }
     ],
     [
@@ -49,6 +53,10 @@ module "cluster" {
         pool_name        = pool.name
         machine_type     = pool.flavor
         workers_per_zone = pool.workers_per_subnet
+        boot_volume_encryption_kms_config = {
+          crk             = module.key_management.key_management_guid
+          kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+        }
       }
   ])
   ocp_version             = each.value.ocp_version
@@ -59,9 +67,5 @@ module "cluster" {
   kms_config = {
     instance_id = module.key_management.key_management_guid
     crk_id      = module.key_management.key_map[each.value.kms_config.crk_name].key_id
-  }
-  boot_volume_encryption_kms_config = {
-    crk             = module.key_management.key_management_guid
-    kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
   }
 }
