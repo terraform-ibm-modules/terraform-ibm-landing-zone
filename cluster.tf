@@ -16,7 +16,7 @@ module "cluster" {
     module.vpc
   ]
   for_each          = local.clusters_map
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.1.1"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
@@ -59,5 +59,9 @@ module "cluster" {
   kms_config = {
     instance_id = module.key_management.key_management_guid
     crk_id      = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+  }
+  boot_volume_encryption_kms_config = {
+    crk             = module.key_management.key_management_guid
+    kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
   }
 }

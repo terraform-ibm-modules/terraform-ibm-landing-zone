@@ -1609,7 +1609,7 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.1.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.0",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
@@ -1636,7 +1636,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 110
+            "line": 113
           }
         },
         "ibm_container_vpc_cluster.cluster": {
@@ -1675,7 +1675,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 237
+            "line": 252
           }
         },
         "ibm_container_vpc_worker_pool.pool": {
@@ -1691,7 +1691,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 205
+            "line": 211
           }
         },
         "ibm_resource_instance.cos_instance": {
@@ -1714,12 +1714,15 @@
           "mode": "managed",
           "type": "null_resource",
           "name": "confirm_network_healthy",
+          "attributes": {
+            "count": "verify_worker_network_readiness"
+          },
           "provider": {
             "name": "null"
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 289
+            "line": 312
           }
         },
         "null_resource.reset_api_key": {
@@ -1731,7 +1734,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 181
+            "line": 187
           }
         }
       },
@@ -1748,7 +1751,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 195
+            "line": 201
           }
         },
         "data.ibm_container_cluster_versions.cluster_versions": {
