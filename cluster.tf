@@ -41,8 +41,8 @@ module "cluster" {
         machine_type     = each.value.machine_type
         workers_per_zone = each.value.workers_per_subnet
         boot_volume_encryption_kms_config = {
-          crk             = module.key_management.key_management_guid
-          kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          kms_instance_id = module.key_management.key_management_guid
         }
       }
     ],
@@ -54,8 +54,8 @@ module "cluster" {
         machine_type     = pool.flavor
         workers_per_zone = pool.workers_per_subnet
         boot_volume_encryption_kms_config = {
-          crk             = module.key_management.key_management_guid
-          kms_instance_id = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          kms_instance_id = module.key_management.key_management_guid
         }
       }
   ])
