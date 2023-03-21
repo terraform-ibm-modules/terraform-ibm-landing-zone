@@ -52,12 +52,12 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
 
-OpenShift Container Platform on VPC for regulated industries is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red HatOpenShift Container Platform (OCP) workload clusters on a Virtual Private Cloud (VPC) network.
+OpenShift Container Platform on VPC for regulated industries is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
 # Architecture diagram
 {: #ra-ocp-architecture-diagram}
 
-![Architecture diagram of the Red Hat OpenShift Container Platform deployable architecture.](roks.drawio.svg "Architecture diagram of OpenShift Container Platform on VPC for regulated industries deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red HatOpen Shift Container Platform on VPC on IBM Cloud" caption-side="bottom"}
+![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture.](roks.drawio.svg "Architecture diagram of OpenShift Container Platform on VPC for regulated industries deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}
 
 ## Design requirements
 {: #ra-ocp-design-requirements}
@@ -122,7 +122,7 @@ If the architecture is large and includes several rows of the heat map, consider
 ## Compliance
 {: #ra-ocp-compliance}
 
-TODO: Decide whether to include a compliance section, and if so,  add that information
+TODO: Decide whether to include a compliance section, and if so, add that information
 
 <!--
 _Optional section._ Feedback from users implies that architects want only the high-level compliance items and links off to control details that team members can review. Include the list of control profiles or compliance audits that this architecture meets. For controls, provide "learn more" links to the control library that is published in the IBM Cloud Docs. For audits, provide information about the compliance item.

@@ -59,13 +59,7 @@ The QuickStart variation of the Secure infrastructure on VPC for regulated indus
 # Architecture diagram
 {: #ra-vsi-qs-architecture-diagram}
 
-TODO: Use the architecture diagram SVG file that is included with the Catalog tile.
-
-<!--
-Include the architecture diagram SVG file that was created by using drawio and the IBM2 library. Guidelines at https://test.cloud.ibm.com/docs/writing?topic=writing-diagrams#diagrams-drawio
--->
-
-![Architecture diagram of the VSI on VPC deployable architecture.](vsi-quickstart.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. VSI on VPC for regulated industries" caption-side="bottom"}
+![Architecture diagram for the QuickStart variation of Secure infrastructure on VPC for regulated industries](vsi-quickstart.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. QuickStart variation of Secure infrastructure on VPC for regulated industries" caption-side="bottom"}
 
 ## Design requirements
 {: #ra-vsi-qs-qs-design-requirements}
@@ -127,7 +121,7 @@ If the architecture is large and includes several rows of the heat map, consider
 ## Compliance
 {: #ra-vsi-qs-compliance}
 
-TODO: Decide whether to include a compliance section, and if so,  add that information
+TODO: Decide whether to include a compliance section, and if so, add that information
 
 <!--
 _Optional section._ Feedback from users implies that architects want only the high-level compliance items and links off to control details that team members can review. Include the list of control profiles or compliance audits that this architecture meets. For controls, provide "learn more" links to the control library that is published in the IBM Cloud Docs. For audits, provide information about the compliance item.
