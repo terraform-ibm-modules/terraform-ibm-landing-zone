@@ -20,7 +20,7 @@ version: 1.0
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: # TODO
 
-docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vpc
+docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/roks-pattern.png
 
 related_links:
@@ -88,9 +88,9 @@ If the architecture is large and includes several rows of the heat map, consider
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Ensure public internet connectivity  \n * Isolate most virtual instances to not be reachable directly from the public internet | Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured | |
-| * Provide infrastructure administration access  \n * Limit the number of infrastructure administration entry points to ensure security audit | Management VPC service | Create a separate VPC service where SSH connectivity from outside is allowed | |
-| * Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services | Workload VPC service|Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access | |
+| * Ensure public internet connectivity  \n * Isolate most OpenShift clusters so that they are not reachable directly from the public internet | Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured | |
+| Provide compute, storage, and network services to enable the application application provider's administrators to monitor, operate, and maintain the environment | Management VPC service | Create a separate VPC service where SSH connectivity from outside is allowed | |
+| Provide compute, storage, and network services to support hosted applications and operations that deliver services to the consumer | Workload VPC service | Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access | |
 | Create a virtual server instance that can act as an internet proxy server | Proxy server VPC instance | Create a Linux VPC instance that can act as a proxy server. Configure ACL and security group rules to allow public internet traffic over proxy that uses default proxy ports (3828) | Configure application load balancer to act as proxy server manually |
 | Create a virtual server instance as the only management access point to the landscape | Bastion host VPC instance | Create a Linux VPC instance that acts as a bastion host. Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes | |
 |  Create a virtual server instance to host basic management services like DNS, NTP, NFS | Management services VPC instance | Create a Linux VPC instance that can host management components. Configure ACL and security group rules to allow communication for basic management components. | Modify number of virtual server instances and allowed ports in preset, or modify them manually |
