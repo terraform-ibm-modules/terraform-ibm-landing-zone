@@ -405,76 +405,212 @@
                     "compliance": {
                         "controls": [
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(1)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(4)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(7)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "AC-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(c)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(g)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(i)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-6(9)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(j)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-7(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-3"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(1)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-4"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-6-0"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-14(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-16(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-17(9)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "AU-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CA-7(a)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-2(d)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-3"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-4"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(1)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CA-2(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CA-7(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "CM-2"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CM-8(4)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CM-8(3)(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "IA-4"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-2-0"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-8-0"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(e)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(f)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-6"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "RA-5(1)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "RA-5(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "RA-5(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-12"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SA-10(1)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-13"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-2"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-36"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-3"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-7"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-10"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-7-0"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-2(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-3(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-12"
                             }
                         ]
                     },
