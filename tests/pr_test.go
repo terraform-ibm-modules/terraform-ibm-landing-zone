@@ -14,6 +14,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
+const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
@@ -40,13 +41,13 @@ func sshPublicKey(t *testing.T) string {
 	return terraform.Output(t, terraformOptions, "ssh_public_key")
 }
 
-func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
-		TerraformDir: quickstartExampleTerraformDir,
+		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
@@ -56,10 +57,20 @@ func setupOptionsQuickstart(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
+func TestRunNoComputeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickstart(t, "slz-qs")
+	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -69,7 +80,7 @@ func TestRunQuickstartExample(t *testing.T) {
 func TestRunUpgradeQuickstartExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickstart(t, "slz-qs-ug")
+	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -103,16 +114,6 @@ func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-no")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunRoksPattern2(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "r-no2")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
