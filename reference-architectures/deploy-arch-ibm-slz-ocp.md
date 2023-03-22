@@ -54,7 +54,7 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 
 OpenShift Container Platform on VPC for regulated industries is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
-# Architecture diagram
+## Architecture diagram
 {: #ra-ocp-architecture-diagram}
 
 ![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture.](roks.drawio.svg "Architecture diagram of OpenShift Container Platform on VPC for regulated industries deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}

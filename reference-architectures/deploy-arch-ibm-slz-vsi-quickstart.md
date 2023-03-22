@@ -56,7 +56,7 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 
 The QuickStart variation of the Secure infrastructure on VPC for regulated industries deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
-# Architecture diagram
+## Architecture diagram
 {: #ra-vsi-qs-architecture-diagram}
 
 ![Architecture diagram for the QuickStart variation of Secure infrastructure on VPC for regulated industries](vsi-quickstart.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. QuickStart variation of Secure infrastructure on VPC for regulated industries" caption-side="bottom"}

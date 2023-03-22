@@ -59,7 +59,7 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 
 The Standard variation of the Secure infrastructure on VPC for regulated industries deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
-# Architecture diagram
+## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
 ![Architecture diagram for the Standard variation of Secure infrastructure on VPC for regulated industries](vsi-vsi.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. Standard variation of Secure infrastructure on VPC for regulated industries" caption-side="bottom"}
