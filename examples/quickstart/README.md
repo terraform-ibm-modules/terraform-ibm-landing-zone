@@ -1,5 +1,7 @@
 # Quick start example
 
+![vsi-quickstart](../../reference-architectures/vsi-quickstart.drawio.svg)
+
 This example deploys the following infrastructure:
 
 - An edge VPC with 1 VSI in one of the three subnets and a VPC load balancer in the edge VPC, exposing the VSI publicly.
