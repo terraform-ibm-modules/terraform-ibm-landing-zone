@@ -1338,20 +1338,18 @@ variable "f5_vsi" {
   default = []
 
   validation {
-    error_message = "Image names for F5 VSI must be one of [`f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`]."
+    error_message = "Image names for F5 VSI must be one of [`f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`, `f5-bigip-16-1-3-3-0-0-3-ltm-1slot`, `f5-bigip-16-1-3-3-0-0-3-all-1slot`, `f5-bigip-17-0-0-2-0-0-2-ltm-1slot`, `f5-bigip-17-0-0-2-0-0-2-ltm-1slot`]."
     condition = length(
       [
         for f5_vsi in var.f5_vsi :
         f5_vsi if !contains(
           [
-            "f5-bigip-15-1-5-1-0-0-14-all-1slot",
-            "f5-bigip-15-1-5-1-0-0-14-ltm-1slot",
             "f5-bigip-16-1-2-2-0-0-28-ltm-1slot",
             "f5-bigip-16-1-2-2-0-0-28-all-1slot",
-            "f5-bigip-16-1-3-2-0-0-4-ltm-1slot",
-            "f5-bigip-16-1-3-2-0-0-4-all-1slot",
-            "f5-bigip-17-0-0-1-0-0-4-ltm-1slot",
-            "f5-bigip-17-0-0-1-0-0-4-all-1slot"
+            "f5-bigip-16-1-3-3-0-0-3-ltm-1slot",
+            "f5-bigip-16-1-3-3-0-0-3-all-1slot",
+            "f5-bigip-17-0-0-2-0-0-2-ltm-1slot",
+            "f5-bigip-17-0-0-2-0-0-2-ltm-1slot"
           ],
           f5_vsi.f5_image_name
         )
