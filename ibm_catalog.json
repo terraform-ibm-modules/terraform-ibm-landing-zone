@@ -1,7 +1,7 @@
 {
     "products": [
         {
-            "name": "slz-vpc-with-vsis",
+            "name": "deploy-arch-ibm-slz-vsi",
             "label": "VSI on VPC for regulated industries",
             "flavors": [
                 {
@@ -394,7 +394,7 @@
             ]
         },
         {
-            "name": "slz-vpc",
+            "name": "deploy-arch-ibm-slz-vpc",
             "label": "Secure infrastructure on VPC for regulated industries",
             "flavors": [
                 {
