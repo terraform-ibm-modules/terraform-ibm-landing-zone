@@ -1,8 +1,8 @@
 {
     "products": [
         {
-            "name": "slz-vpc-with-vsis",
-            "label": "Secure infrastructure on VPC for regulated industries",
+            "name": "deploy-arch-ibm-slz-vsi",
+            "label": "VSI on VPC for regulated industries",
             "flavors": [
                 {
                     "label": "QuickStart",
@@ -100,7 +100,7 @@
                             {
                                 "diagram": {
                                     "caption": "Secure Landing Zone with VSIs",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vsi-quickstart.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "The **QuickStart** flavor of Secure Landing Zone with VSIs requires at least 2 CPUs and 4 GB of memory.\n\nSecure Landing Zone with virtual server instances is implemented with virtual servers. It utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
@@ -116,76 +116,184 @@
                     "compliance": {
                         "controls": [
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(1)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(4)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(7)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "AC-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(c)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(g)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(i)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-6(9)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(j)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-7(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-3"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-7(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-4"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-11(1)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-6-0"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-11(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-16(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-17(9)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "AU-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CA-7(a)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-2(d)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CM-2"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-3"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CM-8(4)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(1)(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "IA-4"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(1)(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-8-0"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "RA-5(a)"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-12"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-13"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-36"
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CA-7(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(1)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-10"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-2"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(e)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(f)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-6"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-2-0"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-6"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-10"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-11"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(c)"
                             }
                         ]
                     },
@@ -274,11 +382,296 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "Secure infrastructure on VPC for regulated industries",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/terraform-ibm-landing-zone/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
+                                    "caption": "Secure Landing Zone with VSIs",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vsi-vsi.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "Secure infrastructure on VPC for regulated industries is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                                "description": "Secure Landing Zone with virtual server instances is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "deploy-arch-ibm-slz-vpc",
+            "label": "Secure infrastructure on VPC for regulated industries",
+            "flavors": [
+                {
+                    "label": "Standard",
+                    "name": "standard",
+                    "working_directory": "examples/no-compute-example",
+                    "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=standard&kind=${{flavor}}&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
+                    "compliance": {
+                        "controls": [
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(4)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(7)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-2(g)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-6(9)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-7(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-7(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-11(1)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-11(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-16(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AC-17(9)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-2(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-2(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-3"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(1)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-8(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "AU-12(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CA-7(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(1)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-7(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "CP-10"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-2"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-4(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(c)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(d)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(1)(e)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-5(f)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-6"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "IA-2-0"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-6"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-10"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SC-11"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(a)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ VSI Custom v0.2.0",
+                                "control_id": "SI-4(c)"
+                            }
+                        ]
+                    },
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        }
+                    ],
+                    "architecture": {
+                        "descriptions": "",
+                        "features": [
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for workloads",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Reduces failure events by using multizone regions",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Uses an edge VPC for secure access through the public internet",
+                                "description": "Yes, if enabled"
+                            },
+                            {
+                                "title": "Uses Floating IP address for access through the public internet",
+                                "description": "No"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Secure infrastructure on VPC for regulated industries",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vpc.drawio.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "Secure Landing Zone utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
                             }
                         ]
                     }
@@ -297,76 +690,212 @@
                     "compliance": {
                         "controls": [
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(1)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(4)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(7)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "AC-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(c)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-2(g)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(i)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-6(9)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-2(j)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-7(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-3"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(1)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-4"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "AC-6-0"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-11(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-14(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-16(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AC-17(9)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "AU-2(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CA-7(a)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-2(d)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-3"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-4"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(1)(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-8(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "AU-12(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CA-2(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CA-7(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "CM-2"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "CM-8(4)"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "CM-8(3)(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "IA-4"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-2-0"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-8-0"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(b)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-4(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(d)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(1)(e)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-5(f)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "IA-6"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "RA-5(1)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "RA-5(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
                                 "control_id": "RA-5(a)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-12"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SA-10(1)"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-13"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-2"
                             },
                             {
-                                "profile_name": "SLZ compliance v0.1.1",
-                                "control_id": "SC-36"
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-3"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-7"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-10"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SC-7-0"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-2(2)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-3(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(a)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(b)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-4(c)"
+                            },
+                            {
+                                "profile_name": "SLZ ROKS Custom v0.2.0",
+                                "control_id": "SI-12"
                             }
                         ]
                     },
@@ -461,11 +990,11 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "Secure infrastructure on VPC with ROKS",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/terraform-ibm-landing-zone/patterns/diagrams/svgs/roks/roks.drawio.svg",
+                                    "caption": "OpenShift Container Platform on VPC for regulated industries",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/roks.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "Secure infrastructure on VPC with ROKS is implemented with a Red Hat Openshift cluster running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                                "description": "OpenShift Container Platform on VPC for regulated industries is implemented with a Red Hat Openshift cluster running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
                             }
                         ]
                     }
