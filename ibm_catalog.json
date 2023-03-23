@@ -100,7 +100,7 @@
                             {
                                 "diagram": {
                                     "caption": "Secure Landing Zone with VSIs",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vsi-quickstart.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "The **QuickStart** flavor of Secure Landing Zone with VSIs requires at least 2 CPUs and 4 GB of memory.\n\nSecure Landing Zone with virtual server instances is implemented with virtual servers. It utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
@@ -382,11 +382,11 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "Secure infrastructure on VPC for regulated industries",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/terraform-ibm-landing-zone/patterns/diagrams/svgs/vsi/vsi-vsi.drawio.svg",
+                                    "caption": "Secure Landing Zone with VSIs",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vsi-vsi.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "Secure infrastructure on VPC for regulated industries is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                                "description": "Secure Landing Zone with virtual server instances is implemented with virtual servers running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
                             }
                         ]
                     }
@@ -666,6 +666,12 @@
                         ],
                         "diagrams": [
                             {
+                                "diagram": {
+                                    "caption": "Secure infrastructure on VPC for regulated industries",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/vpc.drawio.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "Secure Landing Zone utilizes two separate Virtual Private Clouds (VPC), a Management VPC and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure.\n\nVirtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.\n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
                             }
                         ]
                     }
@@ -984,11 +990,11 @@
                         "diagrams": [
                             {
                                 "diagram": {
-                                    "caption": "Secure infrastructure on VPC with ROKS",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/terraform-ibm-landing-zone/patterns/diagrams/svgs/roks/roks.drawio.svg",
+                                    "caption": "OpenShift Container Platform on VPC for regulated industries",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/${{version}}/reference-architectures/roks.drawio.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "Secure infrastructure on VPC with ROKS is implemented with a Red Hat Openshift cluster running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
+                                "description": "OpenShift Container Platform on VPC for regulated industries is implemented with a Red Hat Openshift cluster running in a single, defined Virtual Private Cloud (VPC) which is used to manage the environment. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.  Virtual Private Endpoints connect the VPCs to each other and to IBM Cloud services, including Key Protect, IAM, Container Registry, Object Storage, and any additional services. IBM Cloud services are configured for storage and key management.  \n\nIBM Cloud Flow Logs for VPC enable the collection, storage, and presentation of information about the Internet Protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this configuration. Additional security services can be added such as Hyper Connect Crypto Service."
                             }
                         ]
                     }

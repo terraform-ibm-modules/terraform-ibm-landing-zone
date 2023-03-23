@@ -2,7 +2,7 @@
 
 This template allows a user to create a landing zone
 
-![roks](../../.docs/images/roks.png)
+![roks](../../reference-architectures/roks.drawio.svg)
 
 ## Module Variables
 

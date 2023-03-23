@@ -2,8 +2,7 @@
 
 This template allows a user to create a landing zone
 
-
-![vsi](../../.docs/images/vsi.png)
+![vsi](../../reference-architectures/vsi-vsi.drawio.svg)
 
 ## Module Variables
 
