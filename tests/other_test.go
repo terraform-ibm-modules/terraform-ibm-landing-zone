@@ -10,7 +10,7 @@ import (
 
 const defaultExampleTerraformDir = "examples/basic"
 
-func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsBasic(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
@@ -29,7 +29,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "land-zone")
+	options := setupOptionsBasic(t, "land-zone")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

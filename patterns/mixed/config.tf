@@ -399,7 +399,7 @@ data "external" "format_output" {
 
 locals {
   # Prevent users from inputting conflicting variables by checking regex
-  # causeing plan to fail when true.
+  # causing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
   # tflint-ignore: terraform_unused_declarations
