@@ -2,11 +2,12 @@
     "products": [
         {
             "name": "deploy-arch-ibm-slz-vsi",
-            "label": "VSI on VPC for regulated industries",
+            "label": "VSI on VPC landing zone",
             "flavors": [
                 {
                     "label": "QuickStart",
                     "name": "quickstart",
+                    "is_full_stack": true,
                     "working_directory": "examples/quickstart",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
@@ -111,6 +112,7 @@
                 {
                     "label": "Standard",
                     "name": "standard",
+                    "is_full_stack": true,
                     "working_directory": "patterns/vsi",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
@@ -395,11 +397,12 @@
         },
         {
             "name": "deploy-arch-ibm-slz-vpc",
-            "label": "Secure infrastructure on VPC for regulated industries",
+            "label": "VPC landing zone",
             "flavors": [
                 {
                     "label": "Standard",
                     "name": "standard",
+                    "is_full_stack": true,
                     "working_directory": "examples/no-compute-example",
                     "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
                     "compliance": {
@@ -680,11 +683,12 @@
         },
         {
             "name": "deploy-arch-ibm-slz-ocp",
-            "label": "OpenShift Container Platform on VPC for regulated industries",
+            "label": "RedHat OpenShift Container Platform on VPC landing zone",
             "flavors": [
                 {
                     "label": "Standard",
                     "name": "standard",
+                    "is_full_stack": true,
                     "working_directory": "patterns/roks",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&flavor=${{flavor}}&kind=terraform&name=slz-vpc-with-roks&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
