@@ -118,7 +118,7 @@ variable "cluster_zones" {
   }
 }
 
-variable "ocp_version" {
+variable "kube_version" {
   description = "Openshift version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as latest. Updates to the default versions may force this to change."
   type        = string
   default     = "latest"
@@ -166,7 +166,7 @@ variable "entitlement" {
 variable "disable_public_endpoint" {
   type        = bool
   description = "Flag indicating that the public endpoint should be disabled"
-  default     = false
+  default     = true
 }
 
 variable "logdna_plan" {

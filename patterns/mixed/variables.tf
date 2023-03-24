@@ -152,7 +152,7 @@ variable "cluster_zones" {
   }
 }
 
-variable "ocp_version" {
+variable "kube_version" {
   description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as default. Updates to the default versions may force this to change."
   type        = string
   default     = "latest"
@@ -201,7 +201,7 @@ variable "update_all_workers" {
 variable "disable_public_endpoint" {
   type        = bool
   description = "Flag indicating that the public endpoint should be disabled"
-  default     = false
+  default     = true
 }
 
 variable "logdna_plan" {

@@ -769,7 +769,6 @@ variable "clusters" {
       disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled
       enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.
       enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.
-      ocp_version             = optional(string) # Can be a version from `ibmcloud oc versions` or `latest`
       entitlement             = optional(string) # entitlement option for openshift
       pod_subnet              = optional(string) # Portable subnet for pods
       service_subnet          = optional(string) # Portable subnet for services
@@ -855,21 +854,21 @@ variable "wait_till" {
   }
 }
 
-variable "ocp_version" {
+variable "kube_version" {
   description = "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used."
   type        = string
   default     = null
   validation {
     condition = anytrue([
-      var.ocp_version == null,
-      var.ocp_version == "latest",
-      var.ocp_version == "4.8",
-      var.ocp_version == "4.9",
-      var.ocp_version == "4.10",
-      var.ocp_version == "4.11",
-      var.ocp_version == "4.12"
+      var.kube_version == null,
+      var.kube_version == "latest",
+      var.kube_version == "4.8",
+      var.kube_version == "4.9",
+      var.kube_version == "4.10",
+      var.kube_version == "4.11",
+      var.kube_version == "4.12"
     ])
-    error_message = "The specified ocp_version is not one of the validated versions."
+    error_message = "The specified kube_version is not one of the validated versions."
   }
 }
 

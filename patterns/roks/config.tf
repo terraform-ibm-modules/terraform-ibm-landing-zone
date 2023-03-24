@@ -78,7 +78,7 @@ locals {
         workers_per_subnet      = var.workers_per_zone
         machine_type            = var.flavor
         kube_type               = "openshift"
-        ocp_version             = var.ocp_version
+        kube_version            = var.kube_version
         disable_public_endpoint = var.disable_public_endpoint
         logdna_plan             = var.logdna_plan
         sysdig_plan             = var.sysdig_plan

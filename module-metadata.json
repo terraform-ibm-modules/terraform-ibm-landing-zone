@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1131
+        "line": 1130
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1552
+        "line": 1551
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 888
+        "line": 887
       }
     },
     "atracker": {
@@ -60,7 +60,7 @@
     },
     "clusters": {
       "name": "clusters",
-      "type": "list(\n    object({\n      name                    = string           # Name of Cluster\n      vpc_name                = string           # Name of VPC\n      subnet_names            = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet      = number           # Worker nodes per subnet.\n      machine_type            = string           # Worker node flavor\n      kube_type               = string           # iks or openshift\n      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      logdna_plan             = optional(string) # Logging plan to provision\n      sysdig_plan             = optional(string) # Monitoring plan to provision\n      disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.\n      enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.\n      ocp_version             = optional(string) # Can be a version from `ibmcloud oc versions` or `latest`\n      entitlement             = optional(string) # entitlement option for openshift\n      pod_subnet              = optional(string) # Portable subnet for pods\n      service_subnet          = optional(string) # Portable subnet for services\n      resource_group          = string           # Resource Group used for cluster\n      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers      = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name                    = string           # Name of Cluster\n      vpc_name                = string           # Name of VPC\n      subnet_names            = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet      = number           # Worker nodes per subnet.\n      machine_type            = string           # Worker node flavor\n      kube_type               = string           # iks or openshift\n      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      logdna_plan             = optional(string) # Logging plan to provision\n      sysdig_plan             = optional(string) # Monitoring plan to provision\n      disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.\n      enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.\n      entitlement             = optional(string) # entitlement option for openshift\n      pod_subnet              = optional(string) # Portable subnet for pods\n      service_subnet          = optional(string) # Portable subnet for services\n      resource_group          = string           # Resource Group used for cluster\n      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers      = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
       "source": [
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1399
+        "line": 1398
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1263
+        "line": 1262
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1025
+        "line": 1024
       }
     },
     "ibmcloud_api_key": {
@@ -181,6 +181,15 @@
         "line": 695
       }
     },
+    "kube_version": {
+      "name": "kube_version",
+      "type": "string",
+      "description": "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used.",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 857
+      }
+    },
     "network_cidr": {
       "name": "network_cidr",
       "type": "string",
@@ -192,15 +201,6 @@
       "pos": {
         "filename": "variables.tf",
         "line": 62
-      }
-    },
-    "ocp_version": {
-      "name": "ocp_version",
-      "type": "string",
-      "description": "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used.",
-      "pos": {
-        "filename": "variables.tf",
-        "line": 858
       }
     },
     "prefix": {
@@ -314,7 +314,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 876
+        "line": 875
       },
       "min_length": 1,
       "max_length": 128,
@@ -340,7 +340,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1445
+        "line": 1444
       }
     },
     "security_compliance_center": {
@@ -361,7 +361,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1461
+        "line": 1460
       }
     },
     "security_groups": {
@@ -460,7 +460,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 932
+        "line": 931
       }
     },
     "teleport_vsi": {
@@ -473,7 +473,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 958
+        "line": 957
       }
     },
     "transit_gateway_connections": {
@@ -519,7 +519,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1520
+        "line": 1519
       }
     },
     "vpcs": {
@@ -568,7 +568,7 @@
       "default": "IngressReady",
       "pos": {
         "filename": "variables.tf",
-        "line": 843
+        "line": 842
       }
     }
   },
@@ -1609,7 +1609,7 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.1",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
@@ -1675,7 +1675,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 252
+            "line": 253
           }
         },
         "ibm_container_vpc_worker_pool.pool": {
@@ -1691,7 +1691,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 211
+            "line": 212
           }
         },
         "ibm_resource_instance.cos_instance": {
@@ -1722,7 +1722,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 312
+            "line": 313
           }
         },
         "null_resource.reset_api_key": {
@@ -1744,6 +1744,7 @@
           "type": "ibm_container_cluster_config",
           "name": "cluster_config",
           "attributes": {
+            "count": "verify_worker_network_readiness",
             "resource_group_id": "resource_group_id"
           },
           "provider": {
