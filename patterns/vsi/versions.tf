@@ -3,18 +3,18 @@
 ##############################################################################
 
 terraform {
+  required_version = ">= 1.3, <=1.4"
+  # Pin to the lowest provider version of the range defined in the main module's version.tf to ensure lowest version still works
   required_providers {
     ibm = {
-      source = "IBM-Cloud/ibm"
-      # Atracker needs to have the v2 API
+      source  = "IBM-Cloud/ibm"
       version = "1.49.0"
     }
     external = {
       source  = "hashicorp/external"
-      version = ">= 2.2.3"
+      version = "2.2.3"
     }
   }
-  required_version = ">= 1.3.0"
 }
 
 ##############################################################################

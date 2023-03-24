@@ -744,7 +744,7 @@
     "time": {
       "source": "hashicorp/time",
       "version_constraints": [
-        "0.9.1"
+        "\u003e= 0.9.1"
       ]
     }
   },
