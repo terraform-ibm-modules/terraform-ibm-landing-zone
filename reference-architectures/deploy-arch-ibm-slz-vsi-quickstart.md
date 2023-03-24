@@ -64,7 +64,7 @@ The QuickStart variation of the Secure infrastructure on VPC for regulated indus
 ## Design requirements
 {: #ra-vsi-qs-qs-design-requirements}
 
-![Design requirements for Secure infrastructure on VPC for regulated industries](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
+![Design requirements for Secure infrastructure on VPC for regulated industries](heat-map-deploy-arch-slz-vsi-quickstart.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
 
 <!--
 TODO: Add the typical use case for the architecture.
