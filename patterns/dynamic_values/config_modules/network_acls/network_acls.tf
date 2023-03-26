@@ -27,6 +27,21 @@ variable "add_cluster_encryption_key" {
   type        = bool
 }
 
+variable "add_ibm_cloud_internal_rules" {
+  description = "Add IaaS and PaaS connectivity for ROKS cluster to VPC."
+  type        = bool
+}
+
+variable "add_vpc_connectivity_rules" {
+  description = "Add connectivity across any subnet within VPC."
+  type        = bool
+}
+
+variable "prepend_ibm_rules" {
+  description = "Allows to prepend IBM rules of VPC connectivity."
+  type        = bool
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -54,8 +69,10 @@ output "value" {
         var.use_f5 && network == var.vpc_list[0] ? ["f5-external"] : []
       ) :
       {
-        name              = "${network_acl}-acl"
-        add_cluster_rules = network == "edge" ? false : var.add_cluster_encryption_key
+        name                         = "${network_acl}-acl"
+        add_ibm_cloud_internal_rules = network == "edge" ? false : var.add_ibm_cloud_internal_rules
+        add_vpc_connectivity_rules   = network == "edge" ? false : var.add_vpc_connectivity_rules
+        prepend_ibm_rules            = network == "edge" ? false : var.prepend_ibm_rules
         rules = concat(
           module.acl_rules.default_vpc_rules,
           network_acl != network ? module.acl_rules[network_acl] : []

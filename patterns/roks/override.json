@@ -214,7 +214,9 @@
           "flow_logs_bucket_name": "management-bucket",
           "network_acls": [
               {
-                  "add_cluster_rules": true,
+                  "add_ibm_cloud_internal_rules" : true,
+                  "add_vpc_connectivity_rules" : true,
+                  "prepend_ibm_rules" : true,
                   "name": "management-acl",
                   "rules": [
                       {
@@ -233,10 +235,10 @@
                       },
                       {
                           "action": "allow",
-                          "destination": "0.0.0.0/0",
+                          "destination": "161.26.0.0/16",
                           "direction": "outbound",
                           "name": "allow-all-outbound",
-                          "source": "0.0.0.0/0"
+                          "source": "10.0.0.0/8"
                       }
                   ]
               }
@@ -306,7 +308,9 @@
           "flow_logs_bucket_name": "workload-bucket",
           "network_acls": [
               {
-                  "add_cluster_rules": true,
+                 "add_ibm_cloud_internal_rules" : true,
+                 "add_vpc_connectivity_rules" : true,
+                 "prepend_ibm_rules" : true,
                   "name": "workload-acl",
                   "rules": [
                       {
@@ -325,10 +329,10 @@
                       },
                       {
                           "action": "allow",
-                          "destination": "0.0.0.0/0",
+                          "destination": "161.26.0.0/16",
                           "direction": "outbound",
                           "name": "allow-all-outbound",
-                          "source": "0.0.0.0/0"
+                          "source": "10.0.0.0/8"
                       }
                   ]
               }

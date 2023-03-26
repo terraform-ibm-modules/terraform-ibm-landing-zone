@@ -38,6 +38,24 @@ variable "vpcs" {
   }
 }
 
+variable "add_ibm_cloud_internal_rules" {
+  description = "Add IaaS and PaaS connectivity for VPC to ROKS cluster."
+  type        = bool
+  default     = true
+}
+
+variable "add_vpc_connectivity_rules" {
+  description = "Add connectivity across any subnet within VPC."
+  type        = bool
+  default     = true
+}
+
+variable "prepend_ibm_rules" {
+  description = "Allows to prepend IBM rules of VPC connectivity."
+  type        = bool
+  default     = true
+}
+
 ##############################################################################
 
 
