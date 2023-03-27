@@ -683,7 +683,7 @@
         },
         {
             "name": "deploy-arch-ibm-slz-ocp",
-            "label": "RedHat OpenShift Container Platform on VPC landing zone",
+            "label": "Red Hat OpenShift Container Platform on VPC landing zone",
             "flavors": [
                 {
                     "label": "Standard",
