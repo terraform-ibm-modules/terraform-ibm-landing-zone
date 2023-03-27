@@ -28,17 +28,17 @@ variable "add_cluster_encryption_key" {
 }
 
 variable "add_ibm_cloud_internal_rules" {
-  description = "Add IaaS and PaaS connectivity for ROKS cluster to VPC."
+  description = "Add default network ACL rules to VPC"
   type        = bool
 }
 
 variable "add_vpc_connectivity_rules" {
-  description = "Add connectivity across any subnet within VPC."
+  description = "Add connectivity rules across any subnet within VPC"
   type        = bool
 }
 
 variable "prepend_ibm_rules" {
-  description = "Allows to prepend IBM rules of VPC connectivity."
+  description = "Allow to prepend IBM rules of VPC connectivity"
   type        = bool
 }
 

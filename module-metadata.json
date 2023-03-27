@@ -224,6 +224,7 @@
         "module.f5_vsi.ibm_is_lb.lb.name",
         "module.f5_vsi.ibm_is_lb_pool.pool.name",
         "module.ssh_keys.ibm_is_ssh_key.ssh_key.name",
+        "module.vpc.ibm_is_flow_log.flow_logs.name",
         "module.vpc.ibm_is_network_acl.network_acl.name",
         "module.vpc.ibm_is_public_gateway.gateway.name",
         "module.vpc.ibm_is_vpc.vpc.name",
@@ -375,6 +376,7 @@
         "ibm_resource_key.appid_key.tags",
         "ibm_resource_key.key.tags",
         "module.ssh_keys.ibm_is_ssh_key.ssh_key.tags",
+        "module.vpc.ibm_is_flow_log.flow_logs.tags",
         "module.vpc.ibm_is_public_gateway.gateway.tags",
         "module.vpc.ibm_is_subnet.subnet.tags",
         "module.vpc.ibm_is_vpc.vpc.tags",
@@ -2418,7 +2420,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v4.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v5.0.1",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2426,6 +2428,42 @@
         "tags": "tags"
       },
       "managed_resources": {
+        "ibm_iam_authorization_policy.policy": {
+          "mode": "managed",
+          "type": "ibm_iam_authorization_policy",
+          "name": "policy",
+          "attributes": {
+            "count": "enable_vpc_flow_logs",
+            "target_resource_instance_id": "existing_cos_instance_guid"
+          },
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 102
+          }
+        },
+        "ibm_is_flow_log.flow_logs": {
+          "mode": "managed",
+          "type": "ibm_is_flow_log",
+          "name": "flow_logs",
+          "attributes": {
+            "active": "is_flow_log_collector_active",
+            "count": "enable_vpc_flow_logs",
+            "name": "prefix",
+            "resource_group": "resource_group_id",
+            "storage_bucket": "existing_storage_bucket_name",
+            "tags": "tags"
+          },
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 113
+          }
+        },
         "ibm_is_network_acl.network_acl": {
           "mode": "managed",
           "type": "ibm_is_network_acl",
@@ -2571,7 +2609,7 @@
           "description": "List of shortnames and IDs of network ACLs",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 87
+            "line": 105
           }
         },
         "public_gateways": {
@@ -2588,6 +2626,14 @@
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
             "line": 52
+          }
+        },
+        "subnet_detail_map": {
+          "name": "subnet_detail_map",
+          "description": "A map of subnets containing IDs, CIDR blocks, and zones",
+          "pos": {
+            "filename": ".terraform/modules/vpc/outputs.tf",
+            "line": 81
           }
         },
         "subnet_ids": {
@@ -2616,6 +2662,14 @@
           },
           "type": "TypeString",
           "cloud_data_type": "crn"
+        },
+        "vpc_flow_logs": {
+          "name": "vpc_flow_logs",
+          "description": "Details of VPC flow logs collector",
+          "pos": {
+            "filename": ".terraform/modules/vpc/outputs.tf",
+            "line": 122
+          }
         },
         "vpc_id": {
           "name": "vpc_id",
