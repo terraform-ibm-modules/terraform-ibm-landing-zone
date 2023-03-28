@@ -2,11 +2,11 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-22"
+lastupdated: "2023-03-27"
 
 keywords:
 
-subcollection: secure-infrastructure-vpc
+subcollection: deployable-reference-architectures
 
 authors:
   - name: "Vincent Burckhardt"
@@ -26,10 +26,10 @@ docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/vsi-pattern.png
 
 related_links:
-  - title: "Secure infrastructure on VPC for regulated industries - QuickStart variation"
+  - title: "VSI on VPC landing zone - QuickStart variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
     description: "A deployable architecture that provides virtual servers in a secure VPC in a single region for your workloads."
-  - title: "OpenShift Container Platform on VPC"
+  - title: "Red Hat OpenShift Container Platform on VPC landing zone"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
     description: "A deployable architecture that provides virtual servers in a secure VPC for your workloads."
 
@@ -50,24 +50,24 @@ or tile in the IBM Cloud catalog, match the title to the catalog. See
 https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
 -->
 
-# Secure infrastructure on VPC for regulated industries - Standard variation
+# VSI on VPC landing zone - Standard variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
 
-The Standard variation of the Secure infrastructure on VPC for regulated industries deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
+The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of Secure infrastructure on VPC for regulated industries](vsi-vsi.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. Standard variation of Secure infrastructure on VPC for regulated industries" caption-side="bottom"}
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
 
-![Design requirements for Secure infrastructure on VPC for regulated industries](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
+![Design requirements for VSI on VPC landing zone](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
 
 <!--
 TODO: Add the typical use case for the architecture.
@@ -83,12 +83,10 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Ensure public internet connectivity  \n * Isolate most virtual instances to not be reachable directly from the public internet | Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured | |
 | * Provide infrastructure administration access  \n * Limit the number of infrastructure administration entry points to ensure security audit | Management VPC service | Create a separate VPC service where SSH connectivity from outside is allowed | |
 | * Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services | Workload VPC service|Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access | |
-| Create a virtual server instance that can act as an internet proxy server | Proxy server VPC instance | Create a Linux VPC instance that can act as a proxy server. Configure ACL and security group rules to allow public internet traffic over proxy that uses default proxy ports (3828) | Configure application load balancer to act as proxy server manually |
-| Create a virtual server instance as the only management access point to the landscape | Bastion host VPC instance | Create a Linux VPC instance that acts as a bastion host. Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes | |
-|  Create a virtual server instance to host basic management services like DNS, NTP, NFS | Management services VPC instance | Create a Linux VPC instance that can host management components. Configure ACL and security group rules to allow communication for basic management components. | Modify number of virtual server instances and allowed ports in preset, or modify them manually |
+| Create a virtual server instance to run your workload | Proxy server VPC instance | Create a VPC instance that can act as a proxy server. Configure ACL and security group rules to allow public internet traffic over proxy that uses default proxy ports (3828) | Configure application load balancer to act as proxy server manually |
+| Create a virtual server instance as the only management access point to the landscape | Bastion host VPC instance | Create a VPC instance that acts as a bastion host. Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes | |
 | * Demonstrate regulatory compliance with Financial Services for VPC services  \n * Set up network for all created services  \n * Isolate network for all created services  \n * Ensure all created services are interconnected | Secure landing zone components | Create a minimum set of required components for a secure landing zone | Create a modified set of required components for a secure landing zone in preset |
 {: caption="Table 1. Architecture decisions" caption-side="bottom"}
 
@@ -97,7 +95,6 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Isolate edge VPC and allow only a limited number of network connections  \n * All other connections from or to edge VPC are forbidden | ACL and security group rules in edge VPC | Open following ports by default: 53 (DNS service), 8443 (OS registration), 443 (HTTPS), 80 (HTTP)  \n All ports to other VPCs are open | More ports might be opened in preset or added manually after deployment |
 | * Isolate management VPC and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden | ACL and security group rules in management VPC|Open following ports by default: 22 (for limited number of IPs)  \n All ports to other VPCs are open |More ports might be opened in preset or added manually after deployment |
 | * Isolate workload VPC and allow only a limited number of network connections  \n * All other connections from or to workload VPC are forbidden | ACL and security group rules in workload VPC | Open following ports by default: 53 (DNS service)  \n All ports to other VPCs are open | More ports might be opened in preset or added manually after deployment |
 | Load VPN configuration to simplify VPN setup | VPNs | VPN configuration is the responsibility of the customer | |
