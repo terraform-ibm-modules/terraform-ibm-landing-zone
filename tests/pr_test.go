@@ -19,6 +19,15 @@ const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
+// Temp: Will be updated once issue https://github.ibm.com/GoldenEye/issues/issues/4302 is fixed
+var ignoreUpdates = []string{
+	"module.landing_zone.module.landing_zone.module.vpc[management].ibm_is_network_acl.network_acl[management-acl]",
+	"module.landing_zone.module.vpc[management].ibm_is_network_acl.network_acl[management-acl]",
+	"module.landing_zone.module.landing_zone.module.vpc[workload].ibm_is_network_acl.network_acl[workload-acl]",
+	"module.landing_zone.module.vpc[workload].ibm_is_network_acl.network_acl[workload-acl]",
+	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
+}
+
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
 	actualTerraformDir := "./resources"
@@ -51,6 +60,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
+		},
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
 		},
 	})
 
