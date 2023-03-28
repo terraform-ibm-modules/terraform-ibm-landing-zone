@@ -21,10 +21,10 @@ const resourceGroup = "geretain-test-resources"
 
 // Temp: Will be updated once issue https://github.ibm.com/GoldenEye/issues/issues/4302 is fixed
 var ignoreUpdates = []string{
-	"module.landing_zone.module.landing_zone.module.vpc[management].ibm_is_network_acl.network_acl[management-acl]",
-	"module.landing_zone.module.vpc[management].ibm_is_network_acl.network_acl[management-acl]",
-	"module.landing_zone.module.landing_zone.module.vpc[workload].ibm_is_network_acl.network_acl[workload-acl]",
-	"module.landing_zone.module.vpc[workload].ibm_is_network_acl.network_acl[workload-acl]",
+	"module.landing_zone.module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
+	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
+	"module.landing_zone.module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
+	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 }
 
@@ -110,6 +110,9 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		TerraformDir:  roksPatternTerraformDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
