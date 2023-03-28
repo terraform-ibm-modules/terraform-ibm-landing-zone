@@ -21,9 +21,9 @@ version: 1.0
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: url #TODO
 
-docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vpc
+docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vsi
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/vsi-pattern.png
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
   - title: "VSI on VPC landing zone - QuickStart variation"
@@ -62,7 +62,7 @@ The Standard variation of the VSI on VPC landing zone deployable architecture is
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
@@ -108,7 +108,7 @@ business challenge, or target cloud environments.
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 | * Use public and private SSH keys to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the bastion host  \n * Do not store private SSH key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key. | |
-{: caption="Table 3. Key and passwords management architecture decisions" caption-side="bottom"}
+{: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
 <!--
 ## Compliance
