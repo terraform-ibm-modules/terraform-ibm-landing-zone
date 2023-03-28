@@ -62,8 +62,8 @@ module "cluster" {
   ocp_version                     = each.value.kube_version
   tags                            = var.resource_tags
   use_existing_cos                = true
-  disable_public_endpoint         = each.value.disable_public_endpoint
-  verify_worker_network_readiness = !(each.value.disable_public_endpoint)
+  disable_public_endpoint         = each.value.disable_public_endpoint != null ? each.value.disable_public_endpoint : true
+  verify_worker_network_readiness = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
   existing_cos_id                 = each.value.cos_instance_crn
   kms_config = {
     instance_id = module.key_management.key_management_guid

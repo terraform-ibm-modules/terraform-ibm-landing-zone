@@ -75,19 +75,20 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet      = var.workers_per_zone
-        machine_type            = var.flavor
-        kube_type               = "openshift"
-        kube_version            = var.kube_version
-        disable_public_endpoint = var.disable_public_endpoint
-        logdna_plan             = var.logdna_plan
-        sysdig_plan             = var.sysdig_plan
-        enable_platform_logs    = var.enable_platform_logs
-        enable_platform_metrics = var.enable_platform_metrics
-        resource_group          = "${var.prefix}-${network}-rg"
-        update_all_workers      = var.update_all_workers
-        cos_name                = "cos"
-        entitlement             = var.entitlement
+        workers_per_subnet              = var.workers_per_zone
+        machine_type                    = var.flavor
+        kube_type                       = "openshift"
+        kube_version                    = var.kube_version
+        disable_public_endpoint         = var.disable_public_endpoint
+        verify_worker_network_readiness = var.verify_worker_network_readiness
+        logdna_plan                     = var.logdna_plan
+        sysdig_plan                     = var.sysdig_plan
+        enable_platform_logs            = var.enable_platform_logs
+        enable_platform_metrics         = var.enable_platform_metrics
+        resource_group                  = "${var.prefix}-${network}-rg"
+        update_all_workers              = var.update_all_workers
+        cos_name                        = "cos"
+        entitlement                     = var.entitlement
         worker_pools = [
           {
             name     = "logging-worker-pool"

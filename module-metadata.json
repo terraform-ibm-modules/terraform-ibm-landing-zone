@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1130
+        "line": 1131
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1551
+        "line": 1552
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 887
+        "line": 888
       }
     },
     "atracker": {
@@ -60,7 +60,7 @@
     },
     "clusters": {
       "name": "clusters",
-      "type": "list(\n    object({\n      name                    = string           # Name of Cluster\n      vpc_name                = string           # Name of VPC\n      subnet_names            = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet      = number           # Worker nodes per subnet.\n      machine_type            = string           # Worker node flavor\n      kube_type               = string           # iks or openshift\n      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      logdna_plan             = optional(string) # Logging plan to provision\n      sysdig_plan             = optional(string) # Monitoring plan to provision\n      disable_public_endpoint = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      enable_platform_logs    = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.\n      enable_platform_metrics = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.\n      entitlement             = optional(string) # entitlement option for openshift\n      pod_subnet              = optional(string) # Portable subnet for pods\n      service_subnet          = optional(string) # Portable subnet for services\n      resource_group          = string           # Resource Group used for cluster\n      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers      = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name                            = string           # Name of Cluster\n      vpc_name                        = string           # Name of VPC\n      subnet_names                    = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet              = number           # Worker nodes per subnet.\n      machine_type                    = string           # Worker node flavor\n      kube_type                       = string           # iks or openshift\n      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      logdna_plan                     = optional(string) # Logging plan to provision\n      sysdig_plan                     = optional(string) # Monitoring plan to provision\n      disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.\n      enable_platform_logs            = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.\n      enable_platform_metrics         = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.\n      entitlement                     = optional(string) # entitlement option for openshift\n      pod_subnet                      = optional(string) # Portable subnet for pods\n      service_subnet                  = optional(string) # Portable subnet for services\n      resource_group                  = string           # Resource Group used for cluster\n      cos_name                        = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers              = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
       "source": [
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1398
+        "line": 1399
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1262
+        "line": 1263
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1024
+        "line": 1025
       }
     },
     "ibmcloud_api_key": {
@@ -187,7 +187,7 @@
       "description": "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used.",
       "pos": {
         "filename": "variables.tf",
-        "line": 857
+        "line": 858
       }
     },
     "network_cidr": {
@@ -314,7 +314,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 875
+        "line": 876
       },
       "min_length": 1,
       "max_length": 128,
@@ -340,7 +340,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1444
+        "line": 1445
       }
     },
     "security_compliance_center": {
@@ -361,7 +361,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1460
+        "line": 1461
       }
     },
     "security_groups": {
@@ -460,7 +460,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 931
+        "line": 932
       }
     },
     "teleport_vsi": {
@@ -473,7 +473,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 957
+        "line": 958
       }
     },
     "transit_gateway_connections": {
@@ -519,7 +519,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1519
+        "line": 1520
       }
     },
     "vpcs": {
@@ -568,7 +568,7 @@
       "default": "IngressReady",
       "pos": {
         "filename": "variables.tf",
-        "line": 842
+        "line": 843
       }
     }
   },

@@ -21,18 +21,19 @@ module "ut_cluster_map" {
   prefix = "ut"
   clusters = [
     {
-      name                    = "test-cluster"
-      vpc_name                = "test"
-      subnet_names            = ["subnet-1", "subnet-3"]
-      resource_group          = "test-resource-group"
-      kube_type               = "openshift"
-      cos_name                = "data-cos"
-      logdna_plan             = "7-day"
-      sysdig_plan             = "graduated-tier"
-      disable_public_endpoint = false
-      enable_platform_logs    = false
-      enable_platform_metrics = false
-      entitlement             = "cloud_pak"
+      name                            = "test-cluster"
+      vpc_name                        = "test"
+      subnet_names                    = ["subnet-1", "subnet-3"]
+      resource_group                  = "test-resource-group"
+      kube_type                       = "openshift"
+      cos_name                        = "data-cos"
+      logdna_plan                     = "7-day"
+      sysdig_plan                     = "graduated-tier"
+      disable_public_endpoint         = false
+      verify_worker_network_readiness = false
+      enable_platform_logs            = false
+      enable_platform_metrics         = false
+      entitlement                     = "cloud_pak"
       worker_pools = [
         {
           name               = "default"
