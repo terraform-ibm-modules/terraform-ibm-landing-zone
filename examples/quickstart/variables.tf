@@ -146,12 +146,6 @@ variable "override_json_string" {
                   "cidr": "10.10.10.0/24",
                   "name": "vsi-zone-1",
                   "public_gateway": false
-               },
-               {
-                  "acl_name": "management-acl",
-                  "cidr": "10.10.20.0/24",
-                  "name": "vpe-zone-1",
-                  "public_gateway": false
                }
             ],
             "zone-2": [],
@@ -203,12 +197,6 @@ variable "override_json_string" {
                   "acl_name": "workload-acl",
                   "cidr": "10.40.10.0/24",
                   "name": "vsi-zone-1",
-                  "public_gateway": false
-               },
-               {
-                  "acl_name": "workload-acl",
-                  "cidr": "10.40.20.0/24",
-                  "name": "vpe-zone-1",
                   "public_gateway": false
                }
             ],
