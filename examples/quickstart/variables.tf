@@ -434,4 +434,3 @@ variable "override_json_string" {
 }
 EOF
 }
-
