@@ -42,84 +42,16 @@ variable "override_json_string" {
   default     = <<EOF
 {
    "atracker": {
-      "collector_bucket_name": "atracker-bucket",
-      "receive_global_events": true,
-      "resource_group": "service-rg",
+      "collector_bucket_name": "",
+      "receive_global_events": false,
+      "resource_group": "",
       "add_route": false
    },
    "clusters": [],
-   "cos": [
-      {
-         "buckets": [
-            {
-               "endpoint_type": "public",
-               "force_delete": true,
-               "kms_key": "slz-atracker-key",
-               "name": "atracker-bucket",
-               "storage_class": "standard"
-            }
-         ],
-         "keys": [
-            {
-               "name": "cos-bind-key",
-               "role": "Writer",
-               "enable_HMAC": false
-            }
-         ],
-         "name": "atracker-cos",
-         "plan": "standard",
-         "resource_group": "service-rg",
-         "use_data": false,
-         "random_suffix": true
-      },
-      {
-         "buckets": [
-            {
-               "endpoint_type": "public",
-               "force_delete": true,
-               "kms_key": "slz-key",
-               "name": "management-bucket",
-               "storage_class": "standard"
-            },
-            {
-               "endpoint_type": "public",
-               "force_delete": true,
-               "kms_key": "slz-key",
-               "name": "workload-bucket",
-               "storage_class": "standard"
-            }
-         ],
-         "keys": [],
-         "name": "cos",
-         "plan": "standard",
-         "random_suffix": true,
-         "resource_group": "service-rg",
-         "use_data": false
-      }
-   ],
+   "cos": [],
    "enable_transit_gateway": true,
    "key_management": {
       "keys": [
-         {
-            "key_ring": "slz-ring",
-            "name": "slz-atracker-key",
-            "root_key": true,
-            "policies": {
-               "rotation": {
-                  "interval_month": 12
-               }
-            }
-         },
-         {
-            "key_ring": "slz-ring",
-            "name": "slz-key",
-            "root_key": true,
-            "policies": {
-               "rotation": {
-                  "interval_month": 12
-               }
-            }
-         },
          {
             "key_ring": "slz-ring",
             "name": "slz-vsi-volume-key",
@@ -154,70 +86,13 @@ variable "override_json_string" {
          "use_prefix": true
       }
    ],
-   "security_groups": [
-    {
-      "name": "management-vpe-sg",
-      "resource_group": "management-rg",
-      "rules": [
-        {
-          "direction": "inbound",
-          "name": "allow-vpc-inbound",
-          "source": "10.0.0.0/8"
-        },
-        {
-          "direction": "outbound",
-          "name": "allow-vpc-outbound",
-          "source": "10.0.0.0/8"
-        }
-      ],
-      "vpc_name": "management"
-    },
-    {
-      "name": "workload-vpe-sg",
-      "resource_group": "workload-rg",
-      "rules": [
-        {
-          "direction": "inbound",
-          "name": "allow-vpc-inbound",
-          "source": "10.0.0.0/8"
-        },
-        {
-          "direction": "outbound",
-          "name": "allow-vpc-outbound",
-          "source": "10.0.0.0/8"
-        }
-      ],
-      "vpc_name": "workload"
-    }
-   ],
+   "security_groups": [],
    "transit_gateway_connections": [
       "management",
       "workload"
    ],
    "transit_gateway_resource_group": "service-rg",
-   "virtual_private_endpoints": [
-      {
-         "service_name": "cos",
-         "service_type": "cloud-object-storage",
-         "resource_group": "service-rg",
-         "vpcs": [
-            {
-               "name": "management",
-               "security_group_name": "management-vpe-sg",
-               "subnets": [
-                  "vpe-zone-1"
-               ]
-            },
-            {
-               "name": "workload",
-               "security_group_name": "workload-vpe-sg",
-               "subnets": [
-                  "vpe-zone-1"
-               ]
-            }
-         ]
-      }
-   ],
+   "virtual_private_endpoints": [],
    "vpcs": [
       {
          "flow_logs_bucket_name": null,
