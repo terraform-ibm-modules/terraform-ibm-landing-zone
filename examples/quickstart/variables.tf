@@ -221,11 +221,6 @@ variable "override_json_string" {
    "vpcs": [
       {
          "flow_logs_bucket_name": null,
-         "classic_access": false,
-         "default_network_acl_name": null,
-         "default_routing_table_name": null,
-         "default_security_group_name": null,
-         "default_security_group_rules": [],
          "use_manual_address_prefixes": true,
          "network_acls": [
             {
@@ -236,21 +231,9 @@ variable "override_json_string" {
                      "name": "allow-ssh-inbound",
                      "action": "allow",
                      "direction": "inbound",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
                      "tcp": {
                         "port_min": 22,
-                        "port_max": 22,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
+                        "port_max": 22
                      },
                      "source": "0.0.0.0/0",
                      "destination": "10.0.0.0/8"
@@ -260,69 +243,21 @@ variable "override_json_string" {
                      "destination": "10.0.0.0/8",
                      "direction": "inbound",
                      "name": "allow-ibm-inbound",
-                     "source": "161.26.0.0/16",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "161.26.0.0/16"
                   },
                   {
                      "action": "allow",
                      "destination": "10.0.0.0/8",
                      "direction": "inbound",
                      "name": "allow-all-network-inbound",
-                     "source": "10.0.0.0/8",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "10.0.0.0/8"
                   },
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
                      "name": "allow-all-outbound",
-                     "source": "0.0.0.0/0",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "0.0.0.0/0"
                   }
                ]
             }
@@ -354,11 +289,6 @@ variable "override_json_string" {
          }
       },
       {
-         "classic_access": false,
-         "default_network_acl_name": null,
-         "default_routing_table_name": null,
-         "default_security_group_name": null,
-         "default_security_group_rules": [],
          "use_manual_address_prefixes": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
@@ -371,69 +301,21 @@ variable "override_json_string" {
                      "destination": "10.0.0.0/8",
                      "direction": "inbound",
                      "name": "allow-ibm-inbound",
-                     "source": "161.26.0.0/16",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "161.26.0.0/16"
                   },
                   {
                      "action": "allow",
                      "destination": "10.0.0.0/8",
                      "direction": "inbound",
                      "name": "allow-all-network-inbound",
-                     "source": "10.0.0.0/8",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "10.0.0.0/8"
                   },
                   {
                      "action": "allow",
                      "destination": "0.0.0.0/0",
                      "direction": "outbound",
                      "name": "allow-all-outbound",
-                     "source": "0.0.0.0/0",
-                     "icmp": {
-                        "type": null,
-                        "code": null
-                     },
-                     "tcp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     },
-                     "udp": {
-                        "port_min": null,
-                        "port_max": null,
-                        "source_port_min": null,
-                        "source_port_max": null
-                     }
+                     "source": "0.0.0.0/0"
                   }
                ]
             }
@@ -479,70 +361,26 @@ variable "override_json_string" {
                {
                   "name": "allow-ssh-inbound",
                   "direction": "inbound",
-                  "icmp": {
-                     "type": null,
-                     "code": null
-                  },
                   "tcp": {
                      "port_min": 22,
                      "port_max": 22
-                  },
-                  "udp": {
-                     "port_min": null,
-                     "port_max": null
                   },
                   "source": "0.0.0.0/0"
                },
                {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound",
-                  "source": "161.26.0.0/16",
-                  "tcp": {
-                     "port_max": null,
-                     "port_min": null
-                  },
-                  "icmp": {
-                     "code": null,
-                     "type": null
-                  },
-                  "udp": {
-                     "port_max": null,
-                     "port_min": null
-                  }
+                  "source": "161.26.0.0/16"
                },
                {
                   "direction": "inbound",
                   "name": "allow-vpc-inbound",
-                  "source": "10.0.0.0/8",
-                  "tcp": {
-                     "port_max": null,
-                     "port_min": null
-                  },
-                  "icmp": {
-                     "code": null,
-                     "type": null
-                  },
-                  "udp": {
-                     "port_max": null,
-                     "port_min": null
-                  }
+                  "source": "10.0.0.0/8"
                },
                {
                   "direction": "outbound",
                   "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                     "port_min": null,
-                     "port_max": null
-                  },
-                  "icmp": {
-                     "type": null,
-                     "code": null
-                  },
-                  "udp": {
-                     "port_min": null,
-                     "port_max": null
-                  }
+                  "source": "0.0.0.0/0"
                }
             ]
          },
@@ -554,9 +392,6 @@ variable "override_json_string" {
          ],
          "vpc_name": "management",
          "vsi_per_subnet": 1,
-         "security_groups": [],
-         "user_data": "",
-         "subnet_name": "",
          "enable_floating_ip": true
       },
       {
@@ -571,53 +406,17 @@ variable "override_json_string" {
                {
                   "direction": "inbound",
                   "name": "allow-ibm-inbound",
-                  "source": "161.26.0.0/16",
-                  "tcp": {
-                     "port_max": null,
-                     "port_min": null
-                  },
-                  "icmp": {
-                     "code": null,
-                     "type": null
-                  },
-                  "udp": {
-                     "port_max": null,
-                     "port_min": null
-                  }
+                  "source": "161.26.0.0/16"
                },
                {
                   "direction": "inbound",
                   "name": "allow-vpc-inbound",
-                  "source": "10.0.0.0/8",
-                  "tcp": {
-                     "port_max": null,
-                     "port_min": null
-                  },
-                  "icmp": {
-                     "code": null,
-                     "type": null
-                  },
-                  "udp": {
-                     "port_max": null,
-                     "port_min": null
-                  }
+                  "source": "10.0.0.0/8"
                },
                {
                   "direction": "outbound",
                   "name": "allow-all-outbound",
-                  "source": "0.0.0.0/0",
-                  "tcp": {
-                     "port_min": null,
-                     "port_max": null
-                  },
-                  "icmp": {
-                     "type": null,
-                     "code": null
-                  },
-                  "udp": {
-                     "port_min": null,
-                     "port_max": null
-                  }
+                  "source": "0.0.0.0/0"
                }
             ]
          },
@@ -629,13 +428,10 @@ variable "override_json_string" {
          ],
          "vpc_name": "workload",
          "vsi_per_subnet": 1,
-         "security_groups": [],
-         "enable_floating_ip": false,
-         "user_data": "",
-         "subnet_name": ""
+         "enable_floating_ip": false
       }
-   ],
-   "wait_till": "IngressReady"
+   ]
 }
 EOF
 }
+
