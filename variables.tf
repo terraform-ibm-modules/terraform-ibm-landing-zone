@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  description = "The IBM Cloud platform API key needed to create the containers apikey (if one does not exist already)."
   type        = string
   sensitive   = true
 }
@@ -863,7 +863,6 @@ variable "kube_version" {
     condition = anytrue([
       var.kube_version == null,
       var.kube_version == "latest",
-      var.kube_version == "4.8",
       var.kube_version == "4.9",
       var.kube_version == "4.10",
       var.kube_version == "4.11",
@@ -871,12 +870,6 @@ variable "kube_version" {
     ])
     error_message = "The specified kube_version is not one of the validated versions."
   }
-}
-
-variable "resource_tags" {
-  type        = list(string)
-  description = "Optional list of tags to be added to created resources"
-  default     = []
 }
 
 ##############################################################################

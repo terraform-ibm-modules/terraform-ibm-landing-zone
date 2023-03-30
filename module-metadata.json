@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1131
+        "line": 1124
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1552
+        "line": 1545
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 888
+        "line": 881
       }
     },
     "atracker": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1399
+        "line": 1392
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1263
+        "line": 1256
       }
     },
     "iam_account_settings": {
@@ -149,13 +149,13 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1025
+        "line": 1018
       }
     },
     "ibmcloud_api_key": {
       "name": "ibmcloud_api_key",
       "type": "string",
-      "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
+      "description": "The IBM Cloud platform API key needed to create the containers apikey (if one does not exist already).",
       "required": true,
       "sensitive": true,
       "source": [
@@ -303,27 +303,6 @@
         "line": 39
       }
     },
-    "resource_tags": {
-      "name": "resource_tags",
-      "type": "list(string)",
-      "description": "Optional list of tags to be added to created resources",
-      "default": [],
-      "source": [
-        "module.cluster.ibm_container_vpc_cluster.autoscaling_cluster.tags",
-        "module.cluster.ibm_container_vpc_cluster.cluster.tags"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 876
-      },
-      "min_length": 1,
-      "max_length": 128,
-      "matches": "^[A-Za-z0-9:_ .-]+$",
-      "computed": true,
-      "elem": {
-        "type": "TypeString"
-      }
-    },
     "secrets_manager": {
       "name": "secrets_manager",
       "type": "object({\n    use_secrets_manager = bool\n    name                = optional(string)\n    kms_key_name        = optional(string)\n    resource_group      = optional(string)\n  })",
@@ -340,7 +319,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1445
+        "line": 1438
       }
     },
     "security_compliance_center": {
@@ -361,7 +340,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1461
+        "line": 1454
       }
     },
     "security_groups": {
@@ -418,6 +397,8 @@
         "ibm_resource_instance.secrets_manager.tags",
         "ibm_resource_key.appid_key.tags",
         "ibm_resource_key.key.tags",
+        "module.cluster.ibm_container_vpc_cluster.autoscaling_cluster.tags",
+        "module.cluster.ibm_container_vpc_cluster.cluster.tags",
         "module.ssh_keys.ibm_is_ssh_key.ssh_key.tags",
         "module.vpc.ibm_is_public_gateway.gateway.tags",
         "module.vpc.ibm_is_subnet.subnet.tags",
@@ -460,7 +441,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 932
+        "line": 925
       }
     },
     "teleport_vsi": {
@@ -473,7 +454,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 958
+        "line": 951
       }
     },
     "transit_gateway_connections": {
@@ -519,7 +500,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1520
+        "line": 1513
       }
     },
     "vpcs": {
@@ -1609,11 +1590,11 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.0.0",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
-        "tags": "resource_tags"
+        "tags": "tags"
       },
       "managed_resources": {
         "ibm_container_vpc_cluster.autoscaling_cluster": {

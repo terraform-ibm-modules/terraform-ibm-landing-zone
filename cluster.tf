@@ -16,7 +16,7 @@ module "cluster" {
     module.vpc
   ]
   for_each          = local.clusters_map
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v2.3.1"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.0.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
@@ -60,7 +60,7 @@ module "cluster" {
       }
   ])
   ocp_version                     = each.value.kube_version
-  tags                            = var.resource_tags
+  tags                            = var.tags
   use_existing_cos                = true
   disable_public_endpoint         = each.value.disable_public_endpoint != null ? each.value.disable_public_endpoint : true
   verify_worker_network_readiness = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
