@@ -6,7 +6,9 @@
       "description": "Use fix as Semantic Commit prefix for all dependency updates in these folders to generate release",
       "matchPaths": [
         "examples/quickstart",
-        "patterns/vsi"
+        "patterns/vsi",
+        "patterns/roks",
+        "examples/no-compute-example"
       ],
       "semanticCommitType": "fix"
     }
