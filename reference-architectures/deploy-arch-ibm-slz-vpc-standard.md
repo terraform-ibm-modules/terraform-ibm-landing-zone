@@ -47,7 +47,7 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 -->
 
 # VPC landing zone - Standard variation
-{: #vsi-ra-qs}
+{: #vpc-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
