@@ -1,5 +1,5 @@
 {
-    "description": "The below ignore file is specifically for the pattern/roks solution",
+    "description": "The below ignore file is specifically for the patterns/roks solution",
     "scc_goals": [
         {
             "scc_goal_id": "3000107",
