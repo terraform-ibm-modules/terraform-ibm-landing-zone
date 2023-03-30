@@ -1,3 +1,11 @@
+data "ibm_is_vpc" "example" {
+  depends_on = [
+    module.vpc
+  ]
+  for_each = var.enable_transit_gateway ? toset(var.transit_gateway_connections) : toset([])
+  name     = "${var.prefix}-${each.key}-vpc"
+}
+
 
 ##############################################################################
 # Transit Gateway
@@ -24,11 +32,12 @@ resource "ibm_tg_gateway" "transit_gateway" {
 ##############################################################################
 
 resource "ibm_tg_connection" "connection" {
-  for_each     = var.enable_transit_gateway ? toset(var.transit_gateway_connections) : toset([])
+
+  for_each     = var.enable_transit_gateway ? data.ibm_is_vpc.example : {}
   gateway      = ibm_tg_gateway.transit_gateway[0].id
   network_type = "vpc"
-  name         = "${var.prefix}-${each.key}-hub-connection"
-  network_id   = module.vpc[each.key].vpc_crn
+  name         = "${var.prefix}-${each.value.name}-hub-connection"
+  network_id   = each.value.crn
   timeouts {
     create = "30m"
     delete = "30m"

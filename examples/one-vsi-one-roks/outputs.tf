@@ -1,9 +1,8 @@
 ##############################################################################
-# Terraform Providers
+# Outputs
 ##############################################################################
 
-terraform {
-  required_version = ">= 1.3, < 1.5"
+output "landing_zone" {
+  value       = module.landing_zone
+  description = "Landing zone configuration"
 }
-
-##############################################################################
