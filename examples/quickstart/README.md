@@ -1,4 +1,6 @@
-# Quick start example
+# VSI on VPC landing zone (Quick start example)
+
+![vsi-quickstart](../../reference-architectures/vsi-quickstart.drawio.svg)
 
 This example deploys the following infrastructure:
 
