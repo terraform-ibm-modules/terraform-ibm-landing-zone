@@ -26,6 +26,10 @@ variable "add_kms_block_storage_s2s" {
   description = "Add kms to block storage s2s"
 }
 
+variable "atracker_cos_instance" {
+  description = "Add atracker to cos s2s"
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -107,6 +111,25 @@ module "secrets_manager_to_cos" {
 ##############################################################################
 
 ##############################################################################
+# Atracker to COS
+##############################################################################
+
+module "atracker_to_cos" {
+  source = "../list_to_map"
+  list = [
+    for instance in(var.atracker_cos_instance != null ? ["atracker-to-cos"] : []) :
+    {
+      name                        = instance
+      source_service_name         = "atracker"
+      description                 = "Allow atracker to write to COS"
+      roles                       = ["Writer"]
+      target_service_name         = "cloud-object-storage"
+      target_resource_instance_id = var.atracker_cos_instance
+    }
+  ]
+}
+
+##############################################################################
 # Outputs
 ##############################################################################
 
@@ -116,7 +139,8 @@ output "authorizations" {
     module.kms_to_block_storage.value,
     module.cos_to_key_management.value,
     module.flow_logs_to_cos.value,
-    module.secrets_manager_to_cos.value
+    module.secrets_manager_to_cos.value,
+    module.atracker_to_cos
   )
 }
 
