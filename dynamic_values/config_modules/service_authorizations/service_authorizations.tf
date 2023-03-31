@@ -122,9 +122,9 @@ module "atracker_to_cos" {
       name                        = instance
       source_service_name         = "atracker"
       description                 = "Allow atracker to write to COS"
-      roles                       = ["Writer"]
+      roles                       = ["Object Writer"]
       target_service_name         = "cloud-object-storage"
-      target_resource_instance_id = var.atracker_cos_instance
+      target_resource_instance_id = split(":", var.atracker_cos_instance)[7]
     }
   ]
 }
@@ -140,7 +140,7 @@ output "authorizations" {
     module.cos_to_key_management.value,
     module.flow_logs_to_cos.value,
     module.secrets_manager_to_cos.value,
-    module.atracker_to_cos
+    module.atracker_to_cos.value
   )
 }
 
