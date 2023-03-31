@@ -1601,7 +1601,7 @@
         "access_groups": "access_groups",
         "add_kms_block_storage_s2s": "add_kms_block_storage_s2s",
         "appid": "appid",
-        "atracker_cos_instance": "atracker",
+        "atracker_cos_bucket": "atracker",
         "bastion_vsi": "teleport_vsi",
         "clusters": "clusters",
         "cos": "cos",

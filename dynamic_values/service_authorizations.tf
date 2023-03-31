@@ -10,7 +10,7 @@ module "service_authorizations" {
   cos_instance_ids          = local.cos_instance_ids
   use_secrets_manager       = var.secrets_manager.use_secrets_manager
   add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
-  atracker_cos_instance     = var.atracker_cos_instance
+  atracker_cos_bucket       = var.atracker_cos_bucket
 }
 
 ##############################################################################

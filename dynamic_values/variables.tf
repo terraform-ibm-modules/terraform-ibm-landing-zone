@@ -204,7 +204,7 @@ variable "add_kms_block_storage_s2s" {
   description = "Direct reference to kms block storage variable"
 }
 
-variable "atracker_cos_instance" {
+variable "atracker_cos_bucket" {
   description = "Direct reference to atracker to cos variable"
 }
 ##############################################################################

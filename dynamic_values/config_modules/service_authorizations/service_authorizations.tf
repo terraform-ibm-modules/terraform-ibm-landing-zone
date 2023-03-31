@@ -26,7 +26,7 @@ variable "add_kms_block_storage_s2s" {
   description = "Add kms to block storage s2s"
 }
 
-variable "atracker_cos_instance" {
+variable "atracker_cos_bucket" {
   description = "Add atracker to cos s2s"
 }
 
@@ -114,17 +114,27 @@ module "secrets_manager_to_cos" {
 # Atracker to COS
 ##############################################################################
 
+locals {
+  atracker_cos_instance = var.atracker_cos_instance == null ? null : flatten([
+    for instance in var.cos :
+    [
+      for bucket in instance.buckets :
+      [instance.name] if bucket.name == var.atracker_cos_instance
+    ]
+  ])[0]
+}
+
 module "atracker_to_cos" {
   source = "../list_to_map"
   list = [
-    for instance in(var.atracker_cos_instance != null ? ["atracker-to-cos"] : []) :
+    for instance in(var.atracker_cos_bucket != null ? ["atracker-to-cos"] : []) :
     {
       name                        = instance
       source_service_name         = "atracker"
       description                 = "Allow atracker to write to COS"
       roles                       = ["Object Writer"]
       target_service_name         = "cloud-object-storage"
-      target_resource_instance_id = split(":", var.atracker_cos_instance)[7]
+      target_resource_instance_id = split(":", var.cos_instance_ids[atracker_cos_instance])[7]
     }
   ]
 }
