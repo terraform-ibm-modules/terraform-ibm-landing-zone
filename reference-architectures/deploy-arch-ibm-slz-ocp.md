@@ -20,11 +20,12 @@ version: 1.0
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: # TODO
 
-docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/roks-pattern.png
+docs: https://cloud.ibm.com/docs/secure-infrastructure-ocp
+
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks.drawio.svg
 
 related_links:
-  - title: "Secure infrastructure on VPC for regulated industries - Standard variation"
+  - title: "VSI on VPC landing zone - Standard variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
 
@@ -102,7 +103,7 @@ business challenge, or target cloud environments.
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 | * Use public and private SSH keys to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the bastion host  \n * Do not store private SSH key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key. | |
-{: caption="Table 3. Key and passwords management architecture decisions" caption-side="bottom"}
+{: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
 <!--
 ## Compliance
