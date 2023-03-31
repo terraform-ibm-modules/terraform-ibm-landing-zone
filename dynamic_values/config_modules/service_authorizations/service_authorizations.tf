@@ -115,11 +115,11 @@ module "secrets_manager_to_cos" {
 ##############################################################################
 
 locals {
-  atracker_cos_instance = var.atracker_cos_instance == null ? null : flatten([
+  atracker_cos_instance = var.atracker_cos_bucket == null ? null : flatten([
     for instance in var.cos :
     [
       for bucket in instance.buckets :
-      [instance.name] if bucket.name == var.atracker_cos_instance
+      [instance.name] if bucket.name == var.atracker_cos_bucket
     ]
   ])[0]
 }
@@ -134,7 +134,7 @@ module "atracker_to_cos" {
       description                 = "Allow atracker to write to COS"
       roles                       = ["Object Writer"]
       target_service_name         = "cloud-object-storage"
-      target_resource_instance_id = split(":", var.cos_instance_ids[atracker_cos_instance])[7]
+      target_resource_instance_id = split(":", var.cos_instance_ids[local.atracker_cos_instance])[7]
     }
   ]
 }
