@@ -38,7 +38,7 @@ output "appid_redirect_urls" {
 
 output "atracker_target_name" {
   description = "Name of atracker target"
-  value       = local.valid_atracker_region ? ibm_atracker_target.atracker_target[0].name : null
+  value       = local.valid_atracker_region && var.atracker.add_route == true ? ibm_atracker_target.atracker_target[0].name : null
 }
 
 output "atracker_route_name" {
