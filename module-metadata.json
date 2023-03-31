@@ -224,7 +224,6 @@
         "ibm_resource_key.key.name",
         "ibm_scc_posture_collector.collector.name",
         "ibm_scc_posture_scope.scc_scope.name",
-        "ibm_tg_connection.connection.name",
         "ibm_tg_gateway.transit_gateway.name",
         "module.bastion_host.ibm_is_lb.lb.name",
         "module.bastion_host.ibm_is_lb_pool.pool.name",
@@ -1215,8 +1214,7 @@
       "type": "ibm_tg_connection",
       "name": "connection",
       "attributes": {
-        "for_each": "enable_transit_gateway",
-        "name": "prefix"
+        "for_each": "enable_transit_gateway"
       },
       "provider": {
         "name": "ibm"

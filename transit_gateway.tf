@@ -36,7 +36,7 @@ resource "ibm_tg_connection" "connection" {
   for_each     = var.enable_transit_gateway ? data.ibm_is_vpc.example : {}
   gateway      = ibm_tg_gateway.transit_gateway[0].id
   network_type = "vpc"
-  name         = "${var.prefix}-${each.value.name}-hub-connection"
+  name         = "${each.value.name}-hub-connection"
   network_id   = each.value.crn
   timeouts {
     create = "30m"
