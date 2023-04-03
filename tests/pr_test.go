@@ -21,6 +21,7 @@ const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
 // The ACL ignores can be removed once we merge this PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/315)
+// The flow_log ignores can be removed once we merge PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/289)
 var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
 	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
@@ -28,6 +29,8 @@ var ignoreUpdates = []string{
 	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
+	"module.landing_zone.module.vpc[\"workload\"].ibm_is_flow_log.flow_logs[0]",
+	"module.landing_zone.module.vpc[\"management\"].ibm_is_flow_log.flow_logs[0]",
 }
 
 func sshPublicKey(t *testing.T) string {
