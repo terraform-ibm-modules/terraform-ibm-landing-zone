@@ -36,6 +36,18 @@
             "description": "Check whether Flow Logs for VPC are enabled",
             "ignore_reason": "Flow logs are enabled, so seems to be CRA bug. Tracking in https://github.ibm.com/oneibmcloud/CD-CRA/issues/1779",
             "is_valid": false
+        },
+        {
+            "scc_goal_id": "3000805",
+            "description:": "Check whether Kubernetes Service clusters are enabled with IBM Log Analysis",
+            "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
+            "is_valid": false
+        },
+        {
+            "scc_goal_id": "3000804",
+            "description:": "Check whether Kubernetes Service clusters are enabled with IBM Cloud Monitoring",
+            "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
+            "is_valid": false
         }
     ]
 }
