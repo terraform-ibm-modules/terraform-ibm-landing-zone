@@ -30,8 +30,8 @@ output "default_vpc_rules" {
       name        = "allow-all-outbound"
       action      = "allow"
       direction   = "outbound"
-      destination = "0.0.0.0/0"
-      source      = "0.0.0.0/0"
+      destination = "161.26.0.0/16"
+      source      = "10.0.0.0/8"
       tcp = {
         port_min = null
         port_max = null

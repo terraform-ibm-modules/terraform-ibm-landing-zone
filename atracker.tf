@@ -18,7 +18,7 @@ locals {
 
 resource "ibm_atracker_target" "atracker_target" {
 
-  count = local.valid_atracker_region ? 1 : 0
+  count = local.valid_atracker_region && var.atracker.add_route == true ? 1 : 0
 
   cos_endpoint {
     endpoint   = "s3.private.${var.region}.cloud-object-storage.appdomain.cloud"
