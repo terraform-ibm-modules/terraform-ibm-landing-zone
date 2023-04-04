@@ -38,6 +38,24 @@ variable "vpcs" {
   }
 }
 
+variable "add_ibm_cloud_internal_rules" {
+  description = "Add default network ACL rules to VPC"
+  type        = bool
+  default     = true
+}
+
+variable "add_vpc_connectivity_rules" {
+  description = "Add connectivity rules across any subnet within VPC"
+  type        = bool
+  default     = true
+}
+
+variable "prepend_ibm_rules" {
+  description = "Allow to prepend IBM rules of VPC connectivity"
+  type        = bool
+  default     = true
+}
+
 ##############################################################################
 
 

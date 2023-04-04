@@ -3,12 +3,15 @@
 ##############################################################################
 
 module "default_network_acls" {
-  source                     = "../network_acls"
-  vpc_list                   = ["management", "workload"]
-  use_teleport               = false
-  use_f5                     = false
-  bastion_vpc_name           = false
-  add_cluster_encryption_key = false
+  source                       = "../network_acls"
+  vpc_list                     = ["management", "workload"]
+  use_teleport                 = false
+  use_f5                       = false
+  bastion_vpc_name             = false
+  add_cluster_encryption_key   = false
+  add_ibm_cloud_internal_rules = false
+  add_vpc_connectivity_rules   = false
+  prepend_ibm_rules            = false
 }
 
 locals {
@@ -33,12 +36,15 @@ locals {
 ##############################################################################
 
 module "f5_and_bastion_network_acls" {
-  source                     = "../network_acls"
-  vpc_list                   = ["management", "workload"]
-  use_teleport               = true
-  use_f5                     = true
-  bastion_vpc_name           = "management"
-  add_cluster_encryption_key = false
+  source                       = "../network_acls"
+  vpc_list                     = ["management", "workload"]
+  use_teleport                 = true
+  use_f5                       = true
+  bastion_vpc_name             = "management"
+  add_cluster_encryption_key   = false
+  add_ibm_cloud_internal_rules = false
+  add_vpc_connectivity_rules   = false
+  prepend_ibm_rules            = false
 }
 
 locals {

@@ -19,6 +19,17 @@ const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
+// Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
+// The ACL ignores can be removed once we merge this PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/315)
+var ignoreUpdates = []string{
+	"module.landing_zone.module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
+	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
+	"module.landing_zone.module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
+	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
+	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
+	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
+}
+
 func sshPublicKey(t *testing.T) string {
 	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
 	actualTerraformDir := "./resources"
@@ -51,6 +62,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
+		},
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
 		},
 	})
 
@@ -98,6 +112,9 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		TerraformDir:  roksPatternTerraformDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -113,7 +130,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-no")
+	options := setupOptionsRoksPattern(t, "s-no")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
