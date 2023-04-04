@@ -18,7 +18,7 @@ version: 1.0
 # Value is the URL to land the user in the IBM Cloud catalog details page
 # for the deployable architecture.
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
-deployment-url: url #TODO
+deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vsi-ef663980-4c71-4fac-af4f-4a510a9bcf68-global
 
 docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vsi
 
