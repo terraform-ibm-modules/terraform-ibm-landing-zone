@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-27"
+lastupdated: "2023-04-05"
 
 keywords:
 
@@ -58,7 +58,7 @@ Red Hat OpenShift Container Platform on VPC landing zone is a deployable archite
 ## Architecture diagram
 {: #ra-ocp-architecture-diagram}
 
-![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture.](roks.drawio.svg "Architecture diagram of Red Hat OpenShift Container Platform on VPC landing zone deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}
+![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture.](roks.drawio.svg "Architecture diagram of Red Hat OpenShift Container Platform on VPC landing zone deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}{: external download="roks.drawio.svg"}
 
 ## Design requirements
 {: #ra-ocp-design-requirements}

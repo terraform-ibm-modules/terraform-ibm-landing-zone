@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-28"
+lastupdated: "2023-04-05"
 
 keywords:
 
@@ -60,7 +60,7 @@ IBM Cloud Flow Logs for VPC enables the collection and storage of information ab
 ## Architecture diagram
 {: #ra-vpc-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VPC landing zone](vpc.drawio.svg "Architecture diagram of VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VPC landing zone" caption-side="bottom"}
+![Architecture diagram for the Standard variation of VPC landing zone](vpc.drawio.svg "Architecture diagram of VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VPC landing zone" caption-side="bottom"}{: external download="vpc.drawio.svg"}
 
 ## Design requirements
 {: #ra-vpc-qs-design-requirements}
