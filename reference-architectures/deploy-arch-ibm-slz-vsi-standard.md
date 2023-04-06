@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-27"
+lastupdated: "2023-04-05"
 
 keywords:
 
@@ -62,7 +62,7 @@ The Standard variation of the VSI on VPC landing zone deployable architecture is
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
