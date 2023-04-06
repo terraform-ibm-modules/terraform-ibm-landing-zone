@@ -382,7 +382,8 @@
                             "key": "vsi_per_subnet"
                         },
                         {
-                            "key": "teleport_hostname"
+                            "key": "teleport_hostname",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -416,7 +417,8 @@
                             "key": "license_sku_keyword_2"
                         },
                         {
-                            "key": "add_edge_vpc"
+                            "key": "add_edge_vpc",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -453,7 +455,8 @@
                             "key": "tgstandby_url"
                         },
                         {
-                            "key": "create_secrets_manager"
+                            "key": "create_secrets_manager",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -566,7 +569,8 @@
                             "required": true
                         },
                         {
-                            "key": "override"
+                            "key": "override",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -779,12 +783,10 @@
                 "IaC",
                 "Infrastructure",
                 "terraform",
-                "solution",
-                "virtual server",
-                "vsi"
+                "solution"
             ],
             "short_description": "Provides a secure VPC infrastructure utilizing the IBM Cloud for Financial Services reference architecture.",
-            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC). The solution provides virtual servers in a secure VPC for your workloads.",
+            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC).",
             "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
             "features": [
@@ -1127,8 +1129,8 @@
                 "infrastructure as code",
                 "terraform",
                 "solution",
-                "virtual server instance",
-                "vsi"
+                "Red Hat OpenShift Container Platform",
+                "OCP"
             ],
             "short_description": "Provides workload Openshift Container Platform to be included with Secure infrastructure on VPC for regulated industries",
             "long_description": "OpenShift Container Platform on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant RedHat(TM) OpenShift Container Platform (OCP) workload clusters on an existing Virtual Private Cloud (VPC) network.\n\n",
@@ -1435,7 +1437,8 @@
                             "key": "domain"
                         },
                         {
-                            "key": "phone_home_url"
+                            "key": "phone_home_url",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -1461,7 +1464,8 @@
                             "key": "appid_name"
                         },
                         {
-                            "key": "add_edge_vpc"
+                            "key": "add_edge_vpc",
+                            "hidden": true
                         },
                         {
                             "key": "entitlement"
@@ -1479,7 +1483,8 @@
                             "key": "update_all_workers"
                         },
                         {
-                            "key": "hs_crypto_resource_group"
+                            "key": "hs_crypto_resource_group",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -1536,7 +1541,8 @@
                             "key": "create_f5_network_on_management_vpc"
                         },
                         {
-                            "key": "template_version"
+                            "key": "template_version",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -1559,7 +1565,8 @@
                             "key": "use_existing_appid"
                         },
                         {
-                            "key": "create_secrets_manager"
+                            "key": "create_secrets_manager",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -1598,7 +1605,8 @@
                             "key": "enable_transit_gateway"
                         },
                         {
-                            "key": "override"
+                            "key": "override",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
@@ -1612,7 +1620,8 @@
                             "key": "license_password"
                         },
                         {
-                            "key": "hs_crypto_instance_name"
+                            "key": "hs_crypto_instance_name",
+                            "hidden": true
                         },
                         {
                             "hidden": true,
