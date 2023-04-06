@@ -45,64 +45,43 @@
                     },
                     "configuration": [
                         {
-                            "custom_config": {},
-                            "default_value": "{\n   \"access_groups\": [],\n   \"appid\": {\n      \"keys\": [\n         \"slz-appid-key\"\n      ],\n      \"name\": \"slz-appid\",\n      \"resource_group\": \"slz-service-rg\",\n      \"use_appid\": false,\n      \"use_data\": false\n   },\n   \"clusters\": [],\n   \"enable_transit_gateway\": true,\n   \"transit_gateway_connections\": [\n      \"management\",\n      \"workload\"\n   ],\n   \"transit_gateway_resource_group\": \"slz-service-rg\",\n   \"virtual_private_endpoints\": [\n      {\n         \"resource_group\": \"slz-service-rg\",\n         \"service_name\": \"cos\",\n         \"service_type\": \"cloud-object-storage\",\n         \"vpcs\": [\n            {\n               \"name\": \"management\",\n               \"subnets\": [\n                  \"vpe-zone-1\"\n               ]\n            },\n            {\n               \"name\": \"workload\",\n               \"subnets\": [\n                  \"vpe-zone-1\"\n               ]\n            }\n         ]\n      }\n   ],\n   \"service_endpoints\": \"private\",\n   \"security_groups\": [],\n   \"vpn_gateways\": [],\n   \"atracker\": {\n      \"collector_bucket_name\": \"atracker-bucket\",\n      \"receive_global_events\": true,\n      \"resource_group\": \"slz-service-rg\",\n      \"add_route\": false\n   },\n   \"cos\": [\n      {\n         \"buckets\": [\n            {\n               \"endpoint_type\": \"public\",\n               \"force_delete\": true,\n               \"kms_key\": \"slz-atracker-key\",\n               \"name\": \"atracker-bucket\",\n               \"storage_class\": \"standard\"\n            }\n         ],\n         \"keys\": [\n            {\n               \"name\": \"cos-bind-key\",\n               \"role\": \"Writer\",\n               \"enable_HMAC\": false\n            }\n         ],\n         \"name\": \"atracker-cos\",\n         \"plan\": \"standard\",\n         \"random_suffix\": true,\n         \"resource_group\": \"slz-service-rg\",\n         \"use_data\": false\n      },\n      {\n         \"buckets\": [\n            {\n               \"endpoint_type\": \"public\",\n               \"force_delete\": true,\n               \"kms_key\": \"slz-key\",\n               \"name\": \"management-bucket\",\n               \"storage_class\": \"standard\"\n            },\n            {\n               \"endpoint_type\": \"public\",\n               \"force_delete\": true,\n               \"kms_key\": \"slz-key\",\n               \"name\": \"workload-bucket\",\n               \"storage_class\": \"standard\"\n            }\n         ],\n         \"keys\": [],\n         \"name\": \"cos\",\n         \"plan\": \"standard\",\n         \"random_suffix\": true,\n         \"resource_group\": \"slz-service-rg\",\n         \"use_data\": false\n      }\n   ],\n   \"iam_account_settings\": {\n      \"enable\": false\n   },\n   \"key_management\": {\n      \"keys\": [\n         {\n            \"key_ring\": \"slz-slz-ring\",\n            \"name\": \"slz-key\",\n            \"root_key\": true\n         },\n         {\n            \"key_ring\": \"slz-slz-ring\",\n            \"name\": \"slz-atracker-key\",\n            \"root_key\": true\n         },\n         {\n            \"key_ring\": \"slz-slz-ring\",\n            \"name\": \"slz-vsi-volume-key\",\n            \"root_key\": true\n         }\n      ],\n      \"name\": \"slz-kms\",\n      \"resource_group\": \"slz-service-rg\",\n      \"use_hs_crypto\": false\n   },\n   \"resource_groups\": [\n      {\n         \"create\": true,\n         \"name\": \"slz-service-rg\",\n         \"use_prefix\": true\n      },\n      {\n         \"create\": true,\n         \"name\": \"slz-management-rg\",\n         \"use_prefix\": true\n      },\n      {\n         \"create\": true,\n         \"name\": \"slz-workload-rg\",\n         \"use_prefix\": true\n      }\n   ],\n   \"secrets_manager\": {\n      \"kms_key_name\": null,\n      \"name\": null,\n      \"resource_group\": null,\n      \"use_secrets_manager\": false\n   },\n   \"network_cidr\": \"10.0.0.0/8\",\n   \"vpcs\": [\n      {\n         \"address_prefixes\": {\n            \"zone-1\": [],\n            \"zone-2\": [],\n            \"zone-3\": []\n         },\n         \"default_security_group_rules\": [],\n         \"flow_logs_bucket_name\": null,\n         \"network_acls\": [\n            {\n               \"name\": \"management-acl\",\n               \"rules\": [\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-all-inbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"outbound\",\n                     \"name\": \"allow-all-outbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  }\n               ]\n            }\n         ],\n         \"prefix\": \"management\",\n         \"resource_group\": \"slz-management-rg\",\n         \"subnets\": {\n            \"zone-1\": [\n               {\n                  \"acl_name\": \"management-acl\",\n                  \"cidr\": \"10.10.10.0/24\",\n                  \"name\": \"vsi-zone-1\",\n                  \"public_gateway\": false\n               },\n               {\n                  \"acl_name\": \"management-acl\",\n                  \"cidr\": \"10.10.20.0/24\",\n                  \"name\": \"vpe-zone-1\",\n                  \"public_gateway\": false\n               }\n            ],\n            \"zone-2\": null,\n            \"zone-3\": null\n         },\n         \"use_public_gateways\": {\n            \"zone-1\": false,\n            \"zone-2\": false,\n            \"zone-3\": false\n         }\n      },\n      {\n         \"address_prefixes\": {\n            \"zone-1\": [],\n            \"zone-2\": [],\n            \"zone-3\": []\n         },\n         \"default_security_group_rules\": [],\n         \"flow_logs_bucket_name\": null,\n         \"network_acls\": [\n            {\n               \"name\": \"workload-acl\",\n               \"rules\": [\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"inbound\",\n                     \"name\": \"allow-all-inbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  },\n                  {\n                     \"action\": \"allow\",\n                     \"destination\": \"0.0.0.0/0\",\n                     \"direction\": \"outbound\",\n                     \"name\": \"allow-all-outbound\",\n                     \"source\": \"0.0.0.0/0\"\n                  }\n               ]\n            }\n         ],\n         \"prefix\": \"workload\",\n         \"resource_group\": \"slz-workload-rg\",\n         \"subnets\": {\n            \"zone-1\": [\n               {\n                  \"acl_name\": \"workload-acl\",\n                  \"cidr\": \"10.20.10.0/24\",\n                  \"name\": \"vsi-zone-1\",\n                  \"public_gateway\": true\n               },\n               {\n                  \"acl_name\": \"workload-acl\",\n                  \"cidr\": \"10.20.20.0/24\",\n                  \"name\": \"vpe-zone-1\",\n                  \"public_gateway\": false\n               }\n            ],\n            \"zone-2\": null,\n            \"zone-3\": null\n         },\n         \"use_public_gateways\": {\n            \"zone-1\": false,\n            \"zone-2\": false,\n            \"zone-3\": false\n         }\n      }\n   ],\n   \"vsi\": [\n      {\n         \"boot_volume_encryption_key_name\": \"slz-vsi-volume-key\",\n         \"image_name\": \"ibm-ubuntu-18-04-6-minimal-amd64-2\",\n         \"machine_type\": \"cx2-2x4\",\n         \"name\": \"jump-box\",\n         \"resource_group\": \"slz-management-rg\",\n         \"enable_floating_ip\": true,\n         \"security_group\": {\n            \"name\": \"management\",\n            \"rules\": [\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-all-inbound\",\n                  \"source\": \"0.0.0.0/0\"\n               },\n               {\n                  \"direction\": \"outbound\",\n                  \"name\": \"allow-all-outbound\",\n                  \"source\": \"0.0.0.0/0\"\n               }\n            ],\n            \"vpc_name\": \"management\"\n         },\n         \"ssh_keys\": [\n            \"ssh-key\"\n         ],\n         \"subnet_names\": [\n            \"vsi-zone-1\"\n         ],\n         \"vpc_name\": \"management\",\n         \"vsi_per_subnet\": 1\n      },\n      {\n         \"boot_volume_encryption_key_name\": \"slz-vsi-volume-key\",\n         \"image_name\": \"ibm-ubuntu-18-04-6-minimal-amd64-2\",\n         \"machine_type\": \"cx2-2x4\",\n         \"name\": \"workload-server\",\n         \"resource_group\": \"slz-workload-rg\",\n         \"enable_floating_ip\": false,\n         \"security_group\": {\n            \"name\": \"workload\",\n            \"rules\": [\n               {\n                  \"direction\": \"inbound\",\n                  \"name\": \"allow-all-inbound\",\n                  \"source\": \"0.0.0.0/0\"\n               },\n               {\n                  \"direction\": \"outbound\",\n                  \"name\": \"allow-all-outbound\",\n                  \"source\": \"0.0.0.0/0\"\n               }\n            ],\n            \"vpc_name\": \"workload\"\n         },\n         \"ssh_keys\": [\n            \"ssh-key\"\n         ],\n         \"subnet_names\": [\n            \"vsi-zone-1\"\n         ],\n         \"vpc_name\": \"workload\",\n         \"vsi_per_subnet\": 1\n      }\n   ]\n}\n",
-                            "description": "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes.",
-                            "hidden": false,
-                            "key": "override_json_string",
-                            "required": false,
-                            "type": "string"
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-                            "hidden": false,
                             "key": "ibmcloud_api_key",
                             "required": true,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "land-zone-vsi-qs",
-                            "description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-                            "hidden": false,
                             "key": "prefix",
                             "required": true,
                             "type": "string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "us-south",
-                            "description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
-                            "hidden": false,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
                             "required": true,
                             "type": "string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "Public SSH key to use to provision a VSI. Must be a valid SSH key that does not already exist in the deployment region. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
-                            "hidden": false,
                             "key": "ssh_key",
                             "required": true,
                             "type": "string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[]",
-                            "description": "Optional list of tags to be added to created resources",
-                            "hidden": false,
-                            "key": "resource_tags",
-                            "required": false,
-                            "type": "array"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Landing zone configuration",
-                            "key": "landing_zone"
+                            "key": "resource_tags"
                         }
                     ],
                     "iam_permissions": [
@@ -392,663 +371,284 @@
                     },
                     "configuration": [
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The domain of the bastion host",
                             "hidden": true,
-                            "key": "teleport_domain",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_domain"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Atracker can only have one route per zone. Use this value to disable or enable the creation of atracker route",
-                            "hidden": false,
-                            "key": "add_atracker_route",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "add_atracker_route"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-declarative-onboarding declaration",
                             "hidden": true,
-                            "key": "do_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "do_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "20210201",
-                            "description": "The terraform template version for phone_home_url_metadata",
                             "hidden": true,
-                            "key": "template_version",
-                            "required": false,
-                            "type": "string"
+                            "key": "template_version"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": 1,
-                            "description": "Number of Virtual Servers to create on each VSI subnet.",
-                            "hidden": false,
-                            "key": "vsi_per_subnet",
-                            "required": false,
-                            "type": "number"
+                            "key": "vsi_per_subnet"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The name of the instance or bastion host",
-                            "hidden": true,
                             "key": "teleport_hostname",
-                            "required": false,
-                            "type": "string"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Bring your own license registration key for the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "byol_license_basekey",
-                            "required": false,
-                            "type": "string"
+                            "key": "byol_license_basekey"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": 0,
-                            "description": "Number of zones to create teleport VSI on Management VPC if not using F5. If you are using F5, ignore this value.",
                             "hidden": true,
-                            "key": "teleport_management_zones",
-                            "required": false,
-                            "type": "number"
+                            "key": "teleport_management_zones"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "10.0.0.0/8",
-                            "description": "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning.",
-                            "hidden": false,
-                            "key": "network_cidr",
-                            "required": false,
-                            "type": "string"
+                            "key": "network_cidr"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST L3 addresses when tgrefresh is triggered",
                             "hidden": true,
-                            "key": "tgrefresh_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgrefresh_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Bastion type if provisioning bastion. Can be `full-tunnel`, `waf`, or `vpn-and-waf`.",
                             "hidden": true,
-                            "key": "vpn_firewall_type",
-                            "required": false,
-                            "type": "string"
+                            "key": "vpn_firewall_type"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "scope",
-                            "description": "The name of the SCC Scope",
                             "hidden": true,
-                            "key": "scc_scope_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_scope_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "local",
-                            "description": "The F5 BIG-IP domain name",
                             "hidden": true,
-                            "key": "domain",
-                            "required": false,
-                            "type": "string"
+                            "key": "domain"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_sku_keyword_2",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_sku_keyword_2"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Create an edge VPC. This VPC will be dynamically added to the list of VPCs in `var.vpcs`. Conflicts with `create_f5_network_on_management_vpc` to prevent overlapping subnet CIDR blocks.",
-                            "hidden": false,
                             "key": "add_edge_vpc",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable F5 external interface floating IP. Conflicts with `enable_f5_management_fip`, VSI can only have one floating IP per instance.",
                             "hidden": true,
-                            "key": "enable_f5_external_fip",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_f5_external_fip"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "ibm-ubuntu-18-04-6-minimal-amd64-2",
-                            "description": "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images.",
                             "hidden": true,
-                            "key": "teleport_vsi_image_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_vsi_image_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "",
-                            "description": "The URL to POST L3 addresses when tgactive is triggered",
                             "hidden": true,
-                            "key": "tgactive_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgactive_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "none",
-                            "description": "How to license, may be 'none','byol','regkeypool','utilitypool'",
                             "hidden": true,
-                            "key": "license_type",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_type"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "cx2-4x8",
-                            "description": "F5 vsi instance profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles.",
                             "hidden": true,
-                            "key": "f5_instance_profile",
-                            "required": false,
-                            "type": "string"
+                            "key": "f5_instance_profile"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[]",
-                            "description": "List of tags to apply to resources created by this module.",
-                            "hidden": false,
-                            "key": "tags",
-                            "required": false,
-                            "type": "array"
+                            "key": "tags"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Add a random 8 character string to the end of each cos instance, bucket, and key.",
-                            "hidden": false,
-                            "key": "use_random_cos_suffix",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "use_random_cos_suffix"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Banner message that is exposed to the user at authentication time",
                             "hidden": true,
-                            "key": "message_of_the_day",
-                            "required": false,
-                            "type": "string"
+                            "key": "message_of_the_day"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST L3 addresses when tgstandby is triggered",
                             "hidden": true,
-                            "key": "tgstandby_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgstandby_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Create a secrets manager deployment.",
-                            "hidden": false,
                             "key": "create_secrets_manager",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "slz-cred",
-                            "description": "The name of the credential",
                             "hidden": true,
-                            "key": "scc_cred_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_cred_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "If you're using Hyper Protect Crypto services in a resource group other than `Default`, provide the name here.",
                             "hidden": true,
-                            "key": "hs_crypto_resource_group",
-                            "required": false,
-                            "type": "string"
+                            "key": "hs_crypto_resource_group"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5-bigip-17-0-0-1-0-0-4-all-1slot",
-                            "description": "Image name for f5 deployments. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`].",
                             "hidden": true,
-                            "key": "f5_image_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "f5_image_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "appid",
-                            "description": "Name of appid instance.",
                             "hidden": true,
-                            "key": "appid_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "appid_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_password",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Provision teleport VSI in `bastion` subnet tier of F5 network if able.",
                             "hidden": true,
-                            "key": "provision_teleport_in_f5",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "provision_teleport_in_f5"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The https private key used by bastion host for teleport",
                             "hidden": true,
-                            "key": "https_key",
-                            "required": false,
-                            "type": "string"
+                            "key": "https_key"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The https certificate used by bastion host for teleport",
                             "hidden": true,
-                            "key": "https_cert",
-                            "required": false,
-                            "type": "string"
+                            "key": "https_cert"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "collector description",
-                            "description": "Description of SCC Collector",
                             "hidden": true,
-                            "key": "scc_collector_description",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_collector_description"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_username",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_username"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The contents of the PEM license file",
                             "hidden": true,
-                            "key": "teleport_license",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_license"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "This credential is used for SCC.",
-                            "description": "Description of SCC Credential",
                             "hidden": true,
-                            "key": "scc_cred_description",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_cred_description"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable F5 management interface floating IP. Conflicts with `enable_f5_external_fip`, VSI can only have one floating IP per instance.",
                             "hidden": true,
-                            "key": "enable_f5_management_fip",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_f5_management_fip"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ license pool name of the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_pool",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_pool"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_host",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_host"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5-ve-01",
-                            "description": "The F5 BIG-IP hostname",
                             "hidden": true,
-                            "key": "hostname",
-                            "required": false,
-                            "type": "string"
+                            "key": "hostname"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "add kms to block storage s2s authorization",
-                            "hidden": false,
-                            "key": "add_kms_block_storage_s2s",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "add_kms_block_storage_s2s"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Use an existing appid instance. If this is false, one will be automatically created.",
                             "hidden": true,
-                            "key": "use_existing_appid",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "use_existing_appid"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "",
-                            "description": "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes.",
-                            "hidden": false,
-                            "key": "override_json_string",
-                            "required": false,
-                            "type": "string"
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region.",
-                            "hidden": false,
                             "key": "ssh_public_key",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "admin account password for the F5 BIG-IP instance",
                             "hidden": true,
                             "key": "tmos_admin_password",
-                            "required": false,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_sku_keyword_1",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_sku_keyword_1"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "ibm-ubuntu-18-04-6-minimal-amd64-2",
-                            "description": "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images.",
-                            "hidden": false,
-                            "key": "vsi_image_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "vsi_image_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "7.1.0",
-                            "description": "Version of Teleport Enterprise to use",
                             "hidden": true,
-                            "key": "teleport_version",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_version"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-                            "hidden": false,
                             "key": "ibmcloud_api_key",
                             "required": true,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Optionally, you can bring you own Hyper Protect Crypto Service instance for key management. If you would like to use that instance, add the name here. Otherwise, leave as null",
                             "hidden": true,
-                            "key": "hs_crypto_instance_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "hs_crypto_instance_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Create transit gateway",
-                            "hidden": false,
-                            "key": "enable_transit_gateway",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_transit_gateway"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
-                            "hidden": false,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment.",
-                            "hidden": false,
                             "key": "override",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Email for teleport vsi admin.",
                             "hidden": true,
-                            "key": "teleport_admin_email",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_admin_email"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Set up bastion on management VPC. This value conflicts with `add_edge_vpc` to prevent overlapping subnet CIDR blocks.",
                             "hidden": true,
-                            "key": "create_f5_network_on_management_vpc",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "create_f5_network_on_management_vpc"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "cx2-4x8",
-                            "description": "Machine type for Teleport VSI instances. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles.",
                             "hidden": true,
-                            "key": "teleport_instance_profile",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_instance_profile"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "cx2-4x8",
-                            "description": "VSI image profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles.",
-                            "hidden": false,
-                            "key": "vsi_instance_profile",
-                            "required": false,
-                            "type": "string"
+                            "key": "vsi_instance_profile"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "hourly",
-                            "description": "BIGIQ utility pool unit of measurement",
                             "hidden": true,
-                            "key": "license_unit_of_measure",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_unit_of_measure"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable creation of SCC resources",
                             "hidden": true,
-                            "key": "enable_scc",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_scc"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The terraform application id for phone_home_url_metadata",
                             "hidden": true,
-                            "key": "app_id",
-                            "required": false,
-                            "type": "string"
+                            "key": "app_id"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Resource group for existing appid instance. This value is ignored if a new instance is created.",
                             "hidden": true,
-                            "key": "appid_resource_group",
-                            "required": false,
-                            "type": "string"
+                            "key": "appid_resource_group"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST status when BIG-IP is finished onboarding",
                             "hidden": true,
-                            "key": "phone_home_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "phone_home_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-telemetry-streaming declaration",
                             "hidden": true,
-                            "key": "ts_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "ts_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-appsvcs-extension declaration",
                             "hidden": true,
-                            "key": "as3_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "as3_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"management\", \"workload\"]",
-                            "description": "List of VPCs to create. The first VPC in this list will always be considered the `management` VPC, and will be where the VPN Gateway is connected. VPCs names can only be a maximum of 16 characters and can only contain lowercase letters, numbers, and - characters. VPC names must begin with a lowercase letter and end with a lowercase letter or number.",
-                            "hidden": false,
-                            "key": "vpcs",
-                            "required": false,
-                            "type": "array"
+                            "key": "vpcs"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-                            "hidden": false,
                             "key": "prefix",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5devcentral/ibmcloud_schematics_bigip_multinic_declared",
-                            "description": "The terraform template source for phone_home_url_metadata",
                             "hidden": true,
-                            "key": "template_source",
-                            "required": false,
-                            "type": "string"
+                            "key": "template_source"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "IBM-schema-for-configuration-collection",
-                            "description": "Description of SCC Scope",
                             "hidden": true,
-                            "key": "scc_scope_description",
-                            "required": false,
-                            "type": "string"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "A list of the names of the VPC",
-                            "key": "vpc_names"
-                        },
-                        {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
-                            "key": "schematics_workspace_id"
-                        },
-                        {
-                            "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
-                            "key": "vsi_list"
-                        },
-                        {
-                            "description": "A list of the vsis names provisioned within the VPCs",
-                            "key": "vsi_names"
-                        },
-                        {
-                            "description": "Output configuration as encoded JSON",
-                            "key": "config"
-                        },
-                        {
-                            "description": "The prefix that is associated with all resources",
-                            "key": "prefix"
-                        },
-                        {
-                            "description": "The string value of the ssh public key",
-                            "key": "ssh_public_key"
-                        },
-                        {
-                            "description": "The name of the transit gateway",
-                            "key": "transit_gateway_name"
-                        },
-                        {
-                            "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
-                            "key": "fip_vsi"
+                            "key": "scc_scope_description"
                         }
                     ],
                     "iam_permissions": [
@@ -1165,12 +765,10 @@
                 "IaC",
                 "Infrastructure",
                 "terraform",
-                "solution",
-                "virtual server",
-                "vsi"
+                "solution"
             ],
             "short_description": "Provides a secure VPC infrastructure utilizing the IBM Cloud for Financial Services reference architecture.",
-            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC). The solution provides virtual servers in a secure VPC for your workloads.",
+            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC).",
             "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
             "features": [
@@ -1376,55 +974,32 @@
                     },
                     "configuration": [
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "Public SSH Key for VSI creation. Must be a valid SSH key that does not already exist in the deployment region.",
-                            "hidden": false,
                             "key": "ssh_key",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[]",
-                            "description": "Optional list of tags to be added to created resources",
-                            "hidden": false,
-                            "key": "resource_tags",
-                            "required": false,
-                            "type": "array"
+                            "key": "resource_tags"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-                            "hidden": false,
                             "key": "ibmcloud_api_key",
                             "required": true,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "no-compute",
-                            "description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-                            "hidden": false,
                             "key": "prefix",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "us-south",
-                            "description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
-                            "hidden": false,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
-                            "required": true,
-                            "type": "string"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Landing zone configuration",
-                            "key": "landing_zone"
+                            "required": true
                         }
                     ],
                     "iam_permissions": [
@@ -1538,8 +1113,8 @@
                 "infrastructure as code",
                 "terraform",
                 "solution",
-                "virtual server instance",
-                "vsi"
+                "Red Hat OpenShift Container Platform",
+                "OCP"
             ],
             "short_description": "Provides workload Openshift Container Platform to be included with Secure infrastructure on VPC for regulated industries",
             "long_description": "OpenShift Container Platform on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant RedHat(TM) OpenShift Container Platform (OCP) workload clusters on an existing Virtual Private Cloud (VPC) network.\n\n",
@@ -1772,671 +1347,296 @@
                     },
                     "configuration": [
                         {
-                            "custom_config": {},
-                            "default_value": "",
-                            "description": "The URL to POST L3 addresses when tgactive is triggered",
                             "hidden": true,
-                            "key": "tgactive_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgactive_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable F5 management interface floating IP. Conflicts with `enable_f5_external_fip`, VSI can only have one floating IP per instance.",
                             "hidden": true,
-                            "key": "enable_f5_management_fip",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_f5_management_fip"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_sku_keyword_1",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_sku_keyword_1"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable F5 external interface floating IP. Conflicts with `enable_f5_management_fip`, VSI can only have one floating IP per instance.",
                             "hidden": true,
-                            "key": "enable_f5_external_fip",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_f5_external_fip"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"management\", \"workload\"]",
-                            "description": "List of VPCs to create. The first VPC in this list will always be considered the `management` VPC, and will be where the VPN Gateway is connected. VPCs names can only be a maximum of 16 characters and can only contain lowercase letters, numbers, and - characters. VPC names must begin with a lowercase letter and end with a lowercase letter or number.",
-                            "hidden": false,
-                            "key": "vpcs",
-                            "required": false,
-                            "type": "array"
+                            "key": "vpcs"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Bastion type if provisioning bastion. Can be `full-tunnel`, `waf`, or `vpn-and-waf`.",
                             "hidden": true,
-                            "key": "vpn_firewall_type",
-                            "required": false,
-                            "type": "string"
+                            "key": "vpn_firewall_type"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "none",
-                            "description": "How to license, may be 'none','byol','regkeypool','utilitypool'",
                             "hidden": true,
-                            "key": "license_type",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_type"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "add kms to block storage s2s authorization",
-                            "hidden": false,
-                            "key": "add_kms_block_storage_s2s",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "add_kms_block_storage_s2s"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Bring your own license registration key for the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "byol_license_basekey",
-                            "required": false,
-                            "type": "string"
+                            "key": "byol_license_basekey"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "ibm-ubuntu-18-04-6-minimal-amd64-2",
-                            "description": "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images.",
                             "hidden": true,
-                            "key": "teleport_vsi_image_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_vsi_image_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Banner message that is exposed to the user at authentication time",
                             "hidden": true,
-                            "key": "message_of_the_day",
-                            "required": false,
-                            "type": "string"
+                            "key": "message_of_the_day"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "hourly",
-                            "description": "BIGIQ utility pool unit of measurement",
                             "hidden": true,
-                            "key": "license_unit_of_measure",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_unit_of_measure"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Email for teleport vsi admin.",
                             "hidden": true,
-                            "key": "teleport_admin_email",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_admin_email"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "bx2.16x64",
-                            "description": "Machine type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types",
-                            "hidden": false,
-                            "key": "flavor",
-                            "required": false,
-                            "type": "string"
+                            "key": "flavor"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5-ve-01",
-                            "description": "The F5 BIG-IP hostname",
                             "hidden": true,
-                            "key": "hostname",
-                            "required": false,
-                            "type": "string"
+                            "key": "hostname"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions.",
-                            "hidden": false,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-                            "hidden": false,
                             "key": "ibmcloud_api_key",
                             "required": true,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "slz-cred",
-                            "description": "The name of the credential",
                             "hidden": true,
-                            "key": "scc_cred_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_cred_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "local",
-                            "description": "The F5 BIG-IP domain name",
                             "hidden": true,
-                            "key": "domain",
-                            "required": false,
-                            "type": "string"
+                            "key": "domain"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST status when BIG-IP is finished onboarding",
-                            "hidden": true,
                             "key": "phone_home_url",
-                            "required": false,
-                            "type": "string"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST L3 addresses when tgstandby is triggered",
                             "hidden": true,
-                            "key": "tgstandby_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgstandby_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. Use only if provisioning F5 or Bastion Host.",
-                            "hidden": false,
                             "key": "ssh_public_key",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "",
-                            "description": "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes.",
-                            "hidden": false,
-                            "key": "override_json_string",
-                            "required": false,
-                            "type": "string"
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Resource group for existing appid instance. This value is ignored if a new instance is created.",
                             "hidden": true,
-                            "key": "appid_resource_group",
-                            "required": false,
-                            "type": "string"
+                            "key": "appid_resource_group"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The https private key used by bastion host for teleport",
                             "hidden": true,
-                            "key": "https_key",
-                            "required": false,
-                            "type": "string"
+                            "key": "https_key"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "appid",
-                            "description": "Name of appid instance.",
                             "hidden": true,
-                            "key": "appid_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "appid_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Create an edge VPC. This VPC will be dynamically added to the list of VPCs in `var.vpcs`. Conflicts with `create_f5_network_on_management_vpc` to prevent overlapping subnet CIDR blocks.",
-                            "hidden": false,
                             "key": "add_edge_vpc",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
-                            "hidden": false,
-                            "key": "entitlement",
-                            "required": false,
-                            "type": "string"
+                            "key": "entitlement"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "admin account password for the F5 BIG-IP instance",
                             "hidden": true,
                             "key": "tmos_admin_password",
-                            "required": false,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": 0,
-                            "description": "Number of zones to create teleport VSI on Management VPC if not using F5. If you are using F5, ignore this value.",
                             "hidden": true,
-                            "key": "teleport_management_zones",
-                            "required": false,
-                            "type": "number"
+                            "key": "teleport_management_zones"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Update all workers to new kube version",
-                            "hidden": false,
-                            "key": "update_all_workers",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "update_all_workers"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "If you're using Hyper Protect Crypto services in a resource group other than `Default`, provide the name here.",
-                            "hidden": false,
                             "key": "hs_crypto_resource_group",
-                            "required": false,
-                            "type": "string"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_host",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_host"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "cx2-4x8",
-                            "description": "F5 vsi instance profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles.",
                             "hidden": true,
-                            "key": "f5_instance_profile",
-                            "required": false,
-                            "type": "string"
+                            "key": "f5_instance_profile"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "collector description",
-                            "description": "Description of SCC Collector",
                             "hidden": true,
-                            "key": "scc_collector_description",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_collector_description"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_sku_keyword_2",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_sku_keyword_2"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ license pool name of the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_pool",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_pool"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5-bigip-17-0-0-1-0-0-4-all-1slot",
-                            "description": "Image name for f5 deployments. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`].",
                             "hidden": true,
-                            "key": "f5_image_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "f5_image_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "latest",
-                            "description": "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the latest version, leave as latest. Updates to the latest versions may force this to change.",
-                            "hidden": false,
-                            "key": "kube_version",
-                            "required": false,
-                            "type": "string"
+                            "key": "kube_version"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Provision teleport VSI in `bastion` subnet tier of F5 network if able.",
                             "hidden": true,
-                            "key": "provision_teleport_in_f5",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "provision_teleport_in_f5"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-appsvcs-extension declaration",
                             "hidden": true,
-                            "key": "as3_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "as3_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "cx2-4x8",
-                            "description": "Machine type for Teleport VSI instances. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles.",
                             "hidden": true,
-                            "key": "teleport_instance_profile",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_instance_profile"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Add a random 8 character string to the end of each cos instance, bucket, and key.",
-                            "hidden": false,
-                            "key": "use_random_cos_suffix",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "use_random_cos_suffix"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The name of the instance or bastion host",
                             "hidden": true,
-                            "key": "teleport_hostname",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_hostname"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The domain of the bastion host",
                             "hidden": true,
-                            "key": "teleport_domain",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_domain"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Set up bastion on management VPC. This value conflicts with `add_edge_vpc` to prevent overlapping subnet CIDR blocks.",
                             "hidden": true,
-                            "key": "create_f5_network_on_management_vpc",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "create_f5_network_on_management_vpc"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "20210201",
-                            "description": "The terraform template version for phone_home_url_metadata",
-                            "hidden": true,
                             "key": "template_version",
-                            "required": false,
-                            "type": "string"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "IBM-schema-for-configuration-collection",
-                            "description": "Description of SCC Scope",
                             "hidden": true,
-                            "key": "scc_scope_description",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_scope_description"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The terraform application id for phone_home_url_metadata",
                             "hidden": true,
-                            "key": "app_id",
-                            "required": false,
-                            "type": "string"
+                            "key": "app_id"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Enable creation of SCC resources",
                             "hidden": true,
-                            "key": "enable_scc",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_scc"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The contents of the PEM license file",
                             "hidden": true,
-                            "key": "teleport_license",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_license"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Use an existing appid instance. If this is false, one will be automatically created.",
                             "hidden": true,
-                            "key": "use_existing_appid",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "use_existing_appid"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Create a secrets manager deployment.",
-                            "hidden": false,
                             "key": "create_secrets_manager",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "7.1.0",
-                            "description": "Version of Teleport Enterprise to use",
                             "hidden": true,
-                            "key": "teleport_version",
-                            "required": false,
-                            "type": "string"
+                            "key": "teleport_version"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_username",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_username"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Atracker can only have one route per zone. use this value to disable or enable the creation of atracker route",
-                            "hidden": false,
-                            "key": "add_atracker_route",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "add_atracker_route"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "The URL to POST L3 addresses when tgrefresh is triggered",
                             "hidden": true,
-                            "key": "tgrefresh_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "tgrefresh_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[]",
-                            "description": "List of tags to apply to resources created by this module.",
-                            "hidden": false,
-                            "key": "tags",
-                            "required": false,
-                            "type": "array"
+                            "key": "tags"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The https certificate used by bastion host for teleport",
                             "hidden": true,
-                            "key": "https_cert",
-                            "required": false,
-                            "type": "string"
+                            "key": "https_cert"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NOT_SET__",
-                            "description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-                            "hidden": false,
                             "key": "prefix",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-telemetry-streaming declaration",
                             "hidden": true,
-                            "key": "ts_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "ts_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "10.0.0.0/8",
-                            "description": "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning.",
-                            "hidden": false,
-                            "key": "network_cidr",
-                            "required": false,
-                            "type": "string"
+                            "key": "network_cidr"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Create transit gateway",
-                            "hidden": false,
-                            "key": "enable_transit_gateway",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "enable_transit_gateway"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment.",
-                            "hidden": false,
                             "key": "override",
-                            "required": false,
-                            "type": "boolean"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "scope",
-                            "description": "The name of the SCC Scope",
                             "hidden": true,
-                            "key": "scc_scope_name",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_scope_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": 3,
-                            "description": "Number of zones to provision clusters for each VPC. At least one zone is required. Can be 1, 2, or 3 zones.",
-                            "hidden": false,
-                            "key": "cluster_zones",
-                            "required": false,
-                            "type": "number"
+                            "key": "cluster_zones"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance",
                             "hidden": true,
-                            "key": "license_password",
-                            "required": false,
-                            "type": "string"
+                            "key": "license_password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "Optionally, you can bring you own Hyper Protect Crypto Service instance for key management. If you would like to use that instance, add the name here. Otherwise, leave as null",
-                            "hidden": false,
                             "key": "hs_crypto_instance_name",
-                            "required": false,
-                            "type": "string"
+                            "hidden": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "null",
-                            "description": "URL to fetch the f5-declarative-onboarding declaration",
                             "hidden": true,
-                            "key": "do_declaration_url",
-                            "required": false,
-                            "type": "string"
+                            "key": "do_declaration_url"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "This credential is used for SCC.",
-                            "description": "Description of SCC Credential",
                             "hidden": true,
-                            "key": "scc_cred_description",
-                            "required": false,
-                            "type": "string"
+                            "key": "scc_cred_description"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": 1,
-                            "description": "Number of workers in each zone of the cluster. OpenShift requires at least 2 workers.",
-                            "hidden": false,
-                            "key": "workers_per_zone",
-                            "required": false,
-                            "type": "number"
+                            "key": "workers_per_zone"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "f5devcentral/ibmcloud_schematics_bigip_multinic_declared",
-                            "description": "The terraform template source for phone_home_url_metadata",
                             "hidden": true,
-                            "key": "template_source",
-                            "required": false,
-                            "type": "string"
+                            "key": "template_source"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "IngressReady",
-                            "description": "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`",
-                            "hidden": false,
-                            "key": "wait_till",
-                            "required": false,
-                            "type": "string"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Output configuration as encoded JSON",
-                            "key": "config"
-                        },
-                        {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
-                            "key": "schematics_workspace_id"
+                            "key": "wait_till"
                         }
                     ],
                     "iam_permissions": [
