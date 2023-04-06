@@ -33,7 +33,7 @@ variable "ssh_public_key" {
 }
 
 variable "tags" {
-  description = "List of tags to apply to resources created by this module."
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
 }

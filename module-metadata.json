@@ -359,7 +359,7 @@
     "tags": {
       "name": "tags",
       "type": "list(string)",
-      "description": "List of tags to apply to resources created by this module.",
+      "description": "List of resource tags to apply to resources created by this module.",
       "default": [],
       "source": [
         "ibm_container_vpc_cluster.cluster.tags",
