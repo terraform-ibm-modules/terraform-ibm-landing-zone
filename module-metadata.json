@@ -17,7 +17,7 @@
     "add_kms_block_storage_s2s": {
       "name": "add_kms_block_storage_s2s",
       "type": "bool",
-      "description": "add kms to block storage s2s authorization",
+      "description": "Whether to create a service-to-service authorization between block storage and the key management service.",
       "default": true,
       "required": true,
       "source": [
@@ -359,7 +359,7 @@
     "tags": {
       "name": "tags",
       "type": "list(string)",
-      "description": "List of tags to apply to resources created by this module.",
+      "description": "List of resource tags to apply to resources created by this module.",
       "default": [],
       "source": [
         "ibm_container_vpc_cluster.cluster.tags",
