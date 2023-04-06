@@ -4,6 +4,34 @@
             "name": "deploy-arch-ibm-slz-vsi",
             "label": "VSI on VPC landing zone",
             "product_kind": "solution",
+            "tags": [
+                "virtualservers",
+                "ibm_created",
+                "target_terraform",
+                "terraform",
+                "reference_architecture",
+                "solution"
+            ],
+            "keywords": [
+                "vpc",
+                "slz",
+                "IaC",
+                "infrastructure as code",
+                "terraform",
+                "solution",
+                "vsi",
+                "virtual server instance"
+            ],
+            "short_description": "Provides workload VSI to be included with Secure infrastructure on VPC for regulated industries",
+            "long_description": "Secure Workload VSIs on secure VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant VSIs on top of an existing Virtual Private Cloud (VPC) network.",
+            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
+            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
+            "features": [
+                {
+                    "description": "Secure and protected virtual servers are automatically created and set up to handle the workload.",
+                    "title": "Creates virtual servers for workloads"
+                }
+            ],
             "flavors": [
                 {
                     "label": "QuickStart",
@@ -15,6 +43,47 @@
                         "controls": [
                         ]
                     },
+                    "configuration": [
+                        {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "required": true,
+                            "type": "password"
+                        },
+                        {
+                            "key": "prefix",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
+                            "key": "region",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "key": "ssh_key",
+                            "required": true,
+                            "type": "string"
+                        },
+                        {
+                            "key": "resource_tags"
+                        }
+                    ],
                     "iam_permissions": [
                         {
                             "role_crns": [
@@ -300,6 +369,288 @@
                             }
                         ]
                     },
+                    "configuration": [
+                        {
+                            "hidden": true,
+                            "key": "teleport_domain"
+                        },
+                        {
+                            "key": "add_atracker_route"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "do_declaration_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "template_version"
+                        },
+                        {
+                            "key": "vsi_per_subnet"
+                        },
+                        {
+                            "key": "teleport_hostname",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "byol_license_basekey"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_management_zones"
+                        },
+                        {
+                            "key": "network_cidr"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tgrefresh_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "vpn_firewall_type"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_scope_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "domain"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_sku_keyword_2"
+                        },
+                        {
+                            "key": "add_edge_vpc",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_f5_external_fip"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_vsi_image_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tgactive_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_type"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "f5_instance_profile"
+                        },
+                        {
+                            "key": "tags"
+                        },
+                        {
+                            "key": "use_random_cos_suffix"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "message_of_the_day"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tgstandby_url"
+                        },
+                        {
+                            "key": "create_secrets_manager",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_cred_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "hs_crypto_resource_group"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "f5_image_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "appid_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_password"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "provision_teleport_in_f5"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "https_key"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "https_cert"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_collector_description"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_username"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_license"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_cred_description"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_f5_management_fip"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_pool"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_host"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "hostname"
+                        },
+                        {
+                            "key": "add_kms_block_storage_s2s"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "use_existing_appid"
+                        },
+                        {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
+                        },
+                        {
+                            "key": "ssh_public_key",
+                            "required": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tmos_admin_password",
+                            "type": "password"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_sku_keyword_1"
+                        },
+                        {
+                            "key": "vsi_image_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_version"
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "required": true,
+                            "type": "password"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "hs_crypto_instance_name"
+                        },
+                        {
+                            "key": "enable_transit_gateway"
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
+                            "key": "region",
+                            "required": true
+                        },
+                        {
+                            "key": "override",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_admin_email"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "create_f5_network_on_management_vpc"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_instance_profile"
+                        },
+                        {
+                            "key": "vsi_instance_profile"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_unit_of_measure"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_scc"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "app_id"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "appid_resource_group"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "phone_home_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "ts_declaration_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "as3_declaration_url"
+                        },
+                        {
+                            "key": "vpcs"
+                        },
+                        {
+                            "key": "prefix",
+                            "required": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "template_source"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_scope_description"
+                        }
+                    ],
                     "iam_permissions": [
                         {
                             "role_crns": [
@@ -400,6 +751,36 @@
             "name": "deploy-arch-ibm-slz-vpc",
             "label": "VPC landing zone",
             "product_kind": "solution",
+            "tags": [
+                "network_vpc",
+                "ibm_created",
+                "target_terraform",
+                "terraform",
+                "reference_architecture",
+                "solution"
+            ],
+            "keywords": [
+                "vpc",
+                "slz",
+                "IaC",
+                "Infrastructure",
+                "terraform",
+                "solution"
+            ],
+            "short_description": "Provides a secure VPC infrastructure utilizing the IBM Cloud for Financial Services reference architecture.",
+            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC).",
+            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
+            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+            "features": [
+                {
+                    "description": "Virtual Private Clouds are created for you with the necessary underlying network components.\n",
+                    "title": "Creates Virtual Private Clouds"
+                },
+                {
+                    "description": "Cloud Object Storage instance and buckets are created to support Flow Logs and Activity Tracker.\n",
+                    "title": "Supports Flow Logs and Activity tracking"
+                }
+            ],
             "flavors": [
                 {
                     "label": "Standard",
@@ -591,6 +972,36 @@
                             }
                         ]
                     },
+                    "configuration": [
+                        {
+                            "key": "ssh_key",
+                            "required": true
+                        },
+                        {
+                            "key": "resource_tags"
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "required": true,
+                            "type": "password"
+                        },
+                        {
+                            "key": "prefix",
+                            "required": true
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
+                            "key": "region",
+                            "required": true
+                        }
+                    ],
                     "iam_permissions": [
                         {
                             "role_crns": [
@@ -687,6 +1098,34 @@
             "name": "deploy-arch-ibm-slz-ocp",
             "label": "Red Hat OpenShift Container Platform on VPC landing zone",
             "product_kind": "solution",
+            "tags": [
+                "compute",
+                "ibm_created",
+                "target_terraform",
+                "terraform",
+                "reference_architecture",
+                "solution"
+            ],
+            "keywords": [
+                "vpc",
+                "slz",
+                "IaC",
+                "infrastructure as code",
+                "terraform",
+                "solution",
+                "Red Hat OpenShift Container Platform",
+                "OCP"
+            ],
+            "short_description": "Provides workload Openshift Container Platform to be included with Secure infrastructure on VPC for regulated industries",
+            "long_description": "OpenShift Container Platform on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant RedHat(TM) OpenShift Container Platform (OCP) workload clusters on an existing Virtual Private Cloud (VPC) network.\n\n",
+            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/roks/README.md",
+            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+            "features": [
+                {
+                    "description": "Secure and protected Openshift Container Platform clusters are automatically created and set up to handle the workload.",
+                    "title": "Creates Openshift Container Platform clusters for workloads"
+                }
+            ],
             "flavors": [
                 {
                     "label": "Standard",
@@ -906,6 +1345,300 @@
                             }
                         ]
                     },
+                    "configuration": [
+                        {
+                            "hidden": true,
+                            "key": "tgactive_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_f5_management_fip"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_sku_keyword_1"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_f5_external_fip"
+                        },
+                        {
+                            "key": "vpcs"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "vpn_firewall_type"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_type"
+                        },
+                        {
+                            "key": "add_kms_block_storage_s2s"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "byol_license_basekey"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_vsi_image_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "message_of_the_day"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_unit_of_measure"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_admin_email"
+                        },
+                        {
+                            "key": "flavor"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "hostname"
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
+                            "key": "region",
+                            "required": true
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "required": true,
+                            "type": "password"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_cred_name"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "domain"
+                        },
+                        {
+                            "key": "phone_home_url",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tgstandby_url"
+                        },
+                        {
+                            "key": "ssh_public_key",
+                            "required": true
+                        },
+                        {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "appid_resource_group"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "https_key"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "appid_name"
+                        },
+                        {
+                            "key": "add_edge_vpc",
+                            "hidden": true
+                        },
+                        {
+                            "key": "entitlement"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tmos_admin_password",
+                            "type": "password"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_management_zones"
+                        },
+                        {
+                            "key": "update_all_workers"
+                        },
+                        {
+                            "key": "hs_crypto_resource_group",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_host"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "f5_instance_profile"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_collector_description"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_sku_keyword_2"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_pool"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "f5_image_name"
+                        },
+                        {
+                            "key": "kube_version"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "provision_teleport_in_f5"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "as3_declaration_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_instance_profile"
+                        },
+                        {
+                            "key": "use_random_cos_suffix"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_hostname"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_domain"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "create_f5_network_on_management_vpc"
+                        },
+                        {
+                            "key": "template_version",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_scope_description"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "app_id"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "enable_scc"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_license"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "use_existing_appid"
+                        },
+                        {
+                            "key": "create_secrets_manager",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_version"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_username"
+                        },
+                        {
+                            "key": "add_atracker_route"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "tgrefresh_url"
+                        },
+                        {
+                            "key": "tags"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "https_cert"
+                        },
+                        {
+                            "key": "prefix",
+                            "required": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "ts_declaration_url"
+                        },
+                        {
+                            "key": "network_cidr"
+                        },
+                        {
+                            "key": "enable_transit_gateway"
+                        },
+                        {
+                            "key": "override",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_scope_name"
+                        },
+                        {
+                            "key": "cluster_zones"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "license_password"
+                        },
+                        {
+                            "key": "hs_crypto_instance_name",
+                            "hidden": true
+                        },
+                        {
+                            "hidden": true,
+                            "key": "do_declaration_url"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "scc_cred_description"
+                        },
+                        {
+                            "key": "workers_per_zone"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "template_source"
+                        },
+                        {
+                            "key": "wait_till"
+                        }
+                    ],
                     "iam_permissions": [
                         {
                             "role_crns": [
