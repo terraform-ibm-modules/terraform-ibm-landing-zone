@@ -153,7 +153,7 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the latest version, leave as latest. Updates to the latest versions may force this to change."
+  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as default. Updates to the default versions may force this to change."
   type        = string
   default     = "latest"
 }
@@ -198,6 +198,41 @@ variable "update_all_workers" {
   default     = false
 }
 
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
+}
+
+variable "logdna_plan" {
+  type        = string
+  description = "The IBM Cloud Logging plan to provision. Available: lite, 7-day, 14-day, 30-day, hipaa-30-day"
+  default     = "lite"
+}
+
+variable "sysdig_plan" {
+  type        = string
+  description = "The IBM Cloud Monitoring plan to provision. Available: lite, graduated-tier, graduated-tier-sysdig-secure-plus-monitor"
+  default     = "lite"
+}
+
+variable "enable_platform_logs" {
+  type        = bool
+  description = "Receive platform logs in the provisioned IBM Cloud Logging instance."
+  default     = true
+}
+
+variable "enable_platform_metrics" {
+  type        = bool
+  description = "Receive platform metrics in the provisioned IBM Cloud Monitoring instance."
+  default     = true
+}
 
 ##############################################################################
 

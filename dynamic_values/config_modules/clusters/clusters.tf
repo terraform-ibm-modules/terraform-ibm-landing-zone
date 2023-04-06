@@ -62,6 +62,7 @@ module "composed_cluster_map" {
       vpc_id           = var.vpc_modules[cluster.vpc_name].vpc_id
       subnets          = module.cluster_subnets[cluster.name].subnets
       cos_instance_crn = cluster.kube_type == "openshift" ? var.cos_instance_ids[cluster.cos_name] : null
+      cluster_name     = "${var.prefix}-${cluster.name}"
     })
   ]
   prefix = var.prefix

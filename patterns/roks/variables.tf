@@ -119,7 +119,7 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the latest version, leave as latest. Updates to the latest versions may force this to change."
+  description = "Openshift version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as latest. Updates to the default versions may force this to change."
   type        = string
   default     = "latest"
 }
@@ -133,7 +133,7 @@ variable "flavor" {
 variable "workers_per_zone" {
   description = "Number of workers in each zone of the cluster. OpenShift requires at least 2 workers."
   type        = number
-  default     = 1
+  default     = 3
 }
 
 variable "wait_till" {
@@ -161,6 +161,42 @@ variable "entitlement" {
   description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
   type        = string
   default     = null
+}
+
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
+}
+
+variable "logdna_plan" {
+  type        = string
+  description = "The IBM Cloud Logging plan to provision. Available: lite, 7-day, 14-day, 30-day, hipaa-30-day"
+  default     = "lite"
+}
+
+variable "sysdig_plan" {
+  type        = string
+  description = "The IBM Cloud Monitoring plan to provision. Available: lite, graduated-tier, graduated-tier-sysdig-secure-plus-monitor"
+  default     = "graduated-tier"
+}
+
+variable "enable_platform_logs" {
+  type        = bool
+  description = "Receive platform logs in the provisioned IBM Cloud Logging instance."
+  default     = false
+}
+
+variable "enable_platform_metrics" {
+  type        = bool
+  description = "Receive platform metrics in the provisioned IBM Cloud Monitoring instance."
+  default     = false
 }
 
 ##############################################################################

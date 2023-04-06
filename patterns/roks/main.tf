@@ -20,6 +20,7 @@ module "landing_zone" {
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
+  ibmcloud_api_key               = var.ibmcloud_api_key
   resource_groups                = local.env.resource_groups
   network_cidr                   = local.env.network_cidr
   vpcs                           = local.env.vpcs
