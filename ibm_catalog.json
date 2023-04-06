@@ -63,6 +63,14 @@
                             "type": "string"
                         },
                         {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
                             "required": true,
                             "type": "string"
@@ -569,6 +577,14 @@
                             "key": "enable_transit_gateway"
                         },
                         {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
                             "required": true
                         },
@@ -974,6 +990,14 @@
                             "required": true
                         },
                         {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
                             "required": true
                         }
@@ -1380,6 +1404,14 @@
                             "key": "hostname"
                         },
                         {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            },
                             "key": "region",
                             "required": true
                         },
