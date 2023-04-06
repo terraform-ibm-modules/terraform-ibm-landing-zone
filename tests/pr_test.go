@@ -28,6 +28,7 @@ var ignoreUpdates = []string{
 	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
+	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
 }
 
 func sshPublicKey(t *testing.T) string {
