@@ -45,6 +45,11 @@
                     },
                     "configuration": [
                         {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
                             "key": "override_json_string"
                         },
                         {
@@ -69,12 +74,6 @@
                         },
                         {
                             "key": "resource_tags"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Landing zone configuration",
-                            "key": "landing_zone"
                         }
                     ],
                     "iam_permissions": [
@@ -530,6 +529,11 @@
                             "key": "use_existing_appid"
                         },
                         {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
                             "key": "override_json_string"
                         },
                         {
@@ -629,44 +633,6 @@
                         {
                             "hidden": true,
                             "key": "scc_scope_description"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "A list of the names of the VPC",
-                            "key": "vpc_names"
-                        },
-                        {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
-                            "key": "schematics_workspace_id"
-                        },
-                        {
-                            "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
-                            "key": "vsi_list"
-                        },
-                        {
-                            "description": "A list of the vsis names provisioned within the VPCs",
-                            "key": "vsi_names"
-                        },
-                        {
-                            "description": "Output configuration as encoded JSON",
-                            "key": "config"
-                        },
-                        {
-                            "description": "The prefix that is associated with all resources",
-                            "key": "prefix"
-                        },
-                        {
-                            "description": "The string value of the ssh public key",
-                            "key": "ssh_public_key"
-                        },
-                        {
-                            "description": "The name of the transit gateway",
-                            "key": "transit_gateway_name"
-                        },
-                        {
-                            "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
-                            "key": "fip_vsi"
                         }
                     ],
                     "iam_permissions": [
@@ -1010,12 +976,6 @@
                         {
                             "key": "region",
                             "required": true
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Landing zone configuration",
-                            "key": "landing_zone"
                         }
                     ],
                     "iam_permissions": [
@@ -1449,6 +1409,11 @@
                             "required": true
                         },
                         {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
                             "key": "override_json_string"
                         },
                         {
@@ -1640,16 +1605,6 @@
                         },
                         {
                             "key": "wait_till"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "description": "Output configuration as encoded JSON",
-                            "key": "config"
-                        },
-                        {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
-                            "key": "schematics_workspace_id"
                         }
                     ],
                     "iam_permissions": [
