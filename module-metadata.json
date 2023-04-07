@@ -1275,6 +1275,18 @@
         "filename": "vpe.tf",
         "line": 38
       }
+    },
+    "time_sleep.wait_for_authorization_policy": {
+      "mode": "managed",
+      "type": "time_sleep",
+      "name": "wait_for_authorization_policy",
+      "provider": {
+        "name": "time"
+      },
+      "pos": {
+        "filename": "service_authorizations.tf",
+        "line": 31
+      }
     }
   },
   "data_resources": {

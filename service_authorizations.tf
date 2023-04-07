@@ -28,4 +28,10 @@ resource "ibm_iam_authorization_policy" "policy" {
   description                 = each.value.description
 }
 
+resource "time_sleep" "wait_for_authorization_policy" {
+  depends_on = [ibm_iam_authorization_policy.policy]
+
+  create_duration = "5m"
+}
+
 ##############################################################################
