@@ -1001,9 +1001,8 @@ statement instead the previous block.
 | <a name="output_cluster_data"></a> [cluster\_data](#output\_cluster\_data) | List of create cluster information |
 | <a name="output_cluster_names"></a> [cluster\_names](#output\_cluster\_names) | List of create cluster names |
 | <a name="output_cos_bucket_data"></a> [cos\_bucket\_data](#output\_cos\_bucket\_data) | List of data for COS buckets creaed |
-| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets creaed |
+| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets created |
 | <a name="output_cos_data"></a> [cos\_data](#output\_cos\_data) | List of Cloud Object Storage instance data |
-| <a name="output_cos_key_data"></a> [cos\_key\_data](#output\_cos\_key\_data) | List of data for created COS |
 | <a name="output_cos_key_names"></a> [cos\_key\_names](#output\_cos\_key\_names) | List of names for created COS keys |
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
 | <a name="output_f5_hosts"></a> [f5\_hosts](#output\_f5\_hosts) | List of bastion host names |
@@ -1015,8 +1014,8 @@ statement instead the previous block.
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group names |
 | <a name="output_service_authorization_data"></a> [service\_authorization\_data](#output\_service\_authorization\_data) | List of service authorization data |
 | <a name="output_service_authorization_names"></a> [service\_authorization\_names](#output\_service\_authorization\_names) | List of service authorization names |
+| <a name="output_ssh_key_data"></a> [ssh\_key\_data](#output\_ssh\_key\_data) | List of SSH key data |
 | <a name="output_ssh_key_names"></a> [ssh\_key\_names](#output\_ssh\_key\_names) | List of SSH key names |
-| <a name="output_ssh_keys_data"></a> [ssh\_keys\_data](#output\_ssh\_keys\_data) | List of SSH key data |
 | <a name="output_subnet_data"></a> [subnet\_data](#output\_subnet\_data) | List of Subnet data created |
 | <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | List of Subnet names created |
 | <a name="output_transit_gateway_data"></a> [transit\_gateway\_data](#output\_transit\_gateway\_data) | Created transit gateway data |

@@ -124,16 +124,8 @@ output "cos_key_names" {
   ]
 }
 
-output "cos_key_data" {
-  description = "List of data for created COS"
-  value = [
-    for instance in ibm_resource_key.key :
-    instance
-  ]
-}
-
 output "cos_bucket_names" {
-  description = "List of names for COS buckets creaed"
+  description = "List of names for COS buckets created"
   value = [
     for instance in ibm_cos_bucket.buckets :
     instance.bucket_name
@@ -215,10 +207,7 @@ output "resource_group_names" {
 
 output "resource_group_data" {
   description = "List of resource groups data used within landing zone."
-  value = flatten([
-    for group in local.resource_groups :
-    group
-  ])
+  value       = local.resource_groups
 }
 
 ##############################################################################
@@ -285,11 +274,11 @@ output "ssh_key_names" {
   value       = module.ssh_keys.ssh_keys[*].name
 }
 
-output "ssh_keys_data" {
+output "ssh_key_data" {
   description = "List of SSH key data"
   value = flatten([
     for key in module.ssh_keys.ssh_keys :
-    { key.name : key }
+    key
   ])
 }
 
@@ -377,7 +366,7 @@ output "vpe_gateway_data" {
   description = "List of VPE gateways data"
   value = [
     for gateway in ibm_is_virtual_endpoint_gateway.endpoint_gateway :
-    { gateway.name : gateway }
+    gateway
   ]
 }
 
@@ -399,7 +388,7 @@ output "vpn_data" {
   description = "List of VPN data"
   value = [
     for gateway in ibm_is_vpn_gateway.gateway :
-    { gateway.name : gateway }
+    gateway
   ]
 }
 
