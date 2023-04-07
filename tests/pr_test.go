@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"testing"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -29,6 +31,16 @@ var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
+}
+
+var sharedInfoSvc *cloudinfo.CloudInfoService
+
+// TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
+// for multiple tests
+func TestMain(m *testing.M) {
+	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	os.Exit(m.Run())
 }
 
 func sshPublicKey(t *testing.T) string {
@@ -67,6 +79,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		CloudInfoService: sharedInfoSvc,
 	})
 
 	return options
@@ -116,6 +129,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		CloudInfoService: sharedInfoSvc,
 	})
 
 	options.TerraformVars = map[string]interface{}{
