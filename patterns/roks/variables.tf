@@ -24,7 +24,7 @@ variable "region" {
 }
 
 variable "tags" {
-  description = "List of tags to apply to resources created by this module."
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
 }
@@ -575,7 +575,7 @@ variable "scc_scope_name" {
 ##############################################################################
 
 variable "add_kms_block_storage_s2s" {
-  description = "add kms to block storage s2s authorization"
+  description = "Whether to create a service-to-service authorization between block storage and the key management service."
   type        = bool
   default     = true
 }
