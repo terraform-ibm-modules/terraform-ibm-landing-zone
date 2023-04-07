@@ -74,6 +74,14 @@ output "cluster_names" {
   ]
 }
 
+output "cluster_data" {
+  description = "List of create cluster information"
+  value = [
+    for cluster in ibm_container_vpc_cluster.cluster :
+    cluster
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -94,11 +102,33 @@ output "cos_names" {
   ])
 }
 
+output "cos_data" {
+  description = "List of Cloud Object Storage instance data"
+  value = flatten([
+    [
+      for instance in data.ibm_resource_instance.cos :
+      instance
+    ],
+    [
+      for instance in ibm_resource_instance.cos :
+      instance
+    ]
+  ])
+}
+
 output "cos_key_names" {
   description = "List of names for created COS keys"
   value = [
     for instance in ibm_resource_key.key :
     instance.name
+  ]
+}
+
+output "cos_key_data" {
+  description = "List of data for created COS"
+  value = [
+    for instance in ibm_resource_key.key :
+    instance
   ]
 }
 
@@ -110,17 +140,25 @@ output "cos_bucket_names" {
   ]
 }
 
+output "cos_bucket_data" {
+  description = "List of data for COS buckets creaed"
+  value = [
+    for instance in ibm_cos_bucket.buckets :
+    instance
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
 # F5 Outputs
 ##############################################################################
 
-output "f5_host_names" {
+output "f5_hosts" {
   description = "List of bastion host names"
   value = flatten([
     for instance in keys(module.f5_vsi) :
-    module.f5_vsi[instance].list[*].name
+    { module.f5_vsi[instance].list[*].name : instance }
   ])
 }
 
@@ -138,11 +176,29 @@ output "vpc_names" {
   ]
 }
 
+output "vpc_data" {
+  description = "List of VPC data"
+  value = [
+    for network in module.vpc :
+    network
+  ]
+}
+
 output "subnet_names" {
   description = "List of Subnet names created"
   value = flatten([
     for network in module.vpc :
     network.subnet_zone_list[*].name
+  ])
+}
+
+output "subnet_data" {
+  description = "List of Subnet data created"
+  value = flatten([
+    for network in module.vpc : [
+      for subnet in network.subnet_zone_list :
+      subnet
+    ]
   ])
 }
 
@@ -157,15 +213,23 @@ output "resource_group_names" {
   value       = keys(local.resource_groups)
 }
 
+output "resource_group_data" {
+  description = "List of resource groups data used within landing zone."
+  value = flatten([
+    for group in local.resource_groups :
+    group
+  ])
+}
+
 ##############################################################################
 
 ##############################################################################
 # Secrets Manager Outputs
 ##############################################################################
 
-output "secrets_manager_name" {
-  description = "Name of secrets manager instance"
-  value       = var.secrets_manager.use_secrets_manager ? ibm_resource_instance.secrets_manager[0].name : null
+output "secrets_manager_data" {
+  description = "Secrets manager instance"
+  value       = var.secrets_manager.use_secrets_manager ? ibm_resource_instance.secrets_manager[0] : null
 }
 
 ##############################################################################
@@ -182,6 +246,15 @@ output "security_group_names" {
   ]
 }
 
+
+output "security_group_data" {
+  description = "List of security group data"
+  value = [
+    for group in ibm_is_security_group.security_group :
+    group
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -191,6 +264,14 @@ output "security_group_names" {
 output "service_authorization_names" {
   description = "List of service authorization names"
   value       = keys(ibm_iam_authorization_policy.policy)
+}
+
+output "service_authorization_data" {
+  description = "List of service authorization data"
+  value = flatten([
+    for policy in ibm_iam_authorization_policy.policy :
+    policy
+  ])
 }
 
 ##############################################################################
@@ -204,6 +285,14 @@ output "ssh_key_names" {
   value       = module.ssh_keys.ssh_keys[*].name
 }
 
+output "ssh_keys_data" {
+  description = "List of SSH key data"
+  value = flatten([
+    for key in module.ssh_keys.ssh_keys :
+    { key.name : key }
+  ])
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -213,6 +302,11 @@ output "ssh_key_names" {
 output "transit_gateway_name" {
   description = "Name of created transit gateway"
   value       = var.enable_transit_gateway ? ibm_tg_gateway.transit_gateway[0].name : null
+}
+
+output "transit_gateway_data" {
+  description = "Created transit gateway data"
+  value       = var.enable_transit_gateway ? ibm_tg_gateway.transit_gateway[0] : null
 }
 
 ##############################################################################
@@ -279,6 +373,14 @@ output "vpe_gateway_names" {
   ]
 }
 
+output "vpe_gateway_data" {
+  description = "List of VPE gateways data"
+  value = [
+    for gateway in ibm_is_virtual_endpoint_gateway.endpoint_gateway :
+    { gateway.name : gateway }
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -290,6 +392,14 @@ output "vpn_names" {
   value = [
     for gateway in ibm_is_vpn_gateway.gateway :
     gateway.name
+  ]
+}
+
+output "vpn_data" {
+  description = "List of VPN data"
+  value = [
+    for gateway in ibm_is_vpn_gateway.gateway :
+    { gateway.name : gateway }
   ]
 }
 
