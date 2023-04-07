@@ -74,14 +74,6 @@ output "cluster_names" {
   ]
 }
 
-output "cluster_data" {
-  description = "List of create cluster information"
-  value = [
-    for cluster in ibm_container_vpc_cluster.cluster :
-    cluster
-  ]
-}
-
 ##############################################################################
 
 ##############################################################################

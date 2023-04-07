@@ -67,9 +67,9 @@ output "vpn_data" {
   value       = module.landing_zone.vpn_data
 }
 
-output "cluster_data" {
-  description = "List of create cluster information"
-  value       = module.landing_zone.cluster_data
+output "cluster_names" {
+  description = "List of create cluster names"
+  value       = module.landing_zone.cluster_names
 }
 
 ##############################################################################

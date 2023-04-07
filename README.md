@@ -998,7 +998,6 @@ statement instead the previous block.
 | <a name="output_atracker_route_name"></a> [atracker\_route\_name](#output\_atracker\_route\_name) | Name of atracker route |
 | <a name="output_atracker_target_name"></a> [atracker\_target\_name](#output\_atracker\_target\_name) | Name of atracker target |
 | <a name="output_bastion_host_names"></a> [bastion\_host\_names](#output\_bastion\_host\_names) | List of bastion host names |
-| <a name="output_cluster_data"></a> [cluster\_data](#output\_cluster\_data) | List of create cluster information |
 | <a name="output_cluster_names"></a> [cluster\_names](#output\_cluster\_names) | List of create cluster names |
 | <a name="output_cos_bucket_data"></a> [cos\_bucket\_data](#output\_cos\_bucket\_data) | List of data for COS buckets creaed |
 | <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets created |
