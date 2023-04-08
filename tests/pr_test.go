@@ -85,37 +85,37 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-func TestRunNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
-
-// func TestRunVsiPatternExample(t *testing.T) {
+// func TestRunNoComputeExample(t *testing.T) {
 // 	t.Parallel()
 
-// 	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
+// 	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
 
 // 	output, err := options.RunTestConsistency()
 // 	assert.Nil(t, err, "This should not have errored")
 // 	assert.NotNil(t, output, "Expected some output")
 // }
+
+// func TestRunUpgradeNoComputeExample(t *testing.T) {
+// 	t.Parallel()
+
+// 	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
+
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }
+
+func TestRunVsiPatternExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
 // func TestRunUpgradeVsiPatternExample(t *testing.T) {
 // 	t.Parallel()
