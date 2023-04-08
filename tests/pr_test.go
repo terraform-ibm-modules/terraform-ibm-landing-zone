@@ -85,15 +85,15 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-// func TestRunNoComputeExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunNoComputeExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
+	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
 func TestRunUpgradeNoComputeExample(t *testing.T) {
 	t.Parallel()
