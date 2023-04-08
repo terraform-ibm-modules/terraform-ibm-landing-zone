@@ -19,7 +19,7 @@ import (
 const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
-const vsiPatternTerraformDir = "pattern/vsi"
+const vsiPatternTerraformDir = "patterns/vsi"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
