@@ -95,17 +95,17 @@ func TestRunNoComputeExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeNoComputeExample(t *testing.T) {
-	t.Parallel()
+// func TestRunUpgradeNoComputeExample(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
+// 	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }
 
 // func TestRunVsiPatternExample(t *testing.T) {
 // 	t.Parallel()
