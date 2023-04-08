@@ -19,6 +19,7 @@ import (
 const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
+const vsiPatternTerraformDir = "pattern/vsi"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
@@ -92,6 +93,40 @@ func TestRunNoComputeExample(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeNoComputeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "slz-vpc-ug", noComputeExampleTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func TestRunVsiPatternExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeVsiPatternExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "p-vsi-ug", vsiPatternTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
 }
 
 func TestRunQuickstartExample(t *testing.T) {
