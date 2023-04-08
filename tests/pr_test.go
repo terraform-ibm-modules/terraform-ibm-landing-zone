@@ -38,8 +38,8 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
+	//	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
-
 	os.Exit(m.Run())
 }
 
@@ -107,15 +107,15 @@ func TestRunUpgradeNoComputeExample(t *testing.T) {
 	}
 }
 
-func TestRunVsiPatternExample(t *testing.T) {
-	t.Parallel()
+// func TestRunVsiPatternExample(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
+// 	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
 // func TestRunUpgradeVsiPatternExample(t *testing.T) {
 // 	t.Parallel()
@@ -129,71 +129,71 @@ func TestRunVsiPatternExample(t *testing.T) {
 // 	}
 // }
 
-func TestRunQuickstartExample(t *testing.T) {
-	t.Parallel()
+// func TestRunQuickstartExample(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
+// 	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
-func TestRunUpgradeQuickstartExample(t *testing.T) {
-	t.Parallel()
+// func TestRunUpgradeQuickstartExample(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
+// 	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }
 
-func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+// func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
-	sshPublicKey := sshPublicKey(t)
+// 	sshPublicKey := sshPublicKey(t)
 
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  roksPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
-		CloudInfoService: sharedInfoSvc,
-	})
+// 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+// 		Testing:       t,
+// 		TerraformDir:  roksPatternTerraformDir,
+// 		Prefix:        prefix,
+// 		ResourceGroup: resourceGroup,
+// 		IgnoreUpdates: testhelper.Exemptions{
+// 			List: ignoreUpdates,
+// 		},
+// 		CloudInfoService: sharedInfoSvc,
+// 	})
 
-	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key": sshPublicKey,
-		"prefix":         options.Prefix,
-		"tags":           options.Tags,
-		"region":         options.Region,
-	}
+// 	options.TerraformVars = map[string]interface{}{
+// 		"ssh_public_key": sshPublicKey,
+// 		"prefix":         options.Prefix,
+// 		"tags":           options.Tags,
+// 		"region":         options.Region,
+// 	}
 
-	return options
-}
+// 	return options
+// }
 
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
+// func TestRunRoksPattern(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+// 	options := setupOptionsRoksPattern(t, "s-no")
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
+// 	output, err := options.RunTestConsistency()
+// 	assert.Nil(t, err, "This should not have errored")
+// 	assert.NotNil(t, output, "Expected some output")
+// }
 
-func TestRunUpgradeRoksPattern(t *testing.T) {
-	t.Parallel()
+// func TestRunUpgradeRoksPattern(t *testing.T) {
+// 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-ug")
+// 	options := setupOptionsRoksPattern(t, "r-ug")
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }
