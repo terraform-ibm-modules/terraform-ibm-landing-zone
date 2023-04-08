@@ -98,7 +98,7 @@ func TestRunNoComputeExample(t *testing.T) {
 func TestRunUpgradeNoComputeExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "slz-vpc-ug", noComputeExampleTerraformDir)
+	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
