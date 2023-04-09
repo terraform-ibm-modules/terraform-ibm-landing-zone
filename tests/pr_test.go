@@ -107,15 +107,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 // 	}
 // }
 
-func TestRunVsiPatternExample(t *testing.T) {
-	t.Parallel()
 
-	options := setupOptions(t, "p-vsi", vsiPatternTerraformDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
 
 // func TestRunUpgradeVsiPatternExample(t *testing.T) {
 // 	t.Parallel()
@@ -176,6 +168,7 @@ func TestRunVsiPatternExample(t *testing.T) {
 // 	return options
 // }
 
+
 // func TestRunRoksPattern(t *testing.T) {
 // 	t.Parallel()
 
@@ -197,3 +190,39 @@ func TestRunVsiPatternExample(t *testing.T) {
 // 		assert.NotNil(t, output, "Expected some output")
 // 	}
 // }
+
+func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  roksPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key": sshPublicKey,
+		"prefix":         options.Prefix,
+		"tags":           options.Tags,
+		"region":         options.Region,
+	}
+
+	return options
+}
+
+
+func TestRunVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "p-vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
