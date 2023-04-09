@@ -40,11 +40,17 @@ variable "tags" {
 }
 
 #tflint-ignore: terraform_unused_declarations
-# variable "resource_tags" {
-#   type        = list(string)
-#   description = "Optional list of tags to be added to created resources"
-#   default     = []
-# }
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
+  default     = []
+}
+
+#tflint-ignore: terraform_unused_declarations
+variable "ssh_key" {
+  description = "Public SSH key to use to provision a VSI. Must be a valid SSH key that does not already exist in the deployment region."
+  type        = string
+}
 ##############################################################################
 
 
