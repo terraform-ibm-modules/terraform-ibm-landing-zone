@@ -52,6 +52,15 @@ output "ssh_key_data" {
   value       = module.landing_zone.ssh_key_data
 }
 
+output "fip_vsi" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached."
+  value       = module.landing_zone.fip_vsi_data
+}
+
+output "vsi_list" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
+  value       = module.landing_zone.vsi_data
+}
 
 output "cos_data" {
   description = "List of Cloud Object Storage instance data"
@@ -63,6 +72,10 @@ output "cos_bucket_data" {
   value       = module.landing_zone.cos_bucket_data
 }
 
+output "vpn_data" {
+  description = "List of VPN data"
+  value       = module.landing_zone.vpn_data
+}
 
 ##############################################################################
 
@@ -72,7 +85,7 @@ output "cos_bucket_data" {
 
 output "config" {
   description = "Output configuration as encoded JSON"
-  value       = module.landing_zone.config
+  value       = data.external.format_output.result.data
 }
 
 ##############################################################################
@@ -84,7 +97,7 @@ output "config" {
 # tflint-ignore: terraform_naming_convention
 output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics"
-  value       = module.landing_zone.schematics_workspace_id
+  value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
 
 ##############################################################################

@@ -9,9 +9,8 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
-  default     = "no-compute"
 
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
@@ -19,22 +18,28 @@ variable "prefix" {
   }
 }
 
-variable "region" {
-  description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
+variable "ssh_public_key" {
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
-  default     = "us-south"
+  validation {
+    error_message = "Public SSH Key must be a valid ssh rsa public key."
+    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+  }
 }
 
-variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be a valid SSH key that does not already exist in the deployment region."
+variable "region" {
+  description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
 }
 
 variable "tags" {
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
-  description = "Optional list of tags to be added to created resources"
   default     = []
 }
+
+##############################################################################
+
 
 ##############################################################################
 # VPC Variables
@@ -106,6 +111,322 @@ variable "use_random_cos_suffix" {
 
 ##############################################################################
 
+
+##############################################################################
+# F5 Variables
+##############################################################################
+
+variable "add_edge_vpc" {
+  description = "Create an edge VPC. This VPC will be dynamically added to the list of VPCs in `var.vpcs`. Conflicts with `create_f5_network_on_management_vpc` to prevent overlapping subnet CIDR blocks."
+  type        = bool
+  default     = false
+}
+
+variable "create_f5_network_on_management_vpc" {
+  description = "Set up bastion on management VPC. This value conflicts with `add_edge_vpc` to prevent overlapping subnet CIDR blocks."
+  type        = bool
+  default     = false
+}
+
+variable "provision_teleport_in_f5" {
+  description = "Provision teleport VSI in `bastion` subnet tier of F5 network if able."
+  type        = bool
+  default     = false
+}
+
+variable "vpn_firewall_type" {
+  description = "Bastion type if provisioning bastion. Can be `full-tunnel`, `waf`, or `vpn-and-waf`."
+  type        = string
+  default     = null
+
+  validation {
+    error_message = "Bastion type must be `full-tunnel`, `waf`, `vpn-and-waf` or `null`."
+    condition = (
+      # if bastion type is null
+      var.vpn_firewall_type == null
+      # return true
+      ? true
+      # otherwise check list
+      : contains(["full-tunnel", "waf", "vpn-and-waf"], var.vpn_firewall_type)
+    )
+  }
+
+}
+
+variable "f5_image_name" {
+  description = "Image name for f5 deployments. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`]."
+  type        = string
+  default     = "f5-bigip-17-0-0-1-0-0-4-all-1slot"
+
+  validation {
+    error_message = "Invalid F5 image name. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`]."
+    condition     = var.f5_image_name == null ? true : contains(["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"], var.f5_image_name)
+  }
+}
+
+variable "f5_instance_profile" {
+  description = "F5 vsi instance profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles."
+  type        = string
+  default     = "cx2-4x8"
+}
+
+variable "hostname" {
+  description = "The F5 BIG-IP hostname"
+  type        = string
+  default     = "f5-ve-01"
+}
+
+variable "domain" {
+  description = "The F5 BIG-IP domain name"
+  type        = string
+  default     = "local"
+}
+
+variable "tmos_admin_password" {
+  description = "admin account password for the F5 BIG-IP instance"
+  type        = string
+  sensitive   = true
+  default     = null
+
+  validation {
+    error_message = "Value for tmos_password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character."
+    condition = var.tmos_admin_password == null ? true : (
+      length(var.tmos_admin_password) >= 15
+      && can(regex("[A-Z]", var.tmos_admin_password))
+      && can(regex("[a-z]", var.tmos_admin_password))
+      && can(regex("[0-9]", var.tmos_admin_password))
+    )
+  }
+}
+
+variable "license_type" {
+  description = "How to license, may be 'none','byol','regkeypool','utilitypool'"
+  type        = string
+  default     = "none"
+
+  validation {
+    error_message = "License type may be one of 'none','byol','regkeypool','utilitypool'."
+    condition     = contains(["none", "byol", "regkeypool", "utilitypool"], var.license_type)
+  }
+}
+
+variable "byol_license_basekey" {
+  description = "Bring your own license registration key for the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_host" {
+  description = "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_username" {
+  description = "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_password" {
+  description = "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_pool" {
+  description = "BIGIQ license pool name of the pool based licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_sku_keyword_1" {
+  description = "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_sku_keyword_2" {
+  description = "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
+  type        = string
+  default     = null
+}
+
+variable "license_unit_of_measure" {
+  description = "BIGIQ utility pool unit of measurement"
+  type        = string
+  default     = "hourly"
+}
+
+variable "do_declaration_url" {
+  description = "URL to fetch the f5-declarative-onboarding declaration"
+  type        = string
+  default     = "null"
+}
+
+variable "as3_declaration_url" {
+  description = "URL to fetch the f5-appsvcs-extension declaration"
+  type        = string
+  default     = "null"
+}
+
+variable "ts_declaration_url" {
+  description = "URL to fetch the f5-telemetry-streaming declaration"
+  type        = string
+  default     = "null"
+}
+
+variable "phone_home_url" {
+  description = "The URL to POST status when BIG-IP is finished onboarding"
+  type        = string
+  default     = "null"
+}
+
+variable "template_source" {
+  description = "The terraform template source for phone_home_url_metadata"
+  type        = string
+  default     = "f5devcentral/ibmcloud_schematics_bigip_multinic_declared"
+}
+
+variable "template_version" {
+  description = "The terraform template version for phone_home_url_metadata"
+  type        = string
+  default     = "20210201"
+}
+
+variable "app_id" {
+  description = "The terraform application id for phone_home_url_metadata"
+  type        = string
+  default     = "null"
+}
+
+variable "tgactive_url" {
+  type        = string
+  description = "The URL to POST L3 addresses when tgactive is triggered"
+  default     = ""
+}
+
+variable "tgstandby_url" {
+  description = "The URL to POST L3 addresses when tgstandby is triggered"
+  type        = string
+  default     = "null"
+}
+
+variable "tgrefresh_url" {
+  description = "The URL to POST L3 addresses when tgrefresh is triggered"
+  type        = string
+  default     = "null"
+}
+
+variable "enable_f5_management_fip" {
+  description = "Enable F5 management interface floating IP. Conflicts with `enable_f5_external_fip`, VSI can only have one floating IP per instance."
+  type        = bool
+  default     = false
+}
+
+variable "enable_f5_external_fip" {
+  description = "Enable F5 external interface floating IP. Conflicts with `enable_f5_management_fip`, VSI can only have one floating IP per instance."
+  type        = bool
+  default     = false
+}
+
+##############################################################################
+
+##############################################################################
+# Teleport VSI Variables
+##############################################################################
+
+variable "teleport_management_zones" {
+  description = "Number of zones to create teleport VSI on Management VPC if not using F5. If you are using F5, ignore this value."
+  type        = number
+  default     = 0
+
+  validation {
+    error_message = "Teleport Management Zones can only be 0, 1, 2, or 3."
+    condition     = var.teleport_management_zones >= 0 && var.teleport_management_zones < 4
+  }
+}
+
+variable "use_existing_appid" {
+  description = "Use an existing appid instance. If this is false, one will be automatically created."
+  type        = bool
+  default     = false
+}
+
+variable "appid_name" {
+  description = "Name of appid instance."
+  type        = string
+  default     = "appid"
+}
+
+variable "appid_resource_group" {
+  description = "Resource group for existing appid instance. This value is ignored if a new instance is created."
+  type        = string
+  default     = null
+}
+
+variable "teleport_instance_profile" {
+  description = "Machine type for Teleport VSI instances. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles."
+  type        = string
+  default     = "cx2-4x8"
+}
+
+variable "teleport_vsi_image_name" {
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  type        = string
+  default     = "ibm-ubuntu-18-04-6-minimal-amd64-2"
+}
+
+variable "teleport_license" {
+  description = "The contents of the PEM license file"
+  type        = string
+  default     = null
+}
+
+variable "https_cert" {
+  description = "The https certificate used by bastion host for teleport"
+  type        = string
+  default     = null
+}
+
+variable "https_key" {
+  description = "The https private key used by bastion host for teleport"
+  type        = string
+  default     = null
+}
+variable "teleport_hostname" {
+  description = "The name of the instance or bastion host"
+  type        = string
+  default     = null
+}
+
+variable "teleport_domain" {
+  description = "The domain of the bastion host"
+  type        = string
+  default     = null
+}
+
+variable "teleport_version" {
+  description = "Version of Teleport Enterprise to use"
+  type        = string
+  default     = "7.1.0"
+}
+
+variable "message_of_the_day" {
+  description = "Banner message that is exposed to the user at authentication time"
+  type        = string
+  default     = null
+}
+
+variable "teleport_admin_email" {
+  description = "Email for teleport vsi admin."
+  type        = string
+  default     = null
+}
+
+##############################################################################
+
+
 ##############################################################################
 # Secrets Manager Variables
 ##############################################################################
@@ -154,7 +475,6 @@ variable "scc_collector_description" {
   description = "Description of SCC Collector"
   type        = string
   default     = "collector description"
-
   validation {
     error_message = "SCC Collector Description must be 1000 or fewer characters."
     condition     = var.scc_collector_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_collector_description)) && length(var.scc_collector_description) <= 1000
@@ -165,7 +485,6 @@ variable "scc_scope_description" {
   description = "Description of SCC Scope"
   type        = string
   default     = "IBM-schema-for-configuration-collection"
-
   validation {
     error_message = "SCC Scope Description must be 255 or fewer characters."
     condition     = var.scc_scope_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_scope_description)) && length(var.scc_scope_description) <= 255
@@ -211,6 +530,19 @@ variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
   type        = string
   default     = ""
+}
+
+##############################################################################
+
+##############################################################################
+# Schematics Output
+##############################################################################
+
+# tflint-ignore: terraform_naming_convention
+variable "IC_SCHEMATICS_WORKSPACE_ID" {
+  default     = ""
+  type        = string
+  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
 }
 
 ##############################################################################
