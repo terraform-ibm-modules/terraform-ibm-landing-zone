@@ -107,8 +107,6 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 // 	}
 // }
 
-
-
 // func TestRunUpgradeVsiPatternExample(t *testing.T) {
 // 	t.Parallel()
 
@@ -168,7 +166,6 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 // 	return options
 // }
 
-
 // func TestRunRoksPattern(t *testing.T) {
 // 	t.Parallel()
 
@@ -216,7 +213,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-
 func TestRunVsiPattern(t *testing.T) {
 	t.Parallel()
 
@@ -225,4 +221,16 @@ func TestRunVsiPattern(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "vp-ug")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
 }
