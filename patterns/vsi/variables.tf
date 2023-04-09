@@ -30,13 +30,20 @@ variable "ssh_public_key" {
   default     = null
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+     condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
 }
 
 variable "tags" {
   description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
+  default     = []
+}
+
+#tflint-ignore: terraform_unused_declarations
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
   default     = []
 }
 ##############################################################################
