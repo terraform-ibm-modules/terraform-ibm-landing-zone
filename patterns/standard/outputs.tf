@@ -52,16 +52,6 @@ output "ssh_key_data" {
   value       = module.landing_zone.ssh_key_data
 }
 
-output "fip_vsi" {
-  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached."
-  value       = module.landing_zone.fip_vsi_data
-}
-
-output "vsi_list" {
-  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
-  value       = module.landing_zone.vsi_data
-}
-
 output "cos_data" {
   description = "List of Cloud Object Storage instance data"
   value       = module.landing_zone.cos_data
