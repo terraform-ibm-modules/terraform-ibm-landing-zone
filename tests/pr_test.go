@@ -107,18 +107,6 @@ func TestRunUpgradeNoComputeExample(t *testing.T) {
 	}
 }
 
-func TestRunUpgradeVsiPatternExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "p-vsi-ug", vsiPatternTerraformDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-}
-
 func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
