@@ -226,7 +226,7 @@ func TestRunVsiPattern(t *testing.T) {
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "vp-ug")
+	options := setupOptionsVsiPattern(t, "vp-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
