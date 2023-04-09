@@ -21,6 +21,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 variable "ssh_public_key" {
@@ -29,7 +30,7 @@ variable "ssh_public_key" {
   default     = null
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-     condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
 }
 
@@ -37,19 +38,6 @@ variable "tags" {
   description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
-}
-
-# tflint-ignore: terraform_unused_declarations
-variable "resource_tags" {
-  type        = list(string)
-  description = "Optional list of tags to be added to created resources"
-  default     = []
-}
-
-# tflint-ignore: terraform_unused_declarations
-variable "ssh_key" {
-  description = "Public SSH key to use to provision a VSI. Must be a valid SSH key that does not already exist in the deployment region. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
-  type        = string
 }
 ##############################################################################
 
