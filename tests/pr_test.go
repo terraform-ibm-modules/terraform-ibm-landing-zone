@@ -85,108 +85,108 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-// func TestRunNoComputeExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunNoComputeExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
+	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
-// func TestRunUpgradeNoComputeExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeNoComputeExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
+	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
 
-// func TestRunUpgradeVsiPatternExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeVsiPatternExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "p-vsi-ug", vsiPatternTerraformDir)
+	options := setupOptions(t, "p-vsi-ug", vsiPatternTerraformDir)
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
 
-// func TestRunQuickstartExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunQuickstartExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
+	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
-// func TestRunUpgradeQuickstartExample(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeQuickstartExample(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
+	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
 
-// func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
-// 	sshPublicKey := sshPublicKey(t)
+	sshPublicKey := sshPublicKey(t)
 
-// 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-// 		Testing:       t,
-// 		TerraformDir:  roksPatternTerraformDir,
-// 		Prefix:        prefix,
-// 		ResourceGroup: resourceGroup,
-// 		IgnoreUpdates: testhelper.Exemptions{
-// 			List: ignoreUpdates,
-// 		},
-// 		CloudInfoService: sharedInfoSvc,
-// 	})
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  roksPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
 
-// 	options.TerraformVars = map[string]interface{}{
-// 		"ssh_public_key": sshPublicKey,
-// 		"prefix":         options.Prefix,
-// 		"tags":           options.Tags,
-// 		"region":         options.Region,
-// 	}
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key": sshPublicKey,
+		"prefix":         options.Prefix,
+		"tags":           options.Tags,
+		"region":         options.Region,
+	}
 
-// 	return options
-// }
+	return options
+}
 
-// func TestRunRoksPattern(t *testing.T) {
-// 	t.Parallel()
+func TestRunRoksPattern(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "s-no")
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
-// func TestRunUpgradeRoksPattern(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeRoksPattern(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptionsRoksPattern(t, "r-ug")
+	options := setupOptionsRoksPattern(t, "r-ug")
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
 
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
