@@ -880,7 +880,7 @@ statement instead the previous block.
 - [ VPC landing zone (No compute example)](examples/no-compute-example)
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
-- [ VSI on VPC landing zone (Quick start example)](examples/quickstart)
+- [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
