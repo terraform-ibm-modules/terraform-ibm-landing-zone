@@ -18,10 +18,12 @@ provider "ibm" {
 data "ibm_is_ssh_keys" "existing_keys" {}
 
 locals {
-  # compare the remote keys from var.ssh_keys
-  key_exists_chk = length(flatten([
-    for key_remote in data.ibm_is_ssh_keys.existing_keys.keys : [for key_local in local.env.ssh_keys : key_local.name if key_remote.public_key == key_local.public_key]
-  ]))
+  # compare the remote keys with input variable
+  existing_ssh_key_id = { for key in data.ibm_is_ssh_keys.existing_keys.keys : key.name => key.id if key.public_key == var.ssh_public_key }
+
+  # Do not create a ssh key if already found
+  key_already_exists = length(local.existing_ssh_key_id) > 0 ? true : false
+
 }
 
 module "landing_zone" {
