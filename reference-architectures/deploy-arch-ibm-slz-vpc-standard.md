@@ -39,19 +39,13 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
-
 # VPC landing zone - Standard variation
 {: #vpc-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
+{: toc-version="1.0"}
 
 The Standard variation of the VPC landing zone deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
 
