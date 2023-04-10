@@ -150,7 +150,16 @@ variable "vpn_firewall_type" {
       : contains(["full-tunnel", "waf", "vpn-and-waf"], var.vpn_firewall_type)
     )
   }
+}
 
+variable "ssh_public_key" {
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. Use only if provisioning F5 or Bastion Host."
+  type        = string
+  default     = null
+  validation {
+    error_message = "Public SSH Key must be a valid ssh rsa public key."
+    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+  }
 }
 
 variable "f5_image_name" {
@@ -331,6 +340,7 @@ variable "enable_f5_external_fip" {
 }
 
 ##############################################################################
+
 
 ##############################################################################
 # Teleport VSI Variables

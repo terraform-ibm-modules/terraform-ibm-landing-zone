@@ -45,13 +45,13 @@ locals {
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
+
   ##############################################################################
   # Dynamic configuration for landing zone environment
   ##############################################################################
 
   config = {
 
-    vsi      = []
     clusters = []
 
     ##############################################################################
@@ -68,12 +68,12 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = [
+    ssh_keys = var.ssh_public_key != null ? [
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
       }
-    ]
+    ] : []
     ##############################################################################
 
     ##############################################################################
@@ -109,6 +109,7 @@ locals {
     vpn_gateways                   = module.dynamic_values.vpn_gateways
     f5_deployments                 = module.dynamic_values.f5_deployments
     security_groups                = module.dynamic_values.security_groups
+    vsi                            = []
 
     ##############################################################################
 
@@ -164,19 +165,6 @@ locals {
     ##############################################################################
 
     ##############################################################################
-    # Secrets Manager Config
-    ##############################################################################
-
-    secrets_manager = {
-      use_secrets_manager = var.create_secrets_manager
-      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
-      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
-      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
-    }
-
-    ##############################################################################
-
-    ##############################################################################
     # Teleport Config Data
     ##############################################################################
 
@@ -200,6 +188,19 @@ locals {
     }
 
     teleport_vsi = module.dynamic_values.teleport_vsi
+
+    ##############################################################################
+
+    ##############################################################################
+    # Secrets Manager Config
+    ##############################################################################
+
+    secrets_manager = {
+      use_secrets_manager = var.create_secrets_manager
+      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
+      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
+      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
+    }
 
     ##############################################################################
 
