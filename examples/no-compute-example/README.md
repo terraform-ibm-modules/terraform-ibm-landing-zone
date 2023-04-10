@@ -1,6 +1,7 @@
 # VPC landing zone (No compute example)
 
-![vpc](../../reference-architectures/vpc.drawio.svg)
+![Architecture diagram for the Standard variation of VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)
 
-- This example shows how you can use the landing zone module to create a networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster).
-- This example provides a base to a modular solution because you can use this network layer as a base on which the compute resources are deployed, possibly through separate Terraform modules.
+You can use the VPC landing zone example to deploy a simple IBM Cloud VPC infrastructure without any compute resources like Virtual Server Instances (VSIs) or Red Hat OpenShift clusters.
+
+The example is a modular solution because you can use this architecture as a base on which to deploy compute resources. You can also deploy those resources by using the other landing zone deployable architectures or Terraform modules.
