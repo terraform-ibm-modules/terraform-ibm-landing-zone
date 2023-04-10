@@ -38,12 +38,6 @@
             "is_valid": false
         },
         {
-          "scc_goal_id": "3000451",
-          "description": "Check whether Virtual Private Cloud (VPC) network access control lists don't allow ingress from 0.0.0.0/0 to any port",
-          "ignore_reason": "To get docs PR merged. Tracking in https://github.ibm.com/GoldenEye/issues/issues/4355",
-          "is_valid": false
-        },
-        {
             "scc_goal_id": "3000805",
             "description:": "Check whether Kubernetes Service clusters are enabled with IBM Log Analysis",
             "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
@@ -54,6 +48,6 @@
             "description:": "Check whether Kubernetes Service clusters are enabled with IBM Cloud Monitoring",
             "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
             "is_valid": false
-      }
+        }
     ]
 }

@@ -74,6 +74,8 @@ resource "ibm_resource_key" "key" {
 resource "ibm_cos_bucket" "buckets" {
   for_each = local.buckets_map
 
+  depends_on = [time_sleep.wait_for_authorization_policy]
+
   bucket_name           = "${var.prefix}-${each.value.name}${each.value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
   resource_instance_id  = local.cos_instance_ids[each.value.instance]
   storage_class         = each.value.storage_class
@@ -88,6 +90,7 @@ resource "ibm_cos_bucket" "buckets" {
     for key in module.key_management.keys :
     key.id if key.name == each.value.kms_key
   ][0]
+
   dynamic "archive_rule" {
     for_each = (
       each.value.archive_rule == null
