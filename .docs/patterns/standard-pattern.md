@@ -2,7 +2,7 @@
 
 ## Architecture diagram
 
-![Mixed pattern architecture diagram](../images/patterns/standard-pattern.png)
+![Standard pattern architecture diagram](../images/patterns/standard-pattern.png)
 
 ## Configured components and services
 
