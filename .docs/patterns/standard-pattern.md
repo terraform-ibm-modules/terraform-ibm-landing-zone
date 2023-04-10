@@ -22,6 +22,6 @@ The following components are configured through automation.
 | Management Cloud Object Storage Authorization for Hyper Protect Crypto Services and KeyProtect | Workload Cloud Object Storage Authorization for Hyper Protect Crypto Services and KeyProtect |
 | Management Flow Log, Flow log Cloud Object Storage buckets and authorization | Workload flow log, Flow log Cloud Object Storage buckets and authorization |
 | Management VPC | Workload VPC |
-| Management subnets for VSI, VPE, and VPN resources | Workload VPE gateway (for Cloud Object Storage) |
+| Management subnets for VPE and VPN resources | Workload VPE gateway (for Cloud Object Storage) |
 | Management VPE gateway (for Cloud Object Storage) | Workload VPE gateway (for Container Registry) |
 | Management VPE gateway (for Container Registry) |  |

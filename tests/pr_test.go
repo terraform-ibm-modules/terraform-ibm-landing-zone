@@ -66,6 +66,20 @@ func sshPublicKey(t *testing.T) string {
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
+	if dir == noComputeExampleTerraformDir {
+		options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+			Testing:      t,
+			TerraformDir: dir,
+			Prefix:       prefix,
+			IgnoreUpdates: testhelper.Exemptions{
+				List: ignoreUpdates,
+			},
+			CloudInfoService: sharedInfoSvc,
+		})
+
+		return options
+	}
+
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
