@@ -15,6 +15,15 @@ provider "ibm" {
 # Landing Zone
 ##############################################################################
 
+data "ibm_is_ssh_keys" "existing_keys" {}
+
+locals {
+  # compare the remote keys from var.ssh_keys
+  key_exists_chk = length(flatten([
+    for key_remote in data.ibm_is_ssh_keys.existing_keys.keys : [for key_local in local.env.ssh_keys : key_local.name if key_remote.public_key == key_local.public_key]
+  ]))
+}
+
 module "landing_zone" {
   source                         = "../../"
   prefix                         = var.prefix
