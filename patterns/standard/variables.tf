@@ -18,15 +18,6 @@ variable "prefix" {
   }
 }
 
-variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
-  type        = string
-  validation {
-    error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
-  }
-}
-
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string

@@ -35,9 +35,9 @@ Each pattern creates the following infrastructure on the VPC:
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+| Virtual server pattern           | Red Hat OpenShift pattern        | Standard pattern                         | Mixed pattern                      |
+| -------------------------------- | -------------------------------- | ---------------------------------------- | ---------------------------------- |
+| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Standard](./.docs/images/standard.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -93,6 +93,7 @@ You can find the list of input variables in the `variables.tf` file of the patte
 
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
+- [Standard pattern input variables](./patterns/standard/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
 
 Terraform supports multiple ways to set input variables. For more information, see [Input Variables](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables) in the Terraform language documentation.
