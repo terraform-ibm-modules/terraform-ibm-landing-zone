@@ -31,6 +31,12 @@ variable "resource_tags" {
   default     = []
 }
 
+variable "ssh_key" {
+  description = "Public SSH Key for VSI creation. Must be a valid SSH key that does not already exist in the deployment region."
+  type        = string
+  default     = null
+}
+
 ##############################################################################
 # VPC Variables
 ##############################################################################
