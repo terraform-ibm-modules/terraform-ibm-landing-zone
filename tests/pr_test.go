@@ -28,7 +28,7 @@ var ignoreUpdates = []string{
 }
 
 // TODO: Remove after https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/346 is merged
-var IgnoreDestroys = []string{
+var ignoreDestroys = []string{
 	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
 }
 
