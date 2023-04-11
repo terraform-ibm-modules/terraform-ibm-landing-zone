@@ -28,16 +28,16 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
-- The VPC pattern deploys networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster)
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | VPC pattern                    | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ------------------------------ | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![VPC](./.docs/images/vpc.png) | ![Mixed](./.docs/images/mixed.png) |
+|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
+| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -91,9 +91,9 @@ In the first method, you set a couple of required input variables of your respec
 
 You can find the list of input variables in the `variables.tf` file of the pattern directory:
 
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
-- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
 
 Terraform supports multiple ways to set input variables. For more information, see [Input Variables](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables) in the Terraform language documentation.
@@ -419,7 +419,7 @@ Users can add a name and optionally a public key. If `public_key` is not provide
 
 #### vsi variable
 
-Note - vsi image changes are not handled through the module to avoid data loss / outage.
+Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
