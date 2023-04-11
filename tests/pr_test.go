@@ -112,7 +112,7 @@ func TestRunUpgradeNoComputeExample(t *testing.T) {
 	t.Parallel()
 
 	//TODO: Remove this line in next release
-	t.skip("Skipping as ssh key variable has been removed from no-compute-example and source has also been changed")
+	t.Skip("Skipping as ssh key variable has been removed from no-compute-example and source has also been changed")
 
 	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
 
