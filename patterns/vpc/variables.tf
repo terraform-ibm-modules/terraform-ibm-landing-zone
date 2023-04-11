@@ -9,8 +9,9 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowerccase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
+
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
@@ -20,15 +21,6 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
-}
-
-variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
-  type        = string
-  validation {
-    error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
-  }
 }
 
 variable "tags" {
@@ -71,7 +63,7 @@ variable "enable_transit_gateway" {
 }
 
 variable "add_atracker_route" {
-  description = "Atracker can only have one route per zone. Use this value to disable or enable the creation of atracker route"
+  description = "Atracker can only have one route per zone. use this value to disable or enable the creation of atracker route"
   type        = bool
   default     = true
 }
@@ -106,31 +98,6 @@ variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
   type        = bool
   default     = true
-}
-
-##############################################################################
-
-
-##############################################################################
-# Virtual Server Variables
-##############################################################################
-
-variable "vsi_image_name" {
-  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
-  type        = string
-  default     = "ibm-ubuntu-22-04-1-minimal-amd64-4"
-}
-
-variable "vsi_instance_profile" {
-  description = "VSI image profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles."
-  type        = string
-  default     = "cx2-4x8"
-}
-
-variable "vsi_per_subnet" {
-  description = "Number of Virtual Servers to create on each VSI subnet."
-  type        = number
-  default     = 1
 }
 
 ##############################################################################
@@ -174,7 +141,16 @@ variable "vpn_firewall_type" {
       : contains(["full-tunnel", "waf", "vpn-and-waf"], var.vpn_firewall_type)
     )
   }
+}
 
+variable "ssh_public_key" {
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. Use only if provisioning F5 or Bastion Host."
+  type        = string
+  default     = null
+  validation {
+    error_message = "Public SSH Key must be a valid ssh rsa public key."
+    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+  }
 }
 
 variable "f5_image_name" {
@@ -353,7 +329,6 @@ variable "enable_f5_external_fip" {
   type        = bool
   default     = false
 }
-
 
 ##############################################################################
 
