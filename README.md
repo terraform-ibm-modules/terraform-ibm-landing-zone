@@ -417,7 +417,7 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-#### vis variable
+#### vsi variable
 
 Note - vsi image changes are not handled through the module to avoid data loss / outage.
 

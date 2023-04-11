@@ -1,6 +1,7 @@
-# VPC landing zone (No compute pattern)
+# No compute architecture VPC landing zone
 
-![vpc](../../reference-architectures/vpc.drawio.svg)
+![Architecture diagram for the no compute pattern on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)
 
-- This pattern creates a networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster).
-- This pattern provides a base to a modular solution because you can use this network layer as a base on which the compute resources are deployed, possibly through separate Terraform modules.
+This architecture deploys a simple IBM Cloud VPC infrastructure without any compute resources like Virtual Server Instances (VSIs) or Red Hat OpenShift clusters.
+
+The architecture is a modular solution because you can use this architecture as a base on which to deploy compute resources. You can also deploy those resources by using the other landing zone deployable architectures or Terraform modules.
