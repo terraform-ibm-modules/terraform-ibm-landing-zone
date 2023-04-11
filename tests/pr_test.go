@@ -22,14 +22,13 @@ const roksPatternTerraformDir = "patterns/roks"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
-// The ACL ignores can be removed once we merge this PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/315)
 var ignoreUpdates = []string{
-	"module.landing_zone.module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
-	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
-	"module.landing_zone.module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
-	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
+}
+
+// TODO: Remove after https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/346 is merged
+var implicitDestroys = []string{
 	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
 }
 
@@ -78,6 +77,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
+		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
