@@ -19,6 +19,7 @@ import (
 const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
+const vsiPatternTerraformDir = "patterns/vsi"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
@@ -38,7 +39,6 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
-
 	os.Exit(m.Run())
 }
 
@@ -108,6 +108,18 @@ func TestRunNoComputeExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+func TestRunUpgradeNoComputeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
 func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
@@ -169,6 +181,53 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-ug")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  roksPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key": sshPublicKey,
+		"prefix":         options.Prefix,
+		"tags":           options.Tags,
+		"region":         options.Region,
+	}
+
+	return options
+}
+
+func TestRunVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "p-vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "vp-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
