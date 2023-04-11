@@ -198,7 +198,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
-		TerraformDir:  roksPatternTerraformDir,
+		TerraformDir:  vsiPatternTerraformDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{
