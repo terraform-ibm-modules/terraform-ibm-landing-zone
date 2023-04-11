@@ -18,7 +18,7 @@ provider "ibm" {
 data "ibm_is_ssh_keys" "existing_keys" {}
 
 locals {
-  # compare the remote keys with input variable
+  # compare the remote keys with input variable, use replace to ensure correct Base64 key is present ensuring padding using `==` symbol at last
   existing_ssh_key_id = { for key in data.ibm_is_ssh_keys.existing_keys.keys : key.name => key.id if key.public_key == replace(var.ssh_public_key == null ? "" : var.ssh_public_key, "/==.*$/", "==") }
 
   # Do not create a ssh key if already found
