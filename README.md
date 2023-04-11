@@ -419,6 +419,8 @@ Users can add a name and optionally a public key. If `public_key` is not provide
 
 #### vis variable
 
+Note - vsi image changes are not handled through the module to avoid data loss / outage.
+
 The following example shows the `vsi` virtual server variable type.
 
 ```terraform
