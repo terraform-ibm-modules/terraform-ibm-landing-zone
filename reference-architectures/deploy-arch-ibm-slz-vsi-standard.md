@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-05"
+lastupdated: "2023-04-10"
 
 keywords:
 
@@ -10,7 +10,6 @@ subcollection: deployable-reference-architectures
 
 authors:
   - name: "Vincent Burckhardt"
-    email: "vincent.burckhardt@ie.ibm.com"
 
 # The release that the reference architecture describes
 version: 1.0
@@ -28,7 +27,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zon
 related_links:
   - title: "VSI on VPC landing zone - QuickStart variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "A deployable architecture that provides virtual servers in a secure VPC in a single region for your workloads."
+    description: "The VSI on VPC landing zone QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
   - title: "Red Hat OpenShift Container Platform on VPC landing zone"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
     description: "A deployable architecture that provides virtual servers in a secure VPC for your workloads."
@@ -43,19 +42,13 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
-
 # VSI on VPC landing zone - Standard variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
+{: toc-version="1.0"}
 
 The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
