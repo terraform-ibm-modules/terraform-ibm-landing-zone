@@ -131,6 +131,9 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
+		},
 		CloudInfoService: sharedInfoSvc,
 	})
 
