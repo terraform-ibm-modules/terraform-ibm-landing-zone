@@ -3,7 +3,7 @@
 ##############################################################################
 
 module "landing_zone" {
-  source                 = "../../patterns/standard"
+  source                 = "../../patterns/vpc"
   prefix                 = var.prefix
   region                 = var.region
   ibmcloud_api_key       = var.ibmcloud_api_key

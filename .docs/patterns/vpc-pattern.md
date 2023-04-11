@@ -1,8 +1,8 @@
-# IBM Secure Landing Zone for the standard pattern
+# IBM Secure Landing Zone for the vpc pattern
 
 ## Architecture diagram
 
-![Standard pattern architecture diagram](../images/patterns/standard-pattern.png)
+![VPC pattern architecture diagram](../images/patterns/vpc-pattern.png)
 
 ## Configured components and services
 

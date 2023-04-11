@@ -30,14 +30,14 @@ Each pattern creates the following infrastructure on the VPC:
 
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
-- The standard pattern deploys networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster)
+- The VPC pattern deploys networking infrastructure layer without any compute resources (no VSI, nor OpenShift cluster)
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Standard pattern                         | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Standard](./.docs/images/standard.png) | ![Mixed](./.docs/images/mixed.png) |
+| Virtual server pattern           | Red Hat OpenShift pattern        | VPC pattern                    | Mixed pattern                      |
+| -------------------------------- | -------------------------------- | ------------------------------ | ---------------------------------- |
+| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![VPC](./.docs/images/vpc.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -93,7 +93,7 @@ You can find the list of input variables in the `variables.tf` file of the patte
 
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
-- [Standard pattern input variables](./patterns/standard/variables.tf)
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
 
 Terraform supports multiple ways to set input variables. For more information, see [Input Variables](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables) in the Terraform language documentation.
