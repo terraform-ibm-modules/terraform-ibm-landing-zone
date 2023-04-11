@@ -19,7 +19,7 @@ data "ibm_is_ssh_keys" "existing_keys" {}
 
 locals {
   # compare the remote keys with input variable
-  existing_ssh_key_id = { for key in data.ibm_is_ssh_keys.existing_keys.keys : key.name => key.id if key.public_key == replace(var.ssh_public_key, "/==.*$/", "==") }
+  existing_ssh_key_id = { for key in data.ibm_is_ssh_keys.existing_keys.keys : key.name => key.id if key.public_key == replace(var.ssh_public_key == null ? "" : var.ssh_public_key, "/==.*$/", "==") }
 
   # Do not create a ssh key if already found
   key_already_exists = length(local.existing_ssh_key_id) > 0 ? true : false
