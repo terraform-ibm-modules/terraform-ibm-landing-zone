@@ -18,12 +18,15 @@ module "vpc_address_prefixes" {
 ##############################################################################
 
 module "network_acls" {
-  source                     = "../network_acls"
-  vpc_list                   = var.vpc_list
-  use_teleport               = var.use_teleport
-  use_f5                     = var.use_f5
-  bastion_vpc_name           = var.bastion_vpc_name
-  add_cluster_encryption_key = var.add_cluster_encryption_key
+  source                       = "../network_acls"
+  vpc_list                     = var.vpc_list
+  use_teleport                 = var.use_teleport
+  use_f5                       = var.use_f5
+  bastion_vpc_name             = var.bastion_vpc_name
+  add_cluster_encryption_key   = var.add_cluster_encryption_key
+  add_ibm_cloud_internal_rules = var.add_ibm_cloud_internal_rules
+  add_vpc_connectivity_rules   = var.add_vpc_connectivity_rules
+  prepend_ibm_rules            = var.prepend_ibm_rules
 }
 
 ##############################################################################

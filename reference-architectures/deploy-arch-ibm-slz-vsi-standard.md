@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-27"
+lastupdated: "2023-04-10"
 
 keywords:
 
@@ -10,7 +10,6 @@ subcollection: deployable-reference-architectures
 
 authors:
   - name: "Vincent Burckhardt"
-    email: "vincent.burckhardt@ie.ibm.com"
 
 # The release that the reference architecture describes
 version: 1.0
@@ -19,16 +18,16 @@ version: 1.0
 # Value is the URL to land the user in the IBM Cloud catalog details page
 # for the deployable architecture.
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
-deployment-url: url #TODO
+deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vsi-ef663980-4c71-4fac-af4f-4a510a9bcf68-global
 
-docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vpc
+docs: https://test.cloud.ibm.com/docs/secure-infrastructure-vsi
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/vsi-pattern.png
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
   - title: "VSI on VPC landing zone - QuickStart variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "A deployable architecture that provides virtual servers in a secure VPC in a single region for your workloads."
+    description: "The VSI on VPC landing zone QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
   - title: "Red Hat OpenShift Container Platform on VPC landing zone"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
     description: "A deployable architecture that provides virtual servers in a secure VPC for your workloads."
@@ -43,26 +42,20 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
-
 # VSI on VPC landing zone - Standard variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
+{: toc-version="1.0"}
 
 The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram of VSI on VPC for regulated industries deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}
+![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
@@ -108,7 +101,7 @@ business challenge, or target cloud environments.
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 | * Use public and private SSH keys to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the bastion host  \n * Do not store private SSH key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key. | |
-{: caption="Table 3. Key and passwords management architecture decisions" caption-side="bottom"}
+{: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
 <!--
 ## Compliance

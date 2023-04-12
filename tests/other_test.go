@@ -21,6 +21,7 @@ func setupOptionsBasic(t *testing.T, prefix string) *testhelper.TestOptions {
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
 		},
+		CloudInfoService: sharedInfoSvc,
 	})
 
 	return options

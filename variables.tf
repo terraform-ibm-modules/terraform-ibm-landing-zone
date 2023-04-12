@@ -18,7 +18,7 @@ variable "region" {
 }
 
 variable "tags" {
-  description = "List of tags to apply to resources created by this module."
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
 }
@@ -107,8 +107,10 @@ variable "vpcs" {
       )
       network_acls = list(
         object({
-          name              = string
-          add_cluster_rules = optional(bool)
+          name                         = string
+          add_ibm_cloud_internal_rules = optional(bool)
+          add_vpc_connectivity_rules   = optional(bool)
+          prepend_ibm_rules            = optional(bool)
           rules = list(
             object({
               name        = string
@@ -1512,7 +1514,7 @@ variable "vpc_placement_groups" {
 ##############################################################################
 
 variable "add_kms_block_storage_s2s" {
-  description = "add kms to block storage s2s authorization"
+  description = "Whether to create a service-to-service authorization between block storage and the key management service."
   type        = bool
   default     = true
 }

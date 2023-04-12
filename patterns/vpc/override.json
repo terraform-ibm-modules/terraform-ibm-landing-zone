@@ -5,78 +5,7 @@
       "resource_group": "slz-service-rg",
       "add_route": true
   },
-  "clusters": [
-    {
-        "cos_name": "cos",
-        "entitlement": "cloud_pak",
-        "kube_type": "openshift",
-        "kube_version": "latest",
-        "machine_type": "bx2.16x64",
-        "name": "management-cluster",
-        "resource_group": "slz-management-rg",
-        "kms_config": {
-           "crk_name": "slz-roks-key",
-            "private_endpoint": true
-        },
-        "subnet_names": [
-            "vsi-zone-1",
-            "vsi-zone-2",
-            "vsi-zone-3"
-        ],
-        "update_all_workers" : false,
-        "vpc_name": "management",
-        "worker_pools": [
-            {
-                "entitlement": "cloud_pak",
-                "flavor": "bx2.16x64",
-                "name": "logging-worker-pool",
-                "subnet_names": [
-                    "vsi-zone-1",
-                    "vsi-zone-2",
-                    "vsi-zone-3"
-                ],
-                "vpc_name": "management",
-                "workers_per_subnet": 2
-            }
-        ],
-        "workers_per_subnet": 2
-    },
-    {
-        "cos_name": "cos",
-        "entitlement": "cloud_pak",
-        "kube_type": "openshift",
-        "kube_version": "latest",
-        "machine_type": "bx2.16x64",
-        "name": "workload-cluster",
-        "resource_group": "slz-workload-rg",
-        "kms_config": {
-           "crk_name": "slz-roks-key",
-            "private_endpoint": true
-        },
-        "subnet_names": [
-            "vsi-zone-1",
-            "vsi-zone-2",
-            "vsi-zone-3"
-        ],
-        "update_all_workers" : false,
-        "vpc_name": "workload",
-        "worker_pools": [
-            {
-                "entitlement": "cloud_pak",
-                "flavor": "bx2.16x64",
-                "name": "logging-worker-pool",
-                "subnet_names": [
-                    "vsi-zone-1",
-                    "vsi-zone-2",
-                    "vsi-zone-3"
-                ],
-                "vpc_name": "workload",
-                "workers_per_subnet": 2
-            }
-        ],
-        "workers_per_subnet": 2
-    }
-],
+  "clusters": [],
   "cos": [
       {
           "buckets": [
@@ -141,11 +70,6 @@
               "key_ring": "slz-slz-ring",
               "name": "slz-vsi-volume-key",
               "root_key": true
-          },
-          {
-              "key_ring": "slz-slz-ring",
-              "name": "slz-roks-key",
-              "root_key": true
           }
       ],
       "name": "slz-slz-kms",
@@ -166,7 +90,6 @@
           "name": "slz-workload-rg"
       }
   ],
-  "security_groups": [],
   "security_compliance_center": {
     "enable_scc": false,
     "is_public": false,
@@ -174,8 +97,14 @@
     "scope_name": "slz-scope",
     "scope_description": "slz-scope-description"
   },
+  "security_groups": [],
   "service_endpoints": "private",
-  "ssh_keys": [],
+  "ssh_keys": [
+      {
+          "name": "slz-ssh-key",
+          "public_key": "<user ssh key value>"
+      }
+  ],
   "transit_gateway_connections": [
       "management",
       "workload"
@@ -214,9 +143,6 @@
           "flow_logs_bucket_name": "management-bucket",
           "network_acls": [
               {
-                  "add_ibm_cloud_internal_rules" : true,
-                  "add_vpc_connectivity_rules" : true,
-                  "prepend_ibm_rules" : true,
                   "name": "management-acl",
                   "rules": [
                       {
@@ -235,10 +161,10 @@
                       },
                       {
                           "action": "allow",
-                          "destination": "161.26.0.0/16",
+                          "destination": "0.0.0.0/0",
                           "direction": "outbound",
                           "name": "allow-all-outbound",
-                          "source": "10.0.0.0/8"
+                          "source": "0.0.0.0/0"
                       }
                   ]
               }
@@ -308,9 +234,6 @@
           "flow_logs_bucket_name": "workload-bucket",
           "network_acls": [
               {
-                 "add_ibm_cloud_internal_rules" : true,
-                 "add_vpc_connectivity_rules" : true,
-                 "prepend_ibm_rules" : true,
                   "name": "workload-acl",
                   "rules": [
                       {
@@ -329,10 +252,10 @@
                       },
                       {
                           "action": "allow",
-                          "destination": "161.26.0.0/16",
+                          "destination": "0.0.0.0/0",
                           "direction": "outbound",
                           "name": "allow-all-outbound",
-                          "source": "10.0.0.0/8"
+                          "source": "0.0.0.0/0"
                       }
                   ]
               }

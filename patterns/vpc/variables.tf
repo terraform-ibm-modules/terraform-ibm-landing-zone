@@ -13,8 +13,8 @@ variable "prefix" {
   type        = string
 
   validation {
-    error_message = "Prefix must begin with a letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 13 or fewer characters."
-    condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 13
+    error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
+    condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 16
   }
 }
 
@@ -104,69 +104,6 @@ variable "use_random_cos_suffix" {
 
 
 ##############################################################################
-# Cluster Variables
-##############################################################################
-
-variable "cluster_zones" {
-  description = "Number of zones to provision clusters for each VPC. At least one zone is required. Can be 1, 2, or 3 zones."
-  type        = number
-  default     = 3
-
-  validation {
-    error_message = "Cluster can be provisioned only across 1, 2, or 3 zones."
-    condition     = var.cluster_zones > 0 && var.cluster_zones < 4
-  }
-}
-
-variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the latest version, leave as latest. Updates to the latest versions may force this to change."
-  type        = string
-  default     = "latest"
-}
-
-variable "flavor" {
-  description = "Machine type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types"
-  type        = string
-  default     = "bx2.16x64"
-}
-
-variable "workers_per_zone" {
-  description = "Number of workers in each zone of the cluster. OpenShift requires at least 2 workers."
-  type        = number
-  default     = 1
-}
-
-variable "wait_till" {
-  description = "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`"
-  type        = string
-  default     = "IngressReady"
-
-  validation {
-    error_message = "`wait_till` value must be one of `MasterNodeReady`, `OneWorkerNodeReady`, or `IngressReady`."
-    condition = contains([
-      "MasterNodeReady",
-      "OneWorkerNodeReady",
-      "IngressReady"
-    ], var.wait_till)
-  }
-}
-
-variable "update_all_workers" {
-  description = "Update all workers to new kube version"
-  type        = bool
-  default     = false
-}
-
-variable "entitlement" {
-  description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
-  type        = string
-  default     = null
-}
-
-##############################################################################
-
-
-##############################################################################
 # F5 Variables
 ##############################################################################
 
@@ -217,13 +154,13 @@ variable "ssh_public_key" {
 }
 
 variable "f5_image_name" {
-  description = "Image name for f5 deployments. Must be null or one of [`f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`, `f5-bigip-16-1-3-3-0-0-3-ltm-1slot`, `f5-bigip-16-1-3-3-0-0-3-all-1slot`, `f5-bigip-17-0-0-2-0-0-2-ltm-1slot`, `f5-bigip-17-0-0-2-0-0-2-all-1slot`]."
+  description = "Image name for f5 deployments. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`]."
   type        = string
-  default     = "f5-bigip-16-1-3-3-0-0-3-all-1slot"
+  default     = "f5-bigip-17-0-0-1-0-0-4-all-1slot"
 
   validation {
-    error_message = "Invalid F5 image name. Must be null or one of [`f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`, `f5-bigip-16-1-3-3-0-0-3-ltm-1slot`, `f5-bigip-16-1-3-3-0-0-3-all-1slot`, `f5-bigip-17-0-0-2-0-0-2-ltm-1slot`, `f5-bigip-17-0-0-2-0-0-2-all-1slot`]."
-    condition     = var.f5_image_name == null ? true : contains(["f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-3-0-0-3-ltm-1slot", "f5-bigip-16-1-3-3-0-0-3-all-1slot", "f5-bigip-17-0-0-2-0-0-2-ltm-1slot", "f5-bigip-17-0-0-2-0-0-2-all-1slot"], var.f5_image_name)
+    error_message = "Invalid F5 image name. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`]."
+    condition     = var.f5_image_name == null ? true : contains(["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"], var.f5_image_name)
   }
 }
 
@@ -539,7 +476,6 @@ variable "scc_collector_description" {
   description = "Description of SCC Collector"
   type        = string
   default     = "collector description"
-
   validation {
     error_message = "SCC Collector Description must be 1000 or fewer characters."
     condition     = var.scc_collector_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_collector_description)) && length(var.scc_collector_description) <= 1000
@@ -550,7 +486,6 @@ variable "scc_scope_description" {
   description = "Description of SCC Scope"
   type        = string
   default     = "IBM-schema-for-configuration-collection"
-
   validation {
     error_message = "SCC Scope Description must be 255 or fewer characters."
     condition     = var.scc_scope_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_scope_description)) && length(var.scc_scope_description) <= 255
