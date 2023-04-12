@@ -63,12 +63,7 @@ output "value" {
           force_delete  = true
         }
       ]
-      # Key is needed to initialize actibity tracker
-      keys = [{
-        name        = "cos-bind-key"
-        role        = "Writer"
-        enable_HMAC = false
-      }]
+      keys          = []
       random_suffix = var.use_random_cos_suffix
     },
     # COS instance for everything else
