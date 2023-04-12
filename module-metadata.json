@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1099
+        "line": 1097
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1520
+        "line": 1518
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 856
+        "line": 854
       }
     },
     "atracker": {
@@ -55,7 +55,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 738
+        "line": 736
       }
     },
     "clusters": {
@@ -68,7 +68,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 754
+        "line": 752
       }
     },
     "cos": {
@@ -81,7 +81,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 470
+        "line": 468
       }
     },
     "enable_transit_gateway": {
@@ -111,7 +111,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1367
+        "line": 1365
       }
     },
     "f5_vsi": {
@@ -124,7 +124,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1231
+        "line": 1229
       }
     },
     "iam_account_settings": {
@@ -148,7 +148,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 993
+        "line": 991
       }
     },
     "key_management": {
@@ -163,7 +163,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 693
+        "line": 691
       }
     },
     "network_cidr": {
@@ -296,7 +296,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1413
+        "line": 1411
       }
     },
     "security_compliance_center": {
@@ -317,7 +317,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1429
+        "line": 1427
       }
     },
     "security_groups": {
@@ -330,7 +330,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 374
+        "line": 372
       }
     },
     "service_endpoints": {
@@ -340,12 +340,12 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 682
+        "line": 680
       }
     },
     "ssh_keys": {
       "name": "ssh_keys",
-      "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n      create         = optional(bool)\n      id             = optional(string)\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n    })\n  )",
       "description": "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
       "required": true,
       "source": [
@@ -418,7 +418,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 900
+        "line": 898
       }
     },
     "teleport_vsi": {
@@ -431,7 +431,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 926
+        "line": 924
       }
     },
     "transit_gateway_connections": {
@@ -464,7 +464,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 445
+        "line": 443
       }
     },
     "vpc_placement_groups": {
@@ -477,7 +477,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1488
+        "line": 1486
       }
     },
     "vpcs": {
@@ -516,7 +516,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 262
+        "line": 260
       }
     },
     "wait_till": {
@@ -529,7 +529,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 835
+        "line": 833
       }
     }
   },
@@ -2444,7 +2444,7 @@
           },
           "pos": {
             "filename": "ssh_key/main.tf",
-            "line": 5
+            "line": 26
           }
         }
       },
@@ -2461,7 +2461,19 @@
           },
           "pos": {
             "filename": "ssh_key/main.tf",
-            "line": 23
+            "line": 44
+          }
+        },
+        "data.ibm_is_ssh_keys.existing_keys": {
+          "mode": "data",
+          "type": "ibm_is_ssh_keys",
+          "name": "existing_keys",
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": "ssh_key/main.tf",
+            "line": 6
           }
         }
       },
@@ -2471,7 +2483,7 @@
           "description": "map of ssh keys",
           "pos": {
             "filename": "ssh_key/outputs.tf",
-            "line": 45
+            "line": 42
           }
         },
         "ssh_keys": {
