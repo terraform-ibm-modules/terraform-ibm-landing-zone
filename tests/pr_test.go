@@ -74,6 +74,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 			IgnoreUpdates: testhelper.Exemptions{
 				List: ignoreUpdates,
 			},
+			IgnoreDestroys: testhelper.Exemptions{
+				List: ignoreDestroys,
+			},
 			CloudInfoService: sharedInfoSvc,
 		})
 
@@ -214,6 +217,9 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
+		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
