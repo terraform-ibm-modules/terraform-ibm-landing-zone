@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-05"
+lastupdated: "2023-04-10"
 
 keywords:
 
@@ -39,23 +39,17 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
-
 # VPC landing zone - Standard variation
 {: #vpc-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
+{: toc-version="1.0"}
 
 The Standard variation of the VPC landing zone deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
 
-IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this deployable architecture. You can add more security services, such as Hyper Connect Crypto Services.
+IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this deployable architecture. You can add more security services, such as Hyper Protect Crypto Services.
 
 ## Architecture diagram
 {: #ra-vpc-architecture-diagram}
@@ -80,8 +74,8 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Provide infrastructure/application administration access to monitor, operate, and maintain the environment.  \n * Limit the number of infrastructure/application administration entry points to ensure security audit. | Management VPC service | Create a separate VPC service where SSH connectivity from outside is allowed | |
-| * Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services | Workload VPC service | Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access | |
+| * Provide infrastructure/application administration access to monitor, operate, and maintain the environment.  \n * Limit the number of infrastructure/application administration entry points to ensure security audit. | Management VPC service | | |
+| * Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services | Workload VPC service | | |
 | * Set up network for all created services  \n * Isolate network for all created services  \n * Ensure all created services are interconnected | Secure landing zone components | Create a minimum set of required components for a secure landing zone | Create a modified set of required components for a secure landing zone in preset |
 {: caption="Table 1. Architecture decisions" caption-side="bottom"}
 
@@ -90,9 +84,8 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Isolate management VPC and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden | ACL and security group rules in management VPC|Open following ports by default: 22 (for limited number of IPs)  \n All ports to other VPCs are open |More ports might be opened in preset or added manually after deployment |
-| * Isolate workload VPC and allow only a limited number of network connections  \n * All other connections from or to workload VPC are forbidden | ACL and security group rules in workload VPC | Open following ports by default: 53 (DNS service)  \n All ports to other VPCs are open | More ports might be opened in preset or added manually after deployment |
-| Enable floating IP on bastion host to execute deployment | Floating IPs on bastion host in management VPC | Use floating IP on bastion host from IBM Schematics to complete deployment | |
+| * Isolate management VPC and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden | ACL and security group rules in management VPC| | More ports might be opened in preset or added manually after deployment |
+| * Isolate workload VPC and allow only a limited number of network connections  \n * All other connections from or to workload VPC are forbidden | ACL and security group rules in workload VPC | | More ports might be opened in preset or added manually after deployment |
 | Load VPN configuration to simplify VPN setup | VPNs | VPN configuration is the responsibility of the customer | |
 {: caption="Table 2. Network security architecture decisions" caption-side="bottom"}
 

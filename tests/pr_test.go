@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"testing"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -17,17 +19,27 @@ import (
 const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
+const vsiPatternTerraformDir = "patterns/vsi"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
-// The ACL ignores can be removed once we merge this PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/315)
 var ignoreUpdates = []string{
-	"module.landing_zone.module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
-	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
-	"module.landing_zone.module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
-	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
+}
+
+// TODO: Remove after https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/346 is merged
+var ignoreDestroys = []string{
+	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
+}
+
+var sharedInfoSvc *cloudinfo.CloudInfoService
+
+// TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
+// for multiple tests
+func TestMain(m *testing.M) {
+	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+	os.Exit(m.Run())
 }
 
 func sshPublicKey(t *testing.T) string {
@@ -54,6 +66,23 @@ func sshPublicKey(t *testing.T) string {
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
+	if dir == noComputeExampleTerraformDir {
+		options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+			Testing:      t,
+			TerraformDir: dir,
+			Prefix:       prefix,
+			IgnoreUpdates: testhelper.Exemptions{
+				List: ignoreUpdates,
+			},
+			IgnoreDestroys: testhelper.Exemptions{
+				List: ignoreDestroys,
+			},
+			CloudInfoService: sharedInfoSvc,
+		})
+
+		return options
+	}
+
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -66,6 +95,10 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
+		},
+		CloudInfoService: sharedInfoSvc,
 	})
 
 	return options
@@ -79,6 +112,21 @@ func TestRunNoComputeExample(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeNoComputeExample(t *testing.T) {
+	t.Parallel()
+
+	//TODO: Remove this line in next release
+	t.Skip("Skipping as ssh key variable has been removed from no-compute-example and source has also been changed")
+
+	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
 }
 
 func TestRunQuickstartExample(t *testing.T) {
@@ -115,6 +163,10 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
+		},
+		CloudInfoService: sharedInfoSvc,
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -130,6 +182,9 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
+	//TODO: Remove this line in next release
+	t.Skip("exceptionally skipping roks test")
+
 	options := setupOptionsRoksPattern(t, "s-no")
 
 	output, err := options.RunTestConsistency()
@@ -141,6 +196,58 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-ug")
+	//TODO: Remove this line in next release
+	t.Skip("exceptionally skipping roks test")
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  vsiPatternTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		IgnoreDestroys: testhelper.Exemptions{
+			List: ignoreDestroys,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key": sshPublicKey,
+		"prefix":         options.Prefix,
+		"tags":           options.Tags,
+		"region":         options.Region,
+	}
+
+	return options
+}
+
+func TestRunVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "p-vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeVsiPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "vp-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

@@ -28,15 +28,16 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
+| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -90,6 +91,7 @@ In the first method, you set a couple of required input variables of your respec
 
 You can find the list of input variables in the `variables.tf` file of the pattern directory:
 
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
@@ -415,7 +417,9 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-#### vis variable
+#### vsi variable
+
+Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
@@ -880,7 +884,7 @@ statement instead the previous block.
 - [ VPC landing zone (No compute example)](examples/no-compute-example)
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
-- [ VSI on VPC landing zone (Quick start example)](examples/quickstart)
+- [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -905,7 +909,7 @@ statement instead the previous block.
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v5.0.1 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 
 ## Resources
 
@@ -946,6 +950,7 @@ statement instead the previous block.
 | [ibm_tg_gateway.transit_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
 | [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ibm_container_cluster_versions.cluster_versions](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_versions) | data source |
 | [ibm_is_image.image](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_image) | data source |
 | [ibm_resource_group.resource_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
@@ -999,20 +1004,31 @@ statement instead the previous block.
 | <a name="output_atracker_target_name"></a> [atracker\_target\_name](#output\_atracker\_target\_name) | Name of atracker target |
 | <a name="output_bastion_host_names"></a> [bastion\_host\_names](#output\_bastion\_host\_names) | List of bastion host names |
 | <a name="output_cluster_names"></a> [cluster\_names](#output\_cluster\_names) | List of create cluster names |
-| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets creaed |
+| <a name="output_cos_bucket_data"></a> [cos\_bucket\_data](#output\_cos\_bucket\_data) | List of data for COS buckets creaed |
+| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets created |
+| <a name="output_cos_data"></a> [cos\_data](#output\_cos\_data) | List of Cloud Object Storage instance data |
 | <a name="output_cos_key_names"></a> [cos\_key\_names](#output\_cos\_key\_names) | List of names for created COS keys |
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
-| <a name="output_f5_host_names"></a> [f5\_host\_names](#output\_f5\_host\_names) | List of bastion host names |
+| <a name="output_f5_hosts"></a> [f5\_hosts](#output\_f5\_hosts) | List of bastion host names |
 | <a name="output_fip_vsi_data"></a> [fip\_vsi\_data](#output\_fip\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached. |
+| <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
-| <a name="output_secrets_manager_name"></a> [secrets\_manager\_name](#output\_secrets\_manager\_name) | Name of secrets manager instance |
+| <a name="output_secrets_manager_data"></a> [secrets\_manager\_data](#output\_secrets\_manager\_data) | Secrets manager instance |
+| <a name="output_security_group_data"></a> [security\_group\_data](#output\_security\_group\_data) | List of security group data |
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group names |
+| <a name="output_service_authorization_data"></a> [service\_authorization\_data](#output\_service\_authorization\_data) | List of service authorization data |
 | <a name="output_service_authorization_names"></a> [service\_authorization\_names](#output\_service\_authorization\_names) | List of service authorization names |
+| <a name="output_ssh_key_data"></a> [ssh\_key\_data](#output\_ssh\_key\_data) | List of SSH key data |
 | <a name="output_ssh_key_names"></a> [ssh\_key\_names](#output\_ssh\_key\_names) | List of SSH key names |
+| <a name="output_subnet_data"></a> [subnet\_data](#output\_subnet\_data) | List of Subnet data created |
 | <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | List of Subnet names created |
+| <a name="output_transit_gateway_data"></a> [transit\_gateway\_data](#output\_transit\_gateway\_data) | Created transit gateway data |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | Name of created transit gateway |
+| <a name="output_vpc_data"></a> [vpc\_data](#output\_vpc\_data) | List of VPC data |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
+| <a name="output_vpe_gateway_data"></a> [vpe\_gateway\_data](#output\_vpe\_gateway\_data) | List of VPE gateways data |
 | <a name="output_vpe_gateway_names"></a> [vpe\_gateway\_names](#output\_vpe\_gateway\_names) | VPE gateway names |
+| <a name="output_vpn_data"></a> [vpn\_data](#output\_vpn\_data) | List of VPN data |
 | <a name="output_vpn_names"></a> [vpn\_names](#output\_vpn\_names) | List of VPN names |
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
