@@ -2817,7 +2817,7 @@
     },
     "vsi": {
       "name": "vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.1",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
@@ -2836,7 +2836,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 127
+            "line": 132
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2852,7 +2852,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 120
+            "line": 125
           }
         },
         "ibm_is_instance.vsi": {
