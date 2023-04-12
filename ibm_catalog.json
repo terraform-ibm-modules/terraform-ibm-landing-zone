@@ -786,8 +786,8 @@
                     "label": "Standard",
                     "name": "standard",
                     "install_type": "fullstack",
-                    "working_directory": "examples/no-compute-example",
-                    "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
+                    "working_directory": "patterns/vpc",
+                    "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
                     "compliance": {
                         "controls": [
                             {
@@ -974,13 +974,6 @@
                     },
                     "configuration": [
                         {
-                            "key": "ssh_key",
-                            "required": true
-                        },
-                        {
-                            "key": "resource_tags"
-                        },
-                        {
                             "key": "ibmcloud_api_key",
                             "required": true,
                             "type": "password"
@@ -1000,6 +993,214 @@
                             },
                             "key": "region",
                             "required": true
+                        },
+                        {
+                            "key": "hs_crypto_instance_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "create_f5_network_on_management_vpc",
+                            "hidden": true
+                        },
+                        {
+                            "key": "provision_teleport_in_f5",
+                            "hidden": true
+                        },
+                        {
+                            "key": "vpn_firewall_type",
+                            "hidden": true
+                        },
+                        {
+                            "key": "ssh_public_key",
+                            "hidden": true
+                        },
+                        {
+                            "key": "f5_image_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "f5_instance_profile",
+                            "hidden": true
+                        },
+                        {
+                            "key": "hostname",
+                            "hidden": true
+                        },
+                        {
+                            "key": "domain",
+                            "hidden": true
+                        },
+                        {
+                            "key": "tmos_admin_password",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_type",
+                            "hidden": true
+                        },
+                        {
+                            "key": "byol_license_basekey",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_host",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_username",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_password",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_pool",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_sku_keyword_1",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_sku_keyword_2",
+                            "hidden": true
+                        },
+                        {
+                            "key": "license_unit_of_measure",
+                            "hidden": true
+                        },
+                        {
+                            "key": "do_declaration_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "as3_declaration_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "ts_declaration_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "phone_home_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "template_source",
+                            "hidden": true
+                        },
+                        {
+                            "key": "template_version",
+                            "hidden": true
+                        },
+                        {
+                            "key": "app_id",
+                            "hidden": true
+                        },
+                        {
+                            "key": "tgactive_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "tgstandby_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "tgrefresh_url",
+                            "hidden": true
+                        },
+                        {
+                            "key": "enable_f5_management_fip",
+                            "hidden": true
+                        },
+                        {
+                            "key": "enable_f5_external_fip",
+                            "hidden": true
+                        },
+                        {
+                            "key": "use_existing_appid",
+                            "hidden": true
+                        },
+                        {
+                            "key": "appid_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "appid_resource_group",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_instance_profile",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_vsi_image_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_license",
+                            "hidden": true
+                        },
+                        {
+                            "key": "https_cert",
+                            "hidden": true
+                        },
+                        {
+                            "key": "https_key",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_hostname",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_domain",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_version",
+                            "hidden": true
+                        },
+                        {
+                            "key": "message_of_the_day",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_admin_email",
+                            "hidden": true
+                        },
+                        {
+                            "key": "create_secrets_manager",
+                            "hidden": true
+                        },
+                        {
+                            "key": "enable_scc",
+                            "hidden": true
+                        },
+                        {
+                            "key": "scc_cred_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "scc_cred_description",
+                            "hidden": true
+                        },
+                        {
+                            "key": "scc_collector_description",
+                            "hidden": true
+                        },
+                        {
+                            "key": "scc_scope_description",
+                            "hidden": true
+                        },
+                        {
+                            "key": "scc_scope_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "override",
+                            "hidden": true
                         }
                     ],
                     "iam_permissions": [
