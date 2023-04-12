@@ -28,15 +28,16 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
+| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -90,6 +91,7 @@ In the first method, you set a couple of required input variables of your respec
 
 You can find the list of input variables in the `variables.tf` file of the pattern directory:
 
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
@@ -415,7 +417,9 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-#### vis variable
+#### vsi variable
+
+Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
@@ -905,7 +909,7 @@ statement instead the previous block.
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v5.0.1 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 
 ## Resources
 

@@ -27,11 +27,6 @@ module "dynamic_values" {
   domain                              = var.domain
   hostname                            = var.hostname
   use_random_cos_suffix               = var.use_random_cos_suffix
-  add_vsi_volume_encryption_key = (
-    var.add_edge_vpc == true || var.teleport_management_zones > 0 || var.create_f5_network_on_management_vpc == true
-    ? true
-    : false
-  )
 }
 
 ##############################################################################
@@ -57,49 +52,7 @@ locals {
 
   config = {
 
-    ##############################################################################
-    # Cluster Config
-    ##############################################################################
-    clusters = [
-      # Dynamically create identical cluster in each VPC
-      for network in var.vpcs :
-      {
-        name     = "${network}-cluster"
-        vpc_name = network
-        subnet_names = [
-          # For the number of zones in zones variable, get that many subnet names
-          for zone in range(1, var.cluster_zones + 1) :
-          "vsi-zone-${zone}"
-        ]
-        kms_config = {
-          crk_name         = "${var.prefix}-roks-key"
-          private_endpoint = true
-        }
-        workers_per_subnet = var.workers_per_zone
-        machine_type       = var.flavor
-        kube_type          = "openshift"
-        kube_version       = var.kube_version
-        resource_group     = "${var.prefix}-${network}-rg"
-        update_all_workers = var.update_all_workers
-        cos_name           = "cos"
-        entitlement        = var.entitlement
-        # By default, create dedicated pool for logging
-        worker_pools = [
-          # {
-          #   name     = "logging-worker-pool"
-          #   vpc_name = network
-          #   subnet_names = [
-          #     for zone in range(1, var.cluster_zones + 1) :
-          #     "vsi-zone-${zone}"
-          #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
-          # }
-        ]
-      }
-    ]
-    ##############################################################################
+    clusters = []
 
     ##############################################################################
     # Activity tracker
@@ -119,9 +72,6 @@ locals {
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
-        # If key already exists do not create new key, use key id
-        create = !local.key_already_exists
-        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
       }
     ] : []
     ##############################################################################
