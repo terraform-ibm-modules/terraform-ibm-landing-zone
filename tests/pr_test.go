@@ -117,9 +117,6 @@ func TestRunNoComputeExample(t *testing.T) {
 func TestRunUpgradeNoComputeExample(t *testing.T) {
 	t.Parallel()
 
-	//TODO: Remove this line in next release
-	t.Skip("Skipping as ssh key variable has been removed from no-compute-example and source has also been changed")
-
 	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
 
 	output, err := options.RunTestUpgrade()
@@ -182,9 +179,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	//TODO: Remove this line in next release
-	t.Skip("exceptionally skipping roks test")
-
 	options := setupOptionsRoksPattern(t, "s-no")
 
 	output, err := options.RunTestConsistency()
@@ -196,8 +190,6 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "r-ug")
-	//TODO: Remove this line in next release
-	t.Skip("exceptionally skipping roks test")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
