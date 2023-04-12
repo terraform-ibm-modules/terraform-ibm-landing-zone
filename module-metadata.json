@@ -51,7 +51,8 @@
       "description": "atracker variables",
       "required": true,
       "source": [
-        "ibm_atracker_route.atracker_route.count"
+        "ibm_atracker_route.atracker_route.count",
+        "module.dynamic_values"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -1701,6 +1702,7 @@
         "access_groups": "access_groups",
         "add_kms_block_storage_s2s": "add_kms_block_storage_s2s",
         "appid": "appid",
+        "atracker_cos_bucket": "atracker",
         "bastion_vsi": "teleport_vsi",
         "clusters": "clusters",
         "cos": "cos",

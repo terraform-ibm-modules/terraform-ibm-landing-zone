@@ -32,6 +32,7 @@ module "dynamic_values" {
   f5_template_data          = var.f5_template_data
   secrets_manager           = var.secrets_manager
   add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
+  atracker_cos_bucket       = var.atracker.add_route == true ? var.atracker.collector_bucket_name : null
 }
 
 ##############################################################################
