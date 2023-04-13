@@ -28,15 +28,16 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
+| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -90,6 +91,7 @@ In the first method, you set a couple of required input variables of your respec
 
 You can find the list of input variables in the `variables.tf` file of the pattern directory:
 
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
@@ -415,7 +417,9 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-#### vis variable
+#### vsi variable
+
+Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
@@ -883,7 +887,7 @@ statement instead the previous block.
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ One VSI with one ROKS](examples/one-vsi-one-roks)
 - [ Override.json example](examples/override-example)
-- [ VSI on VPC landing zone (Quick start example)](examples/quickstart)
+- [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -909,7 +913,7 @@ statement instead the previous block.
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v5.0.1 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 
 ## Resources
 
@@ -980,7 +984,7 @@ statement instead the previous block.
 | <a name="input_security_compliance_center"></a> [security\_compliance\_center](#input\_security\_compliance\_center) | Security and Compliance Center Variables | <pre>object({<br>    enable_scc            = bool<br>    location_id           = optional(string)<br>    is_public             = optional(bool)<br>    collector_description = optional(string)<br>    credential_id         = optional(string)<br>    scope_name            = optional(string)<br>    scope_description     = optional(string)<br>  })</pre> | <pre>{<br>  "enable_scc": false<br>}</pre> | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups for VPC | <pre>list(<br>    object({<br>      name           = string<br>      vpc_name       = string<br>      resource_group = optional(string)<br>      rules = list(<br>        object({<br>          name      = string<br>          direction = string<br>          source    = string<br>          tcp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          udp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          icmp = optional(<br>            object({<br>              type = number<br>              code = number<br>            })<br>          )<br>        })<br>      )<br>    })<br>  )</pre> | `[]` | no |
 | <a name="input_service_endpoints"></a> [service\_endpoints](#input\_service\_endpoints) | Service endpoints. Can be `public`, `private`, or `public-and-private` | `string` | `"private"` | no |
-| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>    })<br>  )</pre> | n/a | yes |
+| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>      create         = optional(bool)<br>      id             = optional(string)<br>    })<br>  )</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of resource tags to apply to resources created by this module. | `list(string)` | `[]` | no |
 | <a name="input_teleport_config_data"></a> [teleport\_config\_data](#input\_teleport\_config\_data) | Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive | <pre>object({<br>    teleport_license   = optional(string)<br>    https_cert         = optional(string)<br>    https_key          = optional(string)<br>    domain             = optional(string)<br>    cos_bucket_name    = optional(string)<br>    cos_key_name       = optional(string)<br>    teleport_version   = optional(string)<br>    message_of_the_day = optional(string)<br>    hostname           = optional(string)<br>    app_id_key_name    = optional(string)<br>    claims_to_roles = optional(<br>      list(<br>        object({<br>          email = string<br>          roles = list(string)<br>        })<br>      )<br>    )<br>  })</pre> | `null` | no |
 | <a name="input_teleport_vsi"></a> [teleport\_vsi](#input\_teleport\_vsi) | A list of teleport vsi deployments | <pre>list(<br>    object(<br>      {<br>        name                            = string<br>        vpc_name                        = string<br>        resource_group                  = optional(string)<br>        subnet_name                     = string<br>        ssh_keys                        = list(string)<br>        boot_volume_encryption_key_name = string<br>        image_name                      = string<br>        machine_type                    = string<br>        security_groups                 = optional(list(string))<br>        security_group = optional(<br>          object({<br>            name = string<br>            rules = list(<br>              object({<br>                name      = string<br>                direction = string<br>                source    = string<br>                tcp = optional(<br>                  object({<br>                    port_max = number<br>                    port_min = number<br>                  })<br>                )<br>                udp = optional(<br>                  object({<br>                    port_max = number<br>                    port_min = number<br>                  })<br>                )<br>                icmp = optional(<br>                  object({<br>                    type = number<br>                    code = number<br>                  })<br>                )<br>              })<br>            )<br>          })<br>        )<br><br><br>      }<br>    )<br>  )</pre> | `[]` | no |

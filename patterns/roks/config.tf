@@ -124,6 +124,9 @@ locals {
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
+        # If key already exists do not create new key, use key id
+        create = !local.key_already_exists
+        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
       }
     ] : []
     ##############################################################################
@@ -385,7 +388,7 @@ data "external" "format_output" {
 
 locals {
   # Prevent users from inputting conflicting variables by checking regex
-  # causeing plan to fail when true.
+  # causing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
   # tflint-ignore: terraform_unused_declarations

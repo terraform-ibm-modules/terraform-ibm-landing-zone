@@ -26,7 +26,6 @@ module "dynamic_values" {
   teleport_vsi_image_name             = var.teleport_vsi_image_name
   domain                              = var.domain
   hostname                            = var.hostname
-  add_cluster_encryption_key          = false
   use_random_cos_suffix               = var.use_random_cos_suffix
 }
 
@@ -46,36 +45,14 @@ locals {
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
+
   ##############################################################################
   # Dynamic configuration for landing zone environment
   ##############################################################################
 
   config = {
 
-    ##############################################################################
-    # VSI Configuration
-    ##############################################################################
-    vsi = [
-      # Create an identical VSI deployment in each VPC
-      for network in var.vpcs :
-      {
-        name                            = "${network}-server"
-        vpc_name                        = network
-        resource_group                  = "${var.prefix}-${network}-rg"
-        subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"]
-        image_name                      = var.vsi_image_name
-        vsi_per_subnet                  = var.vsi_per_subnet
-        machine_type                    = var.vsi_instance_profile
-        boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
-        security_group = {
-          name     = "${var.prefix}-${network}"
-          vpc_name = var.vpcs[0]
-          rules    = module.dynamic_values.default_vsi_sg_rules
-        },
-        ssh_keys = ["ssh-key"]
-      }
-    ]
-    ##############################################################################
+    clusters = []
 
     ##############################################################################
     # Activity tracker
@@ -91,15 +68,12 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = [
+    ssh_keys = var.ssh_public_key != null ? [
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
-        # If key already exists do not create new key, use key id
-        create = !local.key_already_exists
-        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
       }
-    ]
+    ] : []
     ##############################################################################
 
     ##############################################################################
@@ -135,7 +109,7 @@ locals {
     vpn_gateways                   = module.dynamic_values.vpn_gateways
     f5_deployments                 = module.dynamic_values.f5_deployments
     security_groups                = module.dynamic_values.security_groups
-    clusters                       = []
+    vsi                            = []
 
     ##############################################################################
 
@@ -359,7 +333,7 @@ data "external" "format_output" {
 
 locals {
   # Prevent users from inputting conflicting variables by checking regex
-  # causeing plan to fail when true.
+  # causing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
   # tflint-ignore: terraform_unused_declarations

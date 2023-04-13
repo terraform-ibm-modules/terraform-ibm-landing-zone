@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1126
+        "line": 1128
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1547
+        "line": 1549
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 883
+        "line": 885
       }
     },
     "atracker": {
@@ -51,11 +51,12 @@
       "description": "atracker variables",
       "required": true,
       "source": [
-        "ibm_atracker_route.atracker_route.count"
+        "ibm_atracker_route.atracker_route.count",
+        "module.dynamic_values"
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 742
+        "line": 744
       }
     },
     "clusters": {
@@ -68,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 758
+        "line": 760
       }
     },
     "cos": {
@@ -81,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 474
+        "line": 476
       }
     },
     "enable_transit_gateway": {
@@ -112,7 +113,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1394
+        "line": 1396
       }
     },
     "f5_vsi": {
@@ -125,7 +126,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1258
+        "line": 1260
       }
     },
     "iam_account_settings": {
@@ -149,7 +150,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1020
+        "line": 1022
       }
     },
     "ibmcloud_api_key": {
@@ -178,7 +179,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 697
+        "line": 699
       }
     },
     "kube_version": {
@@ -187,7 +188,7 @@
       "description": "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used.",
       "pos": {
         "filename": "variables.tf",
-        "line": 860
+        "line": 862
       }
     },
     "network_cidr": {
@@ -320,7 +321,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1440
+        "line": 1442
       }
     },
     "security_compliance_center": {
@@ -341,7 +342,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1456
+        "line": 1458
       }
     },
     "security_groups": {
@@ -354,7 +355,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 378
+        "line": 380
       }
     },
     "service_endpoints": {
@@ -364,12 +365,12 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 686
+        "line": 688
       }
     },
     "ssh_keys": {
       "name": "ssh_keys",
-      "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      public_key     = optional(string)\n      resource_group = optional(string)\n      create         = optional(bool)\n      id             = optional(string)\n    })\n  )",
       "description": "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
       "required": true,
       "source": [
@@ -443,7 +444,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 927
+        "line": 929
       }
     },
     "teleport_vsi": {
@@ -456,7 +457,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 953
+        "line": 955
       }
     },
     "transit_gateway_connections": {
@@ -489,7 +490,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 449
+        "line": 451
       }
     },
     "vpc_placement_groups": {
@@ -502,7 +503,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1515
+        "line": 1517
       }
     },
     "vpcs": {
@@ -541,7 +542,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 266
+        "line": 268
       }
     },
     "wait_till": {
@@ -551,7 +552,7 @@
       "default": "IngressReady",
       "pos": {
         "filename": "variables.tf",
-        "line": 845
+        "line": 847
       }
     }
   },
@@ -1964,6 +1965,7 @@
         "access_groups": "access_groups",
         "add_kms_block_storage_s2s": "add_kms_block_storage_s2s",
         "appid": "appid",
+        "atracker_cos_bucket": "atracker",
         "bastion_vsi": "teleport_vsi",
         "clusters": "clusters",
         "cos": "cos",
@@ -2725,7 +2727,7 @@
           "description": "map of ssh keys",
           "pos": {
             "filename": "ssh_key/outputs.tf",
-            "line": 31
+            "line": 45
           }
         },
         "ssh_keys": {
@@ -3059,7 +3061,7 @@
     },
     "vsi": {
       "name": "vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.1",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
@@ -3078,7 +3080,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 127
+            "line": 132
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -3094,7 +3096,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 120
+            "line": 125
           }
         },
         "ibm_is_instance.vsi": {
