@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 1.0
+version: 3.5.0
 
 # Use if the reference architecture has deployable code.
 # Value is the URL to land the user in the IBM Cloud catalog details page
@@ -45,7 +45,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="1.0"}
+{: toc-version="3.5.0"}
 
 Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
