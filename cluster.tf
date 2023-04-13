@@ -24,7 +24,7 @@ module "cluster" {
   vpc_id            = each.value.vpc_id
   ocp_entitlement   = each.value.entitlement
   vpc_subnets = {
-    vsi-zone-1 = [
+    (each.value.subnet_names[0]) = [
       for zone in each.value.subnets :
       {
         id         = zone.id
