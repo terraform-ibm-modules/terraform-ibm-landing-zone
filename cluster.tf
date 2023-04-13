@@ -11,6 +11,11 @@ locals {
 ##############################################################################
 
 
+# locals {
+#   sample =
+# }
+
+
 module "cluster" {
   depends_on = [
     module.vpc
@@ -46,7 +51,7 @@ module "cluster" {
         }
       }
     ],
-    [
+    each.value.worker_pools != null ? [
       for pool in each.value.worker_pools :
       {
         subnet_prefix    = pool.subnet_names[0]
@@ -58,7 +63,8 @@ module "cluster" {
           kms_instance_id = module.key_management.key_management_guid
         }
       }
-  ])
+    ] : []
+  )
   ocp_version                     = each.value.kube_version
   tags                            = var.tags
   use_existing_cos                = true
