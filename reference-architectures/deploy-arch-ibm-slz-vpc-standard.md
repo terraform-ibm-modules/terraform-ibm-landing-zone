@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-10"
+lastupdated: "2023-04-13"
 
 keywords:
 
@@ -88,14 +88,6 @@ business challenge, or target cloud environments.
 | * Isolate workload VPC and allow only a limited number of network connections  \n * All other connections from or to workload VPC are forbidden | ACL and security group rules in workload VPC | | More ports might be opened in preset or added manually after deployment |
 | Load VPN configuration to simplify VPN setup | VPNs | VPN configuration is the responsibility of the customer | |
 {: caption="Table 2. Network security architecture decisions" caption-side="bottom"}
-
-### Key and password management architecture decisions
-{: #ra-vpc-components-arch-key-pw}
-
-| Requirement | Component | Reasons for choice | Alternative choice |
-|-------------|-----------|--------------------|--------------------|
-| * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist the private SSH key. | |
-{: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
 <!--
 ## Compliance
