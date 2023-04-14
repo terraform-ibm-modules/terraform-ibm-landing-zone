@@ -14,6 +14,10 @@ authors:
 # The release that the reference architecture describes
 version: 3.5.0
 
+# Whether the reference architecture is published to Cloud Docs production.
+# When set to false, the file is available only in staging. Default is false.
+production: true
+
 # Use if the reference architecture has deployable code.
 # Value is the URL to land the user in the IBM Cloud catalog details page
 # for the deployable architecture.
