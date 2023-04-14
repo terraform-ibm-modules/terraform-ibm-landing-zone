@@ -22,14 +22,26 @@
                 "vsi",
                 "virtual server instance"
             ],
-            "short_description": "Provides workload VSI to be included with Secure infrastructure on VPC for regulated industries",
-            "long_description": "Secure Workload VSIs on secure VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant VSIs on top of an existing Virtual Private Cloud (VPC) network.",
-            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
+            "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
+            "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
             "features": [
                 {
-                    "description": "Secure and protected virtual servers are automatically created and set up to handle the workload.",
+                    "description": "Creates and configures one or more virtual servers to handle workloads.\n",
                     "title": "Creates virtual servers for workloads"
+                },
+                {
+                    "description": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.\n",
+                    "title": "Configures subnets"
+                },
+                {
+                    "description": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.\n",
+                    "title": "Associates security groups"
+                },
+                {
+                    "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
+                    "title": "Provisions SSH keys"
                 }
             ],
             "flavors": [
@@ -738,18 +750,30 @@
                 "terraform",
                 "solution"
             ],
-            "short_description": "Provides a secure VPC infrastructure utilizing the IBM Cloud for Financial Services reference architecture.",
-            "long_description": "Secure infrastructure on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates a secure and compliant infrastructure to run your workloads with a Virtual Private Cloud (VPC).",
-            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/patterns/vsi#readme",
+            "short_description": "Deploys a secure VPC network without compute resources",
+            "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: VSI on VPC landing zone and Red Hat OpenShift Container Platform on VPC landing zone.",
+            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
             "features": [
                 {
-                    "description": "Virtual Private Clouds are created for you with the necessary underlying network components.\n",
+                    "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
                     "title": "Creates Virtual Private Clouds"
                 },
                 {
-                    "description": "Cloud Object Storage instance and buckets are created to support Flow Logs and Activity Tracker.\n",
-                    "title": "Supports Flow Logs and Activity tracking"
+                    "description": "Defines multiple subnets in the VPC to define IP ranges and organize resources within the network.\n",
+                    "title": "Configures subnets"
+                },
+                {
+                    "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
+                    "title": "Creates a transit gateway"
+                },
+                {
+                    "description": "IBM Cloud Object Storage is used for Flow Logs and Activity Tracker, which enhance the observability and auditing of your infrastructure.\n",
+                    "title": "Integrates Flow Logs and Activity tracking"
+                },
+                {
+                    "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
+                    "title": "Supports edge networking"
                 }
             ],
             "flavors": [
@@ -1260,14 +1284,30 @@
                 "Red Hat OpenShift Container Platform",
                 "OCP"
             ],
-            "short_description": "Provides workload Openshift Container Platform to be included with Secure infrastructure on VPC for regulated industries",
-            "long_description": "OpenShift Container Platform on VPC for regulated industries is a preconfigured solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant RedHat(TM) OpenShift Container Platform (OCP) workload clusters on an existing Virtual Private Cloud (VPC) network.\n\n",
-            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/roks/README.md",
+            "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
+            "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
+            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
             "features": [
                 {
-                    "description": "Secure and protected Openshift Container Platform clusters are automatically created and set up to handle the workload.",
-                    "title": "Creates Openshift Container Platform clusters for workloads"
+                    "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
+                    "title": "Creates Open Shift Container Platform clusters for workloads"
+                },
+                {
+                    "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
+                    "title": "Creates worker pools"
+                },
+                {
+                    "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
+                    "title": "Configures subnets for containers"
+                },
+                {
+                    "description": "Configures private and public endpoints for the cluster.\n",
+                    "title": "Supports private and public endpoints"
+                },
+                {
+                    "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
+                    "title": "Configures ingress"
                 }
             ],
             "flavors": [
