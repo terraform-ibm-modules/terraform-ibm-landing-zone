@@ -40,8 +40,7 @@
                     "working_directory": "examples/quickstart",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
-                        "controls": [
-                        ]
+                        "controls": []
                     },
                     "configuration": [
                         {
@@ -87,38 +86,38 @@
                     "iam_permissions": [
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "appid"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "cloud-object-storage"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "hs-crypto"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "iam-identity"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "kms"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "is.vpc"
                         }
@@ -277,30 +276,6 @@
                             },
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(1)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-10"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-2"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "IA-4(b)"
                             },
                             {
@@ -342,10 +317,6 @@
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "IA-2-0"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-6"
                             },
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
@@ -654,37 +625,37 @@
                     "iam_permissions": [
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "appid"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "cloud-object-storage"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "hs-crypto"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "iam-identity"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "kms"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "is.vpc"
                         }
@@ -880,30 +851,6 @@
                             },
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(1)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-7(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CP-10"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-2"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "IA-4(b)"
                             },
                             {
@@ -945,10 +892,6 @@
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
                                 "control_id": "IA-2-0"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-6"
                             },
                             {
                                 "profile_name": "SLZ VSI Custom v0.2.0",
@@ -1843,31 +1786,31 @@
                     "iam_permissions": [
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "appid"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "cloud-object-storage"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "hs-crypto"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "iam-identity"
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "kms"
                         },
@@ -1879,7 +1822,7 @@
                         },
                         {
                             "role_crns": [
-                            "crn:v1:bluemix:public:iam::::role:Administrator"
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
                             ],
                             "service_name": "is.vpc"
                         }
