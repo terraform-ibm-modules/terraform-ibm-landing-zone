@@ -202,7 +202,7 @@ Clusters deployed use the most recent default cluster version.
 
 ### Workers per zone
 
-The number of workers in each zone of the cluster can be changed by using the `workers_per_zone` variable. At least two workers must be available for clusters to successfully provision.
+The number of workers in each zone of the cluster can be changed by using the `workers_per_subnet` variable. At least two workers must be available for clusters to successfully provision.
 
 ### Cluster flavor
 

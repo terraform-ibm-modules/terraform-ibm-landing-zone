@@ -14,10 +14,6 @@
         "machine_type": "bx2.16x64",
         "name": "management-cluster",
         "resource_group": "slz-management-rg",
-        "logdna_plan"                : "7-day",
-        "sysdig_plan"               : "graduated-tier",
-        "enable_platform_logs"       : false,
-        "enable_platform_metrics"    : false,
         "disable_public_endpoint" : true,
         "verify_worker_network_readiness" : false,
         "kms_config": {
@@ -55,10 +51,6 @@
         "machine_type": "bx2.16x64",
         "name": "workload-cluster",
         "resource_group": "slz-workload-rg",
-        "logdna_plan"                : "7-day",
-        "sysdig_plan"               : "graduated-tier",
-        "enable_platform_logs"       : false,
-        "enable_platform_metrics"    : false,
         "disable_public_endpoint" : true,
         "verify_worker_network_readiness" : false,
         "kms_config": {

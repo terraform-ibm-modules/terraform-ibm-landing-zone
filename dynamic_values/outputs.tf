@@ -7,6 +7,11 @@ output "clusters_map" {
   value       = module.clusters.map
 }
 
+output "worker_pools_map" {
+  description = "Cluster worker pools map"
+  value       = module.worker_pools.map
+}
+
 ##############################################################################
 
 ##############################################################################

@@ -175,30 +175,6 @@ variable "verify_worker_network_readiness" {
   default     = false
 }
 
-variable "logdna_plan" {
-  type        = string
-  description = "The IBM Cloud Logging plan to provision. Available: lite, 7-day, 14-day, 30-day, hipaa-30-day"
-  default     = "lite"
-}
-
-variable "sysdig_plan" {
-  type        = string
-  description = "The IBM Cloud Monitoring plan to provision. Available: lite, graduated-tier, graduated-tier-sysdig-secure-plus-monitor"
-  default     = "graduated-tier"
-}
-
-variable "enable_platform_logs" {
-  type        = bool
-  description = "Receive platform logs in the provisioned IBM Cloud Logging instance."
-  default     = false
-}
-
-variable "enable_platform_metrics" {
-  type        = bool
-  description = "Receive platform metrics in the provisioned IBM Cloud Monitoring instance."
-  default     = false
-}
-
 ##############################################################################
 
 

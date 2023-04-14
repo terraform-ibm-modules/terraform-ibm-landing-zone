@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1128
+        "line": 1107
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1549
+        "line": 1528
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 885
+        "line": 864
       }
     },
     "atracker": {
@@ -61,7 +61,7 @@
     },
     "clusters": {
       "name": "clusters",
-      "type": "list(\n    object({\n      name                            = string           # Name of Cluster\n      vpc_name                        = string           # Name of VPC\n      subnet_names                    = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet              = number           # Worker nodes per subnet.\n      machine_type                    = string           # Worker node flavor\n      kube_type                       = string           # iks or openshift\n      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      logdna_plan                     = optional(string) # Logging plan to provision\n      sysdig_plan                     = optional(string) # Monitoring plan to provision\n      disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.\n      enable_platform_logs            = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.\n      enable_platform_metrics         = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.\n      entitlement                     = optional(string) # entitlement option for openshift\n      pod_subnet                      = optional(string) # Portable subnet for pods\n      service_subnet                  = optional(string) # Portable subnet for services\n      resource_group                  = string           # Resource Group used for cluster\n      cos_name                        = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers              = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name                            = string           # Name of Cluster\n      vpc_name                        = string           # Name of VPC\n      subnet_names                    = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet              = number           # Worker nodes per subnet.\n      machine_type                    = string           # Worker node flavor\n      kube_type                       = string           # iks or openshift\n      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled\n      verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.\n      entitlement                     = optional(string) # entitlement option for openshift\n      pod_subnet                      = optional(string) # Portable subnet for pods\n      service_subnet                  = optional(string) # Portable subnet for services\n      resource_group                  = string           # Resource Group used for cluster\n      cos_name                        = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers              = optional(bool)   # If true force workers to update\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
       "source": [
@@ -91,7 +91,6 @@
       "description": "Create transit gateway",
       "default": true,
       "source": [
-        "data.ibm_is_vpc.example.for_each",
         "ibm_tg_connection.connection.for_each",
         "ibm_tg_gateway.transit_gateway.count"
       ],
@@ -113,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1396
+        "line": 1375
       }
     },
     "f5_vsi": {
@@ -126,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1260
+        "line": 1239
       }
     },
     "iam_account_settings": {
@@ -150,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1022
+        "line": 1001
       }
     },
     "ibmcloud_api_key": {
@@ -182,15 +181,6 @@
         "line": 699
       }
     },
-    "kube_version": {
-      "name": "kube_version",
-      "type": "string",
-      "description": "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used.",
-      "pos": {
-        "filename": "variables.tf",
-        "line": 862
-      }
-    },
     "network_cidr": {
       "name": "network_cidr",
       "type": "string",
@@ -211,9 +201,9 @@
       "default": "gcat-multizone-schematics",
       "required": true,
       "source": [
-        "data.ibm_is_vpc.example.name",
         "ibm_atracker_route.atracker_route.name",
         "ibm_atracker_target.atracker_target.name",
+        "ibm_container_vpc_cluster.cluster.name",
         "ibm_cos_bucket.buckets.bucket_name",
         "ibm_iam_access_group_dynamic_rule.dynamic_rules.name",
         "ibm_is_placement_group.placement_group.name",
@@ -245,6 +235,7 @@
         "module.dynamic_values.module.vpn",
         "module.dynamic_values.module.vsi.module.composed_vsi_map",
         "module.dynamic_values.module.vsi.module.vsi_list_to_map",
+        "module.dynamic_values.module.worker_pools",
         "module.f5_vsi.ibm_is_lb.lb.name",
         "module.f5_vsi.ibm_is_lb_pool.pool.name",
         "module.ssh_keys.ibm_is_ssh_key.ssh_key.name",
@@ -321,7 +312,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1442
+        "line": 1421
       }
     },
     "security_compliance_center": {
@@ -342,7 +333,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1458
+        "line": 1437
       }
     },
     "security_groups": {
@@ -387,6 +378,7 @@
       "description": "List of resource tags to apply to resources created by this module.",
       "default": [],
       "source": [
+        "ibm_container_vpc_cluster.cluster.tags",
         "ibm_iam_access_group.groups.tags",
         "ibm_is_flow_log.flow_logs.tags",
         "ibm_is_placement_group.placement_group.tags",
@@ -444,7 +436,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 929
+        "line": 908
       }
     },
     "teleport_vsi": {
@@ -457,7 +449,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 955
+        "line": 934
       }
     },
     "transit_gateway_connections": {
@@ -503,7 +495,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1517
+        "line": 1496
       }
     },
     "vpcs": {
@@ -550,9 +542,12 @@
       "type": "string",
       "description": "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`",
       "default": "IngressReady",
+      "source": [
+        "ibm_container_vpc_cluster.cluster.wait_till"
+      ],
       "pos": {
         "filename": "variables.tf",
-        "line": 847
+        "line": 843
       }
     }
   },
@@ -618,7 +613,7 @@
       "description": "List of data for COS buckets creaed",
       "pos": {
         "filename": "outputs.tf",
-        "line": 127
+        "line": 133
       }
     },
     "cos_bucket_names": {
@@ -626,7 +621,7 @@
       "description": "List of names for COS buckets created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 119
+        "line": 125
       }
     },
     "cos_data": {
@@ -634,7 +629,7 @@
       "description": "List of Cloud Object Storage instance data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 97
+        "line": 103
       }
     },
     "cos_key_names": {
@@ -642,7 +637,7 @@
       "description": "List of names for created COS keys",
       "pos": {
         "filename": "outputs.tf",
-        "line": 111
+        "line": 117
       }
     },
     "cos_names": {
@@ -650,7 +645,7 @@
       "description": "List of Cloud Object Storage instance names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 83
+        "line": 89
       }
     },
     "f5_hosts": {
@@ -658,7 +653,7 @@
       "description": "List of bastion host names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 141
+        "line": 147
       }
     },
     "fip_vsi_data": {
@@ -666,7 +661,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 307
+        "line": 313
       }
     },
     "resource_group_data": {
@@ -675,7 +670,7 @@
       "value": "local.resource_groups",
       "pos": {
         "filename": "outputs.tf",
-        "line": 200
+        "line": 206
       }
     },
     "resource_group_names": {
@@ -683,7 +678,7 @@
       "description": "List of resource groups names used within landing zone.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 195
+        "line": 201
       }
     },
     "secrets_manager_data": {
@@ -691,7 +686,7 @@
       "description": "Secrets manager instance",
       "pos": {
         "filename": "outputs.tf",
-        "line": 211
+        "line": 217
       }
     },
     "security_group_data": {
@@ -699,7 +694,7 @@
       "description": "List of security group data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 231
+        "line": 237
       }
     },
     "security_group_names": {
@@ -707,7 +702,7 @@
       "description": "List of security group names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 222
+        "line": 228
       }
     },
     "service_authorization_data": {
@@ -715,7 +710,7 @@
       "description": "List of service authorization data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 250
+        "line": 256
       }
     },
     "service_authorization_names": {
@@ -723,7 +718,7 @@
       "description": "List of service authorization names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 245
+        "line": 251
       }
     },
     "ssh_key_data": {
@@ -731,7 +726,7 @@
       "description": "List of SSH key data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 269
+        "line": 275
       }
     },
     "ssh_key_names": {
@@ -739,7 +734,7 @@
       "description": "List of SSH key names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 264
+        "line": 270
       }
     },
     "subnet_data": {
@@ -747,7 +742,7 @@
       "description": "List of Subnet data created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 179
+        "line": 185
       }
     },
     "subnet_names": {
@@ -755,7 +750,7 @@
       "description": "List of Subnet names created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 171
+        "line": 177
       }
     },
     "transit_gateway_data": {
@@ -763,7 +758,7 @@
       "description": "Created transit gateway data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 288
+        "line": 294
       }
     },
     "transit_gateway_name": {
@@ -771,7 +766,7 @@
       "description": "Name of created transit gateway",
       "pos": {
         "filename": "outputs.tf",
-        "line": 283
+        "line": 289
       }
     },
     "vpc_data": {
@@ -779,7 +774,7 @@
       "description": "List of VPC data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 163
+        "line": 169
       }
     },
     "vpc_names": {
@@ -787,7 +782,7 @@
       "description": "List of VPC names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 155
+        "line": 161
       }
     },
     "vpe_gateway_data": {
@@ -795,7 +790,7 @@
       "description": "List of VPE gateways data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 357
+        "line": 363
       }
     },
     "vpe_gateway_names": {
@@ -803,7 +798,7 @@
       "description": "VPE gateway names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 349
+        "line": 355
       }
     },
     "vpn_data": {
@@ -811,7 +806,7 @@
       "description": "List of VPN data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 379
+        "line": 385
       }
     },
     "vpn_names": {
@@ -819,7 +814,7 @@
       "description": "List of VPN names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 371
+        "line": 377
       }
     },
     "vsi_data": {
@@ -827,7 +822,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 325
+        "line": 331
       }
     },
     "vsi_names": {
@@ -835,7 +830,7 @@
       "description": "List of VSI names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 299
+        "line": 305
       }
     }
   },
@@ -904,6 +899,35 @@
       "pos": {
         "filename": "atracker.tf",
         "line": 19
+      }
+    },
+    "ibm_container_vpc_cluster.cluster": {
+      "mode": "managed",
+      "type": "ibm_container_vpc_cluster",
+      "name": "cluster",
+      "attributes": {
+        "name": "prefix",
+        "tags": "tags",
+        "wait_till": "wait_till"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "cluster.tf",
+        "line": 28
+      }
+    },
+    "ibm_container_vpc_worker_pool.pool": {
+      "mode": "managed",
+      "type": "ibm_container_vpc_worker_pool",
+      "name": "pool",
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "cluster.tf",
+        "line": 86
       }
     },
     "ibm_cos_bucket.buckets": {
@@ -1315,7 +1339,7 @@
       },
       "pos": {
         "filename": "transit_gateway.tf",
-        "line": 34
+        "line": 26
       }
     },
     "ibm_tg_gateway.transit_gateway": {
@@ -1332,7 +1356,7 @@
       },
       "pos": {
         "filename": "transit_gateway.tf",
-        "line": 14
+        "line": 6
       }
     },
     "random_string.random_cos_suffix": {
@@ -1373,6 +1397,18 @@
     }
   },
   "data_resources": {
+    "data.ibm_container_cluster_versions.cluster_versions": {
+      "mode": "data",
+      "type": "ibm_container_cluster_versions",
+      "name": "cluster_versions",
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "cluster.tf",
+        "line": 5
+      }
+    },
     "data.ibm_is_image.image": {
       "mode": "data",
       "type": "ibm_is_image",
@@ -1383,22 +1419,6 @@
       "pos": {
         "filename": "virtual_servers.tf",
         "line": 31
-      }
-    },
-    "data.ibm_is_vpc.example": {
-      "mode": "data",
-      "type": "ibm_is_vpc",
-      "name": "example",
-      "attributes": {
-        "for_each": "enable_transit_gateway",
-        "name": "prefix"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "transit_gateway.tf",
-        "line": 1
       }
     },
     "data.ibm_resource_group.resource_groups": {
@@ -1955,7 +1975,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 19
+        "line": 115
       }
     },
     "dynamic_values": {
@@ -1992,7 +2012,7 @@
           "value": "module.access_group_object.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 135
+            "line": 140
           }
         },
         "access_groups_with_invites": {
@@ -2001,7 +2021,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 155
+            "line": 160
           }
         },
         "access_policies": {
@@ -2010,7 +2030,7 @@
           "value": "module.access_policies.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 140
+            "line": 145
           }
         },
         "account_management_map": {
@@ -2019,7 +2039,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 150
+            "line": 155
           }
         },
         "appid_redirect_urls": {
@@ -2028,7 +2048,7 @@
           "value": "module.appid.redirect_urls",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 177
+            "line": 182
           }
         },
         "bastion_vsi_map": {
@@ -2037,7 +2057,7 @@
           "value": "module.bastion_vsi_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 166
+            "line": 171
           }
         },
         "bucket_to_instance_map": {
@@ -2046,7 +2066,7 @@
           "value": "module.cos.bucket_to_instance_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 41
+            "line": 46
           }
         },
         "clusters_map": {
@@ -2064,7 +2084,7 @@
           "value": "module.cos.cos_bucket_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 31
+            "line": 36
           }
         },
         "cos_data_map": {
@@ -2073,7 +2093,7 @@
           "value": "module.cos.cos_data_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 16
+            "line": 21
           }
         },
         "cos_instance_ids": {
@@ -2082,7 +2102,7 @@
           "value": "module.cos.cos_instance_ids",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 26
+            "line": 31
           }
         },
         "cos_key_map": {
@@ -2091,7 +2111,7 @@
           "value": "module.cos.cos_key_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 36
+            "line": 41
           }
         },
         "cos_map": {
@@ -2100,7 +2120,7 @@
           "value": "module.cos.cos_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 21
+            "line": 26
           }
         },
         "dynamic_rules": {
@@ -2109,7 +2129,7 @@
           "value": "module.dynamic_rules.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 145
+            "line": 150
           }
         },
         "f5_template_map": {
@@ -2118,7 +2138,7 @@
           "value": "module.f5_cloud_init",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 214
+            "line": 219
           }
         },
         "f5_vsi_map": {
@@ -2127,7 +2147,7 @@
           "value": "module.f5.f5_vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 209
+            "line": 214
           }
         },
         "flow_logs_map": {
@@ -2136,7 +2156,7 @@
           "value": "module.flow_logs_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 52
+            "line": 57
           }
         },
         "security_group_map": {
@@ -2145,7 +2165,7 @@
           "value": "module.security_group_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 68
+            "line": 73
           }
         },
         "security_group_rules_map": {
@@ -2154,7 +2174,7 @@
           "value": "module.security_group_rules_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 73
+            "line": 78
           }
         },
         "service_authorizations": {
@@ -2163,7 +2183,7 @@
           "value": "module.service_authorizations.authorizations",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 84
+            "line": 89
           }
         },
         "ssh_keys": {
@@ -2172,7 +2192,7 @@
           "value": "module.vsi.ssh_key_list",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 198
+            "line": 203
           }
         },
         "vpc_map": {
@@ -2181,7 +2201,7 @@
           "value": "module.vpc_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 57
+            "line": 62
           }
         },
         "vpe_gateway_map": {
@@ -2190,7 +2210,7 @@
           "value": "module.vpe.vpe_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 100
+            "line": 105
           }
         },
         "vpe_services": {
@@ -2199,7 +2219,7 @@
           "value": "module.vpe.vpe_services",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 95
+            "line": 100
           }
         },
         "vpe_subnet_reserved_ip_map": {
@@ -2208,7 +2228,7 @@
           "value": "module.vpe.vpe_subnet_reserved_ip_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 105
+            "line": 110
           }
         },
         "vpn_connection_map": {
@@ -2217,7 +2237,7 @@
           "value": "module.vpn.vpn_connection_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 123
+            "line": 128
           }
         },
         "vpn_gateway_map": {
@@ -2226,7 +2246,7 @@
           "value": "module.vpn.vpn_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 117
+            "line": 122
           }
         },
         "vsi_images_map": {
@@ -2235,7 +2255,7 @@
           "value": "module.vsi.vsi_image_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 188
+            "line": 193
           }
         },
         "vsi_map": {
@@ -2244,7 +2264,16 @@
           "value": "module.vsi.vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 193
+            "line": 198
+          }
+        },
+        "worker_pools_map": {
+          "name": "value",
+          "description": "List converted into map",
+          "value": "module.worker_pools.map",
+          "pos": {
+            "filename": "dynamic_values/outputs.tf",
+            "line": 10
           }
         }
       },

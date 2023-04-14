@@ -27,12 +27,8 @@ module "ut_cluster_map" {
       resource_group                  = "test-resource-group"
       kube_type                       = "openshift"
       cos_name                        = "data-cos"
-      logdna_plan                     = "7-day"
-      sysdig_plan                     = "graduated-tier"
       disable_public_endpoint         = false
       verify_worker_network_readiness = false
-      enable_platform_logs            = false
-      enable_platform_metrics         = false
       entitlement                     = "cloud_pak"
       worker_pools = [
         {

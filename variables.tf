@@ -768,12 +768,8 @@ variable "clusters" {
       machine_type                    = string           # Worker node flavor
       kube_type                       = string           # iks or openshift
       kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
-      logdna_plan                     = optional(string) # Logging plan to provision
-      sysdig_plan                     = optional(string) # Monitoring plan to provision
       disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled
       verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
-      enable_platform_logs            = optional(bool)   # Receive platform logs in the provisioned IBM Cloud Logging instance.
-      enable_platform_metrics         = optional(bool)   # Receive platform metrics in the provisioned IBM Cloud Monitoring instance.
       entitlement                     = optional(string) # entitlement option for openshift
       pod_subnet                      = optional(string) # Portable subnet for pods
       service_subnet                  = optional(string) # Portable subnet for services
@@ -856,23 +852,6 @@ variable "wait_till" {
       "OneWorkerNodeReady",
       "IngressReady"
     ], var.wait_till)
-  }
-}
-
-variable "kube_version" {
-  description = "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. If no value is passed, or the string 'latest' is passed, the current latest OCP version will be used."
-  type        = string
-  default     = null
-  validation {
-    condition = anytrue([
-      var.kube_version == null,
-      var.kube_version == "latest",
-      var.kube_version == "4.9",
-      var.kube_version == "4.10",
-      var.kube_version == "4.11",
-      var.kube_version == "4.12"
-    ])
-    error_message = "The specified kube_version is not one of the validated versions."
   }
 }
 

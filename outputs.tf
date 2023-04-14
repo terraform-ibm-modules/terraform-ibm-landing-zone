@@ -68,10 +68,16 @@ output "bastion_host_names" {
 
 output "cluster_names" {
   description = "List of create cluster names"
-  value = [
-    for cluster in module.cluster :
-    cluster.cluster_name
-  ]
+  value = flatten([
+    [
+      for cluster in ibm_container_vpc_cluster.cluster :
+      cluster.name
+    ],
+    [
+      for cluster in module.cluster :
+      cluster.cluster_name
+    ]
+  ])
 }
 
 ##############################################################################
