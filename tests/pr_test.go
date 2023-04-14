@@ -23,12 +23,9 @@ const vsiPatternTerraformDir = "patterns/vsi"
 const resourceGroup = "geretain-test-resources"
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
-// The flow_log ignores can be removed once we merge PR (https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/289)
 var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
-	"module.landing_zone.module.vpc[\"workload\"].ibm_is_flow_log.flow_logs[0]",
-	"module.landing_zone.module.vpc[\"management\"].ibm_is_flow_log.flow_logs[0]",
 }
 
 // TODO: Remove after https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/346 is merged
