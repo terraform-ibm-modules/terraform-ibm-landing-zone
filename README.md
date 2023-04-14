@@ -1024,7 +1024,6 @@ statement instead the previous block.
 | <a name="output_transit_gateway_data"></a> [transit\_gateway\_data](#output\_transit\_gateway\_data) | Created transit gateway data |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | Name of created transit gateway |
 | <a name="output_vpc_data"></a> [vpc\_data](#output\_vpc\_data) | List of VPC data |
-| <a name="output_vpc_flow_logs"></a> [vpc\_flow\_logs](#output\_vpc\_flow\_logs) | Details of VPC flow log collector |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
 | <a name="output_vpe_gateway_data"></a> [vpe\_gateway\_data](#output\_vpe\_gateway\_data) | List of VPE gateways data |
 | <a name="output_vpe_gateway_names"></a> [vpe\_gateway\_names](#output\_vpe\_gateway\_names) | VPE gateway names |

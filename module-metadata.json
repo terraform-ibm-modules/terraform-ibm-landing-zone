@@ -758,14 +758,6 @@
         "line": 163
       }
     },
-    "vpc_flow_logs": {
-      "name": "vpc_flow_logs",
-      "description": "Details of VPC flow log collector",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 389
-      }
-    },
     "vpc_names": {
       "name": "vpc_names",
       "description": "List of VPC names",

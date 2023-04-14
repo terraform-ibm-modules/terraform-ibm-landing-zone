@@ -385,11 +385,3 @@ output "vpn_data" {
 }
 
 ##############################################################################
-
-output "vpc_flow_logs" {
-  description = "Details of VPC flow log collector"
-  value = [
-    for network in module.vpc :
-    network.vpc_flow_logs
-  ]
-}
