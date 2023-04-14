@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-10"
+lastupdated: "2023-04-13"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 1.0
+version: 3.5.0
 
 # Use if the reference architecture has deployable code.
 # Value is the URL to land the user in the IBM Cloud catalog details page
@@ -45,7 +45,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="1.0"}
+{: toc-version="3.5.0"}
 
 Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
@@ -75,7 +75,7 @@ business challenge, or target cloud environments.
 |-------------|-----------|--------------------|--------------------|
 | Provide access management and tooling for the workload that is deployed in the workload VPC | Management VPC service | Create a separate VPC service where SSH connectivity from outside is allowed | |
 | Provide compute, storage, and network services to support hosted applications and operations that deliver services to the consumer | Workload VPC service | Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access | |
-| * Demonstrate regulatory compliance with Financial Services for VPC services  \n * Set up network for all created services  \n * Isolate network for all created services  \n * Ensure all created services are interconnected | Secure landing zone components | Create a minimum set of required components for a secure landing zone | Create a modified set of required components for a secure landing zone in preset |
+| * Demonstrate compliance with control requirements of the IBM Cloud Framework for Financial Services  \n * Set up network for all created services  \n * Isolate network for all created services  \n * Ensure all created services are interconnected | Secure landing zone components | Create a minimum set of required components for a secure landing zone | Create a modified set of required components for a secure landing zone in preset |
 {: caption="Table 1. Architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
