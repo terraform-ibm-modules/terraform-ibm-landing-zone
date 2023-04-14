@@ -763,7 +763,7 @@
       "description": "Details of VPC flow log collector",
       "pos": {
         "filename": "outputs.tf",
-        "line": 298
+        "line": 389
       }
     },
     "vpc_names": {
