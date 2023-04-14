@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "tags" {
-  description = "A list of tags to be added to resources"
+  description = "A list of resource tags to be added to resources"
   type        = list(string)
   default     = []
 }
@@ -26,6 +26,8 @@ variable "ssh_keys" {
       name              = string
       public_key        = optional(string)
       resource_group_id = optional(string)
+      create            = optional(bool)
+      id                = optional(string)
     })
   )
   default = [

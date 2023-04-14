@@ -45,76 +45,14 @@ locals {
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
+
   ##############################################################################
   # Dynamic configuration for landing zone environment
   ##############################################################################
 
   config = {
 
-    ##############################################################################
-    # VSI Configuration
-    ##############################################################################
-    vsi = [
-      {
-        name                            = "${var.vpcs[0]}-server"
-        vpc_name                        = var.vpcs[0]
-        subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"]
-        image_name                      = var.vsi_image_name
-        vsi_per_subnet                  = var.vsi_per_subnet
-        machine_type                    = var.vsi_instance_profile
-        resource_group                  = "${var.prefix}-${var.vpcs[0]}-rg"
-        boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
-        security_group = {
-          name     = "${var.prefix}-${var.vpcs[0]}"
-          vpc_name = var.vpcs[0]
-          rules    = module.dynamic_values.default_vsi_sg_rules
-        },
-        ssh_keys = ["ssh-key"]
-      }
-    ]
-    ##############################################################################
-
-    ##############################################################################
-    # Cluster config
-    ##############################################################################
-    clusters = [
-      {
-        name     = "${var.vpcs[1]}-cluster"
-        vpc_name = var.vpcs[1]
-        subnet_names = [
-          # For the number of zones in zones variable, get that many subnet names
-          for zone in range(1, var.cluster_zones + 1) :
-          "vsi-zone-${zone}"
-        ]
-        kms_config = {
-          crk_name         = "${var.prefix}-roks-key"
-          private_endpoint = true
-        }
-        workers_per_subnet = var.workers_per_zone
-        machine_type       = var.flavor
-        kube_type          = "openshift"
-        kube_version       = var.kube_version
-        resource_group     = "${var.prefix}-${var.vpcs[1]}-rg"
-        cos_name           = "cos"
-        entitlement        = var.entitlement
-        update_all_workers = var.update_all_workers
-        # By default, create dedicated pool for logging
-        worker_pools = [
-          {
-            name     = "logging-worker-pool"
-            vpc_name = var.vpcs[1]
-            subnet_names = [
-              for zone in range(1, var.cluster_zones + 1) :
-              "vsi-zone-${zone}"
-            ]
-            entitlement        = var.entitlement
-            workers_per_subnet = var.workers_per_zone
-            flavor             = var.flavor
-        }]
-      }
-    ]
-
-    ##############################################################################
+    clusters = []
 
     ##############################################################################
     # Activity tracker
@@ -130,15 +68,12 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = [
+    ssh_keys = var.ssh_public_key != null ? [
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
-        # If key already exists do not create new key, use key id
-        create = !local.key_already_exists
-        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
       }
-    ]
+    ] : []
     ##############################################################################
 
     ##############################################################################
@@ -174,6 +109,7 @@ locals {
     vpn_gateways                   = module.dynamic_values.vpn_gateways
     f5_deployments                 = module.dynamic_values.f5_deployments
     security_groups                = module.dynamic_values.security_groups
+    vsi                            = []
 
     ##############################################################################
 
@@ -229,19 +165,6 @@ locals {
     ##############################################################################
 
     ##############################################################################
-    # Secrets Manager Config
-    ##############################################################################
-
-    secrets_manager = {
-      use_secrets_manager = var.create_secrets_manager
-      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
-      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
-      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
-    }
-
-    ##############################################################################
-
-    ##############################################################################
     # Teleport Config Data
     ##############################################################################
 
@@ -265,6 +188,19 @@ locals {
     }
 
     teleport_vsi = module.dynamic_values.teleport_vsi
+
+    ##############################################################################
+
+    ##############################################################################
+    # Secrets Manager Config
+    ##############################################################################
+
+    secrets_manager = {
+      use_secrets_manager = var.create_secrets_manager
+      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
+      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
+      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
+    }
 
     ##############################################################################
 

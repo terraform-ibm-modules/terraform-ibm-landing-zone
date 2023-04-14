@@ -13,7 +13,7 @@ variable "prefix" {
   type        = string
 
   validation {
-    error_message = "Prefix must begin with a letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
+    error_message = "Prefix must begin with a letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 13 or fewer characters."
     condition     = can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", var.prefix)) && length(var.prefix) <= 13
   }
 }
@@ -24,7 +24,7 @@ variable "region" {
 }
 
 variable "tags" {
-  description = "List of tags to apply to resources created by this module."
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
 }
@@ -575,7 +575,7 @@ variable "scc_scope_name" {
 ##############################################################################
 
 variable "add_kms_block_storage_s2s" {
-  description = "add kms to block storage s2s authorization"
+  description = "Whether to create a service-to-service authorization between block storage and the key management service."
   type        = bool
   default     = true
 }

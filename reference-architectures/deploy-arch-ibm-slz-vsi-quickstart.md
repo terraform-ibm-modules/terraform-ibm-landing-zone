@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-03-2"
+lastupdated: "2023-04-10"
 
 keywords:
 
@@ -27,11 +27,10 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zon
 related_links:
   - title: "VSI on VPC landing zone - Standard variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
-    description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
+    description: "The VSI on VPC landing zone standard variation is a deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
-compliance: FedRAMP
 
 content-type: reference-architecture
 
@@ -39,26 +38,19 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
-
 # VSI on VPC landing zone - QuickStart variation
 {: #vsi-ra-qs}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-compliance="FedRAMP"}
+{: toc-version="1.0"}
 
 The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
 ## Architecture diagram
 {: #ra-vsi-qs-architecture-diagram}
 
-![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](vsi-quickstart.drawio.svg "Architecture diagram of VSI on VPC landing zone deployable architecture"){: caption="Figure 1. QuickStart variation of VSI on VPC landing zone" caption-side="bottom"}
+![Architecture diagram for the QuickStart variation of VSI on VPC landing zone](vsi-quickstart.drawio.svg "Architecture diagram of VSI on VPC landing zone deployable architecture"){: caption="Figure 1. QuickStart variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-quickstart.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-qs-qs-design-requirements}

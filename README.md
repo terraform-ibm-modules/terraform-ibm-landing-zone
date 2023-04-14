@@ -28,15 +28,16 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-| Virtual server pattern           | Red Hat OpenShift pattern        | Mixed pattern                      |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| ![VSI](./.docs/images/vsi.png)   | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
+| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -90,6 +91,7 @@ In the first method, you set a couple of required input variables of your respec
 
 You can find the list of input variables in the `variables.tf` file of the pattern directory:
 
+- [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
 - [ROKS pattern input variables](./patterns/roks/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
@@ -415,7 +417,9 @@ Users can add a name and optionally a public key. If `public_key` is not provide
   )
 ```
 
-#### vis variable
+#### vsi variable
+
+Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
@@ -880,7 +884,7 @@ statement instead the previous block.
 - [ VPC landing zone (No compute example)](examples/no-compute-example)
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
-- [ VSI on VPC landing zone (Quick start example)](examples/quickstart)
+- [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -905,7 +909,7 @@ statement instead the previous block.
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v5.0.1 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 
 ## Resources
 
@@ -945,6 +949,7 @@ statement instead the previous block.
 | [ibm_tg_gateway.transit_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
 | [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ibm_container_cluster_versions.cluster_versions](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_versions) | data source |
 | [ibm_is_image.image](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_image) | data source |
 | [ibm_resource_group.resource_groups](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
@@ -956,7 +961,7 @@ statement instead the previous block.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_groups"></a> [access\_groups](#input\_access\_groups) | A list of access groups to create | <pre>list(<br>    object({<br>      name        = string # Name of the group<br>      description = string # Description of group<br>      policies = list(<br>        object({<br>          name  = string       # Name of the policy<br>          roles = list(string) # list of roles for the policy<br>          resources = object({<br>            resource_group       = optional(string) # Name of the resource group the policy will apply to<br>            resource_type        = optional(string) # Name of the resource type for the policy ex. "resource-group"<br>            resource             = optional(string) # The resource of the policy definition<br>            service              = optional(string) # Name of the service type for the policy ex. "cloud-object-storage"<br>            resource_instance_id = optional(string) # ID of a service instance to give permissions<br>          })<br>        })<br>      )<br>      dynamic_policies = optional(<br>        list(<br>          object({<br>            name              = string # Dynamic group name<br>            identity_provider = string # URI for identity provider<br>            expiration        = number # How many hours authenticated users can work before refresh<br>            conditions = object({<br>              claim    = string # key value to evaluate the condition against.<br>              operator = string # The operation to perform on the claim. Supported values are EQUALS, EQUALS_IGNORE_CASE, IN, NOT_EQUALS_IGNORE_CASE, NOT_EQUALS, and CONTAINS.<br>              value    = string # Value to be compared agains<br>            })<br>          })<br>        )<br>      )<br>      account_management_policies = optional(list(string))<br>      invite_users                = optional(list(string)) # Users to invite to the access group<br>    })<br>  )</pre> | `[]` | no |
-| <a name="input_add_kms_block_storage_s2s"></a> [add\_kms\_block\_storage\_s2s](#input\_add\_kms\_block\_storage\_s2s) | add kms to block storage s2s authorization | `bool` | `true` | no |
+| <a name="input_add_kms_block_storage_s2s"></a> [add\_kms\_block\_storage\_s2s](#input\_add\_kms\_block\_storage\_s2s) | Whether to create a service-to-service authorization between block storage and the key management service. | `bool` | `true` | no |
 | <a name="input_appid"></a> [appid](#input\_appid) | The App ID instance to be used for the teleport vsi deployments | <pre>object({<br>    name           = optional(string)<br>    resource_group = optional(string)<br>    use_data       = optional(bool)<br>    keys           = optional(list(string))<br>    use_appid      = bool<br>  })</pre> | <pre>{<br>  "use_appid": false<br>}</pre> | no |
 | <a name="input_atracker"></a> [atracker](#input\_atracker) | atracker variables | <pre>object({<br>    resource_group        = string<br>    receive_global_events = bool<br>    collector_bucket_name = string<br>    add_route             = bool<br>  })</pre> | n/a | yes |
 | <a name="input_clusters"></a> [clusters](#input\_clusters) | A list describing clusters workloads to create | <pre>list(<br>    object({<br>      name               = string           # Name of Cluster<br>      vpc_name           = string           # Name of VPC<br>      subnet_names       = list(string)     # List of vpc subnets for cluster<br>      workers_per_subnet = number           # Worker nodes per subnet.<br>      machine_type       = string           # Worker node flavor<br>      kube_type          = string           # iks or openshift<br>      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`<br>      entitlement        = optional(string) # entitlement option for openshift<br>      pod_subnet         = optional(string) # Portable subnet for pods<br>      service_subnet     = optional(string) # Portable subnet for services<br>      resource_group     = string           # Resource Group used for cluster<br>      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters<br>      update_all_workers = optional(bool)   # If true force workers to update<br>      kms_config = optional(<br>        object({<br>          crk_name         = string         # Name of key<br>          private_endpoint = optional(bool) # Private endpoint<br>        })<br>      )<br>      worker_pools = optional(<br>        list(<br>          object({<br>            name               = string           # Worker pool name<br>            vpc_name           = string           # VPC name<br>            workers_per_subnet = number           # Worker nodes per subnet<br>            flavor             = string           # Worker node flavor<br>            subnet_names       = list(string)     # List of vpc subnets for worker pool<br>            entitlement        = optional(string) # entitlement option for openshift<br>          })<br>        )<br>      )<br>    })<br>  )</pre> | n/a | yes |
@@ -974,8 +979,8 @@ statement instead the previous block.
 | <a name="input_security_compliance_center"></a> [security\_compliance\_center](#input\_security\_compliance\_center) | Security and Compliance Center Variables | <pre>object({<br>    enable_scc            = bool<br>    location_id           = optional(string)<br>    is_public             = optional(bool)<br>    collector_description = optional(string)<br>    credential_id         = optional(string)<br>    scope_name            = optional(string)<br>    scope_description     = optional(string)<br>  })</pre> | <pre>{<br>  "enable_scc": false<br>}</pre> | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups for VPC | <pre>list(<br>    object({<br>      name           = string<br>      vpc_name       = string<br>      resource_group = optional(string)<br>      rules = list(<br>        object({<br>          name      = string<br>          direction = string<br>          source    = string<br>          tcp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          udp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          icmp = optional(<br>            object({<br>              type = number<br>              code = number<br>            })<br>          )<br>        })<br>      )<br>    })<br>  )</pre> | `[]` | no |
 | <a name="input_service_endpoints"></a> [service\_endpoints](#input\_service\_endpoints) | Service endpoints. Can be `public`, `private`, or `public-and-private` | `string` | `"private"` | no |
-| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>    })<br>  )</pre> | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of tags to apply to resources created by this module. | `list(string)` | `[]` | no |
+| <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>      create         = optional(bool)<br>      id             = optional(string)<br>    })<br>  )</pre> | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | List of resource tags to apply to resources created by this module. | `list(string)` | `[]` | no |
 | <a name="input_teleport_config_data"></a> [teleport\_config\_data](#input\_teleport\_config\_data) | Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive | <pre>object({<br>    teleport_license   = optional(string)<br>    https_cert         = optional(string)<br>    https_key          = optional(string)<br>    domain             = optional(string)<br>    cos_bucket_name    = optional(string)<br>    cos_key_name       = optional(string)<br>    teleport_version   = optional(string)<br>    message_of_the_day = optional(string)<br>    hostname           = optional(string)<br>    app_id_key_name    = optional(string)<br>    claims_to_roles = optional(<br>      list(<br>        object({<br>          email = string<br>          roles = list(string)<br>        })<br>      )<br>    )<br>  })</pre> | `null` | no |
 | <a name="input_teleport_vsi"></a> [teleport\_vsi](#input\_teleport\_vsi) | A list of teleport vsi deployments | <pre>list(<br>    object(<br>      {<br>        name                            = string<br>        vpc_name                        = string<br>        resource_group                  = optional(string)<br>        subnet_name                     = string<br>        ssh_keys                        = list(string)<br>        boot_volume_encryption_key_name = string<br>        image_name                      = string<br>        machine_type                    = string<br>        security_groups                 = optional(list(string))<br>        security_group = optional(<br>          object({<br>            name = string<br>            rules = list(<br>              object({<br>                name      = string<br>                direction = string<br>                source    = string<br>                tcp = optional(<br>                  object({<br>                    port_max = number<br>                    port_min = number<br>                  })<br>                )<br>                udp = optional(<br>                  object({<br>                    port_max = number<br>                    port_min = number<br>                  })<br>                )<br>                icmp = optional(<br>                  object({<br>                    type = number<br>                    code = number<br>                  })<br>                )<br>              })<br>            )<br>          })<br>        )<br><br><br>      }<br>    )<br>  )</pre> | `[]` | no |
 | <a name="input_transit_gateway_connections"></a> [transit\_gateway\_connections](#input\_transit\_gateway\_connections) | Transit gateway vpc connections. Will only be used if transit gateway is enabled. | `list(string)` | n/a | yes |
@@ -998,21 +1003,31 @@ statement instead the previous block.
 | <a name="output_atracker_target_name"></a> [atracker\_target\_name](#output\_atracker\_target\_name) | Name of atracker target |
 | <a name="output_bastion_host_names"></a> [bastion\_host\_names](#output\_bastion\_host\_names) | List of bastion host names |
 | <a name="output_cluster_names"></a> [cluster\_names](#output\_cluster\_names) | List of create cluster names |
-| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets creaed |
+| <a name="output_cos_bucket_data"></a> [cos\_bucket\_data](#output\_cos\_bucket\_data) | List of data for COS buckets creaed |
+| <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets created |
+| <a name="output_cos_data"></a> [cos\_data](#output\_cos\_data) | List of Cloud Object Storage instance data |
 | <a name="output_cos_key_names"></a> [cos\_key\_names](#output\_cos\_key\_names) | List of names for created COS keys |
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
-| <a name="output_f5_host_names"></a> [f5\_host\_names](#output\_f5\_host\_names) | List of bastion host names |
+| <a name="output_f5_hosts"></a> [f5\_hosts](#output\_f5\_hosts) | List of bastion host names |
 | <a name="output_fip_vsi_data"></a> [fip\_vsi\_data](#output\_fip\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached. |
+| <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
-| <a name="output_secrets_manager_name"></a> [secrets\_manager\_name](#output\_secrets\_manager\_name) | Name of secrets manager instance |
+| <a name="output_secrets_manager_data"></a> [secrets\_manager\_data](#output\_secrets\_manager\_data) | Secrets manager instance |
+| <a name="output_security_group_data"></a> [security\_group\_data](#output\_security\_group\_data) | List of security group data |
 | <a name="output_security_group_names"></a> [security\_group\_names](#output\_security\_group\_names) | List of security group names |
+| <a name="output_service_authorization_data"></a> [service\_authorization\_data](#output\_service\_authorization\_data) | List of service authorization data |
 | <a name="output_service_authorization_names"></a> [service\_authorization\_names](#output\_service\_authorization\_names) | List of service authorization names |
+| <a name="output_ssh_key_data"></a> [ssh\_key\_data](#output\_ssh\_key\_data) | List of SSH key data |
 | <a name="output_ssh_key_names"></a> [ssh\_key\_names](#output\_ssh\_key\_names) | List of SSH key names |
+| <a name="output_subnet_data"></a> [subnet\_data](#output\_subnet\_data) | List of Subnet data created |
 | <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | List of Subnet names created |
+| <a name="output_transit_gateway_data"></a> [transit\_gateway\_data](#output\_transit\_gateway\_data) | Created transit gateway data |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | Name of created transit gateway |
-| <a name="output_vpc_flow_logs"></a> [vpc\_flow\_logs](#output\_vpc\_flow\_logs) | Details of VPC flow log collector |
+| <a name="output_vpc_data"></a> [vpc\_data](#output\_vpc\_data) | List of VPC data |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
+| <a name="output_vpe_gateway_data"></a> [vpe\_gateway\_data](#output\_vpe\_gateway\_data) | List of VPE gateways data |
 | <a name="output_vpe_gateway_names"></a> [vpe\_gateway\_names](#output\_vpe\_gateway\_names) | VPE gateway names |
+| <a name="output_vpn_data"></a> [vpn\_data](#output\_vpn\_data) | List of VPN data |
 | <a name="output_vpn_names"></a> [vpn\_names](#output\_vpn\_names) | List of VPN names |
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
