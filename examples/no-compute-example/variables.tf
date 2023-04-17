@@ -64,5 +64,5 @@ variable "enable_transit_gateway" {
 variable "add_atracker_route" {
   description = "Atracker can only have one route per zone. use this value to disable or enable the creation of atracker route"
   type        = bool
-  default     = true
+  default     = false
 }
