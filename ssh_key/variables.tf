@@ -26,6 +26,8 @@ variable "ssh_keys" {
       name              = string
       public_key        = optional(string)
       resource_group_id = optional(string)
+      create            = optional(bool)
+      id                = optional(string)
     })
   )
   default = [
