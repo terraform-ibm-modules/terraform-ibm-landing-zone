@@ -216,7 +216,6 @@
         "module.dynamic_values.module.dynamic_rules",
         "module.dynamic_values.module.f5.module.composed_f5_map",
         "module.dynamic_values.module.f5.module.f5_primary_subnets",
-        "module.dynamic_values.module.flow_logs_map",
         "module.dynamic_values.module.vpe",
         "module.dynamic_values.module.vpn",
         "module.dynamic_values.module.vsi.module.composed_vsi_map",
@@ -365,7 +364,6 @@
       "source": [
         "ibm_container_vpc_cluster.cluster.tags",
         "ibm_iam_access_group.groups.tags",
-        "ibm_is_flow_log.flow_logs.tags",
         "ibm_is_placement_group.placement_group.tags",
         "ibm_is_security_group.security_group.tags",
         "ibm_is_virtual_endpoint_gateway.endpoint_gateway.tags",
@@ -1028,21 +1026,6 @@
       "pos": {
         "filename": "service_authorizations.tf",
         "line": 18
-      }
-    },
-    "ibm_is_flow_log.flow_logs": {
-      "mode": "managed",
-      "type": "ibm_is_flow_log",
-      "name": "flow_logs",
-      "attributes": {
-        "tags": "tags"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "main.tf",
-        "line": 39
       }
     },
     "ibm_is_placement_group.placement_group": {
@@ -1729,7 +1712,7 @@
           "value": "module.access_group_object.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 140
+            "line": 135
           }
         },
         "access_groups_with_invites": {
@@ -1738,7 +1721,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 160
+            "line": 155
           }
         },
         "access_policies": {
@@ -1747,7 +1730,7 @@
           "value": "module.access_policies.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 145
+            "line": 140
           }
         },
         "account_management_map": {
@@ -1756,7 +1739,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 155
+            "line": 150
           }
         },
         "appid_redirect_urls": {
@@ -1765,7 +1748,7 @@
           "value": "module.appid.redirect_urls",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 182
+            "line": 177
           }
         },
         "bastion_vsi_map": {
@@ -1774,7 +1757,7 @@
           "value": "module.bastion_vsi_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 171
+            "line": 166
           }
         },
         "bucket_to_instance_map": {
@@ -1846,7 +1829,7 @@
           "value": "module.dynamic_rules.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 150
+            "line": 145
           }
         },
         "f5_template_map": {
@@ -1855,7 +1838,7 @@
           "value": "module.f5_cloud_init",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 219
+            "line": 214
           }
         },
         "f5_vsi_map": {
@@ -1864,16 +1847,7 @@
           "value": "module.f5.f5_vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 214
-          }
-        },
-        "flow_logs_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.flow_logs_map.value",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 57
+            "line": 209
           }
         },
         "security_group_map": {
@@ -1882,7 +1856,7 @@
           "value": "module.security_group_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 73
+            "line": 68
           }
         },
         "security_group_rules_map": {
@@ -1891,7 +1865,7 @@
           "value": "module.security_group_rules_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 78
+            "line": 73
           }
         },
         "service_authorizations": {
@@ -1900,7 +1874,7 @@
           "value": "module.service_authorizations.authorizations",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 89
+            "line": 84
           }
         },
         "ssh_keys": {
@@ -1909,7 +1883,7 @@
           "value": "module.vsi.ssh_key_list",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 203
+            "line": 198
           }
         },
         "vpc_map": {
@@ -1918,7 +1892,7 @@
           "value": "module.vpc_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 62
+            "line": 57
           }
         },
         "vpe_gateway_map": {
@@ -1927,7 +1901,7 @@
           "value": "module.vpe.vpe_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 105
+            "line": 100
           }
         },
         "vpe_services": {
@@ -1936,7 +1910,7 @@
           "value": "module.vpe.vpe_services",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 100
+            "line": 95
           }
         },
         "vpe_subnet_reserved_ip_map": {
@@ -1945,7 +1919,7 @@
           "value": "module.vpe.vpe_subnet_reserved_ip_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 110
+            "line": 105
           }
         },
         "vpn_connection_map": {
@@ -1954,7 +1928,7 @@
           "value": "module.vpn.vpn_connection_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 128
+            "line": 123
           }
         },
         "vpn_gateway_map": {
@@ -1963,7 +1937,7 @@
           "value": "module.vpn.vpn_gateway_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 122
+            "line": 117
           }
         },
         "vsi_images_map": {
@@ -1972,7 +1946,7 @@
           "value": "module.vsi.vsi_image_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 193
+            "line": 188
           }
         },
         "vsi_map": {
@@ -1981,7 +1955,7 @@
           "value": "module.vsi.vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 198
+            "line": 193
           }
         },
         "worker_pools_map": {
@@ -2535,7 +2509,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v5.0.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v6.0.1",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2556,7 +2530,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 102
+            "line": 106
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2576,7 +2550,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 113
+            "line": 117
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2592,7 +2566,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 133
+            "line": 137
           }
         },
         "ibm_is_public_gateway.gateway": {
@@ -2609,7 +2583,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 81
+            "line": 85
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2698,7 +2672,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 46
+            "line": 50
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2713,12 +2687,33 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 55
+            "line": 59
           }
         }
       },
-      "data_resources": {},
+      "data_resources": {
+        "data.ibm_is_vpc_address_prefixes.get_address_prefixes": {
+          "mode": "data",
+          "type": "ibm_is_vpc_address_prefixes",
+          "name": "get_address_prefixes",
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 39
+          }
+        }
+      },
       "outputs": {
+        "cidr_blocks": {
+          "name": "cidr_blocks",
+          "description": "List of CIDR blocks present in VPC stack",
+          "pos": {
+            "filename": ".terraform/modules/vpc/outputs.tf",
+            "line": 137
+          }
+        },
         "network_acls": {
           "name": "network_acls",
           "description": "List of shortnames and IDs of network ACLs",
@@ -2814,7 +2809,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 10
+        "line": 9
       }
     },
     "vsi": {
