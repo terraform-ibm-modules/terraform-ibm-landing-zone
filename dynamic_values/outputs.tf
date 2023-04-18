@@ -54,11 +54,6 @@ output "bucket_to_instance_map" {
 # Main Outputs
 ##############################################################################
 
-output "flow_logs_map" {
-  description = "Map of flow logs instances to create"
-  value       = module.flow_logs_map.value
-}
-
 output "vpc_map" {
   description = "VPC Map"
   value       = module.vpc_map.value
