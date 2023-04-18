@@ -16,7 +16,6 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
@@ -66,23 +65,6 @@ func sshPublicKey(t *testing.T) string {
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
-	if dir == noComputeExampleTerraformDir {
-		options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-			Testing:      t,
-			TerraformDir: dir,
-			Prefix:       prefix,
-			IgnoreUpdates: testhelper.Exemptions{
-				List: ignoreUpdates,
-			},
-			IgnoreDestroys: testhelper.Exemptions{
-				List: ignoreDestroys,
-			},
-			CloudInfoService: sharedInfoSvc,
-		})
-
-		return options
-	}
-
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -102,28 +84,6 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	})
 
 	return options
-}
-
-func TestRunNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
 }
 
 func TestRunQuickstartExample(t *testing.T) {
