@@ -1433,7 +1433,7 @@
   "module_calls": {
     "bastion_host": {
       "name": "bastion_host",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.1",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1451,7 +1451,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 127
+            "line": 132
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -1467,7 +1467,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 120
+            "line": 125
           }
         },
         "ibm_is_instance.vsi": {
@@ -1975,7 +1975,7 @@
     },
     "f5_vsi": {
       "name": "f5_vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.0.1",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1993,7 +1993,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 127
+            "line": 132
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2009,7 +2009,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 120
+            "line": 125
           }
         },
         "ibm_is_instance.vsi": {
