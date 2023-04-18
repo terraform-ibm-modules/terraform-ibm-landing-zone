@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-13"
+lastupdated: "2023-04-18"
 
 keywords:
 
@@ -96,5 +96,5 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Use public and private SSH keys to access virtual server instances by using SSH  \n * Do not store private SSH key on any virtual instances, also not on the jump box host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secrets Manager. | |
+| * Use public and private SSH keys to access virtual server instances by using SSH  \n * Do not store private SSH key on any virtual instances, also not on the jump box host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in key management. | |
 {: caption="Table 3. Key and passwords management architecture decisions" caption-side="bottom"}
