@@ -7,8 +7,7 @@
       "matchPaths": [
         "examples/quickstart",
         "patterns/vsi",
-        "patterns/roks",
-        "examples/no-compute-example"
+        "patterns/roks"
       ],
       "semanticCommitType": "fix"
     }

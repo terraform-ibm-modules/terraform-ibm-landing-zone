@@ -880,8 +880,6 @@ statement instead the previous block.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic example](examples/basic)
-- [ VPC landing zone (No compute example)](examples/no-compute-example)
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
 - [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
