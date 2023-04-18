@@ -2497,7 +2497,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v5.0.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v6.0.1",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2518,7 +2518,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 102
+            "line": 106
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2538,7 +2538,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 113
+            "line": 117
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2554,7 +2554,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 133
+            "line": 137
           }
         },
         "ibm_is_public_gateway.gateway": {
@@ -2571,7 +2571,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 81
+            "line": 85
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2660,7 +2660,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 46
+            "line": 50
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2675,12 +2675,33 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 55
+            "line": 59
           }
         }
       },
-      "data_resources": {},
+      "data_resources": {
+        "data.ibm_is_vpc_address_prefixes.get_address_prefixes": {
+          "mode": "data",
+          "type": "ibm_is_vpc_address_prefixes",
+          "name": "get_address_prefixes",
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 39
+          }
+        }
+      },
       "outputs": {
+        "cidr_blocks": {
+          "name": "cidr_blocks",
+          "description": "List of CIDR blocks present in VPC stack",
+          "pos": {
+            "filename": ".terraform/modules/vpc/outputs.tf",
+            "line": 137
+          }
+        },
         "network_acls": {
           "name": "network_acls",
           "description": "List of shortnames and IDs of network ACLs",
