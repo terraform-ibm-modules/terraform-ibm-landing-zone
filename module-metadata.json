@@ -2497,7 +2497,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v6.0.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.0",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2607,7 +2607,7 @@
           "type": "ibm_is_vpc",
           "name": "vpc",
           "attributes": {
-            "address_prefix_management": "use_manual_address_prefixes",
+            "address_prefix_management": "address_prefixes",
             "classic_access": "classic_access",
             "default_network_acl_name": "default_network_acl_name",
             "default_routing_table_name": "default_routing_table_name",
