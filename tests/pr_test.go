@@ -16,21 +16,18 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const noComputeExampleTerraformDir = "examples/no-compute-example"
 const quickstartExampleTerraformDir = "examples/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const resourceGroup = "geretain-test-resources"
 
+// Setting "add_atracker_route" to false for VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
+const add_atracker_route = false
+
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
 var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
-}
-
-// TODO: Remove after https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/pull/346 is merged
-var ignoreDestroys = []string{
-	"module.landing_zone.ibm_resource_key.key[\"cos-bind-key\"]",
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
@@ -66,23 +63,6 @@ func sshPublicKey(t *testing.T) string {
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
-	if dir == noComputeExampleTerraformDir {
-		options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-			Testing:      t,
-			TerraformDir: dir,
-			Prefix:       prefix,
-			IgnoreUpdates: testhelper.Exemptions{
-				List: ignoreUpdates,
-			},
-			IgnoreDestroys: testhelper.Exemptions{
-				List: ignoreDestroys,
-			},
-			CloudInfoService: sharedInfoSvc,
-		})
-
-		return options
-	}
-
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -95,35 +75,10 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
-		IgnoreDestroys: testhelper.Exemptions{
-			List: ignoreDestroys,
-		},
 		CloudInfoService: sharedInfoSvc,
 	})
 
 	return options
-}
-
-func TestRunNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-vpc", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunUpgradeNoComputeExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "slz-ug", noComputeExampleTerraformDir)
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
 }
 
 func TestRunQuickstartExample(t *testing.T) {
@@ -159,9 +114,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		ResourceGroup: resourceGroup,
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
-		},
-		IgnoreDestroys: testhelper.Exemptions{
-			List: ignoreDestroys,
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -210,17 +162,15 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
 		},
-		IgnoreDestroys: testhelper.Exemptions{
-			List: ignoreDestroys,
-		},
 		CloudInfoService: sharedInfoSvc,
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key": sshPublicKey,
-		"prefix":         options.Prefix,
-		"tags":           options.Tags,
-		"region":         options.Region,
+		"ssh_public_key":     sshPublicKey,
+		"prefix":             options.Prefix,
+		"tags":               options.Tags,
+		"region":             options.Region,
+		"add_atracker_route": add_atracker_route,
 	}
 
 	return options
