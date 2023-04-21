@@ -1,8 +1,12 @@
 ##############################################################################
 # Create New SSH Key
 ##############################################################################
+data "ibm_is_ssh_keys" "existing_keys" {}
 
 resource "ibm_is_ssh_key" "ssh_key" {
+  depends_on = [
+    data.ibm_is_ssh_keys.existing_keys
+  ]
   for_each = {
     for ssh_key in var.ssh_keys :
     (ssh_key.name) => ssh_key if ssh_key.public_key != null && ssh_key.create == true
