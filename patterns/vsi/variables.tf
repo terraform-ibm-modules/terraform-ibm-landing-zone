@@ -23,7 +23,7 @@ variable "region" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. If key already exists in account, it will be used and no new key will be created."
   type        = string
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."

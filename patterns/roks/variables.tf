@@ -207,7 +207,7 @@ variable "vpn_firewall_type" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. Use only if provisioning F5 or Bastion Host."
+  description = "Public SSH Key. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Use only if provisioning F5 or Bastion Host."
   type        = string
   default     = null
   validation {
