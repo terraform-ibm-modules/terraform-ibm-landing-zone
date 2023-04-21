@@ -30,7 +30,7 @@ resource "ibm_atracker_target" "atracker_target" {
   target_type = "cloud_object_storage"
 
   # Wait for buckets and auth policies to ensure successful provision
-  depends_on = [ibm_cos_bucket.buckets, ibm_iam_authorization_policy.policy]
+  depends_on = [ibm_cos_bucket.buckets, ibm_iam_authorization_policy.policy, time_sleep.wait_for_authorization_policy]
 }
 
 resource "ibm_atracker_route" "atracker_route" {
