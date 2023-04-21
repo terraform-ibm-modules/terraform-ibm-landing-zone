@@ -124,7 +124,7 @@ module "cluster" {
   cluster_name      = each.value.cluster_name
   vpc_id            = each.value.vpc_id
   ocp_entitlement   = each.value.entitlement
-  vpc_subnets = each.value.vpc_subnets
+  vpc_subnets       = each.value.vpc_subnets
   worker_pools = concat(
     [
       {
@@ -141,7 +141,7 @@ module "cluster" {
     each.value.worker != null ? [
       for pool in each.value.worker :
       {
-        vpc_subnets    = pool.vpc_subnets
+        vpc_subnets      = pool.vpc_subnets
         pool_name        = pool.name
         machine_type     = pool.flavor
         workers_per_zone = pool.workers_per_subnet

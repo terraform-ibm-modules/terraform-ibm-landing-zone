@@ -226,6 +226,7 @@
         "module.dynamic_values.module.bastion_vsi_map.module.composed_bastion_vsi_map",
         "module.dynamic_values.module.bastion_vsi_map.module.vsi_subnets",
         "module.dynamic_values.module.clusters.module.composed_cluster_map",
+        "module.dynamic_values.module.clusters.module.worker_pools",
         "module.dynamic_values.module.cos",
         "module.dynamic_values.module.dynamic_rules",
         "module.dynamic_values.module.f5.module.composed_f5_map",
@@ -1697,7 +1698,7 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.0.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=4540",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
