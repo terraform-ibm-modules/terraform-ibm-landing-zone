@@ -117,23 +117,14 @@ module "cluster" {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "openshift"
   }
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.0.0"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=4540"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
   cluster_name      = each.value.cluster_name
   vpc_id            = each.value.vpc_id
   ocp_entitlement   = each.value.entitlement
-  vpc_subnets = {
-    (each.value.subnet_names[0]) = [
-      for zone in each.value.subnets :
-      {
-        id         = zone.id
-        zone       = zone.zone
-        cidr_block = zone.cidr
-      }
-    ]
-  }
+  vpc_subnets = each.value.vpc_subnets
   worker_pools = concat(
     [
       {
@@ -147,10 +138,10 @@ module "cluster" {
         }
       }
     ],
-    each.value.worker_pools != null ? [
-      for pool in each.value.worker_pools :
+    each.value.worker != null ? [
+      for pool in each.value.worker :
       {
-        subnet_prefix    = pool.subnet_names[0]
+        vpc_subnets    = pool.vpc_subnets
         pool_name        = pool.name
         machine_type     = pool.flavor
         workers_per_zone = pool.workers_per_subnet

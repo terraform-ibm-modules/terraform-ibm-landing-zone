@@ -39,6 +39,7 @@ module "ut_cluster_map" {
           flavor             = "spicy"
         }
       ]
+      vpc_subnets = {}
     }
   ]
   cos_instance_ids = {
@@ -66,6 +67,7 @@ module "ut_cluster_map" {
           cidr = "3"
         },
       ]
+      subnet_detail_list = null
     }
   }
 }

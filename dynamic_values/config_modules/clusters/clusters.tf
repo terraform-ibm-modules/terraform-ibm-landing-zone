@@ -50,6 +50,13 @@ module "cluster_subnets" {
 
 ##############################################################################
 
+module "worker_pools" {
+  source      = "../cluster_worker_pools"
+  prefix      = var.prefix
+  clusters    = var.clusters
+  vpc_modules = var.vpc_modules
+}
+
 ##############################################################################
 # Cluster List To Map
 ##############################################################################
@@ -63,6 +70,30 @@ module "composed_cluster_map" {
       subnets          = module.cluster_subnets[cluster.name].subnets
       cos_instance_crn = cluster.kube_type == "openshift" ? var.cos_instance_ids[cluster.cos_name] : null
       cluster_name     = "${var.prefix}-${cluster.name}"
+      vpc_subnets = {
+        (cluster.subnet_names[0]) = [
+          for zone in module.cluster_subnets[cluster.name].subnets :
+          {
+            id         = zone.id
+            zone       = zone.zone
+            cidr_block = zone.cidr
+          }
+        ]
+
+      }
+      worker = cluster.worker_pools != null ? [
+        for pool in cluster.worker_pools :
+        merge(module.worker_pools.map["${var.prefix}-${cluster.name}-${pool.name}"], {
+          vpc_subnets = [
+            for zone in module.worker_pools.map["${var.prefix}-${cluster.name}-${pool.name}"].subnets :
+            {
+              id         = zone.id
+              zone       = zone.zone
+              cidr_block = zone.cidr
+            }
+          ]
+        }) if pool != null
+      ] : []
     })
   ]
   prefix = var.prefix
