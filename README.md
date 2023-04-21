@@ -882,8 +882,6 @@ statement instead the previous block.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic example](examples/basic)
-- [ VPC landing zone (No compute example)](examples/no-compute-example)
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ One VSI with one ROKS](examples/one-vsi-one-roks)
 - [ Override.json example](examples/override-example)
@@ -904,15 +902,15 @@ statement instead the previous block.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git | v3.0.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.0 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v5.0.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v6.0.1 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 
 ## Resources
@@ -932,7 +930,6 @@ statement instead the previous block.
 | [ibm_iam_access_group_policy.policies](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_access_group_policy) | resource |
 | [ibm_iam_account_settings.iam_account_settings](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_account_settings) | resource |
 | [ibm_iam_authorization_policy.policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
-| [ibm_is_flow_log.flow_logs](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_flow_log) | resource |
 | [ibm_is_placement_group.placement_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_placement_group) | resource |
 | [ibm_is_security_group.security_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group) | resource |
 | [ibm_is_security_group_rule.security_group_rules](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource |
