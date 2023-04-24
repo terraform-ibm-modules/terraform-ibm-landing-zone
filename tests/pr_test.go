@@ -22,7 +22,7 @@ const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
 const resourceGroup = "geretain-test-resources"
 
-// Setting "add_atracker_route" to false for VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
+// Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
@@ -201,8 +201,6 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
-	sshPublicKey := sshPublicKey(t)
-
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  vpcPatternTerraformDir,
@@ -215,7 +213,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key":     sshPublicKey,
 		"prefix":             options.Prefix,
 		"tags":               options.Tags,
 		"region":             options.Region,
