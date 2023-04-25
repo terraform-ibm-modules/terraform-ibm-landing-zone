@@ -255,6 +255,7 @@ locals {
     us-east    = "us"
     eu-central = "eu"
     eu-de      = "eu"
+    eu-fr2     = "eu"
     uk-south   = "uk"
     eu-gb      = "uk"
     ap-north   = "us"
