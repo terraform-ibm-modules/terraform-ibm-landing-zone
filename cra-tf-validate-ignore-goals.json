@@ -24,30 +24,6 @@
             "description": "Check whether Cloud Object Storage bucket resiliency is set to cross region",
             "ignore_reason": "Tracking in https://github.ibm.com/GoldenEye/issues/issues/4333",
             "is_valid": true
-        },
-        {
-            "scc_goal_id": "3000452",
-            "description": "Check whether Virtual Private Cloud (VPC) network access control lists don't allow egress from 0.0.0.0/0 to any port",
-            "ignore_reason": "Tracking in https://github.ibm.com/goldeneye/issues/issues/3759",
-            "is_valid": true
-        },
-        {
-            "scc_goal_id": "3000408",
-            "description": "Check whether Flow Logs for VPC are enabled",
-            "ignore_reason": "Flow logs are enabled, so seems to be CRA bug. Tracking in https://github.ibm.com/oneibmcloud/CD-CRA/issues/1779",
-            "is_valid": false
-        },
-        {
-            "scc_goal_id": "3000805",
-            "description:": "Check whether Kubernetes Service clusters are enabled with IBM Log Analysis",
-            "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
-            "is_valid": false
-        },
-        {
-            "scc_goal_id": "3000804",
-            "description:": "Check whether Kubernetes Service clusters are enabled with IBM Cloud Monitoring",
-            "ignore_reason": "False alarm. In order to have more control over the way observability agents are configured and deployed, a helm chart installation is used rather than the native provider support.",
-            "is_valid": false
         }
     ]
 }
