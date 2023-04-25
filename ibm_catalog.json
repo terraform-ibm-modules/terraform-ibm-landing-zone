@@ -51,22 +51,7 @@
                     "install_type": "fullstack",
                     "working_directory": "examples/quickstart",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "controls": [
-                            {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)"
-                                ]
-                            }
-                        ]
-                    },
+                    "compliance": {},
                     "configuration": [
                         {
                             "custom_config": {
