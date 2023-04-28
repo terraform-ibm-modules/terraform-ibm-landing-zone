@@ -3,13 +3,13 @@
       "collector_bucket_name": "atracker-bucket",
       "receive_global_events": true,
       "resource_group": "slz-service-rg",
-      "add_route": true
+      "add_route": false
   },
   "clusters": [
       {
           "cos_name": "cos",
           "entitlement": "cloud_pak",
-          "kube_type": "openshift",
+          "kube_type": "iks",
           "kube_version": "latest",
           "machine_type": "bx2.16x64",
           "name": "workload-cluster",
@@ -34,7 +34,6 @@
                 "name": "logging-worker-pool",
                 "subnet_names": [
                     "vsi-zone-1",
-                    "vsi-zone-2",
                     "vsi-zone-3"
                 ],
                 "vpc_name": "workload",
@@ -252,10 +251,10 @@
                       },
                       {
                           "action": "allow",
-                          "destination": "0.0.0.0/0",
+                          "destination": "161.26.0.0/16",
                           "direction": "outbound",
                           "name": "allow-all-outbound",
-                          "source": "0.0.0.0/0"
+                          "source": "10.0.0.0/8"
                       }
                   ]
               }

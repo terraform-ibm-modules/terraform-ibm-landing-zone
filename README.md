@@ -883,6 +883,7 @@ statement instead the previous block.
 ## Examples
 
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
+- [ One VSI with one IKS](examples/one-vsi-one-iks)
 - [ One VSI with one ROKS](examples/one-vsi-one-roks)
 - [ Override.json example](examples/override-example)
 - [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)

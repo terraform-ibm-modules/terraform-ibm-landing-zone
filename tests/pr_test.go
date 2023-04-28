@@ -17,6 +17,7 @@ import (
 )
 
 const quickstartExampleTerraformDir = "examples/quickstart"
+const iksExampleTerraformDir = "examples/one-vsi-one-iks"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -242,4 +243,38 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func setupOptionsiksExample(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  iksExampleTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_key": sshPublicKey,
+		"prefix":  options.Prefix,
+		"region":  options.Region,
+	}
+
+	return options
+}
+
+func TestRunIksExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsiksExample(t, "slz-iks")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }

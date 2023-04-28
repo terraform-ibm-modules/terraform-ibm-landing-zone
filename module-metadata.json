@@ -1725,7 +1725,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 113
+            "line": 120
           }
         },
         "ibm_container_vpc_cluster.cluster": {
@@ -1748,7 +1748,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 51
+            "line": 58
           }
         },
         "ibm_container_vpc_worker_pool.autoscaling_pool": {
@@ -1764,7 +1764,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 253
+            "line": 271
           }
         },
         "ibm_container_vpc_worker_pool.pool": {
@@ -1780,7 +1780,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 212
+            "line": 230
           }
         },
         "ibm_resource_instance.cos_instance": {
@@ -1799,6 +1799,39 @@
             "line": 37
           }
         },
+        "ibm_resource_tag.cluster_access_tag": {
+          "mode": "managed",
+          "type": "ibm_resource_tag",
+          "name": "cluster_access_tag",
+          "attributes": {
+            "count": "access_tags",
+            "resource_id": "ignore_worker_pool_size_changes",
+            "tags": "access_tags"
+          },
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/cluster/main.tf",
+            "line": 184
+          }
+        },
+        "ibm_resource_tag.cos_access_tag": {
+          "mode": "managed",
+          "type": "ibm_resource_tag",
+          "name": "cos_access_tag",
+          "attributes": {
+            "count": "use_existing_cos",
+            "tags": "access_tags"
+          },
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/cluster/main.tf",
+            "line": 47
+          }
+        },
         "null_resource.confirm_network_healthy": {
           "mode": "managed",
           "type": "null_resource",
@@ -1811,7 +1844,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 313
+            "line": 331
           }
         },
         "null_resource.reset_api_key": {
@@ -1823,7 +1856,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 187
+            "line": 205
           }
         }
       },
@@ -1841,7 +1874,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 201
+            "line": 219
           }
         },
         "data.ibm_container_cluster_versions.cluster_versions": {
