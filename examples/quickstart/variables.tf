@@ -154,6 +154,11 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       },
       {
@@ -205,6 +210,11 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       }
    ],
