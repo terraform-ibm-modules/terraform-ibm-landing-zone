@@ -51,9 +51,7 @@
                     "install_type": "fullstack",
                     "working_directory": "examples/quickstart",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
-                    "compliance": {
-                        "controls": []
-                    },
+                    "compliance": {},
                     "configuration": [
                         {
                             "custom_config": {
@@ -197,158 +195,44 @@
                     "working_directory": "patterns/vsi",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
+                        "authority": "scc-v3",
                         "controls": [
                             {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(4)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(7)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(g)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-6(9)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-7(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-7(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-11(1)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-11(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-16(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-17(9)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-2(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-3"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(1)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CA-7(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(e)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(f)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-6"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-2-0"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-10"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-11"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(c)"
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
                             }
                         ]
                     },
@@ -784,158 +668,45 @@
                     "working_directory": "patterns/vpc",
                     "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
                     "compliance": {
+                        "authority": "scc-v3",
                         "controls": [
                             {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(4)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(7)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-2(g)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-6(9)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-7(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-7(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-11(1)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-11(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-16(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AC-17(9)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-2(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-3"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(1)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-8(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "AU-12(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "CA-7(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-4(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(c)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(d)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(1)(e)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-5(f)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-6"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "IA-2-0"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-10"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SC-11"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(a)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ VSI Custom v0.2.0",
-                                "control_id": "SI-4(c)"
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-12(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
                             }
                         ]
                     },
@@ -963,6 +734,18 @@
                         },
                         {
                             "key": "hs_crypto_instance_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "hs_crypto_resource_group",
+                            "hidden": true
+                        },
+                        {
+                            "key": "add_edge_vpc",
+                            "hidden": true
+                        },
+                        {
+                            "key": "teleport_management_zones",
                             "hidden": true
                         },
                         {
@@ -1316,216 +1099,47 @@
                     "name": "standard",
                     "install_type": "fullstack",
                     "working_directory": "patterns/roks",
-                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
+                        "authority": "scc-v3",
                         "controls": [
                             {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-2(4)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-2(7)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-2(g)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-6(9)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-7(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-11(1)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-11(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-11(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-14(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-16(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AC-17(9)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-2(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-2(d)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-3"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-4"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-8(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-8(1)(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-8(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-8(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-12(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-12(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "AU-12(c)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "CA-2(2)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "CA-7(d)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "CM-2"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "CM-8(3)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-2-0"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-4(c)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-4(d)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-5(1)(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-5(1)(d)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-5(1)(e)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-5(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-5(f)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "IA-6"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "RA-5(1)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "RA-5(2)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "RA-5(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SA-10(1)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SC-2"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SC-3"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SC-7"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SC-10"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SC-7-0"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-2(2)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-3(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-4(a)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-4(b)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-4(c)"
-                            },
-                            {
-                                "profile_name": "SLZ ROKS Custom v0.2.0",
-                                "control_id": "SI-12"
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-2(2)(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
                             }
                         ]
                     },
@@ -1547,18 +1161,12 @@
                             "key": "enable_f5_external_fip"
                         },
                         {
-                            "key": "vpcs"
-                        },
-                        {
                             "hidden": true,
                             "key": "vpn_firewall_type"
                         },
                         {
                             "hidden": true,
                             "key": "license_type"
-                        },
-                        {
-                            "key": "add_kms_block_storage_s2s"
                         },
                         {
                             "hidden": true,
@@ -1581,11 +1189,12 @@
                             "key": "teleport_admin_email"
                         },
                         {
-                            "key": "flavor"
+                            "hidden": true,
+                            "key": "hostname"
                         },
                         {
                             "hidden": true,
-                            "key": "hostname"
+                            "key": "ssh_public_key"
                         },
                         {
                             "custom_config": {
