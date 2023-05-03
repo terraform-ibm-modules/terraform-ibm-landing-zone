@@ -117,7 +117,7 @@ module "cluster" {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "openshift"
   }
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=4540"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.2.0"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
