@@ -71,7 +71,6 @@ variable "vpcs" {
     object({
       prefix                      = string           # VPC prefix
       resource_group              = optional(string) # Name of the group where VPC will be created
-      use_manual_address_prefixes = optional(bool)
       classic_access              = optional(bool)
       default_network_acl_name    = optional(string)
       default_security_group_name = optional(string)

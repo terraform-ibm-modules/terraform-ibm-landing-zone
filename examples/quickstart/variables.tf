@@ -96,7 +96,6 @@ variable "override_json_string" {
    "vpcs": [
       {
          "flow_logs_bucket_name": null,
-         "use_manual_address_prefixes": true,
          "network_acls": [
             {
                "add_cluster_rules": false,
@@ -155,10 +154,14 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       },
       {
-         "use_manual_address_prefixes": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -207,6 +210,11 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       }
    ],
