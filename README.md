@@ -1,7 +1,5 @@
 <!-- BEGIN MODULE HOOK -->
 
-<!-- Update the title to match the module name and add a description -->
-
 # IBM Secure Landing Zone module
 
 <!-- UPDATE BADGE: Update the link for the badge below-->
