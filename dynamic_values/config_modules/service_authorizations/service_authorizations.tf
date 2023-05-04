@@ -82,7 +82,7 @@ module "flow_logs_to_cos" {
   list = [
     for instance in var.cos :
     {
-      name                        = "flow-logs-${instance.name}-cos"
+      name                        = "flow-logs-${instance.name}"
       source_service_name         = "is"
       source_resource_type        = "flow-log-collector"
       description                 = "Allow flow logs write access cloud object storage instance"

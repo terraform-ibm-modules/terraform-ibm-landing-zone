@@ -7,7 +7,7 @@ locals {
 }
 
 module "vpc" {
-  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v6.0.1"
+  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1"
   for_each                               = local.vpc_map
   name                                   = each.value.prefix
   tags                                   = var.tags
@@ -16,7 +16,6 @@ module "vpc" {
   prefix                                 = var.prefix
   network_cidr                           = var.network_cidr
   classic_access                         = each.value.classic_access
-  use_manual_address_prefixes            = each.value.use_manual_address_prefixes
   default_network_acl_name               = each.value.default_network_acl_name
   default_security_group_name            = each.value.default_security_group_name
   security_group_rules                   = each.value.default_security_group_rules == null ? [] : each.value.default_security_group_rules

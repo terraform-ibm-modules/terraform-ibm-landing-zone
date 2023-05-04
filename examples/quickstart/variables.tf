@@ -26,7 +26,7 @@ variable "region" {
 }
 
 variable "ssh_key" {
-  description = "Public SSH key to use to provision a VSI. Must be a valid SSH key that does not already exist in the deployment region. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. If key already exists in the deployment region, it will be used and no new key will be created."
   type        = string
 }
 
@@ -96,7 +96,6 @@ variable "override_json_string" {
    "vpcs": [
       {
          "flow_logs_bucket_name": null,
-         "use_manual_address_prefixes": true,
          "network_acls": [
             {
                "add_cluster_rules": false,
@@ -155,10 +154,14 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       },
       {
-         "use_manual_address_prefixes": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -207,6 +210,11 @@ variable "override_json_string" {
             "zone-1": false,
             "zone-2": false,
             "zone-3": false
+         },
+         "address_prefixes": {
+            "zone-1": [],
+            "zone-2": [],
+            "zone-3": []
          }
       }
    ],
