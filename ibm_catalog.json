@@ -1230,10 +1230,6 @@
                             "key": "tgstandby_url"
                         },
                         {
-                            "key": "ssh_public_key",
-                            "required": true
-                        },
-                        {
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
