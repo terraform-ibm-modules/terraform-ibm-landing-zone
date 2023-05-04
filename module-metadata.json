@@ -2437,7 +2437,7 @@
           },
           "pos": {
             "filename": "ssh_key/main.tf",
-            "line": 23
+            "line": 22
           }
         }
       },

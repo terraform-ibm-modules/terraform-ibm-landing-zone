@@ -12,7 +12,6 @@ resource "ibm_is_ssh_key" "ssh_key" {
   resource_group = each.value.resource_group_id
   tags           = var.tags
 }
-
 ##############################################################################
 
 
