@@ -1,7 +1,5 @@
 <!-- BEGIN MODULE HOOK -->
 
-<!-- Update the title to match the module name and add a description -->
-
 # IBM Secure Landing Zone module
 
 <!-- UPDATE BADGE: Update the link for the badge below-->
@@ -904,7 +902,7 @@ statement instead the previous block.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git | 4540 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git | v3.2.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.0.1 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |

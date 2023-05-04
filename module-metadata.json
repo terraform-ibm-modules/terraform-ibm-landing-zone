@@ -1699,7 +1699,7 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=4540",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.2.0",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
