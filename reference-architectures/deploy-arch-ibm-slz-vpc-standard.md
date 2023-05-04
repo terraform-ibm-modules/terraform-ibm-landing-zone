@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-17"
+lastupdated: "2023-05-04"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 3.5.1
+version: 3.5.4
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -49,7 +49,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="3.5.1"}
+{: toc-version="3.5.4"}
 
 The Standard variation of the VPC landing zone deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
 
