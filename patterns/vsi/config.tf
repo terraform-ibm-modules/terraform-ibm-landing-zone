@@ -95,9 +95,6 @@ locals {
       {
         name       = "ssh-key"
         public_key = var.ssh_public_key
-        # If key already exists do not create new key, use existing key if the value is selected as true
-        create = !var.use_existing_sshkey
-        id     = var.use_existing_sshkey ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
       }
     ]
     ##############################################################################

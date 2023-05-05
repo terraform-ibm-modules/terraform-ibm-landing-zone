@@ -223,6 +223,12 @@ variable "transit_gateway_connections" {
 # VSI Variables
 ##############################################################################
 
+variable "use_existing_sshkey" {
+  description = "A flag that indicates whether a new SSH key is required. If set to true, the existing SSH key will be used if it already exists. If set to false, a new SSH key is required."
+  type        = bool
+  default     = false
+}
+
 variable "ssh_keys" {
   description = "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type = list(
@@ -230,8 +236,6 @@ variable "ssh_keys" {
       name           = string
       public_key     = optional(string)
       resource_group = optional(string)
-      create         = optional(bool)
-      id             = optional(string)
     })
   )
 
