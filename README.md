@@ -417,7 +417,7 @@ Users can add a name and optionally a public key. If `public_key` is not provide
 
 #### vsi variable
 
-Note - You can't change the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
+:information_source: **Tip:** After the infrastructure is created, changes to the `vsi` variable won't change the VSI image. The restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
