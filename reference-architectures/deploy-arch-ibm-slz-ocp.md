@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-13"
+lastupdated: "2023-05-05"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 3.5.1
+version: 3.6.4
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -49,7 +49,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="3.5.1"}
+{: toc-version="3.6.4"}
 
 Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
@@ -94,14 +94,6 @@ business challenge, or target cloud environments.
 | Collect and store Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs | Activity Tracker | | |
 | Securely connect to multiple networks with a site-to-site virtual private network | | | |
 {: caption="Table 2. Network security architecture decisions" caption-side="bottom"}
-
-### Key and password management architecture decisions
-{: #ra-ocp-components-arch-key-pw}
-
-| Requirement | Component | Reasons for choice | Alternative choice |
-|-------------|-----------|--------------------|--------------------|
-| * Use public and private SSH keys to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the bastion host  \n * Do not store private SSH key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secrets Manager. Do not print SSH keys in any log files. Do not persist private SSH key. | |
-{: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
 <!--
 ## Compliance
