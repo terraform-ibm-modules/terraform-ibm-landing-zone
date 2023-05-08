@@ -59,11 +59,3 @@ variable "ssh_keys" {
 }
 
 ##############################################################################
-
-variable "use_existing_sshkey" {
-  description = "This flag will enable the usage of existing ssh key if already exists otherwise new ssh key will be required."
-  type        = bool
-  default     = false
-}
-
-##############################################################################

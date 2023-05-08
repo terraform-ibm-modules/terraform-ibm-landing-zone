@@ -216,6 +216,12 @@ variable "ssh_public_key" {
   }
 }
 
+variable "existing_ssh_key_name" {
+  description = "The name of the public ssh key which already exists."
+  type        = string
+  default     = null
+}
+
 variable "f5_image_name" {
   description = "Image name for f5 deployments. Must be null or one of `f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`,`f5-bigip-16-1-3-2-0-0-4-ltm-1slot`,`f5-bigip-16-1-3-2-0-0-4-all-1slot`,`f5-bigip-17-0-0-1-0-0-4-ltm-1slot`,`f5-bigip-17-0-0-1-0-0-4-all-1slot`]."
   type        = string

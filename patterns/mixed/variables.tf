@@ -21,10 +21,17 @@ variable "prefix" {
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
+  default     = null
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
+}
+
+variable "existing_ssh_key_name" {
+  description = "The name of the public ssh key which already exists."
+  type        = string
+  default     = null
 }
 
 variable "region" {
@@ -613,7 +620,7 @@ variable "add_kms_block_storage_s2s" {
 variable "override" {
   description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
   type        = bool
-  default     = false
+  default     = true #false
 }
 
 variable "override_json_string" {

@@ -115,12 +115,13 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = var.ssh_public_key != null ? [
+    ssh_keys = var.ssh_public_key != null || var.existing_ssh_key_name != null ? [
       {
-        name       = "ssh-key"
-        public_key = var.ssh_public_key
+        name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
+        public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
       }
     ] : []
+
     ##############################################################################
 
     ##############################################################################

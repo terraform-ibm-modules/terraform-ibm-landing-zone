@@ -25,10 +25,17 @@ variable "region" {
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. If key already exists in the deployment region, it will be used and no new key will be created."
   type        = string
+  default     = null
   validation {
     error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
+}
+
+variable "existing_ssh_key_name" {
+  description = "The name of the public ssh key which already exists."
+  type        = string
+  default     = null
 }
 
 variable "tags" {
@@ -569,14 +576,6 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   default     = ""
   type        = string
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
-}
-
-##############################################################################
-
-variable "use_existing_sshkey" {
-  description = "This flag will enable the usage of existing ssh key if already exists otherwise new ssh key will be required."
-  type        = bool
-  default     = false
 }
 
 ##############################################################################
