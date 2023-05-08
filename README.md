@@ -39,6 +39,10 @@ For more information about the default configuration, see [Default Secure Landin
 
 ## Before you begin
 
+Some features of this module require additional software beyond the [Terraform CLI](https://www.terraform.io/).
+- Make sure that you have a recent version of the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
+- Install the IBM Cloud CLI [VPC Infrastructure Plugin](https://cloud.ibm.com/docs/cli?topic=cli-vpc-reference)
+
 Complete the following steps before you deploy the Secure Landing Zone module.
 ### Set up an IBM Cloud Account
 
