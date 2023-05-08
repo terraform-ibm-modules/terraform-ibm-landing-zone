@@ -2,7 +2,7 @@
 
 ## Architecture diagram
 
-![ROKS pattern architecture diagram](../images/patterns/roks-pattern.png)
+![ROKS pattern architecture diagram](../../reference-architectures/roks.drawio.svg)
 
 ## Configured components and services
 

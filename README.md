@@ -11,7 +11,7 @@
 
 <!-- Remove the content in this H2 heading after completing the steps -->
 
-The landing zone module can be used to create a fully customizable VPC environment within a single region. The three following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
+The landing zone module can be used to create a fully customizable VPC environment within a single region. The four following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
 
 Each of these patterns creates the following infrastructure:
 
@@ -35,7 +35,7 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| ![VPC](./.docs/images/vpc.png) | ![VSI](./.docs/images/vsi.png) | ![ROKS](./.docs/images/roks.png) | ![Mixed](./.docs/images/mixed.png) |
+| ![VPC](reference-architectures/vpc.drawio.svg) | ![VSI](reference-architectures/vsi-vsi.drawio.svg) | ![ROKS](reference-architectures/roks.drawio.svg) | ![Mixed](./.docs/images/mixed.png) |
 
 ## Before you begin
 
@@ -56,7 +56,7 @@ Complete the following steps before you deploy the Secure Landing Zone module.
 1.  Log in to [IBM Cloud](https://cloud.ibm.com) with the IBMid you used to set up the account. This IBMid user is the account owner and has full IAM access.
 1.  [Complete the company profile](https://cloud.ibm.com/docs/account?topic=account-contact-info) and contact information for the account. This profile is required to stay in compliance with IBM Cloud Financial Service profile.
 1.  [Enable the Financial Services Validated option](https://cloud.ibm.com/docs/account?topic=account-enabling-fs-validated) for your account.
-1.  Enable virtual routing and forwarding (VRF) and service endpoints by creating a support case. Follow the instructions in  [enabling VRF and service endpoints](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint&interface=ui#vrf).
+1.  Enable virtual routing and forwarding (VRF) and service endpoints by creating a support case. Follow the instructions in enabling VRF and service endpoints](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint&interface=ui#vrf).
 
 ### Set up account access (Cloud IAM)
 
@@ -421,7 +421,7 @@ Users can add a name and optionally a public key. If `public_key` is not provide
 
 #### vsi variable
 
-Note - You can't make changes to the VSI image with this module. That restriction is in place so that you don't inadvertently create an outage or lose data.
+:information_source: **Tip:** After the infrastructure is created, changes to the `vsi` variable won't change the VSI image. The restriction is in place so that you don't inadvertently create an outage or lose data.
 
 The following example shows the `vsi` virtual server variable type.
 
