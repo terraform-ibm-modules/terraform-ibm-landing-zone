@@ -620,7 +620,7 @@ variable "add_kms_block_storage_s2s" {
 variable "override" {
   description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
   type        = bool
-  default     = true #false
+  default     = false
 }
 
 variable "override_json_string" {
