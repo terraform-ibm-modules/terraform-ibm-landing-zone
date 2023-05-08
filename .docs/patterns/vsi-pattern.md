@@ -2,7 +2,7 @@
 
 ## Architecture diagram
 
-![VSI pattern architecture diagram](../images/patterns/vsi-pattern.png)
+![VSI pattern architecture diagram](../../reference-architectures/vsi-vsi.drawio.svg)
 
 ## Configured components and services
 

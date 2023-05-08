@@ -2,7 +2,7 @@
 
 ## Architecture diagram
 
-![VPC pattern architecture diagram](../images/patterns/vpc-pattern.png)
+![VPC pattern architecture diagram](../../reference-architectures/vpc.drawio.svg)
 
 ## Configured components and services
 

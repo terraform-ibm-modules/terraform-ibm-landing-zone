@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-13"
+lastupdated: "2023-05-05"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 3.5.1
+version: 3.6.4
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -47,7 +47,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="3.5.1"}
+{: toc-version="3.6.4"}
 
 The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
@@ -96,5 +96,5 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Use public and private SSH keys to access virtual server instances by using SSH  \n * Do not store private SSH key on any virtual instances, also not on the jump box host  \n * Do not allow any other SSH login methods except the one with the specified public and private SSH key pair | Public and private SSH keys provided by customer | Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secrets Manager. | |
+| * Use public SSH key to access virtual server instances by using SSH | Public SSH key provided by customer | Ask customer to specify the key. Accept the input as secure parameter. | |
 {: caption="Table 3. Key and passwords management architecture decisions" caption-side="bottom"}
