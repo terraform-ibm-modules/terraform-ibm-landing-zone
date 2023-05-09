@@ -63,6 +63,7 @@ module "landing_zone" {
     local.env.security_compliance_center,
     { credential_id = var.enable_scc ? ibm_scc_posture_credential.credentials[0].id : null }
   )
+  ibmcloud_api_key = var.ibmcloud_api_key
 }
 
 ##############################################################################
