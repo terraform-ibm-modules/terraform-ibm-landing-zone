@@ -46,6 +46,13 @@ locals {
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
   ##############################################################################
+  # VALIDATION FOR SSH_KEY
+  ##############################################################################
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_ssh = (var.ssh_public_key == null && var.existing_ssh_key_name == null) ? tobool("Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them.") : true
+
+  ##############################################################################
   # Default SSH key
   ##############################################################################
   ssh_keys = [
