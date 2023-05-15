@@ -29,8 +29,6 @@ const add_atracker_route = false
 var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
 	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
-	"module.landing_zone.module.vpc[\"management\"].ibm_is_network_acl.network_acl[\"management-acl\"]",
-	"module.landing_zone.module.vpc[\"workload\"].ibm_is_network_acl.network_acl[\"workload-acl\"]",
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
