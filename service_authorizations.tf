@@ -31,7 +31,7 @@ resource "ibm_iam_authorization_policy" "policy" {
 resource "time_sleep" "wait_for_authorization_policy" {
   depends_on = [ibm_iam_authorization_policy.policy]
 
-  create_duration = "5m"
+  create_duration = "30s"
 }
 
 ##############################################################################
