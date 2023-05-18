@@ -73,10 +73,8 @@ output "value" {
         add_ibm_cloud_internal_rules = network == "edge" ? false : var.add_ibm_cloud_internal_rules
         add_vpc_connectivity_rules   = network == "edge" ? false : var.add_vpc_connectivity_rules
         prepend_ibm_rules            = network == "edge" ? false : var.prepend_ibm_rules
-        rules = concat(
-          module.acl_rules.default_vpc_rules,
-          network_acl != network ? module.acl_rules[network_acl] : []
-        )
+        # Not concatenating default vpc rules (acl_rules) as it will be added from the SLZ-VPC module, preventing the duplication of ACLs
+        rules = network_acl != network ? module.acl_rules[network_acl] : []
       }
     ]
   }
