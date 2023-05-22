@@ -23,7 +23,7 @@ variable "region" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. If key already exists in the deployment region, it will be used and no new key will be created."
+  description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, enter a value for the variable 'existing_ssh_key_name' instead."
   type        = string
   default     = null
   validation {
@@ -33,7 +33,7 @@ variable "ssh_public_key" {
 }
 
 variable "existing_ssh_key_name" {
-  description = "The name of the public ssh key which already exists."
+  description = "The name of a public SSH Key which already exists in the deployment region that will be used for VSI creation. To add a new SSH key, use the variable 'ssh_public_key' instead."
   type        = string
   default     = null
 }

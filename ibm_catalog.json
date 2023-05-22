@@ -50,7 +50,7 @@
                     "name": "quickstart",
                     "install_type": "fullstack",
                     "working_directory": "examples/quickstart",
-                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_key   = var.ssh_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {},
                     "configuration": [
                         {
@@ -60,16 +60,6 @@
                                 "type": "json_editor"
                             },
                             "key": "override_json_string"
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "required": true,
-                            "type": "password"
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true,
-                            "type": "string"
                         },
                         {
                             "custom_config": {
@@ -85,12 +75,12 @@
                             "type": "string"
                         },
                         {
-                            "key": "ssh_key",
                             "required": true,
-                            "type": "string"
+                            "key": "ibmcloud_api_key"
                         },
                         {
-                            "key": "resource_tags"
+                            "required": true,
+                            "key": "ssh_key"
                         }
                     ],
                     "iam_permissions": [
@@ -238,11 +228,20 @@
                     },
                     "configuration": [
                         {
-                            "hidden": true,
-                            "key": "teleport_domain"
+                            "required": true,
+                            "key": "ibmcloud_api_key"
                         },
                         {
-                            "key": "add_atracker_route"
+                            "required": true,
+                            "key": "prefix"
+                        },
+                        {
+                            "required": true,
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "teleport_domain"
                         },
                         {
                             "hidden": true,
@@ -251,9 +250,6 @@
                         {
                             "hidden": true,
                             "key": "template_version"
-                        },
-                        {
-                            "key": "vsi_per_subnet"
                         },
                         {
                             "key": "teleport_hostname",
@@ -266,9 +262,6 @@
                         {
                             "hidden": true,
                             "key": "teleport_management_zones"
-                        },
-                        {
-                            "key": "network_cidr"
                         },
                         {
                             "hidden": true,
@@ -313,12 +306,6 @@
                         {
                             "hidden": true,
                             "key": "f5_instance_profile"
-                        },
-                        {
-                            "key": "tags"
-                        },
-                        {
-                            "key": "use_random_cos_suffix"
                         },
                         {
                             "hidden": true,
@@ -397,9 +384,6 @@
                             "key": "hostname"
                         },
                         {
-                            "key": "add_kms_block_storage_s2s"
-                        },
-                        {
                             "hidden": true,
                             "key": "use_existing_appid"
                         },
@@ -412,10 +396,6 @@
                             "key": "override_json_string"
                         },
                         {
-                            "key": "ssh_public_key",
-                            "required": true
-                        },
-                        {
                             "hidden": true,
                             "key": "tmos_admin_password",
                             "type": "password"
@@ -425,23 +405,12 @@
                             "key": "license_sku_keyword_1"
                         },
                         {
-                            "key": "vsi_image_name"
-                        },
-                        {
                             "hidden": true,
                             "key": "teleport_version"
                         },
                         {
-                            "key": "ibmcloud_api_key",
-                            "required": true,
-                            "type": "password"
-                        },
-                        {
                             "hidden": true,
                             "key": "hs_crypto_instance_name"
-                        },
-                        {
-                            "key": "enable_transit_gateway"
                         },
                         {
                             "custom_config": {
@@ -472,9 +441,6 @@
                             "key": "teleport_instance_profile"
                         },
                         {
-                            "key": "vsi_instance_profile"
-                        },
-                        {
                             "hidden": true,
                             "key": "license_unit_of_measure"
                         },
@@ -501,9 +467,6 @@
                         {
                             "hidden": true,
                             "key": "as3_declaration_url"
-                        },
-                        {
-                            "key": "vpcs"
                         },
                         {
                             "key": "prefix",
@@ -712,15 +675,6 @@
                     },
                     "configuration": [
                         {
-                            "key": "ibmcloud_api_key",
-                            "required": true,
-                            "type": "password"
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
-                        },
-                        {
                             "custom_config": {
                                 "config_constraints": {
                                     "generationType": "2"
@@ -730,6 +684,14 @@
                                 "type": "vpc_region"
                             },
                             "key": "region",
+                            "required": true
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "required": true
+                        },
+                        {
+                            "key": "prefix",
                             "required": true
                         },
                         {
@@ -1145,6 +1107,14 @@
                     },
                     "configuration": [
                         {
+                            "required": true,
+                            "key": "ibmcloud_api_key"
+                        },
+                        {
+                            "required": true,
+                            "key": "prefix"
+                        },
+                        {
                             "hidden": true,
                             "key": "tgactive_url"
                         },
@@ -1209,11 +1179,6 @@
                             "required": true
                         },
                         {
-                            "key": "ibmcloud_api_key",
-                            "required": true,
-                            "type": "password"
-                        },
-                        {
                             "hidden": true,
                             "key": "scc_cred_name"
                         },
@@ -1254,9 +1219,6 @@
                             "hidden": true
                         },
                         {
-                            "key": "entitlement"
-                        },
-                        {
                             "hidden": true,
                             "key": "tmos_admin_password",
                             "type": "password"
@@ -1264,9 +1226,6 @@
                         {
                             "hidden": true,
                             "key": "teleport_management_zones"
-                        },
-                        {
-                            "key": "update_all_workers"
                         },
                         {
                             "key": "hs_crypto_resource_group",
@@ -1297,9 +1256,6 @@
                             "key": "f5_image_name"
                         },
                         {
-                            "key": "kube_version"
-                        },
-                        {
                             "hidden": true,
                             "key": "provision_teleport_in_f5"
                         },
@@ -1310,9 +1266,6 @@
                         {
                             "hidden": true,
                             "key": "teleport_instance_profile"
-                        },
-                        {
-                            "key": "use_random_cos_suffix"
                         },
                         {
                             "hidden": true,
@@ -1363,14 +1316,8 @@
                             "key": "license_username"
                         },
                         {
-                            "key": "add_atracker_route"
-                        },
-                        {
                             "hidden": true,
                             "key": "tgrefresh_url"
-                        },
-                        {
-                            "key": "tags"
                         },
                         {
                             "hidden": true,
@@ -1383,12 +1330,6 @@
                         {
                             "hidden": true,
                             "key": "ts_declaration_url"
-                        },
-                        {
-                            "key": "network_cidr"
-                        },
-                        {
-                            "key": "enable_transit_gateway"
                         },
                         {
                             "key": "override",
@@ -1423,9 +1364,6 @@
                         {
                             "hidden": true,
                             "key": "template_source"
-                        },
-                        {
-                            "key": "wait_till"
                         }
                     ],
                     "iam_permissions": [
