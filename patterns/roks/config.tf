@@ -116,15 +116,13 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = var.ssh_public_key != null ? [
+    ssh_keys = var.ssh_public_key != null || var.existing_ssh_key_name != null ? [
       {
-        name       = "ssh-key"
-        public_key = var.ssh_public_key
-        # If key already exists do not create new key, use key id
-        create = !local.key_already_exists
-        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
+        name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
+        public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
       }
     ] : []
+
     ##############################################################################
 
     ##############################################################################

@@ -46,6 +46,27 @@ locals {
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
   ##############################################################################
+  # VALIDATION FOR SSH_KEY
+  ##############################################################################
+
+  override_validation   = (var.override == false && length(var.override_json_string) == 0) ? true : false
+  sshkey_var_validation = (var.ssh_public_key == null && var.existing_ssh_key_name == null) ? true : false
+
+  # tflint-ignore: terraform_unused_declarations
+  validate_ssh = local.override_validation && local.sshkey_var_validation ? tobool("Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them.") : true
+
+  ##############################################################################
+  # Default SSH key
+  ##############################################################################
+  ssh_keys = [
+    {
+      name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
+      public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
+    }
+  ]
+  ##############################################################################
+
+  ##############################################################################
   # Dynamic configuration for landing zone environment
   ##############################################################################
 
@@ -69,7 +90,7 @@ locals {
           vpc_name = var.vpcs[0]
           rules    = module.dynamic_values.default_vsi_sg_rules
         },
-        ssh_keys = ["ssh-key"]
+        ssh_keys = [local.ssh_keys[0].name]
       }
     ]
     ##############################################################################
@@ -129,19 +150,6 @@ locals {
     }
     ##############################################################################
 
-    ##############################################################################
-    # Default SSH key
-    ##############################################################################
-    ssh_keys = [
-      {
-        name       = "ssh-key"
-        public_key = var.ssh_public_key
-        # If key already exists do not create new key, use key id
-        create = !local.key_already_exists
-        id     = local.key_already_exists ? join("", [for key_name, key_id in local.existing_ssh_key_id : key_id]) : null
-      }
-    ]
-    ##############################################################################
 
     ##############################################################################
     # VPE
@@ -319,7 +327,7 @@ locals {
     enable_transit_gateway         = lookup(local.override[local.override_type], "enable_transit_gateway", local.config.enable_transit_gateway)
     transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
-    ssh_keys                       = lookup(local.override[local.override_type], "ssh_keys", local.config.ssh_keys)
+    ssh_keys                       = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
     network_cidr                   = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
     vsi                            = lookup(local.override[local.override_type], "vsi", local.config.vsi)
     security_groups                = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
