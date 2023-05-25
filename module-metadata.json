@@ -11,7 +11,31 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1096
+        "line": 1102
+      }
+    },
+    "access_tags": {
+      "name": "access_tags",
+      "type": "list(string)",
+      "description": "A list of access tags to apply to the VPC resources created by the module. For more information, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial.",
+      "default": [],
+      "source": [
+        "module.vpc.ibm_is_flow_log.flow_logs.access_tags",
+        "module.vpc.ibm_is_network_acl.network_acl.access_tags",
+        "module.vpc.ibm_is_public_gateway.gateway.access_tags",
+        "module.vpc.ibm_is_subnet.subnet.access_tags",
+        "module.vpc.ibm_is_vpc.vpc.access_tags"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 26
+      },
+      "min_length": 1,
+      "max_length": 128,
+      "matches": "^([A-Za-z0-9_.-]|[A-Za-z0-9_.-][A-Za-z0-9_ .-]*[A-Za-z0-9_.-]):([A-Za-z0-9_.-]|[A-Za-z0-9_.-][A-Za-z0-9_ .-]*[A-Za-z0-9_.-])$",
+      "computed": true,
+      "elem": {
+        "type": "TypeString"
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +49,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1517
+        "line": 1523
       }
     },
     "appid": {
@@ -42,7 +66,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 853
+        "line": 859
       }
     },
     "atracker": {
@@ -56,7 +80,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 735
+        "line": 741
       }
     },
     "clusters": {
@@ -69,7 +93,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 751
+        "line": 757
       }
     },
     "cos": {
@@ -82,7 +106,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 467
+        "line": 473
       }
     },
     "enable_transit_gateway": {
@@ -96,7 +120,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 204
+        "line": 210
       }
     },
     "f5_template_data": {
@@ -112,7 +136,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1364
+        "line": 1370
       }
     },
     "f5_vsi": {
@@ -125,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1228
+        "line": 1234
       }
     },
     "iam_account_settings": {
@@ -149,7 +173,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 990
+        "line": 996
       }
     },
     "key_management": {
@@ -164,7 +188,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 690
+        "line": 696
       }
     },
     "network_cidr": {
@@ -177,7 +201,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 56
+        "line": 62
       }
     },
     "prefix": {
@@ -277,7 +301,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 33
+        "line": 39
       }
     },
     "secrets_manager": {
@@ -296,7 +320,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1410
+        "line": 1416
       }
     },
     "security_compliance_center": {
@@ -317,7 +341,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1426
+        "line": 1432
       }
     },
     "security_groups": {
@@ -330,7 +354,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 371
+        "line": 377
       }
     },
     "service_endpoints": {
@@ -340,7 +364,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 679
+        "line": 685
       }
     },
     "ssh_keys": {
@@ -353,7 +377,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 226
+        "line": 232
       }
     },
     "tags": {
@@ -417,7 +441,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 897
+        "line": 903
       }
     },
     "teleport_vsi": {
@@ -430,7 +454,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 923
+        "line": 929
       }
     },
     "transit_gateway_connections": {
@@ -440,7 +464,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 215
+        "line": 221
       }
     },
     "transit_gateway_resource_group": {
@@ -450,7 +474,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 210
+        "line": 216
       }
     },
     "virtual_private_endpoints": {
@@ -463,7 +487,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 442
+        "line": 448
       }
     },
     "vpc_placement_groups": {
@@ -476,7 +500,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1485
+        "line": 1491
       }
     },
     "vpcs": {
@@ -489,7 +513,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 62
+        "line": 68
       }
     },
     "vpn_gateways": {
@@ -502,7 +526,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 175
+        "line": 181
       }
     },
     "vsi": {
@@ -515,7 +539,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 259
+        "line": 265
       }
     },
     "wait_till": {
@@ -528,7 +552,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 832
+        "line": 838
       }
     }
   },
@@ -2497,8 +2521,9 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0",
       "attributes": {
+        "access_tags": "access_tags",
         "network_cidr": "network_cidr",
         "prefix": "prefix",
         "region": "region",
@@ -2518,7 +2543,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 106
+            "line": 108
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2526,6 +2551,7 @@
           "type": "ibm_is_flow_log",
           "name": "flow_logs",
           "attributes": {
+            "access_tags": "access_tags",
             "active": "is_flow_log_collector_active",
             "count": "enable_vpc_flow_logs",
             "name": "prefix",
@@ -2538,7 +2564,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 117
+            "line": 119
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2546,6 +2572,7 @@
           "type": "ibm_is_network_acl",
           "name": "network_acl",
           "attributes": {
+            "access_tags": "access_tags",
             "name": "prefix",
             "resource_group": "resource_group_id"
           },
@@ -2562,6 +2589,7 @@
           "type": "ibm_is_public_gateway",
           "name": "gateway",
           "attributes": {
+            "access_tags": "access_tags",
             "name": "prefix",
             "resource_group": "resource_group_id",
             "tags": "tags"
@@ -2571,7 +2599,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 85
+            "line": 86
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2591,6 +2619,7 @@
           "type": "ibm_is_subnet",
           "name": "subnet",
           "attributes": {
+            "access_tags": "access_tags",
             "resource_group": "resource_group_id",
             "tags": "tags"
           },
@@ -2607,6 +2636,7 @@
           "type": "ibm_is_vpc",
           "name": "vpc",
           "attributes": {
+            "access_tags": "access_tags",
             "address_prefix_management": "address_prefixes",
             "classic_access": "classic_access",
             "default_network_acl_name": "default_network_acl_name",
@@ -2633,7 +2663,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 31
+            "line": 32
           }
         },
         "ibm_is_vpc_address_prefix.subnet_prefix": {
@@ -2660,7 +2690,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 50
+            "line": 51
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2675,7 +2705,37 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 59
+            "line": 60
+          }
+        },
+        "null_resource.clean_default_acl": {
+          "mode": "managed",
+          "type": "null_resource",
+          "name": "clean_default_acl",
+          "attributes": {
+            "count": "clean_default_acl"
+          },
+          "provider": {
+            "name": "null"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 153
+          }
+        },
+        "null_resource.clean_default_security_group": {
+          "mode": "managed",
+          "type": "null_resource",
+          "name": "clean_default_security_group",
+          "attributes": {
+            "count": "clean_default_security_group"
+          },
+          "provider": {
+            "name": "null"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 137
           }
         }
       },
@@ -2689,7 +2749,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 39
+            "line": 40
           }
         }
       },

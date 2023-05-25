@@ -1,6 +1,7 @@
 package test
 
 import (
+	"log"
 	"os"
 	"testing"
 
@@ -17,9 +18,12 @@ const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
 const resourceGroup = "geretain-test-resources"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
+
+var permanentResources map[string]interface{}
 
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
 var ignoreUpdates = []string{
@@ -33,6 +37,13 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	os.Exit(m.Run())
 }
 
@@ -54,7 +65,8 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
+			"ssh_key":     sshPublicKey,
+			"access_tags": permanentResources["accessTags"],
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
@@ -107,6 +119,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
 		"region":         options.Region,
+		"access_tags":    permanentResources["access_tags"],
 	}
 
 	return options
@@ -155,6 +168,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
+		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
@@ -200,6 +214,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
+		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
