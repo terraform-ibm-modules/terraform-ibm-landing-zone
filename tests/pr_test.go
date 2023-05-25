@@ -119,7 +119,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
 		"region":         options.Region,
-		"access_tags":    permanentResources["access_tags"],
+		"access_tags":    permanentResources["accessTags"],
 	}
 
 	return options
