@@ -28,6 +28,9 @@ module "vpc" {
   create_authorization_policy_vpc_to_cos = false
   existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
   depends_on                             = [ibm_iam_authorization_policy.policy]
+  ibmcloud_api_key                       = var.ibmcloud_api_key
+  clean_default_security_group           = (each.value.clean_default_security_group == null) ? false : each.value.clean_default_security_group
+  clean_default_acl                      = (each.value.clean_default_acl == null) ? false : each.value.clean_default_acl
 }
 
 
