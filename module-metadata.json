@@ -2497,7 +2497,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0",
       "attributes": {
         "network_cidr": "network_cidr",
         "prefix": "prefix",
@@ -2518,7 +2518,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 106
+            "line": 108
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2526,6 +2526,7 @@
           "type": "ibm_is_flow_log",
           "name": "flow_logs",
           "attributes": {
+            "access_tags": "access_tags",
             "active": "is_flow_log_collector_active",
             "count": "enable_vpc_flow_logs",
             "name": "prefix",
@@ -2538,7 +2539,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 117
+            "line": 119
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2546,6 +2547,7 @@
           "type": "ibm_is_network_acl",
           "name": "network_acl",
           "attributes": {
+            "access_tags": "access_tags",
             "name": "prefix",
             "resource_group": "resource_group_id"
           },
@@ -2562,6 +2564,7 @@
           "type": "ibm_is_public_gateway",
           "name": "gateway",
           "attributes": {
+            "access_tags": "access_tags",
             "name": "prefix",
             "resource_group": "resource_group_id",
             "tags": "tags"
@@ -2571,7 +2574,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 85
+            "line": 86
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2591,6 +2594,7 @@
           "type": "ibm_is_subnet",
           "name": "subnet",
           "attributes": {
+            "access_tags": "access_tags",
             "resource_group": "resource_group_id",
             "tags": "tags"
           },
@@ -2607,6 +2611,7 @@
           "type": "ibm_is_vpc",
           "name": "vpc",
           "attributes": {
+            "access_tags": "access_tags",
             "address_prefix_management": "address_prefixes",
             "classic_access": "classic_access",
             "default_network_acl_name": "default_network_acl_name",
@@ -2633,7 +2638,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 31
+            "line": 32
           }
         },
         "ibm_is_vpc_address_prefix.subnet_prefix": {
@@ -2660,7 +2665,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 50
+            "line": 51
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2675,7 +2680,37 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 59
+            "line": 60
+          }
+        },
+        "null_resource.clean_default_acl": {
+          "mode": "managed",
+          "type": "null_resource",
+          "name": "clean_default_acl",
+          "attributes": {
+            "count": "clean_default_acl"
+          },
+          "provider": {
+            "name": "null"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 153
+          }
+        },
+        "null_resource.clean_default_security_group": {
+          "mode": "managed",
+          "type": "null_resource",
+          "name": "clean_default_security_group",
+          "attributes": {
+            "count": "clean_default_security_group"
+          },
+          "provider": {
+            "name": "null"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 137
           }
         }
       },
@@ -2689,7 +2724,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 39
+            "line": 40
           }
         }
       },
