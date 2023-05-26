@@ -1,18 +1,14 @@
 package test
 
 import (
-	"fmt"
 	"os"
-	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/files"
-	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/random"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -41,25 +37,12 @@ func TestMain(m *testing.M) {
 }
 
 func sshPublicKey(t *testing.T) string {
-	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
-	actualTerraformDir := "./resources"
-	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
-	logger.Log(t, "Tempdir: ", tempTerraformDir)
+	pubKey, keyErr := common.GenerateSshRsaPublicKey()
 
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: tempTerraformDir,
-		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
-		// This is the same as setting the -upgrade=true flag with terraform.
-		Upgrade: true,
-	})
+	// if error producing key (very unexpected) fail test immediately
+	require.NoError(t, keyErr, "SSH Keygen failed, without public ssh key test cannot continue")
 
-	terraform.WorkspaceSelectOrNew(t, terraformOptions, prefix)
-	_, existErr := terraform.InitAndApplyE(t, terraformOptions)
-	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
-	}
-
-	return terraform.Output(t, terraformOptions, "ssh_public_key")
+	return pubKey
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
