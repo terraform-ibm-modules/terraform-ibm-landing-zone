@@ -5,9 +5,10 @@
 # any change of this settings.yml file is detected by the GitHub App and
 # the settings of this repository are updated immediately.
 
-_extends: repo-settings:.github/common-settings.yml
+_extends: repo-settings:.github/common-settings-v2.yml
 
 # repo specific settings
 repository:
   name: terraform-ibm-landing-zone
   description: "Creates a fully customizable VPC environment and compute resources (VSI, Red Hat OpenShift) with presets designed to meet strict compliance needs."
+  topics: core-team, terraform, ibm-cloud, terraform-module, slz, secure-landing-zone, landing-zone
