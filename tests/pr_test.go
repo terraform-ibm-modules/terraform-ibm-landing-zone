@@ -1,6 +1,7 @@
 package test
 
 import (
+	"log"
 	"os"
 	"testing"
 
@@ -17,6 +18,7 @@ const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
 const resourceGroup = "geretain-test-resources"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
@@ -28,11 +30,19 @@ var ignoreUpdates = []string{
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
+var permanentResources map[string]interface{}
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	os.Exit(m.Run())
 }
 
@@ -122,6 +132,20 @@ func TestRunRoksPattern(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+func TestRunRoksPatternWithHPCS(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "s-no")
+
+	options.TerraformVars["region"] = "us-south"
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
@@ -182,6 +206,20 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "lzvsihpcs")
+
+	options.TerraformVars["region"] = "us-south"
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -209,6 +247,34 @@ func TestRunVpcPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsVpcPattern(t, "p-vpc")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunVpcPatternWithHPCS(t *testing.T) {
+	t.Parallel()
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  vpcPatternTerraformDir,
+		Prefix:        "lzvpchpcs",
+		ResourceGroup: resourceGroup,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: ignoreUpdates,
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"prefix":                   options.Prefix,
+		"tags":                     options.Tags,
+		"region":                   "us-south",
+		"hs_crypto_instance_name":  permanentResources["hpcs_name_south"],
+		"hs_crypto_resource_group": permanentResources["hpcs_rg_south"],
+		"add_atracker_route":       add_atracker_route,
+	}
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
