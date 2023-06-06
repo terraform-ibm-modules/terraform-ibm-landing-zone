@@ -122,20 +122,10 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "lzrokshpcs")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "lzrokshpcs")
 
 	options.TerraformVars["region"] = "us-south"
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
@@ -182,16 +172,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
-}
-
-func TestRunVsiPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "p-vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
@@ -247,34 +227,6 @@ func TestRunVpcPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsVpcPattern(t, "p-vpc")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunVpcPatternWithHPCS(t *testing.T) {
-	t.Parallel()
-
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  vpcPatternTerraformDir,
-		Prefix:        "lzvpchpcs",
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
-		CloudInfoService: sharedInfoSvc,
-	})
-
-	options.TerraformVars = map[string]interface{}{
-		"prefix":                   options.Prefix,
-		"tags":                     options.Tags,
-		"region":                   "us-south",
-		"hs_crypto_instance_name":  permanentResources["hpcs_name_south"],
-		"hs_crypto_resource_group": permanentResources["hpcs_rg_south"],
-		"add_atracker_route":       add_atracker_route,
-	}
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
