@@ -7,7 +7,7 @@ locals {
 }
 
 module "vpc" {
-  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.0.1"
+  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0"
   for_each                               = local.vpc_map
   name                                   = each.value.prefix
   tags                                   = var.tags
@@ -28,6 +28,9 @@ module "vpc" {
   create_authorization_policy_vpc_to_cos = false
   existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
   depends_on                             = [ibm_iam_authorization_policy.policy]
+  ibmcloud_api_key                       = var.ibmcloud_api_key
+  clean_default_security_group           = (each.value.clean_default_security_group == null) ? false : each.value.clean_default_security_group
+  clean_default_acl                      = (each.value.clean_default_acl == null) ? false : each.value.clean_default_acl
 }
 
 

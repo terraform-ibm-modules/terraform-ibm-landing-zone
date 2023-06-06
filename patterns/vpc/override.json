@@ -132,9 +132,9 @@
   ],
   "vpcs": [
       {
-          "default_security_group_rules": [
-
-          ],
+          "default_security_group_rules": [],
+          "clean_default_security_group": true,
+          "clean_default_acl": true,
           "flow_logs_bucket_name": "management-bucket",
           "network_acls": [
               {
@@ -223,9 +223,9 @@
           }
       },
       {
-          "default_security_group_rules": [
-
-          ],
+          "default_security_group_rules": [],
+          "clean_default_security_group": true,
+          "clean_default_acl": true,
           "flow_logs_bucket_name": "workload-bucket",
           "network_acls": [
               {
