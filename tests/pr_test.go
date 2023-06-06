@@ -125,7 +125,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "lzrokshpcs")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
