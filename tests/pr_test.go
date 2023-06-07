@@ -127,7 +127,6 @@ func TestRunRoksPatternWithHPCS(t *testing.T) {
 
 	options := setupOptionsRoksPattern(t, "lzrokshpcs")
 
-	options.TerraformVars["region"] = "us-south"
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
@@ -191,7 +190,6 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 
 	options := setupOptionsVsiPattern(t, "lzvsihpcs")
 
-	options.TerraformVars["region"] = "us-south"
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
