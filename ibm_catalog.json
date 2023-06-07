@@ -73,14 +73,6 @@
                             "key": "region",
                             "required": true,
                             "type": "string"
-                        },
-                        {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "ssh_key"
                         }
                     ],
                     "iam_permissions": [
@@ -233,18 +225,6 @@
                         ]
                     },
                     "configuration": [
-                        {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "prefix"
-                        },
-                        {
-                            "required": true,
-                            "key": "ssh_public_key"
-                        },
                         {
                             "hidden": true,
                             "key": "teleport_domain"
@@ -465,10 +445,6 @@
                         {
                             "hidden": true,
                             "key": "as3_declaration_url"
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
                         },
                         {
                             "hidden": true,
@@ -697,6 +673,14 @@
                         {
                             "key": "prefix",
                             "required": true
+                        },
+                        {
+                            "key": "hs_crypto_instance_name",
+                            "hidden": true
+                        },
+                        {
+                            "key": "hs_crypto_resource_group",
+                            "hidden": true
                         },
                         {
                             "key": "add_edge_vpc",
@@ -1109,14 +1093,6 @@
                     },
                     "configuration": [
                         {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "prefix"
-                        },
-                        {
                             "hidden": true,
                             "key": "tgactive_url"
                         },
@@ -1320,10 +1296,6 @@
                         {
                             "hidden": true,
                             "key": "https_cert"
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
                         },
                         {
                             "hidden": true,
