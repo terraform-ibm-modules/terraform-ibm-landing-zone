@@ -667,22 +667,6 @@
                             "required": true
                         },
                         {
-                            "key": "ibmcloud_api_key",
-                            "required": true
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
-                        },
-                        {
-                            "key": "hs_crypto_instance_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "hs_crypto_resource_group",
-                            "hidden": true
-                        },
-                        {
                             "key": "add_edge_vpc",
                             "hidden": true
                         },
