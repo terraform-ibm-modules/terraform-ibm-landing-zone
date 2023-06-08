@@ -125,7 +125,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "lzrokshpcs")
+	options := setupOptionsRoksPattern(t, "lzrkshp")
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
