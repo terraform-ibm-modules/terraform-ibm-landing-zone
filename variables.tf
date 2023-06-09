@@ -2,6 +2,13 @@
 # Account Variables
 ##############################################################################
 
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud API Key that will be used for authentication in scripts run in this module. Only required if certain options are required."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -69,11 +76,13 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                      = string           # VPC prefix
-      resource_group              = optional(string) # Name of the group where VPC will be created
-      classic_access              = optional(bool)
-      default_network_acl_name    = optional(string)
-      default_security_group_name = optional(string)
+      prefix                       = string           # VPC prefix
+      resource_group               = optional(string) # Name of the group where VPC will be created
+      classic_access               = optional(bool)
+      default_network_acl_name     = optional(string)
+      default_security_group_name  = optional(string)
+      clean_default_security_group = optional(bool, false)
+      clean_default_acl            = optional(bool, false)
       default_security_group_rules = optional(
         list(
           object({
