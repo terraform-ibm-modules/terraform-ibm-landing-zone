@@ -21,39 +21,11 @@ module "landing_zone_module" {
   region = var.region
   tags   = var.tags
 
-  network_cidr = var.network_cidr
-  # resource_groups                = var.resource_groups
-  vpcs                           = var.vpcs
-  enable_transit_gateway         = var.enable_transit_gateway
-  # vpn_gateways                   = var.vpn_gateways
-  # transit_gateway_resource_group = var.transit_gateway_resource_group
-  # transit_gateway_connections    = var.transit_gateway_connections
-  ssh_public_key                       = var.ssh_public_key
-  # vsi                            = var.vsi
-  # security_groups                = var.security_groups
-  # virtual_private_endpoints      = var.virtual_private_endpoints
-  # # cos                            = var.cos
-  # service_endpoints              = var.service_endpoints
-  # key_management                 = var.key_management
-  # add_kms_block_storage_s2s      = var.add_kms_block_storage_s2s
-  # atracker                       = var.atracker
-  # clusters                       = var.clusters
-  # wait_till                      = var.wait_till
-  # iam_account_settings           = var.iam_account_settings
-  # access_groups                  = var.access_groups
-  # f5_vsi                         = var.f5_vsi
-  # f5_template_data               = var.f5_template_data
-  # appid                          = var.appid
-  # teleport_config_data           = var.teleport_config
-  # teleport_vsi                   = var.teleport_vsi
-  # secrets_manager                = var.secrets_manager
-  # vpc_placement_groups           = var.vpc_placement_groups
-  # # If enable_scc is true, pass the credential created from the pattern to landing_zone.Credential is created in the pattern since it uses the IBM Cloud API key
-  # security_compliance_center = merge(
-  #   var.security_compliance_center,
-  #   { credential_id = var.enable_scc ? ibm_scc_posture_credential.credentials[0].id : null }
-  # )
-  ibmcloud_api_key = var.ibmcloud_api_key
+  network_cidr           = var.network_cidr
+  vpcs                   = var.vpcs
+  enable_transit_gateway = var.enable_transit_gateway
+  ssh_public_key         = var.ssh_public_key
+  ibmcloud_api_key       = var.ibmcloud_api_key
 
 
   existing_ssh_key_name = var.existing_ssh_key_name
@@ -104,30 +76,13 @@ module "landing_zone_module" {
   message_of_the_day                  = var.message_of_the_day
   teleport_admin_email                = var.teleport_admin_email
   create_secrets_manager              = var.create_secrets_manager
-  # add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
-  override              = var.override
-  override_json_string  = var.override_json_string
-  license_sku_keyword_2 = var.license_sku_keyword_2
-
-
-}
-
-##############################################################################
-
-##############################################################################
-# Security and Compliance Center
-##############################################################################
-
-resource "ibm_scc_posture_credential" "credentials" {
-  count       = var.enable_scc ? 1 : 0
-  description = var.scc_cred_description
-  display_fields {
-    ibm_api_key = var.ibmcloud_api_key
-  }
-  enabled = true
-  name    = var.scc_cred_name
-  purpose = "discovery_fact_collection_remediation"
-  type    = "ibm_cloud"
+  override                            = var.override
+  override_json_string                = var.override_json_string
+  license_sku_keyword_2               = var.license_sku_keyword_2
+  enable_scc                          = var.enable_scc
+  scc_cred_description                = var.scc_cred_description
+  scc_cred_name                       = var.scc_cred_name
+  add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s
 }
 
 ##############################################################################
