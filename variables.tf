@@ -276,6 +276,8 @@ variable "vsi" {
       image_name                      = string
       machine_type                    = string
       vsi_per_subnet                  = number
+      kms_encryption_enabled          = optional(bool)
+      skip_iam_authorization_policy   = optional(bool)
       user_data                       = optional(string)
       resource_group                  = optional(string)
       enable_floating_ip              = optional(bool)
