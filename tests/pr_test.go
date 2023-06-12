@@ -186,7 +186,6 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 }
 
 func TestRunVSIPatternWithHPCS(t *testing.T) {
-	t.Parallel()
 
 	options := setupOptionsVsiPattern(t, "lvsihp")
 
