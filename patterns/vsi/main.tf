@@ -15,7 +15,7 @@ provider "ibm" {
 # Landing Zone
 ##############################################################################
 
-module "landing_zone_module" {
+module "landing_zone" {
   source = "./module"
   prefix = var.prefix
   region = var.region
