@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1107
+        "line": 1105
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1528
+        "line": 1526
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 864
+        "line": 862
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 746
+        "line": 744
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 762
+        "line": 760
       }
     },
     "cos": {
@@ -82,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 478
+        "line": 476
       }
     },
     "enable_transit_gateway": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1375
+        "line": 1373
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1239
+        "line": 1237
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1001
+        "line": 999
       }
     },
     "ibmcloud_api_key": {
@@ -177,7 +177,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 701
+        "line": 699
       }
     },
     "network_cidr": {
@@ -309,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1421
+        "line": 1419
       }
     },
     "security_compliance_center": {
@@ -330,7 +330,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1437
+        "line": 1435
       }
     },
     "security_groups": {
@@ -343,7 +343,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 382
+        "line": 380
       }
     },
     "service_endpoints": {
@@ -353,7 +353,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 690
+        "line": 688
       }
     },
     "ssh_keys": {
@@ -430,7 +430,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 908
+        "line": 906
       }
     },
     "teleport_vsi": {
@@ -443,7 +443,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 934
+        "line": 932
       }
     },
     "transit_gateway_connections": {
@@ -476,7 +476,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 453
+        "line": 451
       }
     },
     "vpc_placement_groups": {
@@ -489,7 +489,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1496
+        "line": 1494
       }
     },
     "vpcs": {
@@ -520,7 +520,7 @@
     },
     "vsi": {
       "name": "vsi",
-      "type": "list(\n    object({\n      name                            = string\n      vpc_name                        = string\n      subnet_names                    = list(string)\n      ssh_keys                        = list(string)\n      image_name                      = string\n      machine_type                    = string\n      vsi_per_subnet                  = number\n      kms_encryption_enabled          = optional(bool)\n      skip_iam_authorization_policy   = optional(bool)\n      user_data                       = optional(string)\n      resource_group                  = optional(string)\n      enable_floating_ip              = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
+      "type": "list(\n    object({\n      name                            = string\n      vpc_name                        = string\n      subnet_names                    = list(string)\n      ssh_keys                        = list(string)\n      image_name                      = string\n      machine_type                    = string\n      vsi_per_subnet                  = number\n      user_data                       = optional(string)\n      resource_group                  = optional(string)\n      enable_floating_ip              = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
       "description": "A list describing VSI workloads to create",
       "required": true,
       "source": [
@@ -541,7 +541,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 843
+        "line": 841
       }
     }
   },
