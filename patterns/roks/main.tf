@@ -7,7 +7,6 @@ module "landing_zone" {
   prefix                              = var.prefix
   region                              = var.region
   tags                                = var.tags
-  resource_groups                     = var.resource_groups
   wait_till                           = var.wait_till
   ibmcloud_api_key                    = var.ibmcloud_api_key
   network_cidr                        = var.network_cidr
