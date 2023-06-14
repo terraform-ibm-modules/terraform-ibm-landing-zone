@@ -5,7 +5,7 @@
 ##############################################################################
 
 module "dynamic_values" {
-  source                              = "../dynamic_values"
+  source                              = "../../dynamic_values"
   prefix                              = var.prefix
   region                              = var.region
   vpcs                                = var.vpcs
