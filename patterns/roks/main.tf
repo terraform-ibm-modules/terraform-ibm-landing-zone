@@ -3,15 +3,11 @@
 ##############################################################################
 
 module "landing_zone" {
-  source                         = "./module"
-  prefix                         = var.prefix
-  region                         = var.region
-  tags                           = var.tags
-  # resource_groups                = var.resource_groups
-  # network_cidr                   = local.env.network_cidr
-  # vpcs                           = local.env.vpcs
-  # vpn_gateways                   = local.env.vpn_gateways
-  # enable_transit_gateway         = local.env.enable_transit_gateway
+  source          = "./module"
+  prefix          = var.prefix
+  region          = var.region
+  tags            = var.tags
+  resource_groups = var.resource_groups
   # transit_gateway_resource_group = local.env.transit_gateway_resource_group
   # transit_gateway_connections    = local.env.transit_gateway_connections
   # ssh_keys                       = local.env.ssh_keys
@@ -21,19 +17,18 @@ module "landing_zone" {
   # cos                            = local.env.cos
   # service_endpoints              = local.env.service_endpoints
   # key_management                 = local.env.key_management
-  # add_kms_block_storage_s2s      = local.env.add_kms_block_storage_s2s
-  # atracker                       = local.env.atracker
-  # clusters                       = local.env.clusters
-  # wait_till                      = local.env.wait_till
-  # iam_account_settings           = local.env.iam_account_settings
-  # access_groups                  = local.env.access_groups
-  # f5_vsi                         = local.env.f5_vsi
-  # f5_template_data               = local.env.f5_template_data
-  # appid                          = local.env.appid
-  # teleport_config_data           = local.env.teleport_config
-  # teleport_vsi                   = local.env.teleport_vsi
-  # secrets_manager                = local.env.secrets_manager
-  # vpc_placement_groups           = local.env.vpc_placement_groups
+  # atracker             = local.env.atracker
+  # clusters             = local.env.clusters
+  wait_till = var.wait_till
+  # iam_account_settings = local.env.iam_account_settings
+  # access_groups        = local.env.access_groups
+  # f5_vsi               = local.env.f5_vsi
+  # f5_template_data     = local.env.f5_template_data
+  # appid                = local.env.appid
+  # teleport_config_data = local.env.teleport_config
+  # teleport_vsi         = local.env.teleport_vsi
+  # secrets_manager      = local.env.secrets_manager
+  # vpc_placement_groups = local.env.vpc_placement_groups
   # # If enable_scc is true, pass the credential created from the pattern to landing_zone. Credential is created in the pattern since it uses the IBM Cloud API key
   # security_compliance_center = merge(
   #   local.env.security_compliance_center,
@@ -46,13 +41,18 @@ module "landing_zone" {
   enable_transit_gateway = var.enable_transit_gateway
   ssh_public_key         = var.ssh_public_key
 
-  add_atracker_route                  = var.add_atracker_route
-  hs_crypto_instance_name             = var.hs_crypto_instance_name
-  hs_crypto_resource_group            = var.hs_crypto_resource_group
-  use_random_cos_suffix               = var.use_random_cos_suffix
-  # vsi_image_name                      = var.vsi_image_name
-  # vsi_instance_profile                = var.vsi_instance_profile
-  # vsi_per_subnet                      = var.vsi_per_subnet
+  update_all_workers    = var.update_all_workers
+  existing_ssh_key_name = var.existing_ssh_key_name
+  entitlement           = var.entitlement
+  workers_per_zone      = var.workers_per_zone
+  flavor                = var.flavor
+  kube_version          = var.kube_version
+
+  add_atracker_route       = var.add_atracker_route
+  hs_crypto_instance_name  = var.hs_crypto_instance_name
+  hs_crypto_resource_group = var.hs_crypto_resource_group
+  use_random_cos_suffix    = var.use_random_cos_suffix
+
   add_edge_vpc                        = var.add_edge_vpc
   create_f5_network_on_management_vpc = var.create_f5_network_on_management_vpc
   provision_teleport_in_f5            = var.provision_teleport_in_f5
@@ -65,6 +65,7 @@ module "landing_zone" {
   license_password                    = var.license_password
   license_pool                        = var.license_pool
   license_sku_keyword_1               = var.license_sku_keyword_1
+  license_sku_keyword_2               = var.license_sku_keyword_2
   license_unit_of_measure             = var.license_unit_of_measure
   do_declaration_url                  = var.do_declaration_url
   as3_declaration_url                 = var.as3_declaration_url
@@ -94,7 +95,6 @@ module "landing_zone" {
   create_secrets_manager              = var.create_secrets_manager
   override                            = var.override
   override_json_string                = var.override_json_string
-  license_sku_keyword_2               = var.license_sku_keyword_2
   enable_scc                          = var.enable_scc
   scc_cred_description                = var.scc_cred_description
   scc_cred_name                       = var.scc_cred_name
