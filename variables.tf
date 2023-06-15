@@ -60,10 +60,10 @@ variable "resource_groups" {
 # VPC Variables
 ##############################################################################
 
-variable "network_cidr" {
+variable "network_cidrs" {
   description = "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning."
-  type        = string
-  default     = "10.0.0.0/8"
+  type        = list(string)
+  default     = ["10.0.0.0/8"]
 }
 
 variable "vpcs" {
