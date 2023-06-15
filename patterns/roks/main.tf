@@ -69,6 +69,17 @@ module "landing_zone" {
   scc_cred_description                = var.scc_cred_description
   scc_cred_name                       = var.scc_cred_name
   add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s
+
+  cluster_zones              = var.cluster_zones
+  vpn_firewall_type          = var.vpn_firewall_type
+  f5_image_name              = var.f5_image_name
+  tmos_admin_password        = var.tmos_admin_password
+  license_type               = var.license_type
+  teleport_management_zones  = var.teleport_management_zones
+  scc_collector_description  = var.scc_collector_description
+  scc_scope_description      = var.scc_scope_description
+  scc_scope_name             = var.scc_scope_name
+  IC_SCHEMATICS_WORKSPACE_ID = var.IC_SCHEMATICS_WORKSPACE_ID
 }
 
 ##############################################################################
