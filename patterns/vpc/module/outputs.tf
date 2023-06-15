@@ -75,7 +75,7 @@ output "vpn_data" {
 
 output "config" {
   description = "Output configuration as encoded JSON"
-  value       = module.landing_zone.config
+  value       = data.external.format_output.result.data
 }
 
 ##############################################################################
