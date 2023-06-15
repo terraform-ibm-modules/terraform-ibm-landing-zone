@@ -22,6 +22,7 @@ variable "key_management" {
     use_data          = optional(bool)
     resource_group_id = optional(string)
     tags              = list(string)
+    access_tags       = optional(list(string))
   })
 }
 

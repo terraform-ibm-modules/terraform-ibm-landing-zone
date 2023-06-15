@@ -40,7 +40,7 @@ data "ibm_is_image" "image" {
 ##############################################################################
 
 module "vsi" {
-  source                = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.1.0"
+  source                = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0"
   for_each              = local.vsi_map
   resource_group_id     = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group = each.value.security_group == null ? false : true
@@ -48,6 +48,7 @@ module "vsi" {
   vpc_id                = module.vpc[each.value.vpc_name].vpc_id
   subnets               = each.value.subnets
   tags                  = var.tags
+  access_tags           = each.value.access_tags
   user_data             = lookup(each.value, "user_data", null)
   image_id              = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [

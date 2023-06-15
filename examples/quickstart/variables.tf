@@ -40,12 +40,6 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "access_tags" {
-  type        = list(string)
-  description = "A list of access tags to apply to the VPC resources created by the module. For more information, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial."
-  default     = []
-}
-
 variable "override_json_string" {
   description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
   type        = string

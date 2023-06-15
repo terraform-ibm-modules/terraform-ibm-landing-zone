@@ -30,12 +30,6 @@ variable "tags" {
   default     = []
 }
 
-variable "access_tags" {
-  type        = list(string)
-  description = "A list of access tags to apply to the VPC resources created by the module. For more information, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial."
-  default     = []
-}
-
 ##############################################################################
 
 
@@ -76,13 +70,12 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                       = string           # VPC prefix
-      resource_group               = optional(string) # Name of the group where VPC will be created
-      classic_access               = optional(bool)
-      default_network_acl_name     = optional(string)
-      default_security_group_name  = optional(string)
-      clean_default_security_group = optional(bool, false)
-      clean_default_acl            = optional(bool, false)
+      prefix                      = string           # VPC prefix
+      resource_group              = optional(string) # Name of the group where VPC will be created
+      access_tags                 = optional(list(string))
+      classic_access              = optional(bool)
+      default_network_acl_name    = optional(string)
+      default_security_group_name = optional(string)
       default_security_group_rules = optional(
         list(
           object({
@@ -196,6 +189,7 @@ variable "vpn_gateways" {
       subnet_name    = string # Do not include prefix, use same name as in `var.subnets`
       mode           = optional(string)
       resource_group = optional(string)
+      access_tags    = optional(list(string))
       connections = list(
         object({
           peer_address   = string
@@ -287,6 +281,7 @@ variable "vsi" {
       enable_floating_ip              = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
+      access_tags                     = optional(list(string))
       security_group = optional(
         object({
           name = string
@@ -390,6 +385,7 @@ variable "security_groups" {
       name           = string
       vpc_name       = string
       resource_group = optional(string)
+      access_tags    = optional(list(string))
       rules = list(
         object({
           name      = string
@@ -461,6 +457,7 @@ variable "virtual_private_endpoints" {
       service_name   = string
       service_type   = string
       resource_group = optional(string)
+      access_tags    = optional(list(string))
       vpcs = list(
         object({
           name                = string
@@ -488,6 +485,7 @@ variable "cos" {
       resource_group = string
       plan           = optional(string)
       random_suffix  = optional(bool) # Use a random suffix for COS instance
+      access_tags    = optional(list(string))
       buckets = list(object({
         name                  = string
         storage_class         = string
@@ -497,6 +495,7 @@ variable "cos" {
         region_location       = optional(string)
         cross_region_location = optional(string)
         kms_key               = optional(string)
+        access_tags           = optional(list(string))
         allowed_ip            = optional(list(string))
         hard_quota            = optional(number)
         archive_rule = optional(object({
@@ -709,6 +708,7 @@ variable "key_management" {
     resource_group = string
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
+    access_tags    = optional(list(string))
     keys = optional(
       list(
         object({
@@ -780,6 +780,7 @@ variable "clusters" {
       resource_group     = string           # Resource Group used for cluster
       cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters
       update_all_workers = optional(bool)   # If true force workers to update
+      access_tags        = optional(list(string))
       kms_config = optional(
         object({
           crk_name         = string         # Name of key
@@ -948,6 +949,7 @@ variable "teleport_vsi" {
         boot_volume_encryption_key_name = string
         image_name                      = string
         machine_type                    = string
+        access_tags                     = optional(list(string))
         security_groups                 = optional(list(string))
         security_group = optional(
           object({
@@ -1264,6 +1266,7 @@ variable "f5_vsi" {
       boot_volume_encryption_key_name = optional(string)
       hostname                        = string
       domain                          = string
+      access_tags                     = optional(list(string))
       security_group = optional(
         object({
           name = string
@@ -1429,6 +1432,7 @@ variable "secrets_manager" {
     name                = optional(string)
     kms_key_name        = optional(string)
     resource_group      = optional(string)
+    access_tags         = optional(list(string))
   })
   default = {
     use_secrets_manager = false

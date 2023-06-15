@@ -49,6 +49,13 @@ resource "ibm_resource_instance" "cos" {
   tags              = (var.tags != null ? var.tags : null)
 }
 
+resource "ibm_resource_tag" "cos_tag" {
+  for_each    = local.cos_map
+  resource_id = ibm_resource_instance.cos[each.key].crn
+  tag_type    = "access"
+  tags        = local.cos_map[each.key]["access_tags"]
+}
+
 ##############################################################################
 
 
@@ -133,6 +140,13 @@ resource "ibm_cos_bucket" "buckets" {
       usage_metrics_enabled   = metrics_monitoring.value.usage_metrics_enabled
     }
   }
+}
+
+resource "ibm_resource_tag" "bucket_tag" {
+  for_each    = local.buckets_map
+  resource_id = ibm_cos_bucket.buckets[each.key].crn
+  tag_type    = "access"
+  tags        = each.value.access_tags
 }
 
 ##############################################################################
