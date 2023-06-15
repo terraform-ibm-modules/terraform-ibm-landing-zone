@@ -10,5 +10,4 @@ module "landing_zone" {
   ssh_public_key   = var.ssh_key
   override         = true
   tags             = var.resource_tags
-  access_tags      = var.access_tags
 }

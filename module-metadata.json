@@ -11,31 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1102
-      }
-    },
-    "access_tags": {
-      "name": "access_tags",
-      "type": "list(string)",
-      "description": "A list of access tags to apply to the VPC resources created by the module. For more information, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial.",
-      "default": [],
-      "source": [
-        "module.vpc.ibm_is_flow_log.flow_logs.access_tags",
-        "module.vpc.ibm_is_network_acl.network_acl.access_tags",
-        "module.vpc.ibm_is_public_gateway.gateway.access_tags",
-        "module.vpc.ibm_is_subnet.subnet.access_tags",
-        "module.vpc.ibm_is_vpc.vpc.access_tags"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 26
-      },
-      "min_length": 1,
-      "max_length": 128,
-      "matches": "^([A-Za-z0-9_.-]|[A-Za-z0-9_.-][A-Za-z0-9_ .-]*[A-Za-z0-9_.-]):([A-Za-z0-9_.-]|[A-Za-z0-9_.-][A-Za-z0-9_ .-]*[A-Za-z0-9_.-])$",
-      "computed": true,
-      "elem": {
-        "type": "TypeString"
+        "line": 1113
       }
     },
     "add_kms_block_storage_s2s": {
@@ -49,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1523
+        "line": 1536
       }
     },
     "appid": {
@@ -66,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 859
+        "line": 869
       }
     },
     "atracker": {
@@ -85,7 +61,7 @@
     },
     "clusters": {
       "name": "clusters",
-      "type": "list(\n    object({\n      name               = string           # Name of Cluster\n      vpc_name           = string           # Name of VPC\n      subnet_names       = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet = number           # Worker nodes per subnet.\n      machine_type       = string           # Worker node flavor\n      kube_type          = string           # iks or openshift\n      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      entitlement        = optional(string) # entitlement option for openshift\n      pod_subnet         = optional(string) # Portable subnet for pods\n      service_subnet     = optional(string) # Portable subnet for services\n      resource_group     = string           # Resource Group used for cluster\n      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers = optional(bool)   # If true force workers to update\n      access_tags        = optional(list(string), [])\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name               = string           # Name of Cluster\n      vpc_name           = string           # Name of VPC\n      subnet_names       = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet = number           # Worker nodes per subnet.\n      machine_type       = string           # Worker node flavor\n      kube_type          = string           # iks or openshift\n      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      entitlement        = optional(string) # entitlement option for openshift\n      pod_subnet         = optional(string) # Portable subnet for pods\n      service_subnet     = optional(string) # Portable subnet for services\n      resource_group     = string           # Resource Group used for cluster\n      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers = optional(bool)   # If true force workers to update\n      access_tags        = optional(list(string))\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
       "source": [
@@ -98,7 +74,7 @@
     },
     "cos": {
       "name": "cos",
-      "type": "list(\n    object({\n      name           = string\n      use_data       = optional(bool)\n      resource_group = string\n      plan           = optional(string)\n      random_suffix  = optional(bool) # Use a random suffix for COS instance\n      access_tags    = optional(list(string), [])\n      buckets = list(object({\n        name                  = string\n        storage_class         = string\n        endpoint_type         = string\n        force_delete          = bool\n        single_site_location  = optional(string)\n        region_location       = optional(string)\n        cross_region_location = optional(string)\n        kms_key               = optional(string)\n        access_tags           = optional(list(string), [])\n        allowed_ip            = optional(list(string))\n        hard_quota            = optional(number)\n        archive_rule = optional(object({\n          days    = number\n          enable  = bool\n          rule_id = optional(string)\n          type    = string\n        }))\n        activity_tracking = optional(object({\n          activity_tracker_crn = string\n          read_data_events     = bool\n          write_data_events    = bool\n        }))\n        metrics_monitoring = optional(object({\n          metrics_monitoring_crn  = string\n          request_metrics_enabled = optional(bool)\n          usage_metrics_enabled   = optional(bool)\n        }))\n      }))\n      keys = optional(\n        list(object({\n          name        = string\n          role        = string\n          enable_HMAC = bool\n        }))\n      )\n\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      use_data       = optional(bool)\n      resource_group = string\n      plan           = optional(string)\n      random_suffix  = optional(bool) # Use a random suffix for COS instance\n      access_tags    = optional(list(string))\n      buckets = list(object({\n        name                  = string\n        storage_class         = string\n        endpoint_type         = string\n        force_delete          = bool\n        single_site_location  = optional(string)\n        region_location       = optional(string)\n        cross_region_location = optional(string)\n        kms_key               = optional(string)\n        access_tags           = optional(list(string))\n        allowed_ip            = optional(list(string))\n        hard_quota            = optional(number)\n        archive_rule = optional(object({\n          days    = number\n          enable  = bool\n          rule_id = optional(string)\n          type    = string\n        }))\n        activity_tracking = optional(object({\n          activity_tracker_crn = string\n          read_data_events     = bool\n          write_data_events    = bool\n        }))\n        metrics_monitoring = optional(object({\n          metrics_monitoring_crn  = string\n          request_metrics_enabled = optional(bool)\n          usage_metrics_enabled   = optional(bool)\n        }))\n      }))\n      keys = optional(\n        list(object({\n          name        = string\n          role        = string\n          enable_HMAC = bool\n        }))\n      )\n\n    })\n  )",
       "description": "Object describing the cloud object storage instance, buckets, and keys. Set `use_data` to false to create instance",
       "required": true,
       "source": [
@@ -106,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 473
+        "line": 479
       }
     },
     "enable_transit_gateway": {
@@ -120,7 +96,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 210
+        "line": 213
       }
     },
     "f5_template_data": {
@@ -136,12 +112,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1370
+        "line": 1382
       }
     },
     "f5_vsi": {
       "name": "f5_vsi",
-      "type": "list(\n    object({\n      name                   = string\n      vpc_name               = string\n      primary_subnet_name    = string\n      secondary_subnet_names = list(string)\n      secondary_subnet_security_group_names = list(\n        object({\n          group_name     = string\n          interface_name = string\n        })\n      )\n      ssh_keys                        = list(string)\n      f5_image_name                   = string\n      machine_type                    = string\n      resource_group                  = optional(string)\n      enable_management_floating_ip   = optional(bool)\n      enable_external_floating_ip     = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      hostname                        = string\n      domain                          = string\n      access_tags                     = optional(list(string), [])\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
+      "type": "list(\n    object({\n      name                   = string\n      vpc_name               = string\n      primary_subnet_name    = string\n      secondary_subnet_names = list(string)\n      secondary_subnet_security_group_names = list(\n        object({\n          group_name     = string\n          interface_name = string\n        })\n      )\n      ssh_keys                        = list(string)\n      f5_image_name                   = string\n      machine_type                    = string\n      resource_group                  = optional(string)\n      enable_management_floating_ip   = optional(bool)\n      enable_external_floating_ip     = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      hostname                        = string\n      domain                          = string\n      access_tags                     = optional(list(string))\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
       "description": "A list describing F5 VSI workloads to create",
       "default": [],
       "source": [
@@ -149,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1234
+        "line": 1245
       }
     },
     "iam_account_settings": {
@@ -173,12 +149,25 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 996
+        "line": 1007
+      }
+    },
+    "ibmcloud_api_key": {
+      "name": "ibmcloud_api_key",
+      "type": "string",
+      "description": "IBM Cloud API Key that will be used for authentication in scripts run in this module. Only required if certain options are required.",
+      "sensitive": true,
+      "source": [
+        "module.vpc"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 5
       }
     },
     "key_management": {
       "name": "key_management",
-      "type": "object({\n    name           = string\n    resource_group = string\n    use_data       = optional(bool)\n    use_hs_crypto  = optional(bool)\n    access_tags    = optional(list(string), [])\n    keys = optional(\n      list(\n        object({\n          name            = string\n          root_key        = optional(bool)\n          payload         = optional(string)\n          key_ring        = optional(string) # Any key_ring added will be created\n          force_delete    = optional(bool)\n          endpoint        = optional(string) # can be public or private\n          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          policies = optional(\n            object({\n              rotation = optional(\n                object({\n                  interval_month = number\n                })\n              )\n              dual_auth_delete = optional(\n                object({\n                  enabled = bool\n                })\n              )\n            })\n          )\n        })\n      )\n    )\n  })",
+      "type": "object({\n    name           = string\n    resource_group = string\n    use_data       = optional(bool)\n    use_hs_crypto  = optional(bool)\n    access_tags    = optional(list(string))\n    keys = optional(\n      list(\n        object({\n          name            = string\n          root_key        = optional(bool)\n          payload         = optional(string)\n          key_ring        = optional(string) # Any key_ring added will be created\n          force_delete    = optional(bool)\n          endpoint        = optional(string) # can be public or private\n          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          policies = optional(\n            object({\n              rotation = optional(\n                object({\n                  interval_month = number\n                })\n              )\n              dual_auth_delete = optional(\n                object({\n                  enabled = bool\n                })\n              )\n            })\n          )\n        })\n      )\n    )\n  })",
       "description": "Key Protect instance variables",
       "required": true,
       "source": [
@@ -188,7 +177,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 696
+        "line": 704
       }
     },
     "network_cidrs": {
@@ -203,7 +192,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 62
+        "line": 63
       }
     },
     "prefix": {
@@ -301,12 +290,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 39
+        "line": 40
       }
     },
     "secrets_manager": {
       "name": "secrets_manager",
-      "type": "object({\n    use_secrets_manager = bool\n    name                = optional(string)\n    kms_key_name        = optional(string)\n    resource_group      = optional(string)\n    access_tags         = optional(list(string), [])\n  })",
+      "type": "object({\n    use_secrets_manager = bool\n    name                = optional(string)\n    kms_key_name        = optional(string)\n    resource_group      = optional(string)\n    access_tags         = optional(list(string))\n  })",
       "description": "Map describing an optional secrets manager deployment",
       "default": {
         "use_secrets_manager": false
@@ -322,7 +311,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1416
+        "line": 1428
       }
     },
     "security_compliance_center": {
@@ -343,12 +332,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1432
+        "line": 1445
       }
     },
     "security_groups": {
       "name": "security_groups",
-      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      resource_group = optional(string)\n      access_tags    = optional(list(string), [])\n      rules = list(\n        object({\n          name      = string\n          direction = string\n          source    = string\n          tcp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          udp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          icmp = optional(\n            object({\n              type = number\n              code = number\n            })\n          )\n        })\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      resource_group = optional(string)\n      access_tags    = optional(list(string))\n      rules = list(\n        object({\n          name      = string\n          direction = string\n          source    = string\n          tcp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          udp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          icmp = optional(\n            object({\n              type = number\n              code = number\n            })\n          )\n        })\n      )\n    })\n  )",
       "description": "Security groups for VPC",
       "default": [],
       "source": [
@@ -356,7 +345,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 377
+        "line": 381
       }
     },
     "service_endpoints": {
@@ -366,7 +355,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 685
+        "line": 693
       }
     },
     "ssh_keys": {
@@ -379,7 +368,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 232
+        "line": 235
       }
     },
     "tags": {
@@ -443,12 +432,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 903
+        "line": 913
       }
     },
     "teleport_vsi": {
       "name": "teleport_vsi",
-      "type": "list(\n    object(\n      {\n        name                            = string\n        vpc_name                        = string\n        resource_group                  = optional(string)\n        subnet_name                     = string\n        ssh_keys                        = list(string)\n        boot_volume_encryption_key_name = string\n        image_name                      = string\n        machine_type                    = string\n        access_tags                     = optional(list(string), [])\n        security_groups                 = optional(list(string))\n        security_group = optional(\n          object({\n            name = string\n            rules = list(\n              object({\n                name      = string\n                direction = string\n                source    = string\n                tcp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                udp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                icmp = optional(\n                  object({\n                    type = number\n                    code = number\n                  })\n                )\n              })\n            )\n          })\n        )\n\n\n      }\n    )\n  )",
+      "type": "list(\n    object(\n      {\n        name                            = string\n        vpc_name                        = string\n        resource_group                  = optional(string)\n        subnet_name                     = string\n        ssh_keys                        = list(string)\n        boot_volume_encryption_key_name = string\n        image_name                      = string\n        machine_type                    = string\n        access_tags                     = optional(list(string))\n        security_groups                 = optional(list(string))\n        security_group = optional(\n          object({\n            name = string\n            rules = list(\n              object({\n                name      = string\n                direction = string\n                source    = string\n                tcp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                udp = optional(\n                  object({\n                    port_max = number\n                    port_min = number\n                  })\n                )\n                icmp = optional(\n                  object({\n                    type = number\n                    code = number\n                  })\n                )\n              })\n            )\n          })\n        )\n\n\n      }\n    )\n  )",
       "description": "A list of teleport vsi deployments",
       "default": [],
       "source": [
@@ -456,7 +445,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 929
+        "line": 939
       }
     },
     "transit_gateway_connections": {
@@ -466,7 +455,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 221
+        "line": 224
       }
     },
     "transit_gateway_resource_group": {
@@ -476,12 +465,12 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 216
+        "line": 219
       }
     },
     "virtual_private_endpoints": {
       "name": "virtual_private_endpoints",
-      "type": "list(\n    object({\n      service_name   = string\n      service_type   = string\n      resource_group = optional(string)\n      access_tags    = optional(list(string), [])\n      vpcs = list(\n        object({\n          name                = string\n          subnets             = list(string)\n          security_group_name = optional(string)\n        })\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      service_name   = string\n      service_type   = string\n      resource_group = optional(string)\n      access_tags    = optional(list(string))\n      vpcs = list(\n        object({\n          name                = string\n          subnets             = list(string)\n          security_group_name = optional(string)\n        })\n      )\n    })\n  )",
       "description": "Object describing VPE to be created",
       "required": true,
       "source": [
@@ -489,7 +478,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 448
+        "line": 453
       }
     },
     "vpc_placement_groups": {
@@ -502,12 +491,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1491
+        "line": 1504
       }
     },
     "vpcs": {
       "name": "vpcs",
-      "type": "list(\n    object({\n      prefix                       = string           # VPC prefix\n      resource_group               = optional(string) # Name of the group where VPC will be created\n      access_tags                  = optional(list(string), [])\n      classic_access               = optional(bool)\n      default_network_acl_name     = optional(string)\n      default_security_group_name  = optional(string)\n      clean_default_security_group = optional(bool, false)\n      clean_default_acl            = optional(bool, false)\n      default_security_group_rules = optional(\n        list(\n          object({\n            name      = string\n            direction = string\n            remote    = string\n            tcp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            udp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            icmp = optional(\n              object({\n                type = optional(number)\n                code = optional(number)\n              })\n            )\n          })\n        )\n      )\n      default_routing_table_name = optional(string)\n      flow_logs_bucket_name      = optional(string)\n      address_prefixes = optional(\n        object({\n          zone-1 = optional(list(string))\n          zone-2 = optional(list(string))\n          zone-3 = optional(list(string))\n        })\n      )\n      network_acls = list(\n        object({\n          name                         = string\n          add_ibm_cloud_internal_rules = optional(bool)\n          add_vpc_connectivity_rules   = optional(bool)\n          prepend_ibm_rules            = optional(bool)\n          rules = list(\n            object({\n              name        = string\n              action      = string\n              destination = string\n              direction   = string\n              source      = string\n              tcp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              udp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              icmp = optional(\n                object({\n                  type = optional(number)\n                  code = optional(number)\n                })\n              )\n            })\n          )\n        })\n      )\n      use_public_gateways = object({\n        zone-1 = optional(bool)\n        zone-2 = optional(bool)\n        zone-3 = optional(bool)\n      })\n      subnets = object({\n        zone-1 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-2 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-3 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n      })\n    })\n  )",
+      "type": "list(\n    object({\n      prefix                      = string           # VPC prefix\n      resource_group              = optional(string) # Name of the group where VPC will be created\n      access_tags                 = optional(list(string))\n      classic_access              = optional(bool)\n      default_network_acl_name    = optional(string)\n      default_security_group_name = optional(string)\n      default_security_group_rules = optional(\n        list(\n          object({\n            name      = string\n            direction = string\n            remote    = string\n            tcp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            udp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            icmp = optional(\n              object({\n                type = optional(number)\n                code = optional(number)\n              })\n            )\n          })\n        )\n      )\n      default_routing_table_name = optional(string)\n      flow_logs_bucket_name      = optional(string)\n      address_prefixes = optional(\n        object({\n          zone-1 = optional(list(string))\n          zone-2 = optional(list(string))\n          zone-3 = optional(list(string))\n        })\n      )\n      network_acls = list(\n        object({\n          name                         = string\n          add_ibm_cloud_internal_rules = optional(bool)\n          add_vpc_connectivity_rules   = optional(bool)\n          prepend_ibm_rules            = optional(bool)\n          rules = list(\n            object({\n              name        = string\n              action      = string\n              destination = string\n              direction   = string\n              source      = string\n              tcp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              udp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              icmp = optional(\n                object({\n                  type = optional(number)\n                  code = optional(number)\n                })\n              )\n            })\n          )\n        })\n      )\n      use_public_gateways = object({\n        zone-1 = optional(bool)\n        zone-2 = optional(bool)\n        zone-3 = optional(bool)\n      })\n      subnets = object({\n        zone-1 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-2 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-3 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n      })\n    })\n  )",
       "description": "A map describing VPCs to be created in this repo.",
       "required": true,
       "source": [
@@ -515,12 +504,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 68
+        "line": 69
       }
     },
     "vpn_gateways": {
       "name": "vpn_gateways",
-      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      subnet_name    = string # Do not include prefix, use same name as in `var.subnets`\n      mode           = optional(string)\n      resource_group = optional(string)\n      access_tags    = optional(list(string), [])\n      connections = list(\n        object({\n          peer_address   = string\n          preshared_key  = string\n          local_cidrs    = optional(list(string))\n          peer_cidrs     = optional(list(string))\n          admin_state_up = optional(bool)\n        })\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      subnet_name    = string # Do not include prefix, use same name as in `var.subnets`\n      mode           = optional(string)\n      resource_group = optional(string)\n      access_tags    = optional(list(string))\n      connections = list(\n        object({\n          peer_address   = string\n          preshared_key  = string\n          local_cidrs    = optional(list(string))\n          peer_cidrs     = optional(list(string))\n          admin_state_up = optional(bool)\n        })\n      )\n    })\n  )",
       "description": "List of VPN Gateways to create.",
       "required": true,
       "source": [
@@ -528,12 +517,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 181
+        "line": 183
       }
     },
     "vsi": {
       "name": "vsi",
-      "type": "list(\n    object({\n      name                            = string\n      vpc_name                        = string\n      subnet_names                    = list(string)\n      ssh_keys                        = list(string)\n      image_name                      = string\n      machine_type                    = string\n      vsi_per_subnet                  = number\n      user_data                       = optional(string)\n      resource_group                  = optional(string)\n      enable_floating_ip              = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      access_tags                     = optional(list(string), [])\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
+      "type": "list(\n    object({\n      name                            = string\n      vpc_name                        = string\n      subnet_names                    = list(string)\n      ssh_keys                        = list(string)\n      image_name                      = string\n      machine_type                    = string\n      vsi_per_subnet                  = number\n      user_data                       = optional(string)\n      resource_group                  = optional(string)\n      enable_floating_ip              = optional(bool)\n      security_groups                 = optional(list(string))\n      boot_volume_encryption_key_name = optional(string)\n      access_tags                     = optional(list(string))\n      security_group = optional(\n        object({\n          name = string\n          rules = list(\n            object({\n              name      = string\n              direction = string\n              source    = string\n              tcp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              udp = optional(\n                object({\n                  port_max = number\n                  port_min = number\n                })\n              )\n              icmp = optional(\n                object({\n                  type = number\n                  code = number\n                })\n              )\n            })\n          )\n        })\n      )\n      block_storage_volumes = optional(list(\n        object({\n          name           = string\n          profile        = string\n          capacity       = optional(number)\n          iops           = optional(number)\n          encryption_key = optional(string)\n        })\n      ))\n      load_balancers = optional(list(\n        object({\n          name              = string\n          type              = string\n          listener_port     = number\n          listener_protocol = string\n          connection_limit  = number\n          algorithm         = string\n          protocol          = string\n          health_delay      = number\n          health_retries    = number\n          health_timeout    = number\n          health_type       = string\n          pool_member_port  = string\n          security_group = optional(\n            object({\n              name = string\n              rules = list(\n                object({\n                  name      = string\n                  direction = string\n                  source    = string\n                  tcp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  udp = optional(\n                    object({\n                      port_max = number\n                      port_min = number\n                    })\n                  )\n                  icmp = optional(\n                    object({\n                      type = number\n                      code = number\n                    })\n                  )\n                })\n              )\n            })\n          )\n        })\n      ))\n    })\n  )",
       "description": "A list describing VSI workloads to create",
       "required": true,
       "source": [
@@ -541,7 +530,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 265
+        "line": 268
       }
     },
     "wait_till": {
@@ -554,7 +543,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 838
+        "line": 848
       }
     }
   },
@@ -934,7 +923,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 88
+        "line": 92
       }
     },
     "ibm_cos_bucket.buckets": {
@@ -1460,8 +1449,7 @@
   "module_calls": {
     "bastion_host": {
       "name": "bastion_host",
-      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2025,8 +2013,7 @@
     },
     "f5_vsi": {
       "name": "f5_vsi",
-      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2587,7 +2574,7 @@
       "name": "vpc",
       "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0",
       "attributes": {
-        "access_tags": "access_tags",
+        "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidr": "network_cidr",
         "prefix": "prefix",
         "region": "region",
@@ -2926,8 +2913,7 @@
     },
     "vsi": {
       "name": "vsi",
-      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"

@@ -20,7 +20,6 @@ module "landing_zone" {
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
-  access_tags                    = var.access_tags
   resource_groups                = local.env.resource_groups
   network_cidrs                  = local.env.network_cidrs
   vpcs                           = local.env.vpcs
