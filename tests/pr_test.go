@@ -1,18 +1,15 @@
 package test
 
 import (
-	"fmt"
+	"log"
 	"os"
-	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/files"
-	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/random"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -22,6 +19,7 @@ const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
 const resourceGroup = "geretain-test-resources"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
@@ -33,34 +31,29 @@ var ignoreUpdates = []string{
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
+var permanentResources map[string]interface{}
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	os.Exit(m.Run())
 }
 
 func sshPublicKey(t *testing.T) string {
-	prefix := fmt.Sprintf("slz-test-%s", strings.ToLower(random.UniqueId()))
-	actualTerraformDir := "./resources"
-	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
-	logger.Log(t, "Tempdir: ", tempTerraformDir)
+	pubKey, keyErr := common.GenerateSshRsaPublicKey()
 
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: tempTerraformDir,
-		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
-		// This is the same as setting the -upgrade=true flag with terraform.
-		Upgrade: true,
-	})
+	// if error producing key (very unexpected) fail test immediately
+	require.NoError(t, keyErr, "SSH Keygen failed, without public ssh key test cannot continue")
 
-	terraform.WorkspaceSelectOrNew(t, terraformOptions, prefix)
-	_, existErr := terraform.InitAndApplyE(t, terraformOptions)
-	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
-	}
-
-	return terraform.Output(t, terraformOptions, "ssh_public_key")
+	return pubKey
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
@@ -130,10 +123,13 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-func TestRunRoksPattern(t *testing.T) {
+func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "lrkshp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -178,16 +174,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-func TestRunVsiPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "p-vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
@@ -198,6 +184,18 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+
+	options := setupOptionsVsiPattern(t, "lvsihp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {

@@ -73,14 +73,6 @@
                             "key": "region",
                             "required": true,
                             "type": "string"
-                        },
-                        {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "ssh_key"
                         }
                     ],
                     "iam_permissions": [
@@ -210,10 +202,13 @@
                                     "AU-12(b)",
                                     "AU-12(c)",
                                     "CA-7(d)",
+                                    "CM-7(a)",
                                     "IA-3(0)",
                                     "SC-2(0)",
                                     "SC-3(0)",
+                                    "SC-7(c)",
                                     "SC-7(4)(c)",
+                                    "SC-7(10)(0)",
                                     "SC-8(0)",
                                     "SC-8(1)(0)",
                                     "SC-11(0)",
@@ -227,18 +222,6 @@
                         ]
                     },
                     "configuration": [
-                        {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "prefix"
-                        },
-                        {
-                            "required": true,
-                            "key": "ssh_public_key"
-                        },
                         {
                             "hidden": true,
                             "key": "teleport_domain"
@@ -325,10 +308,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "hs_crypto_resource_group"
-                        },
-                        {
-                            "hidden": true,
                             "key": "f5_image_name"
                         },
                         {
@@ -409,10 +388,6 @@
                             "key": "teleport_version"
                         },
                         {
-                            "hidden": true,
-                            "key": "hs_crypto_instance_name"
-                        },
-                        {
                             "custom_config": {
                                 "config_constraints": {
                                     "generationType": "2"
@@ -467,10 +442,6 @@
                         {
                             "hidden": true,
                             "key": "as3_declaration_url"
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
                         },
                         {
                             "hidden": true,
@@ -656,10 +627,13 @@
                                     "AU-12(b)",
                                     "AU-12(c)",
                                     "CA-7(d)",
+                                    "CM-7(a)",
                                     "IA-3(0)",
                                     "SC-2(0)",
                                     "SC-3(0)",
+                                    "SC-7(c)",
                                     "SC-7(4)(c)",
+                                    "SC-7(10)(0)",
                                     "SC-8(0)",
                                     "SC-8(1)(0)",
                                     "SC-11(0)",
@@ -685,22 +659,6 @@
                             },
                             "key": "region",
                             "required": true
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "required": true
-                        },
-                        {
-                            "key": "prefix",
-                            "required": true
-                        },
-                        {
-                            "key": "hs_crypto_instance_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "hs_crypto_resource_group",
-                            "hidden": true
                         },
                         {
                             "key": "add_edge_vpc",
@@ -1088,10 +1046,13 @@
                                     "AU-12(b)",
                                     "AU-12(c)",
                                     "CA-7(d)",
+                                    "CM-7(a)",
                                     "IA-3(0)",
                                     "SC-2(0)",
                                     "SC-3(0)",
+                                    "SC-7(c)",
                                     "SC-7(4)(c)",
+                                    "SC-7(10)(0)",
                                     "SC-8(0)",
                                     "SC-8(1)(0)",
                                     "SC-11(0)",
@@ -1106,14 +1067,6 @@
                         ]
                     },
                     "configuration": [
-                        {
-                            "required": true,
-                            "key": "ibmcloud_api_key"
-                        },
-                        {
-                            "required": true,
-                            "key": "prefix"
-                        },
                         {
                             "hidden": true,
                             "key": "tgactive_url"
@@ -1228,10 +1181,6 @@
                             "key": "teleport_management_zones"
                         },
                         {
-                            "key": "hs_crypto_resource_group",
-                            "hidden": true
-                        },
-                        {
                             "hidden": true,
                             "key": "license_host"
                         },
@@ -1324,10 +1273,6 @@
                             "key": "https_cert"
                         },
                         {
-                            "key": "prefix",
-                            "required": true
-                        },
-                        {
                             "hidden": true,
                             "key": "ts_declaration_url"
                         },
@@ -1345,10 +1290,6 @@
                         {
                             "hidden": true,
                             "key": "license_password"
-                        },
-                        {
-                            "key": "hs_crypto_instance_name",
-                            "hidden": true
                         },
                         {
                             "hidden": true,

@@ -3,9 +3,10 @@
 ##############################################################################
 
 variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to create the containers apikey (if one does not exist already)."
+  description = "IBM Cloud API Key that will be used for authentication in scripts run in this module. Only required if certain options are required."
   type        = string
   sensitive   = true
+  default     = null
 }
 
 variable "prefix" {
@@ -69,11 +70,13 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                      = string           # VPC prefix
-      resource_group              = optional(string) # Name of the group where VPC will be created
-      classic_access              = optional(bool)
-      default_network_acl_name    = optional(string)
-      default_security_group_name = optional(string)
+      prefix                       = string           # VPC prefix
+      resource_group               = optional(string) # Name of the group where VPC will be created
+      classic_access               = optional(bool)
+      default_network_acl_name     = optional(string)
+      default_security_group_name  = optional(string)
+      clean_default_security_group = optional(bool, false)
+      clean_default_acl            = optional(bool, false)
       default_security_group_rules = optional(
         list(
           object({
