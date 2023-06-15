@@ -32,6 +32,7 @@ var ignoreUpdates = []string{
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
+var permanentResources map[string]interface{}
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
@@ -125,10 +126,13 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-func TestRunRoksPattern(t *testing.T) {
+func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "lrkshp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -174,16 +178,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-func TestRunVsiPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "p-vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
@@ -194,6 +188,18 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+
+	options := setupOptionsVsiPattern(t, "lvsihp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
