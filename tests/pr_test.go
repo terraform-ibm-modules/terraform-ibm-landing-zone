@@ -23,8 +23,6 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
-var permanentResources map[string]interface{}
-
 // Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
 var ignoreUpdates = []string{
 	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
@@ -66,8 +64,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key":     sshPublicKey,
-			"access_tags": permanentResources["accessTags"],
+			"ssh_key": sshPublicKey,
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
@@ -120,7 +117,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
 		"region":         options.Region,
-		"access_tags":    permanentResources["accessTags"],
 	}
 
 	return options
@@ -172,7 +168,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
-		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
@@ -220,7 +215,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
-		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
