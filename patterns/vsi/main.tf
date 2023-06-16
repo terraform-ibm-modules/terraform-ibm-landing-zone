@@ -16,20 +16,16 @@ provider "ibm" {
 ##############################################################################
 
 module "landing_zone" {
-  source = "./module"
-  prefix = var.prefix
-  region = var.region
-  tags   = var.tags
-
-  network_cidr           = var.network_cidr
-  vpcs                   = var.vpcs
-  enable_transit_gateway = var.enable_transit_gateway
-  ssh_public_key         = var.ssh_public_key
-  ibmcloud_api_key       = var.ibmcloud_api_key
-
-
-  existing_ssh_key_name = var.existing_ssh_key_name
-
+  source                              = "./module"
+  prefix                              = var.prefix
+  region                              = var.region
+  tags                                = var.tags
+  network_cidr                        = var.network_cidr
+  vpcs                                = var.vpcs
+  enable_transit_gateway              = var.enable_transit_gateway
+  ssh_public_key                      = var.ssh_public_key
+  ibmcloud_api_key                    = var.ibmcloud_api_key
+  existing_ssh_key_name               = var.existing_ssh_key_name
   add_atracker_route                  = var.add_atracker_route
   hs_crypto_instance_name             = var.hs_crypto_instance_name
   hs_crypto_resource_group            = var.hs_crypto_resource_group
@@ -40,15 +36,20 @@ module "landing_zone" {
   add_edge_vpc                        = var.add_edge_vpc
   create_f5_network_on_management_vpc = var.create_f5_network_on_management_vpc
   provision_teleport_in_f5            = var.provision_teleport_in_f5
+  vpn_firewall_type                   = var.vpn_firewall_type
+  f5_image_name                       = var.f5_image_name
   f5_instance_profile                 = var.f5_instance_profile
   hostname                            = var.hostname
   domain                              = var.domain
+  tmos_admin_password                 = var.tmos_admin_password
+  license_type                        = var.license_type
   byol_license_basekey                = var.byol_license_basekey
   license_host                        = var.license_host
   license_username                    = var.license_username
   license_password                    = var.license_password
   license_pool                        = var.license_pool
   license_sku_keyword_1               = var.license_sku_keyword_1
+  license_sku_keyword_2               = var.license_sku_keyword_2
   license_unit_of_measure             = var.license_unit_of_measure
   do_declaration_url                  = var.do_declaration_url
   as3_declaration_url                 = var.as3_declaration_url
@@ -62,6 +63,7 @@ module "landing_zone" {
   tgrefresh_url                       = var.tgrefresh_url
   enable_f5_management_fip            = var.enable_f5_management_fip
   enable_f5_external_fip              = var.enable_f5_external_fip
+  teleport_management_zones           = var.teleport_management_zones
   use_existing_appid                  = var.use_existing_appid
   appid_name                          = var.appid_name
   appid_resource_group                = var.appid_resource_group
@@ -76,13 +78,16 @@ module "landing_zone" {
   message_of_the_day                  = var.message_of_the_day
   teleport_admin_email                = var.teleport_admin_email
   create_secrets_manager              = var.create_secrets_manager
+  enable_scc                          = var.enable_scc
+  scc_cred_name                       = var.scc_cred_name
+  scc_cred_description                = var.scc_cred_description
+  scc_collector_description           = var.scc_collector_description
+  scc_scope_description               = var.scc_scope_description
+  scc_scope_name                      = var.scc_scope_name
+  add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s
   override                            = var.override
   override_json_string                = var.override_json_string
-  license_sku_keyword_2               = var.license_sku_keyword_2
-  enable_scc                          = var.enable_scc
-  scc_cred_description                = var.scc_cred_description
-  scc_cred_name                       = var.scc_cred_name
-  add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s
+  IC_SCHEMATICS_WORKSPACE_ID          = var.IC_SCHEMATICS_WORKSPACE_ID
 }
 
 ##############################################################################
