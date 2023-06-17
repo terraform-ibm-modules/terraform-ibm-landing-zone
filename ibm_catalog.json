@@ -308,10 +308,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "hs_crypto_resource_group"
-                        },
-                        {
-                            "hidden": true,
                             "key": "f5_image_name"
                         },
                         {
@@ -390,10 +386,6 @@
                         {
                             "hidden": true,
                             "key": "teleport_version"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "hs_crypto_instance_name"
                         },
                         {
                             "custom_config": {
@@ -667,14 +659,6 @@
                             },
                             "key": "region",
                             "required": true
-                        },
-                        {
-                            "key": "hs_crypto_instance_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "hs_crypto_resource_group",
-                            "hidden": true
                         },
                         {
                             "key": "add_edge_vpc",
@@ -1197,10 +1181,6 @@
                             "key": "teleport_management_zones"
                         },
                         {
-                            "key": "hs_crypto_resource_group",
-                            "hidden": true
-                        },
-                        {
                             "hidden": true,
                             "key": "license_host"
                         },
@@ -1310,10 +1290,6 @@
                         {
                             "hidden": true,
                             "key": "license_password"
-                        },
-                        {
-                            "key": "hs_crypto_instance_name",
-                            "hidden": true
                         },
                         {
                             "hidden": true,
