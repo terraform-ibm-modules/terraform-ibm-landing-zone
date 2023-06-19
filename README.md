@@ -67,6 +67,22 @@ Complete the following steps before you deploy the Secure Landing Zone module.
 
     Select **All Identity and Access enabled services** when you assign access to the group.
 
+### Steps to prevent Destroy and recreation of cluster.
+1. Prior to `terraform plan` and `terraform apply`. Edit `moved_config.tf`
+2. Add the following lines to the terraform file.
+  ```
+  moved {
+    from = ibm_container_vpc_cluster.cluster["<workload_cluster_name>"]
+    to   = module.cluster["<workload_cluster_name>"].ibm_container_vpc_cluster.cluster[0]
+  }
+  moved {
+    from = ibm_container_vpc_cluster.cluster["<management_cluster_name>"]
+    to   = module.cluster["<management_cluster_name>"].ibm_container_vpc_cluster.cluster[0]
+  }
+  ```
+3. Make sure to replace the `<workload_cluster_name>` with the actual workload cluster name. Similarly `<management_cluster_name>` with the management cluster name.
+4. Go ahead with `terraform plan` and `terraform apply`.
+
 ### (Optional) Set up IBM Cloud Hyper Protect Crypto Services
 
 For Key Management services, you can use IBM Cloud Hyper Protect Crypto Services. Create an instance before you create the Secure Landing Zone.
