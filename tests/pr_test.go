@@ -122,19 +122,19 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-// Disbaling HPCS tests until the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-//func TestRunRoksPatternWithHPCS(t *testing.T) {
-//	t.Parallel()
-//
-//	options := setupOptionsRoksPattern(t, "lrkshp")
-//
-//	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-//	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
-//
-//	output, err := options.RunTestConsistency()
-//	assert.Nil(t, err, "This should not have errored")
-//	assert.NotNil(t, output, "Expected some output")
-//}
+func TestRunRoksPatternWithHPCS(t *testing.T) {
+	t.Skip() // Disabling HPCS tests until the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "lrkshp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
@@ -186,18 +186,17 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
-// Disbaling HPCS tests until the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-//func TestRunVSIPatternWithHPCS(t *testing.T) {
-//
-//	options := setupOptionsVsiPattern(t, "lvsihp")
-//
-//	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-//	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
-//
-//	output, err := options.RunTestConsistency()
-//	assert.Nil(t, err, "This should not have errored")
-//	assert.NotNil(t, output, "Expected some output")
-//}
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+	t.Skip() // Disabling HPCS tests until the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+	options := setupOptionsVsiPattern(t, "lvsihp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
