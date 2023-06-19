@@ -83,6 +83,17 @@ Complete the following steps before you deploy the Secure Landing Zone module.
 3. Make sure to replace the `<workload_cluster_name>` with the actual workload cluster name. Similarly `<management_cluster_name>` with the management cluster name.
 4. Go ahead with `terraform plan` and `terraform apply`.
 
+#### Alternative approach using terraform cli:
+1. Run this command to retrive the cluster names from the state file.
+```
+  terraform state list | grep "ibm_container_vpc_cluster.cluster"
+```
+2. Take the cluster name from the list. For example: `debug-ocp-management-cluster`, `debug-ocp-workload-cluster`
+3. For each element in the list:
+```
+terraform state mv module.landing_zone.ibm_container_vpc_cluster.cluster["<cluster name>"] module.landing_zone.module.cluster["<cluster name"].ibm_container_vpc_cluster.cluster[0]
+```
+
 ### (Optional) Set up IBM Cloud Hyper Protect Crypto Services
 
 For Key Management services, you can use IBM Cloud Hyper Protect Crypto Services. Create an instance before you create the Secure Landing Zone.
