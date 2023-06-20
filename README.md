@@ -89,10 +89,12 @@ Complete the following steps before you deploy the Secure Landing Zone module.
   terraform state list | grep "ibm_container_vpc_cluster.cluster"
 ```
 2. Take the cluster name from the list. For example: `debug-ocp-management-cluster`, `debug-ocp-workload-cluster`
-3. For each element in the list:
+3. Run `terraform init` to initialize newly added resources.
+4. For each element in the list:
 ```
-terraform state mv module.landing_zone.ibm_container_vpc_cluster.cluster["<cluster name>"] module.landing_zone.module.cluster["<cluster name"].ibm_container_vpc_cluster.cluster[0]
+terraform state mv 'module.landing_zone.ibm_container_vpc_cluster.cluster["<cluster name>"]' 'module.landing_zone.module.cluster["<cluster name>"].ibm_container_vpc_cluster.cluster[0]'
 ```
+5. Run `terraform apply` to apply the changes to the infrastructure without re-creating cluster.
 
 ### (Optional) Set up IBM Cloud Hyper Protect Crypto Services
 
