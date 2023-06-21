@@ -223,6 +223,10 @@
                     },
                     "configuration": [
                         {
+                            "required": true,
+                            "key": "ssh_public_key"
+                        },
+                        {
                             "hidden": true,
                             "key": "teleport_domain"
                         },

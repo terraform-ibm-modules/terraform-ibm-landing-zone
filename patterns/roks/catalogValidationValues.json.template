@@ -3,7 +3,5 @@
   "region": "eu-gb",
   "entitlement": "cloud_pak",
   "tags": $TAGS,
-  "prefix": $PREFIX,
-  "hs_crypto_instance_name": "geretain-hyper-protect-crypto-us-east",
-  "hs_crypto_resource_group": "Default"
+  "prefix": $PREFIX
 }
