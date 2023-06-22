@@ -37,4 +37,9 @@ module "landing_zone" {
   ibmcloud_api_key               = var.ibmcloud_api_key
 }
 
+moved {
+  from = module.landing_zone
+  to   = module.vpc_landing_zone.module.landing_zone
+}
+
 ##############################################################################

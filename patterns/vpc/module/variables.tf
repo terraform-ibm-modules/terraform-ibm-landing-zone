@@ -533,6 +533,12 @@ variable "override_json_string" {
   default     = ""
 }
 
+variable "override_json_path" {
+  description = "Path to where `override.json` file is stored."
+  type        = string
+  default     = ""
+}
+
 ##############################################################################
 
 ##############################################################################
