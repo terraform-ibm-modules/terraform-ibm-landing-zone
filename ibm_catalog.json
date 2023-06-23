@@ -224,10 +224,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_scope_name"
-                        },
-                        {
-                            "hidden": true,
                             "key": "domain"
                         },
                         {
@@ -272,10 +268,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_cred_name"
-                        },
-                        {
-                            "hidden": true,
                             "key": "f5_image_name"
                         },
                         {
@@ -300,19 +292,11 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_collector_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "license_username"
                         },
                         {
                             "hidden": true,
                             "key": "teleport_license"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_cred_description"
                         },
                         {
                             "hidden": true,
@@ -389,10 +373,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "enable_scc"
-                        },
-                        {
-                            "hidden": true,
                             "key": "app_id"
                         },
                         {
@@ -414,10 +394,6 @@
                         {
                             "hidden": true,
                             "key": "template_source"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_scope_description"
                         }
                     ],
                     "iam_permissions": [
@@ -776,30 +752,6 @@
                             "hidden": true
                         },
                         {
-                            "key": "enable_scc",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_cred_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_cred_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_collector_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_scope_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_scope_name",
-                            "hidden": true
-                        },
-                        {
                             "key": "override",
                             "hidden": true
                         }
@@ -1027,10 +979,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_cred_name"
-                        },
-                        {
-                            "hidden": true,
                             "key": "domain"
                         },
                         {
@@ -1084,10 +1032,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_collector_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "license_sku_keyword_2"
                         },
                         {
@@ -1128,15 +1072,7 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_scope_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "app_id"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_scc"
                         },
                         {
                             "hidden": true,
@@ -1175,10 +1111,6 @@
                             "hidden": true
                         },
                         {
-                            "hidden": true,
-                            "key": "scc_scope_name"
-                        },
-                        {
                             "key": "cluster_zones"
                         },
                         {
@@ -1188,10 +1120,6 @@
                         {
                             "hidden": true,
                             "key": "do_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_cred_description"
                         },
                         {
                             "key": "workers_per_zone"
