@@ -96,6 +96,19 @@ terraform state mv 'module.landing_zone.ibm_container_vpc_cluster.cluster["<clus
 ```
 5. Run `terraform apply` to apply the changes to the infrastructure without re-creating cluster.
 
+6. (Optional) If you have additional worker pools other than the default pool. You will need to move them as well to prevent destroy and recreate. Similiar to the previous steps run the following.
+```
+1. terraform state list | grep "ibm_container_vpc_worker_pool.pool"
+module.landing_zone.ibm_container_vpc_worker_pool.pool["debug-ocp-workload-cluster-logging-worker-pool"]
+
+2. Seperate the cluster name and the worker pool name. For example:
+cluster_name : debug-ocp-workload-cluster
+worker_pool_name : logging-worker-pool
+
+3. For each element in the list, Run the following:
+terraform state mv 'module.landing_zone.ibm_container_vpc_worker_pool.pool["<cluster_name>-<worker_pool_name>"]' 'module.landing_zone.module.cluster["<cluster_name>"].ibm_container_vpc_worker_pool.pool["<worker_pool_name>"]'
+```
+
 ### (Optional) Set up IBM Cloud Hyper Protect Crypto Services
 
 For Key Management services, you can use IBM Cloud Hyper Protect Crypto Services. Create an instance before you create the Secure Landing Zone.
