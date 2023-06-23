@@ -35,7 +35,7 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| ![VPC](reference-architectures/vpc.drawio.svg) | ![VSI](reference-architectures/vsi-vsi.drawio.svg) | ![ROKS](reference-architectures/roks.drawio.svg) | ![Mixed](./.docs/images/mixed.png) |
+| [![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](reference-architectures/roks.drawio.svg)](patterns/roks/README.md) | [![Mixed](./.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ## Before you begin
 
