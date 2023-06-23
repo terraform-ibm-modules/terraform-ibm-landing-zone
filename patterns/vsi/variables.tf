@@ -125,7 +125,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-20-04-6-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
 }
 
 variable "vsi_instance_profile" {
