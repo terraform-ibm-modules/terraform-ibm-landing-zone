@@ -41,7 +41,10 @@ locals {
   # Default override.json location can be replaced by using var.override_json_path
   # Empty string is used to avoid type conflicts with unary operators
   override = {
-    override             = jsondecode(var.override && var.override_json_string == "" ? (var.override_json_path == "" ? file("./override.json") : file(var.override_json_path)) : "{}")
+    override = jsondecode(var.override && var.override_json_string == "" ?
+      (var.override_json_path == "" ? file("${path.root}/override.json") : file(var.override_json_path))
+      :
+    "{}")
     override_json_string = jsondecode(var.override_json_string == "" ? "{}" : var.override_json_string)
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
