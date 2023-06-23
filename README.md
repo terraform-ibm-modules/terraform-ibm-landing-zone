@@ -733,6 +733,7 @@ This module can provision a Cloud Object Storage instance or retrieve an existin
 
 You define Cloud Object Storage components in the [cos.tf](cos.tf) file.
 
+
 ### Security and Compliance Center variable
 
 The `location_id` variable represents the geographic area where Posture Management requests are handled and processed. When `is_public` is set to `true`, the collector connects to resources in your account over a public network. When set to `false`, the collector connects to resources by using a private IP address that is accessible only through IBM Cloud Private network. The `collector_passphrase` is necessary only if credential passphrase is enabled.
