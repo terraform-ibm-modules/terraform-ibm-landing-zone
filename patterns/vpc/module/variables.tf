@@ -534,7 +534,7 @@ variable "override_json_string" {
 }
 
 variable "override_json_path" {
-  description = "Path to where `override.json` file is stored."
+  description = "Override default values with custom `override.json` file. Specify the location of `override.json`. Any value here other than an empty string will override all other configuration changes. Note: if `var.override_json_string` is specified then this variable is ignored."
   type        = string
   default     = ""
 }
