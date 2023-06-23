@@ -125,7 +125,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-1-minimal-amd64-4"
+  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
 }
 
 variable "vsi_instance_profile" {
@@ -468,71 +468,6 @@ variable "create_secrets_manager" {
   description = "Create a secrets manager deployment."
   type        = bool
   default     = false
-}
-
-##############################################################################
-
-##############################################################################
-# Security and Compliance Center
-##############################################################################
-
-variable "enable_scc" {
-  description = "Enable creation of SCC resources"
-  type        = bool
-  default     = false
-}
-
-variable "scc_cred_name" {
-  description = "The name of the credential"
-  type        = string
-  default     = "slz-cred"
-
-  validation {
-    error_message = "SCC Credential Name must be 255 or fewer characters."
-    condition     = var.scc_cred_name == null ? true : can(regex("^[a-zA-Z0-9-\\.\\*,_\\s]*$", var.scc_cred_name)) && length(var.scc_cred_name) <= 255
-  }
-}
-
-variable "scc_cred_description" {
-  description = "Description of SCC Credential"
-  type        = string
-  default     = "This credential is used for SCC."
-
-  validation {
-    error_message = "SCC Credential Description must be 255 or fewer characters."
-    condition     = var.scc_cred_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_cred_description)) && length(var.scc_cred_description) <= 255
-  }
-}
-
-variable "scc_collector_description" {
-  description = "Description of SCC Collector"
-  type        = string
-  default     = "collector description"
-  validation {
-    error_message = "SCC Collector Description must be 1000 or fewer characters."
-    condition     = var.scc_collector_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_collector_description)) && length(var.scc_collector_description) <= 1000
-  }
-}
-
-variable "scc_scope_description" {
-  description = "Description of SCC Scope"
-  type        = string
-  default     = "IBM-schema-for-configuration-collection"
-  validation {
-    error_message = "SCC Scope Description must be 255 or fewer characters."
-    condition     = var.scc_scope_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_scope_description)) && length(var.scc_scope_description) <= 255
-  }
-}
-
-variable "scc_scope_name" {
-  description = "The name of the SCC Scope"
-  type        = string
-  default     = "scope"
-
-  validation {
-    error_message = "SCC Scope Name must be 50 or fewer characters."
-    condition     = var.scc_scope_name == null ? true : can(regex("^[a-zA-Z0-9-\\.,_\\s]*$", var.scc_scope_name)) && length(var.scc_scope_name) <= 50
-  }
 }
 
 ##############################################################################
