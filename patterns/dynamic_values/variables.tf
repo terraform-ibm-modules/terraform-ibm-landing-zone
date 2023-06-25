@@ -64,13 +64,13 @@ variable "prepend_ibm_rules" {
 ##############################################################################
 
 variable "hs_crypto_instance_name" {
-  description = "Optionally, you can bring you own Hyper Protect Crypto Service instance for key management. If you would like to use that instance, add the name here. Otherwise, leave as null"
+  description = "Specify the name of the Hyper Protect Crypto Services instance for key management. Leave as null to use the Key Protect service."
   type        = string
   default     = null
 }
 
 variable "hs_crypto_resource_group" {
-  description = "If you're using Hyper Protect Crypto services in a resource group other than `Default`, provide the name here."
+  description = "For Hyper Protect Crypto Services (HPCS), specify the name of the resource group for the instance in `hs_crypto_instance_name`. Leave as null for the `Default` resource group or if not using HPCS."
   type        = string
   default     = null
 }
