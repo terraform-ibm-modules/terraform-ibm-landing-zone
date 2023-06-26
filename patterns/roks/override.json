@@ -171,13 +171,6 @@
       }
   ],
   "security_groups": [],
-  "security_compliance_center": {
-    "enable_scc": false,
-    "is_public": false,
-    "location_id": "us",
-    "scope_name": "slz-scope",
-    "scope_description": "slz-scope-description"
-  },
   "service_endpoints": "private",
   "ssh_keys": [],
   "transit_gateway_connections": [

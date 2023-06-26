@@ -252,45 +252,7 @@ locals {
     }
 
     ##############################################################################
-
-    ##############################################################################
-    # Security and Compliance Center
-    ##############################################################################
-
-    security_compliance_center = {
-      enable_scc            = var.enable_scc
-      is_public             = false
-      location_id           = lookup(local.scc_region_map, var.region)
-      collector_description = var.scc_collector_description
-      scope_name            = var.scc_scope_name
-      scope_description     = var.scc_scope_description
-    }
-
-    ##############################################################################
   }
-
-  ##############################################################################
-  # Dynamic SCC map for ibm_scc_account_location based on provided region
-  ##############################################################################
-
-  scc_region_map = {
-    us-south   = "us"
-    us-east    = "us"
-    eu-central = "eu"
-    eu-de      = "eu"
-    eu-fr2     = "eu"
-    uk-south   = "uk"
-    eu-gb      = "uk"
-    ap-north   = "us"
-    ap-south   = "us"
-    au-syd     = "us"
-    jp-tok     = "us"
-    jp-osa     = "us"
-    ca-tor     = "us"
-    br-sao     = "us"
-  }
-
-  ##############################################################################
 
   ##############################################################################
   # Compile Environment for Config output
@@ -318,7 +280,6 @@ locals {
     access_groups                  = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
     appid                          = lookup(local.override[local.override_type], "appid", local.config.appid)
     secrets_manager                = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
-    security_compliance_center     = lookup(local.override[local.override_type], "security_compliance_center", local.config.security_compliance_center)
     f5_vsi                         = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)

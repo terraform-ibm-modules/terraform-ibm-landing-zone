@@ -76,13 +76,13 @@ variable "add_atracker_route" {
 ##############################################################################
 
 variable "hs_crypto_instance_name" {
-  description = "Optionally, you can bring you own Hyper Protect Crypto Service instance for key management. If you would like to use that instance, add the name here. Otherwise, leave as null"
+  description = "Specify the name of the Hyper Protect Crypto Services instance for key management. Leave as null to use the Key Protect service."
   type        = string
   default     = null
 }
 
 variable "hs_crypto_resource_group" {
-  description = "If you're using Hyper Protect Crypto services in a resource group other than `Default`, provide the name here."
+  description = "For Hyper Protect Crypto Services (HPCS), specify the name of the resource group for the instance in `hs_crypto_instance_name`. Leave as null for the `Default` resource group or if not using HPCS."
   type        = string
   default     = null
 }
@@ -517,73 +517,6 @@ variable "create_secrets_manager" {
   description = "Create a secrets manager deployment."
   type        = bool
   default     = false
-}
-
-##############################################################################
-
-##############################################################################
-# Security and Compliance Center
-##############################################################################
-
-variable "enable_scc" {
-  description = "Enable creation of SCC resources"
-  type        = bool
-  default     = false
-}
-
-variable "scc_cred_name" {
-  description = "The name of the credential"
-  type        = string
-  default     = "slz-cred"
-
-  validation {
-    error_message = "SCC Credential Name must be 255 or fewer characters."
-    condition     = var.scc_cred_name == null ? true : can(regex("^[a-zA-Z0-9-\\.\\*,_\\s]*$", var.scc_cred_name)) && length(var.scc_cred_name) <= 255
-  }
-}
-
-variable "scc_cred_description" {
-  description = "Description of SCC Credential"
-  type        = string
-  default     = "This credential is used for SCC."
-
-  validation {
-    error_message = "SCC Credential Description must be 255 or fewer characters."
-    condition     = var.scc_cred_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_cred_description)) && length(var.scc_cred_description) <= 255
-  }
-}
-
-variable "scc_collector_description" {
-  description = "Description of SCC Collector"
-  type        = string
-  default     = "collector description"
-
-  validation {
-    error_message = "SCC Collector Description must be 1000 or fewer characters."
-    condition     = var.scc_collector_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_collector_description)) && length(var.scc_collector_description) <= 1000
-  }
-}
-
-variable "scc_scope_description" {
-  description = "Description of SCC Scope"
-  type        = string
-  default     = "IBM-schema-for-configuration-collection"
-
-  validation {
-    error_message = "SCC Scope Description must be 255 or fewer characters."
-    condition     = var.scc_scope_description == null ? true : can(regex("^[a-zA-Z0-9-\\._,\\s]*$", var.scc_scope_description)) && length(var.scc_scope_description) <= 255
-  }
-}
-
-variable "scc_scope_name" {
-  description = "The name of the SCC Scope"
-  type        = string
-  default     = "scope"
-
-  validation {
-    error_message = "SCC Scope Name must be 50 or fewer characters."
-    condition     = var.scc_scope_name == null ? true : can(regex("^[a-zA-Z0-9-\\.,_\\s]*$", var.scc_scope_name)) && length(var.scc_scope_name) <= 50
-  }
 }
 
 ##############################################################################

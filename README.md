@@ -35,7 +35,7 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| ![VPC](reference-architectures/vpc.drawio.svg) | ![VSI](reference-architectures/vsi-vsi.drawio.svg) | ![ROKS](reference-architectures/roks.drawio.svg) | ![Mixed](./.docs/images/mixed.png) |
+| [![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](reference-architectures/roks.drawio.svg)](patterns/roks/README.md) | [![Mixed](./.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ## Before you begin
 
@@ -66,48 +66,6 @@ Complete the following steps before you deploy the Secure Landing Zone module.
     User access to IBM Cloud resources is controlled by using the access policies that are assigned to access groups. For IBM Cloud Financial Services validation, all IAM users must not be assigned direct access to any IBM Cloud resources.
 
     Select **All Identity and Access enabled services** when you assign access to the group.
-
-### Steps to prevent Destroy and recreation of cluster.
-1. Prior to `terraform plan` and `terraform apply`. Edit `moved_config.tf`
-2. Add the following lines to the terraform file.
-  ```
-  moved {
-    from = ibm_container_vpc_cluster.cluster["<workload_cluster_name>"]
-    to   = module.cluster["<workload_cluster_name>"].ibm_container_vpc_cluster.cluster[0]
-  }
-  moved {
-    from = ibm_container_vpc_cluster.cluster["<management_cluster_name>"]
-    to   = module.cluster["<management_cluster_name>"].ibm_container_vpc_cluster.cluster[0]
-  }
-  ```
-3. Make sure to replace the `<workload_cluster_name>` with the actual workload cluster name. Similarly `<management_cluster_name>` with the management cluster name.
-4. Go ahead with `terraform plan` and `terraform apply`.
-
-#### Alternative approach using terraform cli:
-1. Run this command to retrive the cluster names from the state file.
-```
-  terraform state list | grep "ibm_container_vpc_cluster.cluster"
-```
-2. Take the cluster name from the list. For example: `debug-ocp-management-cluster`, `debug-ocp-workload-cluster`
-3. Run `terraform init` to initialize newly added resources.
-4. For each element in the list:
-```
-terraform state mv 'module.landing_zone.ibm_container_vpc_cluster.cluster["<cluster name>"]' 'module.landing_zone.module.cluster["<cluster name>"].ibm_container_vpc_cluster.cluster[0]'
-```
-5. Run `terraform apply` to apply the changes to the infrastructure without re-creating cluster.
-
-6. (Optional) If you have additional worker pools other than the default pool. You will need to move them as well to prevent destroy and recreate. Similiar to the previous steps run the following.
-```
-1. terraform state list | grep "ibm_container_vpc_worker_pool.pool"
-module.landing_zone.ibm_container_vpc_worker_pool.pool["debug-ocp-workload-cluster-logging-worker-pool"]
-
-2. Seperate the cluster name and the worker pool name. For example:
-cluster_name : debug-ocp-workload-cluster
-worker_pool_name : logging-worker-pool
-
-3. For each element in the list, Run the following:
-terraform state mv 'module.landing_zone.ibm_container_vpc_worker_pool.pool["<cluster_name>-<worker_pool_name>"]' 'module.landing_zone.module.cluster["<cluster_name>"].ibm_container_vpc_worker_pool.pool["<worker_pool_name>"]'
-```
 
 ### (Optional) Set up IBM Cloud Hyper Protect Crypto Services
 
@@ -721,8 +679,6 @@ list(
 
 You can create as many `iks` or `openshift` clusters and worker pools on VPC. For `ROKS` clusters, make sure to enable public gateways to allow your cluster to correctly provision ingress application load balancers.
 
-NOTE: The cluster created will have a single worker pool with worker nodes distributed across 3 different subnet each in a different availability zone.
-
 The following example shows the `cluster` variable type.
 
 ```terraform
@@ -777,9 +733,6 @@ This module can provision a Cloud Object Storage instance or retrieve an existin
 
 You define Cloud Object Storage components in the [cos.tf](cos.tf) file.
 
-## Security and Compliance Center
-
-You create credentials from the patterns by using an IBM Cloud API key for the `scc.tf` file to create a scope. You define the components, account_settings, collector, and scope for IBM Cloud Security and Compliance Center in the [scc.tf](scc.tf) file. You configure credentials in a `main.tf` file in the [patterns](/patterns/) directory.
 
 ### Security and Compliance Center variable
 
@@ -788,7 +741,6 @@ The `location_id` variable represents the geographic area where Posture Manageme
 ```terraform
 object(
   {
-    enable_scc            = bool
     location_id           = optional(string)
     is_public             = optional(bool)
     collector_passphrase  = optional(string)
@@ -947,16 +899,16 @@ statement instead the previous block.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.1.0 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git | v3.2.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.1.0 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v7.2.0 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.1.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
 
 ## Resources
 
@@ -989,9 +941,6 @@ statement instead the previous block.
 | [ibm_resource_instance.secrets_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
 | [ibm_resource_key.appid_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_key) | resource |
 | [ibm_resource_key.key](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_key) | resource |
-| [ibm_scc_account_settings.ibm_scc_account_settings_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/scc_account_settings) | resource |
-| [ibm_scc_posture_collector.collector](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/scc_posture_collector) | resource |
-| [ibm_scc_posture_scope.scc_scope](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/scc_posture_scope) | resource |
 | [ibm_tg_connection.connection](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_gateway.transit_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_gateway) | resource |
 | [random_string.random_cos_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
@@ -1024,7 +973,6 @@ statement instead the previous block.
 | <a name="input_region"></a> [region](#input\_region) | Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions. | `string` | n/a | yes |
 | <a name="input_resource_groups"></a> [resource\_groups](#input\_resource\_groups) | Object describing resource groups to create or reference | <pre>list(<br>    object({<br>      name       = string<br>      create     = optional(bool)<br>      use_prefix = optional(bool)<br>    })<br>  )</pre> | n/a | yes |
 | <a name="input_secrets_manager"></a> [secrets\_manager](#input\_secrets\_manager) | Map describing an optional secrets manager deployment | <pre>object({<br>    use_secrets_manager = bool<br>    name                = optional(string)<br>    kms_key_name        = optional(string)<br>    resource_group      = optional(string)<br>  })</pre> | <pre>{<br>  "use_secrets_manager": false<br>}</pre> | no |
-| <a name="input_security_compliance_center"></a> [security\_compliance\_center](#input\_security\_compliance\_center) | Security and Compliance Center Variables | <pre>object({<br>    enable_scc            = bool<br>    location_id           = optional(string)<br>    is_public             = optional(bool)<br>    collector_description = optional(string)<br>    credential_id         = optional(string)<br>    scope_name            = optional(string)<br>    scope_description     = optional(string)<br>  })</pre> | <pre>{<br>  "enable_scc": false<br>}</pre> | no |
 | <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups for VPC | <pre>list(<br>    object({<br>      name           = string<br>      vpc_name       = string<br>      resource_group = optional(string)<br>      rules = list(<br>        object({<br>          name      = string<br>          direction = string<br>          source    = string<br>          tcp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          udp = optional(<br>            object({<br>              port_max = number<br>              port_min = number<br>            })<br>          )<br>          icmp = optional(<br>            object({<br>              type = number<br>              code = number<br>            })<br>          )<br>        })<br>      )<br>    })<br>  )</pre> | `[]` | no |
 | <a name="input_service_endpoints"></a> [service\_endpoints](#input\_service\_endpoints) | Service endpoints. Can be `public`, `private`, or `public-and-private` | `string` | `"private"` | no |
 | <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>    })<br>  )</pre> | n/a | yes |
