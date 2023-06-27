@@ -18,10 +18,10 @@ Each of these patterns creates the following infrastructure:sssddd
 - A resource group for cloud services and for each VPC.
 - Cloud Object Storage instances for flow logs and Activity Tracker
 - Encryption keys in either a Key Protect or Hyper Protect Crypto Services instance
-- A management and workload VPC connected by a transit gateway
+- A management and workload VPC connected by a transit gateways
 - A flow log collector for each VPC
 - All necessary networking rules to allow communication
-- Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPC
+- Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPCs
 - A VPN gateway in the management VPC
 
 Each pattern creates the following infrastructure on the VPC:d
