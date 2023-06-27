@@ -13,7 +13,7 @@
 
 The landing zone module can be used to create a fully customizable VPC environment within a single region. The four following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
 
-Each of these patterns creates the following infrastructure:
+Each of these patterns creates the following infrastructure:s
 
 - A resource group for cloud services and for each VPC.
 - Cloud Object Storage instances for flow logs and Activity Tracker
