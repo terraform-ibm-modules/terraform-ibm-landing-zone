@@ -178,46 +178,10 @@
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
-                        "controls": [
+                        "profiles": [
                             {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "AC-2(4)(0)",
-                                    "AC-2(7)(b)",
-                                    "AC-2(g)",
-                                    "AC-6(9)(0)",
-                                    "AU-2(a)",
-                                    "AU-2(d)",
-                                    "AU-3(0)",
-                                    "AU-4(0)",
-                                    "AU-8(1)(a)",
-                                    "AU-8(1)(b)",
-                                    "AU-8(a)",
-                                    "AU-8(b)",
-                                    "AU-11(0)",
-                                    "AU-12(a)",
-                                    "AU-12(b)",
-                                    "AU-12(c)",
-                                    "CA-7(d)",
-                                    "CM-7(a)",
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)",
-                                    "SC-7(c)",
-                                    "SC-7(4)(c)",
-                                    "SC-7(10)(0)",
-                                    "SC-8(0)",
-                                    "SC-8(1)(0)",
-                                    "SC-11(0)",
-                                    "SC-23(0)",
-                                    "SI-4(a)",
-                                    "SI-4(b)",
-                                    "SI-4(c)",
-                                    "SI-12(0)"
-                                ]
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
                             }
                         ]
                     },
@@ -257,10 +221,6 @@
                         {
                             "hidden": true,
                             "key": "vpn_firewall_type"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_scope_name"
                         },
                         {
                             "hidden": true,
@@ -308,10 +268,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_cred_name"
-                        },
-                        {
-                            "hidden": true,
                             "key": "f5_image_name"
                         },
                         {
@@ -336,19 +292,11 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_collector_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "license_username"
                         },
                         {
                             "hidden": true,
                             "key": "teleport_license"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_cred_description"
                         },
                         {
                             "hidden": true,
@@ -425,10 +373,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "enable_scc"
-                        },
-                        {
-                            "hidden": true,
                             "key": "app_id"
                         },
                         {
@@ -450,10 +394,6 @@
                         {
                             "hidden": true,
                             "key": "template_source"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_scope_description"
                         }
                     ],
                     "iam_permissions": [
@@ -607,47 +547,10 @@
                     "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
-                        "controls": [
+                        "profiles": [
                             {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "AC-2(4)(0)",
-                                    "AC-2(7)(b)",
-                                    "AC-2(g)",
-                                    "AC-6(9)(0)",
-                                    "AU-2(a)",
-                                    "AU-2(d)",
-                                    "AU-3(0)",
-                                    "AU-4(0)",
-                                    "AU-8(1)(a)",
-                                    "AU-8(1)(b)",
-                                    "AU-8(a)",
-                                    "AU-8(b)",
-                                    "AU-11(0)",
-                                    "AU-12(a)",
-                                    "AU-12(b)",
-                                    "AU-12(c)",
-                                    "CA-7(d)",
-                                    "CM-7(a)",
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)",
-                                    "SC-7(c)",
-                                    "SC-7(4)(c)",
-                                    "SC-7(10)(0)",
-                                    "SC-8(0)",
-                                    "SC-8(1)(0)",
-                                    "SC-11(0)",
-                                    "SC-23(0)",
-                                    "SI-12(0)",
-                                    "SI-4(a)",
-                                    "SI-4(b)",
-                                    "SI-4(c)",
-                                    "SI-12(0)"
-                                ]
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
                             }
                         ]
                     },
@@ -849,30 +752,6 @@
                             "hidden": true
                         },
                         {
-                            "key": "enable_scc",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_cred_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_cred_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_collector_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_scope_description",
-                            "hidden": true
-                        },
-                        {
-                            "key": "scc_scope_name",
-                            "hidden": true
-                        },
-                        {
                             "key": "override",
                             "hidden": true
                         }
@@ -1026,47 +905,10 @@
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
-                        "controls": [
+                        "profiles": [
                             {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "AC-2(4)(0)",
-                                    "AC-2(7)(b)",
-                                    "AC-2(g)",
-                                    "AC-6(9)(0)",
-                                    "AU-2(a)",
-                                    "AU-2(d)",
-                                    "AU-3(0)",
-                                    "AU-4(0)",
-                                    "AU-8(1)(a)",
-                                    "AU-8(1)(b)",
-                                    "AU-8(a)",
-                                    "AU-8(b)",
-                                    "AU-11(0)",
-                                    "AU-12(a)",
-                                    "AU-12(b)",
-                                    "AU-12(c)",
-                                    "CA-7(d)",
-                                    "CM-7(a)",
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)",
-                                    "SC-7(c)",
-                                    "SC-7(4)(c)",
-                                    "SC-7(10)(0)",
-                                    "SC-8(0)",
-                                    "SC-8(1)(0)",
-                                    "SC-11(0)",
-                                    "SC-23(0)",
-                                    "SI-2(2)(0)",
-                                    "SI-4(a)",
-                                    "SI-4(b)",
-                                    "SI-4(c)",
-                                    "SI-12(0)"
-                                ]
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
                             }
                         ]
                     },
@@ -1137,10 +979,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_cred_name"
-                        },
-                        {
-                            "hidden": true,
                             "key": "domain"
                         },
                         {
@@ -1194,10 +1032,6 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_collector_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "license_sku_keyword_2"
                         },
                         {
@@ -1238,15 +1072,7 @@
                         },
                         {
                             "hidden": true,
-                            "key": "scc_scope_description"
-                        },
-                        {
-                            "hidden": true,
                             "key": "app_id"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_scc"
                         },
                         {
                             "hidden": true,
@@ -1285,10 +1111,6 @@
                             "hidden": true
                         },
                         {
-                            "hidden": true,
-                            "key": "scc_scope_name"
-                        },
-                        {
                             "key": "cluster_zones"
                         },
                         {
@@ -1298,10 +1120,6 @@
                         {
                             "hidden": true,
                             "key": "do_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "scc_cred_description"
                         },
                         {
                             "key": "workers_per_zone"
