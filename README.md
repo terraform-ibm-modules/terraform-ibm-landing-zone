@@ -13,7 +13,7 @@
 
 The landing zone module can be used to create a fully customizable VPC environment within a single region. The four following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
 
-Each of these patterns creates the following infrastructure:s
+Each of these patterns creates the following infrastructure:sss
 
 - A resource group for cloud services and for each VPC.
 - Cloud Object Storage instances for flow logs and Activity Tracker
@@ -37,6 +37,7 @@ For more information about the default configuration, see [Default Secure Landin
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
 | [![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](reference-architectures/roks.drawio.svg)](patterns/roks/README.md) | [![Mixed](./.docs/images/mixed.png)](patterns/mixed/README.md) |
 
+![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md)
 ## Before you begin
 
 Some features of this module require additional software beyond the [Terraform CLI](https://www.terraform.io/).
