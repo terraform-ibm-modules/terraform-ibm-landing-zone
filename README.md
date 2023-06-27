@@ -35,14 +35,7 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| ![VPC](reference-architectures/vpc.drawio.svg) | ![VSI](reference-architectures/vsi-vsi.drawio.svg?raw=true)(patterns/vsi/README.md) | <p> <img src="reference-architectures/roks.drawio.svg?raw=true" alt="ROKS" /> </p> |  ![Mixed](.docs/images/mixed.png?raw=true) |
-
-<p> <img src="reference-architectures/roks.drawio.svg?raw=true" alt="ROKS" width="220" height="240"/> </p>
-<p> <img src="reference-architectures/roks.drawio.svg" alt="ROKS" width="220" height="240" /> </p>
-
-
- ![Mixed](.docs/images/mixed.png?raw=true)
- ![test](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)
+| [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ## Before you begin
 
