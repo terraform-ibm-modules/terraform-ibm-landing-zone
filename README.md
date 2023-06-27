@@ -29,7 +29,7 @@ Each pattern creates the following infrastructure on the VPC:
 - The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
-- The mixed pattern provisions both of these elements
+- The mixed pattern provisions both of these elementss
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
