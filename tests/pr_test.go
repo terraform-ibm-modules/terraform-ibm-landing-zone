@@ -1,6 +1,7 @@
 package test
 
 import (
+	"log"
 	"os"
 	"testing"
 
@@ -17,6 +18,7 @@ const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
 const resourceGroup = "geretain-test-resources"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
@@ -28,11 +30,19 @@ var ignoreUpdates = []string{
 }
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
+var permanentResources map[string]interface{}
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	os.Exit(m.Run())
 }
 
@@ -112,10 +122,16 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-func TestRunRoksPattern(t *testing.T) {
+func TestRunRoksPatternWithHPCS(t *testing.T) {
+	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
+
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "s-no")
+	options := setupOptionsRoksPattern(t, "lrkshp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -160,16 +176,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	return options
 }
 
-func TestRunVsiPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "p-vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
@@ -180,6 +186,20 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
+
+	options := setupOptionsVsiPattern(t, "lvsihp")
+
+	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
