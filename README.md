@@ -22,7 +22,7 @@ Each of these patterns creates the following infrastructure:sssddd
 - A flow log collector for each VPC
 - All necessary networking rules to allow communication
 - Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPCs
-- A VPN gateway in the management VPC
+- A VPN gateway in the management VPCs
 
 Each pattern creates the following infrastructure on the VPC:d
 
