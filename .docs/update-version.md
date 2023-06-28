@@ -1,4 +1,4 @@
-# Updating to another release of the Red Hat OpenShift pattern.
+# Updating to another release of the Red Hat OpenShift pattern
 
 With release XXX, the Red Hat OpenShift cluster creation moved from a resource block to a separate module. You can update to the new release of the landing zone without destroying and re-creating your Red Hat OpenShift cluster.
 
