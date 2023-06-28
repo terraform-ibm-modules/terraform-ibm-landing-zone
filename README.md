@@ -35,14 +35,14 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| ![VPC](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/aaaaaa0b8f16e26f719079f2f8e872443d244a4b/reference-architectures/vpc.drawio.svg?raw=true) | [![VSI](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/aaaaaa0b8f16e26f719079f2f8e872443d244a4b/reference-architectures/vsi-vsi.drawio.svg?raw=true)](patterns/vsi/README.md) | [![ROKS](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/aaaaaa0b8f16e26f719079f2f8e872443d244a4b/reference-architectures/roks.drawio.svg?raw=true)](patterns/roks/README.md) | [![Mixed](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/aaaaaa0b8f16e26f719079f2f8e872443d244a4b/.docs/images/mixed.png?raw=true)](patterns/mixed/README.md) |
+| ![VPC](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/f2298780a8d6a8e9220bd0b1591040784d853d94/reference-architectures/vpc.drawio.svg?raw=true) | [![VSI](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/f2298780a8d6a8e9220bd0b1591040784d853d94/reference-architectures/vsi-vsi.drawio.svg?raw=true)](patterns/vsi/README.md) | [![ROKS](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/f2298780a8d6a8e9220bd0b1591040784d853d94/reference-architectures/roks.drawio.svg?raw=true)](patterns/roks/README.md) | [![Mixed](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/f2298780a8d6a8e9220bd0b1591040784d853d94/.docs/images/mixed.png?raw=true)](patterns/mixed/README.md) |
 
 
 https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/
 https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/
 
 <!-- https://github.com/github/codeql/blob/b212af08a6cffbb434f3c8a2795a579e092792fd/README.md
-https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/b1ea750b8f16e26f719079f2f8e872443d244a4b/reference-architectures/vpc.drawio.svg?raw=true -->
+https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/f2298780a8d6a8e9220bd0b1591040784d853d94/reference-architectures/vpc.drawio.svg?raw=true -->
 
 ![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md)
 
