@@ -24,7 +24,7 @@ Each of these patterns creates the following infrastructure:sssddd
 - Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPCs
 - A VPN gateway in the management VPCs
 
-Each pattern creates the following infrastructure on the VPC:ds
+Each pattern creates the following infrastructure on the VPC:d
 
 - The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
