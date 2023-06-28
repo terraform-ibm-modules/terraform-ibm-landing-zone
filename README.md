@@ -38,6 +38,10 @@ For more information about the default configuration, see [Default Secure Landin
 | [![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](reference-architectures/roks.drawio.svg)](patterns/roks/README.md) | [![Mixed](./.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md)
+
+[Test](patterns/mixed/README.md)
+[Test2](patterns/vpc/main.tf)
+[Test3](.docs/pattern-defaults.md).
 ## Before you begin
 
 Some features of this module require additional software beyond the [Terraform CLI](https://www.terraform.io/).
