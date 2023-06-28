@@ -41,7 +41,8 @@ For more information about the default configuration, see [Default Secure Landin
 
 [Test](patterns/mixed/README.md)
 [Test2](patterns/vpc/main.tf)
-[Test3](.docs/pattern-defaults.md).
+[Test3](.docs/pattern-defaults.md)
+[Test4](patterns/vpc)
 ## Before you begin
 
 Some features of this module require additional software beyond the [Terraform CLI](https://www.terraform.io/).
