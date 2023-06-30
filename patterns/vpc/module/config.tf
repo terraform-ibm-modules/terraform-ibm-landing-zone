@@ -5,7 +5,7 @@
 ##############################################################################
 
 module "dynamic_values" {
-  source                              = "../dynamic_values"
+  source                              = "../../dynamic_values"
   prefix                              = var.prefix
   region                              = var.region
   vpcs                                = var.vpcs
@@ -26,7 +26,6 @@ module "dynamic_values" {
   teleport_vsi_image_name             = var.teleport_vsi_image_name
   domain                              = var.domain
   hostname                            = var.hostname
-  add_cluster_encryption_key          = false
   use_random_cos_suffix               = var.use_random_cos_suffix
 }
 
@@ -38,36 +37,18 @@ module "dynamic_values" {
 ##############################################################################
 
 locals {
-  # If override is true, parse the JSON from override.json otherwise parse empty string
+  # If override is true, parse the JSON from override.json otherwise parse empty string.
+  # Default override.json location can be replaced by using var.override_json_path
   # Empty string is used to avoid type conflicts with unary operators
   override = {
-    override             = jsondecode(var.override && var.override_json_string == "" ? file("./override.json") : "{}")
+    override = jsondecode(var.override && var.override_json_string == "" ?
+      (var.override_json_path == "" ? file("${path.root}/override.json") : file(var.override_json_path))
+      :
+    "{}")
     override_json_string = jsondecode(var.override_json_string == "" ? "{}" : var.override_json_string)
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
 
-  ##############################################################################
-  # VALIDATION FOR SSH_KEY
-  ##############################################################################
-
-  override_validation   = (var.override == false && length(var.override_json_string) == 0) ? true : false
-  sshkey_var_validation = (var.ssh_public_key == null && var.existing_ssh_key_name == null) ? true : false
-
-  # tflint-ignore: terraform_unused_declarations
-  validate_ssh = local.override_validation && local.sshkey_var_validation ? tobool("Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them.") : true
-
-  ##############################################################################
-  # Default SSH key
-  ##############################################################################
-
-  ssh_keys = [
-    {
-      name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
-      public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
-    }
-  ]
-
-  ##############################################################################
 
   ##############################################################################
   # Dynamic configuration for landing zone environment
@@ -75,30 +56,7 @@ locals {
 
   config = {
 
-    ##############################################################################
-    # VSI Configuration
-    ##############################################################################
-    vsi = [
-      # Create an identical VSI deployment in each VPC
-      for network in var.vpcs :
-      {
-        name                            = "${network}-server"
-        vpc_name                        = network
-        resource_group                  = "${var.prefix}-${network}-rg"
-        subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"]
-        image_name                      = var.vsi_image_name
-        vsi_per_subnet                  = var.vsi_per_subnet
-        machine_type                    = var.vsi_instance_profile
-        boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
-        security_group = {
-          name     = "${var.prefix}-${network}"
-          vpc_name = var.vpcs[0]
-          rules    = module.dynamic_values.default_vsi_sg_rules
-        },
-        ssh_keys = [local.ssh_keys[0].name]
-      }
-    ]
-    ##############################################################################
+    clusters = []
 
     ##############################################################################
     # Activity tracker
@@ -109,6 +67,17 @@ locals {
       collector_bucket_name = "atracker-bucket"
       add_route             = var.add_atracker_route
     }
+    ##############################################################################
+
+    ##############################################################################
+    # Default SSH key
+    ##############################################################################
+    ssh_keys = var.ssh_public_key != null ? [
+      {
+        name       = "ssh-key"
+        public_key = var.ssh_public_key
+      }
+    ] : []
     ##############################################################################
 
     ##############################################################################
@@ -144,7 +113,7 @@ locals {
     vpn_gateways                   = module.dynamic_values.vpn_gateways
     f5_deployments                 = module.dynamic_values.f5_deployments
     security_groups                = module.dynamic_values.security_groups
-    clusters                       = []
+    vsi                            = []
 
     ##############################################################################
 
@@ -250,24 +219,23 @@ locals {
     enable_transit_gateway         = lookup(local.override[local.override_type], "enable_transit_gateway", local.config.enable_transit_gateway)
     transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
-
-    ssh_keys                  = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
-    network_cidr              = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
-    vsi                       = lookup(local.override[local.override_type], "vsi", local.config.vsi)
-    security_groups           = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
-    virtual_private_endpoints = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
-    cos                       = lookup(local.override[local.override_type], "cos", local.config.object_storage)
-    service_endpoints         = lookup(local.override[local.override_type], "service_endpoints", "private")
-    add_kms_block_storage_s2s = lookup(local.override[local.override_type], "add_kms_block_storage_s2s", local.config.add_kms_block_storage_s2s)
-    key_management            = lookup(local.override[local.override_type], "key_management", local.config.key_management)
-    atracker                  = lookup(local.override[local.override_type], "atracker", local.config.atracker)
-    clusters                  = lookup(local.override[local.override_type], "clusters", local.config.clusters)
-    wait_till                 = lookup(local.override[local.override_type], "wait_till", "IngressReady")
-    iam_account_settings      = lookup(local.override[local.override_type], "iam_account_settings", local.config.iam_account_settings)
-    access_groups             = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
-    appid                     = lookup(local.override[local.override_type], "appid", local.config.appid)
-    secrets_manager           = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
-    f5_vsi                    = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
+    ssh_keys                       = lookup(local.override[local.override_type], "ssh_keys", local.config.ssh_keys)
+    network_cidr                   = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
+    vsi                            = lookup(local.override[local.override_type], "vsi", local.config.vsi)
+    security_groups                = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
+    virtual_private_endpoints      = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
+    cos                            = lookup(local.override[local.override_type], "cos", local.config.object_storage)
+    service_endpoints              = lookup(local.override[local.override_type], "service_endpoints", "private")
+    add_kms_block_storage_s2s      = lookup(local.override[local.override_type], "add_kms_block_storage_s2s", local.config.add_kms_block_storage_s2s)
+    key_management                 = lookup(local.override[local.override_type], "key_management", local.config.key_management)
+    atracker                       = lookup(local.override[local.override_type], "atracker", local.config.atracker)
+    clusters                       = lookup(local.override[local.override_type], "clusters", local.config.clusters)
+    wait_till                      = lookup(local.override[local.override_type], "wait_till", "IngressReady")
+    iam_account_settings           = lookup(local.override[local.override_type], "iam_account_settings", local.config.iam_account_settings)
+    access_groups                  = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
+    appid                          = lookup(local.override[local.override_type], "appid", local.config.appid)
+    secrets_manager                = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
+    f5_vsi                         = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)
       license_type            = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.license_type : lookup(local.override[local.override_type].f5_template_data, "license_type", var.license_type)
@@ -331,7 +299,7 @@ data "external" "format_output" {
 
 locals {
   # Prevent users from inputting conflicting variables by checking regex
-  # causeing plan to fail when true.
+  # causing plan to fail when true.
   # > if both are false will pass
   # > if only one is true will pass
   # tflint-ignore: terraform_unused_declarations

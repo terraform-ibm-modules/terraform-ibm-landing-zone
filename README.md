@@ -2,7 +2,6 @@
 
 # IBM Secure Landing Zone module
 
-<!-- UPDATE BADGE: Update the link for the badge below-->
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -35,7 +34,7 @@ For more information about the default configuration, see [Default Secure Landin
 
 |  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| [![VPC](reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](reference-architectures/roks.drawio.svg)](patterns/roks/README.md) | [![Mixed](./.docs/images/mixed.png)](patterns/mixed/README.md) |
+| [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ## Before you begin
 
@@ -888,8 +887,8 @@ statement instead the previous block.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.5 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.52.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.54.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
