@@ -5,7 +5,7 @@
 ##############################################################################
 
 module "dynamic_values" {
-  source                              = "../dynamic_values"
+  source                              = "../../dynamic_values"
   prefix                              = var.prefix
   region                              = var.region
   vpcs                                = var.vpcs
@@ -27,6 +27,11 @@ module "dynamic_values" {
   domain                              = var.domain
   hostname                            = var.hostname
   use_random_cos_suffix               = var.use_random_cos_suffix
+  add_vsi_volume_encryption_key = (
+    var.add_edge_vpc == true || var.teleport_management_zones > 0 || var.create_f5_network_on_management_vpc == true
+    ? true
+    : false
+  )
 }
 
 ##############################################################################
@@ -38,9 +43,13 @@ module "dynamic_values" {
 
 locals {
   # If override is true, parse the JSON from override.json otherwise parse empty string
+  # Default override.json location can be replaced by using var.override_json_path
   # Empty string is used to avoid type conflicts with unary operators
   override = {
-    override             = jsondecode(var.override && var.override_json_string == "" ? file("./override.json") : "{}")
+    override = jsondecode(var.override && var.override_json_string == "" ?
+      (var.override_json_path == "" ? file("${path.root}/override.json") : file(var.override_json_path))
+      :
+    "{}")
     override_json_string = jsondecode(var.override_json_string == "" ? "{}" : var.override_json_string)
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
@@ -52,7 +61,49 @@ locals {
 
   config = {
 
-    clusters = []
+    ##############################################################################
+    # Cluster Config
+    ##############################################################################
+    clusters = [
+      # Dynamically create identical cluster in each VPC
+      for network in var.vpcs :
+      {
+        name     = "${network}-cluster"
+        vpc_name = network
+        subnet_names = [
+          # For the number of zones in zones variable, get that many subnet names
+          for zone in range(1, var.cluster_zones + 1) :
+          "vsi-zone-${zone}"
+        ]
+        kms_config = {
+          crk_name         = "${var.prefix}-roks-key"
+          private_endpoint = true
+        }
+        workers_per_subnet = var.workers_per_zone
+        machine_type       = var.flavor
+        kube_type          = "openshift"
+        kube_version       = var.kube_version
+        resource_group     = "${var.prefix}-${network}-rg"
+        update_all_workers = var.update_all_workers
+        cos_name           = "cos"
+        entitlement        = var.entitlement
+        # By default, create dedicated pool for logging
+        worker_pools = [
+          # {
+          #   name     = "logging-worker-pool"
+          #   vpc_name = network
+          #   subnet_names = [
+          #     for zone in range(1, var.cluster_zones + 1) :
+          #     "vsi-zone-${zone}"
+          #   ]
+          #   entitlement        = var.entitlement
+          #   workers_per_subnet = var.workers_per_zone
+          #   flavor             = var.flavor
+          # }
+        ]
+      }
+    ]
+    ##############################################################################
 
     ##############################################################################
     # Activity tracker
@@ -68,12 +119,13 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = var.ssh_public_key != null ? [
+    ssh_keys = var.ssh_public_key != null || var.existing_ssh_key_name != null ? [
       {
-        name       = "ssh-key"
-        public_key = var.ssh_public_key
+        name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
+        public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
       }
     ] : []
+
     ##############################################################################
 
     ##############################################################################
