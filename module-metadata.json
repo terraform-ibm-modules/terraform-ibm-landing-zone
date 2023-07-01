@@ -186,7 +186,7 @@
       "description": "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning.",
       "default": "10.0.0.0/8",
       "source": [
-        "module.vpc.module.dynamic_values"
+        "module.vpc"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -2480,7 +2480,7 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0",
+      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.3.1",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidr": "network_cidr",
@@ -2540,7 +2540,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 137
+            "line": 152
           }
         },
         "ibm_is_public_gateway.gateway": {
