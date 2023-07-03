@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-06-26"
+lastupdated: "2023-07-03"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 4.2.1
+version: 4.4.1
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -47,7 +47,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="4.2.1"}
+{: toc-version="4.4.1"}
 
 The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
