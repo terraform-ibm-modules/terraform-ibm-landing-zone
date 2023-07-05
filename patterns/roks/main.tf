@@ -47,29 +47,7 @@ module "landing_zone" {
   teleport_vsi                   = local.env.teleport_vsi
   secrets_manager                = local.env.secrets_manager
   vpc_placement_groups           = local.env.vpc_placement_groups
-  # If enable_scc is true, pass the credential created from the pattern to landing_zone. Credential is created in the pattern since it uses the IBM Cloud API key
-  security_compliance_center = merge(
-    local.env.security_compliance_center,
-    { credential_id = var.enable_scc ? ibm_scc_posture_credential.credentials[0].id : null }
-  )
-}
-
-##############################################################################
-
-##############################################################################
-# Security and Compliance Center
-##############################################################################
-
-resource "ibm_scc_posture_credential" "credentials" {
-  count       = var.enable_scc ? 1 : 0
-  description = var.scc_cred_description
-  display_fields {
-    ibm_api_key = var.ibmcloud_api_key
-  }
-  enabled = true
-  name    = var.scc_cred_name
-  purpose = "discovery_fact_collection_remediation"
-  type    = "ibm_cloud"
+  ibmcloud_api_key               = var.ibmcloud_api_key
 }
 
 ##############################################################################

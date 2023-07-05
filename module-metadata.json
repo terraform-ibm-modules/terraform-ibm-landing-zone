@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1538
+        "line": 1480
       }
     },
     "appid": {
@@ -314,27 +314,6 @@
         "line": 1430
       }
     },
-    "security_compliance_center": {
-      "name": "security_compliance_center",
-      "type": "object({\n    enable_scc            = bool\n    location_id           = optional(string)\n    is_public             = optional(bool)\n    collector_description = optional(string)\n    credential_id         = optional(string)\n    scope_name            = optional(string)\n    scope_description     = optional(string)\n  })",
-      "description": "Security and Compliance Center Variables",
-      "default": {
-        "enable_scc": false
-      },
-      "source": [
-        "ibm_scc_account_settings.ibm_scc_account_settings_instance.count",
-        "ibm_scc_posture_collector.collector.count",
-        "ibm_scc_posture_collector.collector.description",
-        "ibm_scc_posture_collector.collector.is_public",
-        "ibm_scc_posture_scope.scc_scope.count",
-        "ibm_scc_posture_scope.scc_scope.credential_id",
-        "ibm_scc_posture_scope.scc_scope.description"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 1447
-      }
-    },
     "security_groups": {
       "name": "security_groups",
       "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      resource_group = optional(string)\n      access_tags    = optional(list(string))\n      rules = list(\n        object({\n          name      = string\n          direction = string\n          source    = string\n          tcp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          udp = optional(\n            object({\n              port_max = number\n              port_min = number\n            })\n          )\n          icmp = optional(\n            object({\n              type = number\n              code = number\n            })\n          )\n        })\n      )\n    })\n  )",
@@ -491,7 +470,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1506
+        "line": 1448
       }
     },
     "vpcs": {
