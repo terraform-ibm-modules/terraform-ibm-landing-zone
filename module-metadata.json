@@ -2553,6 +2553,7 @@
       "name": "vpc",
       "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.3.0",
       "attributes": {
+        "access_tags": "access_tags",
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidrs": "network_cidrs",
         "prefix": "prefix",
