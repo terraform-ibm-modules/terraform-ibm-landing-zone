@@ -90,13 +90,6 @@
           "name": "slz-workload-rg"
       }
   ],
-  "security_compliance_center": {
-    "enable_scc": false,
-    "is_public": false,
-    "location_id": "us",
-    "scope_name": "slz-scope",
-    "scope_description": "slz-scope-description"
-  },
   "security_groups": [],
   "service_endpoints": "private",
   "ssh_keys": [

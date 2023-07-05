@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1538
+        "line": 1480
       }
     },
     "appid": {
@@ -214,8 +214,6 @@
         "ibm_resource_instance.cos.name",
         "ibm_resource_key.appid_key.name",
         "ibm_resource_key.key.name",
-        "ibm_scc_posture_collector.collector.name",
-        "ibm_scc_posture_scope.scc_scope.name",
         "ibm_tg_connection.connection.name",
         "ibm_tg_gateway.transit_gateway.name",
         "module.bastion_host.ibm_is_lb.lb.name",
@@ -314,27 +312,6 @@
       "pos": {
         "filename": "variables.tf",
         "line": 1430
-      }
-    },
-    "security_compliance_center": {
-      "name": "security_compliance_center",
-      "type": "object({\n    enable_scc            = bool\n    location_id           = optional(string)\n    is_public             = optional(bool)\n    collector_description = optional(string)\n    credential_id         = optional(string)\n    scope_name            = optional(string)\n    scope_description     = optional(string)\n  })",
-      "description": "Security and Compliance Center Variables",
-      "default": {
-        "enable_scc": false
-      },
-      "source": [
-        "ibm_scc_account_settings.ibm_scc_account_settings_instance.count",
-        "ibm_scc_posture_collector.collector.count",
-        "ibm_scc_posture_collector.collector.description",
-        "ibm_scc_posture_collector.collector.is_public",
-        "ibm_scc_posture_scope.scc_scope.count",
-        "ibm_scc_posture_scope.scc_scope.credential_id",
-        "ibm_scc_posture_scope.scc_scope.description"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 1447
       }
     },
     "security_groups": {
@@ -493,7 +470,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1506
+        "line": 1448
       }
     },
     "vpcs": {
@@ -1308,57 +1285,6 @@
       "pos": {
         "filename": "secrets_manager.tf",
         "line": 30
-      }
-    },
-    "ibm_scc_account_settings.ibm_scc_account_settings_instance": {
-      "mode": "managed",
-      "type": "ibm_scc_account_settings",
-      "name": "ibm_scc_account_settings_instance",
-      "attributes": {
-        "count": "security_compliance_center"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "scc.tf",
-        "line": 5
-      }
-    },
-    "ibm_scc_posture_collector.collector": {
-      "mode": "managed",
-      "type": "ibm_scc_posture_collector",
-      "name": "collector",
-      "attributes": {
-        "count": "security_compliance_center",
-        "description": "security_compliance_center",
-        "is_public": "security_compliance_center",
-        "name": "prefix"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "scc.tf",
-        "line": 12
-      }
-    },
-    "ibm_scc_posture_scope.scc_scope": {
-      "mode": "managed",
-      "type": "ibm_scc_posture_scope",
-      "name": "scc_scope",
-      "attributes": {
-        "count": "security_compliance_center",
-        "credential_id": "security_compliance_center",
-        "description": "security_compliance_center",
-        "name": "prefix"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "scc.tf",
-        "line": 20
       }
     },
     "ibm_tg_connection.connection": {
