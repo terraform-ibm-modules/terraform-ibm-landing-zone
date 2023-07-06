@@ -130,7 +130,7 @@
     },
     "iam_account_settings": {
       "name": "iam_account_settings",
-      "type": "object({\n    enable                          = bool\n    mfa                             = optional(number)\n    allowed_ip_addresses            = optional(string)\n    include_history                 = optional(bool)\n    if_match                        = optional(string)\n    max_sessions_per_identity       = optional(string)\n    restrict_create_service_id      = optional(string)\n    restrict_create_platform_apikey = optional(string)\n    session_expiration_in_seconds   = optional(string)\n    session_invalidation_in_seconds = optional(string)\n  })",
+      "type": "object({\n    enable                          = bool\n    mfa                             = optional(string)\n    allowed_ip_addresses            = optional(string)\n    include_history                 = optional(bool)\n    if_match                        = optional(string)\n    max_sessions_per_identity       = optional(string)\n    restrict_create_service_id      = optional(string)\n    restrict_create_platform_apikey = optional(string)\n    session_expiration_in_seconds   = optional(string)\n    session_invalidation_in_seconds = optional(string)\n  })",
       "description": "IAM Account Settings.",
       "default": {
         "enable": false
