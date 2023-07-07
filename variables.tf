@@ -1010,7 +1010,7 @@ variable "iam_account_settings" {
   description = "IAM Account Settings."
   type = object({
     enable                          = bool
-    mfa                             = optional(number)
+    mfa                             = optional(string)
     allowed_ip_addresses            = optional(string)
     include_history                 = optional(bool)
     if_match                        = optional(string)
