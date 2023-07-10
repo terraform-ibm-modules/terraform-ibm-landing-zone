@@ -1,6 +1,7 @@
 package test
 
 import (
+	"encoding/json"
 	"log"
 	"os"
 	"testing"
@@ -245,4 +246,28 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestJsonComparison(t *testing.T) {
+	expectedJSON := `{
+		"key1": "value1",
+		"key2": "value2"
+	}`
+
+	actualJSON := `{
+		"key1": "value1",
+		"key2": "value2"
+	}`
+
+	// Unmarshal JSON strings into maps
+	var expectedData map[string]interface{}
+	err := json.Unmarshal([]byte(expectedJSON), &expectedData)
+	assert.NoError(t, err, "Error unmarshaling expected JSON")
+
+	var actualData map[string]interface{}
+	err = json.Unmarshal([]byte(actualJSON), &actualData)
+	assert.NoError(t, err, "Error unmarshaling actual JSON")
+
+	// Compare the JSON objects structurally
+	assert.Equal(t, expectedData, actualData, "JSON objects are not equal")
 }
