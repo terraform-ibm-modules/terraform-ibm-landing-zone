@@ -26,7 +26,7 @@ module "roks_landing_zone" {
   tags                                = var.tags
   wait_till                           = var.wait_till
   ibmcloud_api_key                    = var.ibmcloud_api_key
-  network_cidr                        = var.network_cidr
+  network_cidrs                       = var.network_cidrs
   vpcs                                = var.vpcs
   enable_transit_gateway              = var.enable_transit_gateway
   ssh_public_key                      = var.ssh_public_key
