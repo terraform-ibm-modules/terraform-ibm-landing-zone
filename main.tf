@@ -7,7 +7,7 @@ locals {
 }
 
 module "vpc" {
-  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=network"
+  source                                 = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.3.2"
   for_each                               = local.vpc_map
   name                                   = each.value.prefix
   tags                                   = var.tags
