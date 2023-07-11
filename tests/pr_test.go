@@ -2,8 +2,10 @@ package test
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
+	"reflect"
 	"testing"
 
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
@@ -249,25 +251,37 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 }
 
 func TestJsonComparison(t *testing.T) {
-	expectedJSON := `{
-		"key1": "value1",
-		"key2": "value2"
-	}`
 
-	actualJSON := `{
-		"key1": "value1",
-		"key2": "value2"
-	}`
+	// Read the contents of the override.json file
+	overrideData, err := ioutil.ReadFile("patterns/vsi/override.json")
+	assert.NoError(t, err, "Error reading override.json")
 
-	// Unmarshal JSON strings into maps
-	var expectedData map[string]interface{}
-	err := json.Unmarshal([]byte(expectedJSON), &expectedData)
-	assert.NoError(t, err, "Error unmarshaling expected JSON")
+	// Read the contents of the config output json
+	configData, err := ioutil.ReadFile("path/to/actual.json")
+	assert.NoError(t, err, "Error reading config output file.")
 
-	var actualData map[string]interface{}
-	err = json.Unmarshal([]byte(actualJSON), &actualData)
+	var overrideJson map[string]interface{}
+	err = json.Unmarshal(overrideData, &overrideJson)
 	assert.NoError(t, err, "Error unmarshaling actual JSON")
 
-	// Compare the JSON objects structurally
-	assert.Equal(t, expectedData, actualData, "JSON objects are not equal")
+	// Unmarshal the JSON contents into maps
+	var configJson map[string]interface{}
+	err = json.Unmarshal(configData, &configJson)
+	assert.NoError(t, err, "Error unmarshaling expected JSON")
+
+	// Compare the JSON objects
+	assert.True(t, reflect.DeepEqual(overrideJson, configJson), "JSON objects are not equal")
 }
+
+// Unmarshal JSON contents into maps
+// var overrideData map[string]interface{}
+// err := json.Unmarshal([]byte(overrideJson), &overrideJson)
+// assert.NoError(t, err, "Error unmarshaling override.json")
+
+// var configData map[string]interface{}
+// err = json.Unmarshal([]byte(configOutput), &configOutput)
+// assert.NoError(t, err, "Error unmarshaling config output.")
+
+// // Compare the JSON objects structurally
+// assert.Equal(t, overrideData, configData, "JSON objects are not equal")
+// }
