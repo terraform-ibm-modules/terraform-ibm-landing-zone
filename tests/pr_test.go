@@ -257,31 +257,18 @@ func TestJsonComparison(t *testing.T) {
 	assert.NoError(t, err, "Error reading override.json")
 
 	// Read the contents of the config output json
-	configData, err := ioutil.ReadFile("path/to/actual.json")
+	configData, err := ioutil.ReadFile("path/to/configOutput.json")
 	assert.NoError(t, err, "Error reading config output file.")
 
+	// Unmarshalling the JSON contents into maps
 	var overrideJson map[string]interface{}
 	err = json.Unmarshal(overrideData, &overrideJson)
-	assert.NoError(t, err, "Error unmarshaling actual JSON")
+	assert.NoError(t, err, "Error unmarshaling override json.")
 
-	// Unmarshal the JSON contents into maps
 	var configJson map[string]interface{}
 	err = json.Unmarshal(configData, &configJson)
-	assert.NoError(t, err, "Error unmarshaling expected JSON")
+	assert.NoError(t, err, "Error unmarshaling config output.")
 
 	// Compare the JSON objects
 	assert.True(t, reflect.DeepEqual(overrideJson, configJson), "JSON objects are not equal")
 }
-
-// Unmarshal JSON contents into maps
-// var overrideData map[string]interface{}
-// err := json.Unmarshal([]byte(overrideJson), &overrideJson)
-// assert.NoError(t, err, "Error unmarshaling override.json")
-
-// var configData map[string]interface{}
-// err = json.Unmarshal([]byte(configOutput), &configOutput)
-// assert.NoError(t, err, "Error unmarshaling config output.")
-
-// // Compare the JSON objects structurally
-// assert.Equal(t, overrideData, configData, "JSON objects are not equal")
-// }
