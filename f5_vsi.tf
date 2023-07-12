@@ -116,16 +116,18 @@ locals {
 ##############################################################################
 
 module "f5_vsi" {
-  source                      = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                     = "2.3.0"
-  for_each                    = local.f5_vsi_map
-  resource_group_id           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
-  create_security_group       = each.value.security_group == null ? false : true
-  prefix                      = "${var.prefix}-${each.value.name}"
-  vpc_id                      = module.vpc[each.value.vpc_name].vpc_id
-  subnets                     = each.value.subnets
-  secondary_subnets           = each.value.secondary_subnets
-  secondary_allow_ip_spoofing = true
+  source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
+  version                       = "2.3.0"
+  for_each                      = local.f5_vsi_map
+  resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
+  create_security_group         = each.value.security_group == null ? false : true
+  prefix                        = "${var.prefix}-${each.value.name}"
+  vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
+  kms_encryption_enabled        = true
+  skip_iam_authorization_policy = true
+  subnets                       = each.value.subnets
+  secondary_subnets             = each.value.secondary_subnets
+  secondary_allow_ip_spoofing   = true
   secondary_security_groups = [
     for group in each.value.secondary_subnet_security_group_names :
     {

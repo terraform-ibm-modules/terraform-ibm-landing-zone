@@ -5,7 +5,7 @@
 ##############################################################################
 
 module "dynamic_values" {
-  source                              = "../dynamic_values"
+  source                              = "../../dynamic_values"
   prefix                              = var.prefix
   region                              = var.region
   vpcs                                = var.vpcs
@@ -27,11 +27,6 @@ module "dynamic_values" {
   domain                              = var.domain
   hostname                            = var.hostname
   use_random_cos_suffix               = var.use_random_cos_suffix
-  add_vsi_volume_encryption_key = (
-    var.add_edge_vpc == true || var.teleport_management_zones > 0 || var.create_f5_network_on_management_vpc == true
-    ? true
-    : false
-  )
 }
 
 ##############################################################################
@@ -42,10 +37,14 @@ module "dynamic_values" {
 ##############################################################################
 
 locals {
-  # If override is true, parse the JSON from override.json otherwise parse empty string
+  # If override is true, parse the JSON from override.json otherwise parse empty string.
+  # Default override.json location can be replaced by using var.override_json_path
   # Empty string is used to avoid type conflicts with unary operators
   override = {
-    override             = jsondecode(var.override && var.override_json_string == "" ? file("./override.json") : "{}")
+    override = jsondecode(var.override && var.override_json_string == "" ?
+      (var.override_json_path == "" ? file("${path.root}/override.json") : file(var.override_json_path))
+      :
+    "{}")
     override_json_string = jsondecode(var.override_json_string == "" ? "{}" : var.override_json_string)
   }
   override_type = var.override_json_string == "" ? "override" : "override_json_string"
@@ -57,49 +56,7 @@ locals {
 
   config = {
 
-    ##############################################################################
-    # Cluster Config
-    ##############################################################################
-    clusters = [
-      # Dynamically create identical cluster in each VPC
-      for network in var.vpcs :
-      {
-        name     = "${network}-cluster"
-        vpc_name = network
-        subnet_names = [
-          # For the number of zones in zones variable, get that many subnet names
-          for zone in range(1, var.cluster_zones + 1) :
-          "vsi-zone-${zone}"
-        ]
-        kms_config = {
-          crk_name         = "${var.prefix}-roks-key"
-          private_endpoint = true
-        }
-        workers_per_subnet = var.workers_per_zone
-        machine_type       = var.flavor
-        kube_type          = "openshift"
-        kube_version       = var.kube_version
-        resource_group     = "${var.prefix}-${network}-rg"
-        update_all_workers = var.update_all_workers
-        cos_name           = "cos"
-        entitlement        = var.entitlement
-        # By default, create dedicated pool for logging
-        worker_pools = [
-          # {
-          #   name     = "logging-worker-pool"
-          #   vpc_name = network
-          #   subnet_names = [
-          #     for zone in range(1, var.cluster_zones + 1) :
-          #     "vsi-zone-${zone}"
-          #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
-          # }
-        ]
-      }
-    ]
-    ##############################################################################
+    clusters = []
 
     ##############################################################################
     # Activity tracker
@@ -115,13 +72,12 @@ locals {
     ##############################################################################
     # Default SSH key
     ##############################################################################
-    ssh_keys = var.ssh_public_key != null || var.existing_ssh_key_name != null ? [
+    ssh_keys = var.ssh_public_key != null ? [
       {
-        name       = var.ssh_public_key != null ? "ssh-key" : var.existing_ssh_key_name
-        public_key = var.existing_ssh_key_name == null ? var.ssh_public_key : null
+        name       = "ssh-key"
+        public_key = var.ssh_public_key
       }
     ] : []
-
     ##############################################################################
 
     ##############################################################################
@@ -251,45 +207,7 @@ locals {
     }
 
     ##############################################################################
-
-    ##############################################################################
-    # Security and Compliance Center
-    ##############################################################################
-
-    security_compliance_center = {
-      enable_scc            = var.enable_scc
-      is_public             = false
-      location_id           = lookup(local.scc_region_map, var.region)
-      collector_description = var.scc_collector_description
-      scope_name            = var.scc_scope_name
-      scope_description     = var.scc_scope_description
-    }
-
-    ##############################################################################
   }
-
-  ##############################################################################
-  # Dynamic SCC map for ibm_scc_account_location based on provided region
-  ##############################################################################
-
-  scc_region_map = {
-    us-south   = "us"
-    us-east    = "us"
-    eu-central = "eu"
-    eu-de      = "eu"
-    eu-fr2     = "eu"
-    uk-south   = "uk"
-    eu-gb      = "uk"
-    ap-north   = "us"
-    ap-south   = "us"
-    au-syd     = "us"
-    jp-tok     = "us"
-    jp-osa     = "us"
-    ca-tor     = "us"
-    br-sao     = "us"
-  }
-
-  ##############################################################################
 
   ##############################################################################
   # Compile Environment for Config output
@@ -317,7 +235,6 @@ locals {
     access_groups                  = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
     appid                          = lookup(local.override[local.override_type], "appid", local.config.appid)
     secrets_manager                = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
-    security_compliance_center     = lookup(local.override[local.override_type], "security_compliance_center", local.config.security_compliance_center)
     f5_vsi                         = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)
