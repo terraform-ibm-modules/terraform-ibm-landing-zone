@@ -767,8 +767,8 @@ You can use the modular design of this module to provision architectures for VSI
 
 ```terraform
 module "vsi_pattern" {
-  source  = "terraform-ibm-modules/landing-zone/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -793,8 +793,8 @@ module "vsi_pattern" {
 
 ```terraform
 module "cluster_vsi_pattern" {
-  source  = "terraform-ibm-modules/landing-zone/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -821,8 +821,8 @@ module "cluster_vsi_pattern" {
 
 ```terraform
 module "cluster_pattern" {
-  source  = "terraform-ibm-modules/landing-zone/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
