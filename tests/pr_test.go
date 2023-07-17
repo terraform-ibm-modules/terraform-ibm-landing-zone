@@ -123,15 +123,15 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 }
 
 func TestRunRoksPatternWithHPCS(t *testing.T) {
-	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
-
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "lrkshp")
 
-	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+
+	// Key Protect service will be used if `hs_crypto_instance_name` is null
+	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -189,13 +189,13 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 }
 
 func TestRunVSIPatternWithHPCS(t *testing.T) {
-	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
-
 	options := setupOptionsVsiPattern(t, "lvsihp")
 
-	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+
+	// Key Protect service will be used if `hs_crypto_instance_name` is null
+	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
