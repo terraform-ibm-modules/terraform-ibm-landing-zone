@@ -2,6 +2,7 @@ package test
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -250,33 +251,71 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 	}
 }
 
+// func TestJsonComparison(t *testing.T) {
+
+// 	var overrideJson map[string]interface{}
+// 	var configJson map[string]interface{}
+
+// 	// Read the contents of the override.json file
+// 	overrideData, err_override := ioutil.ReadFile("../patterns/vsi/override.json")
+// 	if err_override != nil {
+// 		log.Fatal(err_override)
+// 		return
+// 	}
+// 	assert.NoError(t, err_override, "Error reading override.json")
+// 	err_override = json.Unmarshal(overrideData, &overrideJson)
+// 	fmt.Println(overrideData)
+// 	assert.NoError(t, err_override, "Error unmarshaling override json.")
+
+// 	// Read the contents of the config output json
+// 	configData, err_config := ioutil.ReadFile("path/to/configOutput.json")
+// 	if err_config != nil {
+// 		log.Fatal(err_config)
+// 		return
+// 	}
+// 	assert.NoError(t, err_config, "Error reading config output file.")
+
+// 	err_config = json.Unmarshal(configData, &configJson)
+// 	assert.NoError(t, err_config, "Error unmarshaling config output.")
+
+//		// Compare the JSON objects
+//		assert.True(t, reflect.DeepEqual(overrideJson, configJson), "JSON objects are not equal")
+//	}
+
+func getConfiguration(filePath string) []byte {
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println(err)
+		// return
+	}
+	defer file.Close()
+
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println("Error reading the file contents.")
+		// return
+	}
+	return fileBytes
+}
 func TestJsonComparison(t *testing.T) {
 
 	var overrideJson map[string]interface{}
 	var configJson map[string]interface{}
+	overridePath := "../patterns/vsi/override.json"
+	configPath := ""
 
 	// Read the contents of the override.json file
-	overrideData, err := ioutil.ReadFile("../patterns/vsi/override.json")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	assert.NoError(t, err, "Error reading override.json")
+	overrideData := getConfiguration(overridePath)
+	fmt.Println(overrideData)
+	errOverride := json.Unmarshal(overrideData, &overrideJson)
+	assert.NoError(t, errOverride, "Error unmarshaling override json.")
 
-	// Read the contents of the config output json
-	configData, err := ioutil.ReadFile("path/to/configOutput.json")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	assert.NoError(t, err, "Error reading config output file.")
-
-	err = json.Unmarshal(overrideData, &overrideJson)
-	assert.NoError(t, err, "Error unmarshaling override json.")
-
-	err = json.Unmarshal(configData, &configJson)
-	assert.NoError(t, err, "Error unmarshaling config output.")
+	// Read the contents of the config.json file
+	configData := getConfiguration(configPath)
+	errConfigPath := json.Unmarshal(configData, &configJson)
+	assert.NoError(t, errConfigPath, "Error unmarshaling Config json.")
 
 	// Compare the JSON objects
 	assert.True(t, reflect.DeepEqual(overrideJson, configJson), "JSON objects are not equal")
+
 }
