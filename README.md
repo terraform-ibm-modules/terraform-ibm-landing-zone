@@ -767,8 +767,8 @@ You can use the modular design of this module to provision architectures for VSI
 
 ```terraform
 module "vsi_pattern" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -793,8 +793,8 @@ module "vsi_pattern" {
 
 ```terraform
 module "cluster_vsi_pattern" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -821,8 +821,8 @@ module "cluster_vsi_pattern" {
 
 ```terraform
 module "cluster_pattern" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source                         = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git?ref=main"
+  source                         = "terraform-ibm-modules/landing-zone/ibm"
+  version                        = "latest" # Replace "latest" with a release version to lock into a specific release
   prefix                         = var.prefix
   region                         = var.region
   tags                           = var.tags
@@ -896,15 +896,15 @@ statement instead the previous block.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 2.3.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 2.3.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git | v7.2.0 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git | v2.3.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.2.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 2.3.0 |
 
 ## Resources
 
