@@ -252,20 +252,28 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 
 func TestJsonComparison(t *testing.T) {
 
+	var overrideJson map[string]interface{}
+	var configJson map[string]interface{}
+
 	// Read the contents of the override.json file
-	overrideData, err := ioutil.ReadFile("patterns/vsi/override.json")
+	overrideData, err := ioutil.ReadFile("../patterns/vsi/override.json")
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	assert.NoError(t, err, "Error reading override.json")
 
 	// Read the contents of the config output json
 	configData, err := ioutil.ReadFile("path/to/configOutput.json")
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
 	assert.NoError(t, err, "Error reading config output file.")
 
-	// Unmarshalling the JSON contents into maps
-	var overrideJson map[string]interface{}
 	err = json.Unmarshal(overrideData, &overrideJson)
 	assert.NoError(t, err, "Error unmarshaling override json.")
 
-	var configJson map[string]interface{}
 	err = json.Unmarshal(configData, &configJson)
 	assert.NoError(t, err, "Error unmarshaling config output.")
 
