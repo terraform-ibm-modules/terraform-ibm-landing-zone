@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 
@@ -81,7 +82,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 
 func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
-
+	os.Setenv("TF_VAR_ibmcloud_api_key", "0t4ZxnmwzJBCGxES03ZV6_HCsZp3zF4PWu-TBwEDFh2O") //TODO: Remove this line
 	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
 
 	output, err := options.RunTestConsistency()
@@ -251,38 +252,8 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 	}
 }
 
-// func TestJsonComparison(t *testing.T) {
-
-// 	var overrideJson map[string]interface{}
-// 	var configJson map[string]interface{}
-
-// 	// Read the contents of the override.json file
-// 	overrideData, err_override := ioutil.ReadFile("../patterns/vsi/override.json")
-// 	if err_override != nil {
-// 		log.Fatal(err_override)
-// 		return
-// 	}
-// 	assert.NoError(t, err_override, "Error reading override.json")
-// 	err_override = json.Unmarshal(overrideData, &overrideJson)
-// 	fmt.Println(overrideData)
-// 	assert.NoError(t, err_override, "Error unmarshaling override json.")
-
-// 	// Read the contents of the config output json
-// 	configData, err_config := ioutil.ReadFile("path/to/configOutput.json")
-// 	if err_config != nil {
-// 		log.Fatal(err_config)
-// 		return
-// 	}
-// 	assert.NoError(t, err_config, "Error reading config output file.")
-
-// 	err_config = json.Unmarshal(configData, &configJson)
-// 	assert.NoError(t, err_config, "Error unmarshaling config output.")
-
-//		// Compare the JSON objects
-//		assert.True(t, reflect.DeepEqual(overrideJson, configJson), "JSON objects are not equal")
-//	}
-
-func getConfiguration(filePath string) []byte {
+// ---------- JSON EXAMPLE: In Progress -----
+func getOverrideInfo(filePath string) []byte {
 	file, err := os.Open(filePath)
 	if err != nil {
 		fmt.Println(err)
@@ -297,21 +268,34 @@ func getConfiguration(filePath string) []byte {
 	}
 	return fileBytes
 }
+
+func getConfigOutput(t *testing.T) (*terraform.PlanStruct, error) {
+	os.Setenv("TF_VAR_override", "true")
+
+	options := setupOptions(t, "slz-qs-compare", quickstartExampleTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+	os.Unsetenv("TF_VAR_override")
+	return output, err
+
+}
 func TestJsonComparison(t *testing.T) {
 
 	var overrideJson map[string]interface{}
 	var configJson map[string]interface{}
 	overridePath := "../patterns/vsi/override.json"
-	configPath := ""
+	// configPath := ""
 
 	// Read the contents of the override.json file
-	overrideData := getConfiguration(overridePath)
+	overrideData := getOverrideInfo(overridePath)
 	fmt.Println(overrideData)
 	errOverride := json.Unmarshal(overrideData, &overrideJson)
 	assert.NoError(t, errOverride, "Error unmarshaling override json.")
 
 	// Read the contents of the config.json file
-	configData := getConfiguration(configPath)
+	configData, _ := getConfigOutput(t)
 	errConfigPath := json.Unmarshal(configData, &configJson)
 	assert.NoError(t, errConfigPath, "Error unmarshaling Config json.")
 
