@@ -902,7 +902,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 92
+        "line": 88
       }
     },
     "ibm_cos_bucket.buckets": {

@@ -48,6 +48,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
   pod_subnet         = each.value.pod_subnet
   service_subnet     = each.value.service_subnet
 
+  lifecycle {
+    ignore_changes = [kube_version]
+  }
+
   dynamic "zones" {
     for_each = each.value.subnets
     content {
@@ -72,7 +76,6 @@ resource "ibm_container_vpc_cluster" "cluster" {
     delete = "2h"
     update = "3h"
   }
-
 }
 
 resource "ibm_resource_tag" "cluster_tag" {
