@@ -49,6 +49,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
   pod_subnet         = each.value.pod_subnet
   service_subnet     = each.value.service_subnet
 
+  lifecycle {
+    ignore_changes = [kube_version]
+  }
+
   dynamic "zones" {
     for_each = each.value.subnets
     content {
@@ -73,7 +77,6 @@ resource "ibm_container_vpc_cluster" "cluster" {
     delete = "2h"
     update = "3h"
   }
-
 }
 
 ##############################################################################
@@ -117,7 +120,8 @@ module "cluster" {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "openshift"
   }
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.2.0"
+  source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version           = "3.3.4"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region

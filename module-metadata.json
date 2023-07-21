@@ -130,7 +130,7 @@
     },
     "iam_account_settings": {
       "name": "iam_account_settings",
-      "type": "object({\n    enable                          = bool\n    mfa                             = optional(number)\n    allowed_ip_addresses            = optional(string)\n    include_history                 = optional(bool)\n    if_match                        = optional(string)\n    max_sessions_per_identity       = optional(string)\n    restrict_create_service_id      = optional(string)\n    restrict_create_platform_apikey = optional(string)\n    session_expiration_in_seconds   = optional(string)\n    session_invalidation_in_seconds = optional(string)\n  })",
+      "type": "object({\n    enable                          = bool\n    mfa                             = optional(string)\n    allowed_ip_addresses            = optional(string)\n    include_history                 = optional(bool)\n    if_match                        = optional(string)\n    max_sessions_per_identity       = optional(string)\n    restrict_create_service_id      = optional(string)\n    restrict_create_platform_apikey = optional(string)\n    session_expiration_in_seconds   = optional(string)\n    session_invalidation_in_seconds = optional(string)\n  })",
       "description": "IAM Account Settings.",
       "default": {
         "enable": false
@@ -266,7 +266,7 @@
         "ibm_resource_instance.appid.location",
         "ibm_resource_instance.secrets_manager.location",
         "ibm_tg_gateway.transit_gateway.location",
-        "module.cluster.data.ibm_container_cluster_versions.cluster_versions.region",
+        "module.cluster",
         "module.dynamic_values.module.f5",
         "module.dynamic_values.module.vpe",
         "module.key_management.ibm_resource_instance.kms.location",
@@ -278,8 +278,7 @@
         "line": 22
       },
       "cloud_data_type": "region",
-      "immutable": true,
-      "deprecated": "This field is deprecated"
+      "immutable": true
     },
     "resource_groups": {
       "name": "resource_groups",
@@ -904,7 +903,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 86
+        "line": 89
       }
     },
     "ibm_cos_bucket.buckets": {
@@ -1378,7 +1377,8 @@
   "module_calls": {
     "bastion_host": {
       "name": "bastion_host",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
+      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
+      "version": "2.3.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1647,13 +1647,29 @@
     },
     "cluster": {
       "name": "cluster",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.2.0",
+      "source": "terraform-ibm-modules/base-ocp-vpc/ibm",
+      "version": "3.3.4",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "region": "region",
         "tags": "tags"
       },
       "managed_resources": {
+        "ibm_container_addons.addons": {
+          "mode": "managed",
+          "type": "ibm_container_addons",
+          "name": "addons",
+          "attributes": {
+            "resource_group_id": "resource_group_id"
+          },
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": ".terraform/modules/cluster/main.tf",
+            "line": 358
+          }
+        },
         "ibm_container_vpc_cluster.autoscaling_cluster": {
           "mode": "managed",
           "type": "ibm_container_vpc_cluster",
@@ -1674,7 +1690,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 123
+            "line": 131
           }
         },
         "ibm_container_vpc_cluster.cluster": {
@@ -1697,7 +1713,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 61
+            "line": 69
           }
         },
         "ibm_container_vpc_worker_pool.autoscaling_pool": {
@@ -1713,7 +1729,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 274
+            "line": 282
           }
         },
         "ibm_container_vpc_worker_pool.pool": {
@@ -1729,23 +1745,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 233
-          }
-        },
-        "ibm_resource_instance.cos_instance": {
-          "mode": "managed",
-          "type": "ibm_resource_instance",
-          "name": "cos_instance",
-          "attributes": {
-            "count": "use_existing_cos",
-            "resource_group_id": "resource_group_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/cluster/main.tf",
-            "line": 40
+            "line": 241
           }
         },
         "ibm_resource_tag.cluster_access_tag": {
@@ -1762,7 +1762,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 187
+            "line": 195
           }
         },
         "ibm_resource_tag.cos_access_tag": {
@@ -1778,7 +1778,22 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 50
+            "line": 58
+          }
+        },
+        "kubernetes_config_map_v1_data.set_autoscaling": {
+          "mode": "managed",
+          "type": "kubernetes_config_map_v1_data",
+          "name": "set_autoscaling",
+          "attributes": {
+            "count": "disable_public_endpoint"
+          },
+          "provider": {
+            "name": "kubernetes"
+          },
+          "pos": {
+            "filename": ".terraform/modules/cluster/main.tf",
+            "line": 395
           }
         },
         "null_resource.confirm_network_healthy": {
@@ -1793,7 +1808,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 334
+            "line": 342
           }
         },
         "null_resource.reset_api_key": {
@@ -1805,7 +1820,19 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 208
+            "line": 216
+          }
+        },
+        "time_sleep.wait_operators": {
+          "mode": "managed",
+          "type": "time_sleep",
+          "name": "wait_operators",
+          "provider": {
+            "name": "time"
+          },
+          "pos": {
+            "filename": ".terraform/modules/cluster/main.tf",
+            "line": 377
           }
         }
       },
@@ -1823,7 +1850,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 222
+            "line": 230
           }
         },
         "data.ibm_container_cluster_versions.cluster_versions": {
@@ -1831,7 +1858,6 @@
           "type": "ibm_container_cluster_versions",
           "name": "cluster_versions",
           "attributes": {
-            "region": "region",
             "resource_group_id": "resource_group_id"
           },
           "provider": {
@@ -1839,7 +1865,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/cluster/main.tf",
-            "line": 35
+            "line": 38
           }
         }
       },
@@ -1916,8 +1942,7 @@
             "filename": ".terraform/modules/cluster/outputs.tf",
             "line": 43
           },
-          "type": "string",
-          "cloud_data_type": "region"
+          "type": "string"
         },
         "resource_group_id": {
           "name": "resource_group_id",
@@ -1946,7 +1971,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 115
+        "line": 118
       }
     },
     "dynamic_values": {
@@ -2246,7 +2271,8 @@
     },
     "f5_vsi": {
       "name": "f5_vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
+      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
+      "version": "2.3.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2790,7 +2816,8 @@
     },
     "vpc": {
       "name": "vpc",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.2.0",
+      "source": "terraform-ibm-modules/landing-zone-vpc/ibm",
+      "version": "7.2.0",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidr": "network_cidr",
@@ -3131,7 +3158,8 @@
     },
     "vsi": {
       "name": "vsi",
-      "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0",
+      "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
+      "version": "2.3.0",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
