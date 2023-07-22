@@ -883,7 +883,7 @@ statement instead the previous block.
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
@@ -892,7 +892,7 @@ statement instead the previous block.
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
-## Modules
+### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
@@ -906,7 +906,7 @@ statement instead the previous block.
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.2.0 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 2.3.0 |
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
@@ -952,7 +952,7 @@ statement instead the previous block.
 | [ibm_resource_instance.appid](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 | [ibm_resource_instance.cos](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -988,7 +988,7 @@ statement instead the previous block.
 | <a name="input_vsi"></a> [vsi](#input\_vsi) | A list describing VSI workloads to create | <pre>list(<br>    object({<br>      name                            = string<br>      vpc_name                        = string<br>      subnet_names                    = list(string)<br>      ssh_keys                        = list(string)<br>      image_name                      = string<br>      machine_type                    = string<br>      vsi_per_subnet                  = number<br>      user_data                       = optional(string)<br>      resource_group                  = optional(string)<br>      enable_floating_ip              = optional(bool)<br>      security_groups                 = optional(list(string))<br>      boot_volume_encryption_key_name = optional(string)<br>      access_tags                     = optional(list(string), [])<br>      security_group = optional(<br>        object({<br>          name = string<br>          rules = list(<br>            object({<br>              name      = string<br>              direction = string<br>              source    = string<br>              tcp = optional(<br>                object({<br>                  port_max = number<br>                  port_min = number<br>                })<br>              )<br>              udp = optional(<br>                object({<br>                  port_max = number<br>                  port_min = number<br>                })<br>              )<br>              icmp = optional(<br>                object({<br>                  type = number<br>                  code = number<br>                })<br>              )<br>            })<br>          )<br>        })<br>      )<br>      block_storage_volumes = optional(list(<br>        object({<br>          name           = string<br>          profile        = string<br>          capacity       = optional(number)<br>          iops           = optional(number)<br>          encryption_key = optional(string)<br>        })<br>      ))<br>      load_balancers = optional(list(<br>        object({<br>          name              = string<br>          type              = string<br>          listener_port     = number<br>          listener_protocol = string<br>          connection_limit  = number<br>          algorithm         = string<br>          protocol          = string<br>          health_delay      = number<br>          health_retries    = number<br>          health_timeout    = number<br>          health_type       = string<br>          pool_member_port  = string<br>          security_group = optional(<br>            object({<br>              name = string<br>              rules = list(<br>                object({<br>                  name      = string<br>                  direction = string<br>                  source    = string<br>                  tcp = optional(<br>                    object({<br>                      port_max = number<br>                      port_min = number<br>                    })<br>                  )<br>                  udp = optional(<br>                    object({<br>                      port_max = number<br>                      port_min = number<br>                    })<br>                  )<br>                  icmp = optional(<br>                    object({<br>                      type = number<br>                      code = number<br>                    })<br>                  )<br>                })<br>              )<br>            })<br>          )<br>        })<br>      ))<br>    })<br>  )</pre> | n/a | yes |
 | <a name="input_wait_till"></a> [wait\_till](#input\_wait\_till) | To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady` | `string` | `"IngressReady"` | no |
 
-## Outputs
+### Outputs
 
 | Name | Description |
 |------|-------------|
