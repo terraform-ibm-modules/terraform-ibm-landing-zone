@@ -13,7 +13,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const quickstartExampleTerraformDir = "examples/quickstart"
+const quickstartExampleTerraformDir = "patterns/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -55,7 +55,7 @@ func sshPublicKey(t *testing.T) string {
 	return pubKey
 }
 
-func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
@@ -64,7 +64,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
+			"ssh_public_key": sshPublicKey,
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
@@ -78,7 +78,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 func TestRunQuickstartExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "slz-qs", quickstartExampleTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -86,9 +86,13 @@ func TestRunQuickstartExample(t *testing.T) {
 }
 
 func TestRunUpgradeQuickstartExample(t *testing.T) {
+
 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
+	// TODO: Remove this line after QuickStart pattern is merged to primary branch to enable upgrade test
+	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
+
+	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickstartExampleTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

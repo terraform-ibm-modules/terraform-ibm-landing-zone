@@ -10,9 +10,9 @@
 
 <!-- Remove the content in this H2 heading after completing the steps -->
 
-The landing zone module can be used to create a fully customizable VPC environment within a single region. The four following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
+The landing zone module can be used to create a fully customizable VPC environment within a single region. The five following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
 
-Each of these patterns creates the following infrastructure:
+Each of these patterns (except QuickStart) creates the following infrastructure:
 
 - A resource group for cloud services and for each VPC.
 - Cloud Object Storage instances for flow logs and Activity Tracker
@@ -25,6 +25,7 @@ Each of these patterns creates the following infrastructure:
 
 Each pattern creates the following infrastructure on the VPC:
 
+- The QuickStart VSI pattern deploys edge VPC with one VSI and a jump server VSI in the management VPC
 - The VPC pattern deploys a simple IBM Cloud VPC infrastructure without any compute resources like VSIs or Red Hat OpenShift clusters
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
@@ -32,9 +33,9 @@ Each pattern creates the following infrastructure on the VPC:
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-|  VPC pattern                   |  Virtual server pattern        |  Red Hat OpenShift pattern       | Mixed pattern                      |
-| ------------------------------ | ------------------------------ | -------------------------------- | ---------------------------------- |
-| [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
+| QuickStart pattern             |  VPC pattern                   |  Virtual server pattern          |  Red Hat OpenShift pattern       | Mixed pattern                      |
+| ------------------------------ | ------------------------------ | -------------------------------- | -------------------------------- | ---------------------------------- |
+| [![QuickStart](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg)](patterns/quickstart/README.md) | [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
 
 ## Before you begin
 
@@ -879,11 +880,10 @@ statement instead the previous block.
 
 - [ One VPC with one VSI](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
-- [ VSI on VPC landing zone (QuickStart example)](examples/quickstart)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
@@ -892,7 +892,7 @@ statement instead the previous block.
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
-## Modules
+### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
@@ -906,7 +906,7 @@ statement instead the previous block.
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.2.0 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 2.3.0 |
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
@@ -948,7 +948,7 @@ statement instead the previous block.
 | [ibm_resource_instance.appid](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 | [ibm_resource_instance.cos](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -984,7 +984,7 @@ statement instead the previous block.
 | <a name="input_vsi"></a> [vsi](#input\_vsi) | A list describing VSI workloads to create | <pre>list(<br>    object({<br>      name                            = string<br>      vpc_name                        = string<br>      subnet_names                    = list(string)<br>      ssh_keys                        = list(string)<br>      image_name                      = string<br>      machine_type                    = string<br>      vsi_per_subnet                  = number<br>      user_data                       = optional(string)<br>      resource_group                  = optional(string)<br>      enable_floating_ip              = optional(bool)<br>      security_groups                 = optional(list(string))<br>      boot_volume_encryption_key_name = optional(string)<br>      security_group = optional(<br>        object({<br>          name = string<br>          rules = list(<br>            object({<br>              name      = string<br>              direction = string<br>              source    = string<br>              tcp = optional(<br>                object({<br>                  port_max = number<br>                  port_min = number<br>                })<br>              )<br>              udp = optional(<br>                object({<br>                  port_max = number<br>                  port_min = number<br>                })<br>              )<br>              icmp = optional(<br>                object({<br>                  type = number<br>                  code = number<br>                })<br>              )<br>            })<br>          )<br>        })<br>      )<br>      block_storage_volumes = optional(list(<br>        object({<br>          name           = string<br>          profile        = string<br>          capacity       = optional(number)<br>          iops           = optional(number)<br>          encryption_key = optional(string)<br>        })<br>      ))<br>      load_balancers = optional(list(<br>        object({<br>          name              = string<br>          type              = string<br>          listener_port     = number<br>          listener_protocol = string<br>          connection_limit  = number<br>          algorithm         = string<br>          protocol          = string<br>          health_delay      = number<br>          health_retries    = number<br>          health_timeout    = number<br>          health_type       = string<br>          pool_member_port  = string<br>          security_group = optional(<br>            object({<br>              name = string<br>              rules = list(<br>                object({<br>                  name      = string<br>                  direction = string<br>                  source    = string<br>                  tcp = optional(<br>                    object({<br>                      port_max = number<br>                      port_min = number<br>                    })<br>                  )<br>                  udp = optional(<br>                    object({<br>                      port_max = number<br>                      port_min = number<br>                    })<br>                  )<br>                  icmp = optional(<br>                    object({<br>                      type = number<br>                      code = number<br>                    })<br>                  )<br>                })<br>              )<br>            })<br>          )<br>        })<br>      ))<br>    })<br>  )</pre> | n/a | yes |
 | <a name="input_wait_till"></a> [wait\_till](#input\_wait\_till) | To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady` | `string` | `"IngressReady"` | no |
 
-## Outputs
+### Outputs
 
 | Name | Description |
 |------|-------------|
