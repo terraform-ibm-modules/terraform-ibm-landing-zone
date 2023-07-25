@@ -13,7 +13,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const quickstartExampleTerraformDir = "patterns/quickstart"
+const quickStartPatternTerraformDir = "patterns/quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -75,24 +75,24 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 	return options
 }
 
-func TestRunQuickstartExample(t *testing.T) {
+func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "slz-qs", quickstartExampleTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeQuickstartExample(t *testing.T) {
+func TestRunUpgradeQuickStartPattern(t *testing.T) {
 
 	t.Parallel()
 
 	// TODO: Remove this line after QuickStart pattern is merged to primary branch to enable upgrade test
 	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
 
-	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickstartExampleTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
