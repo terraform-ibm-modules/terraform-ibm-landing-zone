@@ -1,6 +1,10 @@
 ##############################################################################
 # Output Variables
 ##############################################################################
+output "landing_zone" {
+  value       = module.quickstart_landing_zone
+  description = "Landing zone configuration"
+}
 
 output "prefix" {
   description = "The prefix that is associated with all resources"
