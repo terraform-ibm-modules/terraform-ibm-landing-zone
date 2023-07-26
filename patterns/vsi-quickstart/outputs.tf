@@ -47,9 +47,9 @@ output "transit_gateway_data" {
   value       = module.quickstart_landing_zone.transit_gateway_data
 }
 
-output "ssh_public_key" {
+output "ssh_key" {
   description = "The string value of the ssh public key"
-  value       = var.ssh_public_key
+  value       = var.ssh_key
 }
 
 output "ssh_key_data" {

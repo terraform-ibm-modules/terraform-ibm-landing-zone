@@ -64,7 +64,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_public_key": sshPublicKey,
+			"ssh_key": sshPublicKey,
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,

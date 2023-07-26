@@ -7,7 +7,7 @@ module "quickstart_landing_zone" {
   ibmcloud_api_key                    = var.ibmcloud_api_key
   prefix                              = var.prefix
   region                              = var.region
-  ssh_public_key                      = var.ssh_public_key
+  ssh_public_key                      = var.ssh_key
   existing_ssh_key_name               = var.existing_ssh_key_name
   tags                                = var.resource_tags
   network_cidr                        = var.network_cidr
