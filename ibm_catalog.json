@@ -49,7 +49,7 @@
                     "label": "QuickStart",
                     "name": "quickstart",
                     "install_type": "fullstack",
-                    "working_directory": "examples/quickstart",
+                    "working_directory": "patterns/vsi-quickstart",
                     "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_key   = var.ssh_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {},
                     "configuration": [
