@@ -66,8 +66,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key":     sshPublicKey,
-			"access_tags": permanentResources["accessTags"],
+			"ssh_key": sshPublicKey,
 		},
 		IgnoreUpdates: testhelper.Exemptions{
 			List: ignoreUpdates,
@@ -124,7 +123,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"prefix":         options.Prefix,
 		"tags":           options.Tags,
 		"region":         options.Region,
-		"access_tags":    permanentResources["access_tags"],
 	}
 
 	return options
@@ -179,7 +177,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
-		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
@@ -229,7 +226,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"tags":               options.Tags,
 		"region":             options.Region,
 		"add_atracker_route": add_atracker_route,
-		"access_tags":        permanentResources["accessTags"],
 	}
 
 	return options
