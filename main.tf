@@ -15,7 +15,7 @@ module "vpc" {
   resource_group_id                      = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   region                                 = var.region
   prefix                                 = var.prefix
-  network_cidrs                          = var.network_cidrs
+  network_cidrs                          = [var.network_cidr]
   classic_access                         = each.value.classic_access
   default_network_acl_name               = each.value.default_network_acl_name
   default_security_group_name            = each.value.default_security_group_name

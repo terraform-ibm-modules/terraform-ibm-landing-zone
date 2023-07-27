@@ -53,7 +53,7 @@ resource "ibm_resource_tag" "cos_tag" {
   for_each    = local.cos_map
   resource_id = ibm_resource_instance.cos[each.key].crn
   tag_type    = "access"
-  tags        = local.cos_map[each.key]["access_tags"]
+  tags        = each.value.access_tags
 }
 
 ##############################################################################

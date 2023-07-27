@@ -180,13 +180,11 @@
         "line": 706
       }
     },
-    "network_cidrs": {
-      "name": "network_cidrs",
-      "type": "list(string)",
+    "network_cidr": {
+      "name": "network_cidr",
+      "type": "string",
       "description": "Network CIDR for the VPC. This is used to manage network ACL rules for cluster provisioning.",
-      "default": [
-        "10.0.0.0/8"
-      ],
+      "default": "10.0.0.0/8",
       "source": [
         "module.vpc.module.dynamic_values"
       ],
@@ -902,7 +900,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 92
+        "line": 95
       }
     },
     "ibm_cos_bucket.buckets": {
@@ -1256,7 +1254,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 78
+        "line": 81
       }
     },
     "ibm_resource_tag.cos_tag": {
@@ -2554,7 +2552,7 @@
       "source": "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v7.3.0",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
-        "network_cidrs": "network_cidrs",
+        "network_cidrs": "network_cidr",
         "prefix": "prefix",
         "region": "region",
         "tags": "tags"

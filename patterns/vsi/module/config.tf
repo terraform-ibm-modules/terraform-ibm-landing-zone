@@ -256,7 +256,7 @@ locals {
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
 
     ssh_keys                  = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
-    network_cidrs             = lookup(local.override[local.override_type], "network_cidrs", var.network_cidrs)
+    network_cidr              = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
     vsi                       = lookup(local.override[local.override_type], "vsi", local.config.vsi)
     security_groups           = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
     virtual_private_endpoints = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)

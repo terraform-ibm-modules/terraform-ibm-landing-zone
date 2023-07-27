@@ -44,7 +44,7 @@ module "vpn_gateway_map" {
       mode           = gateway.mode
       connections    = gateway.connections
       resource_group = gateway.resource_group
-      access_tags    = []
+      access_tags    = gateway.access_tags
     }
   ]
 }

@@ -23,7 +23,7 @@ module "vpc_landing_zone" {
   prefix                              = var.prefix
   region                              = var.region
   tags                                = var.tags
-  network_cidrs                       = var.network_cidrs
+  network_cidr                        = var.network_cidr
   vpcs                                = var.vpcs
   enable_transit_gateway              = var.enable_transit_gateway
   add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s

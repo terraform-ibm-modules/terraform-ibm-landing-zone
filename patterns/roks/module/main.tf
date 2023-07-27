@@ -8,7 +8,7 @@ module "landing_zone" {
   region                         = var.region
   tags                           = var.tags
   resource_groups                = local.env.resource_groups
-  network_cidrs                  = local.env.network_cidrs
+  network_cidr                   = local.env.network_cidr
   vpcs                           = local.env.vpcs
   vpn_gateways                   = local.env.vpn_gateways
   enable_transit_gateway         = local.env.enable_transit_gateway

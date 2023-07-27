@@ -24,7 +24,7 @@ module "vsi_landing_zone" {
   prefix                              = var.prefix
   region                              = var.region
   tags                                = var.tags
-  network_cidrs                       = var.network_cidrs
+  network_cidr                        = var.network_cidr
   vpcs                                = var.vpcs
   enable_transit_gateway              = var.enable_transit_gateway
   ssh_public_key                      = var.ssh_public_key
