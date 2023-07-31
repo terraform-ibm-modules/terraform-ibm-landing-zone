@@ -2552,7 +2552,7 @@
     "vpc": {
       "name": "vpc",
       "source": "terraform-ibm-modules/landing-zone-vpc/ibm",
-      "version": "7.3.0",
+      "version": "7.3.2",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidrs": "network_cidr",
@@ -2612,7 +2612,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/network_acls.tf",
-            "line": 152
+            "line": 162
           }
         },
         "ibm_is_public_gateway.gateway": {
