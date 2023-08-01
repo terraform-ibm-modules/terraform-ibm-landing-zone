@@ -30,6 +30,9 @@ variable "atracker_cos_bucket" {
   description = "Add atracker to cos s2s"
 }
 
+variable "resource_groups" {
+  description = "Map of all the Resource groups"
+}
 ##############################################################################
 
 ##############################################################################
@@ -43,10 +46,11 @@ locals {
 module "kms_to_block_storage" {
   source = "../list_to_map"
   list = [
-    for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
+    for name, id in(var.add_kms_block_storage_s2s ? var.resource_groups : null) :
     {
-      name                        = instance
+      name                        = "${name}-block-storage"
       source_service_name         = "server-protect"
+      source_resource_group_id    = name
       description                 = "Allow block storage volumes to be encrypted by KMS instance"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service

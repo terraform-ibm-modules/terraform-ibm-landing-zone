@@ -11,6 +11,7 @@ module "service_authorizations" {
   secrets_manager           = var.secrets_manager
   add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
   atracker_cos_bucket       = var.atracker_cos_bucket
+  resource_groups           = var.resource_groups
 }
 
 ##############################################################################
