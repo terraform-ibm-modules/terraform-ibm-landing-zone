@@ -27,4 +27,11 @@ resource "ibm_resource_instance" "secrets_manager" {
   depends_on = [ibm_iam_authorization_policy.policy]
 }
 
+resource "ibm_resource_tag" "secrets_manager_tag" {
+  count       = var.secrets_manager.use_secrets_manager ? 1 : 0
+  resource_id = ibm_resource_instance.secrets_manager[count.index].crn
+  tag_type    = "access"
+  tags        = var.secrets_manager.access_tags
+}
+
 ##############################################################################

@@ -49,6 +49,7 @@ module "vsi" {
   vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
   subnets                       = each.value.subnets
   tags                          = var.tags
+  access_tags                   = each.value.access_tags
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
   user_data                     = lookup(each.value, "user_data", null)

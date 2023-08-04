@@ -8,14 +8,15 @@ locals {
 
 module "vpc" {
   source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                                = "7.2.0"
+  version                                = "7.3.2"
   for_each                               = local.vpc_map
   name                                   = each.value.prefix
   tags                                   = var.tags
+  access_tags                            = each.value.access_tags
   resource_group_id                      = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   region                                 = var.region
   prefix                                 = var.prefix
-  network_cidr                           = var.network_cidr
+  network_cidrs                          = [var.network_cidr]
   classic_access                         = each.value.classic_access
   default_network_acl_name               = each.value.default_network_acl_name
   default_security_group_name            = each.value.default_security_group_name

@@ -12,8 +12,10 @@
     },
     "cos": [
       {
+        "access_tags": [],
         "buckets": [
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-atracker-key",
@@ -37,6 +39,7 @@
       {
         "buckets": [
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-key",
@@ -56,6 +59,7 @@
       "enable": false
     },
     "key_management": {
+      "access_tags": [],
       "keys": [
         {
           "key_ring": "slz-slz-ring",
@@ -90,6 +94,7 @@
       }
     ],
     "secrets_manager": {
+      "access_tags": [],
       "kms_key_name": null,
       "name": null,
       "resource_group": null,
@@ -98,6 +103,7 @@
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
       {
+        "access_tags": [],
         "address_prefixes": {
           "zone-1": [],
           "zone-2": [],
@@ -151,6 +157,7 @@
     ],
     "vsi": [
       {
+        "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
         "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
         "machine_type": "cx2-2x4",

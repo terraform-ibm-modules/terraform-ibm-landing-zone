@@ -99,6 +99,7 @@ output "value" {
       enable_management_floating_ip   = var.enable_f5_management_fip
       enable_external_floating_ip     = var.enable_f5_external_fip
       resource_group                  = var.f5_resource_group
+      access_tags                     = []
       ssh_keys                        = ["ssh-key"]
       name                            = "f5-zone-${instance}"
       primary_subnet_name             = "f5-management-zone-${instance}"
