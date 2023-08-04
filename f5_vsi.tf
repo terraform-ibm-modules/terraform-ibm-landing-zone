@@ -125,6 +125,7 @@ module "f5_vsi" {
   vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
+  access_tags                   = each.value.access_tags
   subnets                       = each.value.subnets
   secondary_subnets             = each.value.secondary_subnets
   secondary_allow_ip_spoofing   = true
