@@ -34,6 +34,7 @@ module "vpe_gateway_map" {
         resource_group      = lookup(service, "resource_group", null)
         security_group_name = lookup(vpcs, "security_group_name", null)
         crn                 = module.vpe_service_map.value["${service.service_name}-${service.service_type}"].crn
+        access_tags         = lookup(service, "access_tags", [])
       }
     ]
   ])

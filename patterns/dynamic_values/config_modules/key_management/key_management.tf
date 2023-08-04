@@ -80,6 +80,7 @@ output "value" {
     resource_group = var.resource_group
     use_hs_crypto  = var.use_hs_crypto
     keys           = local.keys
+    access_tags    = []
   }
 }
 

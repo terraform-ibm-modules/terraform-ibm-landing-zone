@@ -78,6 +78,13 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
+resource "ibm_resource_tag" "cluster_tag" {
+  for_each    = local.clusters_map
+  resource_id = ibm_container_vpc_cluster.cluster[each.key].crn
+  tag_type    = "access"
+  tags        = each.value.access_tags
+}
+
 ##############################################################################
 
 
