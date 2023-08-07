@@ -46,13 +46,13 @@ locals {
 module "kms_to_block_storage" {
   source = "../list_to_map"
   list = [
-    # for name, id in(var.add_kms_block_storage_s2s ? var.resource_groups : null) :
-    for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
+    for name, id in(var.add_kms_block_storage_s2s ? var.resource_groups : null) :
+    # for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
     {
-      # name                        = "${name}-block-storage"
-      name                = instance
-      source_service_name = "server-protect"
-      # source_resource_group_id    = name
+      name = "${name}-block-storage"
+      # name                = instance
+      source_service_name         = "server-protect"
+      source_resource_group_id    = name
       description                 = "Allow block storage volumes to be encrypted by KMS instance"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
