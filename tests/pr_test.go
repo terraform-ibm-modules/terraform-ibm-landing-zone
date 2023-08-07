@@ -192,19 +192,19 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
-// func TestRunVSIPatternWithHPCS(t *testing.T) {
-// 	options := setupOptionsVsiPattern(t, "lvsihp")
+func TestRunVSIPatternWithHPCS(t *testing.T) {
+	options := setupOptionsVsiPattern(t, "lvsihp")
 
-// 	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
 
-// 	// Key Protect service will be used if `hs_crypto_instance_name` is null
-// 	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-// 	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// Key Protect service will be used if `hs_crypto_instance_name` is null
+	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
-// 	output, err := options.RunTestConsistency()
-// 	assert.Nil(t, err, "This should not have errored")
-// 	assert.NotNil(t, output, "Expected some output")
-// }
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
