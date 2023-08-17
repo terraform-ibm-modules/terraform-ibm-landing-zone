@@ -922,6 +922,27 @@
                     },
                     "configuration": [
                         {
+                            "key": "kube_version",
+                            "type": "string",
+                            "required": true,
+                            "default_value": "4.12_openshift",
+                            "options": [
+                                {
+                                    "displayname": "4.10_openshift",
+                                    "value": "4.10_openshift"
+                                },
+                                {
+                                    "displayname": "4.11_openshift",
+                                    "value": "4.11_openshift"
+                                },
+                                {
+                                    "displayname": "4.12_openshift",
+                                    "value": "4.12_openshift"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
                             "hidden": true,
                             "key": "tgactive_url"
                         },
