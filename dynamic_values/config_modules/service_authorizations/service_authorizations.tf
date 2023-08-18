@@ -101,9 +101,9 @@ module "secrets_manager_to_cos" {
   list = [
     for instance in(var.secrets_manager.use_secrets_manager ? ["secrets-manager-to-kms"] : []) :
     {
-      name                = instance
-      source_service_name = "secrets-manager"
-      # source_resource_group_id    = var.secrets_manager.resource_group
+      name                        = instance
+      source_service_name         = "secrets-manager"
+      source_resource_group_id    = var.secrets_manager.resource_group
       description                 = "Allow secrets manager to read from Key Management"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
