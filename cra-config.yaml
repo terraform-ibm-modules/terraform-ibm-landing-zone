@@ -1,9 +1,22 @@
 # More info about this file at https://github.com/terraform-ibm-modules/common-pipeline-assets/blob/main/.github/workflows/terraform-test-pipeline.md#cra-config-yaml
 version: "v1"
 CRA_TARGETS:
-  - CRA_TARGET: "patterns/roks" # Target directory for CRA scan. If not provided, the CRA Scan will not be run.
-    CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json" # CRA Ignore file to use. If not provided, it checks the repo root directory for `cra-tf-validate-ignore-rules.json`
-    PROFILE_ID: "262b5a6d-9dea-400e-b61f-0fbd63883f78" # SCC profile ID (currently set to the FSCloud 1.3.0 profile).
-    CRA_ENVIRONMENT_VARIABLES:  # An optional map of environment variables for CRA, where the key is the variable name and value is the value. Useful for providing TF_VARs.
+  - CRA_TARGET: "patterns/vpc"
+    CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
+    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    CRA_ENVIRONMENT_VARIABLES:
+      TF_VAR_prefix: "slz-vpc"
+      TF_VAR_region: "us-south"
+  - CRA_TARGET: "patterns/vsi"
+    CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
+    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    CRA_ENVIRONMENT_VARIABLES:
+      TF_VAR_prefix: "slz-vsi"
+      TF_VAR_region: "us-south"
+      TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/hfNI5cNjimtcVgNA1acGmi1iv7PTjKcF8D+8DqffkGMsY6vU7KtB1mASwVU8GMGLzU2qvGmXwHSANYqPOraEitgI06zhq5VXVvtjOR41IJjP+ssjHIbql+EDzls2yJuZd2g4Wmk5NKTzJFNYsvIaCGUYCSMUPT9bepUqIOyjsrCEiHGLaphF5W2V/hj1+1NEZqV3ozhmHmtff2tIb6+VQpd/dl61RKuF74rywd1krmBOe4kbPzfYRqiRKV0rl0bPuyL+FV3Zv5gdzRRLNQiOxapv9uSkCal3W0umpSQyBYtj6BhGxeKrBKVgXgdq7byStRFSlREaKIg+tkekieqNZbBArgSYoNACZilxrzzC6u0KuWtllldy1CwCtFEdBlSPnHwnD/XhAs6FVuoh5tmw+FLtVyg8UyMgSvVr1Vcya9uAOCLLiihsgAB5xqqcJaXcfk+zkWn7rUJ9F+R3CZs9rgEvBbHpFAKJqcMsInZ+G0Jt0s6kIpAPr/plcfrK2bcwG/L9Kbuedf31dmHAylKqfMpdqm2YoSXOs5Y7Wh6KV/1VhL/u0++hxGt6APjvpY0BTlvsw7fmBSPniHkC8fF6bEzP0blCRcI3SB7P/glrZqM5UptBoEI5a8LBv5G4YsVolRepj6FjwlPvfgBbLF5AXxFtZTk07UW7CRauO5xbJw=="
+  - CRA_TARGET: "patterns/roks"
+    CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
+    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "slz-roks"
       TF_VAR_region: "us-south"
