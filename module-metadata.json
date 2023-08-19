@@ -1427,7 +1427,7 @@
     "bastion_host": {
       "name": "bastion_host",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1437,7 +1437,7 @@
           "type": "ibm_iam_authorization_policy",
           "name": "block_storage_policy",
           "attributes": {
-            "count": "skip_iam_authorization_policy",
+            "count": "kms_encryption_enabled",
             "target_resource_instance_id": "existing_kms_instance_guid"
           },
           "provider": {
@@ -1445,7 +1445,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 76
+            "line": 86
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -1462,7 +1462,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -1479,7 +1479,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 146
+            "line": 154
           }
         },
         "ibm_is_instance.vsi": {
@@ -1502,7 +1502,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 87
+            "line": 95
           }
         },
         "ibm_is_lb.lb": {
@@ -1606,7 +1606,19 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/storage.tf",
-            "line": 41
+            "line": 42
+          }
+        },
+        "time_sleep.wait_for_authorization_policy": {
+          "mode": "managed",
+          "type": "time_sleep",
+          "name": "wait_for_authorization_policy",
+          "provider": {
+            "name": "time"
+          },
+          "pos": {
+            "filename": ".terraform/modules/bastion_host/main.tf",
+            "line": 54
           }
         }
       },
@@ -1620,7 +1632,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 63
+            "line": 70
           }
         },
         "data.ibm_is_vpcs.vpcs": {
@@ -1635,7 +1647,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 57
+            "line": 64
           }
         }
       },
@@ -1992,7 +2004,7 @@
     "f5_vsi": {
       "name": "f5_vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2002,7 +2014,7 @@
           "type": "ibm_iam_authorization_policy",
           "name": "block_storage_policy",
           "attributes": {
-            "count": "skip_iam_authorization_policy",
+            "count": "kms_encryption_enabled",
             "target_resource_instance_id": "existing_kms_instance_guid"
           },
           "provider": {
@@ -2010,7 +2022,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 76
+            "line": 86
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -2027,7 +2039,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2044,7 +2056,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 146
+            "line": 154
           }
         },
         "ibm_is_instance.vsi": {
@@ -2067,7 +2079,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 87
+            "line": 95
           }
         },
         "ibm_is_lb.lb": {
@@ -2171,7 +2183,19 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/storage.tf",
-            "line": 41
+            "line": 42
+          }
+        },
+        "time_sleep.wait_for_authorization_policy": {
+          "mode": "managed",
+          "type": "time_sleep",
+          "name": "wait_for_authorization_policy",
+          "provider": {
+            "name": "time"
+          },
+          "pos": {
+            "filename": ".terraform/modules/f5_vsi/main.tf",
+            "line": 54
           }
         }
       },
@@ -2185,7 +2209,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 63
+            "line": 70
           }
         },
         "data.ibm_is_vpcs.vpcs": {
@@ -2200,7 +2224,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 57
+            "line": 64
           }
         }
       },
@@ -2552,7 +2576,7 @@
     "vpc": {
       "name": "vpc",
       "source": "terraform-ibm-modules/landing-zone-vpc/ibm",
-      "version": "7.3.2",
+      "version": "7.4.1",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidrs": "network_cidr",
@@ -2574,7 +2598,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 108
+            "line": 114
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2595,7 +2619,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 119
+            "line": 125
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2630,7 +2654,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 86
+            "line": 92
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2721,7 +2745,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 51
+            "line": 57
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2736,7 +2760,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 60
+            "line": 66
           }
         },
         "null_resource.clean_default_acl": {
@@ -2751,7 +2775,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 153
+            "line": 159
           }
         },
         "null_resource.clean_default_security_group": {
@@ -2766,7 +2790,19 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 137
+            "line": 143
+          }
+        },
+        "time_sleep.wait_for_authorization_policy": {
+          "mode": "managed",
+          "type": "time_sleep",
+          "name": "wait_for_authorization_policy",
+          "provider": {
+            "name": "time"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vpc/main.tf",
+            "line": 47
           }
         }
       },
@@ -2790,7 +2826,7 @@
           "description": "List of CIDR blocks present in VPC stack",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 137
+            "line": 140
           }
         },
         "network_acls": {
@@ -2798,7 +2834,7 @@
           "description": "List of shortnames and IDs of network ACLs",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 105
+            "line": 108
           }
         },
         "public_gateways": {
@@ -2822,7 +2858,7 @@
           "description": "A map of subnets containing IDs, CIDR blocks, and zones",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 81
+            "line": 83
           }
         },
         "subnet_ids": {
@@ -2838,7 +2874,7 @@
           "description": "A list containing subnet IDs and subnet zones",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 69
+            "line": 70
           }
         },
         "vpc_crn": {
@@ -2857,7 +2893,7 @@
           "description": "Details of VPC flow logs collector",
           "pos": {
             "filename": ".terraform/modules/vpc/outputs.tf",
-            "line": 122
+            "line": 125
           }
         },
         "vpc_id": {
@@ -2894,7 +2930,7 @@
     "vsi": {
       "name": "vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
@@ -2905,7 +2941,7 @@
           "type": "ibm_iam_authorization_policy",
           "name": "block_storage_policy",
           "attributes": {
-            "count": "skip_iam_authorization_policy",
+            "count": "kms_encryption_enabled",
             "target_resource_instance_id": "existing_kms_instance_guid"
           },
           "provider": {
@@ -2913,7 +2949,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 76
+            "line": 86
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -2930,7 +2966,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2947,7 +2983,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 146
+            "line": 154
           }
         },
         "ibm_is_instance.vsi": {
@@ -2970,7 +3006,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 87
+            "line": 95
           }
         },
         "ibm_is_lb.lb": {
@@ -3074,7 +3110,19 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/storage.tf",
-            "line": 41
+            "line": 42
+          }
+        },
+        "time_sleep.wait_for_authorization_policy": {
+          "mode": "managed",
+          "type": "time_sleep",
+          "name": "wait_for_authorization_policy",
+          "provider": {
+            "name": "time"
+          },
+          "pos": {
+            "filename": ".terraform/modules/vsi/main.tf",
+            "line": 54
           }
         }
       },
@@ -3088,7 +3136,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 63
+            "line": 70
           }
         },
         "data.ibm_is_vpcs.vpcs": {
@@ -3103,7 +3151,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 57
+            "line": 64
           }
         }
       },

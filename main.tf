@@ -8,7 +8,7 @@ locals {
 
 module "vpc" {
   source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                                = "7.3.2"
+  version                                = "7.4.1"
   for_each                               = local.vpc_map
   name                                   = each.value.prefix
   tags                                   = var.tags
