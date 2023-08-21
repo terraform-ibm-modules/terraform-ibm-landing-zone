@@ -271,19 +271,20 @@ variable "vsi" {
   description = "A list describing VSI workloads to create"
   type = list(
     object({
-      name                            = string
-      vpc_name                        = string
-      subnet_names                    = list(string)
-      ssh_keys                        = list(string)
-      image_name                      = string
-      machine_type                    = string
-      vsi_per_subnet                  = number
-      user_data                       = optional(string)
-      resource_group                  = optional(string)
-      enable_floating_ip              = optional(bool)
-      security_groups                 = optional(list(string))
-      boot_volume_encryption_key_name = optional(string)
-      access_tags                     = optional(list(string), [])
+      name                                    = string
+      vpc_name                                = string
+      subnet_names                            = list(string)
+      ssh_keys                                = list(string)
+      image_name                              = string
+      machine_type                            = string
+      vsi_per_subnet                          = number
+      user_data                               = optional(string)
+      resource_group                          = optional(string)
+      enable_floating_ip                      = optional(bool)
+      security_groups                         = optional(list(string))
+      boot_volume_encryption_key_name         = optional(string)
+      external_boot_volume_encryption_key_crn = optional(string)
+      access_tags                             = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -316,11 +317,12 @@ variable "vsi" {
       )
       block_storage_volumes = optional(list(
         object({
-          name           = string
-          profile        = string
-          capacity       = optional(number)
-          iops           = optional(number)
-          encryption_key = optional(string)
+          name                        = string
+          profile                     = string
+          capacity                    = optional(number)
+          iops                        = optional(number)
+          encryption_key              = optional(string)
+          external_encryption_key_crn = optional(string)
         })
       ))
       load_balancers = optional(list(
@@ -371,6 +373,15 @@ variable "vsi" {
       ))
     })
   )
+
+  validation {
+    condition     = length(flatten([for instance in var.vsi : instance if(instance.boot_volume_encryption_key_name != null && instance.external_boot_volume_encryption_key_crn != null)])) == 0
+    error_message = "Please provide exactly one of boot_volume_encryption_key_name or external_boot_volume_encryption_key_crn. Passing both is invalid."
+  }
+  validation {
+    condition     = length(flatten([for instance in var.vsi : [for boot_volume in instance.block_storage_volumes : boot_volume if(boot_volume.encryption_key != null && boot_volume.external_encryption_key_crn != null)] if instance.block_storage_volumes != null])) == 0
+    error_message = "Please provide exactly one of encryption_key or external_encryption_key_crn. Passing both is invalid."
+  }
 }
 
 ##############################################################################
@@ -497,6 +508,7 @@ variable "cos" {
         region_location       = optional(string)
         cross_region_location = optional(string)
         kms_key               = optional(string)
+        external_kms_key_crn  = optional(string)
         access_tags           = optional(list(string), [])
         allowed_ip            = optional(list(string))
         hard_quota            = optional(number)
@@ -553,6 +565,11 @@ variable "cos" {
         )
       )
     )
+  }
+
+  validation {
+    condition     = length(flatten([for instance in var.cos : [for bucket in instance.buckets : bucket if(bucket.kms_key != null && bucket.external_kms_key_crn != null)]])) == 0
+    error_message = "Please provide exactly one of kms_key or external_kms_key_crn. Passing both is invalid."
   }
 
   validation {
@@ -706,8 +723,8 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = string
-    resource_group = string
+    name           = optional(string)
+    resource_group = optional(string)
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
     access_tags    = optional(list(string), [])
@@ -943,16 +960,17 @@ variable "teleport_vsi" {
   type = list(
     object(
       {
-        name                            = string
-        vpc_name                        = string
-        resource_group                  = optional(string)
-        subnet_name                     = string
-        ssh_keys                        = list(string)
-        boot_volume_encryption_key_name = string
-        image_name                      = string
-        machine_type                    = string
-        access_tags                     = optional(list(string), [])
-        security_groups                 = optional(list(string))
+        name                                    = string
+        vpc_name                                = string
+        resource_group                          = optional(string)
+        subnet_name                             = string
+        ssh_keys                                = list(string)
+        boot_volume_encryption_key_name         = optional(string)
+        external_boot_volume_encryption_key_crn = optional(string)
+        image_name                              = string
+        machine_type                            = string
+        access_tags                             = optional(list(string), [])
+        security_groups                         = optional(list(string))
         security_group = optional(
           object({
             name = string
@@ -993,6 +1011,10 @@ variable "teleport_vsi" {
   validation {
     condition     = length(distinct([for name in flatten(var.teleport_vsi[*].name) : name])) == length(flatten(var.teleport_vsi[*].name))
     error_message = "Duplicate teleport_vsi name. Please provide unique teleport_vsi names."
+  }
+  validation {
+    condition     = length(flatten([for instance in var.teleport_vsi : instance if(instance.boot_volume_encryption_key_name != null && instance.external_boot_volume_encryption_key_crn != null)])) == 0
+    error_message = "Please provide exactly one of boot_volume_encryption_key_name or external_boot_volume_encryption_key_crn. Passing both is invalid."
   }
 }
 
@@ -1258,17 +1280,18 @@ variable "f5_vsi" {
           interface_name = string
         })
       )
-      ssh_keys                        = list(string)
-      f5_image_name                   = string
-      machine_type                    = string
-      resource_group                  = optional(string)
-      enable_management_floating_ip   = optional(bool)
-      enable_external_floating_ip     = optional(bool)
-      security_groups                 = optional(list(string))
-      boot_volume_encryption_key_name = optional(string)
-      hostname                        = string
-      domain                          = string
-      access_tags                     = optional(list(string), [])
+      ssh_keys                                = list(string)
+      f5_image_name                           = string
+      machine_type                            = string
+      resource_group                          = optional(string)
+      enable_management_floating_ip           = optional(bool)
+      enable_external_floating_ip             = optional(bool)
+      security_groups                         = optional(list(string))
+      boot_volume_encryption_key_name         = optional(string)
+      external_boot_volume_encryption_key_crn = optional(string)
+      hostname                                = string
+      domain                                  = string
+      access_tags                             = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -1301,11 +1324,12 @@ variable "f5_vsi" {
       )
       block_storage_volumes = optional(list(
         object({
-          name           = string
-          profile        = string
-          capacity       = optional(number)
-          iops           = optional(number)
-          encryption_key = optional(string)
+          name                        = string
+          profile                     = string
+          capacity                    = optional(number)
+          iops                        = optional(number)
+          encryption_key              = optional(string)
+          external_encryption_key_crn = optional(string)
         })
       ))
       load_balancers = optional(list(
@@ -1357,6 +1381,16 @@ variable "f5_vsi" {
     })
   )
   default = []
+
+  validation {
+    condition     = length(flatten([for instance in var.f5_vsi : instance if(instance.boot_volume_encryption_key_name != null && instance.external_boot_volume_encryption_key_crn != null)])) == 0
+    error_message = "Please provide exactly one of boot_volume_encryption_key_name or external_boot_volume_encryption_key_crn. Passing both is invalid."
+  }
+
+  validation {
+    condition     = length(flatten([for instance in var.f5_vsi : [for boot_volume in instance.block_storage_volumes : boot_volume if(boot_volume.encryption_key != null && boot_volume.external_encryption_key_crn != null)] if instance.block_storage_volumes != null])) == 0
+    error_message = "Please provide exactly one of encryption_key or external_encryption_key_crn. Passing both is invalid."
+  }
 
   validation {
     error_message = "Image names for F5 VSI must be one of [`f5-bigip-15-1-5-1-0-0-14-all-1slot`,`f5-bigip-15-1-5-1-0-0-14-ltm-1slot`, `f5-bigip-16-1-2-2-0-0-28-ltm-1slot`,`f5-bigip-16-1-2-2-0-0-28-all-1slot`]."
@@ -1433,11 +1467,16 @@ variable "secrets_manager" {
     use_secrets_manager = bool
     name                = optional(string)
     kms_key_name        = optional(string)
+    external_key_crn    = optional(string)
     resource_group      = optional(string)
     access_tags         = optional(list(string), [])
   })
   default = {
     use_secrets_manager = false
+  }
+  validation {
+    condition     = (var.secrets_manager.kms_key_name != null && var.secrets_manager.external_key_crn != null) == false
+    error_message = "Please provide exactly one of kms_key_name or external_key_crn. Passing both is invalid."
   }
 }
 

@@ -54,10 +54,10 @@ module "vsi" {
   skip_iam_authorization_policy = true
   user_data                     = lookup(each.value, "user_data", null)
   image_id                      = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
-  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
+  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name != null ? [
     for keys in module.key_management.keys :
-    keys.id if keys.name == each.value.boot_volume_encryption_key_name
-  ][0]
+    keys.crn if keys.name == each.value.boot_volume_encryption_key_name
+  ][0] : each.value.external_boot_volume_encryption_key_crn != null ? each.value.external_boot_volume_encryption_key_crn : ""
   security_group_ids = each.value.security_groups == null ? [] : [
     for group in each.value.security_groups :
     ibm_is_security_group.security_group[group].id
@@ -79,10 +79,10 @@ module "vsi" {
       profile  = volume.profile
       capacity = volume.capacity
       iops     = volume.iops
-      encryption_key = lookup(volume, "encryption_key", null) == null ? null : [
+      encryption_key = lookup(volume, "encryption_key", null) != null ? [
         for key in module.key_management.keys :
-        key.id if key.name == volume.encryption_key
-      ][0]
+        key.crn if key.name == volume.encryption_key
+      ][0] : lookup(volume, "external_encryption_key_crn", null) != null ? each.value.external_encryption_key_crn : null
     }
   ]
   enable_floating_ip = each.value.enable_floating_ip == true ? true : false
