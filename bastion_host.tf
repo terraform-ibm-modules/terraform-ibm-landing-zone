@@ -53,10 +53,10 @@ module "bastion_host" {
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
   vsi_per_subnet                = 1
-  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
+  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name != null ? [
     for keys in module.key_management.keys :
-    keys.id if keys.name == each.value.boot_volume_encryption_key_name
-  ][0]
+    keys.crn if keys.name == each.value.boot_volume_encryption_key_name
+  ][0] : each.value.external_boot_volume_encryption_key_crn != null ? each.value.external_boot_volume_encryption_key_crn : ""
   image_id  = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
   user_data = module.teleport_config[0].cloud_init
   security_group_ids = each.value.security_groups == null ? [] : [

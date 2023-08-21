@@ -143,10 +143,10 @@ module "f5_vsi" {
   security_group = each.value.security_group
   load_balancers = each.value.load_balancers == null ? [] : each.value.load_balancers
   # Get boot volume
-  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
+  boot_volume_encryption_key = each.value.boot_volume_encryption_key_name != null ? [
     for keys in module.key_management.keys :
-    keys.id if keys.name == each.value.boot_volume_encryption_key_name
-  ][0]
+    keys.crn if keys.name == each.value.boot_volume_encryption_key_name
+  ][0] : each.value.external_boot_volume_encryption_key_crn != null ? each.value.external_boot_volume_encryption_key_crn : ""
   # Get security group ids
   security_group_ids = each.value.security_groups == null ? [] : [
     for group in each.value.security_groups :
@@ -167,10 +167,10 @@ module "f5_vsi" {
       profile  = volume.profile
       capacity = volume.capacity
       iops     = volume.iops
-      encryption_key = lookup(volume, "encryption_key", null) == null ? null : [
+      encryption_key = lookup(volume, "encryption_key", null) != null ? [
         for key in module.key_management.keys :
-        key.id if key.name == volume.encryption_key
-      ][0]
+        key.crn if key.name == volume.encryption_key
+      ][0] : lookup(volume, "external_encryption_key_crn", null) != null ? each.value.external_encryption_key_crn : null
     }
   ]
   enable_floating_ip = each.value.enable_management_floating_ip == true ? true : false

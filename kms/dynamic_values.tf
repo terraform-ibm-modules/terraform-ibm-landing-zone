@@ -10,6 +10,7 @@ module "dynamic_values" {
   kms_data      = data.ibm_resource_instance.kms
   kms_resource  = ibm_resource_instance.kms
   keys          = var.keys
+  name          = var.key_management.name
 }
 
 ##############################################################################
