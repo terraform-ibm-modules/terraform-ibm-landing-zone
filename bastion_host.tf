@@ -41,13 +41,15 @@ module "teleport_config" {
 ##############################################################################
 
 module "bastion_host" {
-  source                        = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=v2.3.0"
+  source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
+  version                       = "2.5.0"
   for_each                      = local.bastion_vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
   prefix                        = "${var.prefix}-${each.value.name}"
   vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
   subnets                       = each.value.subnets
+  access_tags                   = each.value.access_tags
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
   vsi_per_subnet                = 1

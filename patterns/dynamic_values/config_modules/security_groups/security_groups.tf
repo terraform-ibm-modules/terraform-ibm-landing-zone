@@ -155,6 +155,7 @@ output "bastion_vsi" {
     vpc_name       = var.bastion_vpc_name
     resource_group = "${var.prefix}-${var.bastion_vpc_name}-rg"
     rules          = var.bastion_vsi_rules
+    access_tags    = []
   }
 }
 

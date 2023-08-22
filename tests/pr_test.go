@@ -13,7 +13,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-const quickstartExampleTerraformDir = "examples/quickstart"
+const quickStartPatternTerraformDir = "patterns/vsi-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -55,7 +55,7 @@ func sshPublicKey(t *testing.T) string {
 	return pubKey
 }
 
-func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 
@@ -75,20 +75,24 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-func TestRunQuickstartExample(t *testing.T) {
+func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs", quickstartExampleTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeQuickstartExample(t *testing.T) {
+func TestRunUpgradeQuickStartPattern(t *testing.T) {
+
 	t.Parallel()
 
-	options := setupOptions(t, "slz-qs-ug", quickstartExampleTerraformDir)
+	// TODO: Remove this line after QuickStart pattern is merged to primary branch to enable upgrade test
+	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
+
+	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -123,15 +127,15 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 }
 
 func TestRunRoksPatternWithHPCS(t *testing.T) {
-	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
-
 	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "lrkshp")
 
-	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+
+	// Key Protect service will be used if `hs_crypto_instance_name` is null
+	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -189,13 +193,13 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 }
 
 func TestRunVSIPatternWithHPCS(t *testing.T) {
-	// TODO: Re-enable HPCS tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-	t.Skip("Skipping HPCS tests until the auth policy issue is resolved.")
-
 	options := setupOptionsVsiPattern(t, "lvsihp")
 
-	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
+
+	// Key Protect service will be used if `hs_crypto_instance_name` is null
+	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
+	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

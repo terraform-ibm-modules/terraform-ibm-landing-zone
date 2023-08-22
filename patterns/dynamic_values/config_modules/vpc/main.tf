@@ -103,6 +103,7 @@ output "value" {
     for network in var.vpc_list :
     {
       default_security_group_rules = []
+      access_tags                  = []
       clean_default_security_group = true
       clean_default_acl            = true
       prefix                       = network

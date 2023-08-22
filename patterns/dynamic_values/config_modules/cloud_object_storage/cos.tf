@@ -64,6 +64,7 @@ output "value" {
         }
       ]
       keys          = []
+      access_tags   = []
       random_suffix = var.use_random_cos_suffix
     },
     # COS instance for everything else
@@ -92,6 +93,7 @@ output "value" {
           role        = "Writer"
         }
       ]
+      access_tags   = []
       random_suffix = var.use_random_cos_suffix
     }
   ]
