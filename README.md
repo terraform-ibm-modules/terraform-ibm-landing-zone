@@ -879,7 +879,7 @@ statement instead the previous block.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ One VPC with one VSI](examples/one-vpc-one-vsi)
+- [ One VPC with one VSI example](examples/one-vpc-one-vsi)
 - [ Override.json example](examples/override-example)
 <!-- END EXAMPLES HOOK -->
 
