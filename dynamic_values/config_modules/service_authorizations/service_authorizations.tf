@@ -72,7 +72,6 @@ module "cos_to_key_management" {
       name                        = "cos-${instance.name}-to-key-management"
       source_service_name         = "cloud-object-storage"
       source_resource_instance_id = split(":", var.cos_instance_ids[instance.name])[7]
-      source_resource_group_id    = instance.resource_group
       description                 = "Allow COS instance to read from KMS instance"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
