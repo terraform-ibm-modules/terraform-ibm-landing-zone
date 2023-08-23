@@ -242,7 +242,7 @@ func TestRunVpcPattern(t *testing.T) {
 func TestRunUpgradeVpcPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "vpc-ug")
+	options := setupOptionsVpcPattern(t, "vpc-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
