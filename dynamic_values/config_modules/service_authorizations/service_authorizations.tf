@@ -30,9 +30,6 @@ variable "atracker_cos_bucket" {
   description = "Add atracker to cos s2s"
 }
 
-variable "resource_groups" {
-  description = "Map of all the Resource groups"
-}
 ##############################################################################
 
 ##############################################################################
