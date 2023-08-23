@@ -8,7 +8,7 @@ module "service_authorizations" {
   key_management_guid       = var.key_management_guid
   cos                       = var.cos
   cos_instance_ids          = local.cos_instance_ids
-  use_secrets_manager       = var.secrets_manager.use_secrets_manager
+  secrets_manager           = var.secrets_manager
   add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
   atracker_cos_bucket       = var.atracker_cos_bucket
 }

@@ -18,8 +18,8 @@ variable "cos" {
   description = "COS variable"
 }
 
-variable "use_secrets_manager" {
-  description = "Use secrets manager"
+variable "secrets_manager" {
+  description = "Secrets Manager config"
 }
 
 variable "add_kms_block_storage_s2s" {
@@ -96,10 +96,11 @@ module "flow_logs_to_cos" {
 module "secrets_manager_to_cos" {
   source = "../list_to_map"
   list = [
-    for instance in(var.use_secrets_manager ? ["secrets-manager-to-kms"] : []) :
+    for instance in(var.secrets_manager.use_secrets_manager ? ["secrets-manager-to-kms"] : []) :
     {
       name                        = instance
       source_service_name         = "secrets-manager"
+      source_resource_group_id    = var.secrets_manager.resource_group
       description                 = "Allow secrets manager to read from Key Management"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
