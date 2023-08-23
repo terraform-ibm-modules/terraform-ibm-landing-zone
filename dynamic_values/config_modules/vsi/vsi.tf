@@ -63,7 +63,7 @@ module "vsi_image_map" {
 ##############################################################################
 
 output "vsi_map" {
-  description = "Map of VSI deplioyments"
+  description = "Map of VSI deployments"
   value       = module.composed_vsi_map.value
 }
 

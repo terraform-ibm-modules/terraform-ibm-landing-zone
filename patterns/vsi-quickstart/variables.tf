@@ -38,7 +38,7 @@ variable "ssh_key" {
 variable "existing_ssh_key_name" {
   description = "The name of a public SSH Key which already exists in the deployment region that will be used for VSI creation. To add a new SSH key, use the variable 'ssh_public_key' instead."
   type        = string
-  default     = null
+  default     = "test-ssh-key"
 }
 
 variable "resource_tags" {
@@ -720,9 +720,7 @@ variable "override_json_string" {
                }
             ]
          },
-         "ssh_keys": [
-            "ssh-key"
-         ],
+         "ssh_keys": [],
          "subnet_names": [
             "vsi-zone-1"
          ],
@@ -756,9 +754,7 @@ variable "override_json_string" {
                }
             ]
          },
-         "ssh_keys": [
-            "ssh-key"
-         ],
+         "ssh_keys": [],
          "subnet_names": [
             "vsi-zone-1"
          ],
