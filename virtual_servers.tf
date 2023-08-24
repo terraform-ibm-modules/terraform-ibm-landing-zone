@@ -56,7 +56,7 @@ module "vsi" {
   image_id                      = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
     for keys in module.key_management.keys :
-    keys.id if keys.name == each.value.boot_volume_encryption_key_name
+    keys.crn if keys.name == each.value.boot_volume_encryption_key_name
   ][0]
   security_group_ids = each.value.security_groups == null ? [] : [
     for group in each.value.security_groups :
@@ -81,7 +81,7 @@ module "vsi" {
       iops     = volume.iops
       encryption_key = lookup(volume, "encryption_key", null) == null ? null : [
         for key in module.key_management.keys :
-        key.id if key.name == volume.encryption_key
+        key.crn if key.name == volume.encryption_key
       ][0]
     }
   ]

@@ -706,8 +706,8 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = string
-    resource_group = string
+    name           = optional(string)
+    resource_group = optional(string)
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
     access_tags    = optional(list(string), [])
@@ -719,6 +719,7 @@ variable "key_management" {
           payload         = optional(string)
           key_ring        = optional(string) # Any key_ring added will be created
           force_delete    = optional(bool)
+          crn             = optional(string)
           endpoint        = optional(string) # can be public or private
           iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
           encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
@@ -740,6 +741,14 @@ variable "key_management" {
       )
     )
   })
+  # validation {
+  #   condition     = length(flatten([for kms in var.key_management : [for key in kms.keys : key if(lookup(key, "crn", null) == null) && kms.name == null] if kms.keys != null])) == 0
+  #   error_message = "Please provide kms name to be created."
+  # }
+  validation {
+    condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "crn", null) == null) && var.key_management.name == null])) == 0
+    error_message = "Please provide kms name to be created."
+  }
 }
 
 ##############################################################################
