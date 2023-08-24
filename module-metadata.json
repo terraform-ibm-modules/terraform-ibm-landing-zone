@@ -814,7 +814,7 @@
     "ibm": {
       "source": "IBM-Cloud/ibm",
       "version_constraints": [
-        "\u003e= 1.54.0"
+        "\u003e= 1.56.1"
       ]
     },
     "random": {
