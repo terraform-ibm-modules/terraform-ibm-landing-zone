@@ -3,7 +3,7 @@
 ##############################################################################
 
 module "landing_zone" {
-  source               = "../vsi"
+  source               = "../vsi/module"
   prefix               = var.prefix
   region               = var.region
   ibmcloud_api_key     = var.ibmcloud_api_key
