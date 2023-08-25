@@ -100,6 +100,7 @@ locals {
           #   entitlement        = var.entitlement
           #   workers_per_subnet = var.workers_per_zone
           #   flavor             = var.flavor
+          #   boot_volume_crk_name = "${var.prefix}-roks-key"
           # }
         ]
       }
