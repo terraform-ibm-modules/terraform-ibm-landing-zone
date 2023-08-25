@@ -97,9 +97,9 @@ locals {
           #     for zone in range(1, var.cluster_zones + 1) :
           #     "vsi-zone-${zone}"
           #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
+          #   entitlement          = var.entitlement
+          #   workers_per_subnet   = var.workers_per_zone
+          #   flavor               = var.flavor
           #   boot_volume_crk_name = "${var.prefix}-roks-key"
           # }
         ]
