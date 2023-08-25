@@ -2,7 +2,7 @@
 # Output Variables
 ##############################################################################
 
-output "landing_zone" {
-  value       = module.landing_zone
-  description = "Landing zone configuration"
+output "config" {
+  description = "Output configuration as encoded JSON"
+  value = module.landing_zone.config
 }
