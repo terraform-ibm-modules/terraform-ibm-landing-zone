@@ -79,14 +79,15 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet = var.workers_per_zone
-        machine_type       = var.flavor
-        kube_type          = "openshift"
-        kube_version       = var.kube_version
-        resource_group     = "${var.prefix}-${network}-rg"
-        update_all_workers = var.update_all_workers
-        cos_name           = "cos"
-        entitlement        = var.entitlement
+        workers_per_subnet   = var.workers_per_zone
+        machine_type         = var.flavor
+        kube_type            = "openshift"
+        kube_version         = var.kube_version
+        resource_group       = "${var.prefix}-${network}-rg"
+        update_all_workers   = var.update_all_workers
+        cos_name             = "cos"
+        entitlement          = var.entitlement
+        boot_volume_crk_name = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [
           # {
@@ -96,9 +97,10 @@ locals {
           #     for zone in range(1, var.cluster_zones + 1) :
           #     "vsi-zone-${zone}"
           #   ]
-          #   entitlement        = var.entitlement
-          #   workers_per_subnet = var.workers_per_zone
-          #   flavor             = var.flavor
+          #   entitlement          = var.entitlement
+          #   workers_per_subnet   = var.workers_per_zone
+          #   flavor               = var.flavor
+          #   boot_volume_crk_name = "${var.prefix}-roks-key"
           # }
         ]
       }
