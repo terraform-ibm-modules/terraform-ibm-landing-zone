@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1124
+        "line": 1126
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1489
+        "line": 1491
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 880
+        "line": 882
       }
     },
     "atracker": {
@@ -61,7 +61,7 @@
     },
     "clusters": {
       "name": "clusters",
-      "type": "list(\n    object({\n      name               = string           # Name of Cluster\n      vpc_name           = string           # Name of VPC\n      subnet_names       = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet = number           # Worker nodes per subnet.\n      machine_type       = string           # Worker node flavor\n      kube_type          = string           # iks or openshift\n      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      entitlement        = optional(string) # entitlement option for openshift\n      pod_subnet         = optional(string) # Portable subnet for pods\n      service_subnet     = optional(string) # Portable subnet for services\n      resource_group     = string           # Resource Group used for cluster\n      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers = optional(bool)   # If true force workers to update\n      access_tags        = optional(list(string), [])\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name               = string           # Worker pool name\n            vpc_name           = string           # VPC name\n            workers_per_subnet = number           # Worker nodes per subnet\n            flavor             = string           # Worker node flavor\n            subnet_names       = list(string)     # List of vpc subnets for worker pool\n            entitlement        = optional(string) # entitlement option for openshift\n          })\n        )\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name                 = string           # Name of Cluster\n      vpc_name             = string           # Name of VPC\n      subnet_names         = list(string)     # List of vpc subnets for cluster\n      workers_per_subnet   = number           # Worker nodes per subnet.\n      machine_type         = string           # Worker node flavor\n      kube_type            = string           # iks or openshift\n      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`\n      entitlement          = optional(string) # entitlement option for openshift\n      pod_subnet           = optional(string) # Portable subnet for pods\n      service_subnet       = optional(string) # Portable subnet for services\n      resource_group       = string           # Resource Group used for cluster\n      cos_name             = optional(string) # Name of COS instance Required only for OpenShift clusters\n      update_all_workers   = optional(bool)   # If true force workers to update\n      access_tags          = optional(list(string), [])\n      boot_volume_crk_name = optional(string) # Boot volume encryption key name\n      kms_config = optional(\n        object({\n          crk_name         = string         # Name of key\n          private_endpoint = optional(bool) # Private endpoint\n        })\n      )\n      worker_pools = optional(\n        list(\n          object({\n            name                 = string           # Worker pool name\n            vpc_name             = string           # VPC name\n            workers_per_subnet   = number           # Worker nodes per subnet\n            flavor               = string           # Worker node flavor\n            subnet_names         = list(string)     # List of vpc subnets for worker pool\n            entitlement          = optional(string) # entitlement option for openshift\n            boot_volume_crk_name = optional(string) # Boot volume encryption key name\n          })\n        )\n      )\n    })\n  )",
       "description": "A list describing clusters workloads to create",
       "required": true,
       "source": [
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1393
+        "line": 1395
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1256
+        "line": 1258
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1018
+        "line": 1020
       }
     },
     "ibmcloud_api_key": {
@@ -309,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1439
+        "line": 1441
       }
     },
     "security_groups": {
@@ -409,7 +409,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 924
+        "line": 926
       }
     },
     "teleport_vsi": {
@@ -422,7 +422,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 950
+        "line": 952
       }
     },
     "transit_gateway_connections": {
@@ -468,7 +468,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1457
+        "line": 1459
       }
     },
     "vpcs": {
@@ -520,7 +520,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 859
+        "line": 861
       }
     }
   },
@@ -900,7 +900,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 95
+        "line": 96
       }
     },
     "ibm_cos_bucket.buckets": {
@@ -1254,7 +1254,7 @@
       },
       "pos": {
         "filename": "cluster.tf",
-        "line": 81
+        "line": 82
       }
     },
     "ibm_resource_tag.cos_tag": {
