@@ -17,7 +17,7 @@ variable "region" {
 variable "key_management" {
   description = "Object describing the Key Protect instance"
   type = object({
-    name              = string
+    name              = optional(string)
     use_hs_crypto     = optional(bool) # can be hpcs or keyprotect
     use_data          = optional(bool)
     resource_group_id = optional(string)
@@ -31,6 +31,7 @@ variable "keys" {
   type = list(
     object({
       name            = string
+      crn             = optional(string) # CRN of an existing key if central KMS is used or key has already been created
       root_key        = optional(bool)
       payload         = optional(string)
       key_ring        = optional(string) # Any key_ring added will be created

@@ -706,8 +706,8 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = string
-    resource_group = string
+    name           = optional(string)
+    resource_group = optional(string)
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
     access_tags    = optional(list(string), [])
@@ -715,6 +715,7 @@ variable "key_management" {
       list(
         object({
           name            = string
+          crn             = optional(string)
           root_key        = optional(bool)
           payload         = optional(string)
           key_ring        = optional(string) # Any key_ring added will be created

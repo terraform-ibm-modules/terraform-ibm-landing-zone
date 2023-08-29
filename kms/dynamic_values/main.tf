@@ -30,8 +30,13 @@ variable "kms_resource" {
 }
 
 variable "keys" {
-  description = "Cope of keys variable"
+  description = "Copy of keys variable"
   default     = []
+}
+
+variable "name" {
+  description = "Name of the kms instance"
+  default     = null
 }
 
 ##############################################################################
@@ -42,13 +47,15 @@ variable "keys" {
 
 locals {
   # Get key management type
-  key_management_type = var.use_hs_crypto == true ? "hs-crypto" : var.use_data == true ? "data" : "resource"
+  key_management_type = var.use_hs_crypto == true ? "hs-crypto" : var.use_data == true ? "data" : var.name == null ? null : "resource"
   # Get GUID
   key_management_guid = (
     local.key_management_type == "hs-crypto"
     ? var.hpcs_data[0].guid
     : local.key_management_type == "data"
     ? var.kms_data[0].guid
+    : var.name == null
+    ? null
     : var.kms_resource[0].guid
   )
   # Get CRN
@@ -57,13 +64,22 @@ locals {
     ? var.hpcs_data[0].crn
     : local.key_management_type == "data"
     ? var.kms_data[0].crn
+    : var.name == null
+    ? null
     : var.kms_resource[0].crn
   )
-  # Keys
-  key_management_keys = {
+  # Keys to create (if CRN is not provided)
+  key_management_keys_to_create = {
     for encryption_key in var.keys :
-    (encryption_key.name) => encryption_key
+    (encryption_key.name) => encryption_key if try(coalesce(encryption_key.crn, "-"), "-") == "-"
   }
+
+  # Existing keys with CRN provided)
+  key_management_keys_existing = {
+    for encryption_key in var.keys :
+    (encryption_key.name) => encryption_key if try(coalesce(encryption_key.crn, "-"), "-") != "-"
+  }
+
   # Rings
   key_rings = distinct([
     for encryption_key in var.keys :
@@ -99,9 +115,14 @@ output "crn" {
   value       = local.key_management_crn
 }
 
-output "keys" {
+output "existing_keys" {
+  description = "Map of existing keys with CRNs"
+  value       = local.key_management_keys_existing
+}
+
+output "keys_to_create" {
   description = "Map of keys to be created"
-  value       = local.key_management_keys
+  value       = local.key_management_keys_to_create
 }
 
 output "key_rings" {

@@ -5,7 +5,8 @@
 locals {
   key_management_type = module.dynamic_values.key_management_type
   key_management_guid = module.dynamic_values.guid
-  keys                = module.dynamic_values.keys
+  keys_to_create      = module.dynamic_values.keys_to_create
+  existing_keys       = module.dynamic_values.existing_keys
   key_rings           = module.dynamic_values.key_rings
   policies            = module.dynamic_values.policies
 }
@@ -68,7 +69,7 @@ resource "ibm_kms_key_rings" "rings" {
 ##############################################################################
 
 resource "ibm_kms_key" "key" {
-  for_each        = local.keys
+  for_each        = local.keys_to_create
   instance_id     = local.key_management_guid
   key_name        = each.value.name
   standard_key    = each.value.root_key == null ? null : !each.value.root_key
