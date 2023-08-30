@@ -742,8 +742,26 @@ variable "key_management" {
     )
   })
   validation {
-    error_message = "Name must be included if use_data is true or use_hs_crypto is true."
-    condition     = (lookup(var.key_management, "name", null) != null && lookup(var.key_management, "use_hs_crypto", false) == true) || (lookup(var.key_management, "name", null) != null && lookup(var.key_management, "use_data", false) == true)
+    error_message = "Name must be included if use_data is true."
+    condition = (
+      lookup(var.key_management, "use_data", null) == null
+      ) || (
+      lookup(var.key_management, "use_data", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_data", false) == true
+    )
+  }
+  validation {
+    error_message = "Name must be included if use_hs_crypto is true."
+    condition = (
+      lookup(var.key_management, "use_hs_crypto", null) == null
+      ) || (
+      lookup(var.key_management, "use_hs_crypto", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_hs_crypto", false) == true
+    )
   }
   validation {
     condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "crn", null) == null) && var.key_management.name == null])) == 0

@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1126
+        "line": 1144
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1491
+        "line": 1509
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 882
+        "line": 900
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 761
+        "line": 779
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 777
+        "line": 795
       }
     },
     "cos": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1395
+        "line": 1413
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1258
+        "line": 1276
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1020
+        "line": 1038
       }
     },
     "ibmcloud_api_key": {
@@ -309,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1441
+        "line": 1459
       }
     },
     "security_groups": {
@@ -409,7 +409,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 926
+        "line": 944
       }
     },
     "teleport_vsi": {
@@ -422,7 +422,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 952
+        "line": 970
       }
     },
     "transit_gateway_connections": {
@@ -468,7 +468,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1459
+        "line": 1477
       }
     },
     "vpcs": {
@@ -520,7 +520,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 861
+        "line": 879
       }
     }
   },
