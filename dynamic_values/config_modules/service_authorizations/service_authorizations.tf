@@ -37,7 +37,7 @@ variable "atracker_cos_bucket" {
 ##############################################################################
 
 locals {
-  target_key_management_service = lookup(var.key_management, "use_hs_crypto", false) == true ? "hs-crypto" : "kms"
+  target_key_management_service = lookup(var.key_management, "name", null) != null ? lookup(var.key_management, "use_hs_crypto", false) == true ? "hs-crypto" : "kms" : null
 }
 
 module "kms_to_block_storage" {
@@ -51,7 +51,7 @@ module "kms_to_block_storage" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if var.key_management_guid != null
+    } if local.target_key_management_service != null
   ]
 }
 
@@ -73,7 +73,7 @@ module "cos_to_key_management" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if var.key_management_guid != null
+    } if local.target_key_management_service != null
   ]
 }
 
@@ -105,7 +105,7 @@ module "secrets_manager_to_cos" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if var.key_management_guid != null
+    } if local.target_key_management_service != null
   ]
 }
 

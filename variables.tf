@@ -741,10 +741,10 @@ variable "key_management" {
       )
     )
   })
-  # validation {
-  #   condition     = length(flatten([for kms in var.key_management : [for key in kms.keys : key if(lookup(key, "crn", null) == null) && kms.name == null] if kms.keys != null])) == 0
-  #   error_message = "Please provide kms name to be created."
-  # }
+  validation {
+    error_message = "Name must be included if use_data is true or use_hs_crypto is true."
+    condition     = (lookup(var.key_management, "name", null) != null && lookup(var.key_management, "use_hs_crypto", false) == true) || (lookup(var.key_management, "name", null) != null && lookup(var.key_management, "use_data", false) == true)
+  }
   validation {
     condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "crn", null) == null) && var.key_management.name == null])) == 0
     error_message = "Please provide kms name to be created."

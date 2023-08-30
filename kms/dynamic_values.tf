@@ -60,6 +60,7 @@ module "unit_test_kms_resource" {
   source    = "./dynamic_values"
   hpcs_data = []
   kms_data  = []
+  name      = "test-kms"
   kms_resource = [{
     guid = "resource"
     crn  = "resource"
