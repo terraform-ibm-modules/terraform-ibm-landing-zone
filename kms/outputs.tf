@@ -45,14 +45,14 @@ output "keys" {
       id     = ibm_kms_key.key[kms_key.name].id
       crn    = ibm_kms_key.key[kms_key.name].crn
       key_id = ibm_kms_key.key[kms_key.name].key_id
-    } if lookup(kms_key, "crn", null) == null
+    } if lookup(kms_key, "existing_key_crn", null) == null
     ],
     [
       for kms_key in var.keys :
       {
         name = kms_key.name
-        crn  = kms_key.crn
-      } if lookup(kms_key, "crn", null) != null
+        crn  = kms_key.existing_key_crn
+      } if lookup(kms_key, "existing_key_crn", null) != null
     ]
   )
 }
@@ -66,14 +66,14 @@ output "key_map" {
       id     = ibm_kms_key.key[kms_key.name].id
       crn    = ibm_kms_key.key[kms_key.name].crn
       key_id = ibm_kms_key.key[kms_key.name].key_id
-    } if lookup(kms_key, "crn", null) == null
+    } if lookup(kms_key, "existing_key_crn", null) == null
     },
     {
       for kms_key in var.keys :
       (kms_key.name) => {
         name = kms_key.name
-        crn  = kms_key.crn
-      } if lookup(kms_key, "crn", null) != null
+        crn  = kms_key.existing_key_crn
+      } if lookup(kms_key, "existing_key_crn", null) != null
   })
 }
 

@@ -71,7 +71,7 @@ locals {
   # Keys
   key_management_keys = {
     for encryption_key in var.keys :
-    (encryption_key.name) => encryption_key if lookup(encryption_key, "crn", null) == null
+    (encryption_key.name) => encryption_key if lookup(encryption_key, "existing_key_crn", null) == null
   }
   # Rings
   key_rings = distinct([
