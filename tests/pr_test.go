@@ -1,12 +1,16 @@
 package test
 
 import (
+	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -75,8 +79,89 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 	return options
 }
 
+type RecursiveCopy struct {
+	excludeDirs []string
+
+	includeFiletypes []string
+
+	includeDirs []string
+}
+
+func recursiveCopy(dir string, dirsToExclude []string, fileTypesToInclude []string) []string {
+	r := RecursiveCopy{dirsToExclude, fileTypesToInclude, nil}
+	filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
+		return walk(&r, path, entry, err)
+	})
+	return r.includeDirs
+}
+
+func walk(r *RecursiveCopy, s string, d fs.DirEntry, err error) error {
+	if err != nil {
+		return err
+	}
+	if d.IsDir() {
+		for _, excludeDir := range r.excludeDirs {
+			if strings.Contains(s, excludeDir) {
+				return err
+			}
+		}
+		if s == ".." {
+			r.includeDirs = append(r.includeDirs, "*.tf")
+			return nil
+		}
+		for _, includeFiletype := range r.includeFiletypes {
+			r.includeDirs = append(r.includeDirs, strings.ReplaceAll(s+"/*"+includeFiletype, "../", ""))
+		}
+	}
+	return nil
+}
+
+func TestRunQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+
+	excludeDirs := []string{
+		".terraform",
+		".docs",
+		".github",
+		".git",
+		".idea",
+		"common-dev-assets",
+		"examples",
+		"tests",
+		"reference-architectures",
+	}
+	includeFiletypes := []string{
+		".tf",
+		".yaml",
+		".py",
+		".tpl",
+	}
+
+	// set up a schematics test
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing:                t,
+		TarIncludePatterns:     recursiveCopy("..", excludeDirs, includeFiletypes),
+		TemplateFolder:         quickStartPatternTerraformDir,
+		Prefix:                 "slz-qs-schematic",
+		Tags:                   []string{"test-schematic"},
+		DeleteWorkspaceOnFail:  false,
+		WaitJobCompleteMinutes: 60,
+	})
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
 func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
+
+	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
 
 	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
 
