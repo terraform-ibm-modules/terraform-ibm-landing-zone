@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"io/fs"
 	"log"
 	"os"
@@ -79,7 +80,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 	return options
 }
 
-type RecursiveCopy struct {
+type tarIncludePatterns struct {
 	excludeDirs []string
 
 	includeFiletypes []string
@@ -87,22 +88,26 @@ type RecursiveCopy struct {
 	includeDirs []string
 }
 
-func recursiveCopy(dir string, dirsToExclude []string, fileTypesToInclude []string) []string {
-	r := RecursiveCopy{dirsToExclude, fileTypesToInclude, nil}
-	filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
+func getTarIncludePatternsRecursively(dir string, dirsToExclude []string, fileTypesToInclude []string) ([]string, error) {
+	r := tarIncludePatterns{dirsToExclude, fileTypesToInclude, nil}
+	err := filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
 		return walk(&r, path, entry, err)
 	})
-	return r.includeDirs
+	if err != nil {
+		fmt.Println("error")
+		return r.includeDirs, err
+	}
+	return r.includeDirs, nil
 }
 
-func walk(r *RecursiveCopy, s string, d fs.DirEntry, err error) error {
+func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
 	if err != nil {
 		return err
 	}
 	if d.IsDir() {
 		for _, excludeDir := range r.excludeDirs {
 			if strings.Contains(s, excludeDir) {
-				return err
+				return nil
 			}
 		}
 		if s == ".." {
@@ -137,12 +142,16 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 		".tpl",
 	}
 
+	tarIncludePatterns, recurseErr := getTarIncludePatternsRecursively("..", excludeDirs, includeFiletypes)
+
+	assert.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree...")
+
 	// set up a schematics test
 	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
 		Testing:                t,
-		TarIncludePatterns:     recursiveCopy("..", excludeDirs, includeFiletypes),
+		TarIncludePatterns:     tarIncludePatterns,
 		TemplateFolder:         quickStartPatternTerraformDir,
-		Prefix:                 "slz-qs-schematic",
+		Prefix:                 "slz-qs",
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
