@@ -1427,7 +1427,7 @@
     "bastion_host": {
       "name": "bastion_host",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.5.0",
+      "version": "2.6.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2004,7 +2004,7 @@
     "f5_vsi": {
       "name": "f5_vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.5.0",
+      "version": "2.6.0",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2576,7 +2576,7 @@
     "vpc": {
       "name": "vpc",
       "source": "terraform-ibm-modules/landing-zone-vpc/ibm",
-      "version": "7.4.1",
+      "version": "7.4.2",
       "attributes": {
         "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidrs": "network_cidr",
@@ -2930,7 +2930,7 @@
     "vsi": {
       "name": "vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.5.0",
+      "version": "2.6.0",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
