@@ -171,8 +171,6 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
-
 	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
