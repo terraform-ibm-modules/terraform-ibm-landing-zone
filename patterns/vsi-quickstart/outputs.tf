@@ -4,5 +4,5 @@
 
 output "config" {
   description = "Output configuration as encoded JSON"
-  value = module.landing_zone.config
+  value       = module.landing_zone.config
 }
