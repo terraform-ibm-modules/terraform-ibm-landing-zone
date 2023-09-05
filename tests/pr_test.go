@@ -220,7 +220,7 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 func TestRunOverride(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "slz-override", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "slz-ovr", quickStartPatternTerraformDir)
 	options.SkipTestTearDown = true
 	output, err := options.RunTestConsistency()
 
