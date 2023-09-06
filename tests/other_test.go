@@ -11,7 +11,7 @@ import (
 func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "ocp-hpcs")
+	options := setupOptionsRoksPattern(t, "ocp-hp")
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
@@ -25,7 +25,7 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 	// Purposely not running in parallel so it does not clash with the auth policies created in "TestRunRoksPatternWithHPCS"
 	// t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "vsi-hpcs")
+	options := setupOptionsVsiPattern(t, "vsi-hp")
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]

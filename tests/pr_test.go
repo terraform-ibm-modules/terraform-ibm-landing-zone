@@ -69,7 +69,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -80,7 +80,7 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -111,7 +111,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-ocp")
+	options := setupOptionsRoksPattern(t, "ocp")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -121,7 +121,7 @@ func TestRunRoksPattern(t *testing.T) {
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "ocp-upg")
+	options := setupOptionsRoksPattern(t, "ocp-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -156,7 +156,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "slz-vsi-u")
+	options := setupOptionsVsiPattern(t, "vsi-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -168,7 +168,7 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 func TestRunVSIPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "slz-vsi")
+	options := setupOptionsVsiPattern(t, "vsi")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -198,7 +198,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 func TestRunVpcPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVpcPattern(t, "slz-vpc")
+	options := setupOptionsVpcPattern(t, "vpc")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -208,7 +208,7 @@ func TestRunVpcPattern(t *testing.T) {
 func TestRunUpgradeVpcPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVpcPattern(t, "slz-vpc-u")
+	options := setupOptionsVpcPattern(t, "vpc-ug")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
