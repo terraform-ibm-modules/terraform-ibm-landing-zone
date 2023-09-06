@@ -121,7 +121,7 @@ func TestRunRoksPattern(t *testing.T) {
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-ocp-ug")
+	options := setupOptionsRoksPattern(t, "slz-ocp-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -156,7 +156,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "slz-vsi-ug")
+	options := setupOptionsVsiPattern(t, "slz-vsi-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -208,7 +208,7 @@ func TestRunVpcPattern(t *testing.T) {
 func TestRunUpgradeVpcPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVpcPattern(t, "slz-vpc-ug")
+	options := setupOptionsVpcPattern(t, "slz-vpc-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
