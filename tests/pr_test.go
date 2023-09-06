@@ -121,7 +121,7 @@ func TestRunRoksPattern(t *testing.T) {
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-ocp-u")
+	options := setupOptionsRoksPattern(t, "ocp-upg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
