@@ -60,9 +60,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
 		},
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
 		CloudInfoService: sharedInfoSvc,
 	})
 
@@ -95,13 +92,10 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  roksPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     roksPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
@@ -141,13 +135,10 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  vsiPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     vsiPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
@@ -187,13 +178,10 @@ func TestRunVSIPattern(t *testing.T) {
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  vpcPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     vpcPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
