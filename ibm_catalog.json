@@ -187,8 +187,16 @@
                     },
                     "configuration": [
                         {
+                            "key": "existing_ssh_key_name",
                             "required": true,
-                            "key": "ssh_public_key"
+                            "custom_config": {
+                                "config_constraints": {
+                                    "valueType": "name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_ssh_key"
+                            }
                         },
                         {
                             "hidden": true,
