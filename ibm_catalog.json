@@ -196,7 +196,7 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "vpc_ssh_key"
-                            },
+                            }
                         },
                         {
                             "hidden": true,
