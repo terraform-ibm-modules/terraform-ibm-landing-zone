@@ -41,7 +41,7 @@ data "ibm_is_image" "image" {
 
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "2.3.0"
+  version                       = "2.6.0"
   for_each                      = local.vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
@@ -49,6 +49,7 @@ module "vsi" {
   vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
   subnets                       = each.value.subnets
   tags                          = var.tags
+  access_tags                   = each.value.access_tags
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
   user_data                     = lookup(each.value, "user_data", null)

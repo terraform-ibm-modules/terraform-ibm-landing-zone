@@ -72,6 +72,7 @@ variable "vpcs" {
     object({
       prefix                       = string           # VPC prefix
       resource_group               = optional(string) # Name of the group where VPC will be created
+      access_tags                  = optional(list(string), [])
       classic_access               = optional(bool)
       default_network_acl_name     = optional(string)
       default_security_group_name  = optional(string)
@@ -190,6 +191,7 @@ variable "vpn_gateways" {
       subnet_name    = string # Do not include prefix, use same name as in `var.subnets`
       mode           = optional(string)
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       connections = list(
         object({
           peer_address   = string
@@ -281,6 +283,7 @@ variable "vsi" {
       enable_floating_ip              = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
+      access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -384,6 +387,7 @@ variable "security_groups" {
       name           = string
       vpc_name       = string
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       rules = list(
         object({
           name      = string
@@ -455,6 +459,7 @@ variable "virtual_private_endpoints" {
       service_name   = string
       service_type   = string
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       vpcs = list(
         object({
           name                = string
@@ -482,6 +487,7 @@ variable "cos" {
       resource_group = string
       plan           = optional(string)
       random_suffix  = optional(bool) # Use a random suffix for COS instance
+      access_tags    = optional(list(string), [])
       buckets = list(object({
         name                  = string
         storage_class         = string
@@ -491,6 +497,7 @@ variable "cos" {
         region_location       = optional(string)
         cross_region_location = optional(string)
         kms_key               = optional(string)
+        access_tags           = optional(list(string), [])
         allowed_ip            = optional(list(string))
         hard_quota            = optional(number)
         archive_rule = optional(object({
@@ -703,6 +710,7 @@ variable "key_management" {
     resource_group = string
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
+    access_tags    = optional(list(string), [])
     keys = optional(
       list(
         object({
@@ -761,19 +769,21 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name               = string           # Name of Cluster
-      vpc_name           = string           # Name of VPC
-      subnet_names       = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet = number           # Worker nodes per subnet.
-      machine_type       = string           # Worker node flavor
-      kube_type          = string           # iks or openshift
-      kube_version       = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
-      entitlement        = optional(string) # entitlement option for openshift
-      pod_subnet         = optional(string) # Portable subnet for pods
-      service_subnet     = optional(string) # Portable subnet for services
-      resource_group     = string           # Resource Group used for cluster
-      cos_name           = optional(string) # Name of COS instance Required only for OpenShift clusters
-      update_all_workers = optional(bool)   # If true force workers to update
+      name                 = string           # Name of Cluster
+      vpc_name             = string           # Name of VPC
+      subnet_names         = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet   = number           # Worker nodes per subnet.
+      machine_type         = string           # Worker node flavor
+      kube_type            = string           # iks or openshift
+      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
+      entitlement          = optional(string) # entitlement option for openshift
+      pod_subnet           = optional(string) # Portable subnet for pods
+      service_subnet       = optional(string) # Portable subnet for services
+      resource_group       = string           # Resource Group used for cluster
+      cos_name             = optional(string) # Name of COS instance Required only for OpenShift clusters
+      update_all_workers   = optional(bool)   # If true force workers to update
+      access_tags          = optional(list(string), [])
+      boot_volume_crk_name = optional(string) # Boot volume encryption key name
       kms_config = optional(
         object({
           crk_name         = string         # Name of key
@@ -783,12 +793,13 @@ variable "clusters" {
       worker_pools = optional(
         list(
           object({
-            name               = string           # Worker pool name
-            vpc_name           = string           # VPC name
-            workers_per_subnet = number           # Worker nodes per subnet
-            flavor             = string           # Worker node flavor
-            subnet_names       = list(string)     # List of vpc subnets for worker pool
-            entitlement        = optional(string) # entitlement option for openshift
+            name                 = string           # Worker pool name
+            vpc_name             = string           # VPC name
+            workers_per_subnet   = number           # Worker nodes per subnet
+            flavor               = string           # Worker node flavor
+            subnet_names         = list(string)     # List of vpc subnets for worker pool
+            entitlement          = optional(string) # entitlement option for openshift
+            boot_volume_crk_name = optional(string) # Boot volume encryption key name
           })
         )
       )
@@ -942,6 +953,7 @@ variable "teleport_vsi" {
         boot_volume_encryption_key_name = string
         image_name                      = string
         machine_type                    = string
+        access_tags                     = optional(list(string), [])
         security_groups                 = optional(list(string))
         security_group = optional(
           object({
@@ -1258,6 +1270,7 @@ variable "f5_vsi" {
       boot_volume_encryption_key_name = optional(string)
       hostname                        = string
       domain                          = string
+      access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -1423,6 +1436,7 @@ variable "secrets_manager" {
     name                = optional(string)
     kms_key_name        = optional(string)
     resource_group      = optional(string)
+    access_tags         = optional(list(string), [])
   })
   default = {
     use_secrets_manager = false
@@ -1437,7 +1451,7 @@ variable "vpc_placement_groups" {
   description = "List of VPC placement groups to create"
   type = list(
     object({
-      access_tags    = optional(list(string))
+      access_tags    = optional(list(string), [])
       name           = string
       resource_group = optional(string)
       strategy       = string

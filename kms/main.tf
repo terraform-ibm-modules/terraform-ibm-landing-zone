@@ -27,6 +27,13 @@ resource "ibm_resource_instance" "kms" {
   tags              = var.key_management.tags
 }
 
+resource "ibm_resource_tag" "tag" {
+  count       = local.key_management_type == "resource" ? 1 : 0
+  resource_id = ibm_resource_instance.kms[count.index].crn
+  tag_type    = "access"
+  tags        = var.key_management.access_tags
+}
+
 data "ibm_resource_instance" "kms" {
   count             = local.key_management_type == "data" ? 1 : 0
   name              = var.key_management.name

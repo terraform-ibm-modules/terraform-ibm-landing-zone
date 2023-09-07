@@ -47,7 +47,8 @@ resource "ibm_container_vpc_cluster" "cluster" {
   cos_instance_crn   = each.value.cos_instance_crn
   pod_subnet         = each.value.pod_subnet
   service_subnet     = each.value.service_subnet
-
+  crk                = each.value.boot_volume_crk_name == null ? null : module.key_management.key_map[each.value.boot_volume_crk_name].key_id
+  kms_instance_id    = each.value.boot_volume_crk_name == null ? null : module.key_management.key_management_guid
   lifecycle {
     ignore_changes = [kube_version]
   }
@@ -78,6 +79,13 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
+resource "ibm_resource_tag" "cluster_tag" {
+  for_each    = local.clusters_map
+  resource_id = ibm_container_vpc_cluster.cluster[each.key].crn
+  tag_type    = "access"
+  tags        = each.value.access_tags
+}
+
 ##############################################################################
 
 
@@ -94,6 +102,8 @@ resource "ibm_container_vpc_worker_pool" "pool" {
   worker_pool_name  = each.value.name
   flavor            = each.value.flavor
   worker_count      = each.value.workers_per_subnet
+  crk               = each.value.boot_volume_crk_name == null ? null : module.key_management.key_map[each.value.boot_volume_crk_name].key_id
+  kms_instance_id   = each.value.boot_volume_crk_name == null ? null : module.key_management.key_management_guid
 
   dynamic "zones" {
     for_each = each.value.subnets

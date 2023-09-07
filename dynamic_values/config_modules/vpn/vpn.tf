@@ -44,6 +44,7 @@ module "vpn_gateway_map" {
       mode           = gateway.mode
       connections    = gateway.connections
       resource_group = gateway.resource_group
+      access_tags    = lookup(gateway, "access_tags", [])
     }
   ]
 }
