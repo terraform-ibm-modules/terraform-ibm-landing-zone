@@ -78,6 +78,7 @@ func TestRunQuickStartPattern(t *testing.T) {
 }
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
+
 	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
