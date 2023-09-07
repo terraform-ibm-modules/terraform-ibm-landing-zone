@@ -28,12 +28,6 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
-// Temp: the atracker_target ignore is being tracked in https://github.ibm.com/GoldenEye/issues/issues/4302
-var ignoreUpdates = []string{
-	"module.landing_zone.module.landing_zone.ibm_atracker_target.atracker_target[0]",
-	"module.landing_zone.ibm_atracker_target.atracker_target[0]",
-}
-
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
@@ -70,9 +64,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
 			"ssh_key": sshPublicKey,
-		},
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -171,7 +162,7 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "slz-qs", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -182,10 +173,7 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 
 	t.Parallel()
 
-	// TODO: Remove this line after QuickStart pattern is merged to primary branch to enable upgrade test
-	t.Skip("Skipping upgrade test until QuickStart pattern is merged to primary branch")
-
-	options := setupOptionsQuickStartPattern(t, "slz-qs-ug", quickStartPatternTerraformDir)
+	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -196,39 +184,27 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 
 func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
-	sshPublicKey := sshPublicKey(t)
-
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  roksPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     roksPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key": sshPublicKey,
-		"prefix":         options.Prefix,
-		"tags":           options.Tags,
-		"region":         options.Region,
+		"prefix": options.Prefix,
+		"tags":   options.Tags,
+		"region": options.Region,
 	}
 
 	return options
 }
 
-func TestRunRoksPatternWithHPCS(t *testing.T) {
+func TestRunRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "lrkshp")
-
-	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-
-	// Key Protect service will be used if `hs_crypto_instance_name` is null
-	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	options := setupOptionsRoksPattern(t, "ocp")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -238,7 +214,7 @@ func TestRunRoksPatternWithHPCS(t *testing.T) {
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "r-ug")
+	options := setupOptionsRoksPattern(t, "ocp-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -252,13 +228,10 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  vsiPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     vsiPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
@@ -276,7 +249,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVsiPattern(t, "vp-ug")
+	options := setupOptionsVsiPattern(t, "vsi-u")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -285,14 +258,10 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
-func TestRunVSIPatternWithHPCS(t *testing.T) {
-	options := setupOptionsVsiPattern(t, "lvsihp")
+func TestRunVSIPattern(t *testing.T) {
+	t.Parallel()
 
-	// TODO: Use HPCS instead of Key Protect for tests once the auth policy issue is fixed. Issue: https://github.ibm.com/GoldenEye/issues/issues/5138
-
-	// Key Protect service will be used if `hs_crypto_instance_name` is null
-	// options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
-	// options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	options := setupOptionsVsiPattern(t, "vsi")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -302,13 +271,10 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  vpcPatternTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
+		Testing:          t,
+		TerraformDir:     vpcPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
@@ -325,7 +291,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 func TestRunVpcPattern(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsVpcPattern(t, "p-vpc")
+	options := setupOptionsVpcPattern(t, "vpc")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
