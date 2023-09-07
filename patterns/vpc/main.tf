@@ -26,6 +26,7 @@ module "vpc_landing_zone" {
   network_cidr                        = var.network_cidr
   vpcs                                = var.vpcs
   enable_transit_gateway              = var.enable_transit_gateway
+  transit_gateway_global              = var.transit_gateway_global
   add_kms_block_storage_s2s           = var.add_kms_block_storage_s2s
   ibmcloud_api_key                    = var.ibmcloud_api_key
   add_atracker_route                  = var.add_atracker_route

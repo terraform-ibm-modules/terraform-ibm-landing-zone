@@ -11,6 +11,7 @@
     },
     "clusters": [],
     "enable_transit_gateway": true,
+    "transit_gateway_global": false,
     "transit_gateway_connections": [
       "management",
       "workload",

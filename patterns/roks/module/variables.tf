@@ -62,6 +62,12 @@ variable "enable_transit_gateway" {
   default     = true
 }
 
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
+}
+
 variable "add_atracker_route" {
   description = "Atracker can only have one route per zone. use this value to disable or enable the creation of atracker route"
   type        = bool

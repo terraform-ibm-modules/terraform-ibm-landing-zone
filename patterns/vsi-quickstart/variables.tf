@@ -54,6 +54,7 @@ variable "override_json_string" {
    "clusters": [],
    "cos": [],
    "enable_transit_gateway": true,
+   "transit_gateway_global": false,
    "key_management": {
       "keys": [
          {
