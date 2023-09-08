@@ -1,5 +1,6 @@
 {
     "enable_transit_gateway": false,
+    "transit_gateway_global": false,
     "virtual_private_endpoints": [],
     "service_endpoints": "private",
     "security_groups": [],

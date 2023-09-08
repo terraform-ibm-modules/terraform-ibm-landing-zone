@@ -11,6 +11,7 @@ module "landing_zone" {
   network_cidr                   = local.env.network_cidr
   vpcs                           = local.env.vpcs
   enable_transit_gateway         = local.env.enable_transit_gateway
+  transit_gateway_global         = local.env.transit_gateway_global
   vpn_gateways                   = local.env.vpn_gateways
   transit_gateway_resource_group = local.env.transit_gateway_resource_group
   transit_gateway_connections    = local.env.transit_gateway_connections
