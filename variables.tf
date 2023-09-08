@@ -218,6 +218,12 @@ variable "enable_transit_gateway" {
   default     = true
 }
 
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
+}
+
 variable "transit_gateway_resource_group" {
   description = "Name of resource group to use for transit gateway. Must be included in `var.resource_group`"
   type        = string
