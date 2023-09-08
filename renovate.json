@@ -5,11 +5,23 @@
     {
       "description": "Use fix as Semantic Commit prefix for all dependency updates in these folders to generate release",
       "matchPaths": [
-        "examples/quickstart",
+        "patterns/vsi-quickstart",
         "patterns/vsi",
         "patterns/roks"
       ],
       "semanticCommitType": "fix"
+    },
+    {
+      "description": "Allow the locked in provider version to be updated to the latest for DAs",
+      "enabled": true,
+      "matchPaths": ["patterns"],
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["required_provider"],
+      "rangeStrategy": "bump",
+      "semanticCommitType": "fix",
+      "group": true,
+      "groupName": "required_provider",
+      "commitMessageExtra": "to latest for the landing zone DAs"
     }
   ]
 }

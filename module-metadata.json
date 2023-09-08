@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1117
+        "line": 1123
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1482
+        "line": 1488
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 873
+        "line": 879
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 752
+        "line": 758
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 768
+        "line": 774
       }
     },
     "cos": {
@@ -82,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 481
+        "line": 487
       }
     },
     "enable_transit_gateway": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1386
+        "line": 1392
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1249
+        "line": 1255
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1011
+        "line": 1017
       }
     },
     "ibmcloud_api_key": {
@@ -177,7 +177,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 706
+        "line": 712
       }
     },
     "network_cidr": {
@@ -309,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1432
+        "line": 1438
       }
     },
     "security_groups": {
@@ -322,7 +322,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 383
+        "line": 389
       }
     },
     "service_endpoints": {
@@ -332,7 +332,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 695
+        "line": 701
       }
     },
     "ssh_keys": {
@@ -345,7 +345,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 237
+        "line": 243
       }
     },
     "tags": {
@@ -409,7 +409,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 917
+        "line": 923
       }
     },
     "teleport_vsi": {
@@ -422,7 +422,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 943
+        "line": 949
       }
     },
     "transit_gateway_connections": {
@@ -432,7 +432,20 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 226
+        "line": 232
+      }
+    },
+    "transit_gateway_global": {
+      "name": "transit_gateway_global",
+      "type": "bool",
+      "description": "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled.",
+      "default": false,
+      "source": [
+        "ibm_tg_gateway.transit_gateway.global"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 221
       }
     },
     "transit_gateway_resource_group": {
@@ -442,7 +455,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 221
+        "line": 227
       }
     },
     "virtual_private_endpoints": {
@@ -455,7 +468,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 455
+        "line": 461
       }
     },
     "vpc_placement_groups": {
@@ -468,7 +481,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1450
+        "line": 1456
       }
     },
     "vpcs": {
@@ -507,7 +520,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 270
+        "line": 276
       }
     },
     "wait_till": {
@@ -520,7 +533,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 852
+        "line": 858
       }
     }
   },
@@ -1307,6 +1320,7 @@
       "name": "transit_gateway",
       "attributes": {
         "count": "enable_transit_gateway",
+        "global": "transit_gateway_global",
         "location": "region",
         "name": "prefix"
       },

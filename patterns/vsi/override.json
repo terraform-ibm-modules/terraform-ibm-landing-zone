@@ -54,6 +54,7 @@
       }
   ],
   "enable_transit_gateway": true,
+  "transit_gateway_global": false,
   "key_management": {
       "keys": [
           {
