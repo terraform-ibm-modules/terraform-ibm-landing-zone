@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1123
+        "line": 1150
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1488
+        "line": 1515
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 879
+        "line": 906
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 758
+        "line": 785
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 774
+        "line": 801
       }
     },
     "cos": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1392
+        "line": 1419
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1255
+        "line": 1282
       }
     },
     "iam_account_settings": {
@@ -149,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1017
+        "line": 1044
       }
     },
     "ibmcloud_api_key": {
@@ -167,7 +167,7 @@
     },
     "key_management": {
       "name": "key_management",
-      "type": "object({\n    name           = string\n    resource_group = string\n    use_data       = optional(bool)\n    use_hs_crypto  = optional(bool)\n    access_tags    = optional(list(string), [])\n    keys = optional(\n      list(\n        object({\n          name            = string\n          root_key        = optional(bool)\n          payload         = optional(string)\n          key_ring        = optional(string) # Any key_ring added will be created\n          force_delete    = optional(bool)\n          endpoint        = optional(string) # can be public or private\n          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          policies = optional(\n            object({\n              rotation = optional(\n                object({\n                  interval_month = number\n                })\n              )\n              dual_auth_delete = optional(\n                object({\n                  enabled = bool\n                })\n              )\n            })\n          )\n        })\n      )\n    )\n  })",
+      "type": "object({\n    name           = optional(string)\n    resource_group = optional(string)\n    use_data       = optional(bool)\n    use_hs_crypto  = optional(bool)\n    access_tags    = optional(list(string), [])\n    keys = optional(\n      list(\n        object({\n          name             = string\n          root_key         = optional(bool)\n          payload          = optional(string)\n          key_ring         = optional(string) # Any key_ring added will be created\n          force_delete     = optional(bool)\n          existing_key_crn = optional(string) # CRN of an existing key in the same or different account.\n          endpoint         = optional(string) # can be public or private\n          iv_value         = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          encrypted_nonce  = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.\n          policies = optional(\n            object({\n              rotation = optional(\n                object({\n                  interval_month = number\n                })\n              )\n              dual_auth_delete = optional(\n                object({\n                  enabled = bool\n                })\n              )\n            })\n          )\n        })\n      )\n    )\n  })",
       "description": "Key Protect instance variables",
       "required": true,
       "source": [
@@ -309,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1438
+        "line": 1465
       }
     },
     "security_groups": {
@@ -409,7 +409,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 923
+        "line": 950
       }
     },
     "teleport_vsi": {
@@ -422,7 +422,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 949
+        "line": 976
       }
     },
     "transit_gateway_connections": {
@@ -481,7 +481,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1456
+        "line": 1483
       }
     },
     "vpcs": {
@@ -533,7 +533,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 858
+        "line": 885
       }
     }
   },
@@ -2441,7 +2441,7 @@
           "description": "Map of ids and keys for keys created",
           "pos": {
             "filename": "kms/outputs.tf",
-            "line": 52
+            "line": 60
           }
         },
         "key_rings": {

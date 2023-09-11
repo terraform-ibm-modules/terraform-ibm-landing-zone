@@ -14,7 +14,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   parameters = {
     kms_key = (
       lookup(var.secrets_manager, "kms_key_name", null) != null
-      ? module.key_management.key_map[var.secrets_manager.kms_key_name].id
+      ? module.key_management.key_map[var.secrets_manager.kms_key_name].crn
       : null
     )
   }
