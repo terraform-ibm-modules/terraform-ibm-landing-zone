@@ -1,10 +1,13 @@
 package test
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
@@ -232,12 +235,46 @@ func TestRunOverride(t *testing.T) {
 			// set override json string with previous value of config output
 			options.TerraformOptions.Vars["override_json_string"] = outputs["config"]
 
-			// Ran apply again and check for consistency, do not create new temp folder (options.SkipTestSetup = true)
-			options.TerraformOptions.PlanFilePath = ""
 			options.SkipTestSetup = true
-			output2, err := options.RunTestConsistency()
-			assert.Nil(t, err, "This should not have errored")
-			assert.NotNil(t, output2, "Expected some output")
+			// TERRATEST uses its own internal logger.
+			// The "show" command will produce a very large JSON to stdout which is printed by the logger.
+			// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
+			options.TerraformOptions.Logger = logger.Discard
+			planStruct, err := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
+			options.TerraformOptions.Logger = logger.Default // turn log back on
+
+			if assert.Nil(t, err, "This should not have errored") &&
+				assert.NotNil(t, planStruct, "Expected some output") {
+				// defines if there is an any resource change (destroy, update, etc)
+				noChange := true
+				for _, resource := range planStruct.ResourceChangesMap {
+					// get JSON string of full changes for the logs
+					changesBytes, changesErr := json.MarshalIndent(resource.Change, "", "  ")
+					// if it errors in the marshall step, just put a placeholder and move on, not important
+					changesJson := "--UNAVAILABLE--"
+					if changesErr == nil {
+						changesJson = string(changesBytes)
+					}
+
+					var resourceDetails string
+					if resource.Change.Actions.Update() {
+						resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, common.GetBeforeAfterDiff(changesJson), changesJson)
+					} else {
+						// Do not print changesJson because might expose secrets
+						resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\n", resource.Name, resource.Address, resource.Change.Actions)
+					}
+
+					var errorMessage string
+					errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
+					noChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
+					assert.True(options.Testing, noChange, errorMessage)
+				}
+
+				// Run plan again to output the nice human-readable plan if there are valid changes
+				if noChange {
+					terraform.Plan(options.Testing, options.TerraformOptions)
+				}
+			}
 		}
 	}
 	options.TerraformOptions.Vars["override_json_string"] = ""
