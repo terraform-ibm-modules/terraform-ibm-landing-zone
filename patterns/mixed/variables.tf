@@ -78,6 +78,12 @@ variable "enable_transit_gateway" {
   default     = true
 }
 
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
+}
+
 variable "add_atracker_route" {
   description = "Atracker can only have one route per zone. use this value to disable or enable the creation of atracker route"
   type        = bool
@@ -126,7 +132,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-18-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
 }
 
 variable "vsi_instance_profile" {
@@ -471,7 +477,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-18-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
 }
 
 variable "teleport_license" {

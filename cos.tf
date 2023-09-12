@@ -95,7 +95,7 @@ resource "ibm_cos_bucket" "buckets" {
   hard_quota            = each.value.hard_quota
   key_protect = each.value.kms_key == null ? null : [
     for key in module.key_management.keys :
-    key.id if key.name == each.value.kms_key
+    key.crn if key.name == each.value.kms_key
   ][0]
 
   dynamic "archive_rule" {

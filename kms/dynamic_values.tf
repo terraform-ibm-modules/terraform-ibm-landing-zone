@@ -10,6 +10,7 @@ module "dynamic_values" {
   kms_data      = data.ibm_resource_instance.kms
   kms_resource  = ibm_resource_instance.kms
   keys          = var.keys
+  name          = var.key_management.name
 }
 
 ##############################################################################
@@ -59,6 +60,7 @@ module "unit_test_kms_resource" {
   source    = "./dynamic_values"
   hpcs_data = []
   kms_data  = []
+  name      = "test-kms"
   kms_resource = [{
     guid = "resource"
     crn  = "resource"

@@ -218,6 +218,12 @@ variable "enable_transit_gateway" {
   default     = true
 }
 
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
+}
+
 variable "transit_gateway_resource_group" {
   description = "Name of resource group to use for transit gateway. Must be included in `var.resource_group`"
   type        = string
@@ -706,22 +712,23 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = string
-    resource_group = string
+    name           = optional(string)
+    resource_group = optional(string)
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
     access_tags    = optional(list(string), [])
     keys = optional(
       list(
         object({
-          name            = string
-          root_key        = optional(bool)
-          payload         = optional(string)
-          key_ring        = optional(string) # Any key_ring added will be created
-          force_delete    = optional(bool)
-          endpoint        = optional(string) # can be public or private
-          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
-          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
+          name             = string
+          root_key         = optional(bool)
+          payload          = optional(string)
+          key_ring         = optional(string) # Any key_ring added will be created
+          force_delete     = optional(bool)
+          existing_key_crn = optional(string) # CRN of an existing key in the same or different account.
+          endpoint         = optional(string) # can be public or private
+          iv_value         = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
+          encrypted_nonce  = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
           policies = optional(
             object({
               rotation = optional(
@@ -740,6 +747,32 @@ variable "key_management" {
       )
     )
   })
+  validation {
+    error_message = "Name must be included if use_data is true."
+    condition = (
+      lookup(var.key_management, "use_data", null) == null
+      ) || (
+      lookup(var.key_management, "use_data", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_data", false) == true
+    )
+  }
+  validation {
+    error_message = "Name must be included if use_hs_crypto is true."
+    condition = (
+      lookup(var.key_management, "use_hs_crypto", null) == null
+      ) || (
+      lookup(var.key_management, "use_hs_crypto", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_hs_crypto", false) == true
+    )
+  }
+  validation {
+    condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "existing_key_crn", null) == null) && var.key_management.name == null])) == 0
+    error_message = "Please provide kms name to be created."
+  }
 }
 
 ##############################################################################

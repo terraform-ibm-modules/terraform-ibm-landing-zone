@@ -11,6 +11,7 @@
     },
     "clusters": [],
     "enable_transit_gateway": true,
+    "transit_gateway_global": false,
     "transit_gateway_connections": [
       "management",
       "workload",
@@ -359,7 +360,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "jump-box",
         "resource_group": "slz-management-rg",
@@ -392,7 +393,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "private-svs",
         "resource_group": "slz-workload-rg",
@@ -425,7 +426,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "inet-svs",
         "resource_group": "slz-edge-rg",
