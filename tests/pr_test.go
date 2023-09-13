@@ -159,16 +159,6 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
-func TestRunQuickStartPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 
 	t.Parallel()
