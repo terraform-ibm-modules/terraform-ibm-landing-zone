@@ -7,30 +7,7 @@ require (
 	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.21.4
 )
 
-require (
-	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
-	github.com/IBM/schematics-go-sdk v0.2.1 // indirect
-	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/containerd/fifo v1.1.0 // indirect
-	github.com/docker/distribution v2.7.1+incompatible // indirect
-	github.com/docker/go-connections v0.4.0 // indirect
-	github.com/docker/go-metrics v0.0.1 // indirect
-	github.com/docker/go-units v0.5.0 // indirect
-	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
-	github.com/moby/term v0.5.0 // indirect
-	github.com/morikuni/aec v1.0.0 // indirect
-	github.com/opencontainers/go-digest v1.0.0 // indirect
-	github.com/opencontainers/image-spec v1.0.2 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.1.0 // indirect
-	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect
-	github.com/prometheus/common v0.6.0 // indirect
-	github.com/prometheus/procfs v0.0.3 // indirect
-	github.com/rootless-containers/rootlesskit v1.1.1 // indirect
-	github.com/sirupsen/logrus v1.9.2 // indirect
-	golang.org/x/time v0.0.0-20220210224613-90d013bbcef8 // indirect
-)
+require github.com/IBM/schematics-go-sdk v0.2.2 // indirect
 
 require (
 	cloud.google.com/go v0.110.2 // indirect
@@ -54,7 +31,6 @@ require (
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/docker/docker v24.0.5+incompatible
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
