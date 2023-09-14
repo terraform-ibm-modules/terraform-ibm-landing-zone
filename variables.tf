@@ -1486,7 +1486,7 @@ variable "vpc_placement_groups" {
 
   validation {
     error_message = "Each VPC Placement group must have a unique name."
-    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups[*].name) != distinct(length(var.vpc_placement_groups[*].name))
+    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups[*].name) == length(distinct(var.vpc_placement_groups[*].name))
   }
 
   validation {
