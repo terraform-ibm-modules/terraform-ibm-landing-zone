@@ -233,18 +233,18 @@ func TestRunOverride(t *testing.T) {
 		// set override json string with previous value of config output
 		options.TerraformOptions.Vars["override_json_string"] = options.LastTestTerraformOutputs["config"]
 
-		options.SkipTestSetup = true
 		// TERRATEST uses its own internal logger.
 		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
 		// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
 		options.TerraformOptions.Logger = logger.Discard
-		planStruct, err := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
+		planStruct, planErr := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
 		options.TerraformOptions.Logger = logger.Default // turn log back on
 
-		if assert.Nil(t, err, "This should not have errored") &&
+		if assert.Nil(t, planErr, "This should not have errored") &&
 			assert.NotNil(t, planStruct, "Expected some output") {
-			// defines if there is an any resource change (destroy, update, etc)
-			noChange := true
+
+			// defines if at least one resource changed (destroy, update, etc)
+			resourcesChanged := false
 			for _, resource := range planStruct.ResourceChangesMap {
 				// get JSON string of full changes for the logs
 				changesBytes, changesErr := json.MarshalIndent(resource.Change, "", "  ")
@@ -262,14 +262,22 @@ func TestRunOverride(t *testing.T) {
 					resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\n", resource.Name, resource.Address, resource.Change.Actions)
 				}
 
+				// build error message
 				var errorMessage string
 				errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
-				noChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
-				assert.True(options.Testing, noChange, errorMessage)
+
+				// check if current resource is changed
+				currentResourceChanged := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
+				assert.True(options.Testing, currentResourceChanged, errorMessage)
+
+				// if at least one resource is changed, then save that information
+				if !resourcesChanged && currentResourceChanged {
+					resourcesChanged = true
+				}
 			}
 
-			// Run plan again to output the nice human-readable plan if there are valid changes
-			if noChange {
+			// Run plan again to output the nice human-readable plan if there was a change
+			if resourcesChanged {
 				terraform.Plan(options.Testing, options.TerraformOptions)
 			}
 		}
