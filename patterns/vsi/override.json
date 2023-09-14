@@ -132,7 +132,8 @@
     "vpcs": [
         {
             "default_security_group_rules": [],
-            "clean_default_sg_acl": true,
+            "clean_default_security_group": true,
+            "clean_default_acl": true,
             "flow_logs_bucket_name": "management-bucket",
             "network_acls": [
                 {
@@ -222,7 +223,8 @@
         },
         {
             "default_security_group_rules": [],
-            "clean_default_sg_acl": true,
+            "clean_default_security_group": true,
+            "clean_default_acl": true,
             "flow_logs_bucket_name": "workload-bucket",
             "network_acls": [
                 {
@@ -317,7 +319,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+            "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {
@@ -381,7 +383,7 @@
         },
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+            "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "workload-server",
             "security_group": {
