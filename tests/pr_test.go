@@ -267,11 +267,11 @@ func TestRunOverride(t *testing.T) {
 				errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
 
 				// check if current resource is changed
-				currentResourceChanged := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
-				assert.True(options.Testing, currentResourceChanged, errorMessage)
+				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
+				assert.True(options.Testing, noResourceChange, errorMessage)
 
 				// if at least one resource is changed, then save that information
-				if !resourcesChanged && currentResourceChanged {
+				if !resourcesChanged && !noResourceChange {
 					resourcesChanged = true
 				}
 			}
