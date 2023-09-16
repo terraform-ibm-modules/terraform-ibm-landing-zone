@@ -35,7 +35,6 @@ module "landing_zone" {
   teleport_vsi                   = local.env.teleport_vsi
   secrets_manager                = local.env.secrets_manager
   vpc_placement_groups           = local.env.vpc_placement_groups
-  ibmcloud_api_key               = var.ibmcloud_api_key
 }
 
 ##############################################################################
