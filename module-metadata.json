@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1150
+        "line": 1142
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1515
+        "line": 1507
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 906
+        "line": 898
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 785
+        "line": 777
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 801
+        "line": 793
       }
     },
     "cos": {
@@ -82,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 487
+        "line": 479
       }
     },
     "enable_transit_gateway": {
@@ -96,7 +96,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 215
+        "line": 207
       }
     },
     "f5_template_data": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1419
+        "line": 1411
       }
     },
     "f5_vsi": {
@@ -125,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1282
+        "line": 1274
       }
     },
     "iam_account_settings": {
@@ -149,20 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1044
-      }
-    },
-    "ibmcloud_api_key": {
-      "name": "ibmcloud_api_key",
-      "type": "string",
-      "description": "IBM Cloud API Key that will be used for authentication in scripts run in this module. Only required if certain options are required.",
-      "sensitive": true,
-      "source": [
-        "module.vpc"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 5
+        "line": 1036
       }
     },
     "key_management": {
@@ -177,7 +164,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 712
+        "line": 704
       }
     },
     "network_cidr": {
@@ -190,7 +177,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 63
+        "line": 56
       }
     },
     "prefix": {
@@ -246,7 +233,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 12
+        "line": 5
       },
       "immutable": true,
       "options": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$}",
@@ -272,7 +259,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 22
+        "line": 15
       },
       "cloud_data_type": "region",
       "immutable": true
@@ -288,7 +275,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 40
+        "line": 33
       }
     },
     "secrets_manager": {
@@ -309,7 +296,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1465
+        "line": 1457
       }
     },
     "security_groups": {
@@ -322,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 389
+        "line": 381
       }
     },
     "service_endpoints": {
@@ -332,7 +319,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 701
+        "line": 693
       }
     },
     "ssh_keys": {
@@ -345,7 +332,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 243
+        "line": 235
       }
     },
     "tags": {
@@ -380,7 +367,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 27
+        "line": 20
       },
       "cloud_data_type": "tags",
       "min_length": 1,
@@ -409,7 +396,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 950
+        "line": 942
       }
     },
     "teleport_vsi": {
@@ -422,7 +409,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 976
+        "line": 968
       }
     },
     "transit_gateway_connections": {
@@ -432,7 +419,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 232
+        "line": 224
       }
     },
     "transit_gateway_global": {
@@ -445,7 +432,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 221
+        "line": 213
       }
     },
     "transit_gateway_resource_group": {
@@ -455,7 +442,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 227
+        "line": 219
       }
     },
     "virtual_private_endpoints": {
@@ -468,7 +455,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 461
+        "line": 453
       }
     },
     "vpc_placement_groups": {
@@ -481,12 +468,12 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1483
+        "line": 1475
       }
     },
     "vpcs": {
       "name": "vpcs",
-      "type": "list(\n    object({\n      prefix                       = string           # VPC prefix\n      resource_group               = optional(string) # Name of the group where VPC will be created\n      access_tags                  = optional(list(string), [])\n      classic_access               = optional(bool)\n      default_network_acl_name     = optional(string)\n      default_security_group_name  = optional(string)\n      clean_default_security_group = optional(bool, false)\n      clean_default_acl            = optional(bool, false)\n      default_security_group_rules = optional(\n        list(\n          object({\n            name      = string\n            direction = string\n            remote    = string\n            tcp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            udp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            icmp = optional(\n              object({\n                type = optional(number)\n                code = optional(number)\n              })\n            )\n          })\n        )\n      )\n      default_routing_table_name = optional(string)\n      flow_logs_bucket_name      = optional(string)\n      address_prefixes = optional(\n        object({\n          zone-1 = optional(list(string))\n          zone-2 = optional(list(string))\n          zone-3 = optional(list(string))\n        })\n      )\n      network_acls = list(\n        object({\n          name                         = string\n          add_ibm_cloud_internal_rules = optional(bool)\n          add_vpc_connectivity_rules   = optional(bool)\n          prepend_ibm_rules            = optional(bool)\n          rules = list(\n            object({\n              name        = string\n              action      = string\n              destination = string\n              direction   = string\n              source      = string\n              tcp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              udp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              icmp = optional(\n                object({\n                  type = optional(number)\n                  code = optional(number)\n                })\n              )\n            })\n          )\n        })\n      )\n      use_public_gateways = object({\n        zone-1 = optional(bool)\n        zone-2 = optional(bool)\n        zone-3 = optional(bool)\n      })\n      subnets = object({\n        zone-1 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-2 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-3 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n      })\n    })\n  )",
+      "type": "list(\n    object({\n      prefix                      = string           # VPC prefix\n      resource_group              = optional(string) # Name of the group where VPC will be created\n      access_tags                 = optional(list(string), [])\n      classic_access              = optional(bool)\n      default_network_acl_name    = optional(string)\n      default_security_group_name = optional(string)\n      clean_default_sg_acl        = optional(bool, false)\n      default_security_group_rules = optional(\n        list(\n          object({\n            name      = string\n            direction = string\n            remote    = string\n            tcp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            udp = optional(\n              object({\n                port_max = optional(number)\n                port_min = optional(number)\n              })\n            )\n            icmp = optional(\n              object({\n                type = optional(number)\n                code = optional(number)\n              })\n            )\n          })\n        )\n      )\n      default_routing_table_name = optional(string)\n      flow_logs_bucket_name      = optional(string)\n      address_prefixes = optional(\n        object({\n          zone-1 = optional(list(string))\n          zone-2 = optional(list(string))\n          zone-3 = optional(list(string))\n        })\n      )\n      network_acls = list(\n        object({\n          name                         = string\n          add_ibm_cloud_internal_rules = optional(bool)\n          add_vpc_connectivity_rules   = optional(bool)\n          prepend_ibm_rules            = optional(bool)\n          rules = list(\n            object({\n              name        = string\n              action      = string\n              destination = string\n              direction   = string\n              source      = string\n              tcp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              udp = optional(\n                object({\n                  port_max        = optional(number)\n                  port_min        = optional(number)\n                  source_port_max = optional(number)\n                  source_port_min = optional(number)\n                })\n              )\n              icmp = optional(\n                object({\n                  type = optional(number)\n                  code = optional(number)\n                })\n              )\n            })\n          )\n        })\n      )\n      use_public_gateways = object({\n        zone-1 = optional(bool)\n        zone-2 = optional(bool)\n        zone-3 = optional(bool)\n      })\n      subnets = object({\n        zone-1 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-2 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n        zone-3 = list(object({\n          name           = string\n          cidr           = string\n          public_gateway = optional(bool)\n          acl_name       = string\n        }))\n      })\n    })\n  )",
       "description": "A map describing VPCs to be created in this repo.",
       "required": true,
       "source": [
@@ -494,7 +481,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 69
+        "line": 62
       }
     },
     "vpn_gateways": {
@@ -507,7 +494,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 185
+        "line": 177
       }
     },
     "vsi": {
@@ -520,7 +507,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 276
+        "line": 268
       }
     },
     "wait_till": {
@@ -533,7 +520,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 885
+        "line": 877
       }
     }
   },
@@ -2590,9 +2577,8 @@
     "vpc": {
       "name": "vpc",
       "source": "terraform-ibm-modules/landing-zone-vpc/ibm",
-      "version": "7.4.2",
+      "version": "7.5.0",
       "attributes": {
-        "ibmcloud_api_key": "ibmcloud_api_key",
         "network_cidrs": "network_cidr",
         "prefix": "prefix",
         "region": "region",
@@ -2612,7 +2598,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 114
+            "line": 124
           }
         },
         "ibm_is_flow_log.flow_logs": {
@@ -2633,7 +2619,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 125
+            "line": 135
           }
         },
         "ibm_is_network_acl.network_acl": {
@@ -2668,7 +2654,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 92
+            "line": 102
           }
         },
         "ibm_is_security_group_rule.default_vpc_rule": {
@@ -2712,6 +2698,7 @@
             "default_routing_table_name": "default_routing_table_name",
             "default_security_group_name": "default_security_group_name",
             "name": "prefix",
+            "no_sg_acl_rules": "clean_default_sg_acl",
             "resource_group": "resource_group_id",
             "tags": "tags"
           },
@@ -2720,7 +2707,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 5
+            "line": 14
           }
         },
         "ibm_is_vpc_address_prefix.address_prefixes": {
@@ -2732,7 +2719,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 32
+            "line": 42
           }
         },
         "ibm_is_vpc_address_prefix.subnet_prefix": {
@@ -2759,7 +2746,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 57
+            "line": 67
           }
         },
         "ibm_is_vpc_routing_table_route.routing_table_routes": {
@@ -2774,37 +2761,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 66
-          }
-        },
-        "null_resource.clean_default_acl": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "clean_default_acl",
-          "attributes": {
-            "count": "clean_default_acl"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 159
-          }
-        },
-        "null_resource.clean_default_security_group": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "clean_default_security_group",
-          "attributes": {
-            "count": "clean_default_security_group"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vpc/main.tf",
-            "line": 143
+            "line": 76
           }
         },
         "time_sleep.wait_for_authorization_policy": {
@@ -2816,7 +2773,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 47
+            "line": 57
           }
         }
       },
@@ -2830,7 +2787,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vpc/main.tf",
-            "line": 40
+            "line": 50
           }
         }
       },
