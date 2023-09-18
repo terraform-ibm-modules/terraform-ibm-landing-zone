@@ -1,10 +1,14 @@
 package test
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 
@@ -77,7 +81,6 @@ func TestRunQuickStartPattern(t *testing.T) {
 }
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
-
 	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
@@ -215,4 +218,69 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestRunOverride(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsQuickStartPattern(t, "slz-ovr", quickStartPatternTerraformDir)
+	options.SkipTestTearDown = true
+	output, err := options.RunTestConsistency()
+
+	if assert.Nil(t, err, "This should not have errored") &&
+		assert.NotNil(t, output, "Expected some output") &&
+		assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs") {
+		// set override json string with previous value of config output
+		options.TerraformOptions.Vars["override_json_string"] = options.LastTestTerraformOutputs["config"]
+
+		// TERRATEST uses its own internal logger.
+		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
+		// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
+		options.TerraformOptions.Logger = logger.Discard
+		planStruct, planErr := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
+		options.TerraformOptions.Logger = logger.Default // turn log back on
+
+		if assert.Nil(t, planErr, "This should not have errored") &&
+			assert.NotNil(t, planStruct, "Expected some output") {
+
+			// defines if at least one resource changed (destroy, update, etc)
+			resourcesChanged := false
+			for _, resource := range planStruct.ResourceChangesMap {
+				// get JSON string of full changes for the logs
+				changesBytes, changesErr := json.MarshalIndent(resource.Change, "", "  ")
+				// if it errors in the marshall step, just put a placeholder and move on, not important
+				changesJson := "--UNAVAILABLE--"
+				if changesErr == nil {
+					changesJson = string(changesBytes)
+				}
+
+				var resourceDetails string
+				if resource.Change.Actions.Update() {
+					resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, common.GetBeforeAfterDiff(changesJson), changesJson)
+				} else {
+					// Do not print changesJson because might expose secrets
+					resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\n", resource.Name, resource.Address, resource.Change.Actions)
+				}
+
+				// build error message
+				var errorMessage string
+				errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
+
+				// check if current resource is changed
+				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
+				assert.True(options.Testing, noResourceChange, errorMessage)
+
+				// if at least one resource is changed, then save that information
+				if !resourcesChanged && !noResourceChange {
+					resourcesChanged = true
+				}
+			}
+
+			// Run plan again to output the nice human-readable plan if there was a change
+			if resourcesChanged {
+				terraform.Plan(options.Testing, options.TerraformOptions)
+			}
+		}
+	}
+	options.TestTearDown()
 }
