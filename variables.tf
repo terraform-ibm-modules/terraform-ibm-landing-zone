@@ -192,15 +192,6 @@ variable "vpn_gateways" {
       mode           = optional(string)
       resource_group = optional(string)
       access_tags    = optional(list(string), [])
-      connections = list(
-        object({
-          peer_address   = string
-          preshared_key  = string
-          local_cidrs    = optional(list(string))
-          peer_cidrs     = optional(list(string))
-          admin_state_up = optional(bool)
-        })
-      )
     })
   )
 }
@@ -227,11 +218,6 @@ variable "transit_gateway_global" {
 variable "transit_gateway_resource_group" {
   description = "Name of resource group to use for transit gateway. Must be included in `var.resource_group`"
   type        = string
-}
-
-variable "transit_gateway_connections" {
-  description = "Transit gateway vpc connections. Will only be used if transit gateway is enabled."
-  type        = list(string)
 }
 
 ##############################################################################
