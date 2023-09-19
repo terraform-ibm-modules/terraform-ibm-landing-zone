@@ -3,7 +3,7 @@
 ##############################################################################
 
 locals {
-  vpn_gateway_map    = module.dynamic_values.vpn_gateway_map
+  vpn_gateway_map = module.dynamic_values.vpn_gateway_map
 }
 
 ##############################################################################

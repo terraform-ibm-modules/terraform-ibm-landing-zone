@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1150
+        "line": 1136
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1515
+        "line": 1501
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 906
+        "line": 892
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 785
+        "line": 771
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 801
+        "line": 787
       }
     },
     "cos": {
@@ -82,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 487
+        "line": 473
       }
     },
     "enable_transit_gateway": {
@@ -91,12 +91,11 @@
       "description": "Create transit gateway",
       "default": true,
       "source": [
-        "ibm_tg_connection.connection.for_each",
         "ibm_tg_gateway.transit_gateway.count"
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 215
+        "line": 206
       }
     },
     "f5_template_data": {
@@ -112,7 +111,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1419
+        "line": 1405
       }
     },
     "f5_vsi": {
@@ -125,7 +124,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1282
+        "line": 1268
       }
     },
     "iam_account_settings": {
@@ -149,7 +148,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1044
+        "line": 1030
       }
     },
     "ibmcloud_api_key": {
@@ -177,7 +176,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 712
+        "line": 698
       }
     },
     "network_cidr": {
@@ -212,7 +211,6 @@
         "ibm_resource_instance.cos.name",
         "ibm_resource_key.appid_key.name",
         "ibm_resource_key.key.name",
-        "ibm_tg_connection.connection.name",
         "ibm_tg_gateway.transit_gateway.name",
         "module.bastion_host.ibm_is_lb.lb.name",
         "module.bastion_host.ibm_is_lb_pool.pool.name",
@@ -309,7 +307,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1465
+        "line": 1451
       }
     },
     "security_groups": {
@@ -322,7 +320,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 389
+        "line": 375
       }
     },
     "service_endpoints": {
@@ -332,7 +330,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 701
+        "line": 687
       }
     },
     "ssh_keys": {
@@ -345,7 +343,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 243
+        "line": 229
       }
     },
     "tags": {
@@ -409,7 +407,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 950
+        "line": 936
       }
     },
     "teleport_vsi": {
@@ -422,17 +420,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 976
-      }
-    },
-    "transit_gateway_connections": {
-      "name": "transit_gateway_connections",
-      "type": "list(string)",
-      "description": "Transit gateway vpc connections. Will only be used if transit gateway is enabled.",
-      "required": true,
-      "pos": {
-        "filename": "variables.tf",
-        "line": 232
+        "line": 962
       }
     },
     "transit_gateway_global": {
@@ -445,7 +433,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 221
+        "line": 212
       }
     },
     "transit_gateway_resource_group": {
@@ -455,7 +443,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 227
+        "line": 218
       }
     },
     "virtual_private_endpoints": {
@@ -468,7 +456,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 461
+        "line": 447
       }
     },
     "vpc_placement_groups": {
@@ -481,7 +469,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1483
+        "line": 1469
       }
     },
     "vpcs": {
@@ -499,7 +487,7 @@
     },
     "vpn_gateways": {
       "name": "vpn_gateways",
-      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      subnet_name    = string # Do not include prefix, use same name as in `var.subnets`\n      mode           = optional(string)\n      resource_group = optional(string)\n      access_tags    = optional(list(string), [])\n      connections = list(\n        object({\n          peer_address   = string\n          preshared_key  = string\n          local_cidrs    = optional(list(string))\n          peer_cidrs     = optional(list(string))\n          admin_state_up = optional(bool)\n        })\n      )\n    })\n  )",
+      "type": "list(\n    object({\n      name           = string\n      vpc_name       = string\n      subnet_name    = string # Do not include prefix, use same name as in `var.subnets`\n      mode           = optional(string)\n      resource_group = optional(string)\n      access_tags    = optional(list(string), [])\n    })\n  )",
       "description": "List of VPN Gateways to create.",
       "required": true,
       "source": [
@@ -520,7 +508,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 276
+        "line": 262
       }
     },
     "wait_till": {
@@ -533,7 +521,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 885
+        "line": 871
       }
     }
   },
@@ -1129,19 +1117,7 @@
       },
       "pos": {
         "filename": "vpn.tf",
-        "line": 17
-      }
-    },
-    "ibm_is_vpn_gateway_connection.gateway_connection": {
-      "mode": "managed",
-      "type": "ibm_is_vpn_gateway_connection",
-      "name": "gateway_connection",
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "vpn.tf",
-        "line": 31
+        "line": 16
       }
     },
     "ibm_resource_group.resource_groups": {
@@ -1296,22 +1272,6 @@
       "pos": {
         "filename": "secrets_manager.tf",
         "line": 30
-      }
-    },
-    "ibm_tg_connection.connection": {
-      "mode": "managed",
-      "type": "ibm_tg_connection",
-      "name": "connection",
-      "attributes": {
-        "for_each": "enable_transit_gateway",
-        "name": "prefix"
-      },
-      "provider": {
-        "name": "ibm"
-      },
-      "pos": {
-        "filename": "transit_gateway.tf",
-        "line": 26
       }
     },
     "ibm_tg_gateway.transit_gateway": {
@@ -1754,7 +1714,7 @@
           "value": "module.access_group_object.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 135
+            "line": 129
           }
         },
         "access_groups_with_invites": {
@@ -1763,7 +1723,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 155
+            "line": 149
           }
         },
         "access_policies": {
@@ -1772,7 +1732,7 @@
           "value": "module.access_policies.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 140
+            "line": 134
           }
         },
         "account_management_map": {
@@ -1781,7 +1741,7 @@
           "value": "module.account_management_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 150
+            "line": 144
           }
         },
         "appid_redirect_urls": {
@@ -1790,7 +1750,7 @@
           "value": "module.appid.redirect_urls",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 177
+            "line": 171
           }
         },
         "bastion_vsi_map": {
@@ -1799,7 +1759,7 @@
           "value": "module.bastion_vsi_map.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 166
+            "line": 160
           }
         },
         "bucket_to_instance_map": {
@@ -1871,7 +1831,7 @@
           "value": "module.dynamic_rules.value",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 145
+            "line": 139
           }
         },
         "f5_template_map": {
@@ -1880,7 +1840,7 @@
           "value": "module.f5_cloud_init",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 214
+            "line": 208
           }
         },
         "f5_vsi_map": {
@@ -1889,7 +1849,7 @@
           "value": "module.f5.f5_vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 209
+            "line": 203
           }
         },
         "security_group_map": {
@@ -1925,7 +1885,7 @@
           "value": "module.vsi.ssh_key_list",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 198
+            "line": 192
           }
         },
         "vpc_map": {
@@ -1964,15 +1924,6 @@
             "line": 105
           }
         },
-        "vpn_connection_map": {
-          "name": "value",
-          "description": "List converted into map",
-          "value": "module.vpn.vpn_connection_map",
-          "pos": {
-            "filename": "dynamic_values/outputs.tf",
-            "line": 123
-          }
-        },
         "vpn_gateway_map": {
           "name": "value",
           "description": "List converted into map",
@@ -1988,7 +1939,7 @@
           "value": "module.vsi.vsi_image_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 188
+            "line": 182
           }
         },
         "vsi_map": {
@@ -1997,7 +1948,7 @@
           "value": "module.vsi.vsi_map",
           "pos": {
             "filename": "dynamic_values/outputs.tf",
-            "line": 193
+            "line": 187
           }
         },
         "worker_pools_map": {

@@ -14,7 +14,6 @@ module "landing_zone" {
   transit_gateway_global         = local.env.transit_gateway_global
   vpn_gateways                   = local.env.vpn_gateways
   transit_gateway_resource_group = local.env.transit_gateway_resource_group
-  transit_gateway_connections    = local.env.transit_gateway_connections
   ssh_keys                       = local.env.ssh_keys
   vsi                            = local.env.vsi
   security_groups                = local.env.security_groups

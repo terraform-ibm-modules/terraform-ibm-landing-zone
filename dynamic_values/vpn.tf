@@ -42,9 +42,9 @@ module "ut_vpn" {
 }
 
 locals {
-  assert_vpn_gateway_exists_in_map            = lookup(module.ut_vpn.vpn_gateway_map, "test-gateway")
-  assert_vpn_gateway_correct_vpc_id           = regex("1234", module.ut_vpn.vpn_gateway_map["test-gateway"].vpc_id)
-  assert_vpn_gateway_correct_subnet_id        = regex("vpn-id", module.ut_vpn.vpn_gateway_map["test-gateway"].subnet_id)
+  assert_vpn_gateway_exists_in_map     = lookup(module.ut_vpn.vpn_gateway_map, "test-gateway")
+  assert_vpn_gateway_correct_vpc_id    = regex("1234", module.ut_vpn.vpn_gateway_map["test-gateway"].vpc_id)
+  assert_vpn_gateway_correct_subnet_id = regex("vpn-id", module.ut_vpn.vpn_gateway_map["test-gateway"].subnet_id)
 }
 
 ##############################################################################
