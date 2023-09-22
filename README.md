@@ -1007,6 +1007,7 @@ statement instead the previous block.
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
 | <a name="output_f5_hosts"></a> [f5\_hosts](#output\_f5\_hosts) | List of bastion host names |
 | <a name="output_fip_vsi_data"></a> [fip\_vsi\_data](#output\_fip\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached. |
+| <a name="output_placement_groups"></a> [placement\_groups](#output\_placement\_groups) | List of placement groups. |
 | <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
 | <a name="output_secrets_manager_data"></a> [secrets\_manager\_data](#output\_secrets\_manager\_data) | Secrets manager instance |
