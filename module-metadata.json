@@ -634,7 +634,16 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 307
+        "line": 318
+      }
+    },
+    "placement_groups": {
+      "name": "placement_groups",
+      "description": "List of placement groups.",
+      "value": "resource.ibm_is_placement_group.placement_group",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 195
       }
     },
     "key_management_crn": {
@@ -688,7 +697,7 @@
       "value": "local.resource_groups",
       "pos": {
         "filename": "outputs.tf",
-        "line": 200
+        "line": 211
       }
     },
     "resource_group_names": {
@@ -696,7 +705,7 @@
       "description": "List of resource groups names used within landing zone.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 195
+        "line": 206
       }
     },
     "secrets_manager_data": {
@@ -704,7 +713,7 @@
       "description": "Secrets manager instance",
       "pos": {
         "filename": "outputs.tf",
-        "line": 211
+        "line": 222
       }
     },
     "security_group_data": {
@@ -712,7 +721,7 @@
       "description": "List of security group data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 231
+        "line": 242
       }
     },
     "security_group_names": {
@@ -720,7 +729,7 @@
       "description": "List of security group names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 222
+        "line": 233
       }
     },
     "service_authorization_data": {
@@ -728,7 +737,7 @@
       "description": "List of service authorization data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 250
+        "line": 261
       }
     },
     "service_authorization_names": {
@@ -736,7 +745,7 @@
       "description": "List of service authorization names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 245
+        "line": 256
       }
     },
     "ssh_key_data": {
@@ -744,7 +753,7 @@
       "description": "List of SSH key data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 269
+        "line": 280
       }
     },
     "ssh_key_names": {
@@ -752,7 +761,7 @@
       "description": "List of SSH key names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 264
+        "line": 275
       }
     },
     "subnet_data": {
@@ -776,7 +785,7 @@
       "description": "Created transit gateway data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 288
+        "line": 299
       }
     },
     "transit_gateway_name": {
@@ -784,7 +793,7 @@
       "description": "Name of created transit gateway",
       "pos": {
         "filename": "outputs.tf",
-        "line": 283
+        "line": 294
       }
     },
     "vpc_data": {
@@ -808,7 +817,7 @@
       "description": "List of VPE gateways data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 357
+        "line": 368
       }
     },
     "vpe_gateway_names": {
@@ -816,7 +825,7 @@
       "description": "VPE gateway names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 349
+        "line": 360
       }
     },
     "vpn_data": {
@@ -824,7 +833,7 @@
       "description": "List of VPN data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 379
+        "line": 390
       }
     },
     "vpn_names": {
@@ -832,7 +841,7 @@
       "description": "List of VPN names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 371
+        "line": 382
       }
     },
     "vsi_data": {
@@ -840,7 +849,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 325
+        "line": 336
       }
     },
     "vsi_names": {
@@ -848,7 +857,7 @@
       "description": "List of VSI names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 299
+        "line": 310
       }
     }
   },
