@@ -637,22 +637,13 @@
         "line": 318
       }
     },
-    "placement_groups": {
-      "name": "placement_groups",
-      "description": "List of placement groups.",
-      "value": "resource.ibm_is_placement_group.placement_group",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 195
-      }
-    },
     "key_management_crn": {
       "name": "key_management_crn",
       "description": "CRN for KMS instance",
       "value": "module.key_management.key_management_crn",
       "pos": {
         "filename": "outputs.tf",
-        "line": 396
+        "line": 407
       }
     },
     "key_management_guid": {
@@ -661,7 +652,7 @@
       "value": "module.key_management.key_management_guid",
       "pos": {
         "filename": "outputs.tf",
-        "line": 401
+        "line": 412
       }
     },
     "key_management_name": {
@@ -670,7 +661,7 @@
       "value": "module.key_management.key_management_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 391
+        "line": 402
       }
     },
     "key_map": {
@@ -679,7 +670,7 @@
       "value": "module.key_management.key_map",
       "pos": {
         "filename": "outputs.tf",
-        "line": 411
+        "line": 422
       }
     },
     "key_rings": {
@@ -688,7 +679,16 @@
       "value": "module.key_management.key_rings",
       "pos": {
         "filename": "outputs.tf",
-        "line": 406
+        "line": 417
+      }
+    },
+    "placement_groups": {
+      "name": "placement_groups",
+      "description": "List of placement groups.",
+      "value": "resource.ibm_is_placement_group.placement_group",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 195
       }
     },
     "resource_group_data": {
