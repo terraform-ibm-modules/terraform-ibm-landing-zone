@@ -1,9 +1,9 @@
 package test
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/fs"
-	"encoding/json"
 	"log"
 	"os"
 	"path/filepath"
