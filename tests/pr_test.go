@@ -146,7 +146,7 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 		Testing:                t,
 		TarIncludePatterns:     tarIncludePatterns,
 		TemplateFolder:         quickStartPatternTerraformDir,
-		Prefix:                 "slz-qs-sch",
+		Prefix:                 "qs-sch",
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
