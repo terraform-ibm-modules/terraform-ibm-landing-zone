@@ -146,7 +146,7 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 		Testing:                t,
 		TarIncludePatterns:     tarIncludePatterns,
 		TemplateFolder:         quickStartPatternTerraformDir,
-		Prefix:                 "slz-qs",
+		Prefix:                 "slz-qs-sch",
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
@@ -155,6 +155,7 @@ func TestRunQuickStartPatternSchematics(t *testing.T) {
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
 	}
 
