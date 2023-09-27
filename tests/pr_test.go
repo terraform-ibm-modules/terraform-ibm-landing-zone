@@ -3,14 +3,18 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -70,14 +74,93 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 	return options
 }
 
-func TestRunQuickStartPattern(t *testing.T) {
+type tarIncludePatterns struct {
+	excludeDirs []string
+
+	includeFiletypes []string
+
+	includeDirs []string
+}
+
+func getTarIncludePatternsRecursively(dir string, dirsToExclude []string, fileTypesToInclude []string) ([]string, error) {
+	r := tarIncludePatterns{dirsToExclude, fileTypesToInclude, nil}
+	err := filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
+		return walk(&r, path, entry, err)
+	})
+	if err != nil {
+		fmt.Println("error")
+		return r.includeDirs, err
+	}
+	return r.includeDirs, nil
+}
+
+func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
+	if err != nil {
+		return err
+	}
+	if d.IsDir() {
+		for _, excludeDir := range r.excludeDirs {
+			if strings.Contains(s, excludeDir) {
+				return nil
+			}
+		}
+		if s == ".." {
+			r.includeDirs = append(r.includeDirs, "*.tf")
+			return nil
+		}
+		for _, includeFiletype := range r.includeFiletypes {
+			r.includeDirs = append(r.includeDirs, strings.ReplaceAll(s+"/*"+includeFiletype, "../", ""))
+		}
+	}
+	return nil
+}
+
+func TestRunQuickStartPatternSchematics(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
+	excludeDirs := []string{
+		".terraform",
+		".docs",
+		".github",
+		".git",
+		".idea",
+		"common-dev-assets",
+		"examples",
+		"tests",
+		"reference-architectures",
+	}
+	includeFiletypes := []string{
+		".tf",
+		".yaml",
+		".py",
+		".tpl",
+	}
 
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
+	tarIncludePatterns, recurseErr := getTarIncludePatternsRecursively("..", excludeDirs, includeFiletypes)
+
+	// if error producing tar patterns (very unexpected) fail test immediately
+	require.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree")
+
+	// set up a schematics test
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing:                t,
+		TarIncludePatterns:     tarIncludePatterns,
+		TemplateFolder:         quickStartPatternTerraformDir,
+		Prefix:                 "qs-sch",
+		Tags:                   []string{"test-schematic"},
+		DeleteWorkspaceOnFail:  false,
+		WaitJobCompleteMinutes: 60,
+	})
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {

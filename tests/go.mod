@@ -8,6 +8,8 @@ require (
 	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.21.7
 )
 
+require github.com/IBM/schematics-go-sdk v0.2.2 // indirect
+
 require (
 	cloud.google.com/go v0.110.2 // indirect
 	cloud.google.com/go/compute v1.20.0 // indirect
