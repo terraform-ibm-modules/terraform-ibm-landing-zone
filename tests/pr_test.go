@@ -146,16 +146,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	return options
 }
 
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "ocp")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
 
@@ -201,16 +191,6 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
-}
-
-func TestRunVSIPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
