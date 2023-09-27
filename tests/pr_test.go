@@ -203,6 +203,16 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
+func TestRunVSIPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsVsiPattern(t, "vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
