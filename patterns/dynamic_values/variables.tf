@@ -28,14 +28,6 @@ variable "vpcs" {
   description = "List of VPCs to create. The first VPC in this list will always be considered the `management` VPC, and will be where the VPN Gateway is connected. VPCs names can only be a maximum of 16 characters and can only contain letters, numbers, and - characters. VPC names must begin with a letter.. The first VPC in this list will always be considered the `management` VPC, and will be where the VPN Gateway is connected. VPCs names can only be a maximum of 16 characters and can only contain letters, numbers, and - characters. VPC names must begin with a letter."
   type        = list(string)
   default     = ["management", "workload"]
-
-  validation {
-    error_message = "VPCs names can only be a maximum of 16 characters and can only contain letters, numbers, and - characters. Names must also begin with a letter and end with a letter or number."
-    condition = length([
-      for name in var.vpcs :
-      name if length(name) > 16 || !can(regex("^([A-z]|[a-z][-a-z0-9]*[a-z0-9])$", name))
-    ]) == 0
-  }
 }
 
 variable "add_ibm_cloud_internal_rules" {
@@ -231,11 +223,13 @@ variable "appid_resource_group" {
 variable "teleport_instance_profile" {
   description = "Machine type for Teleport VSI instances. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles."
   type        = string
+  default     = null
 }
 
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
+  default     = null
 }
 
 ##############################################################################
