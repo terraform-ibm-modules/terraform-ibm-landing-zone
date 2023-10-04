@@ -324,6 +324,7 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
+		CloudInfoService:       sharedInfoSvc,
 	})
 
 	return options
