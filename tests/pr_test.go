@@ -348,8 +348,7 @@ func TestRunOverride(t *testing.T) {
 				}
 
 				// build error message
-				var errorMessage string
-				errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
+				errorMessage := fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
 
 				// check if current resource is changed
 				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
