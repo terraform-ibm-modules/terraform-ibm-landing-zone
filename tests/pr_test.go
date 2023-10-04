@@ -443,7 +443,6 @@ func TestRunSLZExample(t *testing.T) {
 		// Extract the key_id for the name "test-vsi-volume-key."
 		if keyData, ok := keys[fmt.Sprintf("%s-vsi-volume-key", prefix)]; ok {
 			keyID = keyData["crn"]
-			// fmt.Println("key_id for name 'test-vsi-volume-key':", keyID)
 		} else {
 			fmt.Println("Name 'test-vsi-volume-key' not found in the JSON data.")
 		}
