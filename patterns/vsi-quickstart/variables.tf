@@ -100,8 +100,8 @@ variable "override_json_string" {
    "virtual_private_endpoints": [],
    "vpcs": [
       {
-         "clean_default_security_group": true,
-         "clean_default_acl": true,
+         "default_security_group_rules": [],
+         "clean_default_sg_acl": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -169,8 +169,8 @@ variable "override_json_string" {
          }
       },
       {
-         "clean_default_security_group": true,
-         "clean_default_acl": true,
+         "default_security_group_rules": [],
+         "clean_default_sg_acl": true,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -231,7 +231,7 @@ variable "override_json_string" {
    "vsi": [
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
+         "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
          "machine_type": "cx2-4x8",
          "name": "jump-box",
          "resource_group": "management-rg",
@@ -276,7 +276,7 @@ variable "override_json_string" {
       },
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-22-04-2-minimal-amd64-1",
+         "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
          "machine_type": "cx2-4x8",
          "name": "workload-server",
          "resource_group": "workload-rg",

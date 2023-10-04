@@ -1003,6 +1003,10 @@
                             "key": "ssh_public_key"
                         },
                         {
+                            "hidden": true,
+                            "key": "existing_ssh_key_name"
+                        },
+                        {
                             "custom_config": {
                                 "config_constraints": {
                                     "generationType": "2"

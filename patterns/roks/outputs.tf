@@ -72,6 +72,31 @@ output "cluster_names" {
   value       = module.roks_landing_zone.cluster_names
 }
 
+output "key_management_name" {
+  description = "Name of key management service"
+  value       = module.roks_landing_zone.key_management_name
+}
+
+output "key_management_crn" {
+  description = "CRN for KMS instance"
+  value       = module.roks_landing_zone.key_management_crn
+}
+
+output "key_management_guid" {
+  description = "GUID for KMS instance"
+  value       = module.roks_landing_zone.key_management_guid
+}
+
+output "key_rings" {
+  description = "Key rings created by module"
+  value       = module.roks_landing_zone.key_rings
+}
+
+output "key_map" {
+  description = "Map of ids and keys for keys created"
+  value       = module.roks_landing_zone.key_map
+}
+
 ##############################################################################
 
 ##############################################################################

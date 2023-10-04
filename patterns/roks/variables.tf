@@ -221,7 +221,7 @@ variable "vpn_firewall_type" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. Must not already exists in the deployment region. Use only if provisioning F5 or Bastion Host."
+  description = "A public SSH key that does not exist in the deployment region. Used only if you provision F5 or Bastion Host. Must be an RSA key with a key size of either 2048 or 4096 bits (recommended). See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, specify a value in the `existing_ssh_key_name` variable instead."
   type        = string
   default     = null
   validation {
@@ -231,7 +231,7 @@ variable "ssh_public_key" {
 }
 
 variable "existing_ssh_key_name" {
-  description = "The name of the public ssh key which already exists."
+  description = "The name of a public SSH key that exists in the deployment region. Used only if you provision F5 or Bastion Host. To add a SSH key, use the `ssh_public_key` variable instead."
   type        = string
   default     = null
 }

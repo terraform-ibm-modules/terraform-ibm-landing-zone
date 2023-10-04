@@ -189,6 +189,17 @@ output "subnet_data" {
 ##############################################################################
 
 ##############################################################################
+# Placement Group Outputs
+##############################################################################
+
+output "placement_groups" {
+  description = "List of placement groups."
+  value       = resource.ibm_is_placement_group.placement_group
+}
+
+##############################################################################
+
+##############################################################################
 # Resource Group Outputs
 ##############################################################################
 
@@ -382,6 +393,35 @@ output "vpn_data" {
     for gateway in ibm_is_vpn_gateway.gateway :
     gateway
   ]
+}
+
+##############################################################################
+# Key Management Data
+##############################################################################
+
+output "key_management_name" {
+  description = "Name of key management service"
+  value       = module.key_management.key_management_name
+}
+
+output "key_management_crn" {
+  description = "CRN for KMS instance"
+  value       = module.key_management.key_management_crn
+}
+
+output "key_management_guid" {
+  description = "GUID for KMS instance"
+  value       = module.key_management.key_management_guid
+}
+
+output "key_rings" {
+  description = "Key rings created by module"
+  value       = module.key_management.key_rings
+}
+
+output "key_map" {
+  description = "Map of ids and keys for keys created"
+  value       = module.key_management.key_map
 }
 
 ##############################################################################

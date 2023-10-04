@@ -29,7 +29,6 @@ module "vsi_landing_zone" {
   enable_transit_gateway              = var.enable_transit_gateway
   transit_gateway_global              = var.transit_gateway_global
   ssh_public_key                      = var.ssh_public_key
-  ibmcloud_api_key                    = var.ibmcloud_api_key
   existing_ssh_key_name               = var.existing_ssh_key_name
   add_atracker_route                  = var.add_atracker_route
   hs_crypto_instance_name             = var.hs_crypto_instance_name
