@@ -115,54 +115,6 @@ func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
 	return nil
 }
 
-func TestRunQuickStartPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	excludeDirs := []string{
-		".terraform",
-		".docs",
-		".github",
-		".git",
-		".idea",
-		"common-dev-assets",
-		"examples",
-		"tests",
-		"reference-architectures",
-	}
-	includeFiletypes := []string{
-		".tf",
-		".yaml",
-		".py",
-		".tpl",
-	}
-
-	tarIncludePatterns, recurseErr := getTarIncludePatternsRecursively("..", excludeDirs, includeFiletypes)
-
-	// if error producing tar patterns (very unexpected) fail test immediately
-	require.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree")
-
-	// set up a schematics test
-	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
-		Testing:                t,
-		TarIncludePatterns:     tarIncludePatterns,
-		TemplateFolder:         quickStartPatternTerraformDir,
-		Prefix:                 "qs-sch",
-		Tags:                   []string{"test-schematic"},
-		DeleteWorkspaceOnFail:  false,
-		WaitJobCompleteMinutes: 60,
-	})
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
@@ -192,16 +144,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	}
 
 	return options
-}
-
-func TestRunRoksPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsRoksPattern(t, "ocp")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
@@ -251,16 +193,6 @@ func TestRunUpgradeVsiPattern(t *testing.T) {
 	}
 }
 
-func TestRunVSIPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVsiPattern(t, "vsi")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -279,16 +211,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
-}
-
-func TestRunVpcPattern(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsVpcPattern(t, "vpc")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
@@ -366,4 +288,110 @@ func TestRunOverride(t *testing.T) {
 		}
 	}
 	options.TestTearDown()
+}
+
+func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschematic.TestSchematicOptions {
+
+	excludeDirs := []string{
+		".terraform",
+		".docs",
+		".github",
+		".git",
+		".idea",
+		"common-dev-assets",
+		"examples",
+		"tests",
+		"reference-architectures",
+	}
+	includeFiletypes := []string{
+		".tf",
+		".yaml",
+		".py",
+		".tpl",
+	}
+
+	tarIncludePatterns, recurseErr := getTarIncludePatternsRecursively("..", excludeDirs, includeFiletypes)
+
+	// if error producing tar patterns (very unexpected) fail test immediately
+	require.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree")
+
+	// set up a schematics test
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing:                t,
+		TarIncludePatterns:     tarIncludePatterns,
+		TemplateFolder:         dir,
+		Prefix:                 "ocp-sc",
+		Tags:                   []string{"test-schematic"},
+		DeleteWorkspaceOnFail:  false,
+		WaitJobCompleteMinutes: 60,
+		CloudInfoService:       sharedInfoSvc,
+	})
+
+	return options
+}
+
+func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsSchematics(t, "qs-sc", quickStartPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVSIPatternSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsSchematics(t, "vsi-sc", vsiPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunRoksPatternSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVPCPatternSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsSchematics(t, "vpc-sc", vpcPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
