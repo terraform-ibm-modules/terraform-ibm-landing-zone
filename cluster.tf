@@ -18,6 +18,10 @@ locals {
     openshift = "${data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_openshift_versions) - 1]}_openshift"
     iks       = data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions[length(data.ibm_container_cluster_versions.cluster_versions.valid_kube_versions) - 1]
   }
+  default_kube_version = {
+    openshift = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
+    iks       = data.ibm_container_cluster_versions.cluster_versions.default_kube_version
+  }
 }
 
 ##############################################################################
@@ -34,11 +38,13 @@ resource "ibm_container_vpc_cluster" "cluster" {
   resource_group_id = local.resource_groups[each.value.resource_group]
   flavor            = each.value.machine_type
   worker_count      = each.value.workers_per_subnet
+  # if version is default or null then use default
+  # if version is latest then use latest
+  # otherwise use value
   kube_version = (
-    lookup(each.value, "kube_version", null) == "latest" # if version is latest
-    || lookup(each.value, "kube_version", null) == null  # or if version is null
-    ? local.latest_kube_version[each.value.kube_type]    # use latest
-    : each.value.kube_version                            # otherwise use value
+    lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null
+    ? local.default_kube_version[each.value.kube_type]
+    : (lookup(each.value, "kube_version", null) == "latest" ? local.latest_kube_version[each.value.kube_type] : each.value.kube_version)
   )
   update_all_workers = lookup(each.value, "update_all_workers", null)
   tags               = var.tags
