@@ -1,5 +1,3 @@
-<!-- BEGIN MODULE HOOK -->
-
 # IBM Secure Landing Zone module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
@@ -7,8 +5,6 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-landing-zone?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/releases/latest)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
-
-<!-- Remove the content in this H2 heading after completing the steps -->
 
 The landing zone module can be used to create a fully customizable VPC environment within a single region. The five following patterns are starting templates that can be used to get started quickly with Landing Zone. These patterns are located in the [patterns](/patterns/) directory.
 
@@ -38,11 +34,13 @@ For more information about the default configuration, see [Default Secure Landin
 | ------------------------------ | ------------------------------ | -------------------------------- | -------------------------------- | ---------------------------------- |
 | [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![QuickStart VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg)](patterns/vsi-quickstart/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
 
-## Before you begin
 
-Some features of this module require additional software beyond the [Terraform CLI](https://www.terraform.io/).
-- Make sure that you have a recent version of the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
-- Install the IBM Cloud CLI [VPC Infrastructure Plugin](https://cloud.ibm.com/docs/cli?topic=cli-vpc-reference)
+## Reference architectures
+- [VPC landing zone - Standard variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vpc-ra)
+- [VSI on VPC landing zone - Standard variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vsi-ra)
+- [VSI on VPC landing zone - QuickStart variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vsi-ra-qs)
+- [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ocp-ra)
+
 
 Complete the following steps before you deploy the Secure Landing Zone module.
 ### Set up an IBM Cloud Account
@@ -96,7 +94,7 @@ You can find the list of input variables in the `variables.tf` file of the patte
 
 - [VPC pattern input variables](./patterns/vpc/variables.tf)
 - [VSI pattern input variables](./patterns/vsi/variables.tf)
-- [ROKS pattern input variables](./patterns/roks/variables.tf)
+- [OCP pattern input variables](./patterns/roks/variables.tf)
 - [Mixed pattern input variables](./patterns/mixed/variables.tf)
 
 Terraform supports multiple ways to set input variables. For more information, see [Input Variables](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables) in the Terraform language documentation.
@@ -158,7 +156,7 @@ Secure Landing Zone can set up a bastion host that uses Teleport. For more infor
 
 | Feature | Description | Module | Version |
 | --- | --- | --- | --- |
-| Logging and Monitoring | Configure logging or monitoring for an existing Red Hat OpenShift cluster | [slzone/terraform-logmon-module](https://github.com/slzone/terraform-logmon-module) | v1.0.0 |
+| Client-To-Site VPN | Create a client-to-site VPN connection between the private VPC network and clients by using Terraform automation that's packaged as a deployable architecture | [Client-To-Site VPN extension for landing zone](https://github.com/terraform-ibm-modules/terraform-ibm-client-to-site-vpn/tree/main/extensions/landing-zone) | >= v1.4.13 |
 
 ## Details about the Secure Landing Zone module
 
@@ -735,31 +733,11 @@ This module can provision a Cloud Object Storage instance or retrieve an existin
 You define Cloud Object Storage components in the [cos.tf](cos.tf) file.
 
 
-### Security and Compliance Center variable
-
-The `location_id` variable represents the geographic area where Posture Management requests are handled and processed. When `is_public` is set to `true`, the collector connects to resources in your account over a public network. When set to `false`, the collector connects to resources by using a private IP address that is accessible only through IBM Cloud Private network. The `collector_passphrase` is necessary only if credential passphrase is enabled.
-
-```terraform
-object(
-  {
-    location_id           = optional(string)
-    is_public             = optional(bool)
-    collector_passphrase  = optional(string)
-    collector_description = optional(string)
-    credential_id         = optional(string)
-    scope_name            = optional(string)
-    scope_description     = optional(string)
-  }
-)
-```
-
 ## VPC placement groups
 
 You can create multiple VPC placement groups in the [vpc_placement_groups.tf](/vpc_placement_groups.tf) file. For more information about VPC placement groups, see [About placement groups](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc&interface=ui) in the IBM Cloud Docs.
 
 ## Usage
-
-<!-- Add sample usage of the module itself in the following code block -->
 
 ### Template for multiple patterns
 
@@ -845,43 +823,6 @@ module "cluster_pattern" {
   wait_till                      = var.wait_till
 }
 ```
-
-## Required IAM access policies
-
-<!-- PERMISSIONS REQUIRED TO RUN MODULE
-If this module requires permissions, uncomment the following block and update
-the sample permissions, following the format.
-Replace the sample Account and IBM Cloud service names and roles with the
-information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
--->
-
-<!--
-You need the following permissions to run this module.
-
-- Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
-    - IAM Services
-        - **Sample Cloud Service** service
-            - `Administrator` platform access
--->
-
-<!-- NO PERMISSIONS FOR MODULE
-If no permissions are required for the module, uncomment the following
-statement instead the previous block.
--->
-
-<!-- No permissions are needed to run this module.-->
-<!-- END MODULE HOOK -->
-
-<!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [ One VPC with one VSI example](examples/one-vpc-one-vsi)
-- [ Override.json example](examples/override-example)
-<!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
@@ -1035,7 +976,6 @@ statement instead the previous block.
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-<!-- BEGIN CONTRIBUTING HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
 ## Contributing
@@ -1043,4 +983,3 @@ statement instead the previous block.
 You can report issues and request features for this module in GitHub issues in the module repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-<!-- END CONTRIBUTING HOOK -->
