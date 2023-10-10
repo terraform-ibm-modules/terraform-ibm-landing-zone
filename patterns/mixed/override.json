@@ -10,7 +10,7 @@
             "cos_name": "cos",
             "entitlement": "cloud_pak",
             "kube_type": "openshift",
-            "kube_version": "latest",
+            "kube_version": "default",
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
