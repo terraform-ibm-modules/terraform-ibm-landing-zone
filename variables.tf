@@ -800,7 +800,7 @@ variable "clusters" {
       workers_per_subnet   = number           # Worker nodes per subnet.
       machine_type         = string           # Worker node flavor
       kube_type            = string           # iks or openshift
-      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
+      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions`, `latest` or `default`
       entitlement          = optional(string) # entitlement option for openshift
       pod_subnet           = optional(string) # Portable subnet for pods
       service_subnet       = optional(string) # Portable subnet for services
