@@ -573,6 +573,14 @@
         "line": 55
       }
     },
+    "cluster_data": {
+      "name": "cluster_data",
+      "description": "List of cluster data",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 77
+      }
+    },
     "cluster_names": {
       "name": "cluster_names",
       "description": "List of create cluster names",
@@ -586,7 +594,7 @@
       "description": "List of data for COS buckets creaed",
       "pos": {
         "filename": "outputs.tf",
-        "line": 127
+        "line": 142
       }
     },
     "cos_bucket_names": {
@@ -594,7 +602,7 @@
       "description": "List of names for COS buckets created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 119
+        "line": 134
       }
     },
     "cos_data": {
@@ -602,7 +610,7 @@
       "description": "List of Cloud Object Storage instance data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 97
+        "line": 112
       }
     },
     "cos_key_names": {
@@ -610,7 +618,7 @@
       "description": "List of names for created COS keys",
       "pos": {
         "filename": "outputs.tf",
-        "line": 111
+        "line": 126
       }
     },
     "cos_names": {
@@ -618,7 +626,7 @@
       "description": "List of Cloud Object Storage instance names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 83
+        "line": 98
       }
     },
     "f5_hosts": {
@@ -626,7 +634,7 @@
       "description": "List of bastion host names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 141
+        "line": 156
       }
     },
     "fip_vsi_data": {
@@ -634,7 +642,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. This list only contains instances with a floating IP attached.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 318
+        "line": 333
       }
     },
     "key_management_crn": {
@@ -643,7 +651,7 @@
       "value": "module.key_management.key_management_crn",
       "pos": {
         "filename": "outputs.tf",
-        "line": 407
+        "line": 422
       }
     },
     "key_management_guid": {
@@ -652,7 +660,7 @@
       "value": "module.key_management.key_management_guid",
       "pos": {
         "filename": "outputs.tf",
-        "line": 412
+        "line": 427
       }
     },
     "key_management_name": {
@@ -661,7 +669,7 @@
       "value": "module.key_management.key_management_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 402
+        "line": 417
       }
     },
     "key_map": {
@@ -670,7 +678,7 @@
       "value": "module.key_management.key_map",
       "pos": {
         "filename": "outputs.tf",
-        "line": 422
+        "line": 437
       }
     },
     "key_rings": {
@@ -679,7 +687,7 @@
       "value": "module.key_management.key_rings",
       "pos": {
         "filename": "outputs.tf",
-        "line": 417
+        "line": 432
       }
     },
     "placement_groups": {
@@ -688,7 +696,7 @@
       "value": "resource.ibm_is_placement_group.placement_group",
       "pos": {
         "filename": "outputs.tf",
-        "line": 195
+        "line": 210
       }
     },
     "resource_group_data": {
@@ -697,7 +705,7 @@
       "value": "local.resource_groups",
       "pos": {
         "filename": "outputs.tf",
-        "line": 211
+        "line": 226
       }
     },
     "resource_group_names": {
@@ -705,7 +713,7 @@
       "description": "List of resource groups names used within landing zone.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 206
+        "line": 221
       }
     },
     "secrets_manager_data": {
@@ -713,7 +721,7 @@
       "description": "Secrets manager instance",
       "pos": {
         "filename": "outputs.tf",
-        "line": 222
+        "line": 237
       }
     },
     "security_group_data": {
@@ -721,7 +729,7 @@
       "description": "List of security group data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 242
+        "line": 257
       }
     },
     "security_group_names": {
@@ -729,7 +737,7 @@
       "description": "List of security group names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 233
+        "line": 248
       }
     },
     "service_authorization_data": {
@@ -737,7 +745,7 @@
       "description": "List of service authorization data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 261
+        "line": 276
       }
     },
     "service_authorization_names": {
@@ -745,7 +753,7 @@
       "description": "List of service authorization names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 256
+        "line": 271
       }
     },
     "ssh_key_data": {
@@ -753,7 +761,7 @@
       "description": "List of SSH key data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 280
+        "line": 295
       }
     },
     "ssh_key_names": {
@@ -761,7 +769,7 @@
       "description": "List of SSH key names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 275
+        "line": 290
       }
     },
     "subnet_data": {
@@ -769,7 +777,7 @@
       "description": "List of Subnet data created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 179
+        "line": 194
       }
     },
     "subnet_names": {
@@ -777,7 +785,7 @@
       "description": "List of Subnet names created",
       "pos": {
         "filename": "outputs.tf",
-        "line": 171
+        "line": 186
       }
     },
     "transit_gateway_data": {
@@ -785,7 +793,7 @@
       "description": "Created transit gateway data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 299
+        "line": 314
       }
     },
     "transit_gateway_name": {
@@ -793,7 +801,7 @@
       "description": "Name of created transit gateway",
       "pos": {
         "filename": "outputs.tf",
-        "line": 294
+        "line": 309
       }
     },
     "vpc_data": {
@@ -801,7 +809,7 @@
       "description": "List of VPC data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 163
+        "line": 178
       }
     },
     "vpc_names": {
@@ -809,7 +817,7 @@
       "description": "List of VPC names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 155
+        "line": 170
       }
     },
     "vpe_gateway_data": {
@@ -817,7 +825,7 @@
       "description": "List of VPE gateways data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 368
+        "line": 383
       }
     },
     "vpe_gateway_names": {
@@ -825,7 +833,7 @@
       "description": "VPE gateway names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 360
+        "line": 375
       }
     },
     "vpn_data": {
@@ -833,7 +841,7 @@
       "description": "List of VPN data",
       "pos": {
         "filename": "outputs.tf",
-        "line": 390
+        "line": 405
       }
     },
     "vpn_names": {
@@ -841,7 +849,7 @@
       "description": "List of VPN names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 382
+        "line": 397
       }
     },
     "vsi_data": {
@@ -849,7 +857,7 @@
       "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 336
+        "line": 351
       }
     },
     "vsi_names": {
@@ -857,7 +865,7 @@
       "description": "List of VSI names",
       "pos": {
         "filename": "outputs.tf",
-        "line": 310
+        "line": 325
       }
     }
   },

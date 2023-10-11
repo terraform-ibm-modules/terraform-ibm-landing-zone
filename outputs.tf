@@ -74,6 +74,21 @@ output "cluster_names" {
   ]
 }
 
+output "cluster_data" {
+  description = "List of cluster data"
+  value = {
+    for cluster in ibm_container_vpc_cluster.cluster :
+    cluster.name => {
+      crn                 = cluster.crn
+      id                  = cluster.id
+      resource_group_name = cluster.resource_group_name
+      resource_group_id   = cluster.resource_group_id
+      vpc_id              = cluster.vpc_id
+      region              = var.region
+    }
+  }
+}
+
 ##############################################################################
 
 ##############################################################################

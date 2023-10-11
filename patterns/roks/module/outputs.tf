@@ -72,6 +72,11 @@ output "cluster_names" {
   value       = module.landing_zone.cluster_names
 }
 
+output "cluster_data" {
+  description = "List of cluster data"
+  value       = module.landing_zone.cluster_data
+}
+
 output "key_management_name" {
   description = "Name of key management service"
   value       = module.landing_zone.key_management_name

@@ -87,6 +87,11 @@ output "cluster_names" {
   value       = module.landing_zone.cluster_names
 }
 
+output "cluster_data" {
+  description = "List of cluster data"
+  value       = module.landing_zone.cluster_data
+}
+
 ##############################################################################
 
 ##############################################################################
