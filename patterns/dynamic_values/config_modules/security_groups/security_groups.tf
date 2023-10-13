@@ -151,10 +151,11 @@ output "f5_bastion" {
 output "bastion_vsi" {
   description = "Security Group for Bastion VSI"
   value = {
-    name        = "bastion-vsi-sg"
-    vpc_name    = var.bastion_vpc_name
-    rules       = var.bastion_vsi_rules
-    access_tags = []
+    name           = "bastion-vsi-sg"
+    vpc_name       = var.bastion_vpc_name
+    resource_group = "${var.prefix}-${var.bastion_vpc_name}-rg"
+    rules          = var.bastion_vsi_rules
+    access_tags    = []
   }
 }
 
