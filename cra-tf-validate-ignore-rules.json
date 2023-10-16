@@ -5,6 +5,12 @@
             "description": "Check whether Cloud Object Storage network access is restricted to a specific IP range",
             "ignore_reason": "In order for this rule to pass, Context Based Restrictions (CBRs) support needs to be added to the module (tracking in https://github.ibm.com/GoldenEye/issues/issues/5626). Even after that is added, there is still a dependency on SCC to support scanning for CBR rules. SCC CBR support is being tracked in https://github.ibm.com/project-fortress/pm/issues/11800.",
             "is_valid": true
+        },
+        {
+             "scc_rule_id": "rule-216e2449-27d7-4afc-929a-b66e196a9cf9",
+             "description": "Check whether Flow Logs for VPC are enabled",
+             "ignore_reason": "This rule should not be failing as we do enable flow logs in the code. Bug reported with CRA: https://github.ibm.com/oneibmcloud/CD-CRA/issues/1907",
+             "is_valid": false
         }
     ]
 }
