@@ -210,7 +210,7 @@ output "vpc_resource_list" {
       name              = vpc.vpc_data.name
       resource_group_id = vpc.vpc_data.resource_group
       region            = var.region
-      cluster = flatten([for cluster in ibm_container_vpc_cluster.cluster :
+      clusters = flatten([for cluster in ibm_container_vpc_cluster.cluster :
         cluster.id if cluster.vpc_id == vpc.vpc_data.id
       ])
       vsi = distinct(flatten([
