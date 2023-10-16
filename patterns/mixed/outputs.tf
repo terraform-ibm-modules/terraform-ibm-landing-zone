@@ -82,6 +82,11 @@ output "vpn_data" {
   value       = module.landing_zone.vpn_data
 }
 
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value       = module.landing_zone.vpc_resource_list
+}
+
 output "cluster_names" {
   description = "List of create cluster names"
   value       = module.landing_zone.cluster_names

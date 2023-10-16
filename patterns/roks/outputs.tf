@@ -27,6 +27,11 @@ output "vpc_data" {
   value       = module.roks_landing_zone.vpc_data
 }
 
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value       = module.roks_landing_zone.vpc_resource_list
+}
+
 output "subnet_data" {
   description = "List of Subnet data created"
   value       = module.roks_landing_zone.subnet_data

@@ -201,6 +201,31 @@ output "subnet_data" {
   ])
 }
 
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value = [
+    for vpc in module.vpc :
+    {
+      id                = vpc.vpc_data.id
+      name              = vpc.vpc_data.name
+      resource_group_id = vpc.vpc_data.resource_group
+      region            = var.region
+      cluster = flatten([for cluster in ibm_container_vpc_cluster.cluster :
+        cluster.id if cluster.vpc_id == vpc.vpc_data.id
+      ])
+      vsi = distinct(flatten([
+        [
+          for group in keys(local.vsi_map) :
+          [
+            for deployment in module.vsi[group].list :
+            module.vsi[group].ids if vpc.vpc_data.id == deployment.vpc_id
+          ]
+        ]
+      ]))
+    }
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
