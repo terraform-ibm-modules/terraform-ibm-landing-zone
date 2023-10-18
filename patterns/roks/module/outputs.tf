@@ -27,6 +27,11 @@ output "vpc_data" {
   value       = module.landing_zone.vpc_data
 }
 
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value       = module.landing_zone.vpc_resource_list
+}
+
 output "subnet_data" {
   description = "List of Subnet data created"
   value       = module.landing_zone.subnet_data
@@ -70,6 +75,11 @@ output "vpn_data" {
 output "cluster_names" {
   description = "List of create cluster names"
   value       = module.landing_zone.cluster_names
+}
+
+output "cluster_data" {
+  description = "List of cluster data"
+  value       = module.landing_zone.cluster_data
 }
 
 output "key_management_name" {

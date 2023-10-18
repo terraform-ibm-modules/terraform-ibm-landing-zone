@@ -74,6 +74,21 @@ output "cluster_names" {
   ]
 }
 
+output "cluster_data" {
+  description = "List of cluster data"
+  value = {
+    for cluster in ibm_container_vpc_cluster.cluster :
+    cluster.name => {
+      crn                 = cluster.crn
+      id                  = cluster.id
+      resource_group_name = cluster.resource_group_name
+      resource_group_id   = cluster.resource_group_id
+      vpc_id              = cluster.vpc_id
+      region              = var.region
+    }
+  }
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -184,6 +199,31 @@ output "subnet_data" {
       subnet
     ]
   ])
+}
+
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value = [
+    for vpc in module.vpc :
+    {
+      id                = vpc.vpc_data.id
+      name              = vpc.vpc_data.name
+      resource_group_id = vpc.vpc_data.resource_group
+      region            = var.region
+      clusters = flatten([for cluster in ibm_container_vpc_cluster.cluster :
+        cluster.id if cluster.vpc_id == vpc.vpc_data.id
+      ])
+      vsi = distinct(flatten([
+        [
+          for group in keys(local.vsi_map) :
+          [
+            for deployment in module.vsi[group].list :
+            module.vsi[group].ids if vpc.vpc_data.id == deployment.vpc_id
+          ]
+        ]
+      ]))
+    }
+  ]
 }
 
 ##############################################################################

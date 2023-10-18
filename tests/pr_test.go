@@ -368,6 +368,8 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 
 	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
 
+	options.WaitJobCompleteMinutes = 120
+
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
