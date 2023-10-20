@@ -399,7 +399,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
-func TestRunSLZExample(t *testing.T) {
+func TestRunVsiExtention(t *testing.T) {
 	t.Parallel()
 
 	sshPublicKey := sshPublicKey(t)
