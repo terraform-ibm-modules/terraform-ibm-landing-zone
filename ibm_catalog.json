@@ -495,6 +495,104 @@
                             }
                         ]
                     }
+                },
+                {
+                    "label": "VSI on existing VPC",
+                    "name": "vsi-extension",
+                    "install_type": "extension",
+                    "working_directory": "patterns/vsi-extension",
+                    "compliance": {
+                      "authority": "scc-v3",
+                      "profiles": [
+                        {
+                          "profile_name": "IBM Cloud for Financial Services",
+                          "profile_version": "1.3.0"
+                        }
+                      ]
+                    },
+                    "configuration": [
+                      {
+                        "key": "existing_ssh_key_name",
+                        "required": true,
+                        "custom_config": {
+                          "config_constraints": {
+                            "valueType": "name"
+                          },
+                          "grouping": "deployment",
+                          "original_grouping": "deployment",
+                          "type": "vpc_ssh_key"
+                        }
+                      },
+                      {
+                        "custom_config": {
+                          "config_constraints": {
+                            "generationType": "2"
+                          },
+                          "grouping": "deployment",
+                          "original_grouping": "deployment",
+                          "type": "vpc_region"
+                        },
+                        "key": "region",
+                        "required": true
+                      }
+                    ],
+                    "iam_permissions": [
+                      {
+                        "role_crns": [
+                          "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                        ],
+                        "service_name": "hs-crypto"
+                      },
+                      {
+                        "role_crns": [
+                          "crn:v1:bluemix:public:iam::::role:Administrator"
+                        ],
+                        "service_name": "iam-identity"
+                      },
+                      {
+                        "role_crns": [
+                          "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                        ],
+                        "service_name": "kms"
+                      },
+                      {
+                        "role_crns": [
+                          "crn:v1:bluemix:public:iam::::role:Administrator"
+                        ],
+                        "service_name": "is.vpc"
+                      }
+                    ],
+                    "architecture": {
+                      "descriptions": "",
+                      "features": [
+                        {
+                          "title": "Virtual Server Instances for every subnet",
+                          "description": "Yes"
+                        },
+                        {
+                          "title": "Increases security with Key Management",
+                          "description": "Yes"
+                        },
+                        {
+                          "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                          "description": "Yes"
+                        },
+                        {
+                          "title": "Uses Floating IP address for access through the public internet",
+                          "description": "No"
+                        }
+                      ],
+                      "diagrams": [
+                        {
+                          "diagram": {
+                            "caption": "VSI on existing VPC",
+                            "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
+                            "type": "image/svg+xml"
+                          },
+                          "description": "The VSI on existing VPC deployable architecture extension is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
+                        }
+                      ]
+                    }
                 }
             ]
         },
