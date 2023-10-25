@@ -1458,7 +1458,7 @@
     "bastion_host": {
       "name": "bastion_host",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.6.0",
+      "version": "2.12.1",
       "attributes": {
         "prefix": "prefix"
       },
@@ -1476,7 +1476,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 86
+            "line": 83
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -1493,7 +1493,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 162
+            "line": 170
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -1510,7 +1510,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_instance.vsi": {
@@ -1521,6 +1521,7 @@
             "access_tags": "access_tags",
             "image": "image_id",
             "keys": "ssh_key_ids",
+            "placement_group": "placement_group_id",
             "profile": "machine_type",
             "resource_group": "resource_group_id",
             "tags": "tags",
@@ -1533,7 +1534,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 95
+            "line": 92
           }
         },
         "ibm_is_lb.lb": {
@@ -1564,7 +1565,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 81
+            "line": 82
           }
         },
         "ibm_is_lb_pool.pool": {
@@ -1579,7 +1580,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 30
+            "line": 31
           }
         },
         "ibm_is_lb_pool_member.pool_members": {
@@ -1591,7 +1592,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/load_balancer.tf",
-            "line": 65
+            "line": 66
           }
         },
         "ibm_is_security_group.security_group": {
@@ -1609,7 +1610,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/security_group.tf",
-            "line": 26
+            "line": 32
           }
         },
         "ibm_is_security_group_rule.security_group_rules": {
@@ -1621,7 +1622,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/security_group.tf",
-            "line": 63
+            "line": 67
           }
         },
         "ibm_is_volume.volume": {
@@ -1637,7 +1638,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/storage.tf",
-            "line": 42
+            "line": 43
           }
         },
         "time_sleep.wait_for_authorization_policy": {
@@ -1649,7 +1650,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 54
+            "line": 62
           }
         }
       },
@@ -1658,27 +1659,15 @@
           "mode": "data",
           "type": "ibm_is_vpc",
           "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 70
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
           "attributes": {
-            "depends_on": "vpc_id"
+            "identifier": "vpc_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": ".terraform/modules/bastion_host/main.tf",
-            "line": 64
+            "line": 72
           }
         }
       },
@@ -1688,7 +1677,7 @@
           "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
           "pos": {
             "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 33
+            "line": 34
           }
         },
         "ids": {
@@ -1704,7 +1693,7 @@
           "description": "Hostnames for the Load Balancer created",
           "pos": {
             "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 54
+            "line": 56
           }
         },
         "lb_security_groups": {
@@ -1712,7 +1701,7 @@
           "description": "Load Balancer security groups",
           "pos": {
             "filename": ".terraform/modules/bastion_host/outputs.tf",
-            "line": 62
+            "line": 64
           }
         },
         "list": {
@@ -2026,7 +2015,7 @@
     "f5_vsi": {
       "name": "f5_vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.6.0",
+      "version": "2.12.1",
       "attributes": {
         "prefix": "prefix"
       },
@@ -2044,7 +2033,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 86
+            "line": 83
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -2061,7 +2050,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 162
+            "line": 170
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2078,7 +2067,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_instance.vsi": {
@@ -2089,6 +2078,7 @@
             "access_tags": "access_tags",
             "image": "image_id",
             "keys": "ssh_key_ids",
+            "placement_group": "placement_group_id",
             "profile": "machine_type",
             "resource_group": "resource_group_id",
             "tags": "tags",
@@ -2101,7 +2091,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 95
+            "line": 92
           }
         },
         "ibm_is_lb.lb": {
@@ -2132,7 +2122,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 81
+            "line": 82
           }
         },
         "ibm_is_lb_pool.pool": {
@@ -2147,7 +2137,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 30
+            "line": 31
           }
         },
         "ibm_is_lb_pool_member.pool_members": {
@@ -2159,7 +2149,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/load_balancer.tf",
-            "line": 65
+            "line": 66
           }
         },
         "ibm_is_security_group.security_group": {
@@ -2177,7 +2167,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/security_group.tf",
-            "line": 26
+            "line": 32
           }
         },
         "ibm_is_security_group_rule.security_group_rules": {
@@ -2189,7 +2179,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/security_group.tf",
-            "line": 63
+            "line": 67
           }
         },
         "ibm_is_volume.volume": {
@@ -2205,7 +2195,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/storage.tf",
-            "line": 42
+            "line": 43
           }
         },
         "time_sleep.wait_for_authorization_policy": {
@@ -2217,7 +2207,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 54
+            "line": 62
           }
         }
       },
@@ -2226,27 +2216,15 @@
           "mode": "data",
           "type": "ibm_is_vpc",
           "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 70
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
           "attributes": {
-            "depends_on": "vpc_id"
+            "identifier": "vpc_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": ".terraform/modules/f5_vsi/main.tf",
-            "line": 64
+            "line": 72
           }
         }
       },
@@ -2256,7 +2234,7 @@
           "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
           "pos": {
             "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 33
+            "line": 34
           }
         },
         "ids": {
@@ -2272,7 +2250,7 @@
           "description": "Hostnames for the Load Balancer created",
           "pos": {
             "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 54
+            "line": 56
           }
         },
         "lb_security_groups": {
@@ -2280,7 +2258,7 @@
           "description": "Load Balancer security groups",
           "pos": {
             "filename": ".terraform/modules/f5_vsi/outputs.tf",
-            "line": 62
+            "line": 64
           }
         },
         "list": {
@@ -2931,7 +2909,7 @@
     "vsi": {
       "name": "vsi",
       "source": "terraform-ibm-modules/landing-zone-vsi/ibm",
-      "version": "2.6.0",
+      "version": "2.12.1",
       "attributes": {
         "prefix": "prefix",
         "tags": "tags"
@@ -2950,7 +2928,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 86
+            "line": 83
           }
         },
         "ibm_is_floating_ip.secondary_fip": {
@@ -2967,7 +2945,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 162
+            "line": 170
           }
         },
         "ibm_is_floating_ip.vsi_fip": {
@@ -2984,7 +2962,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 154
+            "line": 162
           }
         },
         "ibm_is_instance.vsi": {
@@ -2995,6 +2973,7 @@
             "access_tags": "access_tags",
             "image": "image_id",
             "keys": "ssh_key_ids",
+            "placement_group": "placement_group_id",
             "profile": "machine_type",
             "resource_group": "resource_group_id",
             "tags": "tags",
@@ -3007,7 +2986,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 95
+            "line": 92
           }
         },
         "ibm_is_lb.lb": {
@@ -3038,7 +3017,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 81
+            "line": 82
           }
         },
         "ibm_is_lb_pool.pool": {
@@ -3053,7 +3032,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 30
+            "line": 31
           }
         },
         "ibm_is_lb_pool_member.pool_members": {
@@ -3065,7 +3044,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/load_balancer.tf",
-            "line": 65
+            "line": 66
           }
         },
         "ibm_is_security_group.security_group": {
@@ -3083,7 +3062,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/security_group.tf",
-            "line": 26
+            "line": 32
           }
         },
         "ibm_is_security_group_rule.security_group_rules": {
@@ -3095,7 +3074,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/security_group.tf",
-            "line": 63
+            "line": 67
           }
         },
         "ibm_is_volume.volume": {
@@ -3111,7 +3090,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/storage.tf",
-            "line": 42
+            "line": 43
           }
         },
         "time_sleep.wait_for_authorization_policy": {
@@ -3123,7 +3102,7 @@
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 54
+            "line": 62
           }
         }
       },
@@ -3132,27 +3111,15 @@
           "mode": "data",
           "type": "ibm_is_vpc",
           "name": "vpc",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": ".terraform/modules/vsi/main.tf",
-            "line": 70
-          }
-        },
-        "data.ibm_is_vpcs.vpcs": {
-          "mode": "data",
-          "type": "ibm_is_vpcs",
-          "name": "vpcs",
           "attributes": {
-            "depends_on": "vpc_id"
+            "identifier": "vpc_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": ".terraform/modules/vsi/main.tf",
-            "line": 64
+            "line": 72
           }
         }
       },
@@ -3162,7 +3129,7 @@
           "description": "A list of VSI with name, id, zone, and primary ipv4 address, and floating IP. This list only contains instances with a floating IP attached.",
           "pos": {
             "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 33
+            "line": 34
           }
         },
         "ids": {
@@ -3178,7 +3145,7 @@
           "description": "Hostnames for the Load Balancer created",
           "pos": {
             "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 54
+            "line": 56
           }
         },
         "lb_security_groups": {
@@ -3186,7 +3153,7 @@
           "description": "Load Balancer security groups",
           "pos": {
             "filename": ".terraform/modules/vsi/outputs.tf",
-            "line": 62
+            "line": 64
           }
         },
         "list": {
