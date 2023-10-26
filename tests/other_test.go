@@ -15,6 +15,12 @@ func TestRunRoksPatternWithHPCS(t *testing.T) {
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// If "jp-osa" was the best region selected, default to us-south instead.
+	// "jp-osa" is currently not allowing hs-crypto be used for encrypting buckets in that region.
+	currentRegion, ok := options.TerraformVars["region"]
+	if !ok || currentRegion == "jp-osa" {
+		options.TerraformVars["region"] = "us-south"
+	}
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -29,6 +35,12 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
+	// If "jp-osa" was the best region selected, default to us-south instead.
+	// "jp-osa" is currently not allowing hs-crypto be used for encrypting buckets in that region.
+	currentRegion, ok := options.TerraformVars["region"]
+	if !ok || currentRegion == "jp-osa" {
+		options.TerraformVars["region"] = "us-south"
+	}
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
