@@ -497,8 +497,8 @@
                     }
                 },
                 {
-                    "label": "VSI on existing VPC",
-                    "name": "vsi-extension",
+                    "label": "Existing VPC",
+                    "name": "existing-vpc",
                     "install_type": "extension",
                     "working_directory": "patterns/vsi-extension",
                     "compliance": {
