@@ -11,7 +11,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1128
+        "line": 1133
       }
     },
     "add_kms_block_storage_s2s": {
@@ -25,7 +25,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1493
+        "line": 1498
       }
     },
     "appid": {
@@ -42,7 +42,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 884
+        "line": 889
       }
     },
     "atracker": {
@@ -56,7 +56,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 763
+        "line": 768
       }
     },
     "clusters": {
@@ -69,7 +69,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 779
+        "line": 784
       }
     },
     "cos": {
@@ -82,7 +82,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 465
+        "line": 470
       }
     },
     "enable_transit_gateway": {
@@ -91,6 +91,7 @@
       "description": "Create transit gateway",
       "default": true,
       "source": [
+        "ibm_tg_connection.connection.for_each",
         "ibm_tg_gateway.transit_gateway.count"
       ],
       "pos": {
@@ -111,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1397
+        "line": 1402
       }
     },
     "f5_vsi": {
@@ -124,7 +125,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1260
+        "line": 1265
       }
     },
     "iam_account_settings": {
@@ -148,7 +149,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1022
+        "line": 1027
       }
     },
     "key_management": {
@@ -163,7 +164,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 690
+        "line": 695
       }
     },
     "network_cidr": {
@@ -198,6 +199,7 @@
         "ibm_resource_instance.cos.name",
         "ibm_resource_key.appid_key.name",
         "ibm_resource_key.key.name",
+        "ibm_tg_connection.connection.name",
         "ibm_tg_gateway.transit_gateway.name",
         "module.bastion_host.ibm_is_lb.lb.name",
         "module.bastion_host.ibm_is_lb_pool.pool.name",
@@ -294,7 +296,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1443
+        "line": 1448
       }
     },
     "security_groups": {
@@ -307,7 +309,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 367
+        "line": 372
       }
     },
     "service_endpoints": {
@@ -317,7 +319,7 @@
       "default": "private",
       "pos": {
         "filename": "variables.tf",
-        "line": 679
+        "line": 684
       }
     },
     "ssh_keys": {
@@ -330,7 +332,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 221
+        "line": 226
       }
     },
     "tags": {
@@ -394,7 +396,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 928
+        "line": 933
       }
     },
     "teleport_vsi": {
@@ -407,7 +409,17 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 954
+        "line": 959
+      }
+    },
+    "transit_gateway_connections": {
+      "name": "transit_gateway_connections",
+      "type": "list(string)",
+      "description": "Transit gateway vpc connections. Will only be used if transit gateway is enabled.",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 215
       }
     },
     "transit_gateway_global": {
@@ -443,7 +455,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 439
+        "line": 444
       }
     },
     "vpc_placement_groups": {
@@ -456,7 +468,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 1461
+        "line": 1466
       }
     },
     "vpcs": {
@@ -495,7 +507,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 254
+        "line": 259
       }
     },
     "wait_till": {
@@ -508,7 +520,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 863
+        "line": 868
       }
     }
   },
@@ -1313,6 +1325,22 @@
       "pos": {
         "filename": "secrets_manager.tf",
         "line": 30
+      }
+    },
+    "ibm_tg_connection.connection": {
+      "mode": "managed",
+      "type": "ibm_tg_connection",
+      "name": "connection",
+      "attributes": {
+        "for_each": "enable_transit_gateway",
+        "name": "prefix"
+      },
+      "provider": {
+        "name": "ibm"
+      },
+      "pos": {
+        "filename": "transit_gateway.tf",
+        "line": 27
       }
     },
     "ibm_tg_gateway.transit_gateway": {
