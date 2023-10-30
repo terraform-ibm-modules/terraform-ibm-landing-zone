@@ -3,6 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	tfjson "github.com/hashicorp/terraform-json"
 	"io/fs"
 	"log"
 	"os"
@@ -10,7 +11,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
@@ -225,6 +228,28 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 	}
 }
 
+// sanitizeResourceChanges sanitizes the sensitive data in a Terraform JSON Change and returns the sanitized JSON.
+func sanitizeResourceChanges(change *tfjson.Change, mergedSensitive map[string]interface{}) (string, error) {
+	// Marshal the Change to JSON bytes
+	changesBytes, err := json.MarshalIndent(change, "", "  ")
+	if err != nil {
+		return "", err
+	}
+	changesJson := string(changesBytes)
+
+	// Perform sanitization of sensitive data
+	changesJson, err = common.SanitizeSensitiveData(changesJson, mergedSensitive)
+	return changesJson, err
+}
+
+// handleSanitizationError logs an error message if a sanitization error occurs.
+func handleSanitizationError(err error, location string, options *testhelper.TestOptions) {
+	if err != nil {
+		errorMessage := fmt.Sprintf("Error sanitizing sensitive data in %s", location)
+		logger.Log(options.Testing, errorMessage)
+	}
+}
+
 func TestRunOverride(t *testing.T) {
 	t.Parallel()
 
@@ -260,16 +285,80 @@ func TestRunOverride(t *testing.T) {
 				}
 
 				var resourceDetails string
-				if resource.Change.Actions.Update() {
-					resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, common.GetBeforeAfterDiff(changesJson), changesJson)
-				} else {
-					// Do not print changesJson because might expose secrets
-					resourceDetails = fmt.Sprintf("Name: %s Address: %s Actions: %s\n", resource.Name, resource.Address, resource.Change.Actions)
+
+				// Treat all keys in the BeforeSensitive and AfterSensitive maps as sensitive
+				// Assuming BeforeSensitive and AfterSensitive are of type interface{}
+				beforeSensitive, beforeSensitiveOK := resource.Change.BeforeSensitive.(map[string]interface{})
+				afterSensitive, afterSensitiveOK := resource.Change.AfterSensitive.(map[string]interface{})
+
+				// Create the mergedSensitive map
+				mergedSensitive := make(map[string]interface{})
+
+				// Check if BeforeSensitive is of the expected type
+				if beforeSensitiveOK {
+					// Copy the keys and values from BeforeSensitive to the mergedSensitive map.
+					for key, value := range beforeSensitive {
+						mergedSensitive[key] = value
+					}
 				}
 
+				// Check if AfterSensitive is of the expected type
+				if afterSensitiveOK {
+					// Copy the keys and values from AfterSensitive to the mergedSensitive map.
+					for key, value := range afterSensitive {
+						mergedSensitive[key] = value
+					}
+				}
+
+				// Perform sanitization
+				changesJson, err := sanitizeResourceChanges(resource.Change, mergedSensitive)
+				if err != nil {
+					changesJson = "Error sanitizing sensitive data"
+					logger.Log(options.Testing, changesJson)
+				}
+				formatChangesJson, err := common.FormatJsonStringPretty(changesJson)
+
+				var formatChangesJsonString string
+				if err != nil {
+					logger.Log(options.Testing, "Error formatting JSON, use unformatted")
+					formatChangesJsonString = changesJson
+				} else {
+					formatChangesJsonString = string(formatChangesJson)
+				}
+
+				diff, diffErr := common.GetBeforeAfterDiff(changesJson)
+
+				if diffErr != nil {
+					diff = fmt.Sprintf("Error getting diff: %s", diffErr)
+				} else {
+					// Split the changesJson into "Before" and "After" parts
+					beforeAfter := strings.Split(diff, "After: ")
+
+					// Perform sanitization on "After" part
+					var after string
+					if len(beforeAfter) > 1 {
+						after, err = common.SanitizeSensitiveData(beforeAfter[1], mergedSensitive)
+						handleSanitizationError(err, "after diff", options)
+					} else {
+						after = fmt.Sprintf("Could not parse after from diff") // dont print incase diff contains sensitive values
+					}
+
+					// Perform sanitization on "Before" part
+					var before string
+					if len(beforeAfter) > 0 {
+						before, err = common.SanitizeSensitiveData(strings.TrimPrefix(beforeAfter[0], "Before: "), mergedSensitive)
+						handleSanitizationError(err, "before diff", options)
+					} else {
+						before = fmt.Sprintf("Could not parse before from diff") // dont print incase diff contains sensitive values
+					}
+
+					// Reassemble the sanitized diff string
+					diff = "  Before: \n\t" + before + "\n  After: \n\t" + after
+				}
+				resourceDetails = fmt.Sprintf("\nName: %s\nAddress: %s\nActions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, diff, formatChangesJsonString)
+
 				// build error message
-				var errorMessage string
-				errorMessage = fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
+				errorMessage := fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
 
 				// check if current resource is changed
 				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
@@ -368,6 +457,8 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 
 	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
 
+	options.WaitJobCompleteMinutes = 120
+
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
@@ -394,4 +485,117 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 
 	err := options.RunSchematicTest()
 	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVsiExtention(t *testing.T) {
+	t.Parallel()
+
+	sshPublicKey := sshPublicKey(t)
+
+	// ------------------------------------------------------------------------------------
+	// Deploy SLZ VPC first since it is needed for the landing-zone extension input
+	// ------------------------------------------------------------------------------------
+
+	prefix := fmt.Sprintf("vsi-slz-%s", strings.ToLower(random.UniqueId()))
+	realTerraformDir := ".."
+	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
+	vpcTerraformDir := realTerraformDir + "/patterns/vpc"
+	tags := common.GetTagsFromTravis()
+
+	// Verify ibmcloud_api_key variable is set
+	checkVariable := "TF_VAR_ibmcloud_api_key"
+	val, present := os.LookupEnv(checkVariable)
+	require.True(t, present, checkVariable+" environment variable not set")
+	require.NotEqual(t, "", val, checkVariable+" environment variable is empty")
+
+	// Programmatically determine region to use based on availability
+	region, _ := testhelper.GetBestVpcRegion(val, "../common-dev-assets/common-go-assets/cloudinfo-region-vpc-gen2-prefs.yaml", "eu-de")
+
+	logger.Log(t, "Tempdir: ", tempTerraformDir)
+	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: vpcTerraformDir,
+		Vars: map[string]interface{}{
+			"prefix": prefix,
+			"region": region,
+			"tags":   tags,
+		},
+		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
+		// This is the same as setting the -upgrade=true flag with terraform.
+		Upgrade: true,
+	})
+
+	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
+	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
+	if existErr != nil {
+		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
+	} else {
+		outputVpcJson := terraform.OutputJson(t, existingTerraformOptions, "vpc_data")
+
+		var managementVpcID string
+		var vpcs []struct {
+			VpcID   string `json:"vpc_id"`
+			VpcName string `json:"vpc_name"`
+		}
+		// Unmarshal the JSON data into the struct
+		if err := json.Unmarshal([]byte(outputVpcJson), &vpcs); err != nil {
+			fmt.Println(err)
+			return
+		}
+		// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management-vpc"
+		for _, vpc := range vpcs {
+			if vpc.VpcName == fmt.Sprintf("%s-management-vpc", prefix) {
+				managementVpcID = vpc.VpcID
+			}
+		}
+
+		outputKeysJson := terraform.OutputJson(t, existingTerraformOptions, "key_map")
+		var keyID string
+		var keys map[string]map[string]string
+		// Unmarshal the JSON data into the map
+		if err := json.Unmarshal([]byte(outputKeysJson), &keys); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		// Extract the key_id for the name "test-vsi-volume-key."
+		if keyData, ok := keys[fmt.Sprintf("%s-vsi-volume-key", prefix)]; ok {
+			keyID = keyData["crn"]
+		} else {
+			fmt.Println("Name 'test-vsi-volume-key' not found in the JSON data.")
+		}
+		// ------------------------------------------------------------------------------------
+		// Deploy landing-zone extension
+		// ------------------------------------------------------------------------------------
+		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+			Testing:      t,
+			TerraformDir: "patterns/vsi-extension",
+			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
+			ImplicitRequired: false,
+			TerraformVars: map[string]interface{}{
+				"prefix":                     prefix,
+				"region":                     region,
+				"resource_group":             fmt.Sprintf("%s-management-rg", prefix),
+				"existing_kms_instance_guid": terraform.Output(t, existingTerraformOptions, "key_management_guid"),
+				"boot_volume_encryption_key": keyID,
+				"vpc_id":                     managementVpcID,
+				"ssh_public_key":             sshPublicKey,
+			},
+		})
+
+		output, err := options.RunTestConsistency()
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+
+	// Check if "DO_NOT_DESTROY_ON_FAILURE" is set
+	envVal, _ := os.LookupEnv("DO_NOT_DESTROY_ON_FAILURE")
+	// Destroy the temporary existing resources if required
+	if t.Failed() && strings.ToLower(envVal) == "true" {
+		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
+	} else {
+		logger.Log(t, "START: Destroy (existing resources)")
+		terraform.Destroy(t, existingTerraformOptions)
+		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
+		logger.Log(t, "END: Destroy (existing resources)")
+	}
 }
