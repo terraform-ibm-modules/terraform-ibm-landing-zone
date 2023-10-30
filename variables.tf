@@ -212,6 +212,11 @@ variable "transit_gateway_resource_group" {
   type        = string
 }
 
+variable "transit_gateway_connections" {
+  description = "Transit gateway vpc connections. Will only be used if transit gateway is enabled."
+  type        = list(string)
+}
+
 ##############################################################################
 
 ##############################################################################
