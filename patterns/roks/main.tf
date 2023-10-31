@@ -21,14 +21,15 @@ locals {
 
 module "roks_landing_zone" {
   source                              = "./module"
+  ibmcloud_api_key                    = var.ibmcloud_api_key
   prefix                              = var.prefix
   region                              = var.region
   tags                                = var.tags
   wait_till                           = var.wait_till
-  ibmcloud_api_key                    = var.ibmcloud_api_key
   network_cidr                        = var.network_cidr
   vpcs                                = var.vpcs
   enable_transit_gateway              = var.enable_transit_gateway
+  transit_gateway_global              = var.transit_gateway_global
   ssh_public_key                      = var.ssh_public_key
   update_all_workers                  = var.update_all_workers
   existing_ssh_key_name               = var.existing_ssh_key_name

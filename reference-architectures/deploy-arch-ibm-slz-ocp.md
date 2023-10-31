@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-07-03"
+lastupdated: "2023-10-06"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 4.4.1
+version: 4.12.3
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -24,7 +24,7 @@ production: true
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global
 
-docs: https://cloud.ibm.com/docs/secure-infrastructure-ocp
+docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks.drawio.svg
 
@@ -49,7 +49,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="4.4.1"}
+{: toc-version="4.12.3"}
 
 Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 

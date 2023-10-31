@@ -21,6 +21,7 @@ resource "ibm_is_vpn_gateway" "gateway" {
   mode           = each.value.mode
   resource_group = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   tags           = var.tags
+  access_tags    = each.value.access_tags
 
   timeouts {
     delete = "1h"

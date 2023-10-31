@@ -27,6 +27,11 @@ output "vpc_data" {
   value       = module.landing_zone.vpc_data
 }
 
+output "vpc_resource_list" {
+  description = "List of VPC with VSI and Cluster deployed on the VPC."
+  value       = module.landing_zone.vpc_resource_list
+}
+
 output "subnet_data" {
   description = "List of Subnet data created"
   value       = module.landing_zone.subnet_data
@@ -80,6 +85,31 @@ output "cos_bucket_data" {
 output "vpn_data" {
   description = "List of VPN data"
   value       = module.landing_zone.vpn_data
+}
+
+output "key_management_name" {
+  description = "Name of key management service"
+  value       = module.landing_zone.key_management_name
+}
+
+output "key_management_crn" {
+  description = "CRN for KMS instance"
+  value       = module.landing_zone.key_management_crn
+}
+
+output "key_management_guid" {
+  description = "GUID for KMS instance"
+  value       = module.landing_zone.key_management_guid
+}
+
+output "key_rings" {
+  description = "Key rings created by module"
+  value       = module.landing_zone.key_rings
+}
+
+output "key_map" {
+  description = "Map of ids and keys for keys created"
+  value       = module.landing_zone.key_map
 }
 
 ##############################################################################

@@ -117,7 +117,7 @@ locals {
 
 module "f5_vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "2.3.0"
+  version                       = "2.12.1"
   for_each                      = local.f5_vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
@@ -125,6 +125,7 @@ module "f5_vsi" {
   vpc_id                        = module.vpc[each.value.vpc_name].vpc_id
   kms_encryption_enabled        = true
   skip_iam_authorization_policy = true
+  access_tags                   = each.value.access_tags
   subnets                       = each.value.subnets
   secondary_subnets             = each.value.secondary_subnets
   secondary_allow_ip_spoofing   = true
@@ -144,7 +145,7 @@ module "f5_vsi" {
   # Get boot volume
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
     for keys in module.key_management.keys :
-    keys.id if keys.name == each.value.boot_volume_encryption_key_name
+    keys.crn if keys.name == each.value.boot_volume_encryption_key_name
   ][0]
   # Get security group ids
   security_group_ids = each.value.security_groups == null ? [] : [
@@ -168,7 +169,7 @@ module "f5_vsi" {
       iops     = volume.iops
       encryption_key = lookup(volume, "encryption_key", null) == null ? null : [
         for key in module.key_management.keys :
-        key.id if key.name == volume.encryption_key
+        key.crn if key.name == volume.encryption_key
       ][0]
     }
   ]

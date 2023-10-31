@@ -1,14 +1,11 @@
 ##############################################################################
 # Account Variables
 ##############################################################################
-
 variable "ibmcloud_api_key" {
-  description = "IBM Cloud API Key that will be used for authentication in scripts run in this module. Only required if certain options are required."
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
   sensitive   = true
-  default     = null
 }
-
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -70,13 +67,13 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                       = string           # VPC prefix
-      resource_group               = optional(string) # Name of the group where VPC will be created
-      classic_access               = optional(bool)
-      default_network_acl_name     = optional(string)
-      default_security_group_name  = optional(string)
-      clean_default_security_group = optional(bool, false)
-      clean_default_acl            = optional(bool, false)
+      prefix                      = string           # VPC prefix
+      resource_group              = optional(string) # Name of the group where VPC will be created
+      access_tags                 = optional(list(string), [])
+      classic_access              = optional(bool)
+      default_network_acl_name    = optional(string)
+      default_security_group_name = optional(string)
+      clean_default_sg_acl        = optional(bool, false)
       default_security_group_rules = optional(
         list(
           object({
@@ -190,6 +187,7 @@ variable "vpn_gateways" {
       subnet_name    = string # Do not include prefix, use same name as in `var.subnets`
       mode           = optional(string)
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       connections = list(
         object({
           peer_address   = string
@@ -214,6 +212,12 @@ variable "enable_transit_gateway" {
   description = "Create transit gateway"
   type        = bool
   default     = true
+}
+
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
 }
 
 variable "transit_gateway_resource_group" {
@@ -281,6 +285,7 @@ variable "vsi" {
       enable_floating_ip              = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
+      access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -384,6 +389,7 @@ variable "security_groups" {
       name           = string
       vpc_name       = string
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       rules = list(
         object({
           name      = string
@@ -455,6 +461,7 @@ variable "virtual_private_endpoints" {
       service_name   = string
       service_type   = string
       resource_group = optional(string)
+      access_tags    = optional(list(string), [])
       vpcs = list(
         object({
           name                = string
@@ -482,6 +489,7 @@ variable "cos" {
       resource_group = string
       plan           = optional(string)
       random_suffix  = optional(bool) # Use a random suffix for COS instance
+      access_tags    = optional(list(string), [])
       buckets = list(object({
         name                  = string
         storage_class         = string
@@ -491,6 +499,7 @@ variable "cos" {
         region_location       = optional(string)
         cross_region_location = optional(string)
         kms_key               = optional(string)
+        access_tags           = optional(list(string), [])
         allowed_ip            = optional(list(string))
         hard_quota            = optional(number)
         archive_rule = optional(object({
@@ -699,21 +708,23 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = string
-    resource_group = string
+    name           = optional(string)
+    resource_group = optional(string)
     use_data       = optional(bool)
     use_hs_crypto  = optional(bool)
+    access_tags    = optional(list(string), [])
     keys = optional(
       list(
         object({
-          name            = string
-          root_key        = optional(bool)
-          payload         = optional(string)
-          key_ring        = optional(string) # Any key_ring added will be created
-          force_delete    = optional(bool)
-          endpoint        = optional(string) # can be public or private
-          iv_value        = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
-          encrypted_nonce = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
+          name             = string
+          root_key         = optional(bool)
+          payload          = optional(string)
+          key_ring         = optional(string) # Any key_ring added will be created
+          force_delete     = optional(bool)
+          existing_key_crn = optional(string) # CRN of an existing key in the same or different account.
+          endpoint         = optional(string) # can be public or private
+          iv_value         = optional(string) # (Optional, Forces new resource, String) Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. The IV value is required to decrypt the encrypted nonce value that you provide when you make a key import request to the service. To generate an IV, encrypt the nonce by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
+          encrypted_nonce  = optional(string) # The encrypted nonce value that verifies your request to import a key to Key Protect. This value must be encrypted by using the key that you want to import to the service. To retrieve a nonce, use the ibmcloud kp import-token get command. Then, encrypt the value by running ibmcloud kp import-token encrypt-nonce. Only for imported root key.
           policies = optional(
             object({
               rotation = optional(
@@ -732,6 +743,32 @@ variable "key_management" {
       )
     )
   })
+  validation {
+    error_message = "Name must be included if use_data is true."
+    condition = (
+      lookup(var.key_management, "use_data", null) == null
+      ) || (
+      lookup(var.key_management, "use_data", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_data", false) == true
+    )
+  }
+  validation {
+    error_message = "Name must be included if use_hs_crypto is true."
+    condition = (
+      lookup(var.key_management, "use_hs_crypto", null) == null
+      ) || (
+      lookup(var.key_management, "use_hs_crypto", false) == false
+      ) || (
+      lookup(var.key_management, "name", null) != null &&
+      lookup(var.key_management, "use_hs_crypto", false) == true
+    )
+  }
+  validation {
+    condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "existing_key_crn", null) == null) && var.key_management.name == null])) == 0
+    error_message = "Please provide kms name to be created."
+  }
 }
 
 ##############################################################################
@@ -767,7 +804,7 @@ variable "clusters" {
       workers_per_subnet              = number           # Worker nodes per subnet.
       machine_type                    = string           # Worker node flavor
       kube_type                       = string           # iks or openshift
-      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `latest`
+      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions`, `latest` or `default`
       disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled
       verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
       entitlement                     = optional(string) # entitlement option for openshift
@@ -776,6 +813,8 @@ variable "clusters" {
       resource_group                  = string           # Resource Group used for cluster
       cos_name                        = optional(string) # Name of COS instance Required only for OpenShift clusters
       update_all_workers              = optional(bool)   # If true force workers to update
+      access_tags                     = optional(list(string), [])
+      boot_volume_crk_name            = optional(string) # Boot volume encryption key name
       kms_config = optional(
         object({
           crk_name         = string         # Name of key
@@ -785,12 +824,13 @@ variable "clusters" {
       worker_pools = optional(
         list(
           object({
-            name               = string           # Worker pool name
-            vpc_name           = string           # VPC name
-            workers_per_subnet = number           # Worker nodes per subnet
-            flavor             = string           # Worker node flavor
-            subnet_names       = list(string)     # List of vpc subnets for worker pool
-            entitlement        = optional(string) # entitlement option for openshift
+            name                 = string           # Worker pool name
+            vpc_name             = string           # VPC name
+            workers_per_subnet   = number           # Worker nodes per subnet
+            flavor               = string           # Worker node flavor
+            subnet_names         = list(string)     # List of vpc subnets for worker pool
+            entitlement          = optional(string) # entitlement option for openshift
+            boot_volume_crk_name = optional(string) # Boot volume encryption key name
           })
         )
       )
@@ -944,6 +984,7 @@ variable "teleport_vsi" {
         boot_volume_encryption_key_name = string
         image_name                      = string
         machine_type                    = string
+        access_tags                     = optional(list(string), [])
         security_groups                 = optional(list(string))
         security_group = optional(
           object({
@@ -1260,6 +1301,7 @@ variable "f5_vsi" {
       boot_volume_encryption_key_name = optional(string)
       hostname                        = string
       domain                          = string
+      access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
           name = string
@@ -1425,6 +1467,7 @@ variable "secrets_manager" {
     name                = optional(string)
     kms_key_name        = optional(string)
     resource_group      = optional(string)
+    access_tags         = optional(list(string), [])
   })
   default = {
     use_secrets_manager = false
@@ -1439,7 +1482,7 @@ variable "vpc_placement_groups" {
   description = "List of VPC placement groups to create"
   type = list(
     object({
-      access_tags    = optional(list(string))
+      access_tags    = optional(list(string), [])
       name           = string
       resource_group = optional(string)
       strategy       = string
@@ -1449,7 +1492,7 @@ variable "vpc_placement_groups" {
 
   validation {
     error_message = "Each VPC Placement group must have a unique name."
-    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups[*].name) != distinct(length(var.vpc_placement_groups[*].name))
+    condition     = length(var.vpc_placement_groups) == 0 ? true : length(var.vpc_placement_groups[*].name) == length(distinct(var.vpc_placement_groups[*].name))
   }
 
   validation {

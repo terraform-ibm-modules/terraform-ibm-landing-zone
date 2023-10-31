@@ -25,6 +25,7 @@ module "landing_zone" {
   vpcs                           = local.env.vpcs
   vpn_gateways                   = local.env.vpn_gateways
   enable_transit_gateway         = local.env.enable_transit_gateway
+  transit_gateway_global         = local.env.transit_gateway_global
   transit_gateway_resource_group = local.env.transit_gateway_resource_group
   transit_gateway_connections    = local.env.transit_gateway_connections
   ssh_keys                       = local.env.ssh_keys
@@ -47,7 +48,6 @@ module "landing_zone" {
   teleport_vsi                   = local.env.teleport_vsi
   secrets_manager                = local.env.secrets_manager
   vpc_placement_groups           = local.env.vpc_placement_groups
-  ibmcloud_api_key               = var.ibmcloud_api_key
 }
 
 ##############################################################################

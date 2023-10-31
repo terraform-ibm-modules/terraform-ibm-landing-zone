@@ -49,8 +49,7 @@
                     "label": "QuickStart",
                     "name": "quickstart",
                     "install_type": "fullstack",
-                    "working_directory": "examples/quickstart",
-                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_key   = var.ssh_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
+                    "working_directory": "patterns/vsi-quickstart",
                     "compliance": {},
                     "configuration": [
                         {
@@ -175,7 +174,6 @@
                     "name": "standard",
                     "install_type": "fullstack",
                     "working_directory": "patterns/vsi",
-                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  ssh_public_key   = var.ssh_public_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
                         "profiles": [
@@ -187,8 +185,16 @@
                     },
                     "configuration": [
                         {
+                            "key": "existing_ssh_key_name",
                             "required": true,
-                            "key": "ssh_public_key"
+                            "custom_config": {
+                                "config_constraints": {
+                                    "valueType": "name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_ssh_key"
+                            }
                         },
                         {
                             "hidden": true,
@@ -544,7 +550,6 @@
                     "name": "standard",
                     "install_type": "fullstack",
                     "working_directory": "patterns/vpc",
-                    "usage_template": "module \"landing-zone-vpc\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz-vpc\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
                         "profiles": [
@@ -555,6 +560,14 @@
                         ]
                     },
                     "configuration": [
+                        {
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            },
+                            "key": "override_json_string"
+                        },
                         {
                             "custom_config": {
                                 "config_constraints": {
@@ -902,7 +915,6 @@
                     "name": "standard",
                     "install_type": "fullstack",
                     "working_directory": "patterns/roks",
-                    "usage_template": "module \"landing-zone\" {\n  source           = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//patterns/roks?archive=tgz&flavor=${{flavor}}&kind=terraform&name=${{name}}&version=${{version}}\"\n  ibmcloud_api_key = var.ibmcloud_api_key\n  region           = \"us-south\"\n  prefix           = \"slz\"\n}\n\n",
                     "compliance": {
                         "authority": "scc-v3",
                         "profiles": [
@@ -913,6 +925,27 @@
                         ]
                     },
                     "configuration": [
+                        {
+                            "key": "kube_version",
+                            "type": "string",
+                            "required": true,
+                            "default_value": "4.13_openshift",
+                            "options": [
+                                {
+                                    "displayname": "4.11_openshift",
+                                    "value": "4.11_openshift"
+                                },
+                                {
+                                    "displayname": "4.12_openshift",
+                                    "value": "4.12_openshift"
+                                },
+                                {
+                                    "displayname": "4.13_openshift",
+                                    "value": "4.13_openshift"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
                         {
                             "hidden": true,
                             "key": "tgactive_url"
@@ -964,6 +997,10 @@
                         {
                             "hidden": true,
                             "key": "ssh_public_key"
+                        },
+                        {
+                            "hidden": true,
+                            "key": "existing_ssh_key_name"
                         },
                         {
                             "custom_config": {

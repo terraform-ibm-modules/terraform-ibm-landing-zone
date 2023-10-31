@@ -89,18 +89,21 @@ locals {
         update_all_workers              = var.update_all_workers
         cos_name                        = "cos"
         entitlement                     = var.entitlement
+        boot_volume_crk_name            = "${var.prefix}-roks-key"
+
         worker_pools = [
-          {
-            name     = "logging-worker-pool"
-            vpc_name = var.vpcs[1]
-            subnet_names = [
-              for zone in range(1, var.cluster_zones + 1) :
-              "vsi-zone-${zone}"
-            ]
-            entitlement        = var.entitlement
-            workers_per_subnet = var.workers_per_zone
-            flavor             = var.flavor
-          }
+          # {
+          #   name     = "logging-worker-pool"
+          #   vpc_name = network
+          #   subnet_names = [
+          #     for zone in range(1, var.cluster_zones + 1) :
+          #     "vsi-zone-${zone}"
+          #   ]
+          #   entitlement          = var.entitlement
+          #   workers_per_subnet   = var.workers_per_zone
+          #   flavor               = var.flavor
+          #   boot_volume_crk_name = "${var.prefix}-roks-key"
+          # }
         ]
       }
     ]
@@ -155,6 +158,7 @@ locals {
     resource_groups                = module.dynamic_values.resource_groups
     vpcs                           = module.dynamic_values.vpcs
     enable_transit_gateway         = var.enable_transit_gateway
+    transit_gateway_global         = var.transit_gateway_global
     transit_gateway_resource_group = "${var.prefix}-service-rg"
     transit_gateway_connections    = module.dynamic_values.vpc_list
     object_storage                 = module.dynamic_values.object_storage
@@ -266,6 +270,7 @@ locals {
     vpcs                           = lookup(local.override[local.override_type], "vpcs", local.config.vpcs)
     vpn_gateways                   = lookup(local.override[local.override_type], "vpn_gateways", local.config.vpn_gateways)
     enable_transit_gateway         = lookup(local.override[local.override_type], "enable_transit_gateway", local.config.enable_transit_gateway)
+    transit_gateway_global         = lookup(local.override[local.override_type], "transit_gateway_global", local.config.transit_gateway_global)
     transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
     ssh_keys                       = lookup(local.override[local.override_type], "ssh_keys", local.config.ssh_keys)

@@ -11,6 +11,7 @@
     },
     "clusters": [],
     "enable_transit_gateway": true,
+    "transit_gateway_global": false,
     "transit_gateway_connections": [
       "management",
       "workload",
@@ -19,6 +20,7 @@
     "transit_gateway_resource_group": "slz-service-rg",
     "virtual_private_endpoints": [
       {
+        "access_tags": [],
         "resource_group": "slz-service-rg",
         "service_name": "cos",
         "service_type": "cloud-object-storage",
@@ -42,6 +44,7 @@
     "security_groups": [],
     "vpn_gateways": [
       {
+        "access_tags": [],
         "connections": [],
         "name": "management-gateway",
         "resource_group": "slz-management-rg",
@@ -57,8 +60,10 @@
     },
     "cos": [
       {
+        "access_tags": [],
         "buckets": [
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-atracker-key",
@@ -80,8 +85,10 @@
         "use_data": false
       },
       {
+        "access_tags": [],
         "buckets": [
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-key",
@@ -89,6 +96,7 @@
             "storage_class": "standard"
           },
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-key",
@@ -96,6 +104,7 @@
             "storage_class": "standard"
           },
           {
+            "access_tags": [],
             "endpoint_type": "public",
             "force_delete": true,
             "kms_key": "slz-key",
@@ -115,6 +124,7 @@
       "enable": false
     },
     "key_management": {
+      "access_tags": [],
       "keys": [
         {
           "key_ring": "slz-slz-ring",
@@ -159,6 +169,7 @@
       }
     ],
     "secrets_manager": {
+      "access_tags": [],
       "kms_key_name": null,
       "name": null,
       "resource_group": null,
@@ -167,6 +178,7 @@
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
       {
+        "access_tags": [],
         "address_prefixes": {
           "zone-1": [],
           "zone-2": [],
@@ -346,8 +358,9 @@
     ],
     "vsi": [
       {
+        "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "jump-box",
         "resource_group": "slz-management-rg",
@@ -378,8 +391,9 @@
         "vsi_per_subnet": 1
       },
       {
+        "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "private-svs",
         "resource_group": "slz-workload-rg",
@@ -410,8 +424,9 @@
         "vsi_per_subnet": 1
       },
       {
+        "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-18-04-6-minimal-amd64-2",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
         "machine_type": "cx2-2x4",
         "name": "inet-svs",
         "resource_group": "slz-edge-rg",

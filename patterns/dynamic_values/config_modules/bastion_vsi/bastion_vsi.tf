@@ -75,6 +75,7 @@ output "value" {
       machine_type                    = var.teleport_instance_profile
       boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
       security_groups                 = ["bastion-vsi-sg"]
+      access_tags                     = []
     }
   ]
 }

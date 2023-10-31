@@ -1,7 +1,6 @@
 ##############################################################################
 # Account Variables
 ##############################################################################
-
 variable "ibmcloud_api_key" {
   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
@@ -9,7 +8,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 13 or fewer characters."
   type        = string
 
   validation {
@@ -60,6 +59,12 @@ variable "enable_transit_gateway" {
   description = "Create transit gateway"
   type        = bool
   default     = true
+}
+
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region. Will only be used if transit gateway is enabled."
+  type        = bool
+  default     = false
 }
 
 variable "add_atracker_route" {
@@ -119,9 +124,9 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the latest version, leave as latest. Updates to the latest versions may force this to change."
+  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. Also supports passing the string 'latest' (current latest available version) or 'default' (current IKS default recommended version)."
   type        = string
-  default     = "latest"
+  default     = "default"
 }
 
 variable "flavor" {
@@ -219,7 +224,7 @@ variable "vpn_firewall_type" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. Must not already exists in the deployment region. Use only if provisioning F5 or Bastion Host."
+  description = "A public SSH key that does not exist in the deployment region. Used only if you provision F5 or Bastion Host. Must be an RSA key with a key size of either 2048 or 4096 bits (recommended). See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, specify a value in the `existing_ssh_key_name` variable instead."
   type        = string
   default     = null
   validation {
@@ -229,7 +234,7 @@ variable "ssh_public_key" {
 }
 
 variable "existing_ssh_key_name" {
-  description = "The name of the public ssh key which already exists."
+  description = "The name of a public SSH key that exists in the deployment region. Used only if you provision F5 or Bastion Host. To add a SSH key, use the `ssh_public_key` variable instead."
   type        = string
   default     = null
 }

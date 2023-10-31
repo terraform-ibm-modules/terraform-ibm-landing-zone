@@ -103,8 +103,8 @@ output "value" {
     for network in var.vpc_list :
     {
       default_security_group_rules = []
-      clean_default_security_group = true
-      clean_default_acl            = true
+      access_tags                  = []
+      clean_default_sg_acl         = true
       prefix                       = network
       resource_group               = "${var.prefix}-${network}-rg"
       flow_logs_bucket_name        = "${network}-bucket"

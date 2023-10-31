@@ -7,10 +7,8 @@ on:
       - created
 jobs:
   call-terraform-ci-pipeline:
-    uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-terraform-module-ci-v2.yml@v1.17.0
+    uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-terraform-module-ci-v2.yml@v1.18.2
     secrets: inherit
     with:
       craSCCv2: true
-      craTarget: "patterns/roks"
-      craRuleIgnoreFile: "cra-tf-validate-ignore-rules.json"
-      craEnvironmentVariables: "TF_VAR_prefix=landzone-roks,TF_VAR_region=us-south"
+      craConfigYamlFile: "cra-config.yaml"
