@@ -3,5 +3,6 @@
   "region": "eu-gb",
   "tags": $TAGS,
   "prefix": $PREFIX,
-  "enable_transit_gateway": false
+  "enable_transit_gateway": false,
+  "add_atracker_route": false
 }
