@@ -2,5 +2,6 @@
   "ibmcloud_api_key": $VALIDATION_APIKEY,
   "region": "eu-gb",
   "tags": $TAGS,
-  "prefix": $PREFIX
+  "prefix": $PREFIX,
+  "enable_transit_gateway": false
 }
