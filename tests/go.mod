@@ -5,10 +5,10 @@ go 1.21
 toolchain go1.21.3
 
 require (
-	github.com/gruntwork-io/terratest v0.46.1
+	github.com/gruntwork-io/terratest v0.46.5
 	github.com/hashicorp/terraform-json v0.17.1
 	github.com/stretchr/testify v1.8.4
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.23.14
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.23.15
 )
 
 require github.com/IBM/schematics-go-sdk v0.2.2 // indirect
@@ -23,7 +23,7 @@ require (
 	github.com/IBM-Cloud/bluemix-go v0.0.0-20231026045515-5c31bb9104f7 // indirect
 	github.com/IBM-Cloud/power-go-client v1.5.3 // indirect
 	github.com/IBM/go-sdk-core/v5 v5.14.1 // indirect
-	github.com/IBM/platform-services-go-sdk v0.52.0 // indirect
+	github.com/IBM/platform-services-go-sdk v0.53.0 // indirect
 	github.com/IBM/vpc-go-sdk v1.0.2 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230828082145-3c4c8a2d2371 // indirect
