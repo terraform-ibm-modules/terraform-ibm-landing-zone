@@ -12,7 +12,7 @@ dir=$2
 
 # Paths relative to the root directory
 TERRAFORM_SOURCE_DIR="tests/resources"
-JSON_FILE="${dir}/catalogValidationValues.json"  # This gets created by pipeline code based on the catalogValidationValues.json.template
+JSON_FILE="../../${dir}/catalogValidationValues.json"  # This gets created by pipeline code based on the catalogValidationValues.json.template
 
 (
   cd ${TERRAFORM_SOURCE_DIR}
