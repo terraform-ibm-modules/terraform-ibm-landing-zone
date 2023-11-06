@@ -2,4 +2,5 @@
 
 set -e
 
-./pre-validation-generate-ssh-key.sh "ssh_public_key" "/patterns/vsi"
+script_dir=$(dirname "$0")
+"./${script_dir}/pre-validation-generate-ssh-key.sh" "ssh_public_key" "/patterns/vsi"
