@@ -7,13 +7,13 @@ offerings:
       - name: quickstart
         mark_ready: false
         install_type: fullstack
-        pre_validation: tests/scripts/pre-validation-vsi-quickstart.sh
+        pre_validation: "./tests/resources/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
         destroy_resources_on_failure: true
         destroy_workspace_on_failure: false
       - name: standard
         mark_ready: false
         install_type: fullstack
-        pre_validation: tests/scripts/pre-validation-vsi-standard.sh
+        pre_validation: "./tests/resources/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
         destroy_resources_on_failure: true
         destroy_workspace_on_failure: false
         scc:
