@@ -4,12 +4,12 @@ offerings:
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
     offering_id: ef663980-4c71-4fac-af4f-4a510a9bcf68
     variations:
-      # - name: quickstart
-      #   mark_ready: false
-      #   install_type: fullstack
-      #   pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
-      #   destroy_resources_on_failure: true
-      #   destroy_workspace_on_failure: false
+      - name: quickstart
+        mark_ready: false
+        install_type: fullstack
+        pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
+        destroy_resources_on_failure: true
+        destroy_workspace_on_failure: false
       - name: standard
         mark_ready: false
         install_type: fullstack
