@@ -3,5 +3,7 @@
   "region": "us-south",
   "entitlement": "cloud_pak",
   "tags": $TAGS,
-  "prefix": $PREFIX
+  "prefix": $PREFIX,
+  "enable_transit_gateway": false,
+  "add_atracker_route": false
 }
