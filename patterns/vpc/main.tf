@@ -20,6 +20,7 @@ locals {
 
 module "vpc_landing_zone" {
   source                              = "./module"
+  ibmcloud_api_key                    = var.ibmcloud_api_key
   prefix                              = var.prefix
   region                              = var.region
   tags                                = var.tags

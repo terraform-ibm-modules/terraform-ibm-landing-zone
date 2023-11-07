@@ -22,6 +22,28 @@ locals {
     openshift = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
     iks       = data.ibm_container_cluster_versions.cluster_versions.default_kube_version
   }
+
+  cluster_data = merge({
+    for cluster in ibm_container_vpc_cluster.cluster :
+    cluster.name => {
+      crn                 = cluster.crn
+      id                  = cluster.id
+      resource_group_name = cluster.resource_group_name
+      resource_group_id   = cluster.resource_group_id
+      vpc_id              = cluster.vpc_id
+      region              = var.region
+    }
+    }, {
+    for cluster in module.cluster :
+    cluster.cluster_name => {
+      crn               = cluster.cluster_crn
+      id                = cluster.cluster_id
+      resource_group_id = cluster.resource_group_id
+      vpc_id            = cluster.vpc_id
+      region            = var.region
+    }
+    }
+  )
 }
 
 
@@ -86,15 +108,15 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
-
-# TODO: fix this logic
-
-# resource "ibm_resource_tag" "cluster_tag" {
-#   for_each    = local.clusters_map
-#   resource_id = ibm_container_vpc_cluster.cluster[each.key].crn
-#   tag_type    = "access"
-#   tags        = each.value.access_tags
-# }
+resource "ibm_resource_tag" "cluster_tag" {
+  for_each = {
+    for index, cluster in local.clusters_map : index => cluster
+    if cluster.kube_type == "iks"
+  }
+  resource_id = ibm_container_vpc_cluster.cluster[each.key].crn
+  tag_type    = "access"
+  tags        = each.value.access_tags
+}
 
 ##############################################################################
 
@@ -140,7 +162,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version           = "3.3.4"
+  version           = "3.9.2"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
@@ -148,6 +170,7 @@ module "cluster" {
   vpc_id            = each.value.vpc_id
   ocp_entitlement   = each.value.entitlement
   vpc_subnets       = each.value.vpc_subnets
+  access_tags       = each.value.access_tags
   worker_pools = concat(
     [
       {
