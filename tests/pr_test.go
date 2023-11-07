@@ -234,10 +234,10 @@ func setupOptionsiksExample(t *testing.T, prefix string) *testhelper.TestOptions
 	sshPublicKey := sshPublicKey(t)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  iksExampleTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
+		Testing:          t,
+		TerraformDir:     iksExampleTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
 	})
 
