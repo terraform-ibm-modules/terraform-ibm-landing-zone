@@ -238,9 +238,6 @@ func setupOptionsiksExample(t *testing.T, prefix string) *testhelper.TestOptions
 		TerraformDir:  iksExampleTerraformDir,
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
-		IgnoreUpdates: testhelper.Exemptions{
-			List: ignoreUpdates,
-		},
 		CloudInfoService: sharedInfoSvc,
 	})
 
