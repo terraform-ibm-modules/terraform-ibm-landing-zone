@@ -7,7 +7,8 @@
       "matchPaths": [
         "patterns/vsi-quickstart",
         "patterns/vsi",
-        "patterns/roks"
+        "patterns/roks",
+        "patterns/vsi-extension"
       ],
       "semanticCommitType": "fix"
     },
