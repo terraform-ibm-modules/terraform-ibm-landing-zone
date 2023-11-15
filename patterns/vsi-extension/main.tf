@@ -38,21 +38,13 @@ locals {
 }
 
 ##############################################################################
-# Resource Group
-##############################################################################
-
-data "ibm_resource_group" "existing_resource_group" {
-  name = var.resource_group
-}
-
-##############################################################################
 # SSH key
 ##############################################################################
 resource "ibm_is_ssh_key" "ssh_key" {
   count          = local.ssh_keys != null ? 1 : 0
   name           = local.ssh_keys.name
   public_key     = replace(local.ssh_keys.public_key, "/==.*$/", "==")
-  resource_group = data.ibm_resource_group.existing_resource_group.id
+  resource_group = data.ibm_is_vpc.vpc_by_id.resource_group
   tags           = var.resource_tags
 }
 
@@ -64,7 +56,6 @@ data "ibm_is_ssh_key" "ssh_key" {
 data "ibm_is_vpc" "vpc_by_id" {
   identifier = local.vpc_id
 }
-
 
 data "ibm_is_image" "image" {
   name = var.image_name
@@ -79,8 +70,8 @@ locals {
 
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "2.8.2"
-  resource_group_id             = data.ibm_resource_group.existing_resource_group.id
+  version                       = "3.0.0"
+  resource_group_id             = data.ibm_is_vpc.vpc_by_id.resource_group
   create_security_group         = true
   prefix                        = "${var.prefix}-vsi"
   vpc_id                        = local.vpc_id

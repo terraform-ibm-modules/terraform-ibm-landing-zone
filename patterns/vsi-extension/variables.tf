@@ -4,11 +4,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "resource_group" {
-  type        = string
-  description = "The resource group name of the landing zone VPC."
-}
-
 variable "region" {
   description = "The region of the landing zone VPC."
   type        = string
