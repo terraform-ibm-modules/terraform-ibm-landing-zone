@@ -11,4 +11,4 @@ _extends: repo-settings:.github/common-settings-v2.yml
 repository:
   name: terraform-ibm-landing-zone
   description: "Creates a fully customizable VPC environment and compute resources (VSI, Red Hat OpenShift) with presets designed to meet strict compliance needs."
-  topics: core-team, terraform, ibm-cloud, slz, secure-landing-zone, landing-zone, supported, graduated, DA, deployable-architecture
+  topics: core-team, terraform, ibm-cloud, slz, secure-landing-zone, landing-zone, supported, graduated, deployable-architecture
