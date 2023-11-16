@@ -42,32 +42,10 @@ module "vpn_gateway_map" {
       vpc_id         = var.vpc_modules[gateway.vpc_name].vpc_id
       subnet_id      = module.vpn_gateway_subnets[gateway.name].subnets[0].id
       mode           = gateway.mode
-      connections    = gateway.connections
       resource_group = gateway.resource_group
       access_tags    = lookup(gateway, "access_tags", [])
     }
   ]
-}
-
-##############################################################################
-
-##############################################################################
-# VPN Gateway Connections
-##############################################################################
-
-module "vpn_connection_map" {
-  source = "../list_to_map"
-  list = flatten([
-    for gateway in var.vpn_gateways :
-    [
-      for connection in gateway.connections :
-      merge({
-        gateway_name    = gateway.name
-        connection_name = "${gateway.name}-connection-${index(gateway.connections, connection) + 1}"
-      }, connection)
-    ]
-  ])
-  key_name_field = "connection_name"
 }
 
 ##############################################################################
@@ -79,11 +57,6 @@ module "vpn_connection_map" {
 output "vpn_gateway_map" {
   description = "Map of VPN gateways"
   value       = module.vpn_gateway_map.value
-}
-
-output "vpn_connection_map" {
-  description = "Connection map for VPN"
-  value       = module.vpn_connection_map.value
 }
 
 ##############################################################################
