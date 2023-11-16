@@ -80,8 +80,8 @@ variable "existing_kms_instance_guid" {
 
 variable "skip_iam_authorization_policy" {
   type        = bool
-  description = "Set to `true` to skip the creation of an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. If set to `false` (and creating a policy), specify the GUID of the KMS instance in the `existing_kms_instance_guid` variable."
-  default     = false
+  description = "Set to `true` to skip the creation of an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. If set to `false` (and creating a policy), specify the GUID of the KMS instance in the `existing_kms_instance_guid` variable. When you are using the same KMS instance from the landing zone VPC, it may be possible to set a flag to true in order to skip creating an authorization policy since it has already been established by the VPC DA."
+  default     = true
 }
 
 variable "vsi_per_subnet" {
