@@ -184,15 +184,6 @@ variable "vpn_gateways" {
       mode           = optional(string)
       resource_group = optional(string)
       access_tags    = optional(list(string), [])
-      connections = list(
-        object({
-          peer_address   = string
-          preshared_key  = string
-          local_cidrs    = optional(list(string))
-          peer_cidrs     = optional(list(string))
-          admin_state_up = optional(bool)
-        })
-      )
     })
   )
 }

@@ -119,12 +119,6 @@ output "vpn_gateway_map" {
   value       = module.vpn.vpn_gateway_map
 }
 
-
-output "vpn_connection_map" {
-  description = "Map of VPN gateway connections"
-  value       = module.vpn.vpn_connection_map
-}
-
 ##############################################################################
 
 
