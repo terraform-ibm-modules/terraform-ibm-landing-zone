@@ -70,7 +70,7 @@ locals {
 
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "3.0.0"
+  version                       = "2.13.0"
   resource_group_id             = data.ibm_is_vpc.vpc_by_id.resource_group
   create_security_group         = true
   prefix                        = "${var.prefix}-vsi"
