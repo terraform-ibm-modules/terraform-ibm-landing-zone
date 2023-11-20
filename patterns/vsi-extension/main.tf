@@ -1,17 +1,40 @@
 ##############################################################################
+# Schematics Data
+##############################################################################
+
+locals {
+  # tflint-ignore: terraform_unused_declarations
+  validate_vpc_vars = var.prerequisite_workspace_id == null && var.vpc_id == null ? tobool("var.prerequisite_workspace_id and var.vpc_id cannot be both set to null.") : true
+  # tflint-ignore: terraform_unused_declarations
+  validate_vpc_names = var.prerequisite_workspace_id != null && var.existing_vpc_name == null ? tobool("A value must be passed for var.existing_vpc_name to choose a VPC from the list of VPCs from the schematics workspace.") : true
+
+  location         = var.prerequisite_workspace_id != null ? regex("^[a-z/-]+", var.prerequisite_workspace_id) : null
+  fullstack_output = length(data.ibm_schematics_output.schematics_output) > 0 ? jsondecode(data.ibm_schematics_output.schematics_output[0].output_json) : null
+  vpc_id = var.prerequisite_workspace_id != null ? [
+    for vpc in local.fullstack_output[0].vpc_data.value :
+    vpc.vpc_data.id if vpc.vpc_data.name == var.existing_vpc_name
+  ][0] : var.vpc_id
+}
+
+data "ibm_schematics_workspace" "schematics_workspace" {
+  count        = var.prerequisite_workspace_id != null ? 1 : 0
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
+}
+
+data "ibm_schematics_output" "schematics_output" {
+  count        = var.prerequisite_workspace_id != null ? 1 : 0
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
+  template_id  = data.ibm_schematics_workspace.schematics_workspace[0].runtime_data[0].id
+}
+
+##############################################################################
 # Locals
 ##############################################################################
 
 locals {
   ssh_key_id = var.ssh_public_key != null ? ibm_is_ssh_key.ssh_key[0].id : data.ibm_is_ssh_key.ssh_key[0].id
-}
-
-##############################################################################
-# Resource Group
-##############################################################################
-
-data "ibm_resource_group" "existing_resource_group" {
-  name = var.resource_group
 }
 
 ##############################################################################
@@ -21,7 +44,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
   count          = local.ssh_keys != null ? 1 : 0
   name           = local.ssh_keys.name
   public_key     = replace(local.ssh_keys.public_key, "/==.*$/", "==")
-  resource_group = data.ibm_resource_group.existing_resource_group.id
+  resource_group = data.ibm_is_vpc.vpc_by_id.resource_group
   tags           = var.resource_tags
 }
 
@@ -31,9 +54,8 @@ data "ibm_is_ssh_key" "ssh_key" {
 }
 
 data "ibm_is_vpc" "vpc_by_id" {
-  identifier = var.vpc_id
+  identifier = local.vpc_id
 }
-
 
 data "ibm_is_image" "image" {
   name = var.image_name
@@ -49,10 +71,10 @@ locals {
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version                       = "2.13.0"
-  resource_group_id             = data.ibm_resource_group.existing_resource_group.id
+  resource_group_id             = data.ibm_is_vpc.vpc_by_id.resource_group
   create_security_group         = true
   prefix                        = "${var.prefix}-vsi"
-  vpc_id                        = var.vpc_id
+  vpc_id                        = local.vpc_id
   subnets                       = var.subnet_names != null ? local.subnets : data.ibm_is_vpc.vpc_by_id.subnets
   tags                          = var.resource_tags
   access_tags                   = var.access_tags
