@@ -4,11 +4,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "resource_group" {
-  type        = string
-  description = "The resource group name of the landing zone VPC."
-}
-
 variable "region" {
   description = "The region of the landing zone VPC."
   type        = string
@@ -23,6 +18,7 @@ variable "prefix" {
 variable "vpc_id" {
   description = "The ID of the VPC where the VSI will be created."
   type        = string
+  default     = null
 }
 
 variable "existing_ssh_key_name" {
@@ -185,4 +181,16 @@ variable "load_balancers" {
     })
   )
   default = []
+}
+
+variable "prerequisite_workspace_id" {
+  type        = string
+  description = "IBM Cloud Schematics workspace ID of the prerequisite IBM VPC landing zone. If you do not have an existing deployment yet, create a new architecture using the same catalog tile."
+  default     = null
+}
+
+variable "existing_vpc_name" {
+  type        = string
+  description = "Name of the VPC to be used for deploying the VSI from the list of VPCs retrived from the IBM Cloud Schematics workspace."
+  default     = null
 }
