@@ -48,7 +48,7 @@ locals {
 
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "2.8.2"
+  version                       = "2.13.0"
   resource_group_id             = data.ibm_resource_group.existing_resource_group.id
   create_security_group         = true
   prefix                        = "${var.prefix}-vsi"
