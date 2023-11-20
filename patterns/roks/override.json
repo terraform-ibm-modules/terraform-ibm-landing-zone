@@ -384,7 +384,6 @@
     ],
     "vpn_gateways": [
         {
-            "connections": [],
             "name": "management-gateway",
             "resource_group": "slz-management-rg",
             "subnet_name": "vpn-zone-1",

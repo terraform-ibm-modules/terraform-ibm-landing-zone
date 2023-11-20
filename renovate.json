@@ -22,7 +22,8 @@
       "semanticCommitType": "fix",
       "group": true,
       "groupName": "required_provider",
-      "commitMessageExtra": "to latest for the landing zone DAs"
+      "commitMessageExtra": "to latest for the landing zone DAs",
+      "ignorePaths": ["patterns/vsi-extension/"]
     }
   ]
 }
