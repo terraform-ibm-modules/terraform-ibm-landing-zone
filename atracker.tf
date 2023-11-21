@@ -1,11 +1,12 @@
 ##############################################################################
-# Activity Tracker is only supported in the following regions, resources
-# will only be provisioned where supported
+# Activity Tracker Event Routing is only supported in the following regions,
+# resources will only be provisioned where supported
+# https://cloud.ibm.com/docs/atracker?topic=atracker-regions#regions-atracker
 ##############################################################################
 
 locals {
   valid_atracker_region = contains(
-    ["us-south", "us-east", "eu-de", "eu-gb", "au-syd"],
+    ["us-south", "us-east", "eu-de", "eu-es", "eu-gb", "au-syd"],
     var.region
   )
 }
