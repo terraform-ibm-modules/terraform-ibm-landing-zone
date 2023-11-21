@@ -71,16 +71,18 @@ variable "user_data" {
 variable "boot_volume_encryption_key" {
   description = "The CRN of the boot volume encryption key."
   type        = string
+  default     = null
 }
 
 variable "existing_kms_instance_guid" {
   description = "The GUID of the KMS instance that holds the key specified in `var.boot_volume_encryption_key`."
   type        = string
+  default     = null
 }
 
 variable "skip_iam_authorization_policy" {
   type        = bool
-  description = "Set to `true` to skip the creation of an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. If set to `false` (and creating a policy), specify the GUID of the KMS instance in the `existing_kms_instance_guid` variable. When you are using the same KMS instance from the landing zone VPC, it may be possible to set a flag to true in order to skip creating an authorization policy since it has already been established by the VPC DA."
+  description = "By default (true), the Landing Zone VPC creates an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. Set to false to create the authorization policy in a different KMS instance, and specify the GUID of the KMS instance in the existing_kms_instance_guid variable."
   default     = true
 }
 
@@ -192,5 +194,11 @@ variable "prerequisite_workspace_id" {
 variable "existing_vpc_name" {
   type        = string
   description = "Name of the VPC to be used for deploying the VSI from the list of VPCs retrived from the IBM Cloud Schematics workspace."
+  default     = null
+}
+
+variable "existing_boot_volume_encryption_key_name" {
+  type        = string
+  description = "Name of the boot_volume_encryption_key to be used for encrypting the boot volume of the VSI from the list of keys retrived from the IBM Cloud Schematics workspace."
   default     = null
 }

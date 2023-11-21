@@ -25,3 +25,5 @@ Follow these steps to get the schematics workspace ID.
 
 Pass the Workspace ID to the `prerequisite_workspace_id` variable and pass the name of the VPC to the `existing_vpc_name` to choosse the name of the VPC to which the user wants to deploy the VSI.
 Please provide the Workspace ID for the prerequisite workspace and the name of the existing VPC to the `prerequisite_workspace_id` and `existing_vpc_name` variables respectively, to identify the VPC where you want to deploy the VSI.
+
+Optional, user can pass the name of the key to the `existing_boot_volume_encryption_key_name` variable to be used for boot volume encryption from the list of keys fetched from the workspace.

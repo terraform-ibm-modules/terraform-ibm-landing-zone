@@ -7,6 +7,10 @@ locals {
   validate_vpc_vars = var.prerequisite_workspace_id == null && var.vpc_id == null ? tobool("var.prerequisite_workspace_id and var.vpc_id cannot be both set to null.") : true
   # tflint-ignore: terraform_unused_declarations
   validate_vpc_names = var.prerequisite_workspace_id != null && var.existing_vpc_name == null ? tobool("A value must be passed for var.existing_vpc_name to choose a VPC from the list of VPCs from the schematics workspace.") : true
+  # tflint-ignore: terraform_unused_declarations
+  validate_auth_policy = var.skip_iam_authorization_policy == false && var.existing_kms_instance_guid == null ? tobool("When var.skip_iam_authorization_policy is set to false, a value must be passed for var.existing_kms_instance_guid in order to create the auth policy.") : true
+  # tflint-ignore: terraform_unused_declarations
+  validate_boot_volume_key_names = var.prerequisite_workspace_id != null && var.existing_boot_volume_encryption_key_name == null ? tobool("A value must be passed for var.existing_boot_volume_encryption_key_name to choose a key from the list of keys from the schematics workspace to encrypt the boot volume.") : true
 
   location         = var.prerequisite_workspace_id != null ? regex("^[a-z/-]+", var.prerequisite_workspace_id) : null
   fullstack_output = length(data.ibm_schematics_output.schematics_output) > 0 ? jsondecode(data.ibm_schematics_output.schematics_output[0].output_json) : null
@@ -14,6 +18,11 @@ locals {
     for vpc in local.fullstack_output[0].vpc_data.value :
     vpc.vpc_data.id if vpc.vpc_data.name == var.existing_vpc_name
   ][0] : var.vpc_id
+
+  boot_volume_encryption_key = var.prerequisite_workspace_id != null ? [
+    for key, value in local.fullstack_output[0].key_map.value :
+    value.crn if key == var.existing_boot_volume_encryption_key_name
+  ][0] : var.boot_volume_encryption_key
 }
 
 data "ibm_schematics_workspace" "schematics_workspace" {
@@ -82,7 +91,7 @@ module "vsi" {
   skip_iam_authorization_policy = var.skip_iam_authorization_policy
   user_data                     = var.user_data
   image_id                      = data.ibm_is_image.image.id
-  boot_volume_encryption_key    = var.boot_volume_encryption_key
+  boot_volume_encryption_key    = local.boot_volume_encryption_key
   existing_kms_instance_guid    = var.existing_kms_instance_guid
   security_group_ids            = var.security_group_ids
   ssh_key_ids                   = [local.ssh_key_id]
