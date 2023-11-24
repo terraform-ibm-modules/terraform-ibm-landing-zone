@@ -189,7 +189,7 @@
                     "configuration": [
                         {
                             "key": "ssh_public_key",
-                            "required": true,
+                            "required": true
                         },
                         {
                             "key": "existing_ssh_key_name",
