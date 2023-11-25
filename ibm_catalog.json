@@ -188,8 +188,12 @@
                     "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
                     "configuration": [
                         {
+                            "key": "ssh_public_key",
+                            "required": true
+                        },
+                        {
                             "key": "existing_ssh_key_name",
-                            "required": true,
+                            "required": false,
                             "custom_config": {
                                 "config_constraints": {
                                     "valueType": "name"
