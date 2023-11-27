@@ -192,18 +192,6 @@
                             "required": true
                         },
                         {
-                            "key": "existing_ssh_key_name",
-                            "required": false,
-                            "custom_config": {
-                                "config_constraints": {
-                                    "valueType": "name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_ssh_key"
-                            }
-                        },
-                        {
                             "hidden": true,
                             "key": "teleport_domain"
                         },
