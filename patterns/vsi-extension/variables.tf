@@ -18,7 +18,6 @@ variable "prefix" {
 variable "vpc_id" {
   description = "The ID of the VPC where the VSI will be created."
   type        = string
-  default     = null
 }
 
 variable "existing_ssh_key_name" {
@@ -94,9 +93,9 @@ variable "subnet_names" {
   description = "The subnets to deploy the VSI instances to."
   type        = list(string)
   default = [
-    "vpe-zone-1",
-    "vpe-zone-2",
-    "vpe-zone-3"
+    "vsi-zone-1",
+    "vsi-zone-2",
+    "vsi-zone-3"
   ]
 }
 
@@ -181,16 +180,4 @@ variable "load_balancers" {
     })
   )
   default = []
-}
-
-variable "prerequisite_workspace_id" {
-  type        = string
-  description = "IBM Cloud Schematics workspace ID of the prerequisite IBM VPC landing zone. If you do not have an existing deployment yet, create a new architecture using the same catalog tile."
-  default     = null
-}
-
-variable "existing_vpc_name" {
-  type        = string
-  description = "Name of the VPC to be used for deploying the VSI from the list of VPCs retrived from the IBM Cloud Schematics workspace."
-  default     = null
 }
