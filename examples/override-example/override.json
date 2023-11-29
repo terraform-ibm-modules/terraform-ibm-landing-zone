@@ -467,7 +467,8 @@
             "health_delay": 60,
             "health_retries": 2,
             "health_timeout": 2,
-            "health_type": "tcp"
+            "health_type": "tcp",
+            "idle_connection_timeout": 50
           }
         ]
       }

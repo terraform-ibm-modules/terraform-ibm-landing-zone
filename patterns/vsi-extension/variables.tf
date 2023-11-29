@@ -4,11 +4,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-variable "resource_group" {
-  type        = string
-  description = "The resource group name of the landing zone VPC."
-}
-
 variable "region" {
   description = "The region of the landing zone VPC."
   type        = string
@@ -23,6 +18,7 @@ variable "prefix" {
 variable "vpc_id" {
   description = "The ID of the VPC where the VSI will be created."
   type        = string
+  default     = null
 }
 
 variable "existing_ssh_key_name" {
@@ -84,8 +80,8 @@ variable "existing_kms_instance_guid" {
 
 variable "skip_iam_authorization_policy" {
   type        = bool
-  description = "Set to `true` to skip the creation of an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. If set to `false` (and creating a policy), specify the GUID of the KMS instance in the `existing_kms_instance_guid` variable."
-  default     = false
+  description = "By default (true), the Landing Zone VPC creates an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. Set to false to create the authorization policy in a different KMS instance, and specify the GUID of the KMS instance in the existing_kms_instance_guid variable."
+  default     = true
 }
 
 variable "vsi_per_subnet" {
@@ -140,18 +136,19 @@ variable "load_balancers" {
   description = "The load balancers to add to the VSI."
   type = list(
     object({
-      name              = string
-      type              = string
-      listener_port     = number
-      listener_protocol = string
-      connection_limit  = number
-      algorithm         = string
-      protocol          = string
-      health_delay      = number
-      health_retries    = number
-      health_timeout    = number
-      health_type       = string
-      pool_member_port  = string
+      name                    = string
+      type                    = string
+      listener_port           = number
+      listener_protocol       = string
+      connection_limit        = number
+      algorithm               = string
+      protocol                = string
+      health_delay            = number
+      health_retries          = number
+      health_timeout          = number
+      health_type             = string
+      pool_member_port        = string
+      idle_connection_timeout = optional(number)
       security_group = optional(
         object({
           name = string
@@ -185,4 +182,16 @@ variable "load_balancers" {
     })
   )
   default = []
+}
+
+variable "prerequisite_workspace_id" {
+  type        = string
+  description = "IBM Cloud Schematics workspace ID of the prerequisite IBM VPC landing zone. If you do not have an existing deployment yet, create a new architecture using the same catalog tile."
+  default     = null
+}
+
+variable "existing_vpc_name" {
+  type        = string
+  description = "Name of the VPC to be used for deploying the VSI from the list of VPCs retrived from the IBM Cloud Schematics workspace."
+  default     = null
 }

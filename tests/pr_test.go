@@ -606,7 +606,6 @@ func TestRunVsiExtention(t *testing.T) {
 			TerraformVars: map[string]interface{}{
 				"prefix":                     prefix,
 				"region":                     region,
-				"resource_group":             fmt.Sprintf("%s-management-rg", prefix),
 				"existing_kms_instance_guid": terraform.Output(t, existingTerraformOptions, "key_management_guid"),
 				"boot_volume_encryption_key": keyID,
 				"vpc_id":                     managementVpcID,
