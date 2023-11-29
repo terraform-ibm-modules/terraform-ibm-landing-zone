@@ -162,7 +162,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version           = "3.9.2"
+  version           = "3.11.1"
   ibmcloud_api_key  = var.ibmcloud_api_key
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
