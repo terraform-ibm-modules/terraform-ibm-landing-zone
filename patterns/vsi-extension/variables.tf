@@ -135,18 +135,19 @@ variable "load_balancers" {
   description = "The load balancers to add to the VSI."
   type = list(
     object({
-      name              = string
-      type              = string
-      listener_port     = number
-      listener_protocol = string
-      connection_limit  = number
-      algorithm         = string
-      protocol          = string
-      health_delay      = number
-      health_retries    = number
-      health_timeout    = number
-      health_type       = string
-      pool_member_port  = string
+      name                    = string
+      type                    = string
+      listener_port           = number
+      listener_protocol       = string
+      connection_limit        = number
+      algorithm               = string
+      protocol                = string
+      health_delay            = number
+      health_retries          = number
+      health_timeout          = number
+      health_type             = string
+      pool_member_port        = string
+      idle_connection_timeout = optional(number)
       security_group = optional(
         object({
           name = string
