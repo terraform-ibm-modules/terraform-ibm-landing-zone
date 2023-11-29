@@ -1503,4 +1503,10 @@ variable "add_kms_block_storage_s2s" {
   default     = true
 }
 
+variable "create_s2s_authorization_policy" {
+  description = "Set it to true to create the authorization policy."
+  type        = bool
+  default     = true
+}
+
 ##############################################################################
