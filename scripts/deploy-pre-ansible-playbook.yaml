@@ -16,17 +16,22 @@
 #         var: cluster_names.stdout_lines
 #     # - name: Create the Jinja2 based template
 #     #   template: src=./moved.j2 dest=../moved.tf
-- name: Deploy pre playbook
+- name: Hello world ansible pre validate playbook
   hosts: localhost
   vars:
-    script_value: "{{ lookup('ansible.builtin.env', 'script_value')}}"
-    workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
+    ibmcloud_api_key: "{{ lookup('ansible.builtin.env', 'ibmcloud_api_key')}}"
   tasks:
-    - name: Print message
-      ansible.builtin.debug:
-        msg: "The script_value is {{ script_value }}"
-      failed_when: script_value == "fail deploy pre"
-    - name: Print message
-      ansible.builtin.debug:
-        msg: "The workspace id is {{ workspace_id }}"
-      when: workspace_id is defined and workspace_id != ""
+    - name: API key is NOT defined
+      debug:
+        msg: "*** ibmcloud_api_key NOT defined"
+      when: (ibmcloud_api_key is undefined) or (ibmcloud_api_key | length == 0)
+
+    - name: Pre Validate Ansible Environment
+      debug:
+        msg:
+          - "  ENV:"
+          - "*****************************************"
+          - "{{ansible_env}}"
+          - "  FACTS:"
+          - "*****************************************"
+          - "{{ansible_facts}}"
