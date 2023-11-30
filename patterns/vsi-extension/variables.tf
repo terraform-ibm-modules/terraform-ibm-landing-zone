@@ -15,20 +15,21 @@ variable "prefix" {
   default     = "slz-vsi"
 }
 
+// TODO: Update the vpc_id description
 variable "vpc_id" {
   description = "The ID of the VPC where the VSI will be created."
   type        = string
 }
 
 variable "existing_ssh_key_name" {
-  description = "The ID of the VPC where the VSI will be created."
+  description = "The name of a public SSH Key which already exists in the deployment region that will be used for VSI creation. To add a new SSH key, use the variable 'ssh_public_key' instead."
   type        = string
   default     = null
 }
 
 
 variable "ssh_public_key" {
-  description = "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
+  description = "A public SSH Key for VSI creation which does not already exist in the deployment region. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended) - See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, enter a value for the variable 'existing_ssh_key_name' instead."
   type        = string
 
   validation {
@@ -38,7 +39,7 @@ variable "ssh_public_key" {
 }
 
 variable "resource_tags" {
-  description = "A list of tags to add to the VSI, block storage, security group, floating IP, and load balancer created by the module."
+  description = "List of resource tags to apply to resources created by this module."
   type        = list(string)
   default     = []
 }
@@ -52,51 +53,43 @@ variable "access_tags" {
 variable "image_name" {
   description = "Image ID used for the VSI. Run the 'ibmcloud is images' CLI command to find available images. The IDs are different in each region."
   type        = string
-  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-1"
 }
 
-variable "machine_type" {
-  description = "VSI machine type"
+variable "vsi_instance_profile" {
+  description = "VSI image profile. Use the IBM Cloud CLI command `ibmcloud is instance-profiles` to see available image profiles"
   type        = string
-  default     = "cx2-2x4"
+  default     = "cx2-4x8"
 }
 
 variable "user_data" {
-  description = "User data to initialize VSI deployment."
+  description = "User data to transfer to the instance. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data."
   type        = string
   default     = null
 }
 
+// TODO: Update the boot_volume_encryption_key description
 variable "boot_volume_encryption_key" {
   description = "The CRN of the boot volume encryption key."
   type        = string
 }
 
-variable "existing_kms_instance_guid" {
-  description = "The GUID of the KMS instance that holds the key specified in `var.boot_volume_encryption_key`."
-  type        = string
-}
-
-variable "skip_iam_authorization_policy" {
-  type        = bool
-  description = "By default (true), the Landing Zone VPC creates an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. Set to false to create the authorization policy in a different KMS instance, and specify the GUID of the KMS instance in the existing_kms_instance_guid variable."
-  default     = true
-}
-
 variable "vsi_per_subnet" {
-  description = "The number of VSI instances for each subnet."
+  description = "Number of Virtual Servers to create on each VSI subnet."
   type        = number
   default     = 1
 }
 
+// TODO: Update the subnet_names description
 variable "subnet_names" {
-  description = "The subnets to deploy the VSI instances to."
+  description = "The subnets to deploy the VSI instances to. Defaults to null to deploy VSI to all the subnets in the VPC."
   type        = list(string)
-  default = [
-    "vsi-zone-1",
-    "vsi-zone-2",
-    "vsi-zone-3"
-  ]
+  default     = null
+
+  validation {
+    error_message = "subnet_names cannot be an empty list."
+    condition     = var.subnet_names == null ? true : length(var.subnet_names) > 0 ? true : false
+  }
 }
 
 variable "security_group_ids" {

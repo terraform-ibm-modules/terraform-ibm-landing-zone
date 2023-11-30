@@ -48,14 +48,13 @@ module "vsi" {
   tags                          = var.resource_tags
   access_tags                   = var.access_tags
   kms_encryption_enabled        = true
-  skip_iam_authorization_policy = var.skip_iam_authorization_policy
+  skip_iam_authorization_policy = true
   user_data                     = var.user_data
   image_id                      = data.ibm_is_image.image.id
   boot_volume_encryption_key    = var.boot_volume_encryption_key
-  existing_kms_instance_guid    = var.existing_kms_instance_guid
   security_group_ids            = var.security_group_ids
   ssh_key_ids                   = [local.ssh_key_id]
-  machine_type                  = var.machine_type
+  machine_type                  = var.vsi_instance_profile
   vsi_per_subnet                = var.vsi_per_subnet
   security_group                = local.env.security_groups[0]
   load_balancers                = var.load_balancers
