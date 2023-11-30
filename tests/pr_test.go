@@ -228,28 +228,6 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 	}
 }
 
-// sanitizeResourceChanges sanitizes the sensitive data in a Terraform JSON Change and returns the sanitized JSON.
-func sanitizeResourceChanges(change *tfjson.Change, mergedSensitive map[string]interface{}) (string, error) {
-	// Marshal the Change to JSON bytes
-	changesBytes, err := json.MarshalIndent(change, "", "  ")
-	if err != nil {
-		return "", err
-	}
-	changesJson := string(changesBytes)
-
-	// Perform sanitization of sensitive data
-	changesJson, err = common.SanitizeSensitiveData(changesJson, mergedSensitive)
-	return changesJson, err
-}
-
-// handleSanitizationError logs an error message if a sanitization error occurs.
-func handleSanitizationError(err error, location string, options *testhelper.TestOptions) {
-	if err != nil {
-		errorMessage := fmt.Sprintf("Error sanitizing sensitive data in %s", location)
-		logger.Log(options.Testing, errorMessage)
-	}
-}
-
 func TestRunOverride(t *testing.T) {
 	t.Parallel()
 
@@ -311,7 +289,7 @@ func TestRunOverride(t *testing.T) {
 				}
 
 				// Perform sanitization
-				changesJson, err := sanitizeResourceChanges(resource.Change, mergedSensitive)
+				changesJson, err := testhelper.sanitizeResourceChanges(resource.Change, mergedSensitive)
 				if err != nil {
 					changesJson = "Error sanitizing sensitive data"
 					logger.Log(options.Testing, changesJson)
@@ -338,7 +316,7 @@ func TestRunOverride(t *testing.T) {
 					var after string
 					if len(beforeAfter) > 1 {
 						after, err = common.SanitizeSensitiveData(beforeAfter[1], mergedSensitive)
-						handleSanitizationError(err, "after diff", options)
+						testhelper.handleSanitizationError(err, "after diff", options)
 					} else {
 						after = fmt.Sprintf("Could not parse after from diff") // dont print incase diff contains sensitive values
 					}
@@ -347,7 +325,7 @@ func TestRunOverride(t *testing.T) {
 					var before string
 					if len(beforeAfter) > 0 {
 						before, err = common.SanitizeSensitiveData(strings.TrimPrefix(beforeAfter[0], "Before: "), mergedSensitive)
-						handleSanitizationError(err, "before diff", options)
+						testhelper.handleSanitizationError(err, "before diff", options)
 					} else {
 						before = fmt.Sprintf("Could not parse before from diff") // dont print incase diff contains sensitive values
 					}
