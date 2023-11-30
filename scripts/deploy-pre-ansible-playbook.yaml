@@ -1,18 +1,32 @@
-- name: Undeploy post playbook
+# - name: Undeploy post playbook
+#   hosts: localhost
+#   vars:
+#     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
+#   tasks:
+#     # - name: Get Template ID
+#     #   ansible.builtin.shell:
+#     #     cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
+#     #   register: template_id
+#     # - name: Get Cluster names
+#     #   ansible.builtin.shell:
+#     #     cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
+#     #   register: cluster_names
+#     - name: Print the updated list
+#       ansible.builtin.debug:
+#         var: cluster_names.stdout_lines
+#     # - name: Create the Jinja2 based template
+#     #   template: src=./moved.j2 dest=../moved.tf
+- name: Deploy pre playbook
   hosts: localhost
   vars:
+    script_value: "{{ lookup('ansible.builtin.env', 'script_value')}}"
     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
   tasks:
-    # - name: Get Template ID
-    #   ansible.builtin.shell:
-    #     cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
-    #   register: template_id
-    # - name: Get Cluster names
-    #   ansible.builtin.shell:
-    #     cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
-    #   register: cluster_names
-    - name: Print the updated list
+    - name: Print message
       ansible.builtin.debug:
-        var: cluster_names.stdout_lines
-    # - name: Create the Jinja2 based template
-    #   template: src=./moved.j2 dest=../moved.tf
+        msg: "The script_value is {{ script_value }}"
+      failed_when: script_value == "fail deploy pre"
+    - name: Print message
+      ansible.builtin.debug:
+        msg: "The workspace id is {{ workspace_id }}"
+      when: workspace_id is defined and workspace_id != ""
