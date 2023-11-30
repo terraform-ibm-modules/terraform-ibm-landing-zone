@@ -928,19 +928,19 @@
                             "key": "kube_version",
                             "type": "string",
                             "required": true,
-                            "default_value": "4.13_openshift",
+                            "default_value": "4.13",
                             "options": [
                                 {
-                                    "displayname": "4.11_openshift",
-                                    "value": "4.11_openshift"
+                                    "displayname": "4.11",
+                                    "value": "4.11"
                                 },
                                 {
-                                    "displayname": "4.12_openshift",
-                                    "value": "4.12_openshift"
+                                    "displayname": "4.12",
+                                    "value": "4.12"
                                 },
                                 {
-                                    "displayname": "4.13_openshift",
-                                    "value": "4.13_openshift"
+                                    "displayname": "4.13",
+                                    "value": "4.13"
                                 }
                             ],
                             "custom_config": {}
@@ -1012,6 +1012,10 @@
                             },
                             "key": "region",
                             "required": true
+                        },
+                        {
+                            "required": true,
+                            "key": "prefix"
                         },
                         {
                             "hidden": true,
