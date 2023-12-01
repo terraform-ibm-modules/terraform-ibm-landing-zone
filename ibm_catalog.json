@@ -1059,6 +1059,11 @@
                             "type": "password"
                         },
                         {
+                            "required": true,
+                            "key": "ibmcloud_api_key",
+                            "type": "password"
+                        },
+                        {
                             "hidden": true,
                             "key": "teleport_management_zones"
                         },
