@@ -1,37 +1,18 @@
-# - name: Undeploy post playbook
-#   hosts: localhost
-#   vars:
-#     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
-#   tasks:
-#     # - name: Get Template ID
-#     #   ansible.builtin.shell:
-#     #     cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
-#     #   register: template_id
-#     # - name: Get Cluster names
-#     #   ansible.builtin.shell:
-#     #     cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
-#     #   register: cluster_names
-#     - name: Print the updated list
-#       ansible.builtin.debug:
-#         var: cluster_names.stdout_lines
-#     # - name: Create the Jinja2 based template
-#     #   template: src=./moved.j2 dest=../moved.tf
-- name: Hello world ansible pre validate playbook
+- name: deploy pre playbook
   hosts: localhost
   vars:
-    ibmcloud_api_key: "{{ lookup('ansible.builtin.env', 'ibmcloud_api_key')}}"
+    workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
   tasks:
-    - name: API key is NOT defined
-      debug:
-        msg: "*** ibmcloud_api_key NOT defined"
-      when: (ibmcloud_api_key is undefined) or (ibmcloud_api_key | length == 0)
-
-    - name: Pre Validate Ansible Environment
-      debug:
-        msg:
-          - "  ENV:"
-          - "*****************************************"
-          - "{{ansible_env}}"
-          - "  FACTS:"
-          - "*****************************************"
-          - "{{ansible_facts}}"
+    - name: Get Template ID
+      ansible.builtin.shell:
+        cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
+      register: template_id
+    - name: Get Cluster names
+      ansible.builtin.shell:
+        cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
+      register: cluster_names
+    - name: Print the updated list
+      ansible.builtin.debug:
+        var: cluster_names.stdout_lines
+    - name: Create the Jinja2 based template
+      template: src=./moved.j2 dest=../moved.tf
