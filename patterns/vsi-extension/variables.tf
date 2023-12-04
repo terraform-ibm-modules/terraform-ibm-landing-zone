@@ -67,7 +67,6 @@ variable "user_data" {
   default     = null
 }
 
-// TODO: Update the boot_volume_encryption_key description
 variable "boot_volume_encryption_key" {
   description = "The CRN of the boot volume encryption key. [Learn more](https://cloud.ibm.com/docs-draft/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = string
@@ -79,7 +78,6 @@ variable "vsi_per_subnet" {
   default     = 1
 }
 
-// TODO: Update the subnet_names description
 variable "subnet_names" {
   description = "The subnets where you want to deploy the VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs-draft/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = list(string)
