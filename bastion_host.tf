@@ -65,7 +65,7 @@ module "bastion_host" {
   ]
   ssh_key_ids = [
     for ssh_key in each.value.ssh_keys :
-    lookup(module.ssh_keys.ssh_key_map, ssh_key).id
+    module.ssh_keys.ssh_key_map["ssh_key"].id
   ]
   machine_type       = each.value.machine_type
   security_group     = each.value.security_group
