@@ -155,7 +155,7 @@ module "f5_vsi" {
   # Get ssh keys
   ssh_key_ids = [
     for ssh_key in each.value.ssh_keys :
-    module.ssh_keys.ssh_key_map["ssh_key"].id
+    module.ssh_keys.ssh_key_map[ssh_key].id
   ]
   # Get block storage volumes
   block_storage_volumes = each.value.block_storage_volumes == null ? [] : [
