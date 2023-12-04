@@ -1,7 +1,6 @@
 # Add a VSI to a landing zone VPC
 
-
-//TODO: Display the network diagram from the reference architectures directory.
+![Architecture diagram for adding a VSI to your VPC landing zone deployable architecture](../../reference-architectures/vsi-extension.drawio.svg)
 
 This architecture creates a VSI in some or all of the subnets of your existing landing zone VPC deployable architecture.
 
