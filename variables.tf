@@ -682,6 +682,7 @@ variable "cos" {
 # Service Instance Variables
 ##############################################################################
 
+# tflint-ignore: terraform_unused_declarations
 variable "service_endpoints" {
   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
   type        = string

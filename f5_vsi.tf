@@ -136,7 +136,7 @@ module "f5_vsi" {
       interface_name    = group.interface_name
     }
   ]
-  image_id       = lookup(local.public_image_map[each.value.f5_image_name], var.region)
+  image_id       = local.public_image_map[each.value.f5_image_name][var.region]
   user_data      = module.dynamic_values.f5_template_map[each.key].user_data
   machine_type   = each.value.machine_type
   vsi_per_subnet = 1
