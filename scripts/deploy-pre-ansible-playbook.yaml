@@ -3,6 +3,9 @@
   vars:
     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
   tasks:
+    - name: Install schematics plug-in
+      ansible.builtin.shell:
+        cmd: ibmcloud plugin install schematics
     - name: Get Template ID
       ansible.builtin.shell:
         cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
