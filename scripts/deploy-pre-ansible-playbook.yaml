@@ -2,10 +2,14 @@
   hosts: localhost
   vars:
     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
+    ibmcloud_api_key: "{{ lookup('ansible.builtin.env', 'ibmcloud_api_key')}}"
   tasks:
     - name: Install schematics plug-in
       ansible.builtin.shell:
         cmd: ibmcloud plugin install schematics
+    - name: Login to ibmcloud
+      ansible.builtin.shell:
+        cmd: ibmcloud login --apikey "{{ ibmcloud_api_key }}"
     - name: Get Template ID
       ansible.builtin.shell:
         cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
