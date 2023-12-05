@@ -76,7 +76,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
     }
   }
 
-  disable_public_service_endpoint = true
+  disable_public_service_endpoint = false
 
   timeouts {
     create = "3h"
