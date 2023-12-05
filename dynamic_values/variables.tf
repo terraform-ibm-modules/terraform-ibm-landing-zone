@@ -200,7 +200,7 @@ variable "secrets_manager" {
 # Service Authorization Variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
+variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Direct reference to kms block storage variable"
 }
 

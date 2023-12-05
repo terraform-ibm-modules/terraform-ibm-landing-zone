@@ -1497,16 +1497,16 @@ variable "vpc_placement_groups" {
 # s2s variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
+variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Whether to create a service-to-service authorization between block storage and the key management service."
   type        = bool
-  default     = true
+  default     = false
 }
 
-variable "create_s2s_authorization_policy" {
+variable "skip_all_s2s_auth_policies" {
   description = "Set it to true to create the authorization policy."
   type        = bool
-  default     = true
+  default     = false
 }
 
 ##############################################################################

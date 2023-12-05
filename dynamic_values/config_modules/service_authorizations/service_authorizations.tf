@@ -22,7 +22,7 @@ variable "secrets_manager" {
   description = "Secrets Manager config"
 }
 
-variable "add_kms_block_storage_s2s" {
+variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Add kms to block storage s2s"
 }
 
@@ -43,7 +43,7 @@ locals {
 module "kms_to_block_storage" {
   source = "../list_to_map"
   list = [
-    for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
+    for instance in(var.skip_kms_block_storage_s2s_auth_policy ? ["block-storage"] : []) :
     {
       name                        = instance
       source_service_name         = "server-protect"
