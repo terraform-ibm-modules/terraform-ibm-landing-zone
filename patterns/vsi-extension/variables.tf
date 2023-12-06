@@ -16,7 +16,7 @@ variable "prefix" {
 }
 
 variable "vpc_id" {
-  description = "The ID of the VPC where you want to deploy the VSI. [Learn more](https://cloud.ibm.com/docs-draft/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
+  description = "The ID of the VPC where you want to deploy the VSI. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = string
 }
 
@@ -38,14 +38,14 @@ variable "ssh_public_key" {
 }
 
 variable "resource_tags" {
-  description = "A list of resource tags to apply to resources created by this module."
+  description = "A list of resource tags to apply to resources created by this solution."
   type        = list(string)
   default     = []
 }
 
 variable "access_tags" {
   type        = list(string)
-  description = "A list of access tags to apply to the VSI resources created by the module."
+  description = "A list of access tags to apply to the VSI resources created by this solution."
   default     = []
 }
 
@@ -68,7 +68,7 @@ variable "user_data" {
 }
 
 variable "boot_volume_encryption_key" {
-  description = "The CRN of the boot volume encryption key. [Learn more](https://cloud.ibm.com/docs-draft/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
+  description = "The CRN of the boot volume encryption key. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = string
 }
 
@@ -79,7 +79,7 @@ variable "vsi_per_subnet" {
 }
 
 variable "subnet_names" {
-  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs-draft/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
+  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = list(string)
   default     = null
 
