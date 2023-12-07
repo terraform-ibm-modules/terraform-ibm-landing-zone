@@ -26,6 +26,7 @@
             "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
             "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
+            "provider_name": "IBM",
             "features": [
                 {
                     "description": "Creates and configures one or more virtual servers to handle workloads.\n",
@@ -187,16 +188,8 @@
                     "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
                     "configuration": [
                         {
-                            "key": "existing_ssh_key_name",
-                            "required": true,
-                            "custom_config": {
-                                "config_constraints": {
-                                    "valueType": "name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_ssh_key"
-                            }
+                            "key": "ssh_public_key",
+                            "required": true
                         },
                         {
                             "hidden": true,
@@ -622,6 +615,7 @@
             "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: VSI on VPC landing zone and Red Hat OpenShift Container Platform on VPC landing zone.",
             "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+            "provider_name": "IBM",
             "features": [
                 {
                     "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
@@ -988,6 +982,7 @@
             "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
             "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
             "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+            "provider_name": "IBM",
             "features": [
                 {
                     "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",

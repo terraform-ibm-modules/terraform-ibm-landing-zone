@@ -314,18 +314,19 @@ variable "vsi" {
       ))
       load_balancers = optional(list(
         object({
-          name              = string
-          type              = string
-          listener_port     = number
-          listener_protocol = string
-          connection_limit  = number
-          algorithm         = string
-          protocol          = string
-          health_delay      = number
-          health_retries    = number
-          health_timeout    = number
-          health_type       = string
-          pool_member_port  = string
+          name                    = string
+          type                    = string
+          listener_port           = number
+          listener_protocol       = string
+          connection_limit        = number
+          algorithm               = string
+          protocol                = string
+          health_delay            = number
+          health_retries          = number
+          health_timeout          = number
+          health_type             = string
+          pool_member_port        = string
+          idle_connection_timeout = optional(number)
           security_group = optional(
             object({
               name = string
@@ -621,7 +622,7 @@ variable "cos" {
 
   # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#region_location
   validation {
-    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-gb`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
+    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-es`, `eu-gb`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
     condition = length(
       [
         for site_bucket in flatten(
@@ -632,7 +633,7 @@ variable "cos" {
               bucket if lookup(bucket, "region_location", null) != null
             ]
           ]
-        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-gb", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
+        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-es", "eu-gb", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
       ]
     ) == 0
   }
@@ -1328,18 +1329,19 @@ variable "f5_vsi" {
       ))
       load_balancers = optional(list(
         object({
-          name              = string
-          type              = string
-          listener_port     = number
-          listener_protocol = string
-          connection_limit  = number
-          algorithm         = string
-          protocol          = string
-          health_delay      = number
-          health_retries    = number
-          health_timeout    = number
-          health_type       = string
-          pool_member_port  = string
+          name                    = string
+          type                    = string
+          listener_port           = number
+          listener_protocol       = string
+          connection_limit        = number
+          algorithm               = string
+          protocol                = string
+          health_delay            = number
+          health_retries          = number
+          health_timeout          = number
+          health_type             = string
+          pool_member_port        = string
+          idle_connection_timeout = optional(number)
           security_group = optional(
             object({
               name = string
