@@ -1,1369 +1,1365 @@
 {
-    "products": [
+  "products": [
+    {
+      "name": "deploy-arch-ibm-slz-vsi",
+      "label": "VSI on VPC landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "virtualservers",
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "reference_architecture",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "vsi",
+        "virtual server instance"
+      ],
+      "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
+      "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+      "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
+      "provider_name": "IBM",
+      "features": [
         {
-            "name": "deploy-arch-ibm-slz-vsi",
-            "label": "VSI on VPC landing zone",
-            "product_kind": "solution",
-            "tags": [
-                "virtualservers",
-                "ibm_created",
-                "target_terraform",
-                "terraform",
-                "reference_architecture",
-                "solution"
-            ],
-            "keywords": [
-                "vpc",
-                "slz",
-                "IaC",
-                "infrastructure as code",
-                "terraform",
-                "solution",
-                "vsi",
-                "virtual server instance"
-            ],
-            "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
-            "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
-            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
-            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
-            "provider_name": "IBM",
-            "features": [
-                {
-                    "description": "Creates and configures one or more virtual servers to handle workloads.\n",
-                    "title": "Creates virtual servers for workloads"
-                },
-                {
-                    "description": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.\n",
-                    "title": "Configures subnets"
-                },
-                {
-                    "description": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.\n",
-                    "title": "Associates security groups"
-                },
-                {
-                    "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
-                    "title": "Provisions SSH keys"
-                }
-            ],
-            "flavors": [
-                {
-                    "label": "QuickStart",
-                    "name": "quickstart",
-                    "install_type": "fullstack",
-                    "working_directory": "patterns/vsi-quickstart",
-                    "compliance": {},
-                    "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-                    "configuration": [
-                        {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            },
-                            "key": "override_json_string"
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            },
-                            "key": "region",
-                            "required": true,
-                            "type": "string"
-                        }
-                    ],
-                    "iam_permissions": [
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "appid"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "cloud-object-storage"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "hs-crypto"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "iam-identity"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "kms"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "is.vpc"
-                        }
-                    ],
-                    "architecture": {
-                        "descriptions": "",
-                        "features": [
-                            {
-                                "title": "Separate VPC for management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for workloads",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Virtual Server Instances for every subnet",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Reduces failure events by using multizone regions",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Uses an edge VPC for secure access through the public internet",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Uses Floating IP address for access through the public internet",
-                                "description": "Yes"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "VSI on VPC landing zone - QuickStart variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
-                            }
-                        ]
-                    }
-                },
-                {
-                    "label": "Standard",
-                    "name": "standard",
-                    "install_type": "fullstack",
-                    "working_directory": "patterns/vsi",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "profiles": [
-                            {
-                                "profile_name": "IBM Cloud for Financial Services",
-                                "profile_version": "1.3.0"
-                            }
-                        ]
-                    },
-                    "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-                    "configuration": [
-                        {
-                            "key": "ssh_public_key",
-                            "required": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_domain"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "do_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "template_version"
-                        },
-                        {
-                            "key": "teleport_hostname",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "byol_license_basekey"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_management_zones"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgrefresh_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "vpn_firewall_type"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "domain"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_sku_keyword_2"
-                        },
-                        {
-                            "key": "add_edge_vpc",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_f5_external_fip"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_vsi_image_name"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgactive_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_type"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "f5_instance_profile"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "message_of_the_day"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgstandby_url"
-                        },
-                        {
-                            "key": "create_secrets_manager",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "f5_image_name"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "appid_name"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_password"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "provision_teleport_in_f5"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "https_key"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "https_cert"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_username"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_license"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_f5_management_fip"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_pool"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_host"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "hostname"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "use_existing_appid"
-                        },
-                        {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            },
-                            "key": "override_json_string"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tmos_admin_password",
-                            "type": "password"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_sku_keyword_1"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_version"
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            },
-                            "key": "region",
-                            "required": true
-                        },
-                        {
-                            "key": "override",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_admin_email"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "create_f5_network_on_management_vpc"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_instance_profile"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_unit_of_measure"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "app_id"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "appid_resource_group"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "phone_home_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "ts_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "as3_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "template_source"
-                        }
-                    ],
-                    "iam_permissions": [
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "appid"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "cloud-object-storage"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "hs-crypto"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "iam-identity"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "kms"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "is.vpc"
-                        }
-                    ],
-                    "architecture": {
-                        "descriptions": "",
-                        "features": [
-                            {
-                                "title": "Separate VPC for management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for workloads",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Virtual Server Instances for every subnet",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Reduces failure events by using multizone regions",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Uses an edge VPC for secure access through the public internet",
-                                "description": "Yes, if enabled"
-                            },
-                            {
-                                "title": "Uses Floating IP address for access through the public internet",
-                                "description": "No"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "VSI on VPC landing zone - Standard variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
-                            }
-                        ]
-                    }
-                },
-                {
-                    "label": "Existing VPC",
-                    "name": "existing-vpc",
-                    "install_type": "extension",
-                    "working_directory": "patterns/vsi-extension",
-                    "compliance": {
-                      "authority": "scc-v3",
-                      "profiles": [
-                        {
-                          "profile_name": "IBM Cloud for Financial Services",
-                          "profile_version": "1.3.0"
-                        }
-                      ]
-                    },
-                    "configuration": [
-                      {
-                        "key": "existing_ssh_key_name",
-                        "required": true,
-                        "custom_config": {
-                          "config_constraints": {
-                            "valueType": "name"
-                          },
-                          "grouping": "deployment",
-                          "original_grouping": "deployment",
-                          "type": "vpc_ssh_key"
-                        }
-                      },
-                      {
-                        "custom_config": {
-                          "config_constraints": {
-                            "generationType": "2"
-                          },
-                          "grouping": "deployment",
-                          "original_grouping": "deployment",
-                          "type": "vpc_region"
-                        },
-                        "key": "region",
-                        "required": true
-                      }
-                    ],
-                    "iam_permissions": [
-                      {
-                        "role_crns": [
-                          "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                        ],
-                        "service_name": "hs-crypto"
-                      },
-                      {
-                        "role_crns": [
-                          "crn:v1:bluemix:public:iam::::role:Administrator"
-                        ],
-                        "service_name": "iam-identity"
-                      },
-                      {
-                        "role_crns": [
-                          "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                        ],
-                        "service_name": "kms"
-                      },
-                      {
-                        "role_crns": [
-                          "crn:v1:bluemix:public:iam::::role:Administrator"
-                        ],
-                        "service_name": "is.vpc"
-                      }
-                    ],
-                    "architecture": {
-                      "descriptions": "",
-                      "features": [
-                        {
-                          "title": "Virtual Server Instances for every subnet",
-                          "description": "Yes"
-                        },
-                        {
-                          "title": "Increases security with Key Management",
-                          "description": "Yes"
-                        },
-                        {
-                          "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                          "description": "Yes"
-                        },
-                        {
-                          "title": "Uses Floating IP address for access through the public internet",
-                          "description": "No"
-                        }
-                      ],
-                      "diagrams": [
-                        {
-                          "diagram": {
-                            "caption": "VSI on existing VPC",
-                            "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
-                            "type": "image/svg+xml"
-                          },
-                          "description": "The VSI on existing VPC deployable architecture extension is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
-                        }
-                      ]
-                    }
-                }
-            ]
+          "description": "Creates and configures one or more virtual servers to handle workloads.\n",
+          "title": "Creates virtual servers for workloads"
         },
         {
-            "name": "deploy-arch-ibm-slz-vpc",
-            "label": "VPC landing zone",
-            "product_kind": "solution",
-            "tags": [
-                "network_vpc",
-                "ibm_created",
-                "target_terraform",
-                "terraform",
-                "reference_architecture",
-                "solution"
-            ],
-            "keywords": [
-                "vpc",
-                "slz",
-                "IaC",
-                "Infrastructure",
-                "terraform",
-                "solution"
-            ],
-            "short_description": "Deploys a secure VPC network without compute resources",
-            "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: VSI on VPC landing zone and Red Hat OpenShift Container Platform on VPC landing zone.",
-            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
-            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
-            "provider_name": "IBM",
-            "features": [
-                {
-                    "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
-                    "title": "Creates Virtual Private Clouds"
-                },
-                {
-                    "description": "Defines multiple subnets in the VPC to define IP ranges and organize resources within the network.\n",
-                    "title": "Configures subnets"
-                },
-                {
-                    "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
-                    "title": "Creates a transit gateway"
-                },
-                {
-                    "description": "IBM Cloud Object Storage is used for Flow Logs and Activity Tracker, which enhance the observability and auditing of your infrastructure.\n",
-                    "title": "Integrates Flow Logs and Activity tracking"
-                },
-                {
-                    "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
-                    "title": "Supports edge networking"
-                }
-            ],
-            "flavors": [
-                {
-                    "label": "Standard",
-                    "name": "standard",
-                    "install_type": "fullstack",
-                    "working_directory": "patterns/vpc",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "profiles": [
-                            {
-                                "profile_name": "IBM Cloud for Financial Services",
-                                "profile_version": "1.3.0"
-                            }
-                        ]
-                    },
-                    "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-                    "configuration": [
-                        {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            },
-                            "key": "override_json_string"
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            },
-                            "key": "region",
-                            "required": true
-                        },
-                        {
-                            "key": "add_edge_vpc",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_management_zones",
-                            "hidden": true
-                        },
-                        {
-                            "key": "create_f5_network_on_management_vpc",
-                            "hidden": true
-                        },
-                        {
-                            "key": "provision_teleport_in_f5",
-                            "hidden": true
-                        },
-                        {
-                            "key": "vpn_firewall_type",
-                            "hidden": true
-                        },
-                        {
-                            "key": "ssh_public_key",
-                            "hidden": true
-                        },
-                        {
-                            "key": "f5_image_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "f5_instance_profile",
-                            "hidden": true
-                        },
-                        {
-                            "key": "hostname",
-                            "hidden": true
-                        },
-                        {
-                            "key": "domain",
-                            "hidden": true
-                        },
-                        {
-                            "key": "tmos_admin_password",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_type",
-                            "hidden": true
-                        },
-                        {
-                            "key": "byol_license_basekey",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_host",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_username",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_password",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_pool",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_sku_keyword_1",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_sku_keyword_2",
-                            "hidden": true
-                        },
-                        {
-                            "key": "license_unit_of_measure",
-                            "hidden": true
-                        },
-                        {
-                            "key": "do_declaration_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "as3_declaration_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "ts_declaration_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "phone_home_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "template_source",
-                            "hidden": true
-                        },
-                        {
-                            "key": "template_version",
-                            "hidden": true
-                        },
-                        {
-                            "key": "app_id",
-                            "hidden": true
-                        },
-                        {
-                            "key": "tgactive_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "tgstandby_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "tgrefresh_url",
-                            "hidden": true
-                        },
-                        {
-                            "key": "enable_f5_management_fip",
-                            "hidden": true
-                        },
-                        {
-                            "key": "enable_f5_external_fip",
-                            "hidden": true
-                        },
-                        {
-                            "key": "use_existing_appid",
-                            "hidden": true
-                        },
-                        {
-                            "key": "appid_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "appid_resource_group",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_instance_profile",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_vsi_image_name",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_license",
-                            "hidden": true
-                        },
-                        {
-                            "key": "https_cert",
-                            "hidden": true
-                        },
-                        {
-                            "key": "https_key",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_hostname",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_domain",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_version",
-                            "hidden": true
-                        },
-                        {
-                            "key": "message_of_the_day",
-                            "hidden": true
-                        },
-                        {
-                            "key": "teleport_admin_email",
-                            "hidden": true
-                        },
-                        {
-                            "key": "create_secrets_manager",
-                            "hidden": true
-                        },
-                        {
-                            "key": "override",
-                            "hidden": true
-                        }
-                    ],
-                    "iam_permissions": [
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "appid"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "cloud-object-storage"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "hs-crypto"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "iam-identity"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "kms"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "is.vpc"
-                        }
-                    ],
-                    "architecture": {
-                        "descriptions": "",
-                        "features": [
-                            {
-                                "title": "Separate VPC for management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for workloads",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Reduces failure events by using multizone regions",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Uses an edge VPC for secure access through the public internet",
-                                "description": "Yes, if enabled"
-                            },
-                            {
-                                "title": "Uses Floating IP address for access through the public internet",
-                                "description": "No"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "VPC landing zone - Standard variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The Standard variation of the VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. The Standard variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services."
-                            }
-                        ]
-                    }
-                }
-            ]
+          "description": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.\n",
+          "title": "Configures subnets"
         },
         {
-            "name": "deploy-arch-ibm-slz-ocp",
-            "label": "Red Hat OpenShift Container Platform on VPC landing zone",
-            "product_kind": "solution",
-            "tags": [
-                "compute",
-                "ibm_created",
-                "target_terraform",
-                "terraform",
-                "reference_architecture",
-                "solution"
-            ],
-            "keywords": [
-                "vpc",
-                "slz",
-                "IaC",
-                "infrastructure as code",
-                "terraform",
-                "solution",
-                "Red Hat OpenShift Container Platform",
-                "OCP"
-            ],
-            "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
-            "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
-            "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
-            "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
-            "provider_name": "IBM",
-            "features": [
-                {
-                    "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
-                    "title": "Creates Open Shift Container Platform clusters for workloads"
-                },
-                {
-                    "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
-                    "title": "Creates worker pools"
-                },
-                {
-                    "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
-                    "title": "Configures subnets for containers"
-                },
-                {
-                    "description": "Configures private and public endpoints for the cluster.\n",
-                    "title": "Supports private and public endpoints"
-                },
-                {
-                    "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
-                    "title": "Configures ingress"
-                }
-            ],
-            "flavors": [
-                {
-                    "label": "Standard",
-                    "name": "standard",
-                    "install_type": "fullstack",
-                    "working_directory": "patterns/roks",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "profiles": [
-                            {
-                                "profile_name": "IBM Cloud for Financial Services",
-                                "profile_version": "1.3.0"
-                            }
-                        ]
-                    },
-                    "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-                    "configuration": [
-                        {
-                            "key": "kube_version",
-                            "type": "string",
-                            "required": true,
-                            "default_value": "4.13_openshift",
-                            "options": [
-                                {
-                                    "displayname": "4.11_openshift",
-                                    "value": "4.11_openshift"
-                                },
-                                {
-                                    "displayname": "4.12_openshift",
-                                    "value": "4.12_openshift"
-                                },
-                                {
-                                    "displayname": "4.13_openshift",
-                                    "value": "4.13_openshift"
-                                }
-                            ],
-                            "custom_config": {}
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgactive_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_f5_management_fip"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_sku_keyword_1"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "enable_f5_external_fip"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "vpn_firewall_type"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_type"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "byol_license_basekey"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_vsi_image_name"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "message_of_the_day"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_unit_of_measure"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_admin_email"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "hostname"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "ssh_public_key"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "existing_ssh_key_name"
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            },
-                            "key": "region",
-                            "required": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "domain"
-                        },
-                        {
-                            "key": "phone_home_url",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgstandby_url"
-                        },
-                        {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            },
-                            "key": "override_json_string"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "appid_resource_group"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "https_key"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "appid_name"
-                        },
-                        {
-                            "key": "add_edge_vpc",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tmos_admin_password",
-                            "type": "password"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_management_zones"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_host"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "f5_instance_profile"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_sku_keyword_2"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_pool"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "f5_image_name"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "provision_teleport_in_f5"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "as3_declaration_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_instance_profile"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_hostname"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_domain"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "create_f5_network_on_management_vpc"
-                        },
-                        {
-                            "key": "template_version",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "app_id"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_license"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "use_existing_appid"
-                        },
-                        {
-                            "key": "create_secrets_manager",
-                            "hidden": true
-                        },
-                        {
-                            "hidden": true,
-                            "key": "teleport_version"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_username"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "tgrefresh_url"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "https_cert"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "ts_declaration_url"
-                        },
-                        {
-                            "key": "override",
-                            "hidden": true
-                        },
-                        {
-                            "key": "cluster_zones"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "license_password"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "do_declaration_url"
-                        },
-                        {
-                            "key": "workers_per_zone"
-                        },
-                        {
-                            "hidden": true,
-                            "key": "template_source"
-                        }
-                    ],
-                    "iam_permissions": [
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "appid"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "cloud-object-storage"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "hs-crypto"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "iam-identity"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "kms"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "containers-kubernetes"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Administrator"
-                            ],
-                            "service_name": "is.vpc"
-                        }
-                    ],
-                    "architecture": {
-                        "descriptions": "",
-                        "features": [
-                            {
-                                "title": "Separate VPC for management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for workloads",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Red Hat OpenShift",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Reduces failure events by using multizone regions",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Uses an edge VPC for secure access through the public internet",
-                                "description": "Yes, if enabled"
-                            },
-                            {
-                                "title": "Uses Floating IP address for access through the public internet",
-                                "description": "No"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
-                            }
-                        ]
-                    }
-                }
-            ]
+          "description": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.\n",
+          "title": "Associates security groups"
+        },
+        {
+          "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
+          "title": "Provisions SSH keys"
         }
-    ]
+      ],
+      "flavors": [
+        {
+          "label": "QuickStart",
+          "name": "quickstart",
+          "install_type": "fullstack",
+          "working_directory": "patterns/vsi-quickstart",
+          "compliance": {
+            
+          },
+          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Separate VPC for management",
+                "description": "Yes"
+              },
+              {
+                "title": "Separate VPC for workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Reduces failure events by using multizone regions",
+                "description": "No"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "No"
+              },
+              {
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                "description": "No"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "No"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "No"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "Yes"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "VSI on VPC landing zone - QuickStart variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
+              }
+            ]
+          }
+        },
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "fullstack",
+          "working_directory": "patterns/vsi",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud for Financial Services",
+                "profile_version": "1.3.0"
+              }
+            ]
+          },
+          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
+          "configuration": [
+            {
+              "key": "ssh_public_key",
+              "required": true
+            },
+            {
+              "hidden": true,
+              "key": "teleport_domain"
+            },
+            {
+              "hidden": true,
+              "key": "do_declaration_url"
+            },
+            {
+              "hidden": true,
+              "key": "template_version"
+            },
+            {
+              "key": "teleport_hostname",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "byol_license_basekey"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_management_zones"
+            },
+            {
+              "hidden": true,
+              "key": "tgrefresh_url"
+            },
+            {
+              "hidden": true,
+              "key": "vpn_firewall_type"
+            },
+            {
+              "hidden": true,
+              "key": "domain"
+            },
+            {
+              "hidden": true,
+              "key": "license_sku_keyword_2"
+            },
+            {
+              "key": "add_edge_vpc",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "enable_f5_external_fip"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_vsi_image_name"
+            },
+            {
+              "hidden": true,
+              "key": "tgactive_url"
+            },
+            {
+              "hidden": true,
+              "key": "license_type"
+            },
+            {
+              "hidden": true,
+              "key": "f5_instance_profile"
+            },
+            {
+              "hidden": true,
+              "key": "message_of_the_day"
+            },
+            {
+              "hidden": true,
+              "key": "tgstandby_url"
+            },
+            {
+              "key": "create_secrets_manager",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "f5_image_name"
+            },
+            {
+              "hidden": true,
+              "key": "appid_name"
+            },
+            {
+              "hidden": true,
+              "key": "license_password"
+            },
+            {
+              "hidden": true,
+              "key": "provision_teleport_in_f5"
+            },
+            {
+              "hidden": true,
+              "key": "https_key"
+            },
+            {
+              "hidden": true,
+              "key": "https_cert"
+            },
+            {
+              "hidden": true,
+              "key": "license_username"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_license"
+            },
+            {
+              "hidden": true,
+              "key": "enable_f5_management_fip"
+            },
+            {
+              "hidden": true,
+              "key": "license_pool"
+            },
+            {
+              "hidden": true,
+              "key": "license_host"
+            },
+            {
+              "hidden": true,
+              "key": "hostname"
+            },
+            {
+              "hidden": true,
+              "key": "use_existing_appid"
+            },
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "hidden": true,
+              "key": "tmos_admin_password",
+              "type": "password"
+            },
+            {
+              "hidden": true,
+              "key": "license_sku_keyword_1"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_version"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            },
+            {
+              "key": "override",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "teleport_admin_email"
+            },
+            {
+              "hidden": true,
+              "key": "create_f5_network_on_management_vpc"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_instance_profile"
+            },
+            {
+              "hidden": true,
+              "key": "license_unit_of_measure"
+            },
+            {
+              "hidden": true,
+              "key": "app_id"
+            },
+            {
+              "hidden": true,
+              "key": "appid_resource_group"
+            },
+            {
+              "hidden": true,
+              "key": "phone_home_url"
+            },
+            {
+              "hidden": true,
+              "key": "ts_declaration_url"
+            },
+            {
+              "hidden": true,
+              "key": "as3_declaration_url"
+            },
+            {
+              "hidden": true,
+              "key": "template_source"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Separate VPC for management",
+                "description": "Yes"
+              },
+              {
+                "title": "Separate VPC for workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Reduces failure events by using multizone regions",
+                "description": "Yes"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes"
+              },
+              {
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes, if enabled"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "VSI on VPC landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
+              }
+            ]
+          }
+        },
+        {
+          "label": "Existing VPC",
+          "name": "existing-vpc",
+          "install_type": "extension",
+          "working_directory": "patterns/vsi-extension",
+          "dependencies": [
+            {
+              "flavors": [
+                "standard"
+              ],
+              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
+              "name": "deploy-arch-ibm-slz-ocp",
+              "version": ">=1.0.0"
+            },
+            {
+              "flavors": [
+                "standard"
+              ],
+              "id": "9fc0fa64-27af-4fed-9dce-47b3640ba739-global",
+              "name": "deploy-arch-ibm-slz-vpc",
+              "version": ">=1.0.0"
+            }
+          ],
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud for Financial Services",
+                "profile_version": "1.3.0"
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "ssh_public_key",
+              "required": true
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "This architecture creates virtual server instances (VSI) for VPC in some or all of the subnets of any existing landing zone VPC deployable architecture.\r\n\r\n## Before you begin\r\n\r\n- You must have either the [VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.\r\n- The block storage to KMS auth policy must exist. This policy would have been created by one of the above deployable architectures if the `add_kms_block_storage_s2s` variable was set to `true`, which is default value.\r\n- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone VPC deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https:\/\/cloud.ibm.com\/docs\/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).",
+            "features": [
+              {
+                "title": "Virtual Server Instances for every subnet",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "VSI on existing VPC",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The VSI on existing VPC deployable architecture extension is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deploy-arch-ibm-slz-vpc",
+      "label": "VPC landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "network_vpc",
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "reference_architecture",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "Infrastructure",
+        "terraform",
+        "solution"
+      ],
+      "short_description": "Deploys a secure VPC network without compute resources",
+      "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: VSI on VPC landing zone and Red Hat OpenShift Container Platform on VPC landing zone.",
+      "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
+          "title": "Creates Virtual Private Clouds"
+        },
+        {
+          "description": "Defines multiple subnets in the VPC to define IP ranges and organize resources within the network.\n",
+          "title": "Configures subnets"
+        },
+        {
+          "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
+          "title": "Creates a transit gateway"
+        },
+        {
+          "description": "IBM Cloud Object Storage is used for Flow Logs and Activity Tracker, which enhance the observability and auditing of your infrastructure.\n",
+          "title": "Integrates Flow Logs and Activity tracking"
+        },
+        {
+          "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
+          "title": "Supports edge networking"
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "fullstack",
+          "working_directory": "patterns/vpc",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud for Financial Services",
+                "profile_version": "1.3.0"
+              }
+            ]
+          },
+          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
+          "configuration": [
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            },
+            {
+              "key": "add_edge_vpc",
+              "hidden": true
+            },
+            {
+              "key": "teleport_management_zones",
+              "hidden": true
+            },
+            {
+              "key": "create_f5_network_on_management_vpc",
+              "hidden": true
+            },
+            {
+              "key": "provision_teleport_in_f5",
+              "hidden": true
+            },
+            {
+              "key": "vpn_firewall_type",
+              "hidden": true
+            },
+            {
+              "key": "ssh_public_key",
+              "hidden": true
+            },
+            {
+              "key": "f5_image_name",
+              "hidden": true
+            },
+            {
+              "key": "f5_instance_profile",
+              "hidden": true
+            },
+            {
+              "key": "hostname",
+              "hidden": true
+            },
+            {
+              "key": "domain",
+              "hidden": true
+            },
+            {
+              "key": "tmos_admin_password",
+              "hidden": true
+            },
+            {
+              "key": "license_type",
+              "hidden": true
+            },
+            {
+              "key": "byol_license_basekey",
+              "hidden": true
+            },
+            {
+              "key": "license_host",
+              "hidden": true
+            },
+            {
+              "key": "license_username",
+              "hidden": true
+            },
+            {
+              "key": "license_password",
+              "hidden": true
+            },
+            {
+              "key": "license_pool",
+              "hidden": true
+            },
+            {
+              "key": "license_sku_keyword_1",
+              "hidden": true
+            },
+            {
+              "key": "license_sku_keyword_2",
+              "hidden": true
+            },
+            {
+              "key": "license_unit_of_measure",
+              "hidden": true
+            },
+            {
+              "key": "do_declaration_url",
+              "hidden": true
+            },
+            {
+              "key": "as3_declaration_url",
+              "hidden": true
+            },
+            {
+              "key": "ts_declaration_url",
+              "hidden": true
+            },
+            {
+              "key": "phone_home_url",
+              "hidden": true
+            },
+            {
+              "key": "template_source",
+              "hidden": true
+            },
+            {
+              "key": "template_version",
+              "hidden": true
+            },
+            {
+              "key": "app_id",
+              "hidden": true
+            },
+            {
+              "key": "tgactive_url",
+              "hidden": true
+            },
+            {
+              "key": "tgstandby_url",
+              "hidden": true
+            },
+            {
+              "key": "tgrefresh_url",
+              "hidden": true
+            },
+            {
+              "key": "enable_f5_management_fip",
+              "hidden": true
+            },
+            {
+              "key": "enable_f5_external_fip",
+              "hidden": true
+            },
+            {
+              "key": "use_existing_appid",
+              "hidden": true
+            },
+            {
+              "key": "appid_name",
+              "hidden": true
+            },
+            {
+              "key": "appid_resource_group",
+              "hidden": true
+            },
+            {
+              "key": "teleport_instance_profile",
+              "hidden": true
+            },
+            {
+              "key": "teleport_vsi_image_name",
+              "hidden": true
+            },
+            {
+              "key": "teleport_license",
+              "hidden": true
+            },
+            {
+              "key": "https_cert",
+              "hidden": true
+            },
+            {
+              "key": "https_key",
+              "hidden": true
+            },
+            {
+              "key": "teleport_hostname",
+              "hidden": true
+            },
+            {
+              "key": "teleport_domain",
+              "hidden": true
+            },
+            {
+              "key": "teleport_version",
+              "hidden": true
+            },
+            {
+              "key": "message_of_the_day",
+              "hidden": true
+            },
+            {
+              "key": "teleport_admin_email",
+              "hidden": true
+            },
+            {
+              "key": "create_secrets_manager",
+              "hidden": true
+            },
+            {
+              "key": "override",
+              "hidden": true
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Separate VPC for management",
+                "description": "Yes"
+              },
+              {
+                "title": "Separate VPC for workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Reduces failure events by using multizone regions",
+                "description": "Yes"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes"
+              },
+              {
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes, if enabled"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "VPC landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The Standard variation of the VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. The Standard variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deploy-arch-ibm-slz-ocp",
+      "label": "Red Hat OpenShift Container Platform on VPC landing zone",
+      "product_kind": "solution",
+      "tags": [
+        "compute",
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "reference_architecture",
+        "solution"
+      ],
+      "keywords": [
+        "vpc",
+        "slz",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "Red Hat OpenShift Container Platform",
+        "OCP"
+      ],
+      "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
+      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
+      "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
+          "title": "Creates Open Shift Container Platform clusters for workloads"
+        },
+        {
+          "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
+          "title": "Creates worker pools"
+        },
+        {
+          "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
+          "title": "Configures subnets for containers"
+        },
+        {
+          "description": "Configures private and public endpoints for the cluster.\n",
+          "title": "Supports private and public endpoints"
+        },
+        {
+          "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
+          "title": "Configures ingress"
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "fullstack",
+          "working_directory": "patterns/roks",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud for Financial Services",
+                "profile_version": "1.3.0"
+              }
+            ]
+          },
+          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
+          "configuration": [
+            {
+              "key": "kube_version",
+              "type": "string",
+              "required": true,
+              "default_value": "4.13_openshift",
+              "options": [
+                {
+                  "displayname": "4.11_openshift",
+                  "value": "4.11_openshift"
+                },
+                {
+                  "displayname": "4.12_openshift",
+                  "value": "4.12_openshift"
+                },
+                {
+                  "displayname": "4.13_openshift",
+                  "value": "4.13_openshift"
+                }
+              ],
+              "custom_config": {
+                
+              }
+            },
+            {
+              "hidden": true,
+              "key": "tgactive_url"
+            },
+            {
+              "hidden": true,
+              "key": "enable_f5_management_fip"
+            },
+            {
+              "hidden": true,
+              "key": "license_sku_keyword_1"
+            },
+            {
+              "hidden": true,
+              "key": "enable_f5_external_fip"
+            },
+            {
+              "hidden": true,
+              "key": "vpn_firewall_type"
+            },
+            {
+              "hidden": true,
+              "key": "license_type"
+            },
+            {
+              "hidden": true,
+              "key": "byol_license_basekey"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_vsi_image_name"
+            },
+            {
+              "hidden": true,
+              "key": "message_of_the_day"
+            },
+            {
+              "hidden": true,
+              "key": "license_unit_of_measure"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_admin_email"
+            },
+            {
+              "hidden": true,
+              "key": "hostname"
+            },
+            {
+              "hidden": true,
+              "key": "ssh_public_key"
+            },
+            {
+              "hidden": true,
+              "key": "existing_ssh_key_name"
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            },
+            {
+              "hidden": true,
+              "key": "domain"
+            },
+            {
+              "key": "phone_home_url",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "tgstandby_url"
+            },
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
+              },
+              "key": "override_json_string"
+            },
+            {
+              "hidden": true,
+              "key": "appid_resource_group"
+            },
+            {
+              "hidden": true,
+              "key": "https_key"
+            },
+            {
+              "hidden": true,
+              "key": "appid_name"
+            },
+            {
+              "key": "add_edge_vpc",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "tmos_admin_password",
+              "type": "password"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_management_zones"
+            },
+            {
+              "hidden": true,
+              "key": "license_host"
+            },
+            {
+              "hidden": true,
+              "key": "f5_instance_profile"
+            },
+            {
+              "hidden": true,
+              "key": "license_sku_keyword_2"
+            },
+            {
+              "hidden": true,
+              "key": "license_pool"
+            },
+            {
+              "hidden": true,
+              "key": "f5_image_name"
+            },
+            {
+              "hidden": true,
+              "key": "provision_teleport_in_f5"
+            },
+            {
+              "hidden": true,
+              "key": "as3_declaration_url"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_instance_profile"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_hostname"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_domain"
+            },
+            {
+              "hidden": true,
+              "key": "create_f5_network_on_management_vpc"
+            },
+            {
+              "key": "template_version",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "app_id"
+            },
+            {
+              "hidden": true,
+              "key": "teleport_license"
+            },
+            {
+              "hidden": true,
+              "key": "use_existing_appid"
+            },
+            {
+              "key": "create_secrets_manager",
+              "hidden": true
+            },
+            {
+              "hidden": true,
+              "key": "teleport_version"
+            },
+            {
+              "hidden": true,
+              "key": "license_username"
+            },
+            {
+              "hidden": true,
+              "key": "tgrefresh_url"
+            },
+            {
+              "hidden": true,
+              "key": "https_cert"
+            },
+            {
+              "hidden": true,
+              "key": "ts_declaration_url"
+            },
+            {
+              "key": "override",
+              "hidden": true
+            },
+            {
+              "key": "cluster_zones"
+            },
+            {
+              "hidden": true,
+              "key": "license_password"
+            },
+            {
+              "hidden": true,
+              "key": "do_declaration_url"
+            },
+            {
+              "key": "workers_per_zone"
+            },
+            {
+              "hidden": true,
+              "key": "template_source"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "containers-kubernetes"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Separate VPC for management",
+                "description": "Yes"
+              },
+              {
+                "title": "Separate VPC for workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Red Hat OpenShift",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Reduces failure events by using multizone regions",
+                "description": "Yes"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes"
+              },
+              {
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes, if enabled"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
