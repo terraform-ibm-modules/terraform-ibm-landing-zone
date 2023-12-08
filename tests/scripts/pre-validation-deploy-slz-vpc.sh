@@ -28,13 +28,7 @@ TF_VARS_FILE="terraform.tfvars"
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
   # append public sshkey to json
-  cwd=$(pwd)
-  script_directory=$(dirname "$0")
-  cmd="${cwd}/${script_directory}/pre-validation-generate-ssh-key.sh ssh_public_key ${DA_DIR}"
-  cmd_array=()
-  IFS=" " read -ra cmd_array <<< "${cmd}"
-  echo "Executing: ${cmd_array[*]}"
-  "${cmd_array[@]}"
+  ./pre-validation-generate-ssh-key.sh ssh_public_key ${DA_DIR}
 
   # append prefix, vpc_id and boot_volume_encryption_key to json
   prefix_var_name="prefix"
