@@ -28,7 +28,7 @@ TF_VARS_FILE="terraform.tfvars"
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
   # append public sshkey to json
-  cwd=$(PWD)
+  cwd=$(pwd)
   script_directory=$(dirname "$0")
   "${cwd}/${script_directory}/pre-validation-generate-ssh-key.sh" ssh_public_key "${DA_DIR}"
 
