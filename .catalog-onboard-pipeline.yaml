@@ -6,17 +6,17 @@ offerings:
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
     offering_id: ef663980-4c71-4fac-af4f-4a510a9bcf68
     variations:
-      - name: quickstart
-        mark_ready: false
-        install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
-      - name: standard
-        mark_ready: false
-        install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
-        scc:
-          instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
-          region: us-south
+      # - name: quickstart
+      #   mark_ready: false
+      #   install_type: fullstack
+      #   pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
+      # - name: standard
+      #   mark_ready: false
+      #   install_type: fullstack
+      #   pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
+      #   scc:
+      #     instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
+      #     region: us-south
       - name: existing-vpc
         mark_ready: false
         install_type: extension
