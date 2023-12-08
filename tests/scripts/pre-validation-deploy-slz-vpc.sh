@@ -18,14 +18,19 @@ TF_VARS_FILE="terraform.tfvars"
   echo "Provisioning prerequisite SLZ VPC .."
   terraform init || exit 1
   # $VALIDATION_APIKEY is available in the catalog runtime
-  echo "ibmcloud_api_key=\"${VALIDATION_APIKEY}\"" > ${TF_VARS_FILE}
-  echo "prefix=\"slz-$(openssl rand -hex 2)\"" >> ${TF_VARS_FILE}
-  echo "region=\"${REGION}\"" >> ${TF_VARS_FILE}
+  {
+    echo "ibmcloud_api_key=\"${VALIDATION_APIKEY}\""
+    echo "prefix=\"slz-$(openssl rand -hex 2)\""
+    echo "region=\"${REGION}\""
+    echo "enable_transit_gateway=false"
+    echo "add_atracker_route=false"
+  } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
   # append public sshkey to json
+  cwd=$(PWD)
   script_directory=$(dirname "$0")
-  "${script_directory}/pre-validation-generate-ssh-key.sh" ssh_public_key "${DA_DIR}"
+  "${cwd}/${script_directory}/pre-validation-generate-ssh-key.sh" ssh_public_key "${DA_DIR}"
 
   # append prefix, vpc_id and boot_volume_encryption_key to json
   prefix_var_name="prefix"
