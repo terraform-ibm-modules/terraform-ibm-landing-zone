@@ -23,6 +23,7 @@ module "landing_zone" {
   service_endpoints                      = local.env.service_endpoints
   key_management                         = local.env.key_management
   skip_kms_block_storage_s2s_auth_policy = local.env.skip_kms_block_storage_s2s_auth_policy
+  skip_all_s2s_auth_policies             = local.env.skip_all_s2s_auth_policies
   atracker                               = local.env.atracker
   clusters                               = local.env.clusters
   wait_till                              = local.env.wait_till

@@ -28,6 +28,7 @@ module "vpc_landing_zone" {
   enable_transit_gateway                 = var.enable_transit_gateway
   transit_gateway_global                 = var.transit_gateway_global
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+  skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group

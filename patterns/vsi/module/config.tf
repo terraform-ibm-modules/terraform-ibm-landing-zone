@@ -157,6 +157,7 @@ locals {
     # S2S Authorization
     ##############################################################################
     skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+    skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
 
     ##############################################################################
 
@@ -265,6 +266,7 @@ locals {
     cos                                    = lookup(local.override[local.override_type], "cos", local.config.object_storage)
     service_endpoints                      = lookup(local.override[local.override_type], "service_endpoints", "private")
     skip_kms_block_storage_s2s_auth_policy = lookup(local.override[local.override_type], "skip_kms_block_storage_s2s_auth_policy", local.config.skip_kms_block_storage_s2s_auth_policy)
+    skip_all_s2s_auth_policies             = lookup(local.override[local.override_type], "skip_all_s2s_auth_policies", local.config.skip_all_s2s_auth_policies)
     key_management                         = lookup(local.override[local.override_type], "key_management", local.config.key_management)
     atracker                               = lookup(local.override[local.override_type], "atracker", local.config.atracker)
     clusters                               = lookup(local.override[local.override_type], "clusters", local.config.clusters)

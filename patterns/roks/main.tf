@@ -84,6 +84,7 @@ module "roks_landing_zone" {
   override_json_string                   = var.override_json_string
   override_json_path                     = local.override_json_path
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+  skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   cluster_zones                          = var.cluster_zones
   vpn_firewall_type                      = var.vpn_firewall_type
   f5_image_name                          = var.f5_image_name

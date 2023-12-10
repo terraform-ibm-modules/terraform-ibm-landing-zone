@@ -83,6 +83,7 @@ module "vsi_landing_zone" {
   teleport_admin_email                   = var.teleport_admin_email
   create_secrets_manager                 = var.create_secrets_manager
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+  skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   override                               = var.override
   override_json_string                   = var.override_json_string
   override_json_path                     = local.override_json_path

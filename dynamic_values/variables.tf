@@ -204,6 +204,10 @@ variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Direct reference to kms block storage variable"
 }
 
+variable "skip_all_s2s_auth_policies" {
+  description = "Direct reference to s2s authorization variable"
+}
+
 variable "atracker_cos_bucket" {
   description = "Direct reference to atracker to cos variable"
 }

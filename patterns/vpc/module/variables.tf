@@ -445,7 +445,13 @@ variable "create_secrets_manager" {
 ##############################################################################
 
 variable "skip_kms_block_storage_s2s_auth_policy" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
+  type        = bool
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
   type        = bool
   default     = false
 }
