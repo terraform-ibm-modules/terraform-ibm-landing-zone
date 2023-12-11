@@ -3,7 +3,7 @@
 ##############################################################################
 
 output "prefix" {
-  value       = module.landing_zone.prefix
+  value       = var.prefix
   description = "Prefix"
 }
 

@@ -23,8 +23,6 @@ TF_VARS_FILE="terraform.tfvars"
     echo "ibmcloud_api_key=\"${VALIDATION_APIKEY}\""
     echo "prefix=\"slz-$(openssl rand -hex 2)\""
     echo "region=\"${REGION}\""
-    echo "enable_transit_gateway=false"
-    echo "add_atracker_route=false"
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
   cd "${cwd}"
@@ -60,7 +58,7 @@ TF_VARS_FILE="terraform.tfvars"
         --arg region_value "${region_value}" \
         --arg ssh_public_key_var_name "${ssh_public_key_var_name}" \
         --arg ssh_public_key_value "${ssh_public_key_value}" \
-        '. + {($prefix_var_name): $prefix_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+        '. + {($prefix_var_name): $prefix_value, ($vpc_id_var_name): $vpc_id_value, ($kms_key_var_name): $kms_key_value, ($region_var_name): $region_value}, ($ssh_public_key_var_name): $ssh_public_key_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )

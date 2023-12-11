@@ -13,7 +13,7 @@ variable "region" {
 variable "prefix" {
   type        = string
   description = "Prefix to append to all resources created by this example"
-  default     = "GoldenEye"
+  default     = "slz-vpc"
 }
 
 variable "resource_tags" {
