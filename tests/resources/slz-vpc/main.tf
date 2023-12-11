@@ -3,7 +3,7 @@
 ##############################################################################
 
 module "landing_zone" {
-  source                 = "../patterns/vpc/module"
+  source                 = "../../../patterns/vpc/module"
   region                 = var.region
   prefix                 = var.prefix
   tags                   = var.resource_tags
