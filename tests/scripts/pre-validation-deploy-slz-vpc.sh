@@ -27,10 +27,16 @@ TF_VARS_FILE="terraform.tfvars"
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
-  # append public sshkey to json
-  ./pre-validation-generate-ssh-key.sh ssh_public_key ${DA_DIR}
 
-  # append prefix, vpc_id and boot_volume_encryption_key to json
+  # Generate SSH keys and place in temp directory
+  temp_dir=$(mktemp -d)
+  ssh-keygen -f "${temp_dir}/id_rsa" -t rsa -N '' <<<y
+
+  # Extract public key value and delete temp directory
+  ssh_public_key=$(cat "${temp_dir}/id_rsa.pub")
+  rm -rf "${temp_dir}"
+
+  # append prefix, vpc_id, boot_volume_encryption_key, region and ssh_public_key to json
   prefix_var_name="prefix"
   prefix_value=$(terraform output -state=terraform.tfstate -raw prefix)
   vpc_id_var_name="vpc_id"
@@ -39,7 +45,9 @@ TF_VARS_FILE="terraform.tfvars"
   kms_key_value=$(terraform output -state=terraform.tfstate -raw vsi_kms_key_crn)
   region_var_name="region"
   region_value="${REGION}"
-  echo "Appending '${prefix_var_name}', '${vpc_id_var_name}', and '${kms_key_var_name}' input variable values to ${JSON_FILE}.."
+  ssh_public_key_var_name="ssh_public_key"
+  ssh_public_key_value="${ssh_public_key}"
+  echo "Appending '${prefix_var_name}', '${vpc_id_var_name}', '${kms_key_var_name}', '${region_var_name} and '${ssh_public_key_var_name}' input variable values to ${JSON_FILE}.."
   jq -r --arg prefix_var_name "${prefix_var_name}" \
         --arg prefix_value "${prefix_value}" \
         --arg vpc_id_var_name "${vpc_id_var_name}" \
@@ -48,7 +56,9 @@ TF_VARS_FILE="terraform.tfvars"
         --arg kms_key_value "${kms_key_value}" \
         --arg region_var_name "${region_var_name}" \
         --arg region_value "${region_value}" \
-        '. + {($prefix_var_name): $prefix_value, ($vpc_id_var_name): $vpc_id_value, ($kms_key_var_name): $kms_key_value}, ($region_var_name): $region_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+        --arg ssh_public_key_var_name "${ssh_public_key_var_name}" \
+        --arg ssh_public_key_value "${ssh_public_key_value}" \
+        '. + {($prefix_var_name): $prefix_value, ($vpc_id_var_name): $vpc_id_value, ($kms_key_var_name): $kms_key_value}, ($region_var_name): $region_value}, ($ssh_public_key_var_name): $ssh_public_key_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )
