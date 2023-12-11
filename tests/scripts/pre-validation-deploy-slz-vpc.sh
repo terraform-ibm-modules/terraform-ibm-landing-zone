@@ -14,6 +14,7 @@ REGION="au-syd"
 TF_VARS_FILE="terraform.tfvars"
 
 (
+  cwd=$(pwd)
   cd ${TERRAFORM_SOURCE_DIR}
   echo "Provisioning prerequisite SLZ VPC .."
   terraform init || exit 1
@@ -26,7 +27,7 @@ TF_VARS_FILE="terraform.tfvars"
     echo "add_atracker_route=false"
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
-
+  cd "${cwd}"
 
   # Generate SSH keys and place in temp directory
   temp_dir=$(mktemp -d)
@@ -47,7 +48,8 @@ TF_VARS_FILE="terraform.tfvars"
   region_value="${REGION}"
   ssh_public_key_var_name="ssh_public_key"
   ssh_public_key_value="${ssh_public_key}"
-  echo "Appending '${prefix_var_name}', '${vpc_id_var_name}', '${kms_key_var_name}', '${region_var_name} and '${ssh_public_key_var_name}' input variable values to ${JSON_FILE}.."
+  echo "Appending '${prefix_var_name}', '${vpc_id_var_name}', '${kms_key_var_name}', '${region_var_name}' and '${ssh_public_key_var_name}' input variable values to ${JSON_FILE}.."
+
   jq -r --arg prefix_var_name "${prefix_var_name}" \
         --arg prefix_value "${prefix_value}" \
         --arg vpc_id_var_name "${vpc_id_var_name}" \
@@ -58,7 +60,7 @@ TF_VARS_FILE="terraform.tfvars"
         --arg region_value "${region_value}" \
         --arg ssh_public_key_var_name "${ssh_public_key_var_name}" \
         --arg ssh_public_key_value "${ssh_public_key_value}" \
-        '. + {($prefix_var_name): $prefix_value, ($vpc_id_var_name): $vpc_id_value, ($kms_key_var_name): $kms_key_value}, ($region_var_name): $region_value}, ($ssh_public_key_var_name): $ssh_public_key_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+        '. + {($prefix_var_name): $prefix_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )
