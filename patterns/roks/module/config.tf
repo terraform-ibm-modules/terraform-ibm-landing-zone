@@ -282,7 +282,7 @@ locals {
     key_management                 = lookup(local.override[local.override_type], "key_management", local.config.key_management)
     atracker                       = lookup(local.override[local.override_type], "atracker", local.config.atracker)
     clusters                       = lookup(local.override[local.override_type], "clusters", local.config.clusters)
-    wait_till                      = lookup(local.override[local.override_type], "wait_till", "IngressReady")
+    wait_till                      = lookup(local.override[local.override_type], "wait_till", var.wait_till)
     iam_account_settings           = lookup(local.override[local.override_type], "iam_account_settings", local.config.iam_account_settings)
     access_groups                  = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
     appid                          = lookup(local.override[local.override_type], "appid", local.config.appid)
