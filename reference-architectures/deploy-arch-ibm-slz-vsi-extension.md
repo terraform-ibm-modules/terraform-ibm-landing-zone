@@ -46,7 +46,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# VSI on VPC landing zone - Extension variation
+# VSI on existing VPC landing zone - Extension
 {: #vsi-ext-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -54,12 +54,12 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="5.1.0"}
 
-The Extension variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. This architecture creates virtual server instances (VSI) for VPC in some or all of the subnets of any existing landing zone VPC deployable architecture.
+This deployable architecture extends an existing VPC deployable architecture by creating virtual server instances (VSI) in some or all of the subnets of any existing landing zone VPC deployable architecture. The architecture is based on the IBM Cloud for Financial Services reference architecture.
 
 ## Architecture diagram
 {: #ra-vsi-ext-architecture-diagram}
 
-![Architecture diagram for adding a VSI to your VPC landing zone deployable architecture](vsi-extension.drawio.svg "Architecture diagram for adding a VSI to your VPC landing zone deployable architecture"){: caption="Figure 1. Extension variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-extension.drawio.svg"}
+![Architecture diagram for adding a VSI to a landing zone deployable architecture](vsi-extension.drawio.svg "Architecture diagram for adding a VSI to a landing zone deployable architecture"){: caption="Figure 1. VSI on existing landing zone - Extension" caption-side="bottom"}{: external download="vsi-extension.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-ext-design-requirements}
@@ -102,4 +102,5 @@ _Optional section._ Feedback from users implies that architects want only the hi
 ## Next steps
 {: #ra-vsi-ext-next-steps}
 
-Read about [IBM Cloud for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-about)
+- See the landing zone [deployment guide](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview).
+- Read about [IBM Cloud for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-about)
