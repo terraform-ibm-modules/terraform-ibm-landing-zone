@@ -10,14 +10,18 @@ offerings:
         mark_ready: false
         install_type: fullstack
         pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
-        destroy_resources_on_failure: true
-        destroy_workspace_on_failure: false
       - name: standard
         mark_ready: false
         install_type: fullstack
         pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
-        destroy_resources_on_failure: true
-        destroy_workspace_on_failure: false
+        scc:
+          instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
+          region: us-south
+      - name: existing-vpc
+        mark_ready: false
+        install_type: extension
+        pre_validation: "tests/scripts/pre-validation-deploy-slz-vpc.sh"
+        post_validation: "tests/scripts/post-validation-destroy-slz-vpc.sh"
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
@@ -29,8 +33,6 @@ offerings:
       - name: standard
         mark_ready: false
         install_type: fullstack
-        destroy_resources_on_failure: true
-        destroy_workspace_on_failure: false
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
@@ -42,8 +44,6 @@ offerings:
       - name: standard
         mark_ready: false
         install_type: fullstack
-        destroy_resources_on_failure: true
-        destroy_workspace_on_failure: false
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
