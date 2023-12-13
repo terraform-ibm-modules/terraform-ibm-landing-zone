@@ -30,6 +30,7 @@ variable "existing_ssh_key_name" {
 variable "ssh_public_key" {
   description = "A public SSH key that does not exist in the region where you want to deploy the VSI. The key must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys). To use an existing key, specify a value in the `existing_ssh_key_name` input instead."
   type        = string
+  default     = null
 
   validation {
     error_message = "The public SSH key must be a valid SSH RSA public key."
