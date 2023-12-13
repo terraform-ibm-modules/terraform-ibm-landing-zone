@@ -1,6 +1,6 @@
 # Add a VSI to a landing zone VPC
 
-This architecture creates virtual server instances (VSI) for VPC in some or all of the subnets of any existing landing zone VPC deployable architecture.
+This architecture creates virtual server instances (VSI) in some or all of the subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.
 
 ## Before you begin
 
