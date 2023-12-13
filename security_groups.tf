@@ -53,18 +53,12 @@ resource "ibm_is_security_group_rule" "security_group_rules" {
     # Conditianally add content if sg has icmp
     content {
       type = lookup(
-        lookup(
-          each.value,
-          "icmp"
-        ),
+        each.value["icmp"],
         "type",
         null
       )
       code = lookup(
-        lookup(
-          each.value,
-          "icmp"
-        ),
+        each.value["icmp"],
         "code",
         null
       )
@@ -92,19 +86,13 @@ resource "ibm_is_security_group_rule" "security_group_rules" {
     # Conditionally adds content if sg has tcp
     content {
       port_min = lookup(
-        lookup(
-          each.value,
-          "tcp"
-        ),
+        each.value["tcp"],
         "port_min",
         null
       )
 
       port_max = lookup(
-        lookup(
-          each.value,
-          "tcp"
-        ),
+        each.value["tcp"],
         "port_max",
         null
       )
@@ -132,18 +120,12 @@ resource "ibm_is_security_group_rule" "security_group_rules" {
     # Conditionally adds content if sg has tcp
     content {
       port_min = lookup(
-        lookup(
-          each.value,
-          "udp"
-        ),
+        each.value["udp"],
         "port_min",
         null
       )
       port_max = lookup(
-        lookup(
-          each.value,
-          "udp"
-        ),
+        each.value["udp"],
         "port_max",
         null
       )
