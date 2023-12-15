@@ -63,7 +63,9 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                      = string           # VPC prefix
+      prefix                      = string # VPC prefix
+      existing_vpc_id             = optional(string)
+      existing_subnet_ids         = optional(list(string))
       resource_group              = optional(string) # Name of the group where VPC will be created
       access_tags                 = optional(list(string), [])
       classic_access              = optional(bool)
@@ -150,7 +152,7 @@ variable "vpcs" {
         zone-2 = optional(bool)
         zone-3 = optional(bool)
       })
-      subnets = object({
+      subnets = optional(object({
         zone-1 = list(object({
           name           = string
           cidr           = string
@@ -169,7 +171,7 @@ variable "vpcs" {
           public_gateway = optional(bool)
           acl_name       = string
         }))
-      })
+      }))
     })
   )
 }
