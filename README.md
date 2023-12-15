@@ -831,7 +831,7 @@ module "cluster_pattern" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.58.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.60.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
@@ -846,7 +846,7 @@ module "cluster_pattern" {
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.10.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.13.2 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.0.0 |
 
 ### Resources

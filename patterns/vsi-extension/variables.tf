@@ -1,5 +1,5 @@
 variable "ibmcloud_api_key" {
-  description = "The API key that's associated with the account to provision resources to"
+  description = "The API key that's associated with the account to provision resources to."
   type        = string
   sensitive   = true
 }
@@ -16,21 +16,21 @@ variable "prefix" {
 }
 
 variable "vpc_id" {
-  description = "The ID of the VPC where the VSI will be created."
+  description = "The ID of the VPC where you want to deploy the VSI. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = string
-  default     = null
 }
 
 variable "existing_ssh_key_name" {
-  description = "The ID of the VPC where the VSI will be created."
+  description = "The name of a public SSH key in the region where you want to deploy the VSI. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys). To create an SSH key, use the 'ssh_public_key' input instead."
   type        = string
   default     = null
 }
 
 
 variable "ssh_public_key" {
-  description = "SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
+  description = "A public SSH key that does not exist in the region where you want to deploy the VSI. The key must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys). To use an existing key, specify a value in the `existing_ssh_key_name` input instead."
   type        = string
+  default     = null
 
   validation {
     error_message = "The public SSH key must be a valid SSH RSA public key."
@@ -39,75 +39,65 @@ variable "ssh_public_key" {
 }
 
 variable "resource_tags" {
-  description = "A list of tags to add to the VSI, block storage, security group, floating IP, and load balancer created by the module."
+  description = "A list of resource tags to apply to resources created by this solution."
   type        = list(string)
   default     = []
 }
 
 variable "access_tags" {
   type        = list(string)
-  description = "A list of access tags to apply to the VSI resources created by the module."
+  description = "A list of access tags to apply to the VSI resources created by this solution."
   default     = []
 }
 
 variable "image_name" {
-  description = "Image ID used for the VSI. Run the 'ibmcloud is images' CLI command to find available images. The IDs are different in each region."
+  description = "The image ID used for the VSI. You can run the `ibmcloud is images` CLI command to find available images. The IDs are different in each region."
   type        = string
-  default     = "ibm-ubuntu-22-04-2-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
-variable "machine_type" {
-  description = "VSI machine type"
+variable "vsi_instance_profile" {
+  description = "The VSI image profile. You can run the `ibmcloud is instance-profiles` CLI command to see available image profiles."
   type        = string
-  default     = "cx2-2x4"
+  default     = "cx2-4x8"
 }
 
 variable "user_data" {
-  description = "User data to initialize VSI deployment."
+  description = "The user data to transfer to the instance. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-user-data)."
   type        = string
   default     = null
 }
 
 variable "boot_volume_encryption_key" {
-  description = "The CRN of the boot volume encryption key."
+  description = "The CRN of the boot volume encryption key. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = string
-}
-
-variable "existing_kms_instance_guid" {
-  description = "The GUID of the KMS instance that holds the key specified in `var.boot_volume_encryption_key`."
-  type        = string
-}
-
-variable "skip_iam_authorization_policy" {
-  type        = bool
-  description = "By default (true), the Landing Zone VPC creates an IAM authorization policy that permits all storage blocks to read the encryption key from the KMS instance. Set to false to create the authorization policy in a different KMS instance, and specify the GUID of the KMS instance in the existing_kms_instance_guid variable."
-  default     = true
 }
 
 variable "vsi_per_subnet" {
-  description = "The number of VSI instances for each subnet."
+  description = "The number of virtual servers to create on each VSI subnet."
   type        = number
   default     = 1
 }
 
 variable "subnet_names" {
-  description = "The subnets to deploy the VSI instances to."
+  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = list(string)
-  default = [
-    "vpe-zone-1",
-    "vpe-zone-2",
-    "vpe-zone-3"
-  ]
+  default     = null
+
+  validation {
+    error_message = "subnet_names cannot be an empty list."
+    condition     = var.subnet_names == null ? true : length(var.subnet_names) > 0 ? true : false
+  }
 }
 
 variable "security_group_ids" {
-  description = "IDs of additional security groups to add to the VSI deployment primary interface. A VSI interface can have a maximum of 5 security groups."
+  description = "The IDs of additional security groups to add to the VSI primary network interface (5 or fewer). [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups)."
   type        = list(string)
   default     = []
 }
 
 variable "block_storage_volumes" {
-  description = "The list of block storage volumes to attach to each VSI."
+  description = "The list of block storage volumes to attach to each VSI. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-block-storage&interface=ui#create-from-vsi)."
   type = list(
     object({
       name           = string
@@ -121,13 +111,13 @@ variable "block_storage_volumes" {
 }
 
 variable "enable_floating_ip" {
-  description = "Set to `true` to create a floating IP for each virtual server."
+  description = "Whether to create a floating IP for each virtual server."
   type        = bool
   default     = false
 }
 
 variable "placement_group_id" {
-  description = "Unique Identifier of the Placement Group for restricting the placement of the instance, default behaviour is placement on any host"
+  description = "Unique ID of the Placement Group for restricting the placement of the instance. If not specified (the default), the VSI are placed on any host. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc)."
   type        = string
   default     = null
 }
@@ -182,16 +172,4 @@ variable "load_balancers" {
     })
   )
   default = []
-}
-
-variable "prerequisite_workspace_id" {
-  type        = string
-  description = "IBM Cloud Schematics workspace ID of the prerequisite IBM VPC landing zone. If you do not have an existing deployment yet, create a new architecture using the same catalog tile."
-  default     = null
-}
-
-variable "existing_vpc_name" {
-  type        = string
-  description = "Name of the VPC to be used for deploying the VSI from the list of VPCs retrived from the IBM Cloud Schematics workspace."
-  default     = null
 }
