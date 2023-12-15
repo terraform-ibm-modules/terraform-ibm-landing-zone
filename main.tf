@@ -8,7 +8,7 @@ locals {
 
 module "vpc" {
   source                                 = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                                = "7.10.0"
+  version                                = "7.13.2"
   for_each                               = local.vpc_map
   depends_on                             = [ibm_iam_authorization_policy.policy]
   name                                   = each.value.prefix
