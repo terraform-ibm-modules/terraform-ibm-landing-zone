@@ -63,7 +63,7 @@ module "vpe_ip_map" {
           vpc_name     = vpcs.name
           ip_name      = "${vpcs.name}-${service.service_name}-gateway-${subnet}-ip"
           gateway_name = "${vpcs.name}-${service.service_name}"
-          subnet_name  = "${var.prefix}-${vpcs.name}-${subnet}"
+          subnet_name  = subnet
         }
       ]
     ]
