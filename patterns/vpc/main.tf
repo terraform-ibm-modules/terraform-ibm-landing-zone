@@ -71,7 +71,6 @@ module "vpc_landing_zone" {
   teleport_version                    = var.teleport_version
   message_of_the_day                  = var.message_of_the_day
   teleport_admin_email                = var.teleport_admin_email
-  create_secrets_manager              = var.create_secrets_manager
   override                            = var.override
   override_json_string                = var.override_json_string
   override_json_path                  = local.override_json_path
