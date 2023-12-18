@@ -26,7 +26,6 @@ module "landing_zone" {
   skip_all_s2s_auth_policies             = local.env.skip_all_s2s_auth_policies
   atracker                               = local.env.atracker
   clusters                               = local.env.clusters
-  wait_till                              = local.env.wait_till
   iam_account_settings                   = local.env.iam_account_settings
   access_groups                          = local.env.access_groups
   f5_vsi                                 = local.env.f5_vsi
