@@ -28,8 +28,8 @@ module "vpc" {
   address_prefixes                       = each.value.address_prefixes
   network_acls                           = each.value.network_acls
   use_public_gateways                    = each.value.use_public_gateways
-  create_subnets                         = each.value.existing_subnet_ids == null || length(each.value.existing_subnet_ids) == 0 ? true : false
-  subnets                                = each.value.existing_subnet_ids == null || length(each.value.existing_subnet_ids) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [] }
+  create_subnets                         = length(coalesce(each.value.existing_subnet_ids, [])) == 0 ? true : false
+  subnets                                = length(coalesce(each.value.existing_subnet_ids, [])) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [] }
   existing_subnet_ids                    = each.value.existing_subnet_ids
   enable_vpc_flow_logs                   = (each.value.flow_logs_bucket_name != null) ? true : false
   create_authorization_policy_vpc_to_cos = false
