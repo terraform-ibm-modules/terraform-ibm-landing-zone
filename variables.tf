@@ -314,18 +314,19 @@ variable "vsi" {
       ))
       load_balancers = optional(list(
         object({
-          name              = string
-          type              = string
-          listener_port     = number
-          listener_protocol = string
-          connection_limit  = number
-          algorithm         = string
-          protocol          = string
-          health_delay      = number
-          health_retries    = number
-          health_timeout    = number
-          health_type       = string
-          pool_member_port  = string
+          name                    = string
+          type                    = string
+          listener_port           = number
+          listener_protocol       = string
+          connection_limit        = number
+          algorithm               = string
+          protocol                = string
+          health_delay            = number
+          health_retries          = number
+          health_timeout          = number
+          health_type             = string
+          pool_member_port        = string
+          idle_connection_timeout = optional(number)
           security_group = optional(
             object({
               name = string
@@ -681,6 +682,7 @@ variable "cos" {
 # Service Instance Variables
 ##############################################################################
 
+# tflint-ignore: terraform_unused_declarations
 variable "service_endpoints" {
   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
   type        = string
@@ -902,10 +904,10 @@ variable "appid" {
   validation {
     error_message = "Name must be included if use_appid is true."
     condition = (
-      lookup(var.appid, "use_appid") == false
+      var.appid["use_appid"] == false
       ) || (
       lookup(var.appid, "name", null) != null &&
-      lookup(var.appid, "use_appid") == true
+      var.appid["use_appid"] == true
     )
   }
 
@@ -913,10 +915,10 @@ variable "appid" {
   validation {
     condition = lookup(var.appid, "keys", null) == null || (
       length(
-        lookup(var.appid, "keys", null) == null ? [] : lookup(var.appid, "keys")
+        lookup(var.appid, "keys", null) == null ? [] : var.appid["keys"]
         ) == length(
         distinct(
-          lookup(var.appid, "keys", null) == null ? [] : lookup(var.appid, "keys")
+          lookup(var.appid, "keys", null) == null ? [] : var.appid["keys"]
         )
       )
     )
@@ -1048,7 +1050,7 @@ variable "iam_account_settings" {
     condition = (
       lookup(var.iam_account_settings, "allowed_ip_addresses", null) == null
       ? true
-      : can(regex("^([[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}(/[[:digit:]]{1,2})?,?)+$", lookup(var.iam_account_settings, "allowed_ip_addresses")))
+      : can(regex("^([[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}(/[[:digit:]]{1,2})?,?)+$", var.iam_account_settings["allowed_ip_addresses"]))
     )
   }
 
@@ -1079,7 +1081,7 @@ variable "iam_account_settings" {
     condition = (
       lookup(var.iam_account_settings, "mfa", null) == null
       ? true
-      : contains(["NONE", "TOTP", "TOTP4ALL", "LEVEL1", "LEVEL2", "LEVEL3", "null"], lookup(var.iam_account_settings, "mfa"))
+      : contains(["NONE", "TOTP", "TOTP4ALL", "LEVEL1", "LEVEL2", "LEVEL3", "null"], var.iam_account_settings["mfa"])
     )
   }
 
@@ -1088,7 +1090,7 @@ variable "iam_account_settings" {
     condition = (
       lookup(var.iam_account_settings, "restrict_create_service_id", null) == null
       ? true
-      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], lookup(var.iam_account_settings, "restrict_create_service_id"))
+      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], var.iam_account_settings["restrict_create_service_id"])
     )
   }
 
@@ -1097,7 +1099,7 @@ variable "iam_account_settings" {
     condition = (
       lookup(var.iam_account_settings, "restrict_create_platform_apikey", null) == null
       ? true
-      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], lookup(var.iam_account_settings, "restrict_create_platform_apikey"))
+      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], var.iam_account_settings["restrict_create_platform_apikey"])
     )
   }
 
@@ -1328,18 +1330,19 @@ variable "f5_vsi" {
       ))
       load_balancers = optional(list(
         object({
-          name              = string
-          type              = string
-          listener_port     = number
-          listener_protocol = string
-          connection_limit  = number
-          algorithm         = string
-          protocol          = string
-          health_delay      = number
-          health_retries    = number
-          health_timeout    = number
-          health_type       = string
-          pool_member_port  = string
+          name                    = string
+          type                    = string
+          listener_port           = number
+          listener_protocol       = string
+          connection_limit        = number
+          algorithm               = string
+          protocol                = string
+          health_delay            = number
+          health_retries          = number
+          health_timeout          = number
+          health_type             = string
+          pool_member_port        = string
+          idle_connection_timeout = optional(number)
           security_group = optional(
             object({
               name = string
@@ -1430,7 +1433,7 @@ variable "f5_template_data" {
 
   validation {
     error_message = "Value for tmos_password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character."
-    condition = lookup(var.f5_template_data, "tmos_admin_password") == null ? true : (
+    condition = var.f5_template_data["tmos_admin_password"] == null ? true : (
       length(var.f5_template_data.tmos_admin_password) >= 15
       && can(regex("[A-Z]", var.f5_template_data.tmos_admin_password))
       && can(regex("[a-z]", var.f5_template_data.tmos_admin_password))

@@ -360,7 +360,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
         "machine_type": "cx2-2x4",
         "name": "jump-box",
         "resource_group": "slz-management-rg",
@@ -393,7 +393,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
         "machine_type": "cx2-2x4",
         "name": "private-svs",
         "resource_group": "slz-workload-rg",
@@ -426,7 +426,7 @@
       {
         "access_tags": [],
         "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+        "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
         "machine_type": "cx2-2x4",
         "name": "inet-svs",
         "resource_group": "slz-edge-rg",
@@ -467,7 +467,8 @@
             "health_delay": 60,
             "health_retries": 2,
             "health_timeout": 2,
-            "health_type": "tcp"
+            "health_type": "tcp",
+            "idle_connection_timeout": 50
           }
         ]
       }

@@ -1,27 +1,11 @@
 # Add a VSI to a landing zone VPC
 
-This logic creates a VSI to an existing landing zone VPC.
+This architecture creates virtual server instances (VSI) in some or all of the subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.
 
-This code creates and configures the following infrastructure:
-- Adds an SSH key to IBM Cloud or uses an existing one.
-- Adds a VSI in each subnet of the landing zone VPC.
+## Before you begin
 
-There are two ways through which a user can pass the VPC details for deploying the VSI, both the approaches are mutually exclusive.
+- You must have either the [VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.
+- You need an authorization policy that grants access between block storage and the KMS. The policy exists if you set the `add_kms_block_storage_s2s` input variable to `true` (the default value) in your existing landing zone deployable architecture.
+- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).
 
-## Using `vpc_id`
-
-The VPC ID of the landing zone VPC can be assigned to the variable vpc_id in order to create a VSI within that specific VPC.
-
-## Using `prerequisite_workspace_id` and `existing_vpc_name`
-
-The user can specify the workspace ID associated with the deployment of the landing zone VPC when creating a new VSI.
-
-Follow these steps to get the schematics workspace ID.
-
-1. Click the Navigation menu icon, and then click Schematics > Workspaces.
-1. Select the Workspace that is associated with landing zone VPC.
-1. Click the Settings.
-1. In the Details section, you can find the Workspace ID.
-
-Pass the Workspace ID to the `prerequisite_workspace_id` variable and pass the name of the VPC to the `existing_vpc_name` to choosse the name of the VPC to which the user wants to deploy the VSI.
-Please provide the Workspace ID for the prerequisite workspace and the name of the existing VPC to the `prerequisite_workspace_id` and `existing_vpc_name` variables respectively, to identify the VPC where you want to deploy the VSI.
+![Architecture diagram for adding a VSI to your VPC landing zone deployable architecture](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-extension.drawio.svg)

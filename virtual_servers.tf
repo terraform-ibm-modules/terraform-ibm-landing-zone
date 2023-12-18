@@ -41,7 +41,7 @@ data "ibm_is_image" "image" {
 
 module "vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "2.12.1"
+  version                       = "3.0.0"
   for_each                      = local.vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
@@ -64,7 +64,7 @@ module "vsi" {
   ]
   ssh_key_ids = [
     for ssh_key in each.value.ssh_keys :
-    lookup(module.ssh_keys.ssh_key_map, ssh_key).id
+    module.ssh_keys.ssh_key_map[ssh_key].id
   ]
   machine_type   = each.value.machine_type
   vsi_per_subnet = each.value.vsi_per_subnet
