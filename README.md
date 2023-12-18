@@ -34,6 +34,14 @@ For more information about the default configuration, see [Default Secure Landin
 | ------------------------------ | ------------------------------ | -------------------------------- | -------------------------------- | ---------------------------------- |
 | [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![QuickStart VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg)](patterns/vsi-quickstart/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
 
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-landing-zone](#terraform-ibm-landing-zone)
+* [Examples](./examples)
+    * [One VPC with one VSI example](./examples/one-vpc-one-vsi)
+    * [Override.json example](./examples/override-example)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
 
 ## Reference architectures
 - [VPC landing zone - Standard variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vpc-ra)
