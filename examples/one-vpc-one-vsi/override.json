@@ -94,13 +94,6 @@
         "use_prefix": true
       }
     ],
-    "secrets_manager": {
-      "access_tags": [],
-      "kms_key_name": null,
-      "name": null,
-      "resource_group": null,
-      "use_secrets_manager": false
-    },
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
       {

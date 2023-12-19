@@ -253,16 +253,6 @@ output "resource_group_data" {
   value       = local.resource_groups
 }
 
-##############################################################################
-
-##############################################################################
-# Secrets Manager Outputs
-##############################################################################
-
-output "secrets_manager_data" {
-  description = "Secrets manager instance"
-  value       = var.secrets_manager.use_secrets_manager ? ibm_resource_instance.secrets_manager[0] : null
-}
 
 ##############################################################################
 
