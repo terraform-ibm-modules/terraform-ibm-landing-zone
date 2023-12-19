@@ -80,7 +80,7 @@ variable "vsi_per_subnet" {
 }
 
 variable "subnet_names" {
-  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
+  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the `<prefix>-vsi-zone-*` subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = list(string)
   default     = null
 
