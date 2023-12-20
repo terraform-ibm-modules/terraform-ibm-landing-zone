@@ -16,7 +16,7 @@ locals {
 ##############################################################################
 
 resource "ibm_iam_authorization_policy" "policy" {
-  for_each                    = var.skip_all_s2s_auth_policies == true ? {} : local.authorization_policies
+  for_each                    = var.skip_all_s2s_auth_policies == true ? null : local.authorization_policies
   source_service_name         = each.value.source_service_name
   source_resource_type        = lookup(each.value, "source_resource_type", null)
   source_resource_instance_id = lookup(each.value, "source_resource_instance_id", null)
