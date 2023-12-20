@@ -266,10 +266,6 @@
               "key": "tgstandby_url"
             },
             {
-              "key": "create_secrets_manager",
-              "hidden": true
-            },
-            {
               "hidden": true,
               "key": "f5_image_name"
             },
@@ -850,10 +846,6 @@
               "hidden": true
             },
             {
-              "key": "create_secrets_manager",
-              "hidden": true
-            },
-            {
               "key": "override",
               "hidden": true
             }
@@ -1212,10 +1204,7 @@
               "hidden": true,
               "key": "use_existing_appid"
             },
-            {
-              "key": "create_secrets_manager",
-              "hidden": true
-            },
+
             {
               "hidden": true,
               "key": "teleport_version"
