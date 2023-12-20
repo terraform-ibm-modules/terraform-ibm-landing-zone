@@ -53,6 +53,7 @@ resource "ibm_resource_instance" "appid" {
   location          = var.region
   resource_group_id = local.resource_groups[var.appid.resource_group]
   tags              = var.tags
+  service_endpoints = var.service_endpoints
 }
 
 ##############################################################################

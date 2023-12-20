@@ -33,6 +33,9 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
+// Setting "service_endpoints" to `private` to check if it is going to pass, since schematics should have access to private network.
+const service_endpoints = "private"
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
@@ -305,6 +308,7 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -322,6 +326,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -340,6 +345,7 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -357,6 +363,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()

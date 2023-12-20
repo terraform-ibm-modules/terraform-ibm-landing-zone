@@ -92,7 +92,7 @@
         }
     ],
     "security_groups": [],
-    "service_endpoints": "private",
+    "service_endpoints": "public-and-private",
     "ssh_keys": [],
     "transit_gateway_connections": [
         "management",
