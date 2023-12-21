@@ -509,7 +509,7 @@ variable "add_kms_block_storage_s2s" {
 ##############################################################################
 
 ##############################################################################
-# KMS variables
+# KMS and App ID variables
 ##############################################################################
 variable "service_endpoints" {
   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
