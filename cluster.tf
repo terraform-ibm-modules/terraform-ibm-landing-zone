@@ -53,8 +53,9 @@ resource "ibm_container_vpc_cluster" "cluster" {
   cos_instance_crn   = each.value.cos_instance_crn
   pod_subnet         = each.value.pod_subnet
   service_subnet     = each.value.service_subnet
-  crk                = each.value.boot_volume_crk_name == null ? null : module.key_management.key_map[each.value.boot_volume_crk_name].key_id
-  kms_instance_id    = each.value.boot_volume_crk_name == null ? null : module.key_management.key_management_guid
+  crk                = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_instance_id    = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_account_id     = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   lifecycle {
     ignore_changes = [kube_version]
   }
@@ -70,9 +71,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
   dynamic "kms_config" {
     for_each = each.value.kms_config == null ? [] : [each.value.kms_config]
     content {
-      crk_id           = module.key_management.key_map[kms_config.value.crk_name].key_id
-      instance_id      = module.key_management.key_management_guid
+      crk_id           = regex("key:(.*)", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
+      instance_id      = regex(".*:(.*):key:.*", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
       private_endpoint = kms_config.value.private_endpoint
+      account_id       = regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
     }
   }
 
