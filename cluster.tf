@@ -110,8 +110,8 @@ resource "ibm_container_vpc_worker_pool" "pool" {
   worker_pool_name  = each.value.name
   flavor            = each.value.flavor
   worker_count      = each.value.workers_per_subnet
-  crk               = each.value.boot_volume_crk_name == null ? null : module.key_management.key_map[each.value.boot_volume_crk_name].key_id
-  kms_instance_id   = each.value.boot_volume_crk_name == null ? null : module.key_management.key_management_guid
+  crk               = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_instance_id   = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
 
   dynamic "zones" {
     for_each = each.value.subnets
