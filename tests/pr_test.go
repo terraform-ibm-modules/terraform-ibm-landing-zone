@@ -488,10 +488,65 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
-func TestRunVsiExtention(t *testing.T) {
-	t.Parallel()
+func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existingTerraformOptions *terraform.Options) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
+	outputVpcJson := terraform.OutputJson(t, existingTerraformOptions, "vpc_data")
+
+	var managementVpcID string
+	var vpcs []struct {
+		VpcID   string `json:"vpc_id"`
+		VpcName string `json:"vpc_name"`
+	}
+	// Unmarshal the JSON data into the struct
+	if err := json.Unmarshal([]byte(outputVpcJson), &vpcs); err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management-vpc"
+	for _, vpc := range vpcs {
+		if vpc.VpcName == fmt.Sprintf("%s-management-vpc", prefix) {
+			managementVpcID = vpc.VpcID
+		}
+	}
+
+	outputKeysJson := terraform.OutputJson(t, existingTerraformOptions, "key_map")
+	var keyID string
+	var keys map[string]map[string]string
+	// Unmarshal the JSON data into the map
+	if err := json.Unmarshal([]byte(outputKeysJson), &keys); err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	// Extract the key_id for the name "test-vsi-volume-key."
+	if keyData, ok := keys[fmt.Sprintf("%s-vsi-volume-key", prefix)]; ok {
+		keyID = keyData["crn"]
+	} else {
+		fmt.Println("Name 'test-vsi-volume-key' not found in the JSON data.")
+	}
+	// ------------------------------------------------------------------------------------
+	// Deploy landing-zone extension
+	// ------------------------------------------------------------------------------------
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: "patterns/vsi-extension",
+		// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
+		ImplicitRequired: false,
+		TerraformVars: map[string]interface{}{
+			"prefix":                     prefix,
+			"region":                     region,
+			"boot_volume_encryption_key": keyID,
+			"vpc_id":                     managementVpcID,
+			"ssh_public_key":             sshPublicKey,
+		},
+	})
+
+	return options
+}
+
+func TestRunVsiExtention(t *testing.T) {
+	t.Parallel()
 
 	// ------------------------------------------------------------------------------------
 	// Deploy SLZ VPC first since it is needed for the landing-zone extension input
@@ -530,57 +585,7 @@ func TestRunVsiExtention(t *testing.T) {
 	if existErr != nil {
 		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
 	} else {
-		outputVpcJson := terraform.OutputJson(t, existingTerraformOptions, "vpc_data")
-
-		var managementVpcID string
-		var vpcs []struct {
-			VpcID   string `json:"vpc_id"`
-			VpcName string `json:"vpc_name"`
-		}
-		// Unmarshal the JSON data into the struct
-		if err := json.Unmarshal([]byte(outputVpcJson), &vpcs); err != nil {
-			fmt.Println(err)
-			return
-		}
-		// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management-vpc"
-		for _, vpc := range vpcs {
-			if vpc.VpcName == fmt.Sprintf("%s-management-vpc", prefix) {
-				managementVpcID = vpc.VpcID
-			}
-		}
-
-		outputKeysJson := terraform.OutputJson(t, existingTerraformOptions, "key_map")
-		var keyID string
-		var keys map[string]map[string]string
-		// Unmarshal the JSON data into the map
-		if err := json.Unmarshal([]byte(outputKeysJson), &keys); err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		// Extract the key_id for the name "test-vsi-volume-key."
-		if keyData, ok := keys[fmt.Sprintf("%s-vsi-volume-key", prefix)]; ok {
-			keyID = keyData["crn"]
-		} else {
-			fmt.Println("Name 'test-vsi-volume-key' not found in the JSON data.")
-		}
-		// ------------------------------------------------------------------------------------
-		// Deploy landing-zone extension
-		// ------------------------------------------------------------------------------------
-		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-			Testing:      t,
-			TerraformDir: "patterns/vsi-extension",
-			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
-			ImplicitRequired: false,
-			TerraformVars: map[string]interface{}{
-				"prefix":                     prefix,
-				"region":                     region,
-				"boot_volume_encryption_key": keyID,
-				"vpc_id":                     managementVpcID,
-				"ssh_public_key":             sshPublicKey,
-			},
-		})
-
+		options := setupOptionsVsiExtention(t, prefix, region, existingTerraformOptions)
 		output, err := options.RunTestConsistency()
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
@@ -601,8 +606,6 @@ func TestRunVsiExtention(t *testing.T) {
 
 func TestRunUpgradeVsiExtention(t *testing.T) {
 	t.Parallel()
-
-	sshPublicKey := sshPublicKey(t)
 
 	// ------------------------------------------------------------------------------------
 	// Deploy SLZ VPC first since it is needed for the landing-zone extension input
@@ -641,57 +644,7 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 	if existErr != nil {
 		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
 	} else {
-		outputVpcJson := terraform.OutputJson(t, existingTerraformOptions, "vpc_data")
-
-		var managementVpcID string
-		var vpcs []struct {
-			VpcID   string `json:"vpc_id"`
-			VpcName string `json:"vpc_name"`
-		}
-		// Unmarshal the JSON data into the struct
-		if err := json.Unmarshal([]byte(outputVpcJson), &vpcs); err != nil {
-			fmt.Println(err)
-			return
-		}
-		// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management-vpc"
-		for _, vpc := range vpcs {
-			if vpc.VpcName == fmt.Sprintf("%s-management-vpc", prefix) {
-				managementVpcID = vpc.VpcID
-			}
-		}
-
-		outputKeysJson := terraform.OutputJson(t, existingTerraformOptions, "key_map")
-		var keyID string
-		var keys map[string]map[string]string
-		// Unmarshal the JSON data into the map
-		if err := json.Unmarshal([]byte(outputKeysJson), &keys); err != nil {
-			fmt.Println(err)
-			return
-		}
-
-		// Extract the key_id for the name "test-vsi-volume-key."
-		if keyData, ok := keys[fmt.Sprintf("%s-vsi-volume-key", prefix)]; ok {
-			keyID = keyData["crn"]
-		} else {
-			fmt.Println("Name 'test-vsi-volume-key' not found in the JSON data.")
-		}
-		// ------------------------------------------------------------------------------------
-		// Deploy landing-zone extension
-		// ------------------------------------------------------------------------------------
-		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-			Testing:      t,
-			TerraformDir: "patterns/vsi-extension",
-			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
-			ImplicitRequired: false,
-			TerraformVars: map[string]interface{}{
-				"prefix":                     prefix,
-				"region":                     region,
-				"boot_volume_encryption_key": keyID,
-				"vpc_id":                     managementVpcID,
-				"ssh_public_key":             sshPublicKey,
-			},
-		})
-
+		options := setupOptionsVsiExtention(t, prefix, region, existingTerraformOptions)
 		output, err := options.RunTestUpgrade()
 		if !options.UpgradeTestSkipped {
 			assert.Nil(t, err, "This should not have errored")
