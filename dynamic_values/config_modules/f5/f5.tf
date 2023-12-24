@@ -17,7 +17,7 @@ module "f5_primary_subnets" {
   source           = "../get_subnets"
   for_each         = module.f5_vsi_map.value
   subnet_zone_list = var.vpc_modules[each.value.vpc_name].subnet_zone_list
-  regex            = "${var.prefix}-${each.value.vpc_name}-${each.value.primary_subnet_name}"
+  regex            = each.value.primary_subnet_name
 }
 
 ##############################################################################
