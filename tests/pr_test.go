@@ -250,8 +250,8 @@ func TestRunOverride(t *testing.T) {
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
 			assert.NotNil(t, planStruct, "Expected some output") {
-				options.CheckConsistency(planStruct)
-			}
+			options.CheckConsistency(planStruct)
+		}
 	}
 	options.TestTearDown()
 }
