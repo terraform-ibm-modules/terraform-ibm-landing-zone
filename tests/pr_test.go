@@ -3,13 +3,14 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	tfjson "github.com/hashicorp/terraform-json"
 	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	tfjson "github.com/hashicorp/terraform-json"
 
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
@@ -451,7 +452,6 @@ func TestRunVsiExtention(t *testing.T) {
 			TerraformVars: map[string]interface{}{
 				"prefix":                     prefix,
 				"region":                     region,
-				"existing_kms_instance_guid": terraform.Output(t, existingTerraformOptions, "key_management_guid"),
 				"boot_volume_encryption_key": keyID,
 				"vpc_id":                     managementVpcID,
 				"ssh_public_key":             sshPublicKey,

@@ -131,7 +131,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -413,7 +413,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -463,18 +463,6 @@ variable "teleport_admin_email" {
   default     = null
 }
 
-##############################################################################
-
-
-##############################################################################
-# Secrets Manager Variables
-##############################################################################
-
-variable "create_secrets_manager" {
-  description = "Create a secrets manager deployment."
-  type        = bool
-  default     = false
-}
 
 ##############################################################################
 
