@@ -23,7 +23,6 @@ module "dynamic_values" {
   vpn_gateways              = var.vpn_gateways
   security_groups           = var.security_groups
   bastion_vsi               = var.teleport_vsi
-  access_groups             = var.access_groups
   appid                     = var.appid
   appid_resource            = ibm_resource_instance.appid
   appid_data                = data.ibm_resource_instance.appid
