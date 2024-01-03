@@ -226,7 +226,6 @@ locals {
     atracker                  = lookup(local.override[local.override_type], "atracker", local.config.atracker)
     clusters                  = lookup(local.override[local.override_type], "clusters", local.config.clusters)
     wait_till                 = lookup(local.override[local.override_type], "wait_till", "IngressReady")
-    access_groups             = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
     appid                     = lookup(local.override[local.override_type], "appid", local.config.appid)
     f5_vsi                    = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
