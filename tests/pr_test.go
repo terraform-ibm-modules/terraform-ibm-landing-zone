@@ -10,8 +10,6 @@ import (
 	"strings"
 	"testing"
 
-	tfjson "github.com/hashicorp/terraform-json"
-
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
