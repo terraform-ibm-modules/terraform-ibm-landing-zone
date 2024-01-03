@@ -8,7 +8,7 @@ require (
 	github.com/gruntwork-io/terratest v0.46.8
 	github.com/hashicorp/terraform-json v0.18.0
 	github.com/stretchr/testify v1.8.4
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.25.7
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.26.2
 )
 
 require github.com/IBM/schematics-go-sdk v0.2.2 // indirect
