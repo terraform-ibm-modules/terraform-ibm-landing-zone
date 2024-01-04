@@ -11,9 +11,8 @@ locals {
 # which was causing issues with other modules in LZ.
 # Due to existing implicit dependencies we do not think this will be an issue, including auth policies for activity tracker.
 module "vpc" {
-  #source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  #version                     = "7.13.3"
-  source                      = "git::https://github.com/toddgiguere/terraform-ibm-landing-zone-vpc.git?ref=exist-subnet-gateway"
+  source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
+  version                     = "7.15.0"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id
