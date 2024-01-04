@@ -9,7 +9,7 @@ module "vpn_subnet_map" {
     {
       name            = gateway.name
       vpc_name        = gateway.vpc_name
-      vpc_subnet_name = "${var.prefix}-${gateway.vpc_name}-${gateway.subnet_name}"
+      vpc_subnet_name = gateway.subnet_name
     }
   ]
 }
