@@ -4,7 +4,7 @@
   "packageRules": [
     {
       "description": "Use fix as Semantic Commit prefix for all dependency updates in these folders to generate release",
-      "matchPaths": [
+      "matchFileNames": [
         "patterns/vsi-quickstart",
         "patterns/vsi",
         "patterns/roks",
@@ -15,7 +15,7 @@
     {
       "description": "Allow the locked in provider version to be updated to the latest for DAs",
       "enabled": true,
-      "matchPaths": ["patterns"],
+      "matchFileNames": ["patterns/**"],
       "matchManagers": ["terraform"],
       "matchDepTypes": ["required_provider"],
       "rangeStrategy": "bump",
