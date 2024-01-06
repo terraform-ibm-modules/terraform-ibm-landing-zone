@@ -81,7 +81,6 @@ module "vsi_landing_zone" {
   teleport_version                       = var.teleport_version
   message_of_the_day                     = var.message_of_the_day
   teleport_admin_email                   = var.teleport_admin_email
-  create_secrets_manager                 = var.create_secrets_manager
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
   skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   override                               = var.override

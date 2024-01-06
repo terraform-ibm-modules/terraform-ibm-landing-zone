@@ -197,36 +197,6 @@ locals {
     ##############################################################################
 
     ##############################################################################
-    # IAM Account Settings
-    ##############################################################################
-    iam_account_settings = {
-      enable = false
-    }
-    access_groups = [
-      # for group in ["admin", "operate", "viewer"]:
-      # {
-      #   name = group
-      #   description = "Template access group for ${group}"
-      #   policies = [
-      #     {
-      #       name = "${group}-policy"
-      #       roles = [
-      #         lookup({
-      #           admin = "Administrator"
-      #           operate = "Operator"
-      #           viewer = "Viewer"
-      #         }, group)
-      #       ]
-      #       resources = {
-      #         resource = "is"
-      #       }
-      #     }
-      #   ]
-      # }
-    ]
-    ##############################################################################
-
-    ##############################################################################
     # Appid config
     ##############################################################################
 
@@ -236,19 +206,6 @@ locals {
       resource_group = var.appid_resource_group == null ? "${var.prefix}-service-rg" : var.appid_resource_group
       use_appid      = var.teleport_management_zones > 0 || var.provision_teleport_in_f5
       keys           = ["slz-appid-key"]
-    }
-
-    ##############################################################################
-
-    ##############################################################################
-    # Secrets Manager Config
-    ##############################################################################
-
-    secrets_manager = {
-      use_secrets_manager = var.create_secrets_manager
-      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
-      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
-      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
     }
 
     ##############################################################################
@@ -305,10 +262,7 @@ locals {
     atracker                               = lookup(local.override[local.override_type], "atracker", local.config.atracker)
     clusters                               = lookup(local.override[local.override_type], "clusters", local.config.clusters)
     wait_till                              = lookup(local.override[local.override_type], "wait_till", var.wait_till)
-    iam_account_settings                   = lookup(local.override[local.override_type], "iam_account_settings", local.config.iam_account_settings)
-    access_groups                          = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
     appid                                  = lookup(local.override[local.override_type], "appid", local.config.appid)
-    secrets_manager                        = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
     f5_vsi                                 = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)

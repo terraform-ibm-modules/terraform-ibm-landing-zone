@@ -23,14 +23,12 @@ module "dynamic_values" {
   vpn_gateways                           = var.vpn_gateways
   security_groups                        = var.security_groups
   bastion_vsi                            = var.teleport_vsi
-  access_groups                          = var.access_groups
   appid                                  = var.appid
   appid_resource                         = ibm_resource_instance.appid
   appid_data                             = data.ibm_resource_instance.appid
   teleport_domain                        = tostring(var.teleport_config_data.domain)
   f5_vsi                                 = var.f5_vsi
   f5_template_data                       = var.f5_template_data
-  secrets_manager                        = var.secrets_manager
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
   skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   atracker_cos_bucket                    = var.atracker.add_route == true ? var.atracker.collector_bucket_name : null

@@ -26,14 +26,12 @@ module "landing_zone" {
   skip_all_s2s_auth_policies             = local.env.skip_all_s2s_auth_policies
   atracker                               = local.env.atracker
   clusters                               = local.env.clusters
-  iam_account_settings                   = local.env.iam_account_settings
-  access_groups                          = local.env.access_groups
+  wait_till                              = local.env.wait_till
   f5_vsi                                 = local.env.f5_vsi
   f5_template_data                       = local.env.f5_template_data
   appid                                  = local.env.appid
   teleport_config_data                   = local.env.teleport_config
   teleport_vsi                           = local.env.teleport_vsi
-  secrets_manager                        = local.env.secrets_manager
   vpc_placement_groups                   = local.env.vpc_placement_groups
 }
 

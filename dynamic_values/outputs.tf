@@ -123,37 +123,6 @@ output "vpn_gateway_map" {
 
 
 ##############################################################################
-# IAM Outputs
-##############################################################################
-
-output "access_groups_object" {
-  description = "Convert access group list to map"
-  value       = module.access_group_object.value
-}
-
-output "access_policies" {
-  description = "Map of access policies"
-  value       = module.access_policies.value
-}
-
-output "dynamic_rules" {
-  description = "Map of dynamic rules"
-  value       = module.dynamic_rules.value
-}
-
-output "account_management_map" {
-  description = "Map of account management policies by group"
-  value       = module.account_management_map.value
-}
-
-output "access_groups_with_invites" {
-  description = "map of access groups with invite users"
-  value       = module.account_management_map.value
-}
-
-##############################################################################
-
-##############################################################################
 # Bastion VSI Outputs
 ##############################################################################
 
