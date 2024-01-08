@@ -93,5 +93,4 @@ variable "service_endpoints" {
     condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
   }
 }
-
 ##############################################################################
