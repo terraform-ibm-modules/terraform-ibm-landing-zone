@@ -169,12 +169,12 @@ func TestValidateOverride(t *testing.T) {
 	options.SkipTestTearDown = true
 	output, err := options.RunTestConsistency()
 
-	jsonComp := IsJsonqual(options.TerraformOptions.Vars["override_json_string"], options.LastTestTerraformOutputs["config"])
+	jsonComp ,error := IsJsonEqual(options.TerraformOptions.Vars["override_json_string"], options.LastTestTerraformOutputs["config"])
 
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
-	assert.True(t, jsonComp, "The override json file does not match the config output.")
+	assert.True(t, jsonComp, error)
 
 	options.TestTearDown()
 }
