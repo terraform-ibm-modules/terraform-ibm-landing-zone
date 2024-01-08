@@ -3,16 +3,6 @@
   "extends": ["local>terraform-ibm-modules/common-dev-assets:commonRenovateConfig"],
   "packageRules": [
     {
-      "description": "Use fix as Semantic Commit prefix for all dependency updates in these folders to generate release",
-      "matchFileNames": [
-        "patterns/vsi-quickstart",
-        "patterns/vsi",
-        "patterns/roks",
-        "patterns/vsi-extension"
-      ],
-      "semanticCommitType": "fix"
-    },
-    {
       "description": "Allow the locked in provider version to be updated to the latest for DAs",
       "enabled": true,
       "matchFileNames": ["patterns/**"],
