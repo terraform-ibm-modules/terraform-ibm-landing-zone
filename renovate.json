@@ -3,9 +3,9 @@
   "extends": ["local>terraform-ibm-modules/common-dev-assets:commonRenovateConfig"],
   "packageRules": [
     {
-      "description": "Allow the locked in provider version to be updated to the latest for DAs",
+      "description": "Allow the locked in provider version to be updated to the latest for DAs (and the examples that consume them)",
       "enabled": true,
-      "matchFileNames": ["patterns/**"],
+      "matchFileNames": ["patterns/**", "examples/**"],
       "matchManagers": ["terraform"],
       "matchDepTypes": ["required_provider"],
       "rangeStrategy": "bump",
