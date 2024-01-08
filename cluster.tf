@@ -6,6 +6,14 @@ data "ibm_container_cluster_versions" "cluster_versions" {}
 
 ##############################################################################
 
+##############################################################################
+# Get account id
+##############################################################################
+
+data "ibm_iam_account_settings" "iam_account_settings" {}
+
+##############################################################################
+
 
 ##############################################################################
 # Cluster Locals
@@ -55,7 +63,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
   service_subnet     = each.value.service_subnet
   crk                = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   kms_instance_id    = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_account_id     = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_account_id     = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   lifecycle {
     ignore_changes = [kube_version]
   }
@@ -74,7 +82,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
       crk_id           = regex("key:(.*)", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
       instance_id      = regex(".*:(.*):key:.*", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
       private_endpoint = kms_config.value.private_endpoint
-      account_id       = regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
+      account_id       = regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
     }
   }
 
@@ -112,7 +120,7 @@ resource "ibm_container_vpc_worker_pool" "pool" {
   worker_count      = each.value.workers_per_subnet
   crk               = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   kms_instance_id   = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_account_id    = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_account_id    = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
 
   dynamic "zones" {
     for_each = each.value.subnets
