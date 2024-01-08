@@ -162,6 +162,23 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	}
 }
 
+func TestValidateOverride(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "slz-ovr-vld", roksPatternTerraformDir)
+	options.SkipTestTearDown = true
+	output, err := options.RunTestConsistency()
+
+	jsonComp := IsJsonqual(options.TerraformOptions.Vars["override_json_string"], options.LastTestTerraformOutputs["config"])
+
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
+	assert.True(t, jsonComp, "The override json file does not match the config output.")
+
+	options.TestTearDown()
+}
+
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
