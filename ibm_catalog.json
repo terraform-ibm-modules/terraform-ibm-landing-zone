@@ -1012,12 +1012,8 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.13_openshift",
+              "default_value": "4.14_openshift",
               "options": [
-                {
-                  "displayname": "4.11_openshift",
-                  "value": "4.11_openshift"
-                },
                 {
                   "displayname": "4.12_openshift",
                   "value": "4.12_openshift"
@@ -1025,6 +1021,10 @@
                 {
                   "displayname": "4.13_openshift",
                   "value": "4.13_openshift"
+                },
+                {
+                  "displayname": "4.14_openshift",
+                  "value": "4.14_openshift"
                 }
               ],
               "custom_config": {
