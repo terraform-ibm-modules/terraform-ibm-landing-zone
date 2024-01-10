@@ -39,7 +39,7 @@
       ]
     }
   ],
-  "service_endpoints": "private",
+  "service_endpoints": "public-and-private",
   "security_groups": [],
   "vpn_gateways": [
     {

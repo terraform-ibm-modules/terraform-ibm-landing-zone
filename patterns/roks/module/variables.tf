@@ -509,6 +509,22 @@ variable "add_kms_block_storage_s2s" {
 ##############################################################################
 
 ##############################################################################
+# KMS and App ID variables
+##############################################################################
+variable "service_endpoints" {
+  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  type        = string
+  default     = "public-and-private"
+
+  validation {
+    error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
+    condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
+  }
+}
+
+##############################################################################
+
+##############################################################################
 # Override JSON
 ##############################################################################
 
