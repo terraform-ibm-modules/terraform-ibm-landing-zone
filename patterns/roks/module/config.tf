@@ -171,7 +171,8 @@ locals {
     ##############################################################################
     # S2S Authorization
     ##############################################################################
-    add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
+    skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+    skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
 
     ##############################################################################
 
@@ -221,27 +222,28 @@ locals {
   # Compile Environment for Config output
   ##############################################################################
   env = {
-    resource_groups                = lookup(local.override[local.override_type], "resource_groups", local.config.resource_groups)
-    vpcs                           = lookup(local.override[local.override_type], "vpcs", local.config.vpcs)
-    vpn_gateways                   = lookup(local.override[local.override_type], "vpn_gateways", local.config.vpn_gateways)
-    enable_transit_gateway         = lookup(local.override[local.override_type], "enable_transit_gateway", local.config.enable_transit_gateway)
-    transit_gateway_global         = lookup(local.override[local.override_type], "transit_gateway_global", local.config.transit_gateway_global)
-    transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
-    transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
-    ssh_keys                       = lookup(local.override[local.override_type], "ssh_keys", local.config.ssh_keys)
-    network_cidr                   = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
-    vsi                            = lookup(local.override[local.override_type], "vsi", local.config.vsi)
-    security_groups                = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
-    virtual_private_endpoints      = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
-    cos                            = lookup(local.override[local.override_type], "cos", local.config.object_storage)
-    service_endpoints              = lookup(local.override[local.override_type], "service_endpoints", var.service_endpoints)
-    add_kms_block_storage_s2s      = lookup(local.override[local.override_type], "add_kms_block_storage_s2s", local.config.add_kms_block_storage_s2s)
-    key_management                 = lookup(local.override[local.override_type], "key_management", local.config.key_management)
-    atracker                       = lookup(local.override[local.override_type], "atracker", local.config.atracker)
-    clusters                       = lookup(local.override[local.override_type], "clusters", local.config.clusters)
-    wait_till                      = lookup(local.override[local.override_type], "wait_till", var.wait_till)
-    appid                          = lookup(local.override[local.override_type], "appid", local.config.appid)
-    f5_vsi                         = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
+    resource_groups                        = lookup(local.override[local.override_type], "resource_groups", local.config.resource_groups)
+    vpcs                                   = lookup(local.override[local.override_type], "vpcs", local.config.vpcs)
+    vpn_gateways                           = lookup(local.override[local.override_type], "vpn_gateways", local.config.vpn_gateways)
+    enable_transit_gateway                 = lookup(local.override[local.override_type], "enable_transit_gateway", local.config.enable_transit_gateway)
+    transit_gateway_global                 = lookup(local.override[local.override_type], "transit_gateway_global", local.config.transit_gateway_global)
+    transit_gateway_resource_group         = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
+    transit_gateway_connections            = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
+    ssh_keys                               = lookup(local.override[local.override_type], "ssh_keys", local.config.ssh_keys)
+    network_cidr                           = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
+    vsi                                    = lookup(local.override[local.override_type], "vsi", local.config.vsi)
+    security_groups                        = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
+    virtual_private_endpoints              = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
+    cos                                    = lookup(local.override[local.override_type], "cos", local.config.object_storage)
+    service_endpoints                      = lookup(local.override[local.override_type], "service_endpoints", var.service_endpoints)
+    skip_kms_block_storage_s2s_auth_policy = lookup(local.override[local.override_type], "skip_kms_block_storage_s2s_auth_policy", local.config.skip_kms_block_storage_s2s_auth_policy)
+    skip_all_s2s_auth_policies             = lookup(local.override[local.override_type], "skip_all_s2s_auth_policies", local.config.skip_all_s2s_auth_policies)
+    key_management                         = lookup(local.override[local.override_type], "key_management", local.config.key_management)
+    atracker                               = lookup(local.override[local.override_type], "atracker", local.config.atracker)
+    clusters                               = lookup(local.override[local.override_type], "clusters", local.config.clusters)
+    wait_till                              = lookup(local.override[local.override_type], "wait_till", var.wait_till)
+    appid                                  = lookup(local.override[local.override_type], "appid", local.config.appid)
+    f5_vsi                                 = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)
       license_type            = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.license_type : lookup(local.override[local.override_type].f5_template_data, "license_type", var.license_type)
