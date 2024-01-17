@@ -4,7 +4,7 @@
 
 terraform {
   required_version = ">= 1.3, < 1.6"
-  # Pin to the lowest provider version of the range defined in the main module's version.tf to ensure lowest version still works
+  # renovate is set up to keep provider version at the latest for all DA solutions
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"

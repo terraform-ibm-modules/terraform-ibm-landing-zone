@@ -2,7 +2,7 @@
   "enable_transit_gateway": false,
   "transit_gateway_global": false,
   "virtual_private_endpoints": [],
-  "service_endpoints": "private",
+  "service_endpoints": "public-and-private",
   "security_groups": [],
   "vpn_gateways": [],
   "atracker": {

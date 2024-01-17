@@ -432,10 +432,32 @@ variable "teleport_admin_email" {
 # s2s variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
   type        = bool
-  default     = true
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
+  type        = bool
+  default     = false
+}
+
+##############################################################################
+
+##############################################################################
+# KMS and App ID variables
+##############################################################################
+variable "service_endpoints" {
+  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  type        = string
+  default     = "public-and-private"
+
+  validation {
+    error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
+    condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
+  }
 }
 
 ##############################################################################
