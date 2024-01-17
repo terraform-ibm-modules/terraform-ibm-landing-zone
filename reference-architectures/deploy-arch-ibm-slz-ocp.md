@@ -29,12 +29,12 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks.drawio.svg
 
 related_links:
-  - title: "VSI on VPC landing zone - Standard variation"
+  - title: "VSI on VPC Landing Zone - Standard Variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
 
 use-case: Cybersecurity
-industry: Banking,FinancialSector
+industry: Banking, Financial Sector
 compliance: FedRAMP
 
 content-type: reference-architecture
@@ -43,7 +43,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Red Hat OpenShift Container Platform on VPC landing zone
+# Red Hat OpenShift Container Platform on VPC Landing Zone
 {: #ocp-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -51,14 +51,14 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="5.3.1"}
 
-Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
+Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
-## Architecture diagram
+## Architecture Diagram
 {: #ra-ocp-architecture-diagram}
 
-![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture](roks.drawio.svg "Architecture diagram of Red Hat OpenShift Container Platform on VPC landing zone deployable architecture"){: caption="Figure 1. Single region architecture diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}{: external download="roks.drawio.svg"}
+![Architecture Diagram of OpenShift Container Platform on VPC Deployable Architecture](roks.drawio.svg "Architecture Diagram of Red Hat OpenShift Container Platform on VPC Landing Zone Deployable Architecture"){: caption="Figure 1. Single Region Architecture Diagram for Red Hat OpenShift Container Platform on VPC on IBM Cloud" caption-side="bottom"}{: external download="roks.drawio.svg"}
 
-## Design requirements
+## Design Requirements
 {: #ra-ocp-design-requirements}
 
 ![Design requirements for Secure infrastructure on VPC for regulated industries](heat-map-deploy-arch-slz-ocp.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}

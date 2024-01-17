@@ -29,15 +29,15 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
-  - title: "VSI on VPC landing zone - QuickStart variation"
+  - title: "VSI on VPC Landing Zone - QuickStart Variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "The VSI on VPC landing zone QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
-  - title: "Red Hat OpenShift Container Platform on VPC landing zone"
+    description: "The VSI on VPC Landing Zone QuickStart Variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart Variation is designed to deploy quickly for demonstration and development."
+  - title: "Red Hat OpenShift Container Platform on VPC Landing Zone"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
     description: "A deployable architecture that provides virtual servers in a secure VPC for your workloads."
 
 use-case: Cybersecurity
-industry: Banking,FinancialSector
+industry: Banking, Financial Sector
 compliance: FedRAMP
 
 content-type: reference-architecture
@@ -49,22 +49,22 @@ content-type: reference-architecture
 # VSI on VPC landing zone - Standard variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
-{: toc-industry="Banking,FinancialSector"}
+{: toc-industry="Banking, Financial Sector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
 {: toc-version="5.3.1"}
 
 The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
-## Architecture diagram
+## Architecture Diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
+![Architecture Diagram for the Standard Variation of VSI on VPC Landing Zone](vsi-vsi.drawio.svg "Architecture Diagram for the Standard Variation of the VPC Landing Zone Deployable Architecture"){: caption="Figure 1. Standard Variation of VSI on VPC Landing Zone" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
-## Design requirements
+## Design Requirements
 {: #ra-vsi-design-requirements}
 
-![Design requirements for VSI on VPC landing zone](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
+![Design Requirements for VSI on VPC Landing Zone](heat-map-deploy-arch-slz-vsi.svg "Design Requirements"){: caption="Figure 2. Scope of the Design Requirements" caption-side="bottom"}
 
 <!--
 TODO: Add the typical use case for the architecture.
@@ -117,4 +117,4 @@ _Optional section._ Feedback from users implies that architects want only the hi
 ## Next steps
 {: #ra-vsi-next-steps}
 
-Read about [IBM Cloud for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-about)
+Read about [IBM Cloud for Financial Services](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-about)

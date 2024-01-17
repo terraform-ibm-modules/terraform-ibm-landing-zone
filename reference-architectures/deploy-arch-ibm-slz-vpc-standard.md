@@ -29,12 +29,12 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vpc.drawio.svg
 
 related_links:
-  - title: "VPC landing zone - Standard variation"
+  - title: "VPC Landing Zone - Standard Variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
-    description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
+    description: "A deployable architecture based on the IBM Cloud for Financial Services reference, providing virtual servers in a secure VPC for your workloads."
 
 use-case: Cybersecurity
-industry: Banking,FinancialSector
+industry: Banking, Financial Sector
 compliance: FedRAMP
 
 content-type: reference-architecture
@@ -43,7 +43,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# VPC landing zone - Standard variation
+# VPC Landing Zone - Standard Variation
 {: #vpc-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -51,11 +51,11 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="5.3.1"}
 
-The Standard variation of the VPC landing zone deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
+The Standard variation of the VPC landing zone deployable architecture utilizes two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC, to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that ensures the security of your workloads. A transit gateway connects the VPCs to each other, and Virtual Private Endpoints are used to connect to IBM Cloud services.
 
 IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this deployable architecture. You can add more security services, such as Hyper Protect Crypto Services.
 
-## Architecture diagram
+## Architecture Diagram
 {: #ra-vpc-architecture-diagram}
 
 ![Architecture diagram for the Standard variation of VPC landing zone](vpc.drawio.svg "Architecture diagram of VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VPC landing zone" caption-side="bottom"}{: external download="vpc.drawio.svg"}
