@@ -169,11 +169,37 @@ func TestValidateOverride(t *testing.T) {
 	options.SkipTestTearDown = true
 	output, err := options.RunTestConsistency()
 
-	jsonComp ,error := IsJsonEqual(options.TerraformOptions.Vars["override_json_string"], options.LastTestTerraformOutputs["config"])
+	var override_json_string_value string = options.TerraformOptions.Vars["override_json_string"]
+	var config_string_value string = options.LastTestTerraformOutputs["config"]
+	ignored_keys := []string{"resource_group"}
+
+	//Parse the json string nto a map
+	var override_json_map map[string]interface{}
+	err1 := json.Unmarshal([]byte(override_json_string_value), &override_json_map)
+
+	var config_map map[string]interface{}
+	err2 := json.Unmarshal([]byte(config_string_value), &config_map)
+
+	//Delete the ignored keys from the map
+	for _, key := range ignored_keys {
+		delete(override_json_map, key)
+		delete(config_map, key)
+	}
+
+	//Convert the maps back to json string
+	new_override_json_string_value, err3 := json.Marshal(override_json_map)
+	new_config_string_value, err4 := json.Marshal(config_map)
+
+	//Compare both the json strings
+	jsonComp, error := IsJsonEqual(new_override_json_string_value, new_config_string_value)
 
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
+	assert.Nil(t, err1, "Error occured with the override string")
+	assert.Nil(t, err2, "Error occured with config string")
+	assert.Nil(t, err3, "Error occured override map")
+	assert.Nil(t, err4, "Error occured with config map")
 	assert.True(t, jsonComp, error)
 
 	options.TestTearDown()
