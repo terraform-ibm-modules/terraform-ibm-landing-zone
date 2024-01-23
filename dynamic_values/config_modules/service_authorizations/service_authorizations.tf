@@ -59,7 +59,7 @@ module "kms_to_block_storage" {
   ]
 }
 
-# workaround for https://github.ibm.com/GoldenEye/issues/issues/6709
+# workaround for https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/645
 module "kube_to_kms" {
   source = "../list_to_map"
   list = [
