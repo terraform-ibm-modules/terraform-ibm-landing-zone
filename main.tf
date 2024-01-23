@@ -43,3 +43,19 @@ module "vpc" {
 
 
 ##############################################################################
+
+
+##############################################################################
+# Create CBR prewired rules
+##############################################################################
+
+
+module "cbr_prewired_rules" {
+  count             = var.create_prewired_cbr ? 1 : 0
+  source            = "terraform-ibm-modules/cbr/ibm//modules/fscloud"
+  version           = "1.18.0"
+  prefix            = var.prefix
+  zone_vpc_crn_list = [for network in module.vpc : network.vpc_crn]
+}
+
+##############################################################################

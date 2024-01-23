@@ -1260,3 +1260,15 @@ variable "skip_all_s2s_auth_policies" {
 }
 
 ##############################################################################
+
+##############################################################################
+# CBR (context-based restrictions) variables
+##############################################################################
+
+variable "create_prewired_cbr" {
+  description = "Set this to true to create prewired CBR rules. If set to false, CBR rules will not be created."
+  type        = bool
+  default     = true
+}
+
+##############################################################################
