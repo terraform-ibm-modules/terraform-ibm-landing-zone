@@ -129,3 +129,29 @@ output "schematics_workspace_id" {
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
 ##############################################################################
+
+##############################################################################
+# CBR data
+##############################################################################
+
+output "account_id" {
+  value       = module.landing_zone.account_id
+  description = "Account ID"
+}
+
+output "map_service_ref_name_zoneid" {
+  value       = module.landing_zone.map_service_ref_name_zoneid
+  description = "Map of service reference and zone ids"
+}
+
+output "map_vpc_zoneid" {
+  value       = module.landing_zone.map_vpc_zoneid
+  description = "Map of VPC and zone ids"
+}
+
+output "map_target_service_rule_ids" {
+  value       = module.landing_zone.map_target_service_rule_ids
+  description = "Map of target service and rule ids"
+}
+
+##############################################################################
