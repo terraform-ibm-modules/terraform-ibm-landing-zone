@@ -98,6 +98,23 @@ resource "ibm_cos_bucket" "buckets" {
     key.crn if key.name == each.value.kms_key
   ][0]
 
+  dynamic "expire_rule" {
+    for_each = (
+      each.value.expire_rule == null
+      ? []
+      : [each.value.expire_rule]
+    )
+
+    content {
+      days                         = expire_rule.value.days
+      date                         = expire_rule.value.date
+      enable                       = expire_rule.value.enable
+      expired_object_delete_marker = expire_rule.value.expired_object_delete_marker
+      prefix                       = expire_rule.value.prefix
+      rule_id                      = expire_rule.value.rule_id
+    }
+  }
+
   dynamic "archive_rule" {
     for_each = (
       each.value.archive_rule == null
