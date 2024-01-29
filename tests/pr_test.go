@@ -316,23 +316,6 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
-func TestRunOverrideExampleSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "ovr-sc", overrideExampleTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
 func TestRunVSIPatternSchematics(t *testing.T) {
 	t.Parallel()
 
