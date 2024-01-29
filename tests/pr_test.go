@@ -40,7 +40,6 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
 // Turn on Schematics tests, which can also skip the normal tests for same pattern
-// Values to enable: TRUE or YES
 var enableSchematicsTests bool
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
@@ -54,13 +53,9 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 
-	// Determine enable of Schematics tests via env (if unset value will be empty)
-	schematicsEnv := os.Getenv("RUN_SCHEMATICS_TESTS")
-	if strings.ToLower(schematicsEnv) == "true" || strings.ToLower(schematicsEnv) == "yes" {
-		enableSchematicsTests = true
-	} else {
-		enableSchematicsTests = false
-	}
+	// ENABLE SCHEMATICS TESTS
+	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
+	enableSchematicsTests = false
 
 	os.Exit(m.Run())
 }
