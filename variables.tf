@@ -63,7 +63,16 @@ variable "vpcs" {
   description = "A map describing VPCs to be created in this repo."
   type = list(
     object({
-      prefix                      = string           # VPC prefix
+      prefix          = string # VPC prefix
+      existing_vpc_id = optional(string)
+      existing_subnets = optional(
+        list(
+          object({
+            id             = string
+            public_gateway = optional(bool, false)
+          })
+        )
+      )
       resource_group              = optional(string) # Name of the group where VPC will be created
       access_tags                 = optional(list(string), [])
       classic_access              = optional(bool)
@@ -150,7 +159,7 @@ variable "vpcs" {
         zone-2 = optional(bool)
         zone-3 = optional(bool)
       })
-      subnets = object({
+      subnets = optional(object({
         zone-1 = list(object({
           name           = string
           cidr           = string
@@ -169,7 +178,7 @@ variable "vpcs" {
           public_gateway = optional(bool)
           acl_name       = string
         }))
-      })
+      }))
     })
   )
 }
@@ -682,11 +691,10 @@ variable "cos" {
 # Service Instance Variables
 ##############################################################################
 
-# tflint-ignore: terraform_unused_declarations
 variable "service_endpoints" {
   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
   type        = string
-  default     = "private"
+  default     = "public-and-private"
 
   validation {
     error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
@@ -1019,247 +1027,6 @@ variable "teleport_vsi" {
 ##############################################################################
 
 
-##############################################################################
-# IAM Settings
-# > For more information about IAM account settings refer to the
-#   terraform documentation here:
-#   https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_account_settings
-##############################################################################
-
-variable "iam_account_settings" {
-  description = "IAM Account Settings."
-  type = object({
-    enable                          = bool
-    mfa                             = optional(string)
-    allowed_ip_addresses            = optional(string)
-    include_history                 = optional(bool)
-    if_match                        = optional(string)
-    max_sessions_per_identity       = optional(string)
-    restrict_create_service_id      = optional(string)
-    restrict_create_platform_apikey = optional(string)
-    session_expiration_in_seconds   = optional(string)
-    session_invalidation_in_seconds = optional(string)
-  })
-
-  default = {
-    enable = false
-  }
-
-  validation {
-    error_message = "Allowed ip addresses must be a comma separated string of ip addresses and cidr subnets."
-    condition = (
-      lookup(var.iam_account_settings, "allowed_ip_addresses", null) == null
-      ? true
-      : can(regex("^([[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}(/[[:digit:]]{1,2})?,?)+$", var.iam_account_settings["allowed_ip_addresses"]))
-    )
-  }
-
-  validation {
-    error_message = "IAM Account if_match setting must be either NOT_SET or a whole number greater than 0."
-    condition = (
-      lookup(var.iam_account_settings, "if_match", null) == null
-      ? true
-      : var.iam_account_settings.if_match == "NOT_SET"
-      ? true
-      : tonumber(var.iam_account_settings.if_match) > 0
-    )
-  }
-
-  validation {
-    error_message = "IAM Account max_sessions_per_identity setting must be either NOT_SET or a whole number greater than 0."
-    condition = (
-      lookup(var.iam_account_settings, "max_sessions_per_identity", null) == null
-      ? true
-      : var.iam_account_settings.max_sessions_per_identity == "NOT_SET"
-      ? true
-      : tonumber(var.iam_account_settings.max_sessions_per_identity) > 0
-    )
-  }
-
-  validation {
-    error_message = "IAM account mfa value must be one of the following: [ NONE , TOTP , TOTP4ALL , LEVEL1 , LEVEL2 , LEVEL3]."
-    condition = (
-      lookup(var.iam_account_settings, "mfa", null) == null
-      ? true
-      : contains(["NONE", "TOTP", "TOTP4ALL", "LEVEL1", "LEVEL2", "LEVEL3", "null"], var.iam_account_settings["mfa"])
-    )
-  }
-
-  validation {
-    error_message = "IAM account restrict_create_service_id value must be one of the following: [ RESTRICTED, NOT_RESTRICTED, NOT_SET ]."
-    condition = (
-      lookup(var.iam_account_settings, "restrict_create_service_id", null) == null
-      ? true
-      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], var.iam_account_settings["restrict_create_service_id"])
-    )
-  }
-
-  validation {
-    error_message = "IAM account restrict_create_platform_apikey value must be one of the following: [ RESTRICTED, NOT_RESTRICTED, NOT_SET ]."
-    condition = (
-      lookup(var.iam_account_settings, "restrict_create_platform_apikey", null) == null
-      ? true
-      : contains(["NOT_SET", "RESTRICTED", "NOT_RESTRICTED"], var.iam_account_settings["restrict_create_platform_apikey"])
-    )
-  }
-
-  validation {
-    error_message = "IAM Account session_expiration_in_seconds setting must be either NOT_SET or a whole number between 900 and 86400."
-    condition = (
-      lookup(var.iam_account_settings, "session_expiration_in_seconds", null) == null
-      ? true
-      : var.iam_account_settings.session_expiration_in_seconds == "NOT_SET"
-      ? true
-      : tonumber(var.iam_account_settings.session_expiration_in_seconds) >= 900 && tonumber(var.iam_account_settings.session_expiration_in_seconds) <= 86400
-    )
-  }
-  validation {
-    error_message = "IAM Account session_expiration_in_seconds setting must be either NOT_SET or a whole number between 900 and 7200."
-    condition = (
-      lookup(var.iam_account_settings, "session_invalidation_in_seconds", null) == null
-      ? true
-      : var.iam_account_settings.session_invalidation_in_seconds == "NOT_SET"
-      ? true
-      : tonumber(var.iam_account_settings.session_invalidation_in_seconds) >= 900 && tonumber(var.iam_account_settings.session_expiration_in_seconds) <= 7200
-    )
-  }
-}
-
-##############################################################################
-
-
-##############################################################################
-# Access Group Rules
-##############################################################################
-
-variable "access_groups" {
-  description = "A list of access groups to create"
-  default     = []
-  type = list(
-    object({
-      name        = string # Name of the group
-      description = string # Description of group
-      policies = list(
-        object({
-          name  = string       # Name of the policy
-          roles = list(string) # list of roles for the policy
-          resources = object({
-            resource_group       = optional(string) # Name of the resource group the policy will apply to
-            resource_type        = optional(string) # Name of the resource type for the policy ex. "resource-group"
-            resource             = optional(string) # The resource of the policy definition
-            service              = optional(string) # Name of the service type for the policy ex. "cloud-object-storage"
-            resource_instance_id = optional(string) # ID of a service instance to give permissions
-          })
-        })
-      )
-      dynamic_policies = optional(
-        list(
-          object({
-            name              = string # Dynamic group name
-            identity_provider = string # URI for identity provider
-            expiration        = number # How many hours authenticated users can work before refresh
-            conditions = object({
-              claim    = string # key value to evaluate the condition against.
-              operator = string # The operation to perform on the claim. Supported values are EQUALS, EQUALS_IGNORE_CASE, IN, NOT_EQUALS_IGNORE_CASE, NOT_EQUALS, and CONTAINS.
-              value    = string # Value to be compared agains
-            })
-          })
-        )
-      )
-      account_management_policies = optional(list(string))
-      invite_users                = optional(list(string)) # Users to invite to the access group
-    })
-  )
-
-  validation {
-    error_message = "Invite users should not have any duplicate invites within the same group."
-    condition = length(
-      flatten(
-        [
-          for group in [for access_group in var.access_groups : access_group if lookup(access_group, "invite_users", null) != null] :
-          true if length(group.invite_users) != length(distinct(group.invite_users))
-        ]
-      )
-    ) == 0
-  }
-
-  validation {
-    error_message = "Invite users should not have any duplicate account management policies within the same group."
-    condition = length(
-      flatten(
-        [
-          for group in [for access_group in var.access_groups : access_group if lookup(access_group, "account_management_policies", null) != null] :
-          true if length(group.account_management_policies) != length(distinct(group.account_management_policies))
-        ]
-      )
-    ) == 0
-  }
-
-  validation {
-    error_message = "All access group policies must have unique names."
-    condition = length(
-      flatten(
-        [
-          for group in var.access_groups :
-          [
-            for policy in group.policies :
-            policy.name
-          ]
-        ]
-      )
-      ) == length(
-      distinct(
-        flatten(
-          [
-            for group in var.access_groups :
-            [
-              for policy in group.policies :
-              policy.name
-            ]
-          ]
-        )
-      )
-    )
-  }
-
-  validation {
-    error_message = "All access group dynamic rules must have unique names."
-    condition = length(
-      flatten(
-        [
-          for group in var.access_groups :
-          [
-            for policy in group.dynamic_policies :
-            policy.name
-          ] if lookup(group, "dynamic_policies", null) != null
-        ]
-      )
-      ) == length(
-      distinct(
-        flatten(
-          [
-            for group in var.access_groups :
-            [
-              for policy in group.dynamic_policies :
-              policy.name
-            ] if lookup(group, "dynamic_policies", null) != null
-          ]
-        )
-      )
-    )
-  }
-
-  validation {
-    error_message = "All access groups must have unique names."
-    condition = length(var.access_groups) == length(distinct([
-      for group in var.access_groups : group.name
-    ]))
-  }
-}
-
-##############################################################################
-
-
 #############################################################################
 # F5 Variables
 ##############################################################################
@@ -1445,24 +1212,6 @@ variable "f5_template_data" {
 ##############################################################################
 
 ##############################################################################
-# Secrets Manager Variables
-##############################################################################
-
-variable "secrets_manager" {
-  description = "Map describing an optional secrets manager deployment"
-  type = object({
-    use_secrets_manager = bool
-    name                = optional(string)
-    kms_key_name        = optional(string)
-    resource_group      = optional(string)
-    access_tags         = optional(list(string), [])
-  })
-  default = {
-    use_secrets_manager = false
-  }
-}
-
-##############################################################################
 # VPC Placement Group Variable
 ##############################################################################
 
@@ -1498,10 +1247,16 @@ variable "vpc_placement_groups" {
 # s2s variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
   type        = bool
-  default     = true
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
+  type        = bool
+  default     = false
 }
 
 ##############################################################################

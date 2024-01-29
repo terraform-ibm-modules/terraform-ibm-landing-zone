@@ -36,7 +36,7 @@ module "vsi_subnets" {
   source           = "../get_subnets"
   for_each         = module.vsi_list_to_map.value
   subnet_zone_list = var.vpc_modules[each.value.vpc_name].subnet_zone_list
-  regex            = "${var.prefix}-${each.value.vpc_name}-${each.value.subnet_name}"
+  regex            = each.value.subnet_name
 }
 
 ##############################################################################

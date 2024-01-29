@@ -127,14 +127,14 @@ variable "cluster_zones" {
 variable "kube_version" {
   description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.12_openshift' (default), '4.11_openshift', or '4.10_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.13_openshift"
+  default     = "4.14_openshift"
   validation {
     condition = anytrue([
+      var.kube_version == "4.14_openshift",
       var.kube_version == "4.13_openshift",
       var.kube_version == "4.12_openshift",
-      var.kube_version == "4.11_openshift"
     ])
-    error_message = "The kube_version value can currently only be '4.13_openshift', '4.12_openshift', or '4.11_openshift'"
+    error_message = "The kube_version value can currently only be '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
   }
 }
 
@@ -458,7 +458,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-18-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -510,27 +510,20 @@ variable "teleport_admin_email" {
 
 ##############################################################################
 
-
-##############################################################################
-# Secrets Manager Variables
-##############################################################################
-
-variable "create_secrets_manager" {
-  description = "Create a secrets manager deployment."
-  type        = bool
-  default     = false
-}
-
-##############################################################################
-
 ##############################################################################
 # s2s variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
   type        = bool
-  default     = true
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
+  type        = bool
+  default     = false
 }
 
 ##############################################################################

@@ -375,7 +375,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-18-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -425,18 +425,6 @@ variable "teleport_admin_email" {
   default     = null
 }
 
-##############################################################################
-
-
-##############################################################################
-# Secrets Manager Variables
-##############################################################################
-
-variable "create_secrets_manager" {
-  description = "Create a secrets manager deployment."
-  type        = bool
-  default     = false
-}
 
 ##############################################################################
 
@@ -444,10 +432,32 @@ variable "create_secrets_manager" {
 # s2s variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
   type        = bool
-  default     = true
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
+  type        = bool
+  default     = false
+}
+
+##############################################################################
+
+##############################################################################
+# KMS and App ID variables
+##############################################################################
+variable "service_endpoints" {
+  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  type        = string
+  default     = "public-and-private"
+
+  validation {
+    error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
+    condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
+  }
 }
 
 ##############################################################################

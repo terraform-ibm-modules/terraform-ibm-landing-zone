@@ -156,38 +156,9 @@ locals {
     ##############################################################################
     # S2S Authorization
     ##############################################################################
-    add_kms_block_storage_s2s = var.add_kms_block_storage_s2s
+    skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+    skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
 
-    ##############################################################################
-
-    ##############################################################################
-    # IAM Account Settings
-    ##############################################################################
-    iam_account_settings = {
-      enable = false
-    }
-    access_groups = [
-      # for group in ["admin", "operate", "viewer"]:
-      # {
-      #   name = group
-      #   description = "Template access group for ${group}"
-      #   policies = [
-      #     {
-      #       name = "${group}-policy"
-      #       roles = [
-      #         lookup({
-      #           admin = "Administrator"
-      #           operate = "Operator"
-      #           viewer = "Viewer"
-      #         }, group)
-      #       ]
-      #       resources = {
-      #         resource = "is"
-      #       }
-      #     }
-      #   ]
-      # }
-    ]
     ##############################################################################
 
     ##############################################################################
@@ -230,19 +201,6 @@ locals {
     teleport_vsi = module.dynamic_values.teleport_vsi
 
     ##############################################################################
-
-    ##############################################################################
-    # Secrets Manager Config
-    ##############################################################################
-
-    secrets_manager = {
-      use_secrets_manager = var.create_secrets_manager
-      name                = var.create_secrets_manager ? "${var.prefix}-secrets-manager" : null
-      resource_group      = var.create_secrets_manager ? "${var.prefix}-service-rg" : null
-      kms_key_name        = var.create_secrets_manager ? "${var.prefix}-slz-key" : null
-    }
-
-    ##############################################################################
   }
 
   ##############################################################################
@@ -257,23 +215,21 @@ locals {
     transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
 
-    ssh_keys                  = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
-    network_cidr              = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
-    vsi                       = lookup(local.override[local.override_type], "vsi", local.config.vsi)
-    security_groups           = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
-    virtual_private_endpoints = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
-    cos                       = lookup(local.override[local.override_type], "cos", local.config.object_storage)
-    service_endpoints         = lookup(local.override[local.override_type], "service_endpoints", "private")
-    add_kms_block_storage_s2s = lookup(local.override[local.override_type], "add_kms_block_storage_s2s", local.config.add_kms_block_storage_s2s)
-    key_management            = lookup(local.override[local.override_type], "key_management", local.config.key_management)
-    atracker                  = lookup(local.override[local.override_type], "atracker", local.config.atracker)
-    clusters                  = lookup(local.override[local.override_type], "clusters", local.config.clusters)
-    wait_till                 = lookup(local.override[local.override_type], "wait_till", "IngressReady")
-    iam_account_settings      = lookup(local.override[local.override_type], "iam_account_settings", local.config.iam_account_settings)
-    access_groups             = lookup(local.override[local.override_type], "access_groups", local.config.access_groups)
-    appid                     = lookup(local.override[local.override_type], "appid", local.config.appid)
-    secrets_manager           = lookup(local.override[local.override_type], "secrets_manager", local.config.secrets_manager)
-    f5_vsi                    = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
+    ssh_keys                               = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
+    network_cidr                           = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
+    vsi                                    = lookup(local.override[local.override_type], "vsi", local.config.vsi)
+    security_groups                        = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
+    virtual_private_endpoints              = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
+    cos                                    = lookup(local.override[local.override_type], "cos", local.config.object_storage)
+    service_endpoints                      = lookup(local.override[local.override_type], "service_endpoints", var.service_endpoints)
+    skip_kms_block_storage_s2s_auth_policy = lookup(local.override[local.override_type], "skip_kms_block_storage_s2s_auth_policy", local.config.skip_kms_block_storage_s2s_auth_policy)
+    skip_all_s2s_auth_policies             = lookup(local.override[local.override_type], "skip_all_s2s_auth_policies", local.config.skip_all_s2s_auth_policies)
+    key_management                         = lookup(local.override[local.override_type], "key_management", local.config.key_management)
+    atracker                               = lookup(local.override[local.override_type], "atracker", local.config.atracker)
+    clusters                               = lookup(local.override[local.override_type], "clusters", local.config.clusters)
+    wait_till                              = lookup(local.override[local.override_type], "wait_till", "IngressReady")
+    appid                                  = lookup(local.override[local.override_type], "appid", local.config.appid)
+    f5_vsi                                 = lookup(local.override[local.override_type], "f5_vsi", local.config.f5_deployments)
     f5_template_data = {
       tmos_admin_password     = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.tmos_admin_password : lookup(local.override[local.override_type].f5_template_data, "tmos_admin_password", var.tmos_admin_password)
       license_type            = lookup(local.override[local.override_type], "f5_template_data", null) == null ? var.license_type : lookup(local.override[local.override_type].f5_template_data, "license_type", var.license_type)

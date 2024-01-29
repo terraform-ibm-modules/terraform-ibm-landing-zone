@@ -10,8 +10,6 @@ import (
 	"strings"
 	"testing"
 
-	tfjson "github.com/hashicorp/terraform-json"
-
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -34,6 +32,9 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
+
+// Setting "service_endpoints" to `private` to test support for 'private' service_endpoints (schematics have access to private network).
+const service_endpoints = "private"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
@@ -280,28 +281,6 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 	}
 }
 
-// sanitizeResourceChanges sanitizes the sensitive data in a Terraform JSON Change and returns the sanitized JSON.
-func sanitizeResourceChanges(change *tfjson.Change, mergedSensitive map[string]interface{}) (string, error) {
-	// Marshal the Change to JSON bytes
-	changesBytes, err := json.MarshalIndent(change, "", "  ")
-	if err != nil {
-		return "", err
-	}
-	changesJson := string(changesBytes)
-
-	// Perform sanitization of sensitive data
-	changesJson, err = common.SanitizeSensitiveData(changesJson, mergedSensitive)
-	return changesJson, err
-}
-
-// handleSanitizationError logs an error message if a sanitization error occurs.
-func handleSanitizationError(err error, location string, options *testhelper.TestOptions) {
-	if err != nil {
-		errorMessage := fmt.Sprintf("Error sanitizing sensitive data in %s", location)
-		logger.Log(options.Testing, errorMessage)
-	}
-}
-
 func TestRunOverride(t *testing.T) {
 	t.Parallel()
 
@@ -324,108 +303,7 @@ func TestRunOverride(t *testing.T) {
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
 			assert.NotNil(t, planStruct, "Expected some output") {
-
-			// defines if at least one resource changed (destroy, update, etc)
-			resourcesChanged := false
-			for _, resource := range planStruct.ResourceChangesMap {
-				// get JSON string of full changes for the logs
-				changesBytes, changesErr := json.MarshalIndent(resource.Change, "", "  ")
-				// if it errors in the marshall step, just put a placeholder and move on, not important
-				changesJson := "--UNAVAILABLE--"
-				if changesErr == nil {
-					changesJson = string(changesBytes)
-				}
-
-				var resourceDetails string
-
-				// Treat all keys in the BeforeSensitive and AfterSensitive maps as sensitive
-				// Assuming BeforeSensitive and AfterSensitive are of type interface{}
-				beforeSensitive, beforeSensitiveOK := resource.Change.BeforeSensitive.(map[string]interface{})
-				afterSensitive, afterSensitiveOK := resource.Change.AfterSensitive.(map[string]interface{})
-
-				// Create the mergedSensitive map
-				mergedSensitive := make(map[string]interface{})
-
-				// Check if BeforeSensitive is of the expected type
-				if beforeSensitiveOK {
-					// Copy the keys and values from BeforeSensitive to the mergedSensitive map.
-					for key, value := range beforeSensitive {
-						mergedSensitive[key] = value
-					}
-				}
-
-				// Check if AfterSensitive is of the expected type
-				if afterSensitiveOK {
-					// Copy the keys and values from AfterSensitive to the mergedSensitive map.
-					for key, value := range afterSensitive {
-						mergedSensitive[key] = value
-					}
-				}
-
-				// Perform sanitization
-				changesJson, err := sanitizeResourceChanges(resource.Change, mergedSensitive)
-				if err != nil {
-					changesJson = "Error sanitizing sensitive data"
-					logger.Log(options.Testing, changesJson)
-				}
-				formatChangesJson, err := common.FormatJsonStringPretty(changesJson)
-
-				var formatChangesJsonString string
-				if err != nil {
-					logger.Log(options.Testing, "Error formatting JSON, use unformatted")
-					formatChangesJsonString = changesJson
-				} else {
-					formatChangesJsonString = string(formatChangesJson)
-				}
-
-				diff, diffErr := common.GetBeforeAfterDiff(changesJson)
-
-				if diffErr != nil {
-					diff = fmt.Sprintf("Error getting diff: %s", diffErr)
-				} else {
-					// Split the changesJson into "Before" and "After" parts
-					beforeAfter := strings.Split(diff, "After: ")
-
-					// Perform sanitization on "After" part
-					var after string
-					if len(beforeAfter) > 1 {
-						after, err = common.SanitizeSensitiveData(beforeAfter[1], mergedSensitive)
-						handleSanitizationError(err, "after diff", options)
-					} else {
-						after = fmt.Sprintf("Could not parse after from diff") // dont print incase diff contains sensitive values
-					}
-
-					// Perform sanitization on "Before" part
-					var before string
-					if len(beforeAfter) > 0 {
-						before, err = common.SanitizeSensitiveData(strings.TrimPrefix(beforeAfter[0], "Before: "), mergedSensitive)
-						handleSanitizationError(err, "before diff", options)
-					} else {
-						before = fmt.Sprintf("Could not parse before from diff") // dont print incase diff contains sensitive values
-					}
-
-					// Reassemble the sanitized diff string
-					diff = "  Before: \n\t" + before + "\n  After: \n\t" + after
-				}
-				resourceDetails = fmt.Sprintf("\nName: %s\nAddress: %s\nActions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, diff, formatChangesJsonString)
-
-				// build error message
-				errorMessage := fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
-
-				// check if current resource is changed
-				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
-				assert.True(options.Testing, noResourceChange, errorMessage)
-
-				// if at least one resource is changed, then save that information
-				if !resourcesChanged && !noResourceChange {
-					resourcesChanged = true
-				}
-			}
-
-			// Run plan again to output the nice human-readable plan if there was a change
-			if resourcesChanged {
-				terraform.Plan(options.Testing, options.TerraformOptions)
-			}
+			options.CheckConsistency(planStruct)
 		}
 	}
 	options.TestTearDown()
@@ -481,6 +359,7 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -498,6 +377,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -516,6 +396,7 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -533,6 +414,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()

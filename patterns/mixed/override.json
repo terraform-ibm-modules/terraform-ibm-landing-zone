@@ -133,7 +133,7 @@
         }
     ],
     "security_groups": [],
-    "service_endpoints": "private",
+    "service_endpoints": "public-and-private",
     "ssh_keys": [
         {
             "name": "slz-ssh-key",
@@ -359,7 +359,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {

@@ -18,12 +18,12 @@ variable "cos" {
   description = "COS variable"
 }
 
-variable "secrets_manager" {
-  description = "Secrets Manager config"
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Add kms to block storage s2s"
 }
 
-variable "add_kms_block_storage_s2s" {
-  description = "Add kms to block storage s2s"
+variable "skip_all_s2s_auth_policies" {
+  description = "Add s2s authorization policies"
 }
 
 variable "atracker_cos_bucket" {
@@ -43,7 +43,7 @@ locals {
 module "kms_to_block_storage" {
   source = "../list_to_map"
   list = [
-    for instance in(var.add_kms_block_storage_s2s ? ["block-storage"] : []) :
+    for instance in(var.skip_kms_block_storage_s2s_auth_policy ? [] : ["block-storage"]) :
     {
       name                        = instance
       source_service_name         = "server-protect"
@@ -93,22 +93,6 @@ module "flow_logs_to_cos" {
   ]
 }
 
-module "secrets_manager_to_cos" {
-  source = "../list_to_map"
-  list = [
-    for instance in(var.secrets_manager.use_secrets_manager ? ["secrets-manager-to-kms"] : []) :
-    {
-      name                        = instance
-      source_service_name         = "secrets-manager"
-      source_resource_group_id    = var.secrets_manager.resource_group
-      description                 = "Allow secrets manager to read from Key Management"
-      roles                       = ["Reader"]
-      target_service_name         = local.target_key_management_service
-      target_resource_instance_id = var.key_management_guid
-    } if local.target_key_management_service != null
-  ]
-}
-
 ##############################################################################
 
 ##############################################################################
@@ -150,7 +134,6 @@ output "authorizations" {
     module.kms_to_block_storage.value,
     module.cos_to_key_management.value,
     module.flow_logs_to_cos.value,
-    module.secrets_manager_to_cos.value,
     module.atracker_to_cos.value
   )
 }
