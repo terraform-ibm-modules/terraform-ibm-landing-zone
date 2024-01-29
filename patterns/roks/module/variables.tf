@@ -163,6 +163,12 @@ variable "entitlement" {
   default     = null
 }
 
+variable "secondary_storage" {
+  description = "Secondary storage type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types, e.g `ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1`"
+  type        = string
+  default     = null
+}
+
 ##############################################################################
 
 

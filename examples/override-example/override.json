@@ -8,8 +8,46 @@
     "use_appid": false,
     "use_data": false
   },
-  "clusters": [],
-  "enable_transit_gateway": true,
+  "clusters": [
+    {
+        "cos_name": "cos",
+        "entitlement": "cloud_pak",
+        "kube_type": "openshift",
+        "kube_version": "default",
+        "machine_type": "bx2.16x64",
+        "name": "workload-cluster",
+        "secondary_storage": "300gb.5iops-tier",
+        "resource_group": "slz-workload-rg",
+        "kms_config": {
+            "crk_name": "slz-roks-key",
+            "private_endpoint": true
+        },
+        "subnet_names": [
+            "vsi-zone-1",
+            "vsi-zone-2",
+            "vsi-zone-3"
+        ],
+        "update_all_workers": false,
+        "vpc_name": "workload",
+        "worker_pools": [
+            {
+                "entitlement": "cloud_pak",
+                "flavor": "bx2.16x64",
+                "name": "logging-worker-pool",
+                "secondary_storage": "300gb.5iops-tier",
+                "subnet_names": [
+                    "vsi-zone-1",
+                    "vsi-zone-2",
+                    "vsi-zone-3"
+                ],
+                "vpc_name": "workload",
+                "workers_per_subnet": 2
+            }
+        ],
+        "workers_per_subnet": 2
+    }
+  ],
+"enable_transit_gateway": true,
   "transit_gateway_global": false,
   "transit_gateway_connections": [
     "management",
