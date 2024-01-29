@@ -39,6 +39,9 @@ const service_endpoints = "private"
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
+// Turn on Schematics tests, which can also skip the normal tests for same pattern
+var enableSchematicsTests bool
+
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
@@ -49,6 +52,10 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// ENABLE SCHEMATICS TESTS
+	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
+	enableSchematicsTests = false
 
 	os.Exit(m.Run())
 }
@@ -74,6 +81,10 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 			"ssh_key": sshPublicKey,
 		},
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	return options
@@ -120,6 +131,19 @@ func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
 	return nil
 }
 
+func TestRunQuickStartPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Quickstart Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
@@ -140,6 +164,10 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.roks_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -149,6 +177,19 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	}
 
 	return options
+}
+
+func TestRunRoksPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsRoksPattern(t, "ocp")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
@@ -173,6 +214,10 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.vsi_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -184,6 +229,19 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
+}
+
+func TestRunVSIPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VSI Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsVsiPattern(t, "vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
@@ -206,6 +264,10 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -216,6 +278,19 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
+}
+
+func TestRunVpcPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VPC Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsVpcPattern(t, "vpc")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
@@ -296,78 +371,6 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 	})
 
 	return options
-}
-
-func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "qs-sc", quickStartPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "service_endpoints", Value: "private", DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunVSIPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "vsi-sc", vsiPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: "private", DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunRoksPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
-
-	options.WaitJobCompleteMinutes = 120
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-		{Name: "service_endpoints", Value: "private", DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunVPCPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "vpc-sc", vpcPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: "private", DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
 func TestRunVsiExtention(t *testing.T) {
@@ -475,8 +478,101 @@ func TestRunVsiExtention(t *testing.T) {
 		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
 	} else {
 		logger.Log(t, "START: Destroy (existing resources)")
+		// ignore resource groups when destroying
+		terraform.RunTerraformCommand(t, existingTerraformOptions, "state", "rm", "module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups")
 		terraform.Destroy(t, existingTerraformOptions)
 		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
+}
+
+/***************************************************************************
+SCHEMATICS TESTS
+These schematics tests will only be run if the "RUN_SCHEMATICS_TESTS"
+environment variable is set to "true" or "yes".
+If not set, the normal terratest will be run for the patterns.
+****************************************************************************/
+
+func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for QuickStart Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "qs-sc", quickStartPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVSIPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for VSI Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "vsi-sc", vsiPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunRoksPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for ROKS Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
+
+	options.WaitJobCompleteMinutes = 120
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVPCPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for VPC Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "vpc-sc", vpcPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
