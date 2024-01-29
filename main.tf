@@ -51,7 +51,7 @@ module "vpc" {
 
 
 module "cbr_prewired_rules" {
-  count             = var.create_prewired_cbr ? 1 : 0
+  count             = var.activate_restricted_cbr_config_account_wide ? 1 : 0
   source            = "terraform-ibm-modules/cbr/ibm//modules/fscloud"
   version           = "1.18.0"
   prefix            = var.prefix

@@ -1265,8 +1265,8 @@ variable "skip_all_s2s_auth_policies" {
 # CBR (context-based restrictions) variables
 ##############################################################################
 
-variable "create_prewired_cbr" {
-  description = "Set this to true to create prewired CBR rules. If set to false, CBR rules will not be created."
+variable "activate_restricted_cbr_config_account_wide" {
+  description = "Creates CBR rules in the account that follow a `secure by default` approach. The rules deny all flows by default except those that are documented here https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-about"
   type        = bool
   default     = true
 }
