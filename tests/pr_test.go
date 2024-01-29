@@ -162,23 +162,31 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	}
 }
 
-func TestValidateOverride(t *testing.T) {
+func TestValidateOverrideRoks(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-ovr-vld", roksPatternTerraformDir)
+	options := setupOptionsRoksPattern(t, "slz-ovr-vld")
 	options.SkipTestTearDown = true
 	output, err := options.RunTestConsistency()
 
-	var override_json_string_value string = options.TerraformOptions.Vars["override_json_string"]
-	var config_string_value string = options.LastTestTerraformOutputs["config"]
+	override_json := filepath.Join(roksPatternTerraformDir, "override.json")
+	config_json := options.LastTestTerraformOutputs["config"]
 	ignored_keys := []string{"resource_group"}
 
-	//Parse the json string nto a map
+	//Parse the json into a map
 	var override_json_map map[string]interface{}
-	err1 := json.Unmarshal([]byte(override_json_string_value), &override_json_map)
+	err1 := json.Unmarshal([]byte(override_json), &override_json_map)
+	fmt.Println(err1)
+
+	config_json_byteArray, ok := config_json.([]byte)
+	if !ok {
+		fmt.Println("Error: Unable to convert config_json to []byte")
+		return
+	}
 
 	var config_map map[string]interface{}
-	err2 := json.Unmarshal([]byte(config_string_value), &config_map)
+	err2 := json.Unmarshal([]byte(config_json_byteArray), &config_map)
+	fmt.Println(err2)
 
 	//Delete the ignored keys from the map
 	for _, key := range ignored_keys {
@@ -191,16 +199,16 @@ func TestValidateOverride(t *testing.T) {
 	new_config_string_value, err4 := json.Marshal(config_map)
 
 	//Compare both the json strings
-	jsonComp, error := IsJsonEqual(new_override_json_string_value, new_config_string_value)
+	jsonComp, err3 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
 
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
-	assert.Nil(t, err1, "Error occured with the override string")
-	assert.Nil(t, err2, "Error occured with config string")
-	assert.Nil(t, err3, "Error occured override map")
-	assert.Nil(t, err4, "Error occured with config map")
-	assert.True(t, jsonComp, error)
+	assert.Nil(t, err1, "Error occured with the override json")
+	assert.Nil(t, err2, "Error occured with config json")
+	assert.Nil(t, err3, "Error occured with override_json_map")
+	assert.Nil(t, err4, "Error occured with config_map")
+	assert.True(t, jsonComp, err3)
 
 	options.TestTearDown()
 }
