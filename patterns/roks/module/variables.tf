@@ -164,7 +164,7 @@ variable "entitlement" {
 }
 
 variable "secondary_storage" {
-  description = "Secondary storage type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types, e.g `ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1`"
+  description = "Optionally specify a secondary storage option to attach to all cluster worker nodes. This value is immutable and can't be changed after provisioning. Use the IBM Cloud CLI command ibmcloud ks flavors to find valid options, e.g ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1."
   type        = string
   default     = null
 }
