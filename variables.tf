@@ -505,6 +505,14 @@ variable "cos" {
           rule_id = optional(string)
           type    = string
         }))
+        expire_rule = optional(object({
+          days                         = optional(number)
+          date                         = optional(string)
+          enable                       = bool
+          expired_object_delete_marker = optional(string)
+          prefix                       = optional(string)
+          rule_id                      = optional(string)
+        }))
         activity_tracking = optional(object({
           activity_tracker_crn = string
           read_data_events     = bool
