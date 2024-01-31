@@ -81,10 +81,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 			"ssh_key": sshPublicKey,
 		},
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	return options
@@ -164,10 +160,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.roks_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -214,10 +206,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vsi_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -264,10 +252,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
