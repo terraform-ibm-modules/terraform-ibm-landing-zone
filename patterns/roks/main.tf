@@ -30,7 +30,6 @@ module "roks_landing_zone" {
   enable_transit_gateway                 = var.enable_transit_gateway
   transit_gateway_global                 = var.transit_gateway_global
   ssh_public_key                         = var.ssh_public_key
-  update_all_workers                     = var.update_all_workers
   existing_ssh_key_name                  = var.existing_ssh_key_name
   entitlement                            = var.entitlement
   workers_per_zone                       = var.workers_per_zone
