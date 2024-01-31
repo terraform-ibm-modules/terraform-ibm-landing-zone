@@ -36,8 +36,6 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 	// Purposely not running in parallel so it does not clash with the auth policies created in "TestRunRoksPatternWithHPCS"
 	// t.Parallel()
 
-	t.Skip("Skipping Schematics Test for QuickStart Pattern, running terratest instead")
-
 	options := setupOptionsVsiPattern(t, "vsi-hp")
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
