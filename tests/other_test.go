@@ -63,8 +63,6 @@ func TestRunOverrideExample(t *testing.T) {
 	if assert.Nil(t, err, "This should not have errored") &&
 		assert.NotNil(t, output, "Expected some output") &&
 		assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs") {
-		// set override json string with previous value of config output
-		options.TerraformOptions.Vars["override_json_string"] = options.LastTestTerraformOutputs["config"]
 
 		// TERRATEST uses its own internal logger.
 		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
