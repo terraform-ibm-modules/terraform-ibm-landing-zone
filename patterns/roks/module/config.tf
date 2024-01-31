@@ -86,6 +86,7 @@ locals {
         resource_group       = "${var.prefix}-${network}-rg"
         cos_name             = "cos"
         entitlement          = var.entitlement
+        secondary_storage    = var.secondary_storage
         boot_volume_crk_name = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [

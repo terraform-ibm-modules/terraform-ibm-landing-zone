@@ -505,6 +505,14 @@ variable "cos" {
           rule_id = optional(string)
           type    = string
         }))
+        expire_rule = optional(object({
+          days                         = optional(number)
+          date                         = optional(string)
+          enable                       = bool
+          expired_object_delete_marker = optional(string)
+          prefix                       = optional(string)
+          rule_id                      = optional(string)
+        }))
         activity_tracking = optional(object({
           activity_tracker_crn = string
           read_data_events     = bool
@@ -803,6 +811,7 @@ variable "clusters" {
       kube_type            = string           # iks or openshift
       kube_version         = optional(string) # Can be a version from `ibmcloud ks versions`, `latest` or `default`
       entitlement          = optional(string) # entitlement option for openshift
+      secondary_storage    = optional(string) # Secondary storage type
       pod_subnet           = optional(string) # Portable subnet for pods
       service_subnet       = optional(string) # Portable subnet for services
       resource_group       = string           # Resource Group used for cluster
@@ -824,6 +833,7 @@ variable "clusters" {
             flavor               = string           # Worker node flavor
             subnet_names         = list(string)     # List of vpc subnets for worker pool
             entitlement          = optional(string) # entitlement option for openshift
+            secondary_storage    = optional(string) # Secondary storage type
             boot_volume_crk_name = optional(string) # Boot volume encryption key name
           })
         )
