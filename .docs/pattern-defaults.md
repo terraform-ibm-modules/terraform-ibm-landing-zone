@@ -47,7 +47,6 @@ The following variables apply to the [mixed pattern](../patterns/mixed/) and the
 | flavor | string | Machine type for cluster. Use the IBM Cloud CLI command `ibmcloud ks flavors` to find valid machine types |  | bx2.16x64 |
 | workers_per_zone | number | Number of workers in each zone of the cluster. Red Hat OpenShift requires at least two workers. |  | 1 |
 | wait_till | string | To avoid long waiting times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady` |  | IngressReady |
-| update_all_workers | bool | Whether to update all workers to a new Kubernetes version |  | false |
 | entitlement | string | Leave as null if you don't have an entitlement. Entitlement reduces additional OpenShift Container Platform license cost in Red Hat OpenShift clusters. Use Cloud Pak with OpenShift Container Platform license entitlement to create the Red Hat OpenShift cluster. Set this argument to `cloud_pak` only if you use the cluster with a Cloud Pak that has an Red Hat OpenShift entitlement. <br/><br/>This variable is set only when you create the cluster. Further modifications are not affected by this setting. |  | null |
 
 ## Resource groups

@@ -23,7 +23,6 @@
                 "vsi-zone-2",
                 "vsi-zone-3"
             ],
-            "update_all_workers": false,
             "vpc_name": "management",
             "worker_pools": [
                 {
@@ -58,7 +57,6 @@
                 "vsi-zone-2",
                 "vsi-zone-3"
             ],
-            "update_all_workers": false,
             "vpc_name": "workload",
             "worker_pools": [
                 {
@@ -85,7 +83,32 @@
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 }
             ],
             "keys": [
@@ -107,14 +130,64 @@
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 },
                 {
                     "endpoint_type": "public",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 }
             ],
             "keys": [],

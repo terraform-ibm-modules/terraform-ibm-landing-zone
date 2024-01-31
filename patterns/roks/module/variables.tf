@@ -151,14 +151,14 @@ variable "wait_till" {
   }
 }
 
-variable "update_all_workers" {
-  description = "Update all workers to new kube version"
-  type        = bool
-  default     = false
-}
-
 variable "entitlement" {
   description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
+  type        = string
+  default     = null
+}
+
+variable "secondary_storage" {
+  description = "Optionally specify a secondary storage option to attach to all cluster worker nodes. This value is immutable and can't be changed after provisioning. Use the IBM Cloud CLI command ibmcloud ks flavors to find valid options, e.g ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1."
   type        = string
   default     = null
 }
