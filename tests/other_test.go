@@ -15,8 +15,6 @@ const overrideExampleTerraformDir = "examples/override-example"
 func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
 
-	t.Skip("Skipping Schematics Test for QuickStart Pattern, running terratest instead")
-
 	options := setupOptionsRoksPattern(t, "ocp-hp")
 
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
