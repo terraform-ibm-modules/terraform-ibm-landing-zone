@@ -207,9 +207,14 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 func TestValidateOverrideRoks(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsRoksPattern(t, "slz-ovr-vld")
+	options := setupOptionsRoksPattern(t, "slzovr")
 	options.SkipTestTearDown = true
 	output, err := options.RunTestConsistency()
+	defer options.TestTearDown()
+
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
 
 	override_json := filepath.Join(roksPatternTerraformDir, "override.json")
 	config_json := options.LastTestTerraformOutputs["config"]
@@ -218,17 +223,14 @@ func TestValidateOverrideRoks(t *testing.T) {
 	//Parse the json into a map
 	var override_json_map map[string]interface{}
 	err1 := json.Unmarshal([]byte(override_json), &override_json_map)
-	fmt.Println(err1)
+	require.Nil(t, err1, "Error while unmasrshalling override json map")
 
 	config_json_byteArray, ok := config_json.([]byte)
-	if !ok {
-		fmt.Println("Error: Unable to convert config_json to []byte")
-		return
-	}
+	require.Nil(t, ok, "Error converting config json to byte")
 
 	var config_map map[string]interface{}
 	err2 := json.Unmarshal([]byte(config_json_byteArray), &config_map)
-	fmt.Println(err2)
+	require.Nil(t, err2, "Error while unmarshalling config map")
 
 	//Delete the ignored keys from the map
 	for _, key := range ignored_keys {
@@ -238,21 +240,16 @@ func TestValidateOverrideRoks(t *testing.T) {
 
 	//Convert the maps back to json string
 	new_override_json_string_value, err3 := json.Marshal(override_json_map)
+	require.Nil(t, err3, "Error marshalling override json map")
+
 	new_config_string_value, err4 := json.Marshal(config_map)
+	require.Nil(t, err4, "Error marshalling config map")
 
 	//Compare both the json strings
-	jsonComp, err3 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
+	jsonComp, err5 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
+	require.Nil(t, err5, "Error comparing override string ans config string")
+	assert.True(t, jsonComp, "The override json and config output do not match")
 
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
-	assert.Nil(t, err1, "Error occured with the override json")
-	assert.Nil(t, err2, "Error occured with config json")
-	assert.Nil(t, err3, "Error occured with override_json_map")
-	assert.Nil(t, err4, "Error occured with config_map")
-	assert.True(t, jsonComp, err3)
-
-	options.TestTearDown()
 }
 
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
