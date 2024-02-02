@@ -211,13 +211,6 @@ variable "wait_till" {
   }
 }
 
-variable "update_all_workers" {
-  description = "Update all workers to new kube version"
-  type        = bool
-  default     = false
-}
-
-
 ##############################################################################
 
 

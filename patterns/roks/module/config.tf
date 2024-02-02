@@ -84,7 +84,6 @@ locals {
         kube_type            = "openshift"
         kube_version         = var.kube_version
         resource_group       = "${var.prefix}-${network}-rg"
-        update_all_workers   = var.update_all_workers
         cos_name             = "cos"
         entitlement          = var.entitlement
         secondary_storage    = var.secondary_storage

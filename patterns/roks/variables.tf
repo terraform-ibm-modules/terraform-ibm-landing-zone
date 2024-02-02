@@ -165,12 +165,6 @@ variable "wait_till" {
   }
 }
 
-variable "update_all_workers" {
-  description = "Update all workers to new kube version"
-  type        = bool
-  default     = false
-}
-
 variable "entitlement" {
   description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
   type        = string
