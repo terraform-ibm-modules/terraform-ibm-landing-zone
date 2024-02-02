@@ -3,7 +3,6 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	tfjson "github.com/hashicorp/terraform-json"
 	"io/fs"
 	"log"
 	"os"
@@ -35,8 +34,14 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
+// Setting "service_endpoints" to `private` to test support for 'private' service_endpoints (schematics have access to private network).
+const service_endpoints = "private"
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
+
+// Turn on Schematics tests, which can also skip the normal tests for same pattern
+var enableSchematicsTests bool
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
@@ -48,6 +53,10 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// ENABLE SCHEMATICS TESTS
+	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
+	enableSchematicsTests = false
 
 	os.Exit(m.Run())
 }
@@ -73,6 +82,10 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 			"ssh_key": sshPublicKey,
 		},
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	return options
@@ -119,6 +132,19 @@ func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
 	return nil
 }
 
+func TestRunQuickStartPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Quickstart Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsQuickStartPattern(t, "vsi-qs", quickStartPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
@@ -139,6 +165,10 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.roks_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -148,6 +178,19 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	}
 
 	return options
+}
+
+func TestRunRoksPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsRoksPattern(t, "ocp")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
@@ -172,6 +215,10 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.vsi_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -183,6 +230,19 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
+}
+
+func TestRunVSIPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VSI Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsVsiPattern(t, "vsi")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
@@ -205,6 +265,10 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
+		ImplicitRequired: true,
+		ImplicitDestroy: []string{
+			"module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -215,6 +279,19 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	}
 
 	return options
+}
+
+func TestRunVpcPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VPC Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsVpcPattern(t, "vpc")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
@@ -260,28 +337,6 @@ func TestRunIksExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// sanitizeResourceChanges sanitizes the sensitive data in a Terraform JSON Change and returns the sanitized JSON.
-func sanitizeResourceChanges(change *tfjson.Change, mergedSensitive map[string]interface{}) (string, error) {
-	// Marshal the Change to JSON bytes
-	changesBytes, err := json.MarshalIndent(change, "", "  ")
-	if err != nil {
-		return "", err
-	}
-	changesJson := string(changesBytes)
-
-	// Perform sanitization of sensitive data
-	changesJson, err = common.SanitizeSensitiveData(changesJson, mergedSensitive)
-	return changesJson, err
-}
-
-// handleSanitizationError logs an error message if a sanitization error occurs.
-func handleSanitizationError(err error, location string, options *testhelper.TestOptions) {
-	if err != nil {
-		errorMessage := fmt.Sprintf("Error sanitizing sensitive data in %s", location)
-		logger.Log(options.Testing, errorMessage)
-	}
-}
-
 func TestRunOverride(t *testing.T) {
 	t.Parallel()
 
@@ -304,108 +359,7 @@ func TestRunOverride(t *testing.T) {
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
 			assert.NotNil(t, planStruct, "Expected some output") {
-
-			// defines if at least one resource changed (destroy, update, etc)
-			resourcesChanged := false
-			for _, resource := range planStruct.ResourceChangesMap {
-				// get JSON string of full changes for the logs
-				changesBytes, changesErr := json.MarshalIndent(resource.Change, "", "  ")
-				// if it errors in the marshall step, just put a placeholder and move on, not important
-				changesJson := "--UNAVAILABLE--"
-				if changesErr == nil {
-					changesJson = string(changesBytes)
-				}
-
-				var resourceDetails string
-
-				// Treat all keys in the BeforeSensitive and AfterSensitive maps as sensitive
-				// Assuming BeforeSensitive and AfterSensitive are of type interface{}
-				beforeSensitive, beforeSensitiveOK := resource.Change.BeforeSensitive.(map[string]interface{})
-				afterSensitive, afterSensitiveOK := resource.Change.AfterSensitive.(map[string]interface{})
-
-				// Create the mergedSensitive map
-				mergedSensitive := make(map[string]interface{})
-
-				// Check if BeforeSensitive is of the expected type
-				if beforeSensitiveOK {
-					// Copy the keys and values from BeforeSensitive to the mergedSensitive map.
-					for key, value := range beforeSensitive {
-						mergedSensitive[key] = value
-					}
-				}
-
-				// Check if AfterSensitive is of the expected type
-				if afterSensitiveOK {
-					// Copy the keys and values from AfterSensitive to the mergedSensitive map.
-					for key, value := range afterSensitive {
-						mergedSensitive[key] = value
-					}
-				}
-
-				// Perform sanitization
-				changesJson, err := sanitizeResourceChanges(resource.Change, mergedSensitive)
-				if err != nil {
-					changesJson = "Error sanitizing sensitive data"
-					logger.Log(options.Testing, changesJson)
-				}
-				formatChangesJson, err := common.FormatJsonStringPretty(changesJson)
-
-				var formatChangesJsonString string
-				if err != nil {
-					logger.Log(options.Testing, "Error formatting JSON, use unformatted")
-					formatChangesJsonString = changesJson
-				} else {
-					formatChangesJsonString = string(formatChangesJson)
-				}
-
-				diff, diffErr := common.GetBeforeAfterDiff(changesJson)
-
-				if diffErr != nil {
-					diff = fmt.Sprintf("Error getting diff: %s", diffErr)
-				} else {
-					// Split the changesJson into "Before" and "After" parts
-					beforeAfter := strings.Split(diff, "After: ")
-
-					// Perform sanitization on "After" part
-					var after string
-					if len(beforeAfter) > 1 {
-						after, err = common.SanitizeSensitiveData(beforeAfter[1], mergedSensitive)
-						handleSanitizationError(err, "after diff", options)
-					} else {
-						after = fmt.Sprintf("Could not parse after from diff") // dont print incase diff contains sensitive values
-					}
-
-					// Perform sanitization on "Before" part
-					var before string
-					if len(beforeAfter) > 0 {
-						before, err = common.SanitizeSensitiveData(strings.TrimPrefix(beforeAfter[0], "Before: "), mergedSensitive)
-						handleSanitizationError(err, "before diff", options)
-					} else {
-						before = fmt.Sprintf("Could not parse before from diff") // dont print incase diff contains sensitive values
-					}
-
-					// Reassemble the sanitized diff string
-					diff = "  Before: \n\t" + before + "\n  After: \n\t" + after
-				}
-				resourceDetails = fmt.Sprintf("\nName: %s\nAddress: %s\nActions: %s\nDIFF:\n%s\n\nChange Detail:\n%s", resource.Name, resource.Address, resource.Change.Actions, diff, formatChangesJsonString)
-
-				// build error message
-				errorMessage := fmt.Sprintf("Resource(s) identified to be destroyed %s", resourceDetails)
-
-				// check if current resource is changed
-				noResourceChange := resource.Change.Actions.NoOp() || resource.Change.Actions.Read()
-				assert.True(options.Testing, noResourceChange, errorMessage)
-
-				// if at least one resource is changed, then save that information
-				if !resourcesChanged && !noResourceChange {
-					resourcesChanged = true
-				}
-			}
-
-			// Run plan again to output the nice human-readable plan if there was a change
-			if resourcesChanged {
-				terraform.Plan(options.Testing, options.TerraformOptions)
-			}
+			options.CheckConsistency(planStruct)
 		}
 	}
 	options.TestTearDown()
@@ -449,74 +403,6 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 	})
 
 	return options
-}
-
-func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "qs-sc", quickStartPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunVSIPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "vsi-sc", vsiPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunRoksPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
-
-	options.WaitJobCompleteMinutes = 120
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
-}
-
-func TestRunVPCPatternSchematics(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsSchematics(t, "vpc-sc", vpcPatternTerraformDir)
-
-	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
-		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
-		{Name: "prefix", Value: options.Prefix, DataType: "string"},
-		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-	}
-
-	err := options.RunSchematicTest()
-	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
 func TestRunVsiExtention(t *testing.T) {
@@ -606,7 +492,6 @@ func TestRunVsiExtention(t *testing.T) {
 			TerraformVars: map[string]interface{}{
 				"prefix":                     prefix,
 				"region":                     region,
-				"existing_kms_instance_guid": terraform.Output(t, existingTerraformOptions, "key_management_guid"),
 				"boot_volume_encryption_key": keyID,
 				"vpc_id":                     managementVpcID,
 				"ssh_public_key":             sshPublicKey,
@@ -625,8 +510,101 @@ func TestRunVsiExtention(t *testing.T) {
 		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
 	} else {
 		logger.Log(t, "START: Destroy (existing resources)")
+		// ignore resource groups when destroying
+		terraform.RunTerraformCommand(t, existingTerraformOptions, "state", "rm", "module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups")
 		terraform.Destroy(t, existingTerraformOptions)
 		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
+}
+
+/***************************************************************************
+SCHEMATICS TESTS
+These schematics tests will only be run if the "RUN_SCHEMATICS_TESTS"
+environment variable is set to "true" or "yes".
+If not set, the normal terratest will be run for the patterns.
+****************************************************************************/
+
+func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for QuickStart Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "qs-sc", quickStartPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVSIPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for VSI Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "vsi-sc", vsiPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunRoksPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for ROKS Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "ocp-sc", roksPatternTerraformDir)
+
+	options.WaitJobCompleteMinutes = 120
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunVPCPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for VPC Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "vpc-sc", vpcPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "service_endpoints", Value: "private", DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
 }

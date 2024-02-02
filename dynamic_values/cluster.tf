@@ -30,6 +30,7 @@ module "ut_cluster_map" {
       disable_public_endpoint         = false
       verify_worker_network_readiness = false
       entitlement                     = "cloud_pak"
+      secondary_storage               = "300gb.5iops-tier"
       worker_pools = [
         {
           name               = "default"
@@ -37,6 +38,7 @@ module "ut_cluster_map" {
           subnet_names       = ["subnet-1", "subnet-3"]
           workers_per_subnet = 2
           flavor             = "spicy"
+          secondary_storage  = "300gb.5iops-tier"
         }
       ]
       vpc_subnets = {}

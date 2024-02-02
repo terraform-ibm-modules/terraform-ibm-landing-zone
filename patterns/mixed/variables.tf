@@ -132,7 +132,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -177,6 +177,12 @@ variable "flavor" {
   default     = "bx2.16x64"
 }
 
+variable "secondary_storage" {
+  description = "Optionally specify a secondary storage option to attach to all cluster worker nodes. This value is immutable and can't be changed after provisioning. Use the IBM Cloud CLI command ibmcloud ks flavors to find valid options, e.g ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1."
+  type        = string
+  default     = null
+}
+
 variable "workers_per_zone" {
   description = "Number of workers in each zone of the cluster. OpenShift requires at least 2 workers."
   type        = number
@@ -204,13 +210,6 @@ variable "wait_till" {
     ], var.wait_till)
   }
 }
-
-variable "update_all_workers" {
-  description = "Update all workers to new kube version"
-  type        = bool
-  default     = false
-}
-
 variable "disable_public_endpoint" {
   type        = bool
   description = "Flag indicating that the public endpoint should be disabled"
@@ -488,7 +487,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -540,13 +539,18 @@ variable "teleport_admin_email" {
 
 ##############################################################################
 
-
 ##############################################################################
-# Secrets Manager Variables
+# s2s variables
 ##############################################################################
 
-variable "create_secrets_manager" {
-  description = "Create a secrets manager deployment."
+variable "skip_kms_block_storage_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
+  type        = bool
+  default     = false
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
   type        = bool
   default     = false
 }
@@ -554,13 +558,17 @@ variable "create_secrets_manager" {
 ##############################################################################
 
 ##############################################################################
-# s2s variables
+# KMS and App ID variables
 ##############################################################################
+variable "service_endpoints" {
+  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  type        = string
+  default     = "public-and-private"
 
-variable "add_kms_block_storage_s2s" {
-  description = "Whether to create a service-to-service authorization between block storage and the key management service."
-  type        = bool
-  default     = true
+  validation {
+    error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
+    condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
+  }
 }
 
 ##############################################################################

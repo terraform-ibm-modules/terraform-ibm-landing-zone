@@ -14,7 +14,32 @@
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 }
             ],
             "keys": [
@@ -36,14 +61,64 @@
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 },
                 {
                     "endpoint_type": "public",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": ["10.10.10.10/24"],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "GLACIER"
+                    },
+                    "activity_tracking": {
+                        "read_data_events": true,
+                        "write_data_events": true,
+                        "activity_tracker_crn": "activity-tracker-crn"
+                    },
+                        "metrics_monitoring": {
+                        "usage_metrics_enabled": true,
+                        "request_metrics_enabled": true,
+                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                    }
                 }
             ],
             "keys": [],
@@ -92,7 +167,7 @@
         }
     ],
     "security_groups": [],
-    "service_endpoints": "private",
+    "service_endpoints": "public-and-private",
     "ssh_keys": [
         {
             "name": "slz-ssh-key",
@@ -316,7 +391,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {
@@ -380,7 +455,7 @@
         },
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-1",
+            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
             "machine_type": "cx2-4x8",
             "name": "workload-server",
             "security_group": {

@@ -117,7 +117,7 @@ locals {
 
 module "f5_vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "3.0.0"
+  version                       = "3.2.1"
   for_each                      = local.f5_vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
@@ -136,7 +136,7 @@ module "f5_vsi" {
       interface_name    = group.interface_name
     }
   ]
-  image_id       = lookup(local.public_image_map[each.value.f5_image_name], var.region)
+  image_id       = local.public_image_map[each.value.f5_image_name][var.region]
   user_data      = module.dynamic_values.f5_template_map[each.key].user_data
   machine_type   = each.value.machine_type
   vsi_per_subnet = 1
@@ -155,7 +155,7 @@ module "f5_vsi" {
   # Get ssh keys
   ssh_key_ids = [
     for ssh_key in each.value.ssh_keys :
-    lookup(module.ssh_keys.ssh_key_map, ssh_key).id
+    module.ssh_keys.ssh_key_map[ssh_key].id
   ]
   # Get block storage volumes
   block_storage_volumes = each.value.block_storage_volumes == null ? [] : [

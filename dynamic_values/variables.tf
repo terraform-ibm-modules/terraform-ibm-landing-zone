@@ -131,16 +131,6 @@ variable "vpn_gateways" {
 ##############################################################################
 
 ##############################################################################
-# Access Groups
-##############################################################################
-
-variable "access_groups" {
-  description = "Direct reference to access_groups"
-}
-
-##############################################################################
-
-##############################################################################
 # Bastion VSI Variables
 ##############################################################################
 
@@ -187,21 +177,15 @@ variable "f5_template_data" {
 ##############################################################################
 
 ##############################################################################
-# Secrets Manager Variables
-##############################################################################
-
-variable "secrets_manager" {
-  description = "Direct reference to secrets manager variable"
-}
-
-##############################################################################
-
-##############################################################################
 # Service Authorization Variables
 ##############################################################################
 
-variable "add_kms_block_storage_s2s" {
+variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Direct reference to kms block storage variable"
+}
+
+variable "skip_all_s2s_auth_policies" {
+  description = "Direct reference to s2s authorization variable"
 }
 
 variable "atracker_cos_bucket" {

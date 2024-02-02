@@ -25,6 +25,9 @@ resource "ibm_resource_instance" "kms" {
   location          = var.region
   resource_group_id = var.key_management.resource_group_id
   tags              = var.key_management.tags
+  parameters = {
+    allowed_network : var.service_endpoints
+  }
 }
 
 resource "ibm_resource_tag" "tag" {
