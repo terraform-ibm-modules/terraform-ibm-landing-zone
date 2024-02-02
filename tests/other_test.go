@@ -4,8 +4,6 @@ package test
 import (
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -55,26 +53,13 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 
 func TestRunOverrideExample(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Quickstart Pattern, running Schematics test instead")
+	}
 
 	options := setupOptionsQuickStartPattern(t, "slz-ex", overrideExampleTerraformDir)
-	options.SkipTestTearDown = true
+
 	output, err := options.RunTestConsistency()
-
-	if assert.Nil(t, err, "This should not have errored") &&
-		assert.NotNil(t, output, "Expected some output") &&
-		assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs") {
-
-		// TERRATEST uses its own internal logger.
-		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
-		// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
-		options.TerraformOptions.Logger = logger.Discard
-		planStruct, planErr := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
-		options.TerraformOptions.Logger = logger.Default // turn log back on
-
-		if assert.Nil(t, planErr, "This should not have errored") &&
-			assert.NotNil(t, planStruct, "Expected some output") {
-			options.CheckConsistency(planStruct)
-		}
-	}
-	options.TestTearDown()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
