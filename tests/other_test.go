@@ -54,7 +54,7 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 func TestRunOverrideExample(t *testing.T) {
 	t.Parallel()
 	if enableSchematicsTests {
-		t.Skip("Skipping terratest for Quickstart Pattern, running Schematics test instead")
+		t.Skip("Skipping terratest for override-example, running Schematics test instead")
 	}
 
 	options := setupOptionsQuickStartPattern(t, "slz-ex", overrideExampleTerraformDir)
