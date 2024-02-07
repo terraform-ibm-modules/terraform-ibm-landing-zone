@@ -127,7 +127,7 @@
                 "description": "Yes"
               },
               {
-                "title": "Virtual Server Instances for every subnet",
+                "title": "Adds a virtual server instance in every VPC subnet",
                 "description": "Yes"
               },
               {
@@ -155,7 +155,7 @@
                 "description": "No"
               },
               {
-                "title": "Uses Floating IP address for access through the public internet",
+                "title": "Uses floating IP addresses for access through the public internet",
                 "description": "Yes"
               }
             ],
@@ -262,10 +262,6 @@
             {
               "hidden": true,
               "key": "tgstandby_url"
-            },
-            {
-              "key": "create_secrets_manager",
-              "hidden": true
             },
             {
               "hidden": true,
@@ -475,7 +471,7 @@
                 "description": "Yes, if enabled"
               },
               {
-                "title": "Uses Floating IP address for access through the public internet",
+                "title": "Uses floating IP addresses for access through the public internet",
                 "description": "No"
               }
             ],
@@ -487,6 +483,96 @@
                   "type": "image/svg+xml"
                 },
                 "description": "The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
+              }
+            ]
+          }
+        },
+        {
+          "label": "Existing VPC",
+          "name": "existing-vpc",
+          "install_type": "extension",
+          "working_directory": "patterns/vsi-extension",
+          "dependencies": [
+            {
+              "flavors": [
+                "standard"
+              ],
+              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
+              "name": "deploy-arch-ibm-slz-ocp",
+              "version": ">=1.0.0"
+            },
+            {
+              "flavors": [
+                "standard"
+              ],
+              "id": "9fc0fa64-27af-4fed-9dce-47b3640ba739-global",
+              "name": "deploy-arch-ibm-slz-vpc",
+              "version": ">=1.0.0"
+            }
+          ],
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud for Financial Services",
+                "profile_version": "1.3.0"
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "ssh_public_key",
+              "required": true
+            },
+            {
+              "custom_config": {
+                "config_constraints": {
+                  "generationType": "2"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "vpc_region"
+              },
+              "key": "region",
+              "required": true
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "This architecture creates virtual server instances (VSI) in some or all of the subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.\r\n\r\n## Before you begin\r\n\r\n- You must have either the [VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.\r\n- You need an authorization policy that grants access between block storage and the KMS. The policy exists if you set the `skip_kms_block_storage_s2s_auth_policy` input variable to `false` (the default value) in your existing landing zone deployable architecture.\r\n- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https:\/\/cloud.ibm.com\/docs\/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).",
+            "features": [
+              {
+                "title": "Adds a virtual server instance in every VPC subnet",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "VSI on existing VPC",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The extension to an existing VPC deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure with virtual servers to run your workloads with IBM Cloud VPC in multizone regions."
               }
             ]
           }
@@ -758,10 +844,6 @@
               "hidden": true
             },
             {
-              "key": "create_secrets_manager",
-              "hidden": true
-            },
-            {
               "key": "override",
               "hidden": true
             }
@@ -928,12 +1010,8 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.13",
+              "default_value": "4.14",
               "options": [
-                {
-                  "displayname": "4.11",
-                  "value": "4.11"
-                },
                 {
                   "displayname": "4.12",
                   "value": "4.12"
@@ -941,6 +1019,10 @@
                 {
                   "displayname": "4.13",
                   "value": "4.13"
+                },
+                {
+                  "displayname": "4.14",
+                  "value": "4.14"
                 }
               ],
               "custom_config": {}
@@ -1014,10 +1096,6 @@
               "required": true
             },
             {
-              "required": true,
-              "key": "prefix"
-            },
-            {
               "hidden": true,
               "key": "domain"
             },
@@ -1056,11 +1134,6 @@
             {
               "hidden": true,
               "key": "tmos_admin_password",
-              "type": "password"
-            },
-            {
-              "required": true,
-              "key": "ibmcloud_api_key",
               "type": "password"
             },
             {
@@ -1126,10 +1199,6 @@
             {
               "hidden": true,
               "key": "use_existing_appid"
-            },
-            {
-              "key": "create_secrets_manager",
-              "hidden": true
             },
             {
               "hidden": true,

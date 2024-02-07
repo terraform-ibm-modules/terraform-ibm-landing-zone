@@ -127,16 +127,14 @@ variable "cluster_zones" {
 variable "kube_version" {
   description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "latest"
+  default     = "default"
   validation {
     condition = anytrue([
       var.kube_version == null,
       var.kube_version == "default",
-      var.kube_version == "latest",
-      var.kube_version == "4.10",
-      var.kube_version == "4.11",
       var.kube_version == "4.12",
       var.kube_version == "4.13",
+      var.kube_version == "4.14",
     ])
     error_message = "The specified kube_version is not of the valid versions."
   }
