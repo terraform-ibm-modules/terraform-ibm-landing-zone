@@ -7,6 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const overrideExampleTerraformDir = "examples/override-example"
+
 // NOTE: The HPCS tests may fail if our account already has an existing hpcs auth policy - hence only running once a week so PR pipeline is not impacted
 func TestRunRoksPatternWithHPCS(t *testing.T) {
 	t.Parallel()
@@ -43,6 +45,19 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 	if ok && currentRegion == "jp-osa" {
 		options.TerraformVars["region"] = "us-south"
 	}
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunOverrideExample(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for override-example, running Schematics test instead")
+	}
+
+	options := setupOptionsQuickStartPattern(t, "slz-ex", overrideExampleTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")

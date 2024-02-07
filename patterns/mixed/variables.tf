@@ -166,9 +166,9 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. To use the default version, leave as default. Updates to the default versions may force this to change."
+  description = "The version of the OpenShift cluster that should be provisioned (format 4.x). This is only used during initial cluster provisioning, but ignored for future updates. Supports passing the string 'default' (current IKS default recommended version). If no value is passed, it will default to 'default'."
   type        = string
-  default     = "latest"
+  default     = "default"
 }
 
 variable "flavor" {

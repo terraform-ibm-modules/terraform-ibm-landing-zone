@@ -124,7 +124,7 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. Also supports passing the string 'latest' (current latest available version) or 'default' (current IKS default recommended version)."
+  description = "Kubernetes version to use for cluster. To get available versions, use the IBM Cloud CLI command `ibmcloud ks versions`. Also supports passing the string 'default' (current IKS default recommended version)."
   type        = string
   default     = "default"
 }

@@ -813,7 +813,7 @@ variable "clusters" {
       workers_per_subnet              = number           # Worker nodes per subnet.
       machine_type                    = string           # Worker node flavor
       kube_type                       = string           # iks or openshift
-      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions`, `latest` or `default`
+      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
       disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled
       verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
       entitlement                     = optional(string) # entitlement option for openshift
