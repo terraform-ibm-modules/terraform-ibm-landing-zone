@@ -1,0 +1,87 @@
+{
+  "extends":[
+    "config:base",
+    ":semanticCommits",
+    ":disableDependencyDashboard"
+  ],
+  "cloneSubmodules": true,
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 10,
+  "branchConcurrentLimit": 0,
+  "automerge": false,
+  "force": {
+    "description": "Recreate PRs even if same ones were closed previously",
+    "recreateWhen": "always"
+  },
+  "labels": ["renovate"],
+  "rangeStrategy": "pin",
+  "git-submodules": {
+    "enabled": true
+  },
+  "pre-commit": {
+    "enabled": true
+  },
+  "ignorePaths": [
+    "**/node_modules/**"
+  ],
+  "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"],
+  "postUpgradeTasks": {
+    "commands": ["export CUSTOM_DIRECTORY=/tmp && export PATH=$PATH:/tmp && make dependency-install-darwin-linux", "export PATH=$PATH:/tmp && pre-commit run --all-files || true"],
+    "fileFilters": ["**/*.md", "**/*.json", ".secrets.baseline", "**/*.tf", "**/*.go", "go.mod", "go.sum"],
+    "executionMode": "update"
+  },
+  "packageRules": [
+    {
+      "description": "Use fix as Semantic Commit prefix for all dependency updates except ones specified in rules below",
+      "matchPackagePatterns": ["*"],
+      "semanticCommitType": "fix"
+    },
+    {
+      "description": "Use chore as Semantic Commit prefix for all dependency updates in examples and tests folders",
+      "matchFileNames": ["examples/**", "tests/resources/**"],
+      "semanticCommitType": "chore"
+    },
+    {
+      "description": "Use chore as Semantic Commit prefix for git submodule, go.mod, github actions, and pre-commit updates, and bundle into the same PR to reduce number of PRs created by renovate.",
+      "matchManagers": ["git-submodules", "gomod", "pre-commit", "github-actions"],
+      "semanticCommitType": "chore",
+      "groupName": "CI dependencies"
+    },
+    {
+      "description": "Disable terraform required_version updates.",
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["required_version"],
+      "enabled": false
+    },
+    {
+      "description": "Disable terraform provider updates by default. To enable, set enable to true below and renovate will priortise bumping this. We only need to bump this version to consume required bug fixes and/or new provider features.",
+      "enabled": false,
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["required_provider"],
+      "rangeStrategy": "bump",
+      "semanticCommitType": "feat",
+      "group": true,
+      "groupName": "required_provider",
+      "prPriority": 100
+    },
+    {
+      "description": "Prioritise terraform module updates",
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["module"],
+      "groupName": "terraform-module",
+      "prPriority": 10
+    },
+    {
+      "description": "Prioritise terraform module updates for terragrunt",
+      "matchManagers": ["terragrunt"],
+      "matchDepTypes": ["gitTags"],
+      "groupName": "terraform-module",
+      "prPriority": 10
+    },
+    {
+      "description": "Custom regex required to bump IBM detect secrets",
+      "matchPackageNames": ["ibm/detect-secrets"],
+      "versioning": "regex:^(?<compatibility>.*)-?(?<major>\\d+)\\.(?<minor>\\d+)\\+ibm\\.(?<patch>\\d+)\\.dss$"
+    }
+  ]
+}

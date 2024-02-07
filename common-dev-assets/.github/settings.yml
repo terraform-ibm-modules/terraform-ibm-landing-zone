@@ -1,0 +1,28 @@
+# The settings are inherited from common repository repo-settings (same file name and location)
+# You can append settings that are deeply-merged with the inherited settings.
+#
+# When you have installed the GitHub App "repo-settings" in this repository,
+# any change of this settings.yml file is detected by the GitHub App and
+# the settings of this repository are updated immediately.
+
+_extends: repo-settings
+
+# unique to this repo
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        contexts:
+          - "CI_Pipeline"
+
+repository:
+  # See https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=module-names-and-descriptions
+
+  # By changing this field, you rename the repository.
+  name: "common-dev-assets"
+
+  # The description is displayed under the repository name on the
+  # organization page and in the 'About' section of the repository.
+  description: "Provides common development and CI assets that support the repos in this GitHub organization"
+
+  topics: "core-team"
