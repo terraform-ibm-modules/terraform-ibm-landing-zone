@@ -4,9 +4,6 @@
     workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
     ibmcloud_api_key: "{{ lookup('ansible.builtin.env', 'ibmcloud_api_key')}}" #pragma: allowlist secret
   tasks:
-    - name: Install schematics plug-in
-      ansible.builtin.shell:
-        cmd: ibmcloud plugin install schematics
     - name: Login to ibmcloud
       ansible.builtin.shell:
         cmd: ibmcloud login --apikey "{{ ibmcloud_api_key }}" -q --no-region
