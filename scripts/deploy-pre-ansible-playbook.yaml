@@ -1,8 +1,5 @@
 - name: deploy pre playbook
   hosts: localhost
-  vars:
-    workspace_id: "{{ lookup('ansible.builtin.env', 'workspace_id')}}"
-    ibmcloud_api_key: "{{ lookup('ansible.builtin.env', 'ibmcloud_api_key')}}" #pragma: allowlist secret
   tasks:
     - name: Login to ibmcloud
       ansible.builtin.shell:
