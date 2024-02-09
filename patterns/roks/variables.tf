@@ -127,14 +127,16 @@ variable "cluster_zones" {
 variable "kube_version" {
   description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.14_openshift"
+  default     = "default"
   validation {
     condition = anytrue([
-      var.kube_version == "4.14_openshift",
-      var.kube_version == "4.13_openshift",
-      var.kube_version == "4.12_openshift",
+      var.kube_version == null,
+      var.kube_version == "default",
+      var.kube_version == "4.12",
+      var.kube_version == "4.13",
+      var.kube_version == "4.14",
     ])
-    error_message = "The kube_version value can currently only be '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
+    error_message = "The specified kube_version is not of the valid versions."
   }
 }
 
@@ -147,7 +149,7 @@ variable "flavor" {
 variable "workers_per_zone" {
   description = "Number of workers in each zone of the cluster. OpenShift requires at least 2 workers."
   type        = number
-  default     = 1
+  default     = 3
 }
 
 variable "wait_till" {
@@ -169,6 +171,18 @@ variable "entitlement" {
   description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
   type        = string
   default     = null
+}
+
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
 }
 
 ##############################################################################

@@ -1,0 +1,165 @@
+default_stages: [commit]
+repos:
+- repo: local
+  hooks:
+    - id: git-submodule-version-check
+      name: Check git submodule up to date
+      description: Hook that will fail if local common-dev-assets git submodule is older than the one currently on primary branch
+      entry: ci/submoduleVersionCheck.sh
+      language: script
+      pass_filenames: false
+    - id: license-checker
+      name: License Checker
+      entry: ci/license_checker.sh
+      types: [file]
+      language: script
+      require_serial: true
+      pass_filenames: false
+      description: This hook ensures that a file named LICENSE exists for any repo (on github.com) which contains .tf files in the root directory of the repo
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.5.0
+  hooks:
+    - id: check-yaml
+      exclude: chart/|metadata.yaml|tests/
+    - id: check-json
+      types: [file]
+      files: \.(json|releaserc)$
+    - id: end-of-file-fixer
+      exclude: .svg
+    - id: trailing-whitespace
+    - id: check-merge-conflict
+    - id: detect-private-key
+      exclude: ibm_catalog.json
+    - id: mixed-line-ending
+      args: ['--fix=lf']
+      description: Forces to replace line ending by the UNIX 'lf' character.
+- repo: https://github.com/hadolint/hadolint
+  rev: v2.12.0
+  hooks:
+    - id: hadolint
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.86.0
+  hooks:
+    - id: terraform_fmt
+    - id: terraform_validate
+      # only scan directories which has provider config in them due to limitation https://github.com/hashicorp/terraform/issues/28490
+      files: ^examples/|^patterns/|^solutions/
+      args:
+        - --hook-config=--retry-once-with-cleanup=true
+    - id: terraform_tflint
+      args:
+        - --args=--enable-rule=terraform_unused_declarations
+        - --args=--enable-rule=terraform_deprecated_index
+        - --args=--enable-rule=terraform_comment_syntax
+        - --args=--enable-rule=terraform_documented_outputs
+        - --args=--enable-rule=terraform_documented_variables
+        - --args=--enable-rule=terraform_typed_variables
+        - --args=--enable-rule=terraform_naming_convention
+        - --args=--enable-rule=terraform_required_version
+        - --args=--enable-rule=terraform_required_providers
+        - --args=--enable-rule=terraform_unused_required_providers
+        - --args=--enable-rule=terraform_standard_module_structure
+      exclude: dynamic_values/ # Do not run tflint in dynamic_folders directory (temp solution for SLZ modules). Internal issue created to track better solution.
+    - id: terragrunt_fmt
+    - id: terragrunt_validate
+    - id: terraform_tfsec
+      files: '\.tf'
+# checkov (does not require checkov to be installed locally to run)
+- repo: https://github.com/bridgecrewio/checkov.git
+  # Locking into 3.1.55 due to this bug -> https://github.com/bridgecrewio/checkov/issues/5945
+  rev: 3.1.55
+  hooks:
+    - id: checkov
+      args:
+        # ignore files in test samples directory
+        - --skip-path=tests/samples
+        - --skip-path=.scv
+        - --skip-path=Dockerfile
+        - --skip-path=ibm_catalog.json
+        - --skip-framework=github_actions
+        # see https://github.ibm.com/GoldenEye/issues/issues/5317
+        - --skip-check=CKV_TF_1
+        # see https://github.com/bridgecrewio/checkov/issues/5855
+        - --skip-check=CKV2_IBM_6
+- repo: https://github.com/syntaqx/git-hooks
+  rev: v0.0.18
+  hooks:
+  - id: forbid-binary
+    exclude: .png|.jpg
+  - id: shellcheck
+  - id: go-fmt
+- repo: https://github.com/ibm/detect-secrets
+  rev: 0.13.1+ibm.62.dss
+  hooks:
+  - id: detect-secrets
+    args: ['--baseline', '.secrets.baseline', '--fail-on-unaudited', '--use-all-plugins']
+    exclude: go.sum
+# flake8
+- repo: https://github.com/pycqa/flake8
+  rev: 7.0.0
+  hooks:
+    - id: flake8
+      args: # arguments to configure flake8
+        # making isort line length compatible with black
+        - "--max-line-length=88"
+        # these are errors that will be ignored by flake8
+        # check out their meaning here
+        # https://flake8.pycqa.org/en/latest/user/error-codes.html
+        - "--ignore=E203,E501,W503"
+# isort
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+  - id: isort
+    args: ["--profile", "black", "--filter-files"]
+# black
+- repo: https://github.com/ambv/black
+  rev: 24.1.1
+  hooks:
+  - id: black
+    args: # arguments to configure black
+      - --line-length=88
+- repo: local
+  hooks:
+    - id: golangci-lint
+      name: golangci-lint
+      description: Fast linters runner for Go.
+      entry: bash ci/golangci-lint.sh
+      types: [go]
+      language: golang
+      pass_filenames: false
+      # This will be going away once the metadata for the "add_overview" hook is rolled out to all repos
+    - id: add_examples_modules
+      name: Add examples section to README
+      description: Add examples section to README
+      entry: python3 ci/terraformDocExamples.py
+      language: python
+      files: "README.md"
+      pass_filenames: false
+    - id: terraform_docs
+      name: Add terraform docs section to README
+      description: Add terraform docs section to README
+      entry: python3 ci/terraformDocs.py
+      language: python
+      files: "README.md"
+      pass_filenames: false
+      always_run: true
+    - id: add_overview
+      name: Add overview section to README
+      description: Add overview section to README
+      entry: python3 ci/terraformDocOverview.py
+      language: python
+      files: "README.md"
+      pass_filenames: false
+    - id: go-mod-module-repository
+      name: Add module repository to go.mod
+      description: Adding module repository to go.mod file
+      entry: python3 ci/terraformDocGoMod.py
+      language: python
+      files: "tests/go.mod"
+      pass_filenames: false
+# helm lint
+- repo: https://github.com/gruntwork-io/pre-commit
+  rev: v0.1.23
+  hooks:
+    - id: helmlint

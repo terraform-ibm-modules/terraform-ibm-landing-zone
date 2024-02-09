@@ -51,9 +51,7 @@
           "name": "quickstart",
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
-          "compliance": {
-
-          },
+          "compliance": {},
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1012,24 +1010,22 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.14_openshift",
+              "default_value": "4.14",
               "options": [
                 {
-                  "displayname": "4.12_openshift",
-                  "value": "4.12_openshift"
+                  "displayname": "4.12",
+                  "value": "4.12"
                 },
                 {
-                  "displayname": "4.13_openshift",
-                  "value": "4.13_openshift"
+                  "displayname": "4.13",
+                  "value": "4.13"
                 },
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
+                  "displayname": "4.14",
+                  "value": "4.14"
                 }
               ],
-              "custom_config": {
-
-              }
+              "custom_config": {}
             },
             {
               "hidden": true,
@@ -1204,7 +1200,6 @@
               "hidden": true,
               "key": "use_existing_appid"
             },
-
             {
               "hidden": true,
               "key": "teleport_version"

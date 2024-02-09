@@ -1,4 +1,4 @@
-# One VPC with one VSI example
+# One VPC with one VSI
 
 The examples shows how you can use the landing zone module to create a basic, minimal topology by using an `override.json` file.
 1. A single VPC:

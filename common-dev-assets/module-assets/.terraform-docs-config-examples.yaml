@@ -1,0 +1,14 @@
+formatter: "markdown"
+
+content: |-
+    ## Examples
+
+    {{ include "EXAMPLES.md" }}
+
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- BEGIN EXAMPLES HOOK -->
+    {{ .Content }}
+    <!-- END EXAMPLES HOOK -->

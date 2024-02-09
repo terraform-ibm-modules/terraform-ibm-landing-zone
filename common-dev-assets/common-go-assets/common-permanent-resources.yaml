@@ -1,0 +1,85 @@
+# secrets-manager
+secretsManagerGuid: 79c6d411-c18f-4670-b009-b0044a238667
+secretsManagerCRN: "crn:v1:bluemix:public:secrets-manager:us-south:a/abac0df06b644a9cabc6e44f55b3880e:79c6d411-c18f-4670-b009-b0044a238667::"
+secretsManagerRegion: us-south
+
+# secrets manager private cert engine
+privateCertTemplateName: geretain-cert-template
+
+# activity-tracker
+activityTrackerFrankfurtCrn: "crn:v1:bluemix:public:logdnaat:eu-de:a/abac0df06b644a9cabc6e44f55b3880e:b1ef3365-dfbf-4d8f-8ac8-75f4f84d6f4a::"
+activityTrackerFrankfurtResourceKeyName: "geretain-permanent-eu-de-at-key"
+activityTrackerFrankfurtRegion: "eu-de"
+
+# cis
+cisInstanceId: "crn:v1:bluemix:public:internet-svcs:global:a/abac0df06b644a9cabc6e44f55b3880e:59aa1a88-ac47-45e4-bd96-2bc778d26ca7::"
+cisInstanceName: "geretain-permanent-cis"
+
+# geretain-test-permanent resource group ID
+resourceGroupTestPermanentId: 6deff3aad31a48b696cb1b173e54c41d # pragma: allowlist secret
+
+# secrets manager public cert engine
+certificateAuthorityName: geretain-acme-ca-config
+dnsProviderName: geretain-acme-dns-config
+
+# IAM ServiceID for Service dnlb
+sdnlbServiceIdName: "geretain - sDNLB-ServiceID - DO NOT DELETE"
+
+# Cloudant Dedicated Host
+dedicatedHostCrn: "crn:v1:bluemix:public:cloudantnosqldb:us-south:a/abac0df06b644a9cabc6e44f55b3880e:7c88e3f2-4412-4f45-b613-bae10b1e103c::"
+
+# HyperProtect Crypto Instances and Root Keys
+# hpcs_east instance id
+hpcs_east: "bc07f975-0b8c-47a3-9c10-fffa60f483f1"
+hpcs_name_east: "geretain-hyper-protect-crypto-us-east"
+hpcs_rg_east: "Default"
+hpcs_east_root_key_crn: "crn:v1:bluemix:public:hs-crypto:us-east:a/abac0df06b644a9cabc6e44f55b3880e:bc07f975-0b8c-47a3-9c10-fffa60f483f1:key:5d1f4bb9-9981-4577-a5a6-a65f7bc28bc9"
+# hpcs_south instance id
+hpcs_south: "e6dce284-e80f-46e1-a3c1-830f7adff7a9"
+hpcs_name_south: "geretain-hyper-protect-crypto-us-south"
+hpcs_rg_south: "Default"
+hpcs_south_root_key_crn: "crn:v1:bluemix:public:hs-crypto:us-south:a/abac0df06b644a9cabc6e44f55b3880e:e6dce284-e80f-46e1-a3c1-830f7adff7a9:key:76170fae-4e0c-48c3-8ebe-326059ebb533"
+hpcs_south_root_key_id: "76170fae-4e0c-48c3-8ebe-326059ebb533"
+hpcs_south_crn: "crn:v1:bluemix:public:hs-crypto:us-south:a/abac0df06b644a9cabc6e44f55b3880e:e6dce284-e80f-46e1-a3c1-830f7adff7a9::"
+hpcs_south_private_endpoint: "https://api.private.us-south.hs-crypto.cloud.ibm.com:8992"
+hpcs_south_public_endpoint: "https://api.us-south.hs-crypto.cloud.ibm.com:8992"
+
+# vpc crn from GE staging account for transit gateway crossaccount connection tests
+gestaging_vpc_crn: "crn:v1:bluemix:public:is:eu-gb:a/e185552d5fed42c68b77567836d13963::vpc:r018-2e2e57ed-07d1-4381-943d-08e3ddcd4ae4"
+gestaging_rg: "goldeneye-stage-resource-group"
+gestaging_vpc_region: "eu-gb"
+
+# IAM Access tags
+accessTags:
+  - geretain-dev:permanent-test-tag-1
+  - geretain-dev-1:permanent-test-tag-4
+
+# postgresql instance crn for PITR test
+postgresqlPITRCrn: "crn:v1:bluemix:public:databases-for-postgresql:us-south:a/abac0df06b644a9cabc6e44f55b3880e:90adc2f3-cfbe-4f4e-b8aa-6d5a8bf458b9::"
+postgresqlPITRVersion: 14
+postgresqlPITRRegion: "us-south"
+
+# Enterprise DB instance crn for PITR test
+enterpriseDbPITRCrn: "crn:v1:bluemix:public:databases-for-enterprisedb:us-south:a/abac0df06b644a9cabc6e44f55b3880e:3d3077b9-fcc0-427f-a877-d7af3830ca5e::"
+enterpriseDbPITRVersion: 12
+enterpriseDbPITRRegion: "us-south"
+
+# permanent resources for eso module tests
+acme_letsencrypt_private_key_sm_id: "79c6d411-c18f-4670-b009-b0044a238667"
+acme_letsencrypt_private_key_sm_region: "us-south"
+acme_letsencrypt_private_key_secret_id: "80060526-1a80-8b0b-1c6d-b941799e9b08"
+imported_certificate_sm_id: "79c6d411-c18f-4670-b009-b0044a238667"
+imported_certificate_sm_region: "us-south"
+imported_certificate_intermediate_secret_id: "1a5dba6b-eec7-578d-0973-26994233ab5c"
+imported_certificate_public_secret_id: "029457f1-e9f6-ff13-4afa-ffe7f14d29bc"
+imported_certificate_private_secret_id: "c54fb897-8737-46d3-d8f3-3b59fc32f38d"
+
+# GE Ops Account Id
+ge_ops_account_id: "9f9af00a96104f49b6509aa715f9d6a5" # pragma: allowlist secret
+
+# GE Ops KP Instance and Root Keys
+kp_us_south_guid: "44f9c10d-99f5-4547-9e9f-2a1c84b5f0a4"
+kp_us_south_name: "perm-KP-base-ocp"
+kp_us_south_rg: "Default"
+kp_us_south_root_key_crn: "crn:v1:bluemix:public:kms:us-south:a/9f9af00a96104f49b6509aa715f9d6a5:44f9c10d-99f5-4547-9e9f-2a1c84b5f0a4:key:f6c9f6d0-92f6-437a-b97c-4b617cb3d320"
+kp_us_south_root_key_id: "f6c9f6d0-92f6-437a-b97c-4b617cb3d320"

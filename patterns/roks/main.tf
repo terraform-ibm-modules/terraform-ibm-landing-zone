@@ -21,6 +21,7 @@ locals {
 
 module "roks_landing_zone" {
   source                                 = "./module"
+  ibmcloud_api_key                       = var.ibmcloud_api_key
   prefix                                 = var.prefix
   region                                 = var.region
   tags                                   = var.tags
@@ -89,6 +90,8 @@ module "roks_landing_zone" {
   tmos_admin_password                    = var.tmos_admin_password
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
+  disable_public_endpoint                = var.disable_public_endpoint
+  verify_worker_network_readiness        = var.verify_worker_network_readiness
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
 }
 

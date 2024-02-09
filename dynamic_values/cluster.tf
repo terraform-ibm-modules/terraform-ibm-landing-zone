@@ -21,17 +21,19 @@ module "ut_cluster_map" {
   prefix = "ut"
   clusters = [
     {
-      name              = "test-cluster"
-      vpc_name          = "test"
-      subnet_names      = ["subnet-1", "subnet-3"]
-      resource_group    = "test-resource-group"
-      kube_type         = "openshift"
-      cos_name          = "data-cos"
-      entitlement       = "cloud_pak"
-      secondary_storage = "300gb.5iops-tier"
+      name                            = "test-cluster"
+      vpc_name                        = "test"
+      subnet_names                    = ["subnet-1", "subnet-3"]
+      resource_group                  = "test-resource-group"
+      kube_type                       = "openshift"
+      cos_name                        = "data-cos"
+      disable_public_endpoint         = false
+      verify_worker_network_readiness = false
+      entitlement                     = "cloud_pak"
+      secondary_storage               = "300gb.5iops-tier"
       worker_pools = [
         {
-          name               = "logging-worker-pool"
+          name               = "default"
           vpc_name           = "test"
           subnet_names       = ["subnet-1", "subnet-3"]
           workers_per_subnet = 2
@@ -39,6 +41,7 @@ module "ut_cluster_map" {
           secondary_storage  = "300gb.5iops-tier"
         }
       ]
+      vpc_subnets = {}
     }
   ]
   cos_instance_ids = {
@@ -66,6 +69,7 @@ module "ut_cluster_map" {
           cidr = "3"
         },
       ]
+      subnet_detail_list = null
     }
   }
 }

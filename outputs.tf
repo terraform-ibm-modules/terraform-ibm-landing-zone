@@ -68,25 +68,21 @@ output "bastion_host_names" {
 
 output "cluster_names" {
   description = "List of create cluster names"
-  value = [
-    for cluster in ibm_container_vpc_cluster.cluster :
-    cluster.name
-  ]
+  value = flatten([
+    [
+      for cluster in ibm_container_vpc_cluster.cluster :
+      cluster.name
+    ],
+    [
+      for cluster in module.cluster :
+      cluster.cluster_name
+    ]
+  ])
 }
 
 output "cluster_data" {
   description = "List of cluster data"
-  value = {
-    for cluster in ibm_container_vpc_cluster.cluster :
-    cluster.name => {
-      crn                 = cluster.crn
-      id                  = cluster.id
-      resource_group_name = cluster.resource_group_name
-      resource_group_id   = cluster.resource_group_id
-      vpc_id              = cluster.vpc_id
-      region              = var.region
-    }
-  }
+  value       = local.cluster_data
 }
 
 ##############################################################################
@@ -210,7 +206,7 @@ output "vpc_resource_list" {
       name              = vpc.vpc_data.name
       resource_group_id = vpc.vpc_data.resource_group
       region            = var.region
-      clusters = flatten([for cluster in ibm_container_vpc_cluster.cluster :
+      clusters = flatten([for cluster in local.cluster_data :
         cluster.id if cluster.vpc_id == vpc.vpc_data.id
       ])
       vsi = distinct(flatten([

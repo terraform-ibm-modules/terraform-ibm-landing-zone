@@ -1,0 +1,12 @@
+# Python
+**/__pycache__/
+
+# Ignore Mac files
+.DS_Store
+
+# IntelliJ
+.idea/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace

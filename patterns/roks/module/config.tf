@@ -79,16 +79,18 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet   = var.workers_per_zone
-        machine_type         = var.flavor
-        kube_type            = "openshift"
-        kube_version         = var.kube_version
-        resource_group       = "${var.prefix}-${network}-rg"
-        cos_name             = "cos"
-        entitlement          = var.entitlement
-        secondary_storage    = var.secondary_storage
-        boot_volume_crk_name = "${var.prefix}-roks-key"
-        # By default, create dedicated pool for logging
+        workers_per_subnet              = var.workers_per_zone
+        machine_type                    = var.flavor
+        kube_type                       = "openshift"
+        kube_version                    = var.kube_version
+        disable_public_endpoint         = var.disable_public_endpoint
+        verify_worker_network_readiness = var.verify_worker_network_readiness
+        resource_group                  = "${var.prefix}-${network}-rg"
+        secondary_storage               = var.secondary_storage
+        cos_name                        = "cos"
+        entitlement                     = var.entitlement
+        boot_volume_crk_name            = "${var.prefix}-roks-key"
+
         worker_pools = [
           # {
           #   name     = "logging-worker-pool"
