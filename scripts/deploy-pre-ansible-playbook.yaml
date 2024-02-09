@@ -8,10 +8,16 @@
       ansible.builtin.shell:
         cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
       register: template_id
+    - name: Print the Template ID
+      ansible.builtin.debug:
+        var: template_id
     - name: Get Cluster names
       ansible.builtin.shell:
         cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
       register: cluster_names
+    - name: Print the Cluster names
+      ansible.builtin.debug:
+        var: cluster_names
     - name: Print the updated list
       ansible.builtin.debug:
         var: cluster_names.stdout_lines
