@@ -86,7 +86,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -97,7 +97,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
+                        "type": "Glacier"
                     },
                     "activity_tracking": {
                         "read_data_events": true,
@@ -133,7 +133,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -144,7 +144,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
+                        "type": "Glacier"
                     },
                     "activity_tracking": {
                         "read_data_events": true,
@@ -165,7 +165,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -176,7 +176,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
+                        "type": "Glacier"
                     },
                     "activity_tracking": {
                         "read_data_events": true,
