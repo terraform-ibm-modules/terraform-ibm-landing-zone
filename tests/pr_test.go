@@ -216,39 +216,41 @@ func TestValidateOverrideRoks(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
 
-	override_json := filepath.Join(roksPatternTerraformDir, "override.json")
-	config_json := options.LastTestTerraformOutputs["config"]
-	ignored_keys := []string{"resource_group"}
+	if err == nil {
+		override_json := filepath.Join(roksPatternTerraformDir, "override.json")
+		config_json := options.LastTestTerraformOutputs["config"]
+		ignored_keys := []string{"resource_group"}
 
-	//Parse the json into a map
-	var override_json_map map[string]interface{}
-	err1 := json.Unmarshal([]byte(override_json), &override_json_map)
-	require.Nil(t, err1, "Error while unmasrshalling override json map")
+		//Parse the json into a map
+		var override_json_map map[string]interface{}
+		err1 := json.Unmarshal([]byte(override_json), &override_json_map)
+		require.Nil(t, err1, "Error while unmasrshalling override json map")
 
-	config_json_byteArray, ok := config_json.([]byte)
-	require.Nil(t, ok, "Error converting config json to byte")
+		config_json_byteArray, ok := config_json.([]byte)
+		require.Nil(t, ok, "Error converting config json to byte")
 
-	var config_map map[string]interface{}
-	err2 := json.Unmarshal([]byte(config_json_byteArray), &config_map)
-	require.Nil(t, err2, "Error while unmarshalling config map")
+		var config_map map[string]interface{}
+		err2 := json.Unmarshal([]byte(config_json_byteArray), &config_map)
+		require.Nil(t, err2, "Error while unmarshalling config map")
 
-	//Delete the ignored keys from the map
-	for _, key := range ignored_keys {
-		delete(override_json_map, key)
-		delete(config_map, key)
+		//Delete the ignored keys from the map
+		for _, key := range ignored_keys {
+			delete(override_json_map, key)
+			delete(config_map, key)
+		}
+
+		//Convert the maps back to json string
+		new_override_json_string_value, err3 := json.Marshal(override_json_map)
+		require.Nil(t, err3, "Error marshalling override json map")
+
+		new_config_string_value, err4 := json.Marshal(config_map)
+		require.Nil(t, err4, "Error marshalling config map")
+
+		//Compare both the json strings
+		jsonComp, err5 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
+		require.Nil(t, err5, "Error comparing override string ans config string")
+		assert.True(t, jsonComp, "The override json and config output do not match")
 	}
-
-	//Convert the maps back to json string
-	new_override_json_string_value, err3 := json.Marshal(override_json_map)
-	require.Nil(t, err3, "Error marshalling override json map")
-
-	new_config_string_value, err4 := json.Marshal(config_map)
-	require.Nil(t, err4, "Error marshalling config map")
-
-	//Compare both the json strings
-	jsonComp, err5 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
-	require.Nil(t, err5, "Error comparing override string ans config string")
-	assert.True(t, jsonComp, "The override json and config output do not match")
 
 }
 
