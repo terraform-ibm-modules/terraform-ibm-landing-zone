@@ -136,7 +136,7 @@ variable "override_json_string" {
    "vpcs": [
       {
          "default_security_group_rules": [],
-         "clean_default_sg_acl": true,
+         "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
@@ -205,7 +205,7 @@ variable "override_json_string" {
       },
       {
          "default_security_group_rules": [],
-         "clean_default_sg_acl": true,
+         "clean_default_sg_acl": false,
          "flow_logs_bucket_name": null,
          "network_acls": [
             {
