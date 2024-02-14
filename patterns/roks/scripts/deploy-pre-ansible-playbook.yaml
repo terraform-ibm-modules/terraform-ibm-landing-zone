@@ -8,18 +8,45 @@
       ansible.builtin.shell:
         cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
       register: template_id
-    - name: Print the Template ID
-      ansible.builtin.debug:
-        var: template_id
+    - name: Get State
+      ansible.builtin.shell:
+        cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}"
+      register: state
     - name: Get Cluster names
       ansible.builtin.shell:
         cmd: ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.outputs.cluster_names.value' | tr -d '[]," '
       register: cluster_names
+    - set_fact:
+        cleaned_list: "{{ cluster_names.stdout_lines | reject('equalto', '') | list }}"
     - name: Print the Cluster names
       ansible.builtin.debug:
-        var: cluster_names
-    - name: Print the updated list
-      ansible.builtin.debug:
-        var: cluster_names.stdout_lines
-    - name: Create the Jinja2 based template
-      template: src=./moved.j2 dest=../moved.tf
+        var: cleaned_list
+    - name: Check for old version of landing zone
+      ansible.builtin.shell: |
+        cluster="$(ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.resources[] | select((.module == "module.roks_landing_zone.module.landing_zone") and (.name == "cluster"))')"
+        if [ -n "$cluster" ]; then
+          echo "true"
+        else
+          echo "false"
+        fi
+      register: version_check
+    - name: Update state file
+      ansible.builtin.shell: |
+        ibmcloud schematics workspace state mv --id "{{ workspace_id }}" --source "module.roks_landing_zone.module.landing_zone.ibm_container_vpc_cluster.cluster[\"{{ item }}\"]" --destination "module.roks_landing_zone.module.landing_zone.module.cluster[\"{{ item }}\"].ibm_container_vpc_cluster.cluster[0]"
+        sleep 60
+        while true; do
+            status=$(ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .status)
+            echo "$status"
+            if [[ "$status" == "ACTIVE" ]]; then
+                echo "Changes done to {{ item }}"
+                break
+            elif [[ "$status" == "FAILED" ]]; then
+                echo "ERROR::Unfortunately, the Schematics workspace is in a FAILED state. Please review the workspace and try running the following command manually:"
+                echo "ibmcloud schematics workspace state mv --id "{{ workspace_id }}" --source 'module.landing_zone.ibm_container_vpc_cluster.cluster[\"{{ item }}\"]' --destination 'module.landing_zone.module.cluster[\"{{ item }}\"].ibm_container_vpc_cluster.cluster[0]'"
+                break
+            fi
+            sleep 10
+            status=""
+        done
+      when: version_check.stdout|bool == true
+      with_items: "{{ cleaned_list }}"

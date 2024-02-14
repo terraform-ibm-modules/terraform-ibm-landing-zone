@@ -1,6 +1,0 @@
-{% for cluster in cluster_names.stdout_lines[1:] %}
-moved {
-  from = module.roks_landing_zone.module.landing_zone.ibm_container_vpc_cluster.cluster["{{ cluster }}"]
-  to   = module.roks_landing_zone.module.landing_zone.module.cluster["{{ cluster }}"].ibm_container_vpc_cluster.cluster[0]
-}
-{% endfor %}
