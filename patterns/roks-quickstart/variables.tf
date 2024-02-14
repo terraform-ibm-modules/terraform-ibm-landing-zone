@@ -42,8 +42,42 @@ variable "override_json_string" {
       "resource_group": "",
       "add_route": false
    },
-   "clusters": [],
-   "cos": [],
+   "clusters": [
+      {
+         "boot_volume_crk_name": "slz-vsi-volume-key",
+         "cos_name": "cos",
+         "kms_config": null,
+         "kube_type": "openshift",
+         "kube_version": "4.13_openshift",
+         "machine_type": "bx2.16x64",
+         "name": "workload-cluster",
+         "resource_group": "workload-rg",
+         "kms_config": {
+            "crk_name": "roks-key",
+            "private_endpoint": true
+         },
+         "subnet_names": [
+               "vsi-zone-1",
+               "vsi-zone-2"
+         ],
+         "vpc_name": "workload",
+         "worker_pools": [],
+         "workers_per_subnet": 1,
+         "disable_public_endpoint": false
+      }
+   ],
+   "cos": [
+      {
+         "access_tags": [],
+         "buckets": [],
+         "keys": [],
+         "name": "cos",
+         "plan": "standard",
+         "random_suffix": true,
+         "resource_group": "service-rg",
+         "use_data": false
+      }
+   ],
    "enable_transit_gateway": true,
    "transit_gateway_global": false,
    "key_management": {
@@ -57,6 +91,16 @@ variable "override_json_string" {
                   "interval_month": 12
                }
             }
+         },
+         {
+            "key_ring": "slz-ring",
+            "name": "roks-key",
+            "policies": {
+               "rotation": {
+                  "interval_month": 12
+               }
+            },
+            "root_key": true
          }
       ],
       "name": "slz-kms",
@@ -170,7 +214,7 @@ variable "override_json_string" {
                "rules": [
                   {
                      "action": "allow",
-                     "destination": "10.0.0.0/8",
+                     "destination": "0.0.0.0/0",
                      "direction": "inbound",
                      "name": "allow-all-network-inbound",
                      "source": "0.0.0.0/0"
