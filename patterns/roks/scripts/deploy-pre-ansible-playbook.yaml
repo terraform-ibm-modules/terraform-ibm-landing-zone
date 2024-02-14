@@ -46,3 +46,40 @@
         done
       when: version_check.stdout|bool == true
       with_items: "{{ cleaned_list }}"
+    - name: Check for worker pools
+      ansible.builtin.shell: |
+        old_worker_pools="$(ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.resources[] | select(.instances[].attributes.worker_pool_name != null) | .instances[].index_key' | sort -u)"
+        if [ -n "$old_worker_pools" ]; then
+          echo "true"
+        else
+          echo "false"
+        fi
+      register: worker_pool_check
+    - name: Update state2 file
+      ansible.builtin.shell: |
+        old_worker_pools=($(ibmcloud schematics state pull --id "{{ workspace_id }}" --template "{{ template_id.stdout }}" | jq -r '.resources[] | select(.instances[].attributes.worker_pool_name != null) | .instances[].index_key' | sort -u))
+        for pool in "${old_worker_pools[@]}"; do
+            if [[ $pool == *"{{ item }}"* ]]; then
+                pool_name=${pool//{{ item }}-/}
+                ibmcloud schematics workspace state mv --id "{{ workspace_id }}" --source "module.roks_landing_zone.module.landing_zone.ibm_container_vpc_worker_pool.pool[\"$pool\"]" --destination "module.roks_landing_zone.module.landing_zone.module.cluster[\"{{ item }}\"].ibm_container_vpc_worker_pool.pool[\"$pool_name\"]"
+                sleep 60
+                while true; do
+                    status=$(ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .status)
+                    echo "$status"
+                    if [[ "$status" == "ACTIVE" ]]; then
+                        echo "Changes done to {{ item }}"
+                        break
+                    elif [[ "$status" == "FAILED" ]]; then
+                        echo "ERROR::Unfortunately, the Schematics workspace is in a FAILED state. Please review the workspace and try running the following command manually:"
+                        echo "ibmcloud schematics workspace state mv --id "{{ workspace_id }}" --source 'module.roks_landing_zone.module.landing_zone.ibm_container_vpc_cluster.cluster[\"{{ item }}\"]' --destination 'module.roks_landing_zone.module.landing_zone.module.cluster[\"{{ item }}\"].ibm_container_vpc_cluster.cluster[0]'"
+                        break
+                    fi
+                    sleep 10
+                    status=""
+                done
+            fi
+        done
+      with_items: "{{ cleaned_list }}"
+      when:
+        - worker_pool_check.stdout|bool == true
+        - version_check.stdout|bool == true
