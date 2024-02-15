@@ -10,7 +10,7 @@ The landing zone module can be used to create a fully customizable VPC environme
 
 Each of these patterns (except VSI QuickStart) creates the following infrastructure:
 
-- A resource group for cloud services and for each VPC.
+- A resource group for cloud services and for each VPC. TEST.
 - Cloud Object Storage instances for flow logs and Activity Tracker
 - Encryption keys in either a Key Protect or Hyper Protect Crypto Services instance
 - A management and workload VPC connected by a transit gateway
