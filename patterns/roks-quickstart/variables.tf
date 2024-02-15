@@ -49,7 +49,7 @@ variable "override_json_string" {
          "kms_config": null,
          "kube_type": "openshift",
          "kube_version": "4.13_openshift",
-         "machine_type": "bx2.16x64",
+         "machine_type": "bx2.4x16",
          "name": "workload-cluster",
          "resource_group": "workload-rg",
          "kms_config": {
