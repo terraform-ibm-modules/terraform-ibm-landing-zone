@@ -82,6 +82,16 @@ output "cluster_data" {
   value       = module.roks_landing_zone.cluster_data
 }
 
+output "workload_cluster_id" {
+  description = "The id of the workload cluster"
+  value       = module.roks_landing_zone.workload_cluster_id
+}
+
+output "management_cluster_id" {
+  description = "The id of the management cluster"
+  value       = module.roks_landing_zone.management_cluster_id
+}
+
 output "key_management_name" {
   description = "Name of key management service"
   value       = module.roks_landing_zone.key_management_name
