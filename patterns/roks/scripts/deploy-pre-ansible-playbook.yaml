@@ -1,9 +1,9 @@
 - name: deploy pre playbook
   hosts: localhost
   tasks:
-    - name: Login to ibmcloud
-      ansible.builtin.shell:
-        cmd: ibmcloud login --apikey "{{ ibmcloud_api_key }}" -q -r {{  workspace_id.split(".")[0] }}
+    # - name: Login to ibmcloud
+    #   ansible.builtin.shell:
+    #     cmd: ibmcloud login --apikey "{{ ibmcloud_api_key }}" -q -r {{  workspace_id.split(".")[0] }}
     - name: Get Template ID
       ansible.builtin.shell:
         cmd: ibmcloud schematics workspace get --id "{{ workspace_id }}" -o json | jq -r .template_data[0].id
