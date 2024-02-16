@@ -48,7 +48,7 @@ variable "override_json_string" {
          "cos_name": "cos",
          "kms_config": null,
          "kube_type": "openshift",
-         "kube_version": "4.13_openshift",
+         "kube_version": "4.14_openshift",
          "machine_type": "bx2.4x16",
          "name": "workload-cluster",
          "resource_group": "workload-rg",
@@ -63,6 +63,7 @@ variable "override_json_string" {
          "vpc_name": "workload",
          "worker_pools": [],
          "workers_per_subnet": 1,
+         "entitlement": "cloud_pak",
          "disable_public_endpoint": false
       }
    ],
