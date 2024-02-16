@@ -10,10 +10,12 @@ offerings:
       - name: quickstart
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
       - name: standard
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
@@ -21,6 +23,7 @@ offerings:
       - name: existing-vpc
         mark_ready: false
         install_type: extension
+        validation_type: projects
         pre_validation: "tests/scripts/pre-validation-deploy-slz-vpc.sh"
         post_validation: "tests/scripts/post-validation-destroy-slz-vpc.sh"
         scc:
@@ -35,6 +38,7 @@ offerings:
       - name: standard
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
@@ -47,6 +51,7 @@ offerings:
       - name: standard
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
