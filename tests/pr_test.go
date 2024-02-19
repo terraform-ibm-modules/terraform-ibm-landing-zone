@@ -171,7 +171,7 @@ func TestRunROKSQuickStartPattern(t *testing.T) {
 		t.Skip("Skipping terratest for ROKS Quickstart Pattern, running Schematics test instead")
 	}
 
-	options := setupOptionsROKSQuickStartPattern(t, "roks-qs", roksQuickstartPatternTerraformDir)
+	options := setupOptionsROKSQuickStartPattern(t, "rokqs", roksQuickstartPatternTerraformDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -184,7 +184,7 @@ func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
 	// REMOVE SKIP AFTER ROKS QUICKSTART MERGED TO MAIN
 	t.Skip("ATTENTION: Skipping ROKS Quickstart pattern upgrade test until new pattern has been merged to main")
 
-	options := setupOptionsROKSQuickStartPattern(t, "roks-qs-u", roksQuickstartPatternTerraformDir)
+	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -541,7 +541,7 @@ func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
 		t.Skip("Skipping Schematics Test for ROKS QuickStart Pattern, running terratest instead")
 	}
 
-	options := setupOptionsSchematics(t, "roksqs-sc", roksQuickstartPatternTerraformDir)
+	options := setupOptionsSchematics(t, "rqs-sc", roksQuickstartPatternTerraformDir)
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
