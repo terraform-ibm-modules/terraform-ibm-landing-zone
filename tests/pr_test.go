@@ -55,7 +55,7 @@ func TestMain(m *testing.M) {
 
 	// ENABLE SCHEMATICS TESTS
 	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
-	enableSchematicsTests = false
+	enableSchematicsTests = true
 
 	os.Exit(m.Run())
 }
