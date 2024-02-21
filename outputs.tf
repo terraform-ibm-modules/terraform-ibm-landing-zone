@@ -76,18 +76,18 @@ output "cluster_names" {
 
 output "workload_cluster_id" {
   description = "The id of the workload cluster"
-  value = [
+  value = flatten([
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.id if cluster.name == "${var.prefix}-workload-cluster"
-  ][0]
+  ])
 }
 
 output "management_cluster_id" {
   description = "The id of the management cluster"
-  value = [
+  value = flatten([
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.id if cluster.name == "${var.prefix}-management-cluster"
-  ][0]
+  ])
 }
 
 output "cluster_data" {
