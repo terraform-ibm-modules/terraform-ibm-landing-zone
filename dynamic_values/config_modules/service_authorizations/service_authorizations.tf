@@ -30,9 +30,9 @@ variable "atracker_cos_bucket" {
   description = "Add atracker to cos s2s"
 }
 
-# variable "clusters" {
-#   description = "Add cluster to kms auth policies"
-# }
+variable "clusters" {
+  description = "Add cluster to kms auth policies"
+}
 
 ##############################################################################
 
@@ -59,21 +59,21 @@ module "kms_to_block_storage" {
   ]
 }
 
-# workaround for https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/645
-# module "kube_to_kms" {
-#   source = "../list_to_map"
-#   list = [
-#     for instance in(length(var.clusters) > 0 ? ["containers-kubernetes"] : []) :
-#     {
-#       name                        = instance
-#       source_service_name         = "containers-kubernetes"
-#       description                 = "Allow cluster to be encrypted by KMS instance"
-#       roles                       = ["Reader"]
-#       target_service_name         = local.target_key_management_service
-#       target_resource_instance_id = var.key_management_guid
-#     } if local.target_key_management_service != null
-#   ]
-# }
+# Required service authorization access policy for Kubernetes Service and the KMS provider
+module "kube_to_kms" {
+  source = "../list_to_map"
+  list = [
+    for instance in(length(var.clusters) > 0 ? ["containers-kubernetes"] : []) :
+    {
+      name                        = instance
+      source_service_name         = "containers-kubernetes"
+      description                 = "Allow cluster to be encrypted by KMS instance"
+      roles                       = ["Reader"]
+      target_service_name         = local.target_key_management_service
+      target_resource_instance_id = var.key_management_guid
+    } if local.target_key_management_service != null
+  ]
+}
 
 ##############################################################################
 
@@ -155,7 +155,7 @@ output "authorizations" {
     module.cos_to_key_management.value,
     module.flow_logs_to_cos.value,
     module.atracker_to_cos.value,
-    # module.kube_to_kms.value
+    module.kube_to_kms.value
   )
 }
 
