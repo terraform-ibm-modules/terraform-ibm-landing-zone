@@ -8,6 +8,7 @@ locals {
   keys                = module.dynamic_values.keys
   key_rings           = module.dynamic_values.key_rings
   policies            = module.dynamic_values.policies
+  service_endpoints   = local.key_management_type != "resource" ? "" : var.service_endpoints == "public" ? tobool("KMS Service Endpoint must be 'private' or 'public-and-private' when creating a KMS resource instance") : var.service_endpoints == "private" ? "private-only" : "public-and-private"
 }
 
 ##############################################################################
@@ -26,7 +27,7 @@ resource "ibm_resource_instance" "kms" {
   resource_group_id = var.key_management.resource_group_id
   tags              = var.key_management.tags
   parameters = {
-    allowed_network : var.service_endpoints
+    allowed_network : local.service_endpoints
   }
 }
 
