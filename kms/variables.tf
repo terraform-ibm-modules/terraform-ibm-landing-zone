@@ -23,6 +23,7 @@ variable "key_management" {
     resource_group_id = optional(string)
     tags              = list(string)
     access_tags       = optional(list(string), [])
+    service_endpoints = optional(string)
   })
 }
 
@@ -83,14 +84,14 @@ variable "keys" {
   }
 }
 
-variable "service_endpoints" {
-  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
-  type        = string
-  default     = "public-and-private"
+# variable "service_endpoints" {
+#   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+#   type        = string
+#   default     = "public-and-private"
 
-  validation {
-    error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
-    condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
-  }
-}
+#   validation {
+#     error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
+#     condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
+#   }
+# }
 ##############################################################################

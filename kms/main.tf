@@ -8,7 +8,7 @@ locals {
   keys                = module.dynamic_values.keys
   key_rings           = module.dynamic_values.key_rings
   policies            = module.dynamic_values.policies
-  service_endpoints   = var.service_endpoints == "private" ? "private-only" : "public-and-private"
+  service_endpoints   = var.key_management.service_endpoints == "private" ? "private-only" : "public-and-private"
 }
 
 ##############################################################################
