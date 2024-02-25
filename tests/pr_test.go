@@ -55,7 +55,7 @@ func TestMain(m *testing.M) {
 
 	// ENABLE SCHEMATICS TESTS
 	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
-	enableSchematicsTests = false
+	enableSchematicsTests = true
 
 	os.Exit(m.Run())
 }
@@ -81,10 +81,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 			"ssh_key": sshPublicKey,
 		},
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	return options
@@ -164,10 +160,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.roks_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -264,10 +256,6 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vsi_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -314,10 +302,6 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -505,8 +489,6 @@ func TestRunVsiExtention(t *testing.T) {
 		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 			Testing:      t,
 			TerraformDir: "patterns/vsi-extension",
-			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
-			ImplicitRequired: false,
 			TerraformVars: map[string]interface{}{
 				"prefix":                     prefix,
 				"region":                     region,
