@@ -75,7 +75,7 @@ output "cluster_names" {
 }
 
 output "workload_cluster_id" {
-  description = "The id of the workload cluster"
+  description = "The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be empty."
   value = flatten([
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.id if cluster.name == "${var.prefix}-workload-cluster"
@@ -83,7 +83,7 @@ output "workload_cluster_id" {
 }
 
 output "management_cluster_id" {
-  description = "The id of the management cluster"
+  description = "The id of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be empty."
   value = flatten([
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.id if cluster.name == "${var.prefix}-management-cluster"
