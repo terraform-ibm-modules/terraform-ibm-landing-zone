@@ -209,20 +209,18 @@ func TestValidateOverrideRoks(t *testing.T) {
 	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
 
 	if err == nil {
-		override_json := filepath.Join(roksPatternTerraformDir, "override.json")
+		override_json, err0 := os.ReadFile("../patterns/roks/override.json")
+		require.Nil(t, err0, "Error while reading override json")
 		config_json := options.LastTestTerraformOutputs["config"]
-		ignored_keys := []string{"resource_group"}
+		ignored_keys := []string{"resource_groups"}
 
 		//Parse the json into a map
 		var override_json_map map[string]interface{}
 		err1 := json.Unmarshal([]byte(override_json), &override_json_map)
 		require.Nil(t, err1, "Error while unmasrshalling override json map")
 
-		config_json_byteArray, ok := config_json.([]byte)
-		require.Nil(t, ok, "Error converting config json to byte")
-
 		var config_map map[string]interface{}
-		err2 := json.Unmarshal([]byte(config_json_byteArray), &config_map)
+		err2 := json.Unmarshal([]byte(config_json.(string)), &config_map)
 		require.Nil(t, err2, "Error while unmarshalling config map")
 
 		//Delete the ignored keys from the map
@@ -243,7 +241,6 @@ func TestValidateOverrideRoks(t *testing.T) {
 		require.Nil(t, err5, "Error comparing override string ans config string")
 		assert.True(t, jsonComp, "The override json and config output do not match")
 	}
-
 }
 
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
