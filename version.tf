@@ -3,7 +3,7 @@
 ##############################################################################
 
 terraform {
-  required_version = ">= 1.3, < 1.6"
+  required_version = ">= 1.3, < 1.7"
   # Use "greater than or equal to" range for root level modules
   required_providers {
     ibm = {
