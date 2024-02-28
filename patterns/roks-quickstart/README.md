@@ -1,5 +1,7 @@
 # Red Hat OpenShift Container Platform on VPC landing zone (QuickStart pattern)
 
+![Architecture diagram for the QuickStart variation of ROKS on VPC landing zone](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/roks-quickstart-docs/reference-architectures/roks-quickstart.drawio.svg)
+
 This pattern deploys the following infrastructure:
 
 - Management VPC with one subnet, allow-all ACL and Security Group
