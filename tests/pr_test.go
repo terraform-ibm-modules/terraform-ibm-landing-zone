@@ -24,6 +24,7 @@ import (
 )
 
 const quickStartPatternTerraformDir = "patterns/vsi-quickstart"
+const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -144,6 +145,46 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
+func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:          t,
+		TerraformDir:     dir,
+		Prefix:           prefix,
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	return options
+}
+
+func TestRunROKSQuickStartPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Quickstart Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsROKSQuickStartPattern(t, "rokqs", roksQuickstartPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
+	t.Parallel()
+
+	// REMOVE SKIP AFTER ROKS QUICKSTART MERGED TO MAIN
+	t.Skip("ATTENTION: Skipping ROKS Quickstart pattern upgrade test until new pattern has been merged to main")
+
+	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -488,7 +529,24 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for ROKS QuickStart Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "rqs-sc", roksQuickstartPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
