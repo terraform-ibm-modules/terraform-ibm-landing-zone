@@ -808,21 +808,22 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name                 = string           # Name of Cluster
-      vpc_name             = string           # Name of VPC
-      subnet_names         = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet   = number           # Worker nodes per subnet.
-      machine_type         = string           # Worker node flavor
-      kube_type            = string           # iks or openshift
-      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      entitlement          = optional(string) # entitlement option for openshift
-      secondary_storage    = optional(string) # Secondary storage type
-      pod_subnet           = optional(string) # Portable subnet for pods
-      service_subnet       = optional(string) # Portable subnet for services
-      resource_group       = string           # Resource Group used for cluster
-      cos_name             = optional(string) # Name of COS instance Required only for OpenShift clusters
-      access_tags          = optional(list(string), [])
-      boot_volume_crk_name = optional(string) # Boot volume encryption key name
+      name                    = string           # Name of Cluster
+      vpc_name                = string           # Name of VPC
+      subnet_names            = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet      = number           # Worker nodes per subnet.
+      machine_type            = string           # Worker node flavor
+      kube_type               = string           # iks or openshift
+      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement             = optional(string) # entitlement option for openshift
+      secondary_storage       = optional(string) # Secondary storage type
+      pod_subnet              = optional(string) # Portable subnet for pods
+      service_subnet          = optional(string) # Portable subnet for services
+      resource_group          = string           # Resource Group used for cluster
+      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters
+      access_tags             = optional(list(string), [])
+      boot_volume_crk_name    = optional(string)     # Boot volume encryption key name
+      disable_public_endpoint = optional(bool, true) # disable cluster public, leaving only private endpoint
       kms_config = optional(
         object({
           crk_name         = string         # Name of key

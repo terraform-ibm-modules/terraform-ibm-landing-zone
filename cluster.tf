@@ -80,7 +80,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
     }
   }
 
-  disable_public_service_endpoint = true
+  disable_public_service_endpoint = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
 
   timeouts {
     create = "3h"
