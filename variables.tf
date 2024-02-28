@@ -700,7 +700,7 @@ variable "cos" {
 ##############################################################################
 
 variable "service_endpoints" {
-  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  description = "Service endpoints for the App ID resource when created by the module. Can be `public`, `private`, or `public-and-private`"
   type        = string
   default     = "public-and-private"
 

@@ -84,14 +84,4 @@ variable "keys" {
   }
 }
 
-# variable "service_endpoints" {
-#   description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
-#   type        = string
-#   default     = "public-and-private"
-
-#   validation {
-#     error_message = "Service endpoints can only be `public`, `private`, or `public-and-private`."
-#     condition     = contains(["public", "private", "public-and-private"], var.service_endpoints)
-#   }
-# }
 ##############################################################################
