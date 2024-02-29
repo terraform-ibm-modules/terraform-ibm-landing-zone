@@ -18,6 +18,7 @@ Each of these patterns (except VSI QuickStart) creates the following infrastruct
 - All necessary networking rules to allow communication
 - Virtual Private Endpoint (VPE) for Cloud Object Storage in each VPC
 - A VPN gateway in the management VPC
+- Creates pre-wired CBR rules.
 
 Each pattern creates the following infrastructure on the VPC:
 
@@ -850,6 +851,7 @@ module "cluster_pattern" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.2.1 |
+| <a name="module_cbr_prewired_rules"></a> [cbr\_prewired\_rules](#module\_cbr\_prewired\_rules) | terraform-ibm-modules/cbr/ibm//modules/fscloud | 1.18.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.2.1 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
@@ -901,6 +903,7 @@ module "cluster_pattern" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_activate_restricted_cbr_config_account_wide"></a> [activate\_restricted\_cbr\_config\_account\_wide](#input\_activate\_restricted\_cbr\_config\_account\_wide) | Creates CBR rules in the account that follow a `secure by default` approach. The rules deny all flows by default except those that are documented here https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-about | `bool` | `true` | no |
 | <a name="input_appid"></a> [appid](#input\_appid) | The App ID instance to be used for the teleport vsi deployments | <pre>object({<br>    name           = optional(string)<br>    resource_group = optional(string)<br>    use_data       = optional(bool)<br>    keys           = optional(list(string))<br>    use_appid      = bool<br>  })</pre> | <pre>{<br>  "use_appid": false<br>}</pre> | no |
 | <a name="input_atracker"></a> [atracker](#input\_atracker) | atracker variables | <pre>object({<br>    resource_group        = string<br>    receive_global_events = bool<br>    collector_bucket_name = string<br>    add_route             = bool<br>  })</pre> | n/a | yes |
 | <a name="input_clusters"></a> [clusters](#input\_clusters) | A list describing clusters workloads to create | <pre>list(<br>    object({<br>      name                    = string           # Name of Cluster<br>      vpc_name                = string           # Name of VPC<br>      subnet_names            = list(string)     # List of vpc subnets for cluster<br>      workers_per_subnet      = number           # Worker nodes per subnet.<br>      machine_type            = string           # Worker node flavor<br>      kube_type               = string           # iks or openshift<br>      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`<br>      entitlement             = optional(string) # entitlement option for openshift<br>      secondary_storage       = optional(string) # Secondary storage type<br>      pod_subnet              = optional(string) # Portable subnet for pods<br>      service_subnet          = optional(string) # Portable subnet for services<br>      resource_group          = string           # Resource Group used for cluster<br>      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters<br>      access_tags             = optional(list(string), [])<br>      boot_volume_crk_name    = optional(string)     # Boot volume encryption key name<br>      disable_public_endpoint = optional(bool, true) # disable cluster public, leaving only private endpoint<br>      kms_config = optional(<br>        object({<br>          crk_name         = string         # Name of key<br>          private_endpoint = optional(bool) # Private endpoint<br>        })<br>      )<br>      worker_pools = optional(<br>        list(<br>          object({<br>            name                 = string           # Worker pool name<br>            vpc_name             = string           # VPC name<br>            workers_per_subnet   = number           # Worker nodes per subnet<br>            flavor               = string           # Worker node flavor<br>            subnet_names         = list(string)     # List of vpc subnets for worker pool<br>            entitlement          = optional(string) # entitlement option for openshift<br>            secondary_storage    = optional(string) # Secondary storage type<br>            boot_volume_crk_name = optional(string) # Boot volume encryption key name<br>          })<br>        )<br>      )<br>    })<br>  )</pre> | n/a | yes |
@@ -935,6 +938,7 @@ module "cluster_pattern" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_account_id"></a> [account\_id](#output\_account\_id) | Account ID |
 | <a name="output_appid_key_names"></a> [appid\_key\_names](#output\_appid\_key\_names) | List of appid key names created |
 | <a name="output_appid_name"></a> [appid\_name](#output\_appid\_name) | Name of the appid instance used. |
 | <a name="output_appid_redirect_urls"></a> [appid\_redirect\_urls](#output\_appid\_redirect\_urls) | List of appid redirect urls |
@@ -955,6 +959,9 @@ module "cluster_pattern" {
 | <a name="output_key_management_name"></a> [key\_management\_name](#output\_key\_management\_name) | Name of key management service |
 | <a name="output_key_map"></a> [key\_map](#output\_key\_map) | Map of ids and keys for keys created |
 | <a name="output_key_rings"></a> [key\_rings](#output\_key\_rings) | Key rings created by module |
+| <a name="output_map_service_ref_name_zoneid"></a> [map\_service\_ref\_name\_zoneid](#output\_map\_service\_ref\_name\_zoneid) | Map of service reference and zone ids |
+| <a name="output_map_target_service_rule_ids"></a> [map\_target\_service\_rule\_ids](#output\_map\_target\_service\_rule\_ids) | Map of target service and rule ids |
+| <a name="output_map_vpc_zoneid"></a> [map\_vpc\_zoneid](#output\_map\_vpc\_zoneid) | Map of VPC and zone ids |
 | <a name="output_placement_groups"></a> [placement\_groups](#output\_placement\_groups) | List of placement groups. |
 | <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
