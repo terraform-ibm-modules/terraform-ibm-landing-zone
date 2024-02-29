@@ -688,6 +688,8 @@ list(
 
 You can create as many `iks` or `openshift` clusters and worker pools on VPC. For `ROKS` clusters, make sure to enable public gateways to allow your cluster to correctly provision ingress application load balancers.
 
+:exclamation: **Important:** You can't update Red Hat OpenShift cluster nodes by using this module. The Terraform logic ignores updates to prevent possible destructive changes.
+
 The following example shows the `cluster` variable type.
 
 ```terraform
