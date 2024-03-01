@@ -703,7 +703,7 @@ variable "cos" {
 ##############################################################################
 
 variable "service_endpoints" {
-  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  description = "Service endpoints for the App ID resource when created by the module. Can be `public`, `private`, or `public-and-private`"
   type        = string
   default     = "public-and-private"
 
@@ -716,11 +716,12 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = optional(string)
-    resource_group = optional(string)
-    use_data       = optional(bool)
-    use_hs_crypto  = optional(bool)
-    access_tags    = optional(list(string), [])
+    name              = optional(string)
+    resource_group    = optional(string)
+    use_data          = optional(bool)
+    use_hs_crypto     = optional(bool)
+    access_tags       = optional(list(string), [])
+    service_endpoints = optional(string, "public-and-private")
     keys = optional(
       list(
         object({
@@ -776,6 +777,10 @@ variable "key_management" {
   validation {
     condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "existing_key_crn", null) == null) && var.key_management.name == null])) == 0
     error_message = "Please provide kms name to be created."
+  }
+  validation {
+    condition     = contains(["private", "public-and-private"], var.key_management.service_endpoints)
+    error_message = "KMS Service Endpoint must be one of: private, public-and-private"
   }
 }
 
