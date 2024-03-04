@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2023, 2024
-lastupdated: "2024-02-29"
+  years: 2024
+lastupdated: "2024-03-04"
 
 keywords:
 
@@ -26,7 +26,7 @@ deployment-url: unknown
 
 docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/roks-quickstart.drawio.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks-quickstart.drawio.svg
 
 related_links:
   - title: "Red Hat OpenShift Container Platform on VPC landing zone"
@@ -49,7 +49,7 @@ content-type: reference-architecture
 {: toc-use-case="Cybersecurity"}
 {: toc-version="5.16.0"}
 
-The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
+The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
 ## Architecture diagram
 {: #ra-roks-qs-architecture-diagram}
@@ -67,11 +67,11 @@ The QuickStart variation of the Red Hat OpenShift Container Platform on VPC land
 The following table outlines the requirements that are addressed in this architecture.
 
 | Aspect | Requirements |
-| -------------- | -------------- |
-| Compute            | Red Hat OpenShift cluster deployment with minimal machine size and nodes, suitable for low cost demonstration and development |
-| Storage            | Red Hat OpenShift required storage only, no additional storage supplied |
-| Networking         | Two VPCs deployed to demonstrate the concept of a "management-workload" relationship with a transit gateway. \n All inbound and outbound traffic allowed to VPCs. \n Red Hat OpenShift cluster deployed with public administration endpoint to allow easy access to APIs and web console. \n Load Balancer for cluster workload services. \n Public Gateways on workload subnets to facilitate outbound internet access from cluster. \n Transit Gateway to connect the mangement and workload VPCs. |
-| Security           | Encrypt all application data in transit and at rest to protect from unauthorized disclosure. \n Encryption keys stored in IBM Cloud Key Protect service. \n Protect cluster administration access through IBM Cloud security protocols. |
+|---|---|
+| Compute | Red Hat OpenShift cluster deployment with minimal machine size and nodes, suitable for low-cost demonstration and development |
+| Storage | Red Hat OpenShift required storage only, no additional storage supplied |
+| Networking | * Two VPCs deployed to demonstrate the concept of a "management-workload" relationship with a transit gateway. \n * All inbound and outbound traffic is allowed to VPCs. \n * Red Hat OpenShift cluster deployed with public administration endpoint to allow easy access to APIs and web console. \n * Load Balancer for cluster workload services. \n * Public Gateways on workload subnets to facilitate outbound internet access from cluster. \n * Transit Gateway to connect the management and workload VPCs. |
+| Security | * Encrypt all application data in transit and at rest to protect from unauthorized disclosure. \n * Encryption keys stored in IBM Cloud Key Protect service. * \n Protect cluster administration access through IBM Cloud security protocols. |
 | Service Management | Automated deployment of infrastructure with IBM Cloud catalog |
 {: caption="Table 1. Requirements" caption-side="bottom"}
 
@@ -81,12 +81,9 @@ The following table outlines the requirements that are addressed in this archite
 The following table outlines the products or services used in the architecture for each aspect.
 
 | Aspects | Architecture components | How the component is used |
-| -------------- | -------------- | -------------- |
+|---|---|---|
 | Compute | Red Hat OpenShift Container Platform | Container execution |
 | Storage | Cloud Object Storage | Requirement for Red Hat OpenShift deployment |
-| Networking | VPC Load Balancers | Application Load Balancing for cluster workloads |
-|  | Public Gateway | For cluster access to the internet |
-|  | Transit Gateway | For private network connectivity between VPCs |
-| Security | IAM | IBM Cloud Identity & Access Management |
-|  | Key protect | Key Management Service |
+| Networking | * VPC Load Balancers \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads \n * For cluster access to the internet \n * For private network connectivity between VPCs |
+| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Key Management Service |
 {: caption="Table 2. Components" caption-side="bottom"}
