@@ -229,17 +229,13 @@ func TestValidateOverrideRoks(t *testing.T) {
 			delete(config_map, key)
 		}
 
-		//Convert the maps back to json string
-		new_override_json_string_value, err3 := json.Marshal(override_json_map)
-		require.Nil(t, err3, "Error marshalling override json map")
+		for key, value1 := range override_json_map {
+			value2, ok := config_map[key]
 
-		new_config_string_value, err4 := json.Marshal(config_map)
-		require.Nil(t, err4, "Error marshalling config map")
+			require.Nil(t, ok, "The override and config values did not match")
+			require.Equal(t, value1, value2, "The override and config values did not match")
+		}
 
-		//Compare both the json strings
-		jsonComp, err5 := common.IsJsonEqual(string(new_override_json_string_value), string(new_config_string_value))
-		require.Nil(t, err5, "Error comparing override string ans config string")
-		assert.True(t, jsonComp, "The override json and config output do not match")
 	}
 }
 
