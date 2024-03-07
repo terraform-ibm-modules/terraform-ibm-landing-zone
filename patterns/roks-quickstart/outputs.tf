@@ -1,9 +1,8 @@
 ##############################################################################
-# Terraform Providers
+# Output Variables
 ##############################################################################
 
-terraform {
-  required_version = ">= 1.3, < 1.7"
+output "config" {
+  description = "Output configuration as encoded JSON"
+  value       = module.landing_zone.config
 }
-
-##############################################################################
