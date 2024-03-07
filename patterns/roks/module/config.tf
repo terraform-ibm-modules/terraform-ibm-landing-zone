@@ -87,6 +87,8 @@ locals {
         cos_name             = "cos"
         entitlement          = var.entitlement
         secondary_storage    = var.secondary_storage
+        addons               = var.addons
+        manage_all_addons    = var.manage_all_addons
         boot_volume_crk_name = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [
