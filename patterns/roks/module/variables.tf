@@ -163,7 +163,7 @@ variable "secondary_storage" {
   default     = null
 }
 
-variable "addons" {
+variable "cluster_addons" {
   type = object({
     debug-tool                = optional(string)
     image-key-synchronizer    = optional(string)
@@ -177,7 +177,7 @@ variable "addons" {
   default     = null
 }
 
-variable "manage_all_addons" {
+variable "manage_all_cluster_addons" {
   type        = bool
   default     = false
   nullable    = false # null values are set to default value
