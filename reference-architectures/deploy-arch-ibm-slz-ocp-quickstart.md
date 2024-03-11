@@ -2,14 +2,14 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-03-04"
+lastupdated: "2024-03-11"
 
 keywords:
 
 subcollection: deployable-reference-architectures
 
 authors:
-  - name: "Vincent Burckhardt"
+  - name: "Todd Giguere"
 
 # The release that the reference architecture describes
 version: 5.16.0
@@ -68,10 +68,10 @@ The following table outlines the requirements that are addressed in this archite
 
 | Aspect | Requirements |
 |---|---|
-| Compute | Red Hat OpenShift cluster deployment with minimal machine size and nodes, suitable for low-cost demonstration and development |
-| Storage | Red Hat OpenShift required storage only, no additional storage supplied |
-| Networking | * Two VPCs deployed to demonstrate the concept of a "management-workload" relationship with a transit gateway. \n * All inbound and outbound traffic is allowed to VPCs. \n * Red Hat OpenShift cluster deployed with public administration endpoint to allow easy access to APIs and web console. \n * Load Balancer for cluster workload services. \n * Public Gateways on workload subnets to facilitate outbound internet access from cluster. \n * Transit Gateway to connect the management and workload VPCs. |
-| Security | * Encrypt all application data in transit and at rest to protect from unauthorized disclosure. \n * Encryption keys stored in IBM Cloud Key Protect service. * \n Protect cluster administration access through IBM Cloud security protocols. |
+| Compute | Kubernetes cluster with minimal machine size and nodes, suitable for low-cost demonstration and development |
+| Storage | Kubernetes cluster registry backup (required) |
+| Networking | * Multiple VPCs for network isolation. \n * All public inbound and outbound traffic allowed to VPCs. \n * Allow administration of cluster from public endpoint and web console. \n * Load Balancer for cluster workload services. \n * Outbound internet access from cluster. \n * Private network connection between VPCs. |
+| Security | * Encryption of all application data in transit and at rest to protect from unauthorized disclosure. \n * Storage and management of all encryption keys. * \n Protect cluster administration access through IBM Cloud security protocols. |
 | Service Management | Automated deployment of infrastructure with IBM Cloud catalog |
 {: caption="Table 1. Requirements" caption-side="bottom"}
 
@@ -83,7 +83,7 @@ The following table outlines the products or services used in the architecture f
 | Aspects | Architecture components | How the component is used |
 |---|---|---|
 | Compute | Red Hat OpenShift Container Platform | Container execution |
-| Storage | Cloud Object Storage | Requirement for Red Hat OpenShift deployment |
-| Networking | * VPC Load Balancers \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads \n * For cluster access to the internet \n * For private network connectivity between VPCs |
-| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Key Management Service |
+| Storage | Cloud Object Storage | Registry backup for Red Hat OpenShift |
+| Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
+| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Encryption Key Management Service |
 {: caption="Table 2. Components" caption-side="bottom"}
