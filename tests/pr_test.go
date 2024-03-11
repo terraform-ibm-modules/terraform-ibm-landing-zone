@@ -388,7 +388,7 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 		Testing:                t,
 		TarIncludePatterns:     tarIncludePatterns,
 		TemplateFolder:         dir,
-		Prefix:                 "ocp-sc",
+		Prefix:                 prefix,
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
