@@ -35,6 +35,8 @@ module "roks_landing_zone" {
   workers_per_zone                       = var.workers_per_zone
   flavor                                 = var.flavor
   kube_version                           = var.kube_version
+  cluster_addons                         = var.cluster_addons
+  manage_all_cluster_addons              = var.manage_all_cluster_addons
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
