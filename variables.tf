@@ -165,18 +165,21 @@ variable "vpcs" {
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
         zone-2 = list(object({
           name           = string
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
         zone-3 = list(object({
           name           = string
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
       }))
     })
@@ -700,7 +703,7 @@ variable "cos" {
 ##############################################################################
 
 variable "service_endpoints" {
-  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  description = "Service endpoints for the App ID resource when created by the module. Can be `public`, `private`, or `public-and-private`"
   type        = string
   default     = "public-and-private"
 
@@ -713,11 +716,12 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = optional(string)
-    resource_group = optional(string)
-    use_data       = optional(bool)
-    use_hs_crypto  = optional(bool)
-    access_tags    = optional(list(string), [])
+    name              = optional(string)
+    resource_group    = optional(string)
+    use_data          = optional(bool)
+    use_hs_crypto     = optional(bool)
+    access_tags       = optional(list(string), [])
+    service_endpoints = optional(string, "public-and-private")
     keys = optional(
       list(
         object({
@@ -774,6 +778,10 @@ variable "key_management" {
     condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "existing_key_crn", null) == null) && var.key_management.name == null])) == 0
     error_message = "Please provide kms name to be created."
   }
+  validation {
+    condition     = contains(["private", "public-and-private"], var.key_management.service_endpoints)
+    error_message = "KMS Service Endpoint must be one of: private, public-and-private"
+  }
 }
 
 ##############################################################################
@@ -803,21 +811,32 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name                 = string           # Name of Cluster
-      vpc_name             = string           # Name of VPC
-      subnet_names         = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet   = number           # Worker nodes per subnet.
-      machine_type         = string           # Worker node flavor
-      kube_type            = string           # iks or openshift
-      kube_version         = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      entitlement          = optional(string) # entitlement option for openshift
-      secondary_storage    = optional(string) # Secondary storage type
-      pod_subnet           = optional(string) # Portable subnet for pods
-      service_subnet       = optional(string) # Portable subnet for services
-      resource_group       = string           # Resource Group used for cluster
-      cos_name             = optional(string) # Name of COS instance Required only for OpenShift clusters
-      access_tags          = optional(list(string), [])
-      boot_volume_crk_name = optional(string) # Boot volume encryption key name
+      name                    = string           # Name of Cluster
+      vpc_name                = string           # Name of VPC
+      subnet_names            = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet      = number           # Worker nodes per subnet.
+      machine_type            = string           # Worker node flavor
+      kube_type               = string           # iks or openshift
+      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement             = optional(string) # entitlement option for openshift
+      secondary_storage       = optional(string) # Secondary storage type
+      pod_subnet              = optional(string) # Portable subnet for pods
+      service_subnet          = optional(string) # Portable subnet for services
+      resource_group          = string           # Resource Group used for cluster
+      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters
+      access_tags             = optional(list(string), [])
+      boot_volume_crk_name    = optional(string)     # Boot volume encryption key name
+      disable_public_endpoint = optional(bool, true) # disable cluster public, leaving only private endpoint
+      addons = optional(object({                     # Map of OCP cluster add-on versions to install
+        debug-tool                = optional(string)
+        image-key-synchronizer    = optional(string)
+        openshift-data-foundation = optional(string)
+        vpc-file-csi-driver       = optional(string)
+        static-route              = optional(string)
+        cluster-autoscaler        = optional(string)
+        vpc-block-csi-driver      = optional(string)
+      }), {})
+      manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
         object({
           crk_name         = string         # Name of key

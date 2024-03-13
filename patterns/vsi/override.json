@@ -120,7 +120,8 @@
         ],
         "name": "slz-slz-kms",
         "resource_group": "slz-service-rg",
-        "use_hs_crypto": false
+        "use_hs_crypto": false,
+        "service_endpoints": "public-and-private"
     },
     "resource_groups": [
         {
