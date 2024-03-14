@@ -306,6 +306,14 @@ output "service_authorization_data" {
   ])
 }
 
+output "authorization_policies" {
+  value = local.authorization_policies
+}
+
+output "policy_name" {
+  value = local.kube_to_kms_policy_name
+}
+
 ##############################################################################
 
 ##############################################################################

@@ -116,3 +116,23 @@ output "schematics_workspace_id" {
 }
 
 ##############################################################################
+
+
+output "service_authorization_names" {
+  description = "List of service authorization names"
+  value       = module.landing_zone.service_authorization_names
+}
+
+
+output "service_authorization_data" {
+  description = "List of service authorization data"
+  value = module.landing_zone.service_authorization_data
+}
+
+output "authorization_policies" {
+  value = module.landing_zone.authorization_policies
+}
+
+output "policy_name" {
+  value = module.landing_zone.policy_name
+}

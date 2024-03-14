@@ -35,7 +35,13 @@ locals {
 # Create IKS/ROKS on VPC Cluster
 ##############################################################################
 
+locals {
+  # kube_to_kms_policy_name = lookup(local.authorization_policies, "containers-kubernetes", {}).name
+  kube_to_kms_policy_name = contains(keys(local.authorization_policies), "containers-kubernetes") ? lookup(local.authorization_policies["containers-kubernetes"], "name", null) : null
+}
+
 resource "ibm_container_vpc_cluster" "cluster" {
+  depends_on = [ local.kube_to_kms_policy_name]
   for_each          = local.clusters_map
   name              = "${var.prefix}-${each.value.name}"
   vpc_id            = each.value.vpc_id
