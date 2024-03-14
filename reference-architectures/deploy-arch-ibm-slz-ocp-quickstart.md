@@ -84,6 +84,6 @@ The following table outlines the products or services used in the architecture f
 |---|---|---|
 | Compute | Red Hat OpenShift Container Platform | Container execution |
 | Storage | Cloud Object Storage | Registry backup for Red Hat OpenShift |
-| Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
-| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Encryption Key Management Service |
+| Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads (automatically created by OpenShift service for multi-zone cluster) \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
+| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Management of Encryption Keys used by Red Hat OpenShift Container Platform |
 {: caption="Table 2. Components" caption-side="bottom"}
