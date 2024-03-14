@@ -70,8 +70,8 @@ The following table outlines the requirements that are addressed in this archite
 |---|---|
 | Compute | Kubernetes cluster with minimal machine size and nodes, suitable for low-cost demonstration and development |
 | Storage | Kubernetes cluster registry backup (required) |
-| Networking | * Multiple VPCs for network isolation. \n * All public inbound and outbound traffic allowed to VPCs. \n * Allow administration of cluster from public endpoint and web console. \n * Load Balancer for cluster workload services. \n * Outbound internet access from cluster. \n * Private network connection between VPCs. |
-| Security | * Encryption of all application data in transit and at rest to protect from unauthorized disclosure. \n * Storage and management of all encryption keys. * \n Protect cluster administration access through IBM Cloud security protocols. |
+| Networking | * Multiple VPCs for network isolation. \n * All public inbound and outbound traffic allowed to VPCs. \n * Administration of cluster allowed from public endpoint and web console. \n * Load balancer for cluster workload services. \n * Outbound internet access from cluster. \n * Private network connection between VPCs. |
+| Security | * Encryption of all application data in transit and at rest to protect from unauthorized disclosure. \n * Storage and management of all encryption keys. \n * Protect cluster administration access through IBM Cloud security protocols. |
 | Service Management | Automated deployment of infrastructure with IBM Cloud catalog |
 {: caption="Table 1. Requirements" caption-side="bottom"}
 
@@ -83,7 +83,7 @@ The following table outlines the products or services used in the architecture f
 | Aspects | Architecture components | How the component is used |
 |---|---|---|
 | Compute | Red Hat OpenShift Container Platform | Container execution |
-| Storage | Cloud Object Storage | Registry backup for Red Hat OpenShift |
+| Storage | IBM Cloud Object Storage | Registry backup for Red Hat OpenShift |
 | Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads (automatically created by OpenShift service for multi-zone cluster) \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
-| Security | * IAM \n * Key Protect | * IBM Cloud Identity & Access Management \n * Management of Encryption Keys used by Red Hat OpenShift Container Platform |
+| Security | * IAM \n * Key Protect | * IBM Cloud Identity and Access Management \n * Management of encryption keys used by Red Hat OpenShift Container Platform |
 {: caption="Table 2. Components" caption-side="bottom"}
