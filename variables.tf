@@ -1288,3 +1288,15 @@ variable "skip_all_s2s_auth_policies" {
 }
 
 ##############################################################################
+
+##############################################################################
+# CBR variable
+##############################################################################
+
+variable "enforcement_mode" {
+  type        = string
+  description = "(String) The rule enforcement mode"
+  default     = "report" # As part of the best practices, mode should be in report only mode for 30 days before the rules is enabled.
+}
+
+##############################################################################

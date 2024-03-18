@@ -44,153 +44,99 @@ module "vpc" {
 
 ##############################################################################
 
-# output "vpc_sample" {
-#   value = local.vpc_map
-# }
+
+##############################################################################
+# Create CBR prewired rules for VPC -> COS
+##############################################################################
+module "slz_cbr_zone_vpcs" {
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.18.0"
+  name             = "${var.prefix}-vpcs-zone"
+  zone_description = "Single zone grouping all SLZ VPCs."
+  account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
+  addresses = [
+    for network in module.vpc :
+    { "type" = "vpc", value = network.vpc_crn }
+  ]
+}
 
 locals {
-  vpc_subnets_map = {
-    management_subnets = flatten([
-      for zone, subnet_list in local.vpc_map["management"]["subnets"] : [
-        for subnet in subnet_list : {
-          name = subnet["name"]
-          cidr = subnet["cidr"]
-          acl_name = subnet["acl_name"]
-        }
-      ]
-    ])
 
-    workload_subnets = flatten([
-      for zone, subnet_list in local.vpc_map["workload"]["subnets"] : [
-        for subnet in subnet_list : {
-          name = subnet["name"]
-          cidr = subnet["cidr"]
-          acl_name = subnet["acl_name"]
-        }
-      ]
-    ])
-  }
+  cos_data_merge_maps = merge(local.cos_data_map, local.cos_map)
 
-# subnets_map = {
-#     management_subnets = {
-#       for idx, subnet in local.management_subnets : subnet["name"] => subnet
-#     }
-#     workload_subnets = {
-#       for idx, subnet in local.workload_subnets : subnet["name"] => subnet
-#     }
-#   }
+  cos_resource_group_names = distinct(flatten([
+    for key, value in local.cos_data_merge_maps : [
+      value.resource_group
+    ]
+  ]))
 
-# workload_cidrs = flatten([
-#     for subnet_map_key, subnet_map in local.subnets_map : [
-#       for subnet_key, subnet in subnet_map : subnet["cidr"]
-#     ]
-#   ])
+  rule_contexts = [{
+    attributes = [
+      {
+        "name" : "endpointType",
+        "value" : "private"
+      },
+      {
+        name  = "networkZoneId"
+        value = module.slz_cbr_zone_vpcs["zone_id"]
+    }]
+  }]
 
-
-# vpc_subnets = flatten([
-#     for subnet_type, subnets in local.vpc_subnets_map : [
-#       for subnet in subnets : {
-#         type        = subnet_type
-#         acl_name    = subnet["acl_name"]
-#         cidr        = subnet["cidr"]
-#         name        = subnet["name"]
-#       }
-#     ]
-#   ])
-
-
-  slz_vpc_zone_list = (length(local.vpc_subnets_map) > 0) ? [
-    for  subnet_type, subnets in local.vpc_subnets_map : 
-       {
-      name             = "${var.prefix}-${subnet_type}-cbr-slz-zone"
-      account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
-      zone_description = "${subnet_type}-cbr-slz-zone"
-      addresses = [for subnet in subnets :
-        {
-          type = "subnet"
-          value= subnet["cidr"]
-        }
-      ]
-  }] : []
-
-
+  target_service_details = [
+    for cos_rg_name in local.cos_resource_group_names :
+    {
+      target_service_name = "cloud-object-storage",
+      target_rg           = local.resource_groups[cos_rg_name]
+      tags                = var.tags
+    }
+  ]
 }
 
-module "slz_vpcs_zone_subnets" {
-  count            = length(local.slz_vpc_zone_list)
-  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version           = "1.18.0"
-  name             = local.slz_vpc_zone_list[count.index].name
-  zone_description = local.slz_vpc_zone_list[count.index].zone_description
-  account_id       = local.slz_vpc_zone_list[count.index].account_id
-  addresses        = local.slz_vpc_zone_list[count.index].addresses
+module "vpc_to_cos_cbr_rule" {
+  count            = length(local.cos_resource_group_names)
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module"
+  version          = "1.18.0"
+  rule_description = "${var.prefix}-${local.target_service_details[count.index].target_service_name}-rg-scoped-rule"
+  enforcement_mode = var.enforcement_mode
+  rule_contexts    = local.rule_contexts
+  operations = [{
+    api_types = [{
+      api_type_id = "crn:v1:bluemix:public:context-based-restrictions::::api-type:"
+    }]
+  }]
+
+  resources = [{
+    tags = local.target_service_details[count.index].tags != null ? [for tag in local.target_service_details[count.index].tags : {
+      name  = split(":", tag)[0]
+      value = split(":", tag)[1]
+    }] : []
+    attributes = local.target_service_details[count.index].target_rg != null ? [
+      {
+        name     = "accountId",
+        operator = "stringEquals",
+        value    = data.ibm_iam_account_settings.iam_account_settings.account_id
+      },
+      {
+        name     = "resourceGroupId",
+        operator = "stringEquals",
+        value    = local.target_service_details[count.index].target_rg
+      },
+      {
+        name     = "serviceName",
+        operator = "stringEquals",
+        value    = local.target_service_details[count.index].target_service_name
+      }] : [
+      {
+        name     = "accountId",
+        operator = "stringEquals",
+        value    = data.ibm_iam_account_settings.iam_account_settings.account_id
+      },
+      {
+        name     = "serviceName",
+        operator = "stringEquals",
+        value    = local.target_service_details[count.index].target_service_name
+    }]
+  }]
 }
-
-
-# output "management_subnets" {
-#   value = local.management_subnets
-# }
-
-output "workload_subnets" {
-  value = local.vpc_subnets_map
-}
-
-##############################################################################
-
-
-
-# module "slz_management_zone_subnets" {
-#   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-#   version           = "1.18.0"
-#   name             = "${var.prefix}-List of management zones subnets"
-#   account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
-#   zone_description = "Zone grouping list of management zones subnets"
-#       addresses = [
-#       for cidrs in local.management_subnets :
-#       { "type" = "subnet", value = cidrs["cidr"] }
-#     ]
-# }
-
-
-# module "slz_workload_zone_subnets" {
-#   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-#   version           = "1.18.0"
-#   name             = "${var.prefix}-List of workload zones subnets"
-#   account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
-#   zone_description = "Zone grouping list of workload zones subnets"
-#       addresses = [
-#       for cidrs in local.workload_subnets :
-#       { "type" = "subnet", value = cidrs["cidr"] }
-#     ]
-# }
-
-
-##############################################################################
-# Create CBR prewired rules
-##############################################################################
-
-# locals {
-#     vpc_zone_list = [{
-#     name             = "${var.prefix}-slz-vpc-zone"
-#     account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
-#     zone_description = "${var.prefix}-slz-vpc-zone"
-#     addresses = [
-#       for network in module.vpc :
-#       { "type" = "vpc", value = network.vpc_crn }
-#     ]
-#   }]
-
-# }
-
-
-# module "slz_cbr_zone" {
-#   count            = length(local.vpc_zone_list)
-#   source            = "terraform-ibm-modules/cbr/ibm//modules/fscloud"
-#   version           = "1.18.0"
-#   name             = local.zone_list[count.index].name
-#   zone_description = local.zone_list[count.index].zone_description
-#   account_id       = local.zone_list[count.index].account_id
-#   addresses        = local.zone_list[count.index].addresses
-# }
 
 ##############################################################################
