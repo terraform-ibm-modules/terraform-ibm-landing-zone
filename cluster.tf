@@ -36,6 +36,7 @@ locals {
 ##############################################################################
 
 resource "ibm_container_vpc_cluster" "cluster" {
+  depends_on        = [ibm_iam_authorization_policy.policy]
   for_each          = local.clusters_map
   name              = "${var.prefix}-${each.value.name}"
   vpc_id            = each.value.vpc_id
