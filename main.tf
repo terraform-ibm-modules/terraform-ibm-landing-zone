@@ -46,12 +46,12 @@ module "vpc" {
 
 
 ##############################################################################
-# Create CBR prewired rules for VPC -> COS
+# Create CBR prewired rules for VPC -> COS (scoped to resource group)
 ##############################################################################
 module "slz_cbr_zone_vpcs" {
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
   version          = "1.18.0"
-  name             = "${var.prefix}-vpcs-zone"
+  name             = "${var.prefix}-slz-vpcs-zone"
   zone_description = "Single zone grouping all SLZ VPCs."
   account_id       = data.ibm_iam_account_settings.iam_account_settings.account_id
   addresses = [
@@ -96,7 +96,7 @@ module "vpc_to_cos_cbr_rule" {
   count            = length(local.cos_resource_group_names)
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module"
   version          = "1.18.0"
-  rule_description = "${var.prefix}-${local.target_service_details[count.index].target_service_name}-rg-scoped-rule"
+  rule_description = "${var.prefix}-${local.target_service_details[count.index].target_service_name}-rg-scoped-slz-rule"
   enforcement_mode = var.enforcement_mode
   rule_contexts    = local.rule_contexts
   operations = [{
