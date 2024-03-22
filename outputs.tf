@@ -471,17 +471,17 @@ output "key_map" {
 ##############################################################################
 
 output "zone_ids" {
-  value       = module.slz_cbr_zone_vpcs.zone_id
+  value       = module.cbr_zone_vpcs.zone_id
   description = "CBR zone resource instance id(s)"
 }
 
 output "zone_crns" {
-  value       = module.slz_cbr_zone_vpcs.zone_crn
+  value       = module.cbr_zone_vpcs.zone_crn
   description = "CBR zone crn(s)"
 }
 
 output "zone_hrefs" {
-  value       = module.slz_cbr_zone_vpcs.zone_href
+  value       = module.cbr_zone_vpcs.zone_href
   description = "CBR zone href(s)"
 }
 
