@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-03-11"
+lastupdated: "2024-03-22"
 
 keywords:
 
@@ -12,17 +12,17 @@ authors:
   - name: "Todd Giguere"
 
 # The release that the reference architecture describes
-version: 5.16.0
+version: 5.20.0
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
-production: false
+production: true
 
 # Use if the reference architecture has deployable code.
 # Value is the URL to land the user in the IBM Cloud catalog details page
 # for the deployable architecture.
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
-deployment-url: unknown
+deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global
 
 docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 
@@ -47,7 +47,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="5.16.0"}
+{: toc-version="5.20.0"}
 
 The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
@@ -71,7 +71,7 @@ The following table outlines the requirements that are addressed in this archite
 | Compute | Kubernetes cluster with minimal machine size and nodes, suitable for low-cost demonstration and development |
 | Storage | Kubernetes cluster registry backup (required) |
 | Networking | * Multiple VPCs for network isolation. \n * All public inbound and outbound traffic allowed to VPCs. \n * Administration of cluster allowed from public endpoint and web console. \n * Load balancer for cluster workload services. \n * Outbound internet access from cluster. \n * Private network connection between VPCs. |
-| Security | * Encryption of all application data in transit and at rest to protect from unauthorized disclosure. \n * Storage and management of all encryption keys. \n * Protect cluster administration access through IBM Cloud security protocols. |
+| Security | * Encryption of all application data in transit and at rest to protect it from unauthorized disclosure. \n * Storage and management of all encryption keys. \n * Protect cluster administration access through IBM Cloud security protocols. |
 | Service Management | Automated deployment of infrastructure with IBM Cloud catalog |
 {: caption="Table 1. Requirements" caption-side="bottom"}
 
@@ -84,6 +84,6 @@ The following table outlines the products or services used in the architecture f
 |---|---|---|
 | Compute | Red Hat OpenShift Container Platform | Container execution |
 | Storage | IBM Cloud Object Storage | Registry backup for Red Hat OpenShift |
-| Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load Balancing for cluster workloads (automatically created by OpenShift service for multi-zone cluster) \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
+| Networking | * VPC Load Balancer \n * Public Gateway \n * Transit Gateway | * Application load balancing for cluster workloads (automatically created by Red Hat OpenShift service for multi-zone cluster) \n * Cluster access to the internet \n * Private network connectivity between management and workload VPCs |
 | Security | * IAM \n * Key Protect | * IBM Cloud Identity and Access Management \n * Management of encryption keys used by Red Hat OpenShift Container Platform |
 {: caption="Table 2. Components" caption-side="bottom"}
