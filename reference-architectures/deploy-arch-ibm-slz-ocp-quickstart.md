@@ -22,7 +22,7 @@ production: true
 # Value is the URL to land the user in the IBM Cloud catalog details page
 # for the deployable architecture.
 # See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
-deployment-url: unknown
+deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global
 
 docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 
