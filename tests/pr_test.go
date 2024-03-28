@@ -157,6 +157,9 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		TerraformDir:     dir,
 		Prefix:           prefix,
 		CloudInfoService: sharedInfoSvc,
+		TerraformVars: map[string]interface{}{
+			"entitlement": "cloud_pak",
+		},
 	})
 
 	return options
@@ -201,9 +204,11 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"tags":   options.Tags,
-		"region": options.Region,
+		"prefix":      options.Prefix,
+		"tags":        options.Tags,
+		"region":      options.Region,
+		"entitlement": "cloud_pak",
+		"flavor":      "bx2.4x16",
 	}
 
 	return options
@@ -544,6 +549,7 @@ func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -585,6 +591,8 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
+		{Name: "flavor", Value: "bx2.4x16", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
