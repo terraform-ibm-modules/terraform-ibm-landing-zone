@@ -5,6 +5,7 @@
 locals {
   default_ocp_version = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
   ocp_version         = var.kube_version == null || var.kube_version == "default" ? local.default_ocp_version : "${var.kube_version}_openshift"
+  entitlement_val     = var.entitlement == null ? "null" : "\"${var.entitlement}\""
 }
 
 data "ibm_container_cluster_versions" "cluster_versions" {
@@ -48,7 +49,7 @@ locals {
          "vpc_name": "workload",
          "worker_pools": [],
          "workers_per_subnet": 1,
-         "entitlement": "${var.entitlement}",
+         "entitlement": ${local.entitlement_val},
          "disable_public_endpoint": false
       }
    ],
