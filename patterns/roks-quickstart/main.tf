@@ -48,7 +48,7 @@ locals {
          "vpc_name": "workload",
          "worker_pools": [],
          "workers_per_subnet": 1,
-         "entitlement": "cloud_pak",
+         "entitlement": "${var.entitlement}",
          "disable_public_endpoint": false
       }
    ],
