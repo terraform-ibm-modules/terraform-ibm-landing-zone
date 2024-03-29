@@ -40,8 +40,9 @@ data "ibm_is_image" "image" {
 ##############################################################################
 
 module "vsi" {
-  source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "3.2.4"
+  # source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
+  # version                       = "3.2.4"
+  source                        = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi.git?ref=refactor"
   for_each                      = local.vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
