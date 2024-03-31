@@ -34,9 +34,6 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
-// Setting "service_endpoints" to `private` to test support for 'private' service_endpoints (schematics have access to private network).
-const service_endpoints = "private"
-
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
@@ -160,6 +157,9 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		TerraformDir:     dir,
 		Prefix:           prefix,
 		CloudInfoService: sharedInfoSvc,
+		TerraformVars: map[string]interface{}{
+			"entitlement": "cloud_pak",
+		},
 	})
 
 	return options
@@ -204,9 +204,11 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"tags":   options.Tags,
-		"region": options.Region,
+		"prefix":      options.Prefix,
+		"tags":        options.Tags,
+		"region":      options.Region,
+		"entitlement": "cloud_pak",
+		"flavor":      "bx2.4x16",
 	}
 
 	return options
@@ -590,6 +592,7 @@ func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -610,7 +613,6 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -632,7 +634,8 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
+		{Name: "flavor", Value: "bx2.4x16", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -653,7 +656,6 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()

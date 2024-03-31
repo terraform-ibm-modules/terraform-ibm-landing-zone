@@ -827,6 +827,16 @@ variable "clusters" {
       access_tags             = optional(list(string), [])
       boot_volume_crk_name    = optional(string)     # Boot volume encryption key name
       disable_public_endpoint = optional(bool, true) # disable cluster public, leaving only private endpoint
+      addons = optional(object({                     # Map of OCP cluster add-on versions to install
+        debug-tool                = optional(string)
+        image-key-synchronizer    = optional(string)
+        openshift-data-foundation = optional(string)
+        vpc-file-csi-driver       = optional(string)
+        static-route              = optional(string)
+        cluster-autoscaler        = optional(string)
+        vpc-block-csi-driver      = optional(string)
+      }), {})
+      manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
         object({
           crk_name         = string         # Name of key

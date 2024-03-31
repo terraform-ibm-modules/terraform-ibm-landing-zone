@@ -171,6 +171,27 @@ variable "entitlement" {
   default     = null
 }
 
+variable "cluster_addons" {
+  type = object({
+    debug-tool                = optional(string)
+    image-key-synchronizer    = optional(string)
+    openshift-data-foundation = optional(string)
+    vpc-file-csi-driver       = optional(string)
+    static-route              = optional(string)
+    cluster-autoscaler        = optional(string)
+    vpc-block-csi-driver      = optional(string)
+  })
+  description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
+  default     = null
+}
+
+variable "manage_all_cluster_addons" {
+  type        = bool
+  default     = false
+  nullable    = false # null values are set to default value
+  description = "Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources."
+}
+
 ##############################################################################
 
 
@@ -452,7 +473,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-4-minimal-amd64-1"
 }
 
 variable "teleport_license" {

@@ -36,6 +36,7 @@ locals {
 ##############################################################################
 
 resource "ibm_container_vpc_cluster" "cluster" {
+  depends_on        = [ibm_iam_authorization_policy.policy]
   for_each          = local.clusters_map
   name              = "${var.prefix}-${each.value.name}"
   vpc_id            = each.value.vpc_id
@@ -127,3 +128,63 @@ resource "ibm_container_vpc_worker_pool" "pool" {
 }
 
 ##############################################################################
+
+##############################################################################
+# Addons
+##############################################################################
+
+# Lookup the current default csi-driver version
+data "ibm_container_addons" "existing_addons" {
+  for_each = ibm_container_vpc_cluster.cluster
+  cluster  = each.value.id
+}
+
+locals {
+  csi_driver_version = {
+    for cluster in ibm_container_vpc_cluster.cluster : cluster.name => (
+      length(data.ibm_container_addons.existing_addons[cluster.name].addons) > 0 &&
+      data.ibm_container_addons.existing_addons[cluster.name].addons[0].name == "vpc-block-csi-driver" ?
+      data.ibm_container_addons.existing_addons[cluster.name].addons[0].version : ""
+    )
+  }
+
+
+  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
+  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
+  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
+  cluster_addons = {
+    for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
+      id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
+      resource_group_id = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].resource_group_id
+      addons = merge(
+        { for addon_name, addon_version in(cluster.addons != null ? cluster.addons : {}) : addon_name => addon_version if addon_version != null },
+        local.csi_driver_version["${var.prefix}-${cluster.name}"] != null ? { vpc-block-csi-driver = local.csi_driver_version["${var.prefix}-${cluster.name}"] } : {}
+      )
+    }
+  }
+}
+
+resource "ibm_container_addons" "addons" {
+  # Worker pool creation can start before the 'ibm_container_vpc_cluster' completes since there is no explicit
+  # depends_on in 'ibm_container_vpc_worker_pool', just an implicit depends_on on the cluster ID. Cluster ID can exist before
+  # 'ibm_container_vpc_cluster' completes, so hence need to add explicit depends on against 'ibm_container_vpc_cluster' here.
+  depends_on        = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  for_each          = local.cluster_addons
+  cluster           = each.value.id
+  resource_group_id = each.value.resource_group_id
+
+  # setting to false means we do not want Terraform to manage addons that are managed elsewhere
+  manage_all_addons = local.clusters_map[each.key].manage_all_addons
+
+  dynamic "addons" {
+    for_each = local.cluster_addons[each.key].addons
+    content {
+      name    = addons.key
+      version = addons.value
+    }
+  }
+
+  timeouts {
+    create = "1h"
+  }
+}
