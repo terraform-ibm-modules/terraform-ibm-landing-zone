@@ -3,20 +3,20 @@ version: "v1"
 CRA_TARGETS:
   - CRA_TARGET: "patterns/vpc"
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
-    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    PROFILE_ID: "bfacb71d-4b84-41ac-9825-e8a3a3eb7405" # SCC profile ID (currently set to IBM Cloud Framework for Financial Services 1.6.0 profile).
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "slz-vpc"
       TF_VAR_region: "us-south"
   - CRA_TARGET: "patterns/vsi"
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
-    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    PROFILE_ID: "bfacb71d-4b84-41ac-9825-e8a3a3eb7405" # SCC profile ID (currently set to IBM Cloud Framework for Financial Services 1.6.0 profile).
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "slz-vsi"
       TF_VAR_region: "us-south"
       TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/hfNI5cNjimtcVgNA1acGmi1iv7PTjKcF8D+8DqffkGMsY6vU7KtB1mASwVU8GMGLzU2qvGmXwHSANYqPOraEitgI06zhq5VXVvtjOR41IJjP+ssjHIbql+EDzls2yJuZd2g4Wmk5NKTzJFNYsvIaCGUYCSMUPT9bepUqIOyjsrCEiHGLaphF5W2V/hj1+1NEZqV3ozhmHmtff2tIb6+VQpd/dl61RKuF74rywd1krmBOe4kbPzfYRqiRKV0rl0bPuyL+FV3Zv5gdzRRLNQiOxapv9uSkCal3W0umpSQyBYtj6BhGxeKrBKVgXgdq7byStRFSlREaKIg+tkekieqNZbBArgSYoNACZilxrzzC6u0KuWtllldy1CwCtFEdBlSPnHwnD/XhAs6FVuoh5tmw+FLtVyg8UyMgSvVr1Vcya9uAOCLLiihsgAB5xqqcJaXcfk+zkWn7rUJ9F+R3CZs9rgEvBbHpFAKJqcMsInZ+G0Jt0s6kIpAPr/plcfrK2bcwG/L9Kbuedf31dmHAylKqfMpdqm2YoSXOs5Y7Wh6KV/1VhL/u0++hxGt6APjvpY0BTlvsw7fmBSPniHkC8fF6bEzP0blCRcI3SB7P/glrZqM5UptBoEI5a8LBv5G4YsVolRepj6FjwlPvfgBbLF5AXxFtZTk07UW7CRauO5xbJw=="
   - CRA_TARGET: "patterns/roks"
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
-    PROFILE_ID: "0e6e7b5a-817d-4344-ab6f-e5d7a9c49520" # SCC profile ID (currently set to the FSCloud 1.4.0 profile).
+    PROFILE_ID: "bfacb71d-4b84-41ac-9825-e8a3a3eb7405" # SCC profile ID (currently set to IBM Cloud Framework for Financial Services 1.6.0 profile).
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "slz-roks"
       TF_VAR_region: "us-south"
