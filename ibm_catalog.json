@@ -182,8 +182,8 @@
             "authority": "scc-v3",
             "profiles": [
               {
-                "profile_name": "IBM Cloud for Financial Services",
-                "profile_version": "1.3.0"
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.6.0"
               }
             ]
           },
@@ -516,8 +516,8 @@
             "authority": "scc-v3",
             "profiles": [
               {
-                "profile_name": "IBM Cloud for Financial Services",
-                "profile_version": "1.3.0"
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.6.0"
               }
             ]
           },
@@ -638,8 +638,8 @@
             "authority": "scc-v3",
             "profiles": [
               {
-                "profile_name": "IBM Cloud for Financial Services",
-                "profile_version": "1.3.0"
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.6.0"
               }
             ]
           },
@@ -1097,8 +1097,8 @@
             "authority": "scc-v3",
             "profiles": [
               {
-                "profile_name": "IBM Cloud for Financial Services",
-                "profile_version": "1.3.0"
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.6.0"
               }
             ]
           },
