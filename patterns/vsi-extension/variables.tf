@@ -10,7 +10,7 @@ variable "region" {
 }
 
 variable "prefix" {
-  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources."
+  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
   type        = string
   default     = "slz-vsi"
 }

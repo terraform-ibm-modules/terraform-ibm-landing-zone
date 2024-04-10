@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
   type        = string
   default     = "gcat-multizone-schematics"
 
