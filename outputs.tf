@@ -36,9 +36,9 @@ output "appid_redirect_urls" {
 # Atracker Outputs
 ##############################################################################
 
-output "atracker_target_name" {
+output "atracker_cos_target_name" {
   description = "Name of atracker target"
-  value       = local.valid_atracker_region && var.atracker.add_route == true ? ibm_atracker_target.atracker_target[0].name : null
+  value       = local.valid_atracker_region && var.atracker.add_route == true ? ibm_atracker_target.atracker_cos_target[0].name : null
 }
 
 output "atracker_route_name" {
