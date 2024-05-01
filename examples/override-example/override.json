@@ -90,6 +90,8 @@
   ],
   "atracker": {
     "collector_bucket_name": "atracker-bucket",
+    "collector_event_stream_topic_name": "atracker-es-topic",
+    "collector_log_analysis_name": "atracker-log-analysis",
     "receive_global_events": true,
     "resource_group": "slz-service-rg",
     "add_route": true
