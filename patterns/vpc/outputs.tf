@@ -116,3 +116,8 @@ output "schematics_workspace_id" {
 }
 
 ##############################################################################
+
+
+output "resource_group" {
+  value = module.vpc_landing_zone.resource_group
+}

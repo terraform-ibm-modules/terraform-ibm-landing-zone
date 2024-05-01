@@ -62,10 +62,12 @@ locals {
     # Activity tracker
     ##############################################################################
     atracker = {
-      resource_group        = "${var.prefix}-service-rg"
-      receive_global_events = true
-      collector_bucket_name = "atracker-bucket"
-      add_route             = var.add_atracker_route
+      resource_group                    = "${var.prefix}-service-rg"
+      receive_global_events             = true
+      collector_bucket_name             = "atracker-bucket"
+      collector_event_stream_topic_name = "atracker-es-topic"
+      collector_log_analysis_name       = "atracker-log-analysis"
+      add_route                         = var.add_atracker_route
     }
     ##############################################################################
 
