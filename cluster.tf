@@ -49,16 +49,17 @@ resource "ibm_container_vpc_cluster" "cluster" {
     lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null
     ? local.default_kube_version[each.value.kube_type] : each.value.kube_version
   )
-  tags              = var.tags
-  wait_till         = var.wait_till
-  entitlement       = each.value.entitlement
-  secondary_storage = each.value.secondary_storage
-  cos_instance_crn  = each.value.cos_instance_crn
-  pod_subnet        = each.value.pod_subnet
-  service_subnet    = each.value.service_subnet
-  crk               = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_instance_id   = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_account_id    = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  tags                                = var.tags
+  wait_till                           = var.wait_till
+  entitlement                         = each.value.entitlement
+  secondary_storage                   = each.value.secondary_storage
+  cos_instance_crn                    = each.value.cos_instance_crn
+  pod_subnet                          = each.value.pod_subnet
+  service_subnet                      = each.value.service_subnet
+  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
+  crk                                 = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_instance_id                     = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_account_id                      = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   lifecycle {
     ignore_changes = [kube_version]
   }

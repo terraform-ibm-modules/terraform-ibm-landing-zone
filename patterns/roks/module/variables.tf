@@ -184,6 +184,12 @@ variable "manage_all_cluster_addons" {
   description = "Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources."
 }
 
+variable "disable_outbound_traffic_protection" {
+  type        = bool
+  description = "Whether to allow public outbound access from the cluster workers. This is only applicable for `ocp_version` 4.15"
+  default     = false
+}
+
 ##############################################################################
 
 

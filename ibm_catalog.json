@@ -1121,6 +1121,10 @@
                 {
                   "displayname": "4.14_openshift",
                   "value": "4.14_openshift"
+                },
+                {
+                  "displayname": "4.15_openshift",
+                  "value": "4.15_openshift"
                 }
               ],
               "custom_config": {

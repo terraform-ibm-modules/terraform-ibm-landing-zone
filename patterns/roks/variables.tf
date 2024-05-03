@@ -125,16 +125,17 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
+  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.14_openshift"
+  default     = "4.15_openshift"
   validation {
     condition = anytrue([
+      var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
       var.kube_version == "4.13_openshift",
       var.kube_version == "4.12_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
+    error_message = "The kube_version value can currently only be '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
   }
 }
 
@@ -190,6 +191,12 @@ variable "manage_all_cluster_addons" {
   default     = false
   nullable    = false # null values are set to default value
   description = "Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources."
+}
+
+variable "disable_outbound_traffic_protection" {
+  type        = bool
+  description = "Whether to allow public outbound access from the cluster workers. This is only applicable for `ocp_version` 4.15"
+  default     = false
 }
 
 ##############################################################################
