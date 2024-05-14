@@ -188,8 +188,13 @@ output "vpc_names" {
 output "vpc_data" {
   description = "List of VPC data"
   value = [
-    for network in data.ibm_is_vpc.vpc :
-    network
+    for k, a in module.vpc :
+    merge(
+      a,
+      {
+        vpc_data = data.ibm_is_vpc.vpc[k]
+      }
+    )
   ]
 }
 
