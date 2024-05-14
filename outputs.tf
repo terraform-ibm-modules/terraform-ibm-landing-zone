@@ -188,7 +188,7 @@ output "vpc_names" {
 output "vpc_data" {
   description = "List of VPC data"
   value = [
-    for network in module.vpc :
+    for network in data.ibm_is_vpc.vpc :
     network
   ]
 }

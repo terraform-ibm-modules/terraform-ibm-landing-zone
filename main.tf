@@ -2,6 +2,21 @@
 # Create VPCs
 ##############################################################################
 
+data "ibm_is_vpc" "vpc" {
+  for_each   = module.vpc
+  identifier = each.value.vpc_id
+  depends_on = [time_sleep.wait_for_vpc_creation_data]
+}
+
+resource "time_sleep" "wait_for_vpc_creation_data" {
+  depends_on = [
+    resource.ibm_is_security_group.security_group,
+    resource.ibm_is_security_group_rule.security_group_rules,
+    module.vpc
+  ]
+  create_duration = "30s"
+}
+
 locals {
   vpc_map = module.dynamic_values.vpc_map
 }
@@ -12,7 +27,7 @@ locals {
 # Due to existing implicit dependencies we do not think this will be an issue, including auth policies for activity tracker.
 module "vpc" {
   source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                     = "7.17.1"
+  version                     = "7.18.1"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id

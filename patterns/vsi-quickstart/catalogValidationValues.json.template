@@ -1,1 +1,6 @@
-{"ibmcloud_api_key": $VALIDATION_APIKEY, "region": "eu-de", "resource_tags": $TAGS, "prefix": $PREFIX}
+{
+    "ibmcloud_api_key": $VALIDATION_APIKEY,
+    "region": "eu-de",
+    "resource_tags": $TAGS,
+    "prefix": $PREFIX
+}
