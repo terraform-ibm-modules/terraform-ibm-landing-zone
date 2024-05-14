@@ -1,10 +1,3 @@
 {
-    "scc_rules": [
-        {
-            "scc_rule_id": "rule-8cbd597c-7471-42bd-9c88-36b2696456e9",
-            "description": "Check whether Cloud Object Storage network access is restricted to a specific IP range",
-            "ignore_reason": "In order for this rule to pass, Context Based Restrictions (CBRs) support needs to be added to the module (tracking in https://github.ibm.com/GoldenEye/issues/issues/5626). Even after that is added, there is still a dependency on SCC to support scanning for CBR rules. SCC CBR support is being tracked in https://github.ibm.com/project-fortress/pm/issues/11800.",
-            "is_valid": true
-        }
-    ]
+    "scc_rules": []
 }
