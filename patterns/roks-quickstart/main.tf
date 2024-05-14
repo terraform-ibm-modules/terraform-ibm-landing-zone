@@ -32,7 +32,6 @@ locals {
       {
          "boot_volume_crk_name": "slz-vsi-volume-key",
          "cos_name": "cos",
-         "kms_config": null,
          "kube_type": "openshift",
          "kube_version": "${local.ocp_version}",
          "machine_type": "${var.flavor}",
