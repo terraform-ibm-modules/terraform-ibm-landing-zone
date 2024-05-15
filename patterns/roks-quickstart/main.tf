@@ -38,6 +38,7 @@ locals {
          "name": "workload-cluster",
          "resource_group": "workload-rg",
          "disable_outbound_traffic_protection": true,
+         "force_delete_storage": true
          "kms_config": {
             "crk_name": "roks-key",
             "private_endpoint": true

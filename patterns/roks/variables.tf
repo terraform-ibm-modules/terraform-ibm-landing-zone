@@ -199,6 +199,12 @@ variable "disable_outbound_traffic_protection" {
   default     = false
 }
 
+variable "force_delete_storage" {
+  type        = bool
+  description = "If set to true,force the removal of persistent storage associated with the cluster during cluster deletion."
+  default     = false
+}
+
 ##############################################################################
 
 
