@@ -50,6 +50,7 @@ module "roks_landing_zone" {
   byol_license_basekey                   = var.byol_license_basekey
   license_host                           = var.license_host
   license_username                       = var.license_username
+  disable_outbound_traffic_protection    = var.disable_outbound_traffic_protection
   license_password                       = var.license_password
   license_pool                           = var.license_pool
   license_sku_keyword_1                  = var.license_sku_keyword_1
