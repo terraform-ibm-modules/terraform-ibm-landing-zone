@@ -14,6 +14,7 @@
             "machine_type": "bx2.16x64",
             "name": "management-cluster",
             "resource_group": "slz-management-rg",
+            "disable_outbound_traffic_protection": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -48,6 +49,7 @@
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
+            "disable_outbound_traffic_protection": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
