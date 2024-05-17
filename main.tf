@@ -15,6 +15,7 @@ resource "time_sleep" "wait_for_vpc_creation_data" {
     resource.ibm_container_vpc_cluster.cluster,
     resource.ibm_container_vpc_worker_pool.pool,
     resource.ibm_is_virtual_endpoint_gateway.endpoint_gateway,
+    resource.ibm_tg_connection.connection,
     module.f5_vsi,
     module.vsi,
     module.vpc
