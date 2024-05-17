@@ -12,6 +12,11 @@ resource "time_sleep" "wait_for_vpc_creation_data" {
   depends_on = [
     resource.ibm_is_security_group.security_group,
     resource.ibm_is_security_group_rule.security_group_rules,
+    resource.ibm_container_vpc_cluster.cluster,
+    resource.ibm_container_vpc_worker_pool.pool,
+    resource.ibm_is_virtual_endpoint_gateway.endpoint_gateway,
+    module.f5_vsi,
+    module.vsi,
     module.vpc
   ]
   create_duration = "30s"
