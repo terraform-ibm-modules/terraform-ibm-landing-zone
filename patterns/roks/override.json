@@ -15,7 +15,7 @@
             "name": "management-cluster",
             "resource_group": "slz-management-rg",
             "disable_outbound_traffic_protection": false,
-            "force_delete_storage": false,
+            "cluster_force_delete_storage": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -51,7 +51,7 @@
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
             "disable_outbound_traffic_protection": false,
-            "force_delete_storage": false,
+            "cluster_force_delete_storage": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
