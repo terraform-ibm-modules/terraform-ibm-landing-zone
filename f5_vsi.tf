@@ -16,9 +16,11 @@ locals {
   # use the public image if the name is found
   # List of public images found in F5 schematics documentation
   # (https://github.com/f5devcentral/ibmcloud_schematics_bigip_multinic_public_images)
+  # Public image for eu-fr2 are same as eu-de (https://github.com/f5devcentral/ibmcloud_schematics_bigip_multinic_declared/blob/e0366282d5f4a64e1af8734658f123e01c69ca36/bigip_image_selector.py#L42)
   public_image_map = {
     f5-bigip-15-1-5-1-0-0-14-all-1slot = {
       "eu-de"    = "r010-b14deae9-43fd-4850-b89d-5d6485d61acb"
+      "eu-fr2"   = "r010-b14deae9-43fd-4850-b89d-5d6485d61acb"
       "jp-tok"   = "r022-cfdb6280-c200-4261-af3a-a8d44bbd18ba"
       "br-sao"   = "r042-3915f0e3-aadc-4fc9-95a8-840f8cb163de"
       "au-syd"   = "r026-ed57accf-b3d4-4ca9-a6a6-e0a63ee1aba4"
@@ -30,6 +32,7 @@ locals {
     }
     f5-bigip-15-1-5-1-0-0-14-ltm-1slot = {
       "eu-de"    = "r010-efad005b-4deb-45a8-b1c5-5b3cea55e7e3"
+      "eu-fr2"   = "r010-efad005b-4deb-45a8-b1c5-5b3cea55e7e3"
       "jp-tok"   = "r022-35126a90-aec2-4934-a628-d1ce90bcf68a"
       "br-sao"   = "r042-978cecaf-7f2a-44bc-bffd-ddcf6ce56b11"
       "au-syd"   = "r026-429369e1-d917-4d9c-8a8c-3a8606e26a72"
@@ -41,6 +44,7 @@ locals {
     }
     f5-bigip-16-1-2-2-0-0-28-ltm-1slot = {
       "eu-de"    = "r010-c90f3597-d03e-4ce6-8efa-870c782952cd"
+      "eu-fr2"   = "r010-c90f3597-d03e-4ce6-8efa-870c782952cd"
       "jp-tok"   = "r022-0da3fc1b-c243-4702-87cc-b5a7f5e1f035"
       "br-sao"   = "r042-0649e2fc-0d27-4950-99a8-1d968bc72dd5"
       "au-syd"   = "r026-9de34b46-fc95-4940-a074-e45ac986c761"
@@ -52,6 +56,7 @@ locals {
     }
     f5-bigip-16-1-2-2-0-0-28-all-1slot = {
       "eu-de"    = "r010-af6fa90b-ea18-48af-bfb9-a3605d60224d"
+      "eu-fr2"   = "r010-af6fa90b-ea18-48af-bfb9-a3605d60224d"
       "jp-tok"   = "r022-d2bffe3c-084e-43ae-b331-ec82b15af705"
       "br-sao"   = "r042-2dcd1226-5dd9-4b8d-89c5-5ba4f162b966"
       "au-syd"   = "r026-1f8b30f1-af86-433d-861c-7ff36d69176b"
@@ -63,6 +68,7 @@ locals {
     },
     f5-bigip-16-1-3-2-0-0-4-ltm-1slot = {
       "eu-de"    = "r010-d38b9af9-b345-40e6-8d7a-34cdfb7ffef9"
+      "eu-fr2"   = "r010-d38b9af9-b345-40e6-8d7a-34cdfb7ffef9"
       "jp-tok"   = "r022-4dc47d5a-a8eb-4e85-8bda-928db1067354"
       "br-sao"   = "r042-28930d14-46ab-4784-b2f4-e56d0e4eddfc"
       "au-syd"   = "r026-c9f7699f-9e06-4802-a3a3-3b03ef429c04"
@@ -74,6 +80,7 @@ locals {
     },
     f5-bigip-16-1-3-2-0-0-4-all-1slot = {
       "eu-de"    = "r010-92ba59fd-36b1-4ca5-a7c1-4581d10eed3a"
+      "eu-fr2"   = "r010-92ba59fd-36b1-4ca5-a7c1-4581d10eed3a"
       "jp-tok"   = "r022-32b33469-1b9d-49eb-8304-b287463849aa"
       "br-sao"   = "r042-5195b226-d799-415d-99e2-61868995a825"
       "au-syd"   = "r026-495c8dc6-f8e1-4df8-bcdd-98824f3673e5"
@@ -85,6 +92,7 @@ locals {
     },
     f5-bigip-17-0-0-1-0-0-4-ltm-1slot = {
       "eu-de"    = "r010-6e13ce99-e218-4837-b77a-b1a097cdb8be"
+      "eu-fr2"   = "r010-6e13ce99-e218-4837-b77a-b1a097cdb8be"
       "jp-tok"   = "r022-1a81f5b9-f178-46d6-9546-f6222f51ac09"
       "br-sao"   = "r042-0aa78ebd-3629-4f71-a225-d057ed910b19"
       "au-syd"   = "r026-ad311315-1cbf-4e38-b4da-334115ec5777"
@@ -96,6 +104,7 @@ locals {
     },
     f5-bigip-17-0-0-1-0-0-4-all-1slot = {
       "eu-de"    = "r010-9920ae90-8a5a-4d6e-bb39-8e124cfb6b36"
+      "eu-fr2"   = "r010-9920ae90-8a5a-4d6e-bb39-8e124cfb6b36"
       "jp-tok"   = "r022-9c278b7c-a74e-4db9-a037-af6ddff94fc5"
       "br-sao"   = "r042-9d99efd6-eec5-45bd-90b5-51b095ff9347"
       "au-syd"   = "r026-f75351ef-86b2-4966-82f0-5de9e38e2b04"
