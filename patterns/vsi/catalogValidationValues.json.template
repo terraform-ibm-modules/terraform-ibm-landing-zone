@@ -4,5 +4,6 @@
   "tags": $TAGS,
   "prefix": $PREFIX,
   "enable_transit_gateway": false,
-  "add_atracker_route": false
+  "add_atracker_route": false,
+  "ssh_public_key": $SSH_PUB_KEY
 }
