@@ -157,6 +157,9 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		TerraformDir:     dir,
 		Prefix:           prefix,
 		CloudInfoService: sharedInfoSvc,
+		TerraformVars: map[string]interface{}{
+			"entitlement": "cloud_pak",
+		},
 	})
 
 	return options
@@ -178,9 +181,6 @@ func TestRunROKSQuickStartPattern(t *testing.T) {
 func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
 	t.Parallel()
 
-	// REMOVE SKIP AFTER ROKS QUICKSTART MERGED TO MAIN
-	t.Skip("ATTENTION: Skipping ROKS Quickstart pattern upgrade test until new pattern has been merged to main")
-
 	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
 	output, err := options.RunTestUpgrade()
@@ -201,9 +201,12 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"tags":   options.Tags,
-		"region": options.Region,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"entitlement":            "cloud_pak",
+		"flavor":                 "bx2.4x16",
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -247,11 +250,12 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key":     sshPublicKey,
-		"prefix":             options.Prefix,
-		"tags":               options.Tags,
-		"region":             options.Region,
-		"add_atracker_route": add_atracker_route,
+		"ssh_public_key":         sshPublicKey,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"add_atracker_route":     add_atracker_route,
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -293,10 +297,11 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix":             options.Prefix,
-		"tags":               options.Tags,
-		"region":             options.Region,
-		"add_atracker_route": add_atracker_route,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"add_atracker_route":     add_atracker_route,
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -423,9 +428,10 @@ func TestRunVsiExtention(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix": prefix,
-			"region": region,
-			"tags":   tags,
+			"prefix":                 prefix,
+			"region":                 region,
+			"tags":                   tags,
+			"enable_transit_gateway": false,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
@@ -544,6 +550,7 @@ func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -564,6 +571,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -585,6 +593,9 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
+		{Name: "flavor", Value: "bx2.4x16", DataType: "string"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -605,6 +616,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()

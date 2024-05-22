@@ -5,6 +5,7 @@
 locals {
   default_ocp_version = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
   ocp_version         = var.kube_version == null || var.kube_version == "default" ? local.default_ocp_version : "${var.kube_version}_openshift"
+  entitlement_val     = var.entitlement == null ? "null" : "\"${var.entitlement}\""
 }
 
 data "ibm_container_cluster_versions" "cluster_versions" {
@@ -31,12 +32,12 @@ locals {
       {
          "boot_volume_crk_name": "slz-vsi-volume-key",
          "cos_name": "cos",
-         "kms_config": null,
          "kube_type": "openshift",
          "kube_version": "${local.ocp_version}",
          "machine_type": "${var.flavor}",
          "name": "workload-cluster",
          "resource_group": "workload-rg",
+         "disable_outbound_traffic_protection": true,
          "kms_config": {
             "crk_name": "roks-key",
             "private_endpoint": true
@@ -48,7 +49,7 @@ locals {
          "vpc_name": "workload",
          "worker_pools": [],
          "workers_per_subnet": 1,
-         "entitlement": "cloud_pak",
+         "entitlement": ${local.entitlement_val},
          "disable_public_endpoint": false
       }
    ],

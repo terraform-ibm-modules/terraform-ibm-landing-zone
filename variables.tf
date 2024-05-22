@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
   type        = string
 
   validation {
@@ -500,7 +500,7 @@ variable "cos" {
         cross_region_location = optional(string)
         kms_key               = optional(string)
         access_tags           = optional(list(string), [])
-        allowed_ip            = optional(list(string))
+        allowed_ip            = optional(list(string), [])
         hard_quota            = optional(number)
         archive_rule = optional(object({
           days    = number
@@ -642,7 +642,7 @@ variable "cos" {
 
   # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#region_location
   validation {
-    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-es`, `eu-gb`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
+    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-es`, `eu-gb`, `eu-fr2`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
     condition = length(
       [
         for site_bucket in flatten(
@@ -653,7 +653,7 @@ variable "cos" {
               bucket if lookup(bucket, "region_location", null) != null
             ]
           ]
-        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-es", "eu-gb", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
+        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-es", "eu-gb", "eu-fr2", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
       ]
     ) == 0
   }
@@ -811,23 +811,24 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name                    = string           # Name of Cluster
-      vpc_name                = string           # Name of VPC
-      subnet_names            = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet      = number           # Worker nodes per subnet.
-      machine_type            = string           # Worker node flavor
-      kube_type               = string           # iks or openshift
-      kube_version            = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      entitlement             = optional(string) # entitlement option for openshift
-      secondary_storage       = optional(string) # Secondary storage type
-      pod_subnet              = optional(string) # Portable subnet for pods
-      service_subnet          = optional(string) # Portable subnet for services
-      resource_group          = string           # Resource Group used for cluster
-      cos_name                = optional(string) # Name of COS instance Required only for OpenShift clusters
-      access_tags             = optional(list(string), [])
-      boot_volume_crk_name    = optional(string)     # Boot volume encryption key name
-      disable_public_endpoint = optional(bool, true) # disable cluster public, leaving only private endpoint
-      addons = optional(object({                     # Map of OCP cluster add-on versions to install
+      name                                = string           # Name of Cluster
+      vpc_name                            = string           # Name of VPC
+      subnet_names                        = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet                  = number           # Worker nodes per subnet.
+      machine_type                        = string           # Worker node flavor
+      kube_type                           = string           # iks or openshift
+      kube_version                        = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement                         = optional(string) # entitlement option for openshift
+      secondary_storage                   = optional(string) # Secondary storage type
+      pod_subnet                          = optional(string) # Portable subnet for pods
+      service_subnet                      = optional(string) # Portable subnet for services
+      resource_group                      = string           # Resource Group used for cluster
+      cos_name                            = optional(string) # Name of COS instance Required only for OpenShift clusters
+      access_tags                         = optional(list(string), [])
+      boot_volume_crk_name                = optional(string)      # Boot volume encryption key name
+      disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
+      disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
+      addons = optional(object({                                  # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)

@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 13 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters."
   type        = string
 
   validation {
@@ -182,6 +182,12 @@ variable "manage_all_cluster_addons" {
   default     = false
   nullable    = false # null values are set to default value
   description = "Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources."
+}
+
+variable "disable_outbound_traffic_protection" {
+  type        = bool
+  description = "Whether to allow public outbound access from the cluster workers. This is only applicable for Red Hat OpenShift 4.15."
+  default     = false
 }
 
 ##############################################################################
@@ -465,7 +471,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-1"
 }
 
 variable "teleport_license" {
