@@ -73,12 +73,33 @@ variable "vpcs" {
           })
         )
       )
-      resource_group              = optional(string) # Name of the group where VPC will be created
-      access_tags                 = optional(list(string), [])
-      classic_access              = optional(bool)
-      default_network_acl_name    = optional(string)
-      default_security_group_name = optional(string)
-      clean_default_sg_acl        = optional(bool, false)
+      resource_group                    = optional(string) # Name of the group where VPC will be created
+      access_tags                       = optional(list(string), [])
+      classic_access                    = optional(bool)
+      default_network_acl_name          = optional(string)
+      default_security_group_name       = optional(string)
+      clean_default_sg_acl              = optional(bool, false)
+      dns_binding_name                  = optional(string)
+      dns_instance_name                 = optional(string)
+      dns_custom_resolver_name          = optional(string)
+      dns_location                      = optional(string)
+      dns_plan                          = optional(string)
+      existing_dns_instance_id          = optional(string)
+      use_existing_dns_instance         = optional(bool, false)
+      enable_hub                        = optional(bool, false)
+      skip_spoke_auth_policy            = optional(bool, false)
+      hub_account_id                    = optional(string)
+      enable_hub_vpc_id                 = optional(bool, false)
+      hub_vpc_id                        = optional(string)
+      enable_hub_vpc_crn                = optional(bool, false)
+      hub_vpc_crn                       = optional(string)
+      update_delegated_resolver         = optional(bool, false)
+      skip_custom_resolver_hub_creation = optional(bool, false)
+      resolver_type                     = optional(string)
+      manual_servers = optional(list(object({
+        address       = string
+        zone_affinity = optional(string)
+      })))
       default_security_group_rules = optional(
         list(
           object({
