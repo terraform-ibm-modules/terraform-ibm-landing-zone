@@ -190,6 +190,12 @@ variable "disable_outbound_traffic_protection" {
   default     = false
 }
 
+variable "cluster_force_delete_storage" {
+  type        = bool
+  description = "Whether to delete persistent storage when the associated VPC cluster is deleted so that it can't be recovered. Set to true to force the removal of persistent storage. Set to false to skip the forceful deletion."
+  default     = false
+}
+
 ##############################################################################
 
 
