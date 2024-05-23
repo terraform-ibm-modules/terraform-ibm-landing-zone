@@ -91,6 +91,7 @@ locals {
         manage_all_addons                   = var.manage_all_cluster_addons
         boot_volume_crk_name                = "${var.prefix}-roks-key"
         disable_outbound_traffic_protection = var.disable_outbound_traffic_protection
+        cluster_force_delete_storage        = var.cluster_force_delete_storage
         # By default, create dedicated pool for logging
         worker_pools = [
           # {
