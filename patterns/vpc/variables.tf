@@ -456,13 +456,13 @@ variable "skip_all_s2s_auth_policies" {
 ##############################################################################
 
 variable "override" {
-  description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
+  description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment. You can use the landing zone configuration tool to customize your override.json file."
   type        = bool
   default     = false
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes. You can use the landing zone configuration tool to customize your override_json_string."
   type        = string
   default     = ""
 }

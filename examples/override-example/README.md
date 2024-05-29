@@ -9,3 +9,5 @@ The example deploys the following infrastructure:
 - A jump server VSI in the management VPC, exposing a public floating IP address.
 
 :exclamation: **Important:** This example shows how to customize the topology with a JSON configuration file. The topology is not highly available or validated for the IBM Cloud Framework for Financial Services.
+
+You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to customize your deployable architecture.
