@@ -505,7 +505,7 @@ variable "override" {
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://setup.deploy-arch-ibm-slz-vpc.cloud.ibm.com/) to create the JSON."
   type        = string
   default     = ""
 }
