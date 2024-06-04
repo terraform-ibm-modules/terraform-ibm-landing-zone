@@ -573,7 +573,7 @@ variable "override" {
 }
 
 variable "override_json_string" {
-  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://setup.deploy-arch-ibm-slz-vpc.cloud.ibm.com/) to create the JSON."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
 }
