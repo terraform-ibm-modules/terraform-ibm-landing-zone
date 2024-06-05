@@ -135,3 +135,39 @@ output "config" {
 }
 
 ##############################################################################
+
+##############################################################################
+# CBR output
+##############################################################################
+
+output "zone_ids" {
+  value       = module.landing_zone.zone_ids
+  description = "CBR zone resource instance id(s)"
+}
+
+output "zone_crns" {
+  value       = module.landing_zone.zone_crns
+  description = "CBR zone crn(s)"
+}
+
+output "zone_hrefs" {
+  value       = module.landing_zone.zone_hrefs
+  description = "CBR zone href(s)"
+}
+
+output "rule_ids" {
+  value       = module.landing_zone.rule_ids
+  description = "CBR rule id(s)"
+}
+
+output "rule_crns" {
+  value       = module.landing_zone.rule_crns
+  description = "CBR rule crn(s)"
+}
+
+output "rule_hrefs" {
+  value       = module.landing_zone.rule_hrefs
+  description = "CBR rule href(s)"
+}
+
+##############################################################################
