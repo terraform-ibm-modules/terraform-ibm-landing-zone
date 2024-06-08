@@ -2,12 +2,12 @@ module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 
 go 1.21
 
-toolchain go1.22.3
+toolchain go1.22.4
 
 require (
 	github.com/gruntwork-io/terratest v0.46.15
 	github.com/stretchr/testify v1.9.0
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.34.1
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.35.1
 )
 
 require github.com/IBM/schematics-go-sdk v0.2.3 // indirect
@@ -22,8 +22,8 @@ require (
 	github.com/IBM-Cloud/bluemix-go v0.0.0-20240423071914-9e96525baef4 // indirect
 	github.com/IBM-Cloud/power-go-client v1.6.0 // indirect
 	github.com/IBM/cloud-databases-go-sdk v0.7.0 // indirect
-	github.com/IBM/go-sdk-core/v5 v5.17.2 // indirect
-	github.com/IBM/platform-services-go-sdk v0.62.11 // indirect
+	github.com/IBM/go-sdk-core/v5 v5.17.3 // indirect
+	github.com/IBM/platform-services-go-sdk v0.63.1 // indirect
 	github.com/IBM/project-go-sdk v0.3.0 // indirect
 	github.com/IBM/vpc-go-sdk v1.0.2 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
@@ -73,7 +73,7 @@ require (
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.17.0 // indirect
-	github.com/hashicorp/terraform-json v0.21.0 // indirect
+	github.com/hashicorp/terraform-json v0.22.1 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/jinzhu/copier v0.4.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
@@ -96,20 +96,20 @@ require (
 	github.com/tmccombs/hcl2json v0.5.0 // indirect
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	github.com/zclconf/go-cty v1.14.1 // indirect
+	github.com/zclconf/go-cty v1.14.4 // indirect
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/otel v1.16.0 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
-	golang.org/x/crypto v0.23.0 // indirect
-	golang.org/x/mod v0.14.0 // indirect
-	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/crypto v0.24.0 // indirect
+	golang.org/x/mod v0.17.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
-	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
-	golang.org/x/tools v0.16.1 // indirect
+	golang.org/x/sync v0.7.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/api v0.127.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
