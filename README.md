@@ -124,6 +124,8 @@ The second route is to use the `override.json` to create a fully customized envi
 
 Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
 
+:information_source: **Tip:** You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON.
+
 #### Overriding variables
 
 After every execution of `terraform apply`, a JSON-encoded definition is output. This definition of your environment is based on the defaults for the Landing Zone and any variables that are changed in the `override.json` file. You can then use the output in the `override.json` file.
@@ -849,15 +851,15 @@ module "cluster_pattern" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.2.4 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.3.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.2.4 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.3.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.18.0 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.2.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.18.2 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.3.0 |
 
 ### Resources
 
