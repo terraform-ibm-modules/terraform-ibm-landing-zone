@@ -59,7 +59,7 @@ The IDs, such as {: #title-id} are required for publishing this reference archit
 the toc attributes on the H1, repeating the values from the YAML header.
  -->
 
-This reference architecture summarizes deployment and the best practices for setting of core security sercices and its associated dependency on IBM Cloud. IBM Cloud's core security services are crucial for ensuring robust security and compliance for cloud-based applications and data. Primary goal is to provide framework for secure and compliant IBM Cloud Workloads.
+This reference architecture summarizes the deployment and best practices on IBM Cloud for setting core security services and their associated dependencies. IBM Cloud's core security services are crucial for ensuring robust security and compliance for cloud-based applications and data. Their primary goal is to provide framework for secure and compliant IBM Cloud workloads.
 
 Here’s a brief overview of each service:
 
