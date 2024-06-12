@@ -49,7 +49,7 @@ or tile in the IBM Cloud catalog, match the title to the catalog. See
 https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
 -->
 
-# Core Security Services Stack on IBM Cloud
+# Core security services
 {: #genai-pattern}
 {: toc-content-type="reference-architecture"}
 {: toc-version="1.0"}
