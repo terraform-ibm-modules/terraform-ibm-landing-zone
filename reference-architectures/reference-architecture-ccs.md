@@ -76,9 +76,9 @@ This reference architecture showcases how these services form a foundational sec
 ## Architecture diagram
 {: #architecture-diagram}
 
-The below diagram represents the architecture for Core Security Services on IBM cloud and reuses the [best practices](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-about) for IBM Cloud for Financial Services.
+The following diagram represents the architecture for Core Security Services on IBM Cloud and reuses the [best practices](/docs/framework-financial-services?topic=framework-financial-services-about) for IBM Cloud for Financial Services.
 
-![Architecture.](core-security-services-architecture.svg "Architecture"){: caption="Figure 1. Reference Architecture" caption-side="bottom"}
+![Architecture.](core-security-services-architecture.svg "Architecture"){: caption="Figure 1. Architecture diagram" caption-side="bottom"}
 
 The architecture is anchored by three fundamental services: Key Protect, Secrets Manager, and IBM Cloud Security Services and Workload Protection. These services provide integration endpoints for any customer workload hosted on IBM Cloud.
 
