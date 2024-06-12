@@ -154,4 +154,4 @@ The following table outlines the products or services used in the architecture f
 - Ensure the IBM Key Protect service has high availability
 
 **Security and Compliance Center (SCC)** <br>
-This reference architecture utilizes the Security and Compliance Center (SCC) which defines policy as code, implements controls for secure data and workload deployments and assess security and compliance posture. For this reference architecture the CIS IBM Cloud Foundations Benchmark is used. A profile is a grouping of controls that can be evaluated for compliance.
+This reference architecture utilizes the Security and Compliance Center, which defines policy as code, implements controls for secure data and workload deployments, and assesses security and compliance posture. For this reference architecture, the CIS IBM Cloud Foundations Benchmark is used. A profile is a grouping of controls that can be evaluated for compliance.
