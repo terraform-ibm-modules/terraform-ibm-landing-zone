@@ -147,11 +147,11 @@ The following table outlines the products or services used in the architecture f
 ## Compliance
 {: #compliance}
 
-- Ensure Cloud Object Storage encryption is enabled with BYOK
+- Ensure Object Storage encryption is enabled with BYOK
 - Ensure Activity Tracker data is encrypted at rest
-- Ensure Activity Tracker trails are integrated with LogDNA Logs
-- Ensure IBM Key Protect has automated rotation for customer managed keys enabled
-- Ensure the IBM Key Protect service has high availability
+- Ensure Activity Tracker trails are integrated with Log Analysis logs
+- Ensure Key Protect has automated rotation enabled for customer-managed keys
+- Ensure that the Key Protect service instance is highly available
 
 **Security and Compliance Center (SCC)** <br>
 This reference architecture utilizes the Security and Compliance Center, which defines policy as code, implements controls for secure data and workload deployments, and assesses security and compliance posture. For this reference architecture, the CIS IBM Cloud Foundations Benchmark is used. A profile is a grouping of controls that can be evaluated for compliance.
