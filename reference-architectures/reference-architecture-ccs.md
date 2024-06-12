@@ -30,7 +30,7 @@ industry: SoftwareAndPlatformApplications, Technology, Banking, FinancialSector
 
 compliance: CIS Benchmarks
 
-docs: https://cloud.ibm.com/docs/<subsection>
+docs: https://cloud.ibm.com/docs/security-services
 
 content-type: reference-architecture
 
