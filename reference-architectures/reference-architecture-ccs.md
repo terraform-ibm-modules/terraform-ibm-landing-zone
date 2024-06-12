@@ -95,7 +95,7 @@ Secrets Manager securely stores and manages sensitive information, including API
 The Security Compliance Center instance is preconfigured to scan all resources provisioned by the reference architecture. It can be expanded to accommodate the unique workloads of customers.
 
 
-Cloud Object Storage (COS) buckets are set up to receive logs from Logging and Alerting Services. Each bucket is configured to encrypt data at rest using encryption keys managed by Key Protect.
+IBM Cloud Object Storage buckets are set up to receive logs from Logging and Alerting Services. Each bucket is configured to encrypt data at rest by using encryption keys managed by Key Protect.
 
 ## Design concepts
 {: #design-concepts}
