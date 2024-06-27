@@ -79,18 +79,25 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet              = var.workers_per_zone
-        machine_type                    = var.flavor
-        kube_type                       = "openshift"
-        kube_version                    = var.kube_version
-        disable_public_endpoint         = var.disable_public_endpoint
-        verify_worker_network_readiness = var.verify_worker_network_readiness
-        resource_group                  = "${var.prefix}-${network}-rg"
-        secondary_storage               = var.secondary_storage
-        cos_name                        = "cos"
-        entitlement                     = var.entitlement
-        boot_volume_crk_name            = "${var.prefix}-roks-key"
-
+        workers_per_subnet                  = var.workers_per_zone
+        machine_type                        = var.flavor
+        kube_type                           = "openshift"
+        kube_version                        = var.kube_version
+        disable_public_endpoint             = var.disable_public_endpoint
+        use_private_endpoint                = var.use_private_endpoint
+        verify_worker_network_readiness     = var.verify_worker_network_readiness
+        resource_group                      = "${var.prefix}-${network}-rg"
+        secondary_storage                   = var.secondary_storage
+        cos_name                            = "cos"
+        entitlement                         = var.entitlement
+        addons                              = var.cluster_addons
+        manage_all_addons                   = var.manage_all_cluster_addons
+        boot_volume_crk_name                = "${var.prefix}-roks-key"
+        disable_outbound_traffic_protection = var.disable_outbound_traffic_protection
+        cluster_force_delete_storage        = var.cluster_force_delete_storage
+        minimum_size                        = var.minimum_size
+        maximum_size                        = var.maximum_size
+        enable_autoscaling                  = var.enable_autoscaling
         worker_pools = [
           # {
           #   name     = "logging-worker-pool"

@@ -59,7 +59,9 @@ module "kms_to_block_storage" {
   ]
 }
 
-# workaround for https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/645
+# Required service authorization access policy for Kubernetes Service and the KMS provider.
+# This auth-policy only gets auto created if doing cluster data encryption.
+# But for boot volume encryption, this policy needs to exist before cluster creation hence we need to explicitly create it.
 module "kube_to_kms" {
   source = "../list_to_map"
   list = [

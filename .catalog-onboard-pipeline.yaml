@@ -5,21 +5,23 @@ offerings:
     kind: solution
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
     offering_id: ef663980-4c71-4fac-af4f-4a510a9bcf68
+    include_git_submodules: true
     variations:
       - name: quickstart
         mark_ready: false
         install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_key patterns/vsi-quickstart"
+        validation_type: projects
       - name: standard
         mark_ready: false
         install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-generate-ssh-key.sh ssh_public_key patterns/vsi"
+        validation_type: projects
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
       - name: existing-vpc
         mark_ready: false
         install_type: extension
+        validation_type: projects
         pre_validation: "tests/scripts/pre-validation-deploy-slz-vpc.sh"
         post_validation: "tests/scripts/post-validation-destroy-slz-vpc.sh"
         scc:
@@ -29,10 +31,12 @@ offerings:
     kind: solution
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
     offering_id: 9fc0fa64-27af-4fed-9dce-47b3640ba739
+    include_git_submodules: true
     variations:
       - name: standard
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
@@ -40,10 +44,16 @@ offerings:
     kind: solution
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
     offering_id: 95fccffc-ae3b-42df-b6d9-80be5914d852
+    include_git_submodules: true
     variations:
       - name: standard
         mark_ready: false
         install_type: fullstack
+        validation_type: projects
         scc:
           instance_id: 1c7d5f78-9262-44c3-b779-b28fe4d88c37
           region: us-south
+      - name: quickstart
+        mark_ready: false
+        install_type: fullstack
+        validation_type: projects

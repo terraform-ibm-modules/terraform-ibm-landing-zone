@@ -21,7 +21,6 @@ locals {
 
 module "roks_landing_zone" {
   source                                 = "./module"
-  ibmcloud_api_key                       = var.ibmcloud_api_key
   prefix                                 = var.prefix
   region                                 = var.region
   tags                                   = var.tags
@@ -36,6 +35,8 @@ module "roks_landing_zone" {
   workers_per_zone                       = var.workers_per_zone
   flavor                                 = var.flavor
   kube_version                           = var.kube_version
+  cluster_addons                         = var.cluster_addons
+  manage_all_cluster_addons              = var.manage_all_cluster_addons
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
@@ -49,6 +50,8 @@ module "roks_landing_zone" {
   byol_license_basekey                   = var.byol_license_basekey
   license_host                           = var.license_host
   license_username                       = var.license_username
+  disable_outbound_traffic_protection    = var.disable_outbound_traffic_protection
+  cluster_force_delete_storage           = var.cluster_force_delete_storage
   license_password                       = var.license_password
   license_pool                           = var.license_pool
   license_sku_keyword_1                  = var.license_sku_keyword_1
@@ -91,6 +94,10 @@ module "roks_landing_zone" {
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
   disable_public_endpoint                = var.disable_public_endpoint
+  use_private_endpoint                   = var.use_private_endpoint
+  minimum_size                           = var.minimum_size
+  maximum_size                           = var.maximum_size
+  enable_autoscaling                     = var.enable_autoscaling
   verify_worker_network_readiness        = var.verify_worker_network_readiness
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
 }

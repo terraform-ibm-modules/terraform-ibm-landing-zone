@@ -45,7 +45,6 @@ else
                             break
                         elif [[ "$status" == "FAILED" ]]; then
                             echo "ERROR::Unfortunately, the Schematics workspace is in a FAILED state. Please review the workspace and try running the following command manually:"
-                            echo "ibmcloud schematics workspace state mv --id "$WS_ID" --source 'module.landing_zone.ibm_container_vpc_worker_pool.pool[\"$pool\"]' --destination 'module.landing_zone.module.cluster[\"$cluster\"].ibm_container_vpc_worker_pool.pool[\"$pool_name\"]'"
                             break
                         fi
                         sleep 10

@@ -1,14 +1,8 @@
 ##############################################################################
 # Account Variables
 ##############################################################################
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 13 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters."
   type        = string
 
   validation {
@@ -168,6 +162,30 @@ variable "disable_public_endpoint" {
   default     = true
 }
 
+variable "minimum_size" {
+  type        = number
+  description = "Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to."
+  default     = 1
+}
+
+variable "maximum_size" {
+  type        = number
+  description = "Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to."
+  default     = 3
+}
+
+variable "enable_autoscaling" {
+  type        = bool
+  description = "Flag to set cluster autoscaler to manage scaling for the worker pool."
+  default     = true
+}
+
+variable "use_private_endpoint" {
+  type        = bool
+  description = "Set this to true to force all cluster related api calls to use the IBM Cloud private endpoints."
+  default     = false
+}
+
 variable "verify_worker_network_readiness" {
   type        = bool
   description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
@@ -178,6 +196,39 @@ variable "secondary_storage" {
   description = "Optionally specify a secondary storage option to attach to all cluster worker nodes. This value is immutable and can't be changed after provisioning. Use the IBM Cloud CLI command ibmcloud ks flavors to find valid options, e.g ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1."
   type        = string
   default     = null
+}
+
+variable "cluster_addons" {
+  type = object({
+    debug-tool                = optional(string)
+    image-key-synchronizer    = optional(string)
+    openshift-data-foundation = optional(string)
+    vpc-file-csi-driver       = optional(string)
+    static-route              = optional(string)
+    cluster-autoscaler        = optional(string)
+    vpc-block-csi-driver      = optional(string)
+  })
+  description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
+  default     = null
+}
+
+variable "manage_all_cluster_addons" {
+  type        = bool
+  default     = false
+  nullable    = false # null values are set to default value
+  description = "Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources."
+}
+
+variable "disable_outbound_traffic_protection" {
+  type        = bool
+  description = "Whether to allow public outbound access from the cluster workers. This is only applicable for Red Hat OpenShift 4.15."
+  default     = false
+}
+
+variable "cluster_force_delete_storage" {
+  type        = bool
+  description = "Whether to delete persistent storage when the associated VPC cluster is deleted so that it can't be recovered. Set to true to force the removal of persistent storage. Set to false to skip the forceful deletion."
+  default     = false
 }
 
 ##############################################################################
@@ -461,7 +512,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -558,7 +609,7 @@ variable "override" {
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
 }

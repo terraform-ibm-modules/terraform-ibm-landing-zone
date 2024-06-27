@@ -112,6 +112,9 @@ locals {
           private_endpoint = true
         }
         workers_per_subnet              = var.workers_per_zone
+        minimum_size                    = var.minimum_size
+        maximum_size                    = var.maximum_size
+        enable_autoscaling              = var.enable_autoscaling
         machine_type                    = var.flavor
         kube_type                       = "openshift"
         kube_version                    = var.kube_version
@@ -120,6 +123,7 @@ locals {
         entitlement                     = var.entitlement
         secondary_storage               = var.secondary_storage
         disable_public_endpoint         = var.disable_public_endpoint
+        use_private_endpoint            = var.use_private_endpoint
         verify_worker_network_readiness = var.verify_worker_network_readiness
         boot_volume_crk_name            = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
@@ -133,6 +137,9 @@ locals {
             ]
             entitlement          = var.entitlement
             workers_per_subnet   = var.workers_per_zone
+            minimum_size         = var.minimum_size
+            maximum_size         = var.maximum_size
+            enable_autoscaling   = var.enable_autoscaling
             flavor               = var.flavor
             secondary_storage    = var.secondary_storage
             boot_volume_crk_name = "${var.prefix}-roks-key"

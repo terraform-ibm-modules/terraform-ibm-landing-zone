@@ -15,6 +15,7 @@
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
             "disable_public_endpoint": true,
+            "use_private_endpoint": false,
             "verify_worker_network_readiness": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
@@ -36,10 +37,16 @@
                         "vsi-zone-3"
                     ],
                     "vpc_name": "workload",
-                    "workers_per_subnet": 2
+                    "workers_per_subnet": 2,
+                    "minimum_size": 2,
+                    "maximum_size": 3,
+                    "enable_autoscaling": true
                 }
             ],
-            "workers_per_subnet": 2
+            "workers_per_subnet": 2,
+            "minimum_size": 2,
+            "maximum_size": 3,
+            "enable_autoscaling": true
         }
     ],
     "cos": [

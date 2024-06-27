@@ -1,13 +1,9 @@
 ##############################################################################
 # Account Variables
 ##############################################################################
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
+
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a letter and end with a letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
   type        = string
 
   validation {
@@ -77,12 +73,33 @@ variable "vpcs" {
           })
         )
       )
-      resource_group              = optional(string) # Name of the group where VPC will be created
-      access_tags                 = optional(list(string), [])
-      classic_access              = optional(bool)
-      default_network_acl_name    = optional(string)
-      default_security_group_name = optional(string)
-      clean_default_sg_acl        = optional(bool, false)
+      resource_group                    = optional(string) # Name of the group where VPC will be created
+      access_tags                       = optional(list(string), [])
+      classic_access                    = optional(bool)
+      default_network_acl_name          = optional(string)
+      default_security_group_name       = optional(string)
+      clean_default_sg_acl              = optional(bool, false)
+      dns_binding_name                  = optional(string, null)
+      dns_instance_name                 = optional(string, null)
+      dns_custom_resolver_name          = optional(string, null)
+      dns_location                      = optional(string, "global")
+      dns_plan                          = optional(string, "standard-dns")
+      existing_dns_instance_id          = optional(string, null)
+      use_existing_dns_instance         = optional(bool, false)
+      enable_hub                        = optional(bool, false)
+      skip_spoke_auth_policy            = optional(bool, false)
+      hub_account_id                    = optional(string, null)
+      enable_hub_vpc_id                 = optional(bool, false)
+      hub_vpc_id                        = optional(string, null)
+      enable_hub_vpc_crn                = optional(bool, false)
+      hub_vpc_crn                       = optional(string, null)
+      update_delegated_resolver         = optional(bool, false)
+      skip_custom_resolver_hub_creation = optional(bool, false)
+      resolver_type                     = optional(string, null)
+      manual_servers = optional(list(object({
+        address       = string
+        zone_affinity = optional(string)
+      })), [])
       default_security_group_rules = optional(
         list(
           object({
@@ -169,18 +186,21 @@ variable "vpcs" {
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
         zone-2 = list(object({
           name           = string
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
         zone-3 = list(object({
           name           = string
           cidr           = string
           public_gateway = optional(bool)
           acl_name       = string
+          no_addr_prefix = optional(bool, false)
         }))
       }))
     })
@@ -501,7 +521,7 @@ variable "cos" {
         cross_region_location = optional(string)
         kms_key               = optional(string)
         access_tags           = optional(list(string), [])
-        allowed_ip            = optional(list(string))
+        allowed_ip            = optional(list(string), [])
         hard_quota            = optional(number)
         archive_rule = optional(object({
           days    = number
@@ -643,7 +663,7 @@ variable "cos" {
 
   # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#region_location
   validation {
-    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-es`, `eu-gb`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
+    error_message = "All regional buckets must specify `au-syd`, `eu-de`, `eu-es`, `eu-gb`, `eu-fr2`, `jp-tok`, `us-east`, `us-south`, `ca-tor`, `jp-osa`, `br-sao`."
     condition = length(
       [
         for site_bucket in flatten(
@@ -654,7 +674,7 @@ variable "cos" {
               bucket if lookup(bucket, "region_location", null) != null
             ]
           ]
-        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-es", "eu-gb", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
+        ) : site_bucket if !contains(["au-syd", "eu-de", "eu-es", "eu-gb", "eu-fr2", "jp-tok", "us-east", "us-south", "ca-tor", "jp-osa", "br-sao"], site_bucket.region_location)
       ]
     ) == 0
   }
@@ -704,7 +724,7 @@ variable "cos" {
 ##############################################################################
 
 variable "service_endpoints" {
-  description = "Service endpoints. Can be `public`, `private`, or `public-and-private`"
+  description = "Service endpoints for the App ID resource when created by the module. Can be `public`, `private`, or `public-and-private`"
   type        = string
   default     = "public-and-private"
 
@@ -717,11 +737,12 @@ variable "service_endpoints" {
 variable "key_management" {
   description = "Key Protect instance variables"
   type = object({
-    name           = optional(string)
-    resource_group = optional(string)
-    use_data       = optional(bool)
-    use_hs_crypto  = optional(bool)
-    access_tags    = optional(list(string), [])
+    name              = optional(string)
+    resource_group    = optional(string)
+    use_data          = optional(bool)
+    use_hs_crypto     = optional(bool)
+    access_tags       = optional(list(string), [])
+    service_endpoints = optional(string, "public-and-private")
     keys = optional(
       list(
         object({
@@ -778,6 +799,10 @@ variable "key_management" {
     condition     = length(flatten([for key in var.key_management.keys : key if(lookup(key, "existing_key_crn", null) == null) && var.key_management.name == null])) == 0
     error_message = "Please provide kms name to be created."
   }
+  validation {
+    condition     = contains(["private", "public-and-private"], var.key_management.service_endpoints)
+    error_message = "KMS Service Endpoint must be one of: private, public-and-private"
+  }
 }
 
 ##############################################################################
@@ -807,23 +832,39 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name                            = string           # Name of Cluster
-      vpc_name                        = string           # Name of VPC
-      subnet_names                    = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet              = number           # Worker nodes per subnet.
-      machine_type                    = string           # Worker node flavor
-      kube_type                       = string           # iks or openshift
-      kube_version                    = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      disable_public_endpoint         = optional(bool)   # Flag indicating that the public endpoint should be disabled
-      verify_worker_network_readiness = optional(bool)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
-      entitlement                     = optional(string) # entitlement option for openshift
-      pod_subnet                      = optional(string) # Portable subnet for pods
-      service_subnet                  = optional(string) # Portable subnet for services
-      secondary_storage               = optional(string) # Secondary storage type
-      resource_group                  = string           # Resource Group used for cluster
-      cos_name                        = optional(string) # Name of COS instance Required only for OpenShift clusters
-      access_tags                     = optional(list(string), [])
-      boot_volume_crk_name            = optional(string) # Boot volume encryption key name
+      name                                = string           # Name of Cluster
+      vpc_name                            = string           # Name of VPC
+      subnet_names                        = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet                  = number           # Worker nodes per subnet.
+      machine_type                        = string           # Worker node flavor
+      kube_type                           = string           # iks or openshift
+      kube_version                        = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement                         = optional(string) # entitlement option for openshift
+      secondary_storage                   = optional(string) # Secondary storage type
+      pod_subnet                          = optional(string) # Portable subnet for pods
+      service_subnet                      = optional(string) # Portable subnet for services
+      resource_group                      = string           # Resource Group used for cluster
+      cos_name                            = optional(string) # Name of COS instance Required only for OpenShift clusters
+      access_tags                         = optional(list(string), [])
+      boot_volume_crk_name                = optional(string)      # Boot volume encryption key name
+      disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
+      disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
+      cluster_force_delete_storage        = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion
+      verify_worker_network_readiness     = optional(bool)        # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
+      use_private_endpoint                = optional(bool, false) # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.
+      minimum_size                        = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
+      maximum_size                        = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
+      enable_autoscaling                  = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
+      addons = optional(object({                                  # Map of OCP cluster add-on versions to install
+        debug-tool                = optional(string)
+        image-key-synchronizer    = optional(string)
+        openshift-data-foundation = optional(string)
+        vpc-file-csi-driver       = optional(string)
+        static-route              = optional(string)
+        cluster-autoscaler        = optional(string)
+        vpc-block-csi-driver      = optional(string)
+      }), {})
+      manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
         object({
           crk_name         = string         # Name of key
@@ -833,14 +874,17 @@ variable "clusters" {
       worker_pools = optional(
         list(
           object({
-            name                 = string           # Worker pool name
-            vpc_name             = string           # VPC name
-            workers_per_subnet   = number           # Worker nodes per subnet
-            flavor               = string           # Worker node flavor
-            subnet_names         = list(string)     # List of vpc subnets for worker pool
-            entitlement          = optional(string) # entitlement option for openshift
-            secondary_storage    = optional(string) # Secondary storage type
-            boot_volume_crk_name = optional(string) # Boot volume encryption key name
+            name                 = string                # Worker pool name
+            vpc_name             = string                # VPC name
+            workers_per_subnet   = number                # Worker nodes per subnet
+            flavor               = string                # Worker node flavor
+            subnet_names         = list(string)          # List of vpc subnets for worker pool
+            entitlement          = optional(string)      # entitlement option for openshift
+            secondary_storage    = optional(string)      # Secondary storage type
+            boot_volume_crk_name = optional(string)      # Boot volume encryption key name
+            minimum_size         = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
+            maximum_size         = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
+            enable_autoscaling   = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
           })
         )
       )

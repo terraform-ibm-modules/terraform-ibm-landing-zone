@@ -17,7 +17,6 @@ provider "ibm" {
 
 module "landing_zone" {
   source                                 = "../../"
-  ibmcloud_api_key                       = var.ibmcloud_api_key
   prefix                                 = var.prefix
   region                                 = var.region
   tags                                   = var.tags

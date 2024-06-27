@@ -14,8 +14,9 @@
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
-            "disable_public_endpoint" : true,
-            "verify_worker_network_readiness" : false,
+            "disable_public_endpoint": true,
+            "use_private_endpoint": false,
+            "verify_worker_network_readiness": false,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -37,10 +38,16 @@
                         "vsi-zone-3"
                     ],
                     "vpc_name": "workload",
-                    "workers_per_subnet": 2
+                    "workers_per_subnet": 2,
+                    "minimum_size": 2,
+                    "maximum_size": 3,
+                    "enable_autoscaling": true
                 }
             ],
-            "workers_per_subnet": 2
+            "workers_per_subnet": 2,
+            "minimum_size": 2,
+            "maximum_size": 3,
+            "enable_autoscaling": true
         }
     ],
     "cos": [
@@ -54,7 +61,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -65,17 +72,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
-                    },
-                    "activity_tracking": {
-                        "read_data_events": true,
-                        "write_data_events": true,
-                        "activity_tracker_crn": "activity-tracker-crn"
-                    },
-                        "metrics_monitoring": {
-                        "usage_metrics_enabled": true,
-                        "request_metrics_enabled": true,
-                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                        "type": "Glacier"
                     }
                 }
             ],
@@ -101,7 +98,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -112,17 +109,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
-                    },
-                    "activity_tracking": {
-                        "read_data_events": true,
-                        "write_data_events": true,
-                        "activity_tracker_crn": "activity-tracker-crn"
-                    },
-                        "metrics_monitoring": {
-                        "usage_metrics_enabled": true,
-                        "request_metrics_enabled": true,
-                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                        "type": "Glacier"
                     }
                 },
                 {
@@ -133,7 +120,7 @@
                     "storage_class": "standard",
                     "region_location": "us-south",
                     "hard_quota": 0,
-                    "allowed_ip": ["10.10.10.10/24"],
+                    "allowed_ip": [],
                     "expire_rule": {
                         "rule_id": "a-bucket-expire-rule",
                         "enable": true,
@@ -144,17 +131,7 @@
                         "rule_id": "a-bucket-arch-rule",
                         "enable": true,
                         "days": 0,
-                        "type": "GLACIER"
-                    },
-                    "activity_tracking": {
-                        "read_data_events": true,
-                        "write_data_events": true,
-                        "activity_tracker_crn": "activity-tracker-crn"
-                    },
-                        "metrics_monitoring": {
-                        "usage_metrics_enabled": true,
-                        "request_metrics_enabled": true,
-                        "metrics_monitoring_crn": "metrics-monitor-crn"
+                        "type": "Glacier"
                     }
                 }
             ],
@@ -192,7 +169,8 @@
         ],
         "name": "slz-slz-kms",
         "resource_group": "slz-service-rg",
-        "use_hs_crypto": false
+        "use_hs_crypto": false,
+        "service_endpoints": "public-and-private"
     },
     "resource_groups": [
         {
@@ -435,7 +413,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
+            "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {

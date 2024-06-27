@@ -1,4 +1,4 @@
-# [submodule "common-dev-assets"]
-# 	path = common-dev-assets
-# 	url = https://github.com/terraform-ibm-modules/common-dev-assets
-# 	branch = main
+[submodule "common-dev-assets"]
+	path = common-dev-assets
+	url = https://github.com/terraform-ibm-modules/common-dev-assets
+	branch = main

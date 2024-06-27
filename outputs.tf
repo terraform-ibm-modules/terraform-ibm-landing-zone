@@ -80,6 +80,16 @@ output "cluster_names" {
   ])
 }
 
+output "workload_cluster_id" {
+  description = "The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
+  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-workload-cluster", null) != null ? ibm_container_vpc_cluster.cluster["${var.prefix}-workload-cluster"].id : null
+}
+
+output "management_cluster_id" {
+  description = "The id of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null."
+  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-management-cluster", null) != null ? ibm_container_vpc_cluster.cluster["${var.prefix}-management-cluster"].id : null
+}
+
 output "cluster_data" {
   description = "List of cluster data"
   value       = local.cluster_data
@@ -174,8 +184,13 @@ output "vpc_names" {
 output "vpc_data" {
   description = "List of VPC data"
   value = [
-    for network in module.vpc :
-    network
+    for k, a in module.vpc :
+    merge(
+      a,
+      {
+        vpc_data = data.ibm_is_vpc.vpc[k]
+      }
+    )
   ]
 }
 

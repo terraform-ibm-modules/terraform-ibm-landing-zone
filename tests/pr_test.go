@@ -25,6 +25,7 @@ import (
 
 const quickStartPatternTerraformDir = "patterns/vsi-quickstart"
 const iksExampleTerraformDir = "examples/one-vsi-one-iks"
+const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
@@ -33,9 +34,6 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
-
-// Setting "service_endpoints" to `private` to test support for 'private' service_endpoints (schematics have access to private network).
-const service_endpoints = "private"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
@@ -56,7 +54,7 @@ func TestMain(m *testing.M) {
 
 	// ENABLE SCHEMATICS TESTS
 	// To enable Schematics tests, and skip terratest for patterns, set boolean to true
-	enableSchematicsTests = false
+	enableSchematicsTests = true
 
 	os.Exit(m.Run())
 }
@@ -82,10 +80,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 			"ssh_key": sshPublicKey,
 		},
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	return options
@@ -157,6 +151,46 @@ func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	}
 }
 
+func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:          t,
+		TerraformDir:     dir,
+		Prefix:           prefix,
+		CloudInfoService: sharedInfoSvc,
+		TerraformVars: map[string]interface{}{
+			"entitlement": "cloud_pak",
+		},
+	})
+
+	return options
+}
+
+func TestRunROKSQuickStartPattern(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Quickstart Pattern, running Schematics test instead")
+	}
+
+	options := setupOptionsROKSQuickStartPattern(t, "rokqs", roksQuickstartPatternTerraformDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
+
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
+
 func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -165,16 +199,15 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.roks_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"tags":   options.Tags,
-		"region": options.Region,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"entitlement":            "cloud_pak",
+		"flavor":                 "bx2.4x16",
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -215,18 +248,15 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vsi_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key":     sshPublicKey,
-		"prefix":             options.Prefix,
-		"tags":               options.Tags,
-		"region":             options.Region,
-		"add_atracker_route": add_atracker_route,
+		"ssh_public_key":         sshPublicKey,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"add_atracker_route":     add_atracker_route,
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -265,17 +295,14 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		Prefix:           prefix,
 		ResourceGroup:    resourceGroup,
 		CloudInfoService: sharedInfoSvc,
-		ImplicitRequired: true,
-		ImplicitDestroy: []string{
-			"module.vpc_landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix":             options.Prefix,
-		"tags":               options.Tags,
-		"region":             options.Region,
-		"add_atracker_route": add_atracker_route,
+		"prefix":                 options.Prefix,
+		"tags":                   options.Tags,
+		"region":                 options.Region,
+		"add_atracker_route":     add_atracker_route,
+		"enable_transit_gateway": false,
 	}
 
 	return options
@@ -395,7 +422,7 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 		Testing:                t,
 		TarIncludePatterns:     tarIncludePatterns,
 		TemplateFolder:         dir,
-		Prefix:                 "ocp-sc",
+		Prefix:                 prefix,
 		Tags:                   []string{"test-schematic"},
 		DeleteWorkspaceOnFail:  false,
 		WaitJobCompleteMinutes: 60,
@@ -433,9 +460,10 @@ func TestRunVsiExtention(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix": prefix,
-			"region": region,
-			"tags":   tags,
+			"prefix":                 prefix,
+			"region":                 region,
+			"tags":                   tags,
+			"enable_transit_gateway": false,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
@@ -487,8 +515,6 @@ func TestRunVsiExtention(t *testing.T) {
 		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 			Testing:      t,
 			TerraformDir: "patterns/vsi-extension",
-			// Do not hard fail the test if the implicit destroy steps fail to allow a full destroy of resource to occur
-			ImplicitRequired: false,
 			TerraformVars: map[string]interface{}{
 				"prefix":                     prefix,
 				"region":                     region,
@@ -538,7 +564,25 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_key", Value: sshPublicKey(t), DataType: "string"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.NoError(t, err, "Schematic Test had unexpected error")
+}
+
+func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
+	t.Parallel()
+	if !enableSchematicsTests {
+		t.Skip("Skipping Schematics Test for ROKS QuickStart Pattern, running terratest instead")
+	}
+
+	options := setupOptionsSchematics(t, "rqs-sc", roksQuickstartPatternTerraformDir)
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
 	}
 
 	err := options.RunSchematicTest()
@@ -559,7 +603,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -581,7 +625,9 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 		{Name: "region", Value: options.Region, DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+		{Name: "entitlement", Value: "cloud_pak", DataType: "string"},
+		{Name: "flavor", Value: "bx2.4x16", DataType: "string"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
@@ -602,7 +648,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
-		{Name: "service_endpoints", Value: service_endpoints, DataType: "string"},
+		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()

@@ -56,6 +56,7 @@ locals {
 ##############################################################################
 
 resource "ibm_container_vpc_cluster" "cluster" {
+  depends_on = [ibm_iam_authorization_policy.policy]
   for_each = {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "iks"
@@ -78,9 +79,12 @@ resource "ibm_container_vpc_cluster" "cluster" {
   cos_instance_crn  = each.value.cos_instance_crn
   pod_subnet        = each.value.pod_subnet
   service_subnet    = each.value.service_subnet
-  crk               = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_instance_id   = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
-  kms_account_id    = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  # if kube_version is older than 4.15, default this value to null, otherwise provider will fail
+  disable_outbound_traffic_protection = startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.12") || startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.13") || startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.14") ? null : each.value.disable_outbound_traffic_protection
+  force_delete_storage                = each.value.cluster_force_delete_storage
+  crk                                 = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_instance_id                     = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
+  kms_account_id                      = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   lifecycle {
     ignore_changes = [kube_version]
   }
@@ -103,7 +107,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
     }
   }
 
-  disable_public_service_endpoint = true
+  disable_public_service_endpoint = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
 
   timeouts {
     create = "3h"
@@ -157,6 +161,66 @@ resource "ibm_container_vpc_worker_pool" "pool" {
 
 ##############################################################################
 
+##############################################################################
+# Addons
+##############################################################################
+
+# Lookup the current default csi-driver version
+data "ibm_container_addons" "existing_addons" {
+  for_each = ibm_container_vpc_cluster.cluster
+  cluster  = each.value.id
+}
+
+locals {
+  csi_driver_version = {
+    for cluster in ibm_container_vpc_cluster.cluster : cluster.name => (
+      length(data.ibm_container_addons.existing_addons[cluster.name].addons) > 0 &&
+      data.ibm_container_addons.existing_addons[cluster.name].addons[0].name == "vpc-block-csi-driver" ?
+      data.ibm_container_addons.existing_addons[cluster.name].addons[0].version : ""
+    )
+  }
+
+
+  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
+  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
+  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
+  cluster_addons = {
+    for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
+      id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
+      resource_group_id = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].resource_group_id
+      addons = merge(
+        { for addon_name, addon_version in(cluster.addons != null ? cluster.addons : {}) : addon_name => addon_version if addon_version != null },
+        local.csi_driver_version["${var.prefix}-${cluster.name}"] != null ? { vpc-block-csi-driver = local.csi_driver_version["${var.prefix}-${cluster.name}"] } : {}
+      )
+    }
+  }
+}
+
+resource "ibm_container_addons" "addons" {
+  # Worker pool creation can start before the 'ibm_container_vpc_cluster' completes since there is no explicit
+  # depends_on in 'ibm_container_vpc_worker_pool', just an implicit depends_on on the cluster ID. Cluster ID can exist before
+  # 'ibm_container_vpc_cluster' completes, so hence need to add explicit depends on against 'ibm_container_vpc_cluster' here.
+  depends_on        = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  for_each          = local.cluster_addons
+  cluster           = each.value.id
+  resource_group_id = each.value.resource_group_id
+
+  # setting to false means we do not want Terraform to manage addons that are managed elsewhere
+  manage_all_addons = local.clusters_map[each.key].manage_all_addons
+
+  dynamic "addons" {
+    for_each = local.cluster_addons[each.key].addons
+    content {
+      name    = addons.key
+      version = addons.value
+    }
+  }
+
+  timeouts {
+    create = "1h"
+  }
+}
+
 
 ##############################################################################
 # Create ROKS on VPC Cluster
@@ -168,8 +232,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version           = "3.16.0"
-  ibmcloud_api_key  = var.ibmcloud_api_key
+  version           = "3.27.0"
   resource_group_id = local.resource_groups[each.value.resource_group]
   region            = var.region
   cluster_name      = each.value.cluster_name
@@ -180,10 +243,13 @@ module "cluster" {
   worker_pools = concat(
     [
       {
-        subnet_prefix    = each.value.subnet_names[0]
-        pool_name        = "default"
-        machine_type     = each.value.machine_type
-        workers_per_zone = each.value.workers_per_subnet
+        subnet_prefix     = each.value.subnet_names[0]
+        pool_name         = "default"
+        machine_type      = each.value.machine_type
+        workers_per_zone  = each.value.workers_per_subnet
+        minSize           = each.value.minimum_size
+        maxSize           = each.value.maximum_size
+        enableAutoscaling = each.value.enable_autoscaling
         boot_volume_encryption_kms_config = {
           crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
           kms_instance_id = module.key_management.key_management_guid
@@ -193,10 +259,13 @@ module "cluster" {
     each.value.worker != null ? [
       for pool in each.value.worker :
       {
-        vpc_subnets      = pool.vpc_subnets
-        pool_name        = pool.name
-        machine_type     = pool.flavor
-        workers_per_zone = pool.workers_per_subnet
+        vpc_subnets       = pool.vpc_subnets
+        pool_name         = pool.name
+        machine_type      = pool.flavor
+        workers_per_zone  = pool.workers_per_subnet
+        minSize           = each.value.minimum_size
+        maxSize           = each.value.maximum_size
+        enableAutoscaling = each.value.enable_autoscaling
         boot_volume_encryption_kms_config = {
           crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
           kms_instance_id = module.key_management.key_management_guid
@@ -204,12 +273,16 @@ module "cluster" {
       }
     ] : []
   )
-  ocp_version                     = each.value.kube_version
-  tags                            = var.tags
-  use_existing_cos                = true
-  disable_public_endpoint         = each.value.disable_public_endpoint != null ? each.value.disable_public_endpoint : true
-  verify_worker_network_readiness = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
-  existing_cos_id                 = each.value.cos_instance_crn
+  ocp_version                         = each.value.kube_version
+  tags                                = var.tags
+  use_existing_cos                    = true
+  disable_public_endpoint             = each.value.disable_public_endpoint != null ? each.value.disable_public_endpoint : true
+  verify_worker_network_readiness     = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
+  existing_cos_id                     = each.value.cos_instance_crn
+  use_private_endpoint                = each.value.use_private_endpoint
+  addons                              = each.value.addons
+  manage_all_addons                   = each.value.manage_all_addons
+  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
   kms_config = {
     instance_id = module.key_management.key_management_guid
     crk_id      = module.key_management.key_map[each.value.kms_config.crk_name].key_id
