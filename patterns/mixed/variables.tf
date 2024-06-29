@@ -211,6 +211,42 @@ variable "wait_till" {
   }
 }
 
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "minimum_size" {
+  type        = number
+  description = "Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to."
+  default     = 1
+}
+
+variable "maximum_size" {
+  type        = number
+  description = "Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to."
+  default     = 3
+}
+
+variable "enable_autoscaling" {
+  type        = bool
+  description = "Flag to set cluster autoscaler to manage scaling for the worker pool."
+  default     = false
+}
+
+variable "use_private_endpoint" {
+  type        = bool
+  description = "Set this to true to force all cluster related api calls to use the IBM Cloud private endpoints."
+  default     = false
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
+}
+
 ##############################################################################
 
 

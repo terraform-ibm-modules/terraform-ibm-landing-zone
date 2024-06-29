@@ -850,6 +850,11 @@ variable "clusters" {
       disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
       disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
       cluster_force_delete_storage        = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion
+      verify_worker_network_readiness     = optional(bool)        # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
+      use_private_endpoint                = optional(bool, false) # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.
+      minimum_size                        = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
+      maximum_size                        = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
+      enable_autoscaling                  = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
       addons = optional(object({                                  # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
@@ -869,14 +874,17 @@ variable "clusters" {
       worker_pools = optional(
         list(
           object({
-            name                 = string           # Worker pool name
-            vpc_name             = string           # VPC name
-            workers_per_subnet   = number           # Worker nodes per subnet
-            flavor               = string           # Worker node flavor
-            subnet_names         = list(string)     # List of vpc subnets for worker pool
-            entitlement          = optional(string) # entitlement option for openshift
-            secondary_storage    = optional(string) # Secondary storage type
-            boot_volume_crk_name = optional(string) # Boot volume encryption key name
+            name                 = string                # Worker pool name
+            vpc_name             = string                # VPC name
+            workers_per_subnet   = number                # Worker nodes per subnet
+            flavor               = string                # Worker node flavor
+            subnet_names         = list(string)          # List of vpc subnets for worker pool
+            entitlement          = optional(string)      # entitlement option for openshift
+            secondary_storage    = optional(string)      # Secondary storage type
+            boot_volume_crk_name = optional(string)      # Boot volume encryption key name
+            minimum_size         = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
+            maximum_size         = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
+            enable_autoscaling   = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
           })
         )
       )

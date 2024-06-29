@@ -1,7 +1,6 @@
 ##############################################################################
 # Account Variables
 ##############################################################################
-
 variable "prefix" {
   description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters."
   type        = string
@@ -155,6 +154,42 @@ variable "entitlement" {
   description = "If you do not have an entitlement, leave as null. Entitlement reduces additional OCP Licence cost in OpenShift clusters. Use Cloud Pak with OCP Licence entitlement to create the OpenShift cluster. Note It is set only when the first time creation of the cluster, further modifications are not impacted Set this argument to cloud_pak only if you use the cluster with a Cloud Pak that has an OpenShift entitlement."
   type        = string
   default     = null
+}
+
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "minimum_size" {
+  type        = number
+  description = "Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to."
+  default     = 1
+}
+
+variable "maximum_size" {
+  type        = number
+  description = "Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to."
+  default     = 3
+}
+
+variable "enable_autoscaling" {
+  type        = bool
+  description = "Flag to set cluster autoscaler to manage scaling for the worker pool."
+  default     = true
+}
+
+variable "use_private_endpoint" {
+  type        = bool
+  description = "Set this to true to force all cluster related api calls to use the IBM Cloud private endpoints."
+  default     = false
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
 }
 
 variable "secondary_storage" {

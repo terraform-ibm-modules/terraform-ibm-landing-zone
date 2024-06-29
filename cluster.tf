@@ -26,18 +26,41 @@ locals {
     openshift = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
     iks       = data.ibm_container_cluster_versions.cluster_versions.default_kube_version
   }
+
+  cluster_data = merge({
+    for cluster in ibm_container_vpc_cluster.cluster :
+    cluster.name => {
+      crn                 = cluster.crn
+      id                  = cluster.id
+      resource_group_name = cluster.resource_group_name
+      resource_group_id   = cluster.resource_group_id
+      vpc_id              = cluster.vpc_id
+      region              = var.region
+    }
+    }, {
+    for cluster in module.cluster :
+    cluster.cluster_name => {
+      crn               = cluster.cluster_crn
+      id                = cluster.cluster_id
+      resource_group_id = cluster.resource_group_id
+      vpc_id            = cluster.vpc_id
+      region            = var.region
+    }
+    }
+  )
 }
 
-##############################################################################
-
 
 ##############################################################################
-# Create IKS/ROKS on VPC Cluster
+# Create IKS on VPC Cluster
 ##############################################################################
 
 resource "ibm_container_vpc_cluster" "cluster" {
-  depends_on        = [ibm_iam_authorization_policy.policy]
-  for_each          = local.clusters_map
+  depends_on = [ibm_iam_authorization_policy.policy]
+  for_each = {
+    for index, cluster in local.clusters_map : index => cluster
+    if cluster.kube_type == "iks"
+  }
   name              = "${var.prefix}-${each.value.name}"
   vpc_id            = each.value.vpc_id
   resource_group_id = local.resource_groups[each.value.resource_group]
@@ -94,7 +117,10 @@ resource "ibm_container_vpc_cluster" "cluster" {
 }
 
 resource "ibm_resource_tag" "cluster_tag" {
-  for_each    = local.clusters_map
+  for_each = {
+    for index, cluster in local.clusters_map : index => cluster
+    if cluster.kube_type == "iks"
+  }
   resource_id = ibm_container_vpc_cluster.cluster[each.key].crn
   tag_type    = "access"
   tags        = each.value.access_tags
@@ -104,11 +130,14 @@ resource "ibm_resource_tag" "cluster_tag" {
 
 
 ##############################################################################
-# Create Worker Pools
+# Create IKS Worker Pools
 ##############################################################################
 
 resource "ibm_container_vpc_worker_pool" "pool" {
-  for_each          = local.worker_pools_map
+  for_each = {
+    for index, cluster in local.worker_pools_map : index => cluster
+    if cluster.kube_type == "iks"
+  }
   vpc_id            = each.value.vpc_id
   resource_group_id = local.resource_groups[each.value.resource_group]
   entitlement       = each.value.entitlement
@@ -189,5 +218,73 @@ resource "ibm_container_addons" "addons" {
 
   timeouts {
     create = "1h"
+  }
+}
+
+
+##############################################################################
+# Create ROKS on VPC Cluster
+##############################################################################
+
+module "cluster" {
+  for_each = {
+    for index, cluster in local.clusters_map : index => cluster
+    if cluster.kube_type == "openshift"
+  }
+  source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version           = "3.27.0"
+  resource_group_id = local.resource_groups[each.value.resource_group]
+  region            = var.region
+  cluster_name      = each.value.cluster_name
+  vpc_id            = each.value.vpc_id
+  ocp_entitlement   = each.value.entitlement
+  vpc_subnets       = each.value.vpc_subnets
+  access_tags       = each.value.access_tags
+  worker_pools = concat(
+    [
+      {
+        subnet_prefix     = each.value.subnet_names[0]
+        pool_name         = "default"
+        machine_type      = each.value.machine_type
+        workers_per_zone  = each.value.workers_per_subnet
+        minSize           = each.value.minimum_size
+        maxSize           = each.value.maximum_size
+        enableAutoscaling = each.value.enable_autoscaling
+        boot_volume_encryption_kms_config = {
+          crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          kms_instance_id = module.key_management.key_management_guid
+        }
+      }
+    ],
+    each.value.worker != null ? [
+      for pool in each.value.worker :
+      {
+        vpc_subnets       = pool.vpc_subnets
+        pool_name         = pool.name
+        machine_type      = pool.flavor
+        workers_per_zone  = pool.workers_per_subnet
+        minSize           = each.value.minimum_size
+        maxSize           = each.value.maximum_size
+        enableAutoscaling = each.value.enable_autoscaling
+        boot_volume_encryption_kms_config = {
+          crk             = module.key_management.key_map[each.value.kms_config.crk_name].key_id
+          kms_instance_id = module.key_management.key_management_guid
+        }
+      }
+    ] : []
+  )
+  ocp_version                         = each.value.kube_version
+  tags                                = var.tags
+  use_existing_cos                    = true
+  disable_public_endpoint             = each.value.disable_public_endpoint != null ? each.value.disable_public_endpoint : true
+  verify_worker_network_readiness     = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
+  existing_cos_id                     = each.value.cos_instance_crn
+  use_private_endpoint                = each.value.use_private_endpoint
+  addons                              = each.value.addons
+  manage_all_addons                   = each.value.manage_all_addons
+  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
+  kms_config = {
+    instance_id = module.key_management.key_management_guid
+    crk_id      = module.key_management.key_map[each.value.kms_config.crk_name].key_id
   }
 }

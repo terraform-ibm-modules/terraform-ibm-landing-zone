@@ -85,6 +85,7 @@ locals {
           resource_group = cluster.resource_group                                  # add cluster rg
           vpc_id         = var.vpc_modules[pool.vpc_name].vpc_id                   # add vpc_id
           subnets        = module.worker_pool_subnets["${var.prefix}-${cluster.name}-${pool.name}"].subnets
+          kube_type      = cluster.kube_type
         }) if pool != null
       ] if cluster.worker_pools != null
     ]

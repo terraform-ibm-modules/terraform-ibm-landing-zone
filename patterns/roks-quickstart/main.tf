@@ -51,7 +51,8 @@ locals {
          "worker_pools": [],
          "workers_per_subnet": 1,
          "entitlement": ${local.entitlement_val},
-         "disable_public_endpoint": false
+         "disable_public_endpoint": false,
+         "use_private_endpoint": false
       }
    ],
    "cos": [
