@@ -53,7 +53,6 @@ For more information about the default configuration, see [Default Secure Landin
 
 Complete the following steps before you deploy the Secure Landing Zone module.
 ### Set up an IBM Cloud Account
-
 1.  Make sure that you have an IBM Cloud Pay-As-You-Go or Subscription account:
 
     - If you don't have an IBM Cloud account, [create one](https://cloud.ibm.com/docs/account?topic=account-account-getting-started).
