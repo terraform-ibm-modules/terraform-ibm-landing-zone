@@ -94,6 +94,7 @@ module "roks_landing_zone" {
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
+  kms_wait_for_apply                     = var.kms_wait_for_apply
 }
 
 moved {

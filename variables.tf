@@ -850,6 +850,7 @@ variable "clusters" {
       disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
       disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
       cluster_force_delete_storage        = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion
+      kms_wait_for_apply                  = optional(bool, true)  # make terraform wait until KMS is applied to master and it is ready and deployed
       addons = optional(object({                                  # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
