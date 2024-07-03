@@ -16,6 +16,7 @@
             "resource_group": "slz-management-rg",
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -52,6 +53,7 @@
             "resource_group": "slz-workload-rg",
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true

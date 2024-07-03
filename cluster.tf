@@ -81,6 +81,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
       instance_id      = regex(".*:(.*):key:.*", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
       private_endpoint = kms_config.value.private_endpoint
       account_id       = regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
+      wait_for_apply   = each.value.kms_wait_for_apply
     }
   }
 

@@ -166,6 +166,12 @@ variable "wait_till" {
   }
 }
 
+variable "kms_wait_for_apply" {
+  type        = bool
+  description = "Set true to make terraform wait until KMS is applied to master and it is ready and deployed. Default value is true."
+  default     = true
+}
+
 variable "entitlement" {
   description = "Reduces the cost of additional OCP in OpenShift clusters. If you do not have an entitlement, leave as null. Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Specify `cloud_pak` only if you use the cluster with a Cloud Pak that has an OpenShift entitlement. The value is set only when the cluster is created."
   type        = string
