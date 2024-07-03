@@ -180,19 +180,23 @@ locals {
     )
   }
 
+  for_each = {
+    for index, cluster in local.clusters_map : index => cluster
+    if cluster.kube_type == "iks"
+  }
 
   #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
   #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
   # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
   cluster_addons = {
-    for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
+    for cluster in local.clusters_map : "${var.prefix}-${cluster.name}" => {
       id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
       resource_group_id = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].resource_group_id
       addons = merge(
         { for addon_name, addon_version in(cluster.addons != null ? cluster.addons : {}) : addon_name => addon_version if addon_version != null },
         local.csi_driver_version["${var.prefix}-${cluster.name}"] != null ? { vpc-block-csi-driver = local.csi_driver_version["${var.prefix}-${cluster.name}"] } : {}
       )
-    }
+    } if cluster.kube_type == "iks"
   }
 }
 
