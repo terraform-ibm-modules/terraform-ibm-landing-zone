@@ -137,13 +137,34 @@ resource "ibm_container_vpc_worker_pool" "pool" {
 # Addons
 ##############################################################################
 
+# Lookup the current default csi-driver version
+data "ibm_container_addons" "existing_addons" {
+  for_each = ibm_container_vpc_cluster.cluster
+  cluster  = each.value.id
+}
+
 locals {
-  # for each cluster in the clusters_map, get the addons and their versions and create an addons map
+  # for each cluster, look for installed csi driver to get version. If array is empty (no csi driver) then null is returned
+  csi_driver_version = {
+    for cluster in ibm_container_vpc_cluster.cluster : cluster.name => (
+      one([
+        for addon in data.ibm_container_addons.existing_addons[cluster.name].addons :
+        addon.version if addon.name == "vpc-block-csi-driver"
+      ])
+    )
+  }
+
+  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
+  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
+  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
   cluster_addons = {
     for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
       id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
       resource_group_id = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].resource_group_id
-      addons            = { for addon_name, addon_version in(cluster.addons != null ? cluster.addons : {}) : addon_name => addon_version if addon_version != null }
+      addons = merge(
+        { for addon_name, addon_version in(cluster.addons != null ? cluster.addons : {}) : addon_name => addon_version if addon_version != null },
+        local.csi_driver_version["${var.prefix}-${cluster.name}"] != null ? { vpc-block-csi-driver = local.csi_driver_version["${var.prefix}-${cluster.name}"] } : {}
+      )
     }
   }
 }
