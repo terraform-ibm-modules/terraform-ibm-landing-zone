@@ -154,8 +154,6 @@ locals {
     )
   }
 
-  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
-  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
   # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
   cluster_addons = {
     for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
