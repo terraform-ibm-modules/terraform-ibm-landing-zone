@@ -173,7 +173,7 @@ resource "ibm_container_addons" "addons" {
   # 'ibm_container_vpc_cluster' completes, so hence need to add explicit depends on against 'ibm_container_vpc_cluster' here.
   depends_on = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
   # only apply this addons block if the cluster has addons to manage (the addons parameter has entries)
-  for_each          = { for addon_key, addon_val in local.cluster_addons : addon_key => addon_val if length(addon_val.addons) > 0 }
+  for_each          = local.cluster_addons
   cluster           = each.value.id
   resource_group_id = each.value.resource_group_id
 
