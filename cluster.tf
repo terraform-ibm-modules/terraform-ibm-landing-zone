@@ -144,17 +144,16 @@ data "ibm_container_addons" "existing_addons" {
 }
 
 locals {
+  # for each cluster, look for installed csi driver to get version. If array is empty (no csi driver) then null is returned
   csi_driver_version = {
     for cluster in ibm_container_vpc_cluster.cluster : cluster.name => (
-      length(data.ibm_container_addons.existing_addons[cluster.name].addons) > 0 &&
-      data.ibm_container_addons.existing_addons[cluster.name].addons[0].name == "vpc-block-csi-driver" ?
-      data.ibm_container_addons.existing_addons[cluster.name].addons[0].version : ""
+      one([
+        for addon in data.ibm_container_addons.existing_addons[cluster.name].addons :
+        addon.version if addon.name == "vpc-block-csi-driver"
+      ])
     )
   }
 
-
-  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
-  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
   # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
   cluster_addons = {
     for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
@@ -172,7 +171,8 @@ resource "ibm_container_addons" "addons" {
   # Worker pool creation can start before the 'ibm_container_vpc_cluster' completes since there is no explicit
   # depends_on in 'ibm_container_vpc_worker_pool', just an implicit depends_on on the cluster ID. Cluster ID can exist before
   # 'ibm_container_vpc_cluster' completes, so hence need to add explicit depends on against 'ibm_container_vpc_cluster' here.
-  depends_on        = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  depends_on = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  # only apply this addons block if the cluster has addons to manage (the addons parameter has entries)
   for_each          = local.cluster_addons
   cluster           = each.value.id
   resource_group_id = each.value.resource_group_id
@@ -181,7 +181,7 @@ resource "ibm_container_addons" "addons" {
   manage_all_addons = local.clusters_map[each.key].manage_all_addons
 
   dynamic "addons" {
-    for_each = local.cluster_addons[each.key].addons
+    for_each = each.value.addons
     content {
       name    = addons.key
       version = addons.value

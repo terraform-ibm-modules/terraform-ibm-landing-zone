@@ -859,6 +859,7 @@ variable "clusters" {
         static-route              = optional(string)
         cluster-autoscaler        = optional(string)
         vpc-block-csi-driver      = optional(string)
+        ibm-storage-operator      = optional(string)
       }), {})
       manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
