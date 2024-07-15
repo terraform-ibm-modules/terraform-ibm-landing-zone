@@ -95,7 +95,7 @@ module "cos_to_key_management" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if local.target_key_management_service != null
+    } if local.target_key_management_service != null && instance.use_data == false
   ]
 }
 
