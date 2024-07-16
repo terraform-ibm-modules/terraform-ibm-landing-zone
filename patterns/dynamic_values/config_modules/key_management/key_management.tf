@@ -27,6 +27,11 @@ variable "use_hs_crypto" {
   type        = bool
 }
 
+variable "use_data" {
+  description = "If existing KMS is supplied"
+  type        = bool
+}
+
 variable "add_vsi_volume_encryption_key" {
   description = "Add encryption key for VSI creation"
   type        = bool
@@ -79,6 +84,7 @@ output "value" {
     name           = var.name
     resource_group = var.resource_group
     use_hs_crypto  = var.use_hs_crypto
+    use_data       = var.use_data
     keys           = local.keys
     access_tags    = []
   }

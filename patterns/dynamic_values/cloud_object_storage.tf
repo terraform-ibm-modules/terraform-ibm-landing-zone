@@ -3,11 +3,15 @@
 ##############################################################################
 
 module "cloud_object_storage" {
-  source                = "./config_modules/cloud_object_storage"
-  prefix                = var.prefix
-  vpc_list              = local.vpc_list
-  bastion_resource_list = local.bastion_resource_list
-  use_random_cos_suffix = var.use_random_cos_suffix
+  source                            = "./config_modules/cloud_object_storage"
+  prefix                            = var.prefix
+  vpc_list                          = local.vpc_list
+  bastion_resource_list             = local.bastion_resource_list
+  use_random_cos_suffix             = var.use_random_cos_suffix
+  existing_cos_instance_name        = var.existing_cos_instance_name
+  existing_cos_resource_group       = var.existing_cos_resource_group
+  use_existing_cos_for_atracker     = var.use_existing_cos_for_atracker
+  use_existing_cos_for_vpc_flowlogs = var.use_existing_cos_for_vpc_flowlogs
 }
 
 ##############################################################################
