@@ -587,10 +587,10 @@ variable "cos" {
   }
 
   validation {
-    error_message = "Plans for COS instances can only be `lite` or `standard`."
+    error_message = "Plans for COS instances can only be `standard`."
     condition = length([
       for instance in var.cos :
-      true if contains(["lite", "standard"], instance.plan)
+      true if contains(["standard"], instance.plan)
     ]) == length(var.cos)
   }
 
