@@ -105,6 +105,17 @@ variable "existing_kms_resource_group" {
   default     = null
 }
 
+variable "existing_kms_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing KMS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_kms_endpoint_type)
+  }
+}
+
 ##############################################################################
 
 
@@ -128,6 +139,17 @@ variable "existing_cos_resource_group" {
   description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
   type        = string
   default     = null
+}
+
+variable "existing_cos_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+  }
 }
 
 variable "use_existing_cos_for_vpc_flowlogs" {

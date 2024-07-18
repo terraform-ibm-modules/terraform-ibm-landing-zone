@@ -32,6 +32,12 @@ variable "use_data" {
   type        = bool
 }
 
+variable "endpoint_type" {
+  description = "Endpoint type to use when creating keys and rings"
+  type        = string
+  default     = "public"
+}
+
 variable "add_vsi_volume_encryption_key" {
   description = "Add encryption key for VSI creation"
   type        = bool
@@ -68,6 +74,7 @@ locals {
             interval_month = 12
         } }
       )
+      endpoint = var.endpoint_type
     }
   ]
 }

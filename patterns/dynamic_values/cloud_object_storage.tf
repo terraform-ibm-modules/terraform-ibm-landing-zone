@@ -12,6 +12,7 @@ module "cloud_object_storage" {
   existing_cos_resource_group       = var.existing_cos_resource_group
   use_existing_cos_for_atracker     = var.use_existing_cos_for_atracker
   use_existing_cos_for_vpc_flowlogs = var.use_existing_cos_for_vpc_flowlogs
+  endpoint_type                     = var.existing_cos_endpoint_type
 }
 
 ##############################################################################

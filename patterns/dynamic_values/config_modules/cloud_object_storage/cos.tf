@@ -51,6 +51,12 @@ variable "existing_cos_resource_group" {
   default     = null
 }
 
+variable "endpoint_type" {
+  description = "Endpoint type to use when creating buckets"
+  type        = string
+  default     = "public"
+}
+
 variable "use_existing_cos_for_vpc_flowlogs" {
   description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
   type        = bool
@@ -73,7 +79,7 @@ locals {
       name          = "${network}-bucket"
       storage_class = "standard"
       kms_key       = "${var.prefix}-slz-key"
-      endpoint_type = "public"
+      endpoint_type = var.endpoint_type
       force_delete  = true
     }
   ]
@@ -82,7 +88,7 @@ locals {
     {
       name          = "atracker-bucket"
       storage_class = "standard"
-      endpoint_type = "public"
+      endpoint_type = var.endpoint_type
       kms_key       = "${var.prefix}-atracker-key"
       force_delete  = true
     }

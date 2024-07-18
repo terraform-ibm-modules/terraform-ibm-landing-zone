@@ -13,8 +13,10 @@ module "dynamic_values" {
   hs_crypto_resource_group            = var.hs_crypto_resource_group
   existing_kms_instance_name          = var.existing_kms_instance_name
   existing_kms_resource_group         = var.existing_kms_resource_group
+  existing_kms_endpoint_type          = var.existing_kms_endpoint_type
   existing_cos_instance_name          = var.existing_cos_instance_name
   existing_cos_resource_group         = var.existing_cos_resource_group
+  existing_cos_endpoint_type          = var.existing_cos_endpoint_type
   use_existing_cos_for_atracker       = var.use_existing_cos_for_atracker
   use_existing_cos_for_vpc_flowlogs   = var.use_existing_cos_for_vpc_flowlogs
   add_edge_vpc                        = var.add_edge_vpc

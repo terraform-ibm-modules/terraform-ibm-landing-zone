@@ -11,6 +11,7 @@ module "key_management" {
   use_data                      = var.existing_kms_instance_name == null ? false : true
   add_vsi_volume_encryption_key = var.add_vsi_volume_encryption_key
   add_cluster_encryption_key    = var.add_cluster_encryption_key
+  endpoint_type                 = var.existing_kms_endpoint_type
 }
 
 ##############################################################################
