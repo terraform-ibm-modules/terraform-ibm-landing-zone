@@ -32,6 +32,11 @@ variable "bastion_resource_list" {
   }
 }
 
+variable "create_atracker_storage" {
+  description = "Should storage (instance and/or bucket) for atracker target be created"
+  type        = bool
+  default     = true
+}
 
 variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
@@ -84,7 +89,7 @@ locals {
     }
   ]
 
-  atracker_buckets = [
+  atracker_buckets = var.create_atracker_storage ? [
     {
       name          = "atracker-bucket"
       storage_class = "standard"
@@ -92,7 +97,7 @@ locals {
       kms_key       = "${var.prefix}-atracker-key"
       force_delete  = true
     }
-  ]
+  ] : []
 
   bastion_keys = [
     # Create Bastion COS key
@@ -104,7 +109,7 @@ locals {
     }
   ]
 
-  atracker_cos = !var.use_existing_cos_for_atracker ? [
+  atracker_cos = var.create_atracker_storage && !var.use_existing_cos_for_atracker ? [
     # Activity Tracker COS instance, existing COS or new, plus bucket for atracker
     {
       name           = "atracker-cos"

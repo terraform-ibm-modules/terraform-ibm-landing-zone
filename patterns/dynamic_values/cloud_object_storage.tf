@@ -13,6 +13,7 @@ module "cloud_object_storage" {
   use_existing_cos_for_atracker     = var.use_existing_cos_for_atracker
   use_existing_cos_for_vpc_flowlogs = var.use_existing_cos_for_vpc_flowlogs
   endpoint_type                     = var.existing_cos_endpoint_type
+  create_atracker_storage           = var.add_atracker_route
 }
 
 ##############################################################################
