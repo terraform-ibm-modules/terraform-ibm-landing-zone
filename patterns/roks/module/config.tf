@@ -40,6 +40,7 @@ module "dynamic_values" {
     ? true
     : false
   )
+  add_atracker_route = var.add_atracker_route
 }
 
 ##############################################################################
@@ -121,17 +122,6 @@ locals {
     ##############################################################################
 
     ##############################################################################
-    # Activity tracker
-    ##############################################################################
-    atracker = {
-      resource_group        = "${var.prefix}-service-rg"
-      receive_global_events = true
-      collector_bucket_name = "atracker-bucket"
-      add_route             = var.add_atracker_route
-    }
-    ##############################################################################
-
-    ##############################################################################
     # Default SSH key
     ##############################################################################
     ssh_keys = var.ssh_public_key != null || var.existing_ssh_key_name != null ? [
@@ -178,6 +168,7 @@ locals {
     f5_deployments                 = module.dynamic_values.f5_deployments
     security_groups                = module.dynamic_values.security_groups
     vsi                            = []
+    atracker                       = module.dynamic_values.atracker
 
     ##############################################################################
 

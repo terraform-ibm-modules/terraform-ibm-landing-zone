@@ -174,6 +174,16 @@ variable "add_cluster_encryption_key" {
 
 ##############################################################################
 
+##############################################################################
+# Atracker Variables
+##############################################################################
+variable "add_atracker_route" {
+  description = "Add atracker route, with global events. If true there will also be a COS bucket added to config to be target"
+  type        = bool
+  default     = true
+}
+
+##############################################################################
 
 ##############################################################################
 # F5 Variables
