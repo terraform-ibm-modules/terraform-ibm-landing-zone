@@ -92,6 +92,11 @@ output "key_map" {
   value       = module.vpc_landing_zone.key_map
 }
 
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value       = module.vpc_landing_zone.vpc_dns
+}
+
 ##############################################################################
 
 ##############################################################################
