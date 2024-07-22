@@ -241,6 +241,17 @@ output "vpc_resource_list" {
   ]
 }
 
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value = [
+    for vpc in module.vpc :
+    {
+      dns_instance_id        = vpc.dns_instance_id
+      dns_custom_resolver_id = vpc.dns_custom_resolver_id
+    }
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################

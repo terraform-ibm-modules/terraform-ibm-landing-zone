@@ -117,6 +117,11 @@ output "key_map" {
   value       = module.roks_landing_zone.key_map
 }
 
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value       = module.roks_landing_zone.vpc_dns
+}
+
 ##############################################################################
 
 ##############################################################################
