@@ -97,6 +97,11 @@ output "cluster_data" {
   value       = module.landing_zone.cluster_data
 }
 
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value       = module.landing_zone.vpc_dns
+}
+
 ##############################################################################
 
 ##############################################################################
