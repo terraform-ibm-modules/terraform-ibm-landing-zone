@@ -380,8 +380,8 @@ output "fip_vsi_data" {
         for deployment in module.vsi[group].fip_list :
         merge(deployment, {
           vpc_name = [
-            for network in keys(local.vpc_map) :
-            module.vpc[network].vpc_name if module.vpc[network].vpc_id == deployment.vpc_id
+            for k, v in module.vpc :
+            v.vpc_name if v.vpc_id == deployment.vpc_id
           ][0]
         })
       ]
@@ -398,8 +398,8 @@ output "vsi_data" {
         for deployment in module.vsi[group].list :
         merge(deployment, {
           vpc_name = [
-            for network in keys(local.vpc_map) :
-            module.vpc[network].vpc_name if module.vpc[network].vpc_id == deployment.vpc_id
+            for k, v in module.vpc :
+            v.vpc_name if v.vpc_id == deployment.vpc_id
           ][0]
         })
       ]
