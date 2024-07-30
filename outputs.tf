@@ -271,12 +271,12 @@ output "placement_groups" {
 
 output "resource_group_names" {
   description = "List of resource groups names used within landing zone."
-  value       = keys(local.resource_groups)
+  value       = keys(local.resource_groups_info)
 }
 
 output "resource_group_data" {
   description = "List of resource groups data used within landing zone."
-  value       = local.resource_groups
+  value       = local.resource_groups_info
 }
 
 
