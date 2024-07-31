@@ -22,6 +22,10 @@ variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Add kms to block storage s2s"
 }
 
+variable "skip_kms_kube_s2s_auth_policy" {
+  description = "Add kms to kubernetes s2s"
+}
+
 variable "skip_all_s2s_auth_policies" {
   description = "Add s2s authorization policies"
 }
@@ -73,7 +77,7 @@ module "kube_to_kms" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if local.target_key_management_service != null
+    } if local.target_key_management_service != null && !var.skip_kms_kube_s2s_auth_policy
   ]
 }
 
@@ -95,7 +99,7 @@ module "cos_to_key_management" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-    } if local.target_key_management_service != null && instance.use_data == false
+    } if local.target_key_management_service != null && !instance.skip_kms_s2s_auth_policy
   ]
 }
 
@@ -111,7 +115,7 @@ module "flow_logs_to_cos" {
       roles                       = ["Writer"]
       target_service_name         = "cloud-object-storage"
       target_resource_instance_id = split(":", var.cos_instance_ids[instance.name])[7]
-    }
+    } if !instance.skip_flowlogs_s2s_auth_policy
   ]
 }
 
@@ -122,19 +126,19 @@ module "flow_logs_to_cos" {
 ##############################################################################
 
 locals {
-  atracker_cos_instance = var.atracker_cos_bucket == null ? null : flatten([
+  atracker_cos_instance = var.atracker_cos_bucket == null ? null : one(flatten([
     for instance in var.cos :
     [
       for bucket in instance.buckets :
       [instance.name] if bucket.name == var.atracker_cos_bucket
-    ]
-  ])[0]
+    ] if !instance.skip_atracker_s2s_auth_policy
+  ]))
 }
 
 module "atracker_to_cos" {
   source = "../list_to_map"
   list = [
-    for instance in(var.atracker_cos_bucket != null ? ["atracker-to-cos"] : []) :
+    for instance in(var.atracker_cos_bucket != null && local.atracker_cos_instance != null ? ["atracker-to-cos"] : []) :
     {
       name                        = instance
       source_service_name         = "atracker"
