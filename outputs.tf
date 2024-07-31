@@ -379,14 +379,34 @@ output "fip_vsi_data" {
       [
         for deployment in module.vsi[group].fip_list :
         merge(deployment, {
-          vpc_name = [
+          vpc_name = one([
             for k, v in module.vpc :
             v.vpc_name if v.vpc_id == deployment.vpc_id
-          ][0]
+          ])
         })
       ]
     ]
   ])
+}
+
+output "zvsi" {
+  value       = module.vsi
+  description = "testing"
+}
+
+output "zvsi_map" {
+  value       = local.vsi_map
+  description = "testing"
+}
+
+output "zvpc_map" {
+  value       = local.vpc_map
+  description = "testing"
+}
+
+output "zvpc" {
+  value       = module.vpc
+  description = "testing"
 }
 
 output "vsi_data" {
@@ -397,10 +417,10 @@ output "vsi_data" {
       [
         for deployment in module.vsi[group].list :
         merge(deployment, {
-          vpc_name = [
+          vpc_name = one([
             for k, v in module.vpc :
-            v.vpc_name if v.vpc_id == deployment.vpc_id
-          ][0]
+            v.vpc_data["name"] if v.vpc_data["id"] == deployment.vpc_id
+          ])
         })
       ]
     ]

@@ -38,6 +38,7 @@ For more information about the default configuration, see [Default Secure Landin
 ## Overview
 * [terraform-ibm-landing-zone](#terraform-ibm-landing-zone)
 * [Examples](./examples)
+    * [One VPC with one VSI example](./examples/existing-vpc)
     * [One VPC with one VSI example](./examples/one-vpc-one-vsi)
     * [Override.json example](./examples/override-example)
 * [Contributing](#contributing)
@@ -985,6 +986,10 @@ module "cluster_pattern" {
 | <a name="output_vsi_data"></a> [vsi\_data](#output\_vsi\_data) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 | <a name="output_workload_cluster_id"></a> [workload\_cluster\_id](#output\_workload\_cluster\_id) | The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
+| <a name="output_zvpc"></a> [zvpc](#output\_zvpc) | testing |
+| <a name="output_zvpc_map"></a> [zvpc\_map](#output\_zvpc\_map) | testing |
+| <a name="output_zvsi"></a> [zvsi](#output\_zvsi) | testing |
+| <a name="output_zvsi_map"></a> [zvsi\_map](#output\_zvsi\_map) | testing |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
