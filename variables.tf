@@ -587,10 +587,10 @@ variable "cos" {
   }
 
   validation {
-    error_message = "Plans for COS instances can only be `lite` or `standard`."
+    error_message = "Plans for COS instances can only be `standard`."
     condition = length([
       for instance in var.cos :
-      true if contains(["lite", "standard"], instance.plan)
+      true if contains(["standard"], instance.plan)
     ]) == length(var.cos)
   }
 
@@ -846,12 +846,13 @@ variable "clusters" {
       resource_group                      = string           # Resource Group used for cluster
       cos_name                            = optional(string) # Name of COS instance Required only for OpenShift clusters
       access_tags                         = optional(list(string), [])
-      boot_volume_crk_name                = optional(string)      # Boot volume encryption key name
-      disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
-      disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
-      cluster_force_delete_storage        = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion
-      kms_wait_for_apply                  = optional(bool, true)  # make terraform wait until KMS is applied to master and it is ready and deployed
-      addons = optional(object({                                  # Map of OCP cluster add-on versions to install
+      boot_volume_crk_name                = optional(string)       # Boot volume encryption key name
+      disable_public_endpoint             = optional(bool, true)   # disable cluster public, leaving only private endpoint
+      disable_outbound_traffic_protection = optional(bool, false)  # public outbound access from the cluster workers
+      cluster_force_delete_storage        = optional(bool, false)  # force the removal of persistent storage associated with the cluster during cluster deletion
+      operating_system                    = optional(string, null) #The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+      kms_wait_for_apply                  = optional(bool, true)   # make terraform wait until KMS is applied to master and it is ready and deployed
+      addons = optional(object({                                   # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)
@@ -868,6 +869,7 @@ variable "clusters" {
           private_endpoint = optional(bool) # Private endpoint
         })
       )
+
       worker_pools = optional(
         list(
           object({
@@ -879,6 +881,7 @@ variable "clusters" {
             entitlement          = optional(string) # entitlement option for openshift
             secondary_storage    = optional(string) # Secondary storage type
             boot_volume_crk_name = optional(string) # Boot volume encryption key name
+            operating_system     = optional(string) # The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
           })
         )
       )
@@ -926,7 +929,15 @@ variable "clusters" {
     error_message = "Duplicate worker_pool name in list var.cluster.worker_pools. Please provide unique worker_pool names."
   }
 
+
+  # operating_system validation
+  validation {
+    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
+  }
+
 }
+
 
 variable "wait_till" {
   description = "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`"

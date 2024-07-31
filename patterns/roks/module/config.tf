@@ -101,6 +101,7 @@ locals {
         boot_volume_crk_name                = "${var.prefix}-roks-key"
         disable_outbound_traffic_protection = var.disable_outbound_traffic_protection
         cluster_force_delete_storage        = var.cluster_force_delete_storage
+        operating_system                    = var.operating_system
         kms_wait_for_apply                  = var.kms_wait_for_apply
         # By default, create dedicated pool for logging
         worker_pools = [
