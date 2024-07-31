@@ -52,6 +52,7 @@ module "roks_landing_zone" {
   license_username                       = var.license_username
   disable_outbound_traffic_protection    = var.disable_outbound_traffic_protection
   cluster_force_delete_storage           = var.cluster_force_delete_storage
+  operating_system                       = var.operating_system
   license_password                       = var.license_password
   license_pool                           = var.license_pool
   license_sku_keyword_1                  = var.license_sku_keyword_1
