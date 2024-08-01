@@ -74,6 +74,12 @@ variable "use_existing_cos_for_atracker" {
   default     = false
 }
 
+variable "skip_kms_auth_for_existing_cos" {
+  description = "Set to `true` to skip s2s auth policy between an existing COS instance and the KMS instance, typically when a pair of existing KMS/COS are used"
+  type        = bool
+  default     = false
+}
+
 ##############################################################################
 
 locals {
@@ -156,9 +162,10 @@ locals {
         (var.use_existing_cos_for_vpc_flowlogs ? local.flow_log_buckets : []),
         (var.use_existing_cos_for_atracker ? local.atracker_buckets : [])
       )
-      keys          = []
-      access_tags   = []
-      random_suffix = var.use_random_cos_suffix
+      keys                     = []
+      access_tags              = []
+      random_suffix            = var.use_random_cos_suffix
+      skip_kms_s2s_auth_policy = var.skip_kms_auth_for_existing_cos
     }
   ] : []
 }
