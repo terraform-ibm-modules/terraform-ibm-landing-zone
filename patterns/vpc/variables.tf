@@ -381,7 +381,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-1"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -456,13 +456,13 @@ variable "skip_all_s2s_auth_policies" {
 ##############################################################################
 
 variable "override" {
-  description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment."
+  description = "Override default values with custom JSON template. This uses the file `override.json` to allow users to create a fully customized environment. You can use the landing zone configuration tool to customize your override.json file."
   type        = bool
   default     = false
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
 }

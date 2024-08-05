@@ -41,7 +41,7 @@ variable "resource_tags" {
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = <<EOF
 {
@@ -231,7 +231,7 @@ variable "override_json_string" {
    "vsi": [
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-24-04-minimal-amd64-1",
+         "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
          "machine_type": "cx2-4x8",
          "name": "jump-box",
          "resource_group": "management-rg",
@@ -276,7 +276,7 @@ variable "override_json_string" {
       },
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-24-04-minimal-amd64-1",
+         "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
          "machine_type": "cx2-4x8",
          "name": "workload-server",
          "resource_group": "workload-rg",

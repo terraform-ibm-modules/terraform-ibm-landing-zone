@@ -49,14 +49,17 @@ resource "ibm_container_vpc_cluster" "cluster" {
     lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null
     ? local.default_kube_version[each.value.kube_type] : each.value.kube_version
   )
-  tags                                = var.tags
-  wait_till                           = var.wait_till
-  entitlement                         = each.value.entitlement
-  secondary_storage                   = each.value.secondary_storage
-  cos_instance_crn                    = each.value.cos_instance_crn
-  pod_subnet                          = each.value.pod_subnet
-  service_subnet                      = each.value.service_subnet
-  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
+  tags              = var.tags
+  wait_till         = var.wait_till
+  entitlement       = each.value.entitlement
+  secondary_storage = each.value.secondary_storage
+  cos_instance_crn  = each.value.cos_instance_crn
+  pod_subnet        = each.value.pod_subnet
+  service_subnet    = each.value.service_subnet
+  # if kube_version is older than 4.15, default this value to null, otherwise provider will fail
+  disable_outbound_traffic_protection = startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.12") || startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.13") || startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.14") ? null : each.value.disable_outbound_traffic_protection
+  force_delete_storage                = each.value.cluster_force_delete_storage
+  operating_system                    = each.value.operating_system
   crk                                 = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   kms_instance_id                     = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
   kms_account_id                      = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -79,6 +82,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
       instance_id      = regex(".*:(.*):key:.*", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
       private_endpoint = kms_config.value.private_endpoint
       account_id       = regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[kms_config.value.crk_name].crn)[0]
+      wait_for_apply   = each.value.kms_wait_for_apply
     }
   }
 
@@ -141,17 +145,16 @@ data "ibm_container_addons" "existing_addons" {
 }
 
 locals {
+  # for each cluster, look for installed csi driver to get version. If array is empty (no csi driver) then null is returned
   csi_driver_version = {
     for cluster in ibm_container_vpc_cluster.cluster : cluster.name => (
-      length(data.ibm_container_addons.existing_addons[cluster.name].addons) > 0 &&
-      data.ibm_container_addons.existing_addons[cluster.name].addons[0].name == "vpc-block-csi-driver" ?
-      data.ibm_container_addons.existing_addons[cluster.name].addons[0].version : ""
+      one([
+        for addon in data.ibm_container_addons.existing_addons[cluster.name].addons :
+        addon.version if addon.name == "vpc-block-csi-driver"
+      ])
     )
   }
 
-
-  #  addons_list = var.addons != null ? { for k, v in var.addons : k => v if v != null } : {}
-  #  addons      = lookup(local.addons_list, "vpc-block-csi-driver", null) == null ? merge(local.addons_list, { vpc-block-csi-driver = local.csi_driver_version[0] }) : local.addons_list
   # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
   cluster_addons = {
     for cluster in var.clusters : "${var.prefix}-${cluster.name}" => {
@@ -169,7 +172,8 @@ resource "ibm_container_addons" "addons" {
   # Worker pool creation can start before the 'ibm_container_vpc_cluster' completes since there is no explicit
   # depends_on in 'ibm_container_vpc_worker_pool', just an implicit depends_on on the cluster ID. Cluster ID can exist before
   # 'ibm_container_vpc_cluster' completes, so hence need to add explicit depends on against 'ibm_container_vpc_cluster' here.
-  depends_on        = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  depends_on = [ibm_container_vpc_cluster.cluster, ibm_container_vpc_worker_pool.pool]
+  # only apply this addons block if the cluster has addons to manage (the addons parameter has entries)
   for_each          = local.cluster_addons
   cluster           = each.value.id
   resource_group_id = each.value.resource_group_id
@@ -178,7 +182,7 @@ resource "ibm_container_addons" "addons" {
   manage_all_addons = local.clusters_map[each.key].manage_all_addons
 
   dynamic "addons" {
-    for_each = local.cluster_addons[each.key].addons
+    for_each = each.value.addons
     content {
       name    = addons.key
       version = addons.value

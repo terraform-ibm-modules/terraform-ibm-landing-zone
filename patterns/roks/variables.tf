@@ -166,6 +166,12 @@ variable "wait_till" {
   }
 }
 
+variable "kms_wait_for_apply" {
+  type        = bool
+  description = "Set true to make terraform wait until KMS is applied to master and it is ready and deployed. Default value is true."
+  default     = true
+}
+
 variable "entitlement" {
   description = "Reduces the cost of additional OCP in OpenShift clusters. If you do not have an entitlement, leave as null. Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Specify `cloud_pak` only if you use the cluster with a Cloud Pak that has an OpenShift entitlement. The value is set only when the cluster is created."
   type        = string
@@ -197,6 +203,22 @@ variable "disable_outbound_traffic_protection" {
   type        = bool
   description = "Whether to allow public outbound access from the cluster workers. This is only applicable for Red Hat OpenShift 4.15."
   default     = false
+}
+
+variable "cluster_force_delete_storage" {
+  type        = bool
+  description = "Whether to delete persistent storage when the associated VPC cluster is deleted so that it can't be recovered. Set to true to force the removal of persistent storage. Set to false to skip the forceful deletion."
+  default     = false
+}
+
+variable "operating_system" {
+  type        = string
+  description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
+  default     = null
+  validation {
+    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == null || var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+  }
 }
 
 ##############################################################################
@@ -480,7 +502,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-1"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -561,7 +583,7 @@ variable "override" {
 }
 
 variable "override_json_string" {
-  description = "Override default values with custom JSON. Any value here other than an empty string will override all other configuration changes."
+  description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
 }

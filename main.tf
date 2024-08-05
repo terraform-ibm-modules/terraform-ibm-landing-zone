@@ -33,7 +33,7 @@ locals {
 # Due to existing implicit dependencies we do not think this will be an issue, including auth policies for activity tracker.
 module "vpc" {
   source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                     = "7.18.0"
+  version                     = "7.19.0"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id
@@ -60,6 +60,24 @@ module "vpc" {
   create_authorization_policy_vpc_to_cos = false
   existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
   clean_default_sg_acl                   = (each.value.clean_default_sg_acl == null) ? false : each.value.clean_default_sg_acl
+  dns_binding_name                       = each.value.dns_binding_name
+  dns_instance_name                      = each.value.dns_instance_name
+  dns_custom_resolver_name               = each.value.dns_custom_resolver_name
+  dns_location                           = each.value.dns_location
+  dns_plan                               = each.value.dns_plan
+  existing_dns_instance_id               = each.value.existing_dns_instance_id
+  use_existing_dns_instance              = each.value.use_existing_dns_instance
+  enable_hub                             = each.value.enable_hub
+  skip_spoke_auth_policy                 = each.value.skip_spoke_auth_policy
+  hub_account_id                         = each.value.hub_account_id
+  enable_hub_vpc_id                      = each.value.enable_hub_vpc_id
+  hub_vpc_id                             = each.value.hub_vpc_id
+  enable_hub_vpc_crn                     = each.value.enable_hub_vpc_crn
+  hub_vpc_crn                            = each.value.hub_vpc_crn
+  update_delegated_resolver              = each.value.update_delegated_resolver
+  skip_custom_resolver_hub_creation      = each.value.skip_custom_resolver_hub_creation
+  resolver_type                          = each.value.resolver_type
+  manual_servers                         = each.value.manual_servers
 }
 
 
