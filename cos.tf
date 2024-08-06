@@ -141,6 +141,7 @@ resource "ibm_cos_bucket" "buckets" {
       activity_tracker_crn = activity_tracking.value.activity_tracker_crn
       read_data_events     = activity_tracking.value.read_data_events
       write_data_events    = activity_tracking.value.write_data_events
+      management_events    = activity_tracking.value.management_events
     }
   }
 
