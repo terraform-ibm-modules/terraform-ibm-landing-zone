@@ -3,11 +3,13 @@
 ##############################################################################
 
 module "resource_groups" {
-  source                   = "./config_modules/resource_groups"
-  prefix                   = var.prefix
-  vpc_list                 = local.vpc_list
-  hs_crypto_resource_group = var.hs_crypto_resource_group == null ? [] : [var.hs_crypto_resource_group]
-  appid_resource_group     = var.appid_resource_group == null ? [] : [var.appid_resource_group]
+  source                      = "./config_modules/resource_groups"
+  prefix                      = var.prefix
+  vpc_list                    = local.vpc_list
+  hs_crypto_resource_group    = var.hs_crypto_resource_group == null ? [] : [var.hs_crypto_resource_group]
+  appid_resource_group        = var.appid_resource_group == null ? [] : [var.appid_resource_group]
+  existing_kms_resource_group = var.existing_kms_resource_group == null ? [] : [var.existing_kms_resource_group]
+  existing_cos_resource_group = var.existing_cos_resource_group == null ? [] : [var.existing_cos_resource_group]
 }
 
 ##############################################################################
@@ -17,11 +19,13 @@ module "resource_groups" {
 ##############################################################################
 
 module "resource_groups_base" {
-  source                   = "./config_modules/resource_groups"
-  prefix                   = "ut"
-  vpc_list                 = ["management", "workload"]
-  hs_crypto_resource_group = []
-  appid_resource_group     = []
+  source                      = "./config_modules/resource_groups"
+  prefix                      = "ut"
+  vpc_list                    = ["management", "workload"]
+  hs_crypto_resource_group    = []
+  appid_resource_group        = []
+  existing_kms_resource_group = []
+  existing_cos_resource_group = []
 }
 
 locals {
@@ -39,11 +43,13 @@ locals {
 ##############################################################################
 
 module "resource_groups_all" {
-  source                   = "./config_modules/resource_groups"
-  prefix                   = "ut"
-  vpc_list                 = ["management", "workload"]
-  hs_crypto_resource_group = ["Default"]
-  appid_resource_group     = ["appid-rg"]
+  source                      = "./config_modules/resource_groups"
+  prefix                      = "ut"
+  vpc_list                    = ["management", "workload"]
+  hs_crypto_resource_group    = ["Default"]
+  appid_resource_group        = ["appid-rg"]
+  existing_kms_resource_group = []
+  existing_cos_resource_group = []
 }
 
 locals {

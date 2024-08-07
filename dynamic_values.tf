@@ -30,6 +30,7 @@ module "dynamic_values" {
   f5_vsi                                 = var.f5_vsi
   f5_template_data                       = var.f5_template_data
   skip_kms_block_storage_s2s_auth_policy = var.skip_kms_block_storage_s2s_auth_policy
+  skip_kms_kube_s2s_auth_policy          = var.skip_kms_kube_s2s_auth_policy
   skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   atracker_cos_bucket                    = var.atracker.add_route == true ? var.atracker.collector_bucket_name : null
 }

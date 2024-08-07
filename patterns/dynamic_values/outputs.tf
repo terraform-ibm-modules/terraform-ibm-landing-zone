@@ -108,3 +108,17 @@ output "vpn_gateways" {
 }
 
 ##############################################################################
+
+##############################################################################
+# Atracker configuration Output
+##############################################################################
+output "atracker" {
+  description = "Configuration for atracker route and target"
+  value = {
+    resource_group        = "${var.prefix}-service-rg"
+    receive_global_events = true
+    collector_bucket_name = var.add_atracker_route ? "atracker-bucket" : ""
+    add_route             = var.add_atracker_route
+  }
+}
+##############################################################################

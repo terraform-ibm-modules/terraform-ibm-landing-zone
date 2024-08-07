@@ -74,10 +74,13 @@ locals {
     (encryption_key.name) => encryption_key if lookup(encryption_key, "existing_key_crn", null) == null
   }
   # Rings
-  key_rings = distinct([
-    for encryption_key in var.keys :
-    encryption_key.key_ring if encryption_key.key_ring != null
+  key_rings = distinct([for encryption_key in var.keys :
+    {
+      key_ring_name = encryption_key.key_ring
+      endpoint      = lookup(encryption_key, "endpoint", "public")
+    } if encryption_key.key_ring != null
   ])
+
 
   # Policies
   key_management_key_policies = {

@@ -37,6 +37,26 @@ variable "appid_resource_group" {
   }
 }
 
+variable "existing_kms_resource_group" {
+  description = "Name of an existing KMS instance resource group"
+  type        = list(string)
+
+  validation {
+    error_message = "Existing KMS instance resource group can only have 0 or 1 element."
+    condition     = length(var.existing_kms_resource_group) == 0 || length(var.existing_kms_resource_group) == 1
+  }
+}
+
+variable "existing_cos_resource_group" {
+  description = "Name of hscrypto resource group"
+  type        = list(string)
+
+  validation {
+    error_message = "Existing COS instance resource group can only have 0 or 1 element."
+    condition     = length(var.existing_cos_resource_group) == 0 || length(var.existing_cos_resource_group) == 1
+  }
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -48,7 +68,9 @@ locals {
   resource_group_list = flatten([
     ["service"],
     var.hs_crypto_resource_group,
-    var.appid_resource_group
+    var.appid_resource_group,
+    var.existing_kms_resource_group,
+    var.existing_cos_resource_group
   ])
 
   # Create reference list
@@ -58,7 +80,9 @@ locals {
       "default",
     ],
     var.hs_crypto_resource_group,
-    var.appid_resource_group
+    var.appid_resource_group,
+    var.existing_kms_resource_group,
+    var.existing_cos_resource_group
   ])
 
   # All Resource groups
