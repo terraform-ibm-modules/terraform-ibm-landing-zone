@@ -30,12 +30,13 @@ module "roks_landing_zone" {
   enable_transit_gateway                 = var.enable_transit_gateway
   transit_gateway_global                 = var.transit_gateway_global
   ssh_public_key                         = var.ssh_public_key
-  update_all_workers                     = var.update_all_workers
   existing_ssh_key_name                  = var.existing_ssh_key_name
   entitlement                            = var.entitlement
   workers_per_zone                       = var.workers_per_zone
   flavor                                 = var.flavor
   kube_version                           = var.kube_version
+  cluster_addons                         = var.cluster_addons
+  manage_all_cluster_addons              = var.manage_all_cluster_addons
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
@@ -49,6 +50,9 @@ module "roks_landing_zone" {
   byol_license_basekey                   = var.byol_license_basekey
   license_host                           = var.license_host
   license_username                       = var.license_username
+  disable_outbound_traffic_protection    = var.disable_outbound_traffic_protection
+  cluster_force_delete_storage           = var.cluster_force_delete_storage
+  operating_system                       = var.operating_system
   license_password                       = var.license_password
   license_pool                           = var.license_pool
   license_sku_keyword_1                  = var.license_sku_keyword_1
@@ -91,6 +95,7 @@ module "roks_landing_zone" {
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
+  kms_wait_for_apply                     = var.kms_wait_for_apply
 }
 
 moved {

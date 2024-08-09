@@ -10,7 +10,7 @@ variable "region" {
 }
 
 variable "prefix" {
-  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources."
+  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
   type        = string
   default     = "slz-vsi"
 }
@@ -53,7 +53,7 @@ variable "access_tags" {
 variable "image_name" {
   description = "The image ID used for the VSI. You can run the `ibmcloud is images` CLI command to find available images. The IDs are different in each region."
   type        = string
-  default     = "ibm-ubuntu-22-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {

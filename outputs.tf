@@ -74,6 +74,16 @@ output "cluster_names" {
   ]
 }
 
+output "workload_cluster_id" {
+  description = "The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
+  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-workload-cluster", null) != null ? ibm_container_vpc_cluster.cluster["${var.prefix}-workload-cluster"].id : null
+}
+
+output "management_cluster_id" {
+  description = "The id of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null."
+  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-management-cluster", null) != null ? ibm_container_vpc_cluster.cluster["${var.prefix}-management-cluster"].id : null
+}
+
 output "cluster_data" {
   description = "List of cluster data"
   value = {
@@ -178,8 +188,13 @@ output "vpc_names" {
 output "vpc_data" {
   description = "List of VPC data"
   value = [
-    for network in module.vpc :
-    network
+    for k, a in module.vpc :
+    merge(
+      a,
+      {
+        vpc_data = data.ibm_is_vpc.vpc[k]
+      }
+    )
   ]
 }
 
@@ -226,6 +241,17 @@ output "vpc_resource_list" {
   ]
 }
 
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value = [
+    for vpc in module.vpc :
+    {
+      dns_instance_id        = vpc.dns_instance_id
+      dns_custom_resolver_id = vpc.dns_custom_resolver_id
+    }
+  ]
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -245,12 +271,12 @@ output "placement_groups" {
 
 output "resource_group_names" {
   description = "List of resource groups names used within landing zone."
-  value       = keys(local.resource_groups)
+  value       = keys(local.resource_groups_info)
 }
 
 output "resource_group_data" {
   description = "List of resource groups data used within landing zone."
-  value       = local.resource_groups
+  value       = local.resource_groups_info
 }
 
 

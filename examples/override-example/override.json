@@ -8,7 +8,44 @@
     "use_appid": false,
     "use_data": false
   },
-  "clusters": [],
+  "clusters": [
+    {
+      "cos_name": "cos",
+      "entitlement": "cloud_pak",
+      "kube_type": "openshift",
+      "kube_version": "default",
+      "machine_type": "bx2.16x64",
+      "name": "workload-cluster",
+      "secondary_storage": "300gb.5iops-tier",
+      "resource_group": "slz-workload-rg",
+      "kms_config": {
+          "crk_name": "slz-key",
+          "private_endpoint": true
+      },
+      "subnet_names": [
+        "vsi-zone-1",
+        "vsi-zone-2",
+        "vsi-zone-3"
+      ],
+      "vpc_name": "workload",
+      "worker_pools": [
+        {
+          "entitlement": "cloud_pak",
+          "flavor": "bx2.16x64",
+          "name": "logging-worker-pool",
+          "secondary_storage": "300gb.5iops-tier",
+          "subnet_names": [
+            "vsi-zone-1",
+            "vsi-zone-2",
+            "vsi-zone-3"
+          ],
+          "vpc_name": "workload",
+          "workers_per_subnet": 2
+        }
+      ],
+      "workers_per_subnet": 2
+    }
+  ],
   "enable_transit_gateway": true,
   "transit_gateway_global": false,
   "transit_gateway_connections": [
@@ -140,7 +177,8 @@
     ],
     "name": "slz-kms",
     "resource_group": "slz-service-rg",
-    "use_hs_crypto": false
+    "use_hs_crypto": false,
+    "service_endpoints": "public-and-private"
   },
   "resource_groups": [
     {
@@ -349,7 +387,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
       "machine_type": "cx2-2x4",
       "name": "jump-box",
       "resource_group": "slz-management-rg",
@@ -382,7 +420,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
       "machine_type": "cx2-2x4",
       "name": "private-svs",
       "resource_group": "slz-workload-rg",
@@ -415,7 +453,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-22-04-3-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",

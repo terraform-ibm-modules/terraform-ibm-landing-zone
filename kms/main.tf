@@ -8,6 +8,7 @@ locals {
   keys                = module.dynamic_values.keys
   key_rings           = module.dynamic_values.key_rings
   policies            = module.dynamic_values.policies
+  service_endpoints   = var.key_management.service_endpoints == "private" ? "private-only" : "public-and-private"
 }
 
 ##############################################################################
@@ -25,7 +26,9 @@ resource "ibm_resource_instance" "kms" {
   location          = var.region
   resource_group_id = var.key_management.resource_group_id
   tags              = var.key_management.tags
-  service_endpoints = var.service_endpoints
+  parameters = {
+    allowed_network : local.service_endpoints
+  }
 }
 
 resource "ibm_resource_tag" "tag" {

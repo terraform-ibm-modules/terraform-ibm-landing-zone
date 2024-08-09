@@ -14,6 +14,10 @@
             "machine_type": "bx2.16x64",
             "name": "management-cluster",
             "resource_group": "slz-management-rg",
+            "disable_outbound_traffic_protection": false,
+            "cluster_force_delete_storage": false,
+            "operating_system": null,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -23,7 +27,6 @@
                 "vsi-zone-2",
                 "vsi-zone-3"
             ],
-            "update_all_workers": false,
             "vpc_name": "management",
             "worker_pools": [
                 {
@@ -49,6 +52,9 @@
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
+            "disable_outbound_traffic_protection": false,
+            "cluster_force_delete_storage": false,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -58,7 +64,6 @@
                 "vsi-zone-2",
                 "vsi-zone-3"
             ],
-            "update_all_workers": false,
             "vpc_name": "workload",
             "worker_pools": [
                 {
@@ -85,7 +90,22 @@
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": [],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "Glacier"
+                    }
                 }
             ],
             "keys": [
@@ -107,14 +127,44 @@
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": [],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "Glacier"
+                    }
                 },
                 {
                     "endpoint_type": "public",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "region_location": "us-south",
+                    "hard_quota": 0,
+                    "allowed_ip": [],
+                    "expire_rule": {
+                        "rule_id": "a-bucket-expire-rule",
+                        "enable": true,
+                        "days": 30,
+                        "prefix": "logs/"
+                    },
+                    "archive_rule": {
+                        "rule_id": "a-bucket-arch-rule",
+                        "enable": true,
+                        "days": 0,
+                        "type": "Glacier"
+                    }
                 }
             ],
             "keys": [],
@@ -151,7 +201,8 @@
         ],
         "name": "slz-slz-kms",
         "resource_group": "slz-service-rg",
-        "use_hs_crypto": false
+        "use_hs_crypto": false,
+        "service_endpoints": "public-and-private"
     },
     "resource_groups": [
         {
