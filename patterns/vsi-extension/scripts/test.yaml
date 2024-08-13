@@ -26,16 +26,11 @@
       set_fact:
         statefile: "{{ result.json.file_content | string }}"
 
-    # - name: get script
-    #   get_url:
-    #     url: https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/default-subnet/patterns/vsi-extension/scripts/script.sh
-    #     dest: script.sh
-    #     mode: "0755"
-
     - name: Creating a file with content
       copy:
         dest: "script.sh"
         content: |
+          #!/bin/bash
           STATE="$(cat terraform.tfstate.tmp)"
 
           SUBNET_LIST=()
@@ -114,6 +109,7 @@
     - name: Run a script with arguments (free form)
       ansible.builtin.script:
         cmd: ./script.sh
+      register: move_list
 
     - name: Initiate Commands List
       set_fact:
