@@ -59,9 +59,10 @@ data "ibm_resource_instance" "hpcs_instance" {
 ##############################################################################
 
 resource "ibm_kms_key_rings" "rings" {
-  for_each    = toset(local.key_rings)
-  instance_id = local.key_management_guid
-  key_ring_id = each.key
+  for_each      = { for ring in local.key_rings : ring.key_ring_name => ring }
+  instance_id   = local.key_management_guid
+  key_ring_id   = each.value.key_ring_name
+  endpoint_type = each.value.endpoint
 }
 
 ##############################################################################
