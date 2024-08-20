@@ -1341,7 +1341,19 @@ variable "skip_all_s2s_auth_policies" {
 variable "enforcement_mode" {
   type        = string
   description = "(String) The rule enforcement mode"
-  default     = "enabled"
+  default     = "report"
+}
+
+variable "exisiting_VPC_cbr_zone_id" {
+  type        = string
+  description = "Existing VPC CBR zone id"
+  default     = "93f930bfda37b5909e5a93907b3ce620"
+}
+
+variable "exisiting_schematics_cbr_zone_id" {
+  type        = string
+  description = "Existing Schemtics CBR zone id"
+  default     = "e4ecd8bdf29648f2dc3a14ef5f3dc90c"
 }
 
 ##############################################################################
