@@ -505,12 +505,15 @@ variable "cos" {
   description = "Object describing the cloud object storage instance, buckets, and keys. Set `use_data` to false to create instance"
   type = list(
     object({
-      name           = string
-      use_data       = optional(bool)
-      resource_group = string
-      plan           = optional(string)
-      random_suffix  = optional(bool) # Use a random suffix for COS instance
-      access_tags    = optional(list(string), [])
+      name                          = string
+      use_data                      = optional(bool)
+      resource_group                = string
+      plan                          = optional(string)
+      random_suffix                 = optional(bool) # Use a random suffix for COS instance
+      access_tags                   = optional(list(string), [])
+      skip_kms_s2s_auth_policy      = optional(bool, false) # skip auth policy between this instance and kms instance, useful if existing resources are used
+      skip_flowlogs_s2s_auth_policy = optional(bool, false) # skip auth policy between flow logs service and this instance, set to true if this policy is already in place on account
+      skip_atracker_s2s_auth_policy = optional(bool, false) # skip auth policyt between atracker service and this instance, set to true if this is existing recipient of atracker already
       buckets = list(object({
         name                  = string
         storage_class         = string
@@ -1313,6 +1316,12 @@ variable "vpc_placement_groups" {
 
 variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
+  type        = bool
+  default     = false
+}
+
+variable "skip_kms_kube_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-serivce authorization policy between kubernetes and the key management service."
   type        = bool
   default     = false
 }
