@@ -99,6 +99,11 @@ output "cluster_data" {
   }
 }
 
+output "cluster_urls" {
+  description = "Public service endpoint URLs for the Clusters."
+  value       = { for k, v in data.ibm_container_vpc_cluster.cluster : k => v.public_service_endpoint_url }
+}
+
 ##############################################################################
 
 ##############################################################################

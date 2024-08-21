@@ -102,6 +102,11 @@ resource "ibm_resource_tag" "cluster_tag" {
   tags        = each.value.access_tags
 }
 
+data "ibm_container_vpc_cluster" "cluster" {
+  for_each        = local.clusters_map
+  cluster_name_id = ibm_container_vpc_cluster.cluster[each.key].id
+}
+
 ##############################################################################
 
 
