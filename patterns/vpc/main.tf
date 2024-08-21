@@ -81,6 +81,7 @@ module "vpc_landing_zone" {
   tmos_admin_password                    = var.tmos_admin_password
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
+  exisiting_vpc_cbr_zone_id              = var.exisiting_vpc_cbr_zone_id
 }
 
 moved {
