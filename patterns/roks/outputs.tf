@@ -93,22 +93,22 @@ output "management_cluster_id" {
 }
 
 output "workload_cluster_ingress_hostname" {
-  description = "The hostname assigned for the Workload cluster ingress subdomain."
+  description = "The hostname assigned for the Workload cluster ingress subdomain, if not then null."
   value       = module.roks_landing_zone.workload_cluster_ingress_hostname
 }
 
 output "management_cluster_ingress_hostname" {
-  description = "The hostname assigned for the Management cluster ingress subdomain."
+  description = "The hostname assigned for the Management cluster ingress subdomain, if not then null."
   value       = module.roks_landing_zone.management_cluster_ingress_hostname
 }
 
 output "workload_cluster_private_service_endpoint_url" {
-  description = "The private service endpoint URL of the Workload cluster."
+  description = "The private service endpoint URL of the Workload cluster, if not then null."
   value       = module.roks_landing_zone.workload_cluster_private_service_endpoint_url
 }
 
 output "management_cluster_private_service_endpoint_url" {
-  description = "The private service endpoint URL of the Management cluster."
+  description = "The private service endpoint URL of the Management cluster, if not then null."
   value       = module.roks_landing_zone.management_cluster_private_service_endpoint_url
 }
 
