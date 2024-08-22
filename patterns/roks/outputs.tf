@@ -92,6 +92,46 @@ output "management_cluster_id" {
   value       = module.roks_landing_zone.management_cluster_id
 }
 
+output "workload_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Workload cluster ingress subdomain."
+  value       = module.roks_landing_zone.workload_cluster_ingress_hostname
+}
+
+output "management_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Management cluster ingress subdomain."
+  value       = module.roks_landing_zone.management_cluster_ingress_hostname
+}
+
+output "workload_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Workload cluster."
+  value       = module.roks_landing_zone.workload_cluster_private_service_endpoint_url
+}
+
+output "management_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Management cluster."
+  value       = module.roks_landing_zone.management_cluster_private_service_endpoint_url
+}
+
+output "workload_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Workload cluster, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_public_service_endpoint_url
+}
+
+output "management_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Management cluster, if not then null."
+  value       = module.roks_landing_zone.management_cluster_public_service_endpoint_url
+}
+
+output "workload_cluster_public_cluster_url" {
+  description = "Public URL of the Workload cluster, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_public_cluster_url
+}
+
+output "management_cluster_public_cluster_url" {
+  description = "Public URL of the Management cluster, if not then null."
+  value       = module.roks_landing_zone.management_cluster_public_cluster_url
+}
+
 output "key_management_name" {
   description = "Name of key management service"
   value       = module.roks_landing_zone.key_management_name

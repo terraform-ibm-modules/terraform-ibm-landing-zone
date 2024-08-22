@@ -89,19 +89,18 @@ output "cluster_data" {
   value = {
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.name => {
-      crn                 = cluster.crn
-      id                  = cluster.id
-      resource_group_name = cluster.resource_group_name
-      resource_group_id   = cluster.resource_group_id
-      vpc_id              = cluster.vpc_id
-      region              = var.region
+      crn                          = cluster.crn
+      id                           = cluster.id
+      resource_group_name          = cluster.resource_group_name
+      resource_group_id            = cluster.resource_group_id
+      vpc_id                       = cluster.vpc_id
+      region                       = var.region
+      private_service_endpoint_url = cluster.private_service_endpoint_url
+      public_service_endpoint_url  = coalesce(cluster.public_service_endpoint_url, null)
+      ingress_hostname             = cluster.ingress_hostname
+      public_cluster_url           = cluster.public_service_endpoint_url != null ? "https://console-openshift-console.${cluster.ingress_hostname}" : null
     }
   }
-}
-
-output "cluster_urls" {
-  description = "Public service endpoint URLs for the Clusters."
-  value       = { for k, v in data.ibm_container_vpc_cluster.cluster : k => v.public_service_endpoint_url }
 }
 
 ##############################################################################
