@@ -122,14 +122,14 @@ output "management_cluster_public_service_endpoint_url" {
   value       = module.roks_landing_zone.management_cluster_public_service_endpoint_url
 }
 
-output "workload_cluster_public_cluster_url" {
-  description = "Public URL of the Workload cluster, if not then null."
-  value       = module.roks_landing_zone.workload_cluster_public_cluster_url
+output "workload_cluster_console_url" {
+  description = "Workload cluster console URL, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_console_url
 }
 
-output "management_cluster_public_cluster_url" {
-  description = "Public URL of the Management cluster, if not then null."
-  value       = module.roks_landing_zone.management_cluster_public_cluster_url
+output "management_cluster_console_url" {
+  description = "Management cluster console URL, if not then null."
+  value       = module.roks_landing_zone.management_cluster_console_url
 }
 
 output "key_management_name" {
