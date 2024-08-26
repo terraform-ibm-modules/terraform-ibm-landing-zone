@@ -96,9 +96,9 @@ output "cluster_data" {
       vpc_id                       = cluster.vpc_id
       region                       = var.region
       private_service_endpoint_url = cluster.private_service_endpoint_url
-      public_service_endpoint_url  = coalesce(cluster.public_service_endpoint_url, null)
+      public_service_endpoint_url  = coalesce(cluster.public_service_endpoint_url, "")
       ingress_hostname             = cluster.ingress_hostname
-      cluster_console_url          = cluster.public_service_endpoint_url != null ? "https://console-openshift-console.${cluster.ingress_hostname}" : null
+      cluster_console_url          = (cluster.public_service_endpoint_url != "" && cluster.public_service_endpoint_url != null) ? "https://console-openshift-console.${cluster.ingress_hostname}" : null
     }
   }
 }
