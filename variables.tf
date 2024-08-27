@@ -544,6 +544,7 @@ variable "cos" {
           activity_tracker_crn = string
           read_data_events     = bool
           write_data_events    = bool
+          management_events    = bool
         }))
         metrics_monitoring = optional(object({
           metrics_monitoring_crn  = string
