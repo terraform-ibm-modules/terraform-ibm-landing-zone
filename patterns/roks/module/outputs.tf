@@ -92,6 +92,94 @@ output "management_cluster_id" {
   value       = module.landing_zone.management_cluster_id
 }
 
+output "workload_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Workload cluster ingress subdomain, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.ingress_hostname
+      if can(regex("workload", name))
+    ])
+  )
+}
+
+output "management_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Management cluster ingress subdomain, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.ingress_hostname
+      if can(regex("management", name))
+    ])
+  )
+}
+
+output "workload_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Workload cluster, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.private_service_endpoint_url
+      if can(regex("workload", name))
+    ])
+  )
+}
+
+output "management_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Management cluster, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.private_service_endpoint_url
+      if can(regex("management", name))
+    ])
+  )
+}
+
+output "workload_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Workload cluster, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.public_service_endpoint_url
+      if can(regex("workload", name))
+    ])
+  )
+}
+
+output "management_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Management cluster, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.public_service_endpoint_url
+      if can(regex("management", name))
+    ])
+  )
+}
+
+output "workload_cluster_console_url" {
+  description = "Workload cluster console URL, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.cluster_console_url
+      if can(regex("workload", name))
+    ])
+  )
+}
+
+output "management_cluster_console_url" {
+  description = "Management cluster console URL, if not then null."
+  value = one(
+    flatten([
+      for name, cluster in module.landing_zone.cluster_data :
+      cluster.cluster_console_url
+      if can(regex("management", name))
+    ])
+  )
+}
+
 output "key_management_name" {
   description = "Name of key management service"
   value       = module.landing_zone.key_management_name
