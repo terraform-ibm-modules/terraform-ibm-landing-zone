@@ -67,6 +67,46 @@ output "management_cluster_id" {
   value       = module.landing_zone.management_cluster_id
 }
 
+output "workload_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Workload cluster ingress subdomain, if not then null."
+  value       = module.landing_zone.workload_cluster_ingress_hostname
+}
+
+output "management_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Management cluster ingress subdomain, if not then null."
+  value       = module.landing_zone.management_cluster_ingress_hostname
+}
+
+output "workload_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Workload cluster, if not then null."
+  value       = module.landing_zone.workload_cluster_private_service_endpoint_url
+}
+
+output "management_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Management cluster, if not then null."
+  value       = module.landing_zone.management_cluster_private_service_endpoint_url
+}
+
+output "workload_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Workload cluster, if not then null."
+  value       = module.landing_zone.workload_cluster_public_service_endpoint_url
+}
+
+output "management_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Management cluster, if not then null."
+  value       = module.landing_zone.management_cluster_public_service_endpoint_url
+}
+
+output "workload_cluster_console_url" {
+  description = "Workload cluster console URL, if not then null."
+  value       = module.landing_zone.workload_cluster_console_url
+}
+
+output "management_cluster_console_url" {
+  description = "Management cluster console URL, if not then null."
+  value       = module.landing_zone.management_cluster_console_url
+}
+
 output "key_management_name" {
   description = "Name of key management service"
   value       = module.landing_zone.key_management_name
@@ -90,6 +130,11 @@ output "key_rings" {
 output "key_map" {
   description = "Map of ids and keys for keys created"
   value       = module.landing_zone.key_map
+}
+
+output "vpc_dns" {
+  description = "List of VPC DNS details for each of the VPCs."
+  value       = module.landing_zone.vpc_dns
 }
 
 ##############################################################################

@@ -505,12 +505,15 @@ variable "cos" {
   description = "Object describing the cloud object storage instance, buckets, and keys. Set `use_data` to false to create instance"
   type = list(
     object({
-      name           = string
-      use_data       = optional(bool)
-      resource_group = string
-      plan           = optional(string)
-      random_suffix  = optional(bool) # Use a random suffix for COS instance
-      access_tags    = optional(list(string), [])
+      name                          = string
+      use_data                      = optional(bool)
+      resource_group                = string
+      plan                          = optional(string)
+      random_suffix                 = optional(bool) # Use a random suffix for COS instance
+      access_tags                   = optional(list(string), [])
+      skip_kms_s2s_auth_policy      = optional(bool, false) # skip auth policy between this instance and kms instance, useful if existing resources are used
+      skip_flowlogs_s2s_auth_policy = optional(bool, false) # skip auth policy between flow logs service and this instance, set to true if this policy is already in place on account
+      skip_atracker_s2s_auth_policy = optional(bool, false) # skip auth policyt between atracker service and this instance, set to true if this is existing recipient of atracker already
       buckets = list(object({
         name                  = string
         storage_class         = string
@@ -541,6 +544,7 @@ variable "cos" {
           activity_tracker_crn = string
           read_data_events     = bool
           write_data_events    = bool
+          management_events    = bool
         }))
         metrics_monitoring = optional(object({
           metrics_monitoring_crn  = string
@@ -587,10 +591,10 @@ variable "cos" {
   }
 
   validation {
-    error_message = "Plans for COS instances can only be `lite` or `standard`."
+    error_message = "Plans for COS instances can only be `standard`."
     condition = length([
       for instance in var.cos :
-      true if contains(["lite", "standard"], instance.plan)
+      true if contains(["standard"], instance.plan)
     ]) == length(var.cos)
   }
 
@@ -846,16 +850,18 @@ variable "clusters" {
       resource_group                      = string           # Resource Group used for cluster
       cos_name                            = optional(string) # Name of COS instance Required only for OpenShift clusters
       access_tags                         = optional(list(string), [])
-      boot_volume_crk_name                = optional(string)      # Boot volume encryption key name
-      disable_public_endpoint             = optional(bool, true)  # disable cluster public, leaving only private endpoint
-      disable_outbound_traffic_protection = optional(bool, false) # public outbound access from the cluster workers
-      cluster_force_delete_storage        = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion
+      boot_volume_crk_name                = optional(string)       # Boot volume encryption key name
+      disable_public_endpoint             = optional(bool, true)   # disable cluster public, leaving only private endpoint
+      disable_outbound_traffic_protection = optional(bool, false)  # public outbound access from the cluster workers
+      cluster_force_delete_storage        = optional(bool, false)  # force the removal of persistent storage associated with the cluster during cluster deletion
       verify_worker_network_readiness     = optional(bool)        # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
       use_private_endpoint                = optional(bool, false) # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.
       minimum_size                        = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
       maximum_size                        = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
       enable_autoscaling                  = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
-      addons = optional(object({                                  # Map of OCP cluster add-on versions to install
+      operating_system                    = optional(string, null) #The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+      kms_wait_for_apply                  = optional(bool, true)   # make terraform wait until KMS is applied to master and it is ready and deployed
+      addons = optional(object({                                   # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)
@@ -863,6 +869,7 @@ variable "clusters" {
         static-route              = optional(string)
         cluster-autoscaler        = optional(string)
         vpc-block-csi-driver      = optional(string)
+        ibm-storage-operator      = optional(string)
       }), {})
       manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
@@ -871,6 +878,7 @@ variable "clusters" {
           private_endpoint = optional(bool) # Private endpoint
         })
       )
+
       worker_pools = optional(
         list(
           object({
@@ -882,6 +890,7 @@ variable "clusters" {
             entitlement          = optional(string)      # entitlement option for openshift
             secondary_storage    = optional(string)      # Secondary storage type
             boot_volume_crk_name = optional(string)      # Boot volume encryption key name
+            operating_system     = optional(string) # The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
             minimum_size         = optional(number)      # Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to.
             maximum_size         = optional(number)      # Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to.
             enable_autoscaling   = optional(bool, false) # Flag to set cluster autoscaler to manage scaling for the worker pool.
@@ -932,7 +941,15 @@ variable "clusters" {
     error_message = "Duplicate worker_pool name in list var.cluster.worker_pools. Please provide unique worker_pool names."
   }
 
+
+  # operating_system validation
+  validation {
+    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
+  }
+
 }
+
 
 variable "wait_till" {
   description = "To avoid long wait times when you run your Terraform code, you can specify the stage when you want Terraform to mark the cluster resource creation as completed. Depending on what stage you choose, the cluster creation might not be fully completed and continues to run in the background. However, your Terraform code can continue to run without waiting for the cluster to be fully created. Supported args are `MasterNodeReady`, `OneWorkerNodeReady`, and `IngressReady`"
@@ -1308,6 +1325,12 @@ variable "vpc_placement_groups" {
 
 variable "skip_kms_block_storage_s2s_auth_policy" {
   description = "Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service."
+  type        = bool
+  default     = false
+}
+
+variable "skip_kms_kube_s2s_auth_policy" {
+  description = "Whether to skip the creation of a service-to-serivce authorization policy between kubernetes and the key management service."
   type        = bool
   default     = false
 }

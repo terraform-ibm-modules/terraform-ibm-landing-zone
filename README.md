@@ -54,7 +54,6 @@ For more information about the default configuration, see [Default Secure Landin
 
 Complete the following steps before you deploy the Secure Landing Zone module.
 ### Set up an IBM Cloud Account
-
 1.  Make sure that you have an IBM Cloud Pay-As-You-Go or Subscription account:
 
     - If you don't have an IBM Cloud account, [create one](https://cloud.ibm.com/docs/account?topic=account-account-getting-started).
@@ -882,7 +881,7 @@ statement instead the previous block.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.60.0, < 2.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.67.0, < 2.0.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3, < 4.0.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1, < 1.0.0 |
 
@@ -898,7 +897,7 @@ statement instead the previous block.
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.18.3 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.19.0 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.3.0 |
 
 ### Resources
@@ -963,6 +962,7 @@ statement instead the previous block.
 | <a name="input_service_endpoints"></a> [service\_endpoints](#input\_service\_endpoints) | Service endpoints for the App ID resource when created by the module. Can be `public`, `private`, or `public-and-private` | `string` | `"public-and-private"` | no |
 | <a name="input_skip_all_s2s_auth_policies"></a> [skip\_all\_s2s\_auth\_policies](#input\_skip\_all\_s2s\_auth\_policies) | Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning. | `bool` | `false` | no |
 | <a name="input_skip_kms_block_storage_s2s_auth_policy"></a> [skip\_kms\_block\_storage\_s2s\_auth\_policy](#input\_skip\_kms\_block\_storage\_s2s\_auth\_policy) | Whether to skip the creation of a service-to-service authorization policy between block storage and the key management service. | `bool` | `false` | no |
+| <a name="input_skip_kms_kube_s2s_auth_policy"></a> [skip\_kms\_kube\_s2s\_auth\_policy](#input\_skip\_kms\_kube\_s2s\_auth\_policy) | Whether to skip the creation of a service-to-serivce authorization policy between kubernetes and the key management service. | `bool` | `false` | no |
 | <a name="input_ssh_keys"></a> [ssh\_keys](#input\_ssh\_keys) | SSH keys to use to provision a VSI. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). If `public_key` is not provided, the named key will be looked up from data. If a resource group name is added, it must be included in `var.resource_groups`. See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. | <pre>list(<br>    object({<br>      name           = string<br>      public_key     = optional(string)<br>      resource_group = optional(string)<br>    })<br>  )</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of resource tags to apply to resources created by this module. | `list(string)` | `[]` | no |
 | <a name="input_teleport_config_data"></a> [teleport\_config\_data](#input\_teleport\_config\_data) | Teleport config data. This is used to create a single template for all teleport instances to use. Creating a single template allows for values to remain sensitive | <pre>object({<br>    teleport_license   = optional(string)<br>    https_cert         = optional(string)<br>    https_key          = optional(string)<br>    domain             = optional(string)<br>    cos_bucket_name    = optional(string)<br>    cos_key_name       = optional(string)<br>    teleport_version   = optional(string)<br>    message_of_the_day = optional(string)<br>    hostname           = optional(string)<br>    app_id_key_name    = optional(string)<br>    claims_to_roles = optional(<br>      list(<br>        object({<br>          email = string<br>          roles = list(string)<br>        })<br>      )<br>    )<br>  })</pre> | `null` | no |
@@ -1016,6 +1016,7 @@ statement instead the previous block.
 | <a name="output_transit_gateway_data"></a> [transit\_gateway\_data](#output\_transit\_gateway\_data) | Created transit gateway data |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | Name of created transit gateway |
 | <a name="output_vpc_data"></a> [vpc\_data](#output\_vpc\_data) | List of VPC data |
+| <a name="output_vpc_dns"></a> [vpc\_dns](#output\_vpc\_dns) | List of VPC DNS details for each of the VPCs. |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | List of VPC names |
 | <a name="output_vpc_resource_list"></a> [vpc\_resource\_list](#output\_vpc\_resource\_list) | List of VPC with VSI and Cluster deployed on the VPC. |
 | <a name="output_vpe_gateway_data"></a> [vpe\_gateway\_data](#output\_vpe\_gateway\_data) | List of VPE gateways data |

@@ -40,6 +40,14 @@ module "roks_landing_zone" {
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
+  existing_kms_instance_name             = var.existing_kms_instance_name
+  existing_kms_resource_group            = var.existing_kms_resource_group
+  existing_kms_endpoint_type             = var.existing_kms_endpoint_type
+  existing_cos_instance_name             = var.existing_cos_instance_name
+  existing_cos_resource_group            = var.existing_cos_resource_group
+  existing_cos_endpoint_type             = var.existing_cos_endpoint_type
+  use_existing_cos_for_atracker          = var.use_existing_cos_for_atracker
+  use_existing_cos_for_vpc_flowlogs      = var.use_existing_cos_for_vpc_flowlogs
   use_random_cos_suffix                  = var.use_random_cos_suffix
   add_edge_vpc                           = var.add_edge_vpc
   create_f5_network_on_management_vpc    = var.create_f5_network_on_management_vpc
@@ -52,6 +60,7 @@ module "roks_landing_zone" {
   license_username                       = var.license_username
   disable_outbound_traffic_protection    = var.disable_outbound_traffic_protection
   cluster_force_delete_storage           = var.cluster_force_delete_storage
+  operating_system                       = var.operating_system
   license_password                       = var.license_password
   license_pool                           = var.license_pool
   license_sku_keyword_1                  = var.license_sku_keyword_1
@@ -100,6 +109,7 @@ module "roks_landing_zone" {
   enable_autoscaling                     = var.enable_autoscaling
   verify_worker_network_readiness        = var.verify_worker_network_readiness
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
+  kms_wait_for_apply                     = var.kms_wait_for_apply
 }
 
 moved {

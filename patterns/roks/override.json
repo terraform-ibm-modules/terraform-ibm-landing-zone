@@ -19,6 +19,8 @@
             "verify_worker_network_readiness": false,
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
+            "operating_system": null,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true
@@ -64,6 +66,7 @@
             "verify_worker_network_readiness": false,
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
+            "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
                 "private_endpoint": true

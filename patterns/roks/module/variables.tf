@@ -86,6 +86,29 @@ variable "hs_crypto_resource_group" {
   default     = null
 }
 
+variable "existing_kms_instance_name" {
+  description = "Specify the name of an existing Key Management Service instance for key management. Leave as null to deploy a new Key Protect service."
+  type        = string
+  default     = null
+}
+
+variable "existing_kms_resource_group" {
+  description = "For using an existing Key Management Service (KMS), specify the name of the resource group for the instance in `existing_kms_instance_name`. Leave as null for the `Default` resource group or if not using an existing KMS."
+  type        = string
+  default     = null
+}
+
+variable "existing_kms_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing KMS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_kms_endpoint_type)
+  }
+}
+
 ##############################################################################
 
 
@@ -97,6 +120,43 @@ variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
   type        = bool
   default     = true
+}
+
+variable "existing_cos_instance_name" {
+  description = "Specify the name of an existing Cloud Object Storage (COS) instance that can be used for new buckets, if required."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_resource_group" {
+  description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+  }
+}
+
+variable "use_existing_cos_for_vpc_flowlogs" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "use_existing_cos_for_atracker" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your Activity Tracker (atracker) routing. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 ##############################################################################
@@ -148,6 +208,12 @@ variable "wait_till" {
       "IngressReady"
     ], var.wait_till)
   }
+}
+
+variable "kms_wait_for_apply" {
+  type        = bool
+  description = "Set true to make terraform wait until KMS is applied to master and it is ready and deployed. Default value is true."
+  default     = true
 }
 
 variable "entitlement" {
@@ -229,6 +295,16 @@ variable "cluster_force_delete_storage" {
   type        = bool
   description = "Whether to delete persistent storage when the associated VPC cluster is deleted so that it can't be recovered. Set to true to force the removal of persistent storage. Set to false to skip the forceful deletion."
   default     = false
+}
+
+variable "operating_system" {
+  type        = string
+  description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
+  default     = null
+  validation {
+    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == null || var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+  }
 }
 
 ##############################################################################
@@ -512,7 +588,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-4"
 }
 
 variable "teleport_license" {
