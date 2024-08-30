@@ -30,12 +30,17 @@ locals {
   cluster_data = merge({
     for cluster in ibm_container_vpc_cluster.cluster :
     cluster.name => {
-      crn                 = cluster.crn
-      id                  = cluster.id
-      resource_group_name = cluster.resource_group_name
-      resource_group_id   = cluster.resource_group_id
-      vpc_id              = cluster.vpc_id
-      region              = var.region
+      crn                          = cluster.crn
+      id                           = cluster.id
+      resource_group_name          = cluster.resource_group_name
+      resource_group_id            = cluster.resource_group_id
+      vpc_id                       = cluster.vpc_id
+      region                       = var.region
+      private_service_endpoint_url = cluster.private_service_endpoint_url
+      public_service_endpoint_url  = (cluster.public_service_endpoint_url != "" && cluster.public_service_endpoint_url != null) ? cluster.public_service_endpoint_url : null
+      ingress_hostname             = cluster.ingress_hostname
+      cluster_console_url          = (cluster.public_service_endpoint_url != "" && cluster.public_service_endpoint_url != null) ? "https://console-openshift-console.${cluster.ingress_hostname}" : null
+
     }
     }, {
     for cluster in module.cluster :
