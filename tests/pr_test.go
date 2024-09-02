@@ -219,6 +219,7 @@ func TestRunRoksPattern(t *testing.T) {
 	}
 
 	options := setupOptionsRoksPattern(t, "ocp")
+	options.PostApplyHook = getClusterIngress
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -235,6 +236,16 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func getClusterIngress(options *testhelper.TestOptions) error {
+
+	// get output of last apply
+	outputs, outputErr := terraform.OutputAllE(options.Testing, options.TerraformOptions)
+	if assert.NoErrorf(options.Testing, outputErr, "error getting last terraform apply outputs: %s", outputErr) {
+		options.CheckClusterIngressHealthyDefaultTimeout(outputs["cluster_name"].(string))
+	}
+	return nil
 }
 
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
