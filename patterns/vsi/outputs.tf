@@ -138,5 +138,3 @@ output "config" {
   description = "Output configuration as encoded JSON"
   value       = module.vsi_landing_zone.config
 }
-
-#############################################################################
