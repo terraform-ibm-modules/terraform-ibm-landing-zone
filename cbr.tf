@@ -3,8 +3,8 @@
 ##############################################################################
 
 resource "ibm_cbr_zone_addresses" "add_slz_vpc_crns" {
-  count   = var.exisiting_vpc_cbr_zone_id != null ? 1 : 0
-  zone_id = var.exisiting_vpc_cbr_zone_id
+  count   = var.existing_vpc_cbr_zone_id != null ? 1 : 0
+  zone_id = var.existing_vpc_cbr_zone_id
   dynamic "addresses" {
     for_each = module.vpc
     content {

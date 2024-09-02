@@ -502,7 +502,7 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
 ##############################################################################
 # CBR variables
 ##############################################################################
-variable "exisiting_vpc_cbr_zone_id" {
+variable "existing_vpc_cbr_zone_id" {
   type        = string
   description = "Existing VPC CBR zone id"
   default     = null

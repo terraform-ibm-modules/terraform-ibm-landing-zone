@@ -180,7 +180,7 @@
     ],
     "security_groups": [],
     "service_endpoints": "public-and-private",
-    "exisiting_vpc_cbr_zone_id" : null,
+    "existing_vpc_cbr_zone_id" : null,
     "ssh_keys": [
         {
             "name": "slz-ssh-key",

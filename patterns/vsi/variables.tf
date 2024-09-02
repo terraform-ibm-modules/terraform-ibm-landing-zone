@@ -35,7 +35,7 @@ variable "ssh_public_key" {
 variable "existing_ssh_key_name" {
   description = "The name of a public SSH Key which already exists in the deployment region that will be used for VSI creation. To add a new SSH key, use the variable 'ssh_public_key' instead."
   type        = string
-  default     = "cbr"
+  default     = null
 }
 
 variable "tags" {
@@ -519,7 +519,7 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
 # CBR variables
 ##############################################################################
 
-variable "exisiting_vpc_cbr_zone_id" {
+variable "existing_vpc_cbr_zone_id" {
   type        = string
   description = "Existing VPC CBR zone id"
   default     = null
