@@ -211,6 +211,112 @@ variable "wait_till" {
   }
 }
 
+variable "disable_public_endpoint" {
+  type        = bool
+  description = "Flag indicating that the public endpoint should be disabled"
+  default     = true
+}
+
+variable "minimum_size" {
+  type        = number
+  description = "Minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to."
+  default     = 1
+}
+
+variable "maximum_size" {
+  type        = number
+  description = "Maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to."
+  default     = 3
+}
+
+variable "enable_autoscaling" {
+  type        = bool
+  description = "Flag to set cluster autoscaler to manage scaling for the worker pool."
+  default     = false
+}
+
+variable "use_private_endpoint" {
+  type        = bool
+  description = "Set this to true to force all cluster related api calls to use the IBM Cloud private endpoints."
+  default     = false
+}
+
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = false
+}
+
+variable "worker_pools_taints" {
+  type        = map(list(object({ key = string, value = string, effect = string })))
+  description = "Optional, Map of lists containing node taints by node-pool name"
+  default     = null
+}
+
+variable "attach_ibm_managed_security_group" {
+  description = "Specify whether to attach the IBM-defined default security group (whose name is kube-<clusterid>) to all worker nodes. Only applicable if custom_security_group_ids is set."
+  type        = bool
+  default     = true
+}
+
+variable "custom_security_group_ids" {
+  description = "Security groups to add to all worker nodes. This comes in addition to the IBM maintained security group if attach_ibm_managed_security_group is set to true. If this variable is set, the default VPC security group is NOT assigned to the worker nodes."
+  type        = list(string)
+  default     = null
+}
+
+variable "additional_lb_security_group_ids" {
+  description = "Additional security groups to add to the load balancers associated with the cluster. Ensure that the number_of_lbs is set to the number of LBs associated with the cluster. This comes in addition to the IBM maintained security group."
+  type        = list(string)
+  default     = []
+}
+
+variable "number_of_lbs" {
+  description = "The number of LBs to associated the additional_lb_security_group_names security group with."
+  type        = number
+  default     = 1
+}
+
+variable "additional_vpe_security_group_ids" {
+  description = "Additional security groups to add to all existing load balancers. This comes in addition to the IBM maintained security group."
+  type = object({
+    master   = optional(list(string), [])
+    registry = optional(list(string), [])
+    api      = optional(list(string), [])
+  })
+  default = {}
+}
+
+variable "ignore_worker_pool_size_changes" {
+  type        = bool
+  description = "Enable if using worker autoscaling. Stops Terraform managing worker count"
+  default     = false
+}
+
+variable "enable_registry_storage" {
+  type        = bool
+  description = "Set to `true` to enable IBM Cloud Object Storage for the Red Hat OpenShift internal image registry. Set to `false` only for new cluster deployments in an account that is allowlisted for this feature."
+  default     = true
+}
+
+variable "operating_system" {
+  type        = string
+  description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
+  default     = null
+}
+
+variable "cluster_config_endpoint_type" {
+  description = "Specify which type of endpoint to use for for cluster config access: 'default', 'private', 'vpe', 'link'. 'default' value will use the default endpoint of the cluster."
+  type        = string
+  default     = "default"
+}
+
+variable "cluster_ready_when" {
+  type        = string
+  description = "The cluster is ready when one of the following: MasterNodeReady (not recommended), OneWorkerNodeReady, Normal, IngressReady"
+  default     = "IngressReady"
+}
+
 ##############################################################################
 
 

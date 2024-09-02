@@ -24,6 +24,24 @@
                 "vsi-zone-3"
             ],
             "vpc_name": "workload",
+            "disable_public_endpoint": false,
+            "use_private_endpoint": false,
+            "minimum_size": 2,
+            "maximum_size": 4,
+            "enable_autoscaling": false,
+            "verify_worker_network_readiness": true,
+            "worker_pools_taints": null,
+            "attach_ibm_managed_security_group": true,
+            "custom_security_group_ids": null,
+            "number_of_lbs": 1,
+            "additional_vpe_security_group_ids": {},
+            "ignore_worker_pool_size_changes": false,
+            "cluster_ready_when": "IngressReady",
+            "enable_registry_storage": true,
+            "labels": {},
+            "additional_security_group_ids": [],
+            "additional_lb_security_group_ids": [],
+            "cluster_config_endpoint_type": "default",
             "worker_pools": [
                 {
                     "entitlement": "cloud_pak",
@@ -35,7 +53,11 @@
                         "vsi-zone-3"
                     ],
                     "vpc_name": "workload",
-                    "workers_per_subnet": 2
+                    "labels": {},
+                    "workers_per_subnet": 2,
+                    "minimum_size": 2,
+                    "maximum_size": 3,
+                    "enable_autoscaling": true
                 }
             ],
             "workers_per_subnet": 2
