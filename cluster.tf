@@ -292,23 +292,23 @@ module "cluster" {
       }
     ] : []
   )
-  worker_pools_taints               = each.value.worker_pools_taints
-  attach_ibm_managed_security_group = each.value.attach_ibm_managed_security_group
-  custom_security_group_ids         = each.value.custom_security_group_ids
-  additional_lb_security_group_ids  = each.value.additional_lb_security_group_ids
-  number_of_lbs                     = each.value.number_of_lbs
-  additional_vpe_security_group_ids = each.value.additional_vpe_security_group_ids
-  ignore_worker_pool_size_changes   = each.value.ignore_worker_pool_size_changes
-  cluster_ready_when                = each.value.cluster_ready_when
-  force_delete_storage              = each.value.cluster_force_delete_storage
-  enable_registry_storage           = each.value.enable_registry_storage
-  cluster_config_endpoint_type      = each.value.cluster_config_endpoint_type
-  # operating_system                    = each.value.operating_system
+  worker_pools_taints                 = each.value.worker_pools_taints
+  attach_ibm_managed_security_group   = each.value.attach_ibm_managed_security_group
+  custom_security_group_ids           = each.value.custom_security_group_ids
+  additional_lb_security_group_ids    = each.value.additional_lb_security_group_ids
+  number_of_lbs                       = each.value.number_of_lbs
+  additional_vpe_security_group_ids   = each.value.additional_vpe_security_group_ids
+  ignore_worker_pool_size_changes     = each.value.ignore_worker_pool_size_changes
+  cluster_ready_when                  = each.value.cluster_ready_when
+  force_delete_storage                = each.value.cluster_force_delete_storage
+  enable_registry_storage             = each.value.enable_registry_storage
+  cluster_config_endpoint_type        = each.value.cluster_config_endpoint_type
+  operating_system                    = each.value.operating_system
   ocp_version                         = each.value.kube_version
   tags                                = var.tags
   use_existing_cos                    = true
-  disable_public_endpoint             = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
-  verify_worker_network_readiness     = each.value.verify_worker_network_readiness != null ? each.value.verify_worker_network_readiness : false
+  disable_public_endpoint             = coalesce(each.value.disable_public_endpoint, true)         # disable if not set or null
+  verify_worker_network_readiness     = coalesce(each.value.verify_worker_network_readiness, true) # enable if not set or null
   existing_cos_id                     = each.value.cos_instance_crn
   use_private_endpoint                = each.value.use_private_endpoint
   addons                              = each.value.addons
