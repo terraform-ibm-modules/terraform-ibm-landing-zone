@@ -111,32 +111,20 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet                = var.workers_per_zone
-        minimum_size                      = var.minimum_size
-        maximum_size                      = var.maximum_size
-        enable_autoscaling                = var.enable_autoscaling
-        machine_type                      = var.flavor
-        kube_type                         = "openshift"
-        kube_version                      = var.kube_version
-        resource_group                    = "${var.prefix}-${var.vpcs[1]}-rg"
-        cos_name                          = "cos"
-        entitlement                       = var.entitlement
-        secondary_storage                 = var.secondary_storage
-        disable_public_endpoint           = var.disable_public_endpoint
-        use_private_endpoint              = var.use_private_endpoint
-        verify_worker_network_readiness   = var.verify_worker_network_readiness
-        operating_system                  = var.operating_system
-        worker_pools_taints               = var.worker_pools_taints
-        attach_ibm_managed_security_group = var.attach_ibm_managed_security_group
-        custom_security_group_ids         = var.custom_security_group_ids
-        number_of_lbs                     = var.number_of_lbs
-        additional_vpe_security_group_ids = var.additional_vpe_security_group_ids
-        ignore_worker_pool_size_changes   = var.ignore_worker_pool_size_changes
-        cluster_ready_when                = var.cluster_ready_when
-        enable_registry_storage           = var.enable_registry_storage
-        cluster_config_endpoint_type      = var.cluster_config_endpoint_type
-        additional_lb_security_group_ids  = var.additional_lb_security_group_ids
-        boot_volume_crk_name              = "${var.prefix}-roks-key"
+        workers_per_subnet              = var.workers_per_zone
+        machine_type                    = var.flavor
+        kube_type                       = "openshift"
+        kube_version                    = var.kube_version
+        resource_group                  = "${var.prefix}-${var.vpcs[1]}-rg"
+        cos_name                        = "cos"
+        entitlement                     = var.entitlement
+        secondary_storage               = var.secondary_storage
+        use_private_endpoint            = var.use_private_endpoint
+        verify_worker_network_readiness = var.verify_worker_network_readiness
+        operating_system                = var.operating_system
+        ignore_worker_pool_size_changes = var.ignore_worker_pool_size_changes
+        cluster_config_endpoint_type    = var.cluster_config_endpoint_type
+        boot_volume_crk_name            = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [
           {
@@ -149,9 +137,6 @@ locals {
             entitlement          = var.entitlement
             workers_per_subnet   = var.workers_per_zone
             operating_system     = var.operating_system
-            minimum_size         = var.minimum_size
-            maximum_size         = var.maximum_size
-            enable_autoscaling   = var.enable_autoscaling
             flavor               = var.flavor
             secondary_storage    = var.secondary_storage
             boot_volume_crk_name = "${var.prefix}-roks-key"
