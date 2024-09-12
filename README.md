@@ -26,6 +26,7 @@ Each pattern creates the following infrastructure on the VPC:
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
+- Adds VPC CRNs to an existing CBR zone if the existing CBR zone ID is passed.
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
@@ -857,6 +858,7 @@ module "cluster_pattern" {
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
+| <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.26.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 7.19.0 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 3.3.0 |
 
@@ -867,7 +869,6 @@ module "cluster_pattern" {
 | [ibm_appid_redirect_urls.urls](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_redirect_urls) | resource |
 | [ibm_atracker_route.atracker_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_route) | resource |
 | [ibm_atracker_target.atracker_target](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_target) | resource |
-| [ibm_cbr_zone_addresses.add_slz_vpc_crns](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cbr_zone_addresses) | resource |
 | [ibm_container_addons.addons](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/container_addons) | resource |
 | [ibm_container_vpc_cluster.cluster](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/container_vpc_cluster) | resource |
 | [ibm_container_vpc_worker_pool.pool](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/container_vpc_worker_pool) | resource |
