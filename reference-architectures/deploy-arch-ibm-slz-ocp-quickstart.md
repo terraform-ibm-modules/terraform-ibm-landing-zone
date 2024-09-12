@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-08-15"
+lastupdated: "2024-09-10"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
   - name: "Todd Giguere"
 
 # The release that the reference architecture describes
-version: 5.29.0
+version: 5.31.2
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -47,7 +47,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="5.29.0"}
+{: toc-version="5.31.2"}
 
 The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
