@@ -240,9 +240,18 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 
 func getClusterIngress(options *testhelper.TestOptions) error {
 
-	// get output of last apply
+	// Get output of the last apply
 	outputs, outputErr := terraform.OutputAllE(options.Testing, options.TerraformOptions)
-	if assert.NoErrorf(options.Testing, outputErr, "error getting last terraform apply outputs: %s", outputErr) {
+	if assert.Error(options.Testing, outputErr, "error getting last terraform apply outputs: %s", outputErr) {
+		return nil
+	}
+
+	// Validate that the "cluster_name" key is present in the outputs
+	expectedOutputs := []string{"cluster_name"}
+	_, ValidationErr := testhelper.ValidateTerraformOutputs(outputs, expectedOutputs...)
+
+	// Proceed with the cluster ingress health check if "cluster_name" is valid
+	if assert.NoErrorf(options.Testing, ValidationErr, "Some outputs not found or nil: %s", ValidationErr) {
 		options.CheckClusterIngressHealthyDefaultTimeout(outputs["cluster_name"].(string))
 	}
 	return nil
