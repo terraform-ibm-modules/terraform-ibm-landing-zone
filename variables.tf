@@ -1340,7 +1340,7 @@ variable "skip_all_s2s_auth_policies" {
 ##############################################################################
 variable "existing_vpc_cbr_zone_id" {
   type        = string
-  description = "The existing VPC CBR (Context-based restrictions) network zone ID for an existing CBR rule with context set to the VPC network zone. The rule allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  description = "The existing CBR (Context-based restrictions) VPC network zone ID for an existing CBR rule with context set to the VPC network zone. The rule allows traffic to flow only from the landing zone VPCs to specific cloud services."
   default     = null
 }
 
