@@ -26,7 +26,7 @@ Each pattern creates the following infrastructure on the VPC:
 - The virtual server (VSI) pattern deploys identical virtual servers across the VSI subnet tier in each VPC
 - The Red Hat OpenShift Kubernetes (ROKS) pattern deploys identical clusters across the VSI subnet tier in each VPC
 - The mixed pattern provisions both of these elements
-- Adds VPC CRNs to an existing CBR zone if the existing CBR zone ID is passed.
+- VPC CRNs that are added to an existing context (network zone) if the existing CBR zone ID is specified.
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
