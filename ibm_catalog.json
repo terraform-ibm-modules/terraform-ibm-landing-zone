@@ -45,7 +45,7 @@
           "title": "Provisions SSH keys"
         },
         {
-          "description": "Configures CBR to open traffic flow only from landing zone VPCs to specific cloud services for an existing CBR rule.\n",
+          "description": "Configures CBR (Context-based restrictions) existing rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
           "title": "Configures CBR"
         }
       ],
@@ -481,7 +481,7 @@
                 "description": "No"
               },
               {
-                "description": "Configures CBR to open traffic flow only from landing zone VPCs to specific cloud services for an existing CBR rule.\n",
+                "description": "Configures CBR (Context-based restrictions) existing rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
                 "title": "Configures CBR"
               }
             ],
@@ -937,7 +937,7 @@
                 "description": "No"
               },
               {
-                "description": "Configures CBR to open traffic flow only from landing zone VPCs to specific cloud services for an existing CBR rule.\n",
+                "description": "Configures CBR (Context-based restrictions) existing rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
                 "title": "Configures CBR"
               }
             ],
@@ -1449,7 +1449,7 @@
                 "description": "No"
               },
               {
-                "description": "Configures CBR to open traffic flow only from landing zone VPCs to specific cloud services for an existing CBR rule.\n",
+                "description": "Configures CBR (Context-based restrictions) existing rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
                 "title": "Configures CBR"
               }
             ],
