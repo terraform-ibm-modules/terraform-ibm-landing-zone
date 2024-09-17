@@ -103,10 +103,10 @@ locals {
         cluster_force_delete_storage         = var.cluster_force_delete_storage
         operating_system                     = var.operating_system
         kms_wait_for_apply                   = var.kms_wait_for_apply
-        use_private_endpoint                 = var.use_private_endpoint
-        verify_worker_network_readiness      = var.verify_worker_network_readiness
-        ignore_worker_pool_size_changes      = var.ignore_worker_pool_size_changes
-        cluster_config_endpoint_type         = var.cluster_config_endpoint_type
+        use_private_endpoint                 = true
+        verify_worker_network_readiness      = false
+        ignore_worker_pool_size_changes      = false
+        cluster_config_endpoint_type         = "private"
         import_default_worker_pool_on_create = false
         # By default, create dedicated pool for logging
         worker_pools = [

@@ -102,26 +102,8 @@ module "roks_landing_zone" {
   tmos_admin_password                    = var.tmos_admin_password
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
-  # disable_public_endpoint                = var.disable_public_endpoint
-  use_private_endpoint = var.use_private_endpoint
-  # minimum_size                           = var.minimum_size
-  # maximum_size                           = var.maximum_size
-  # enable_autoscaling                     = var.enable_autoscaling
-  verify_worker_network_readiness = var.verify_worker_network_readiness
-  # worker_pools_taints                    = var.worker_pools_taints
-  # attach_ibm_managed_security_group      = var.attach_ibm_managed_security_group
-  # custom_security_group_ids              = var.custom_security_group_ids
-  # number_of_lbs                          = var.number_of_lbs
-  # additional_vpe_security_group_ids      = var.additional_vpe_security_group_ids
-  ignore_worker_pool_size_changes = var.ignore_worker_pool_size_changes
-  # cluster_ready_when                     = var.cluster_ready_when
-  # labels                                 = var.labels
-  # additional_security_group_ids          = var.additional_security_group_ids
-  # additional_lb_security_group_ids       = var.additional_lb_security_group_ids
-  # enable_registry_storage                = var.enable_registry_storage
-  cluster_config_endpoint_type = var.cluster_config_endpoint_type
-  IC_SCHEMATICS_WORKSPACE_ID   = var.IC_SCHEMATICS_WORKSPACE_ID
-  kms_wait_for_apply           = var.kms_wait_for_apply
+  IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
+  kms_wait_for_apply                     = var.kms_wait_for_apply
 }
 
 moved {

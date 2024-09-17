@@ -272,30 +272,6 @@ variable "operating_system" {
   }
 }
 
-variable "use_private_endpoint" {
-  type        = bool
-  description = "Set this to true to force all cluster related api calls to use the IBM Cloud private endpoints."
-  default     = false
-}
-
-variable "verify_worker_network_readiness" {
-  type        = bool
-  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
-  default     = false
-}
-
-variable "ignore_worker_pool_size_changes" {
-  type        = bool
-  description = "Enable if using worker autoscaling. Stops Terraform managing worker count"
-  default     = false
-}
-
-variable "cluster_config_endpoint_type" {
-  description = "Specify which type of endpoint to use for for cluster config access: 'default', 'private', 'vpe', 'link'. 'default' value will use the default endpoint of the cluster."
-  type        = string
-  default     = "default"
-}
-
 ##############################################################################
 
 

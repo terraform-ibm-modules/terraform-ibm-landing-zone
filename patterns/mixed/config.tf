@@ -119,11 +119,11 @@ locals {
         cos_name                        = "cos"
         entitlement                     = var.entitlement
         secondary_storage               = var.secondary_storage
-        use_private_endpoint            = var.use_private_endpoint
-        verify_worker_network_readiness = var.verify_worker_network_readiness
+        use_private_endpoint            = true
+        verify_worker_network_readiness = false
         operating_system                = var.operating_system
-        ignore_worker_pool_size_changes = var.ignore_worker_pool_size_changes
-        cluster_config_endpoint_type    = var.cluster_config_endpoint_type
+        ignore_worker_pool_size_changes = false
+        cluster_config_endpoint_type    = "private"
         boot_volume_crk_name            = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [
