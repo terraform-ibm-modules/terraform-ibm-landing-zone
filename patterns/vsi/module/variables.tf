@@ -537,7 +537,7 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
 
 variable "existing_vpc_cbr_zone_id" {
   type        = string
-  description = "The existing CBR (Context-based restrictions) VPC network zone ID for an existing CBR rule with context set to the VPC network zone. The rule allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  description = "ID of the existing CBR network zone, with context set to the VPC. This zone is used in a rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
   default     = null
 }
 
