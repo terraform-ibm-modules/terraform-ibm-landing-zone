@@ -104,6 +104,8 @@ module "roks_landing_zone" {
   teleport_management_zones              = var.teleport_management_zones
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
   kms_wait_for_apply                     = var.kms_wait_for_apply
+  verify_worker_network_readiness        = var.verify_worker_network_readiness
+  use_private_endpoint                   = var.use_private_endpoint
 }
 
 moved {
