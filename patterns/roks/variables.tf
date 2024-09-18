@@ -185,18 +185,19 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.15', '4.14', '4.13', or '4.12'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
+  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.15"
+  default     = "4.15_openshift"
   validation {
     condition = anytrue([
       var.kube_version == null,
-      var.kube_version == "4.15",
-      var.kube_version == "4.14",
-      var.kube_version == "4.13",
-      var.kube_version == "4.12",
+      var.kube_version == "default",
+      var.kube_version == "4.15_openshift",
+      var.kube_version == "4.14_openshift",
+      var.kube_version == "4.13_openshift",
+      var.kube_version == "4.12_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.15', '4.14', '4.13', or '4.12'"
+    error_message = "The kube_version value can currently only be '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
   }
 }
 
@@ -280,6 +281,19 @@ variable "operating_system" {
     error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
     condition     = var.operating_system == null || var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
   }
+}
+
+# Exposing these two variables is necessary since GitHub Runtime cannot execute the verify_worker_network_readiness script during the upgrade test. We can remove these variables once we enable the ability to run upgrade tests through Schematics.
+variable "verify_worker_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = true
+}
+
+variable "use_private_endpoint" {
+  type        = bool
+  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
+  default     = true
 }
 
 ##############################################################################

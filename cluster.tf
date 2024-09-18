@@ -23,8 +23,7 @@ locals {
   worker_pools_map = module.dynamic_values.worker_pools_map # Convert list to map
   clusters_map     = module.dynamic_values.clusters_map     # Convert list to map
   default_kube_version = {
-    openshift = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
-    iks       = data.ibm_container_cluster_versions.cluster_versions.default_kube_version
+    iks = data.ibm_container_cluster_versions.cluster_versions.default_kube_version
   }
   cluster_data = merge({
     for cluster in ibm_container_vpc_cluster.cluster :
@@ -254,64 +253,46 @@ module "cluster" {
   worker_pools = concat(
     [
       {
-        subnet_prefix     = each.value.subnet_names[0]
-        pool_name         = "default"
-        machine_type      = each.value.machine_type
-        workers_per_zone  = each.value.workers_per_subnet
-        operating_system  = each.value.operating_system
-        labels            = each.value.labels
-        minSize           = each.value.minimum_size
-        maxSize           = each.value.maximum_size
-        enableAutoscaling = each.value.enable_autoscaling
+        subnet_prefix    = each.value.subnet_names[0]
+        pool_name        = "default"
+        machine_type     = each.value.machine_type
+        workers_per_zone = each.value.workers_per_subnet
+        operating_system = each.value.operating_system
+        labels           = each.value.labels
         boot_volume_encryption_kms_config = {
           crk             = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_instance_id = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_account_id  = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
         }
-        additional_security_group_ids = each.value.additional_security_group_ids
       }
     ],
     each.value.worker != null ? [
       for pool in each.value.worker :
       {
-        vpc_subnets       = pool.vpc_subnets
-        pool_name         = pool.name
-        machine_type      = pool.flavor
-        workers_per_zone  = pool.workers_per_subnet
-        operating_system  = pool.operating_system
-        labels            = pool.labels
-        minSize           = pool.minimum_size
-        maxSize           = pool.maximum_size
-        enableAutoscaling = pool.enable_autoscaling
+        vpc_subnets      = pool.vpc_subnets
+        pool_name        = pool.name
+        machine_type     = pool.flavor
+        workers_per_zone = pool.workers_per_subnet
+        operating_system = pool.operating_system
+        labels           = pool.labels
         boot_volume_encryption_kms_config = {
           crk             = pool.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_instance_id = pool.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_account_id  = pool.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
         }
-        additional_security_group_ids = pool.additional_security_group_ids
       }
     ] : []
   )
-  worker_pools_taints                   = each.value.worker_pools_taints
-  attach_ibm_managed_security_group     = each.value.attach_ibm_managed_security_group
-  custom_security_group_ids             = each.value.custom_security_group_ids
-  additional_lb_security_group_ids      = each.value.additional_lb_security_group_ids
-  number_of_lbs                         = each.value.number_of_lbs
-  additional_vpe_security_group_ids     = each.value.additional_vpe_security_group_ids
-  ignore_worker_pool_size_changes       = each.value.ignore_worker_pool_size_changes
-  cluster_ready_when                    = each.value.cluster_ready_when
   force_delete_storage                  = each.value.cluster_force_delete_storage
-  enable_registry_storage               = each.value.enable_registry_storage
-  cluster_config_endpoint_type          = each.value.cluster_config_endpoint_type
   operating_system                      = each.value.operating_system
-  ocp_version                           = each.value.kube_version
+  ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
   import_default_worker_pool_on_create  = each.value.import_default_worker_pool_on_create
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement
   tags                                  = var.tags
   use_existing_cos                      = true
-  disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true)         # disable if not set or null
-  verify_worker_network_readiness       = coalesce(each.value.verify_worker_network_readiness, true) # enable if not set or null
   existing_cos_id                       = each.value.cos_instance_crn
+  disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
+  verify_worker_network_readiness       = each.value.verify_worker_network_readiness
   use_private_endpoint                  = each.value.use_private_endpoint
   addons                                = each.value.addons
   manage_all_addons                     = each.value.manage_all_addons

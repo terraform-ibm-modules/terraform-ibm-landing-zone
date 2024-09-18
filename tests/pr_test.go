@@ -201,12 +201,14 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 	})
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                 options.Prefix,
-		"tags":                   options.Tags,
-		"region":                 options.Region,
-		"entitlement":            "cloud_pak",
-		"flavor":                 "bx2.4x16",
-		"enable_transit_gateway": false,
+		"prefix":                          options.Prefix,
+		"tags":                            options.Tags,
+		"region":                          options.Region,
+		"entitlement":                     "cloud_pak",
+		"flavor":                          "bx2.4x16",
+		"enable_transit_gateway":          false,
+		"use_private_endpoint":            false,
+		"verify_worker_network_readiness": false,
 	}
 
 	return options
