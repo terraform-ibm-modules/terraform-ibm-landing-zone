@@ -50,6 +50,13 @@ variable "vpcs" {
   }
 }
 
+variable "ignore_vpcs_for_cluster_deployment" {
+  description = "List of VPCs from input `vpcs` that should be ignored when deploying OpenShift clusters. If empty then a cluster will be deployed in all VPCs specified in input `vpcs`."
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
 variable "enable_transit_gateway" {
   description = "Create transit gateway"
   type        = bool
