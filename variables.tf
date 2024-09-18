@@ -861,8 +861,7 @@ variable "clusters" {
       import_default_worker_pool_on_create  = optional(bool)         # (Advanced users) Whether to handle the default worker pool as a stand-alone ibm_container_vpc_worker_pool resource on cluster creation. Only set to false if you understand the implications of managing the default worker pool as part of the cluster resource. Set to true to import the default worker pool as a separate resource. Set to false to manage the default worker pool as part of the cluster resource.
       allow_default_worker_pool_replacement = optional(bool)         # (Advanced users) Set to true to allow the module to recreate a default worker pool. Only use in the case where you are getting an error indicating that the default worker pool cannot be replaced on apply. Once the default worker pool is handled as a stand-alone ibm_container_vpc_worker_pool, if you wish to make any change to the default worker pool which requires the re-creation of the default pool set this variable to true
       labels                                = optional(map(string))  # A list of labels that you want to add to the default worker pool.
-
-      addons = optional(object({ # Map of OCP cluster add-on versions to install
+      addons = optional(object({                                     # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)
