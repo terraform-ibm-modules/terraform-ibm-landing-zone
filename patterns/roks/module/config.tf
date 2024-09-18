@@ -68,6 +68,9 @@ locals {
   # Dynamic configuration for landing zone environment
   ##############################################################################
 
+  # create cluster vpc list by subtracting names from supplied ignore list
+  cluster_vpcs = setsubtract(var.vpcs, var.ignore_vpcs_for_cluster_deployment)
+
   config = {
 
     ##############################################################################
@@ -75,7 +78,7 @@ locals {
     ##############################################################################
     clusters = [
       # Dynamically create identical cluster in each VPC
-      for network in var.vpcs :
+      for network in local.cluster_vpcs :
       {
         name     = "${network}-cluster"
         vpc_name = network
