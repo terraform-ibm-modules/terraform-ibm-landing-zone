@@ -107,6 +107,7 @@ module "roks_landing_zone" {
   kms_wait_for_apply                     = var.kms_wait_for_apply
   verify_cluster_network_readiness       = var.verify_cluster_network_readiness
   use_ibm_cloud_private_api_endpoints    = var.use_ibm_cloud_private_api_endpoints
+  existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
 }
 
 moved {

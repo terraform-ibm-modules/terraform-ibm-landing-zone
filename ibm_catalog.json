@@ -43,6 +43,10 @@
         {
           "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
           "title": "Provisions SSH keys"
+        },
+        {
+          "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
+          "title": "Configures CBR"
         }
       ],
       "flavors": [
@@ -475,6 +479,10 @@
               {
                 "title": "Uses floating IP addresses for access through the public internet",
                 "description": "No"
+              },
+              {
+                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
+                "title": "Configures CBR"
               }
             ],
             "diagrams": [
@@ -927,6 +935,10 @@
               {
                 "title": "Uses Floating IP address for access through the public internet",
                 "description": "No"
+              },
+              {
+                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
+                "title": "Configures CBR"
               }
             ],
             "diagrams": [
@@ -1435,6 +1447,10 @@
               {
                 "title": "Uses Floating IP address for access through the public internet",
                 "description": "No"
+              },
+              {
+                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
+                "title": "Configures CBR"
               }
             ],
             "diagrams": [

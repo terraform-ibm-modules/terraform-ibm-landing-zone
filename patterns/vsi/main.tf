@@ -86,6 +86,7 @@ module "vsi_landing_zone" {
   override                               = var.override
   override_json_string                   = var.override_json_string
   override_json_path                     = local.override_json_path
+  existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
 }
 
 moved {
