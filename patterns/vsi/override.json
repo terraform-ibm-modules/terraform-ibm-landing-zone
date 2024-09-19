@@ -139,6 +139,7 @@
     ],
     "security_groups": [],
     "service_endpoints": "public-and-private",
+    "existing_vpc_cbr_zone_id" : null,
     "ssh_keys": [
         {
             "name": "slz-ssh-key",
