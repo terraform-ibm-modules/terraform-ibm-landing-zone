@@ -279,6 +279,19 @@ variable "operating_system" {
   }
 }
 
+# Exposing these two variables is necessary since GitHub Runtime cannot execute the verify_worker_network_readiness script during the upgrade test. We can remove these variables once we enable the ability to run upgrade tests through Schematics.
+variable "verify_cluster_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = true
+}
+
+variable "use_ibm_cloud_private_api_endpoints" {
+  type        = bool
+  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
+  default     = true
+}
+
 ##############################################################################
 
 

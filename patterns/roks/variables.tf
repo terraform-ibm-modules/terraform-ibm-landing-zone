@@ -197,6 +197,8 @@ variable "kube_version" {
   default     = "4.15_openshift"
   validation {
     condition = anytrue([
+      var.kube_version == null,
+      var.kube_version == "default",
       var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
       var.kube_version == "4.13_openshift",
@@ -286,6 +288,19 @@ variable "operating_system" {
     error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
     condition     = var.operating_system == null || var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
   }
+}
+
+# Exposing these two variables is necessary since GitHub Runtime cannot execute the verify_worker_network_readiness script during the upgrade test. We can remove these variables once we enable the ability to run upgrade tests through Schematics.
+variable "verify_cluster_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = true
+}
+
+variable "use_ibm_cloud_private_api_endpoints" {
+  type        = bool
+  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
+  default     = true
 }
 
 ##############################################################################
