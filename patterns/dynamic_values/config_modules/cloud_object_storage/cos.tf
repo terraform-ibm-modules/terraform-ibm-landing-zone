@@ -32,6 +32,11 @@ variable "bastion_resource_list" {
   }
 }
 
+variable "create_atracker_storage" {
+  description = "Should storage (instance and/or bucket) for atracker target be created"
+  type        = bool
+  default     = true
+}
 
 variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
@@ -39,51 +44,99 @@ variable "use_random_cos_suffix" {
   default     = false
 }
 
-##############################################################################
+variable "existing_cos_instance_name" {
+  description = "Specify the name of an existing Cloud Object Storage (COS) instance that can be used for new buckets, if required."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_resource_group" {
+  description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
+  type        = string
+  default     = null
+}
+
+variable "endpoint_type" {
+  description = "Endpoint type to use when creating buckets"
+  type        = string
+  default     = "public"
+}
+
+variable "use_existing_cos_for_vpc_flowlogs" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+}
+
+variable "use_existing_cos_for_atracker" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your Activity Tracker (atracker) routing. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+}
+
+variable "skip_kms_auth_for_existing_cos" {
+  description = "Set to `true` to skip s2s auth policy between an existing COS instance and the KMS instance, typically when a pair of existing KMS/COS are used"
+  type        = bool
+  default     = false
+}
 
 ##############################################################################
-# Output
-##############################################################################
 
-output "value" {
-  description = "A list of cloud object storage instances, keys, and buckets to create."
-  value = [
-    # Activity Tracker COS instance
+locals {
+  flow_log_buckets = [
+    # Create one flow log bucket for each VPC network
+    for network in concat(var.vpc_list, var.bastion_resource_list) :
+    {
+      name          = "${network}-bucket"
+      storage_class = "standard"
+      kms_key       = "${var.prefix}-slz-key"
+      endpoint_type = var.endpoint_type
+      force_delete  = true
+    }
+  ]
+
+  atracker_buckets = var.create_atracker_storage ? [
+    {
+      name          = "atracker-bucket"
+      storage_class = "standard"
+      endpoint_type = var.endpoint_type
+      kms_key       = "${var.prefix}-atracker-key"
+      force_delete  = true
+    }
+  ] : []
+
+  bastion_keys = [
+    # Create Bastion COS key
+    for key_name in var.bastion_resource_list :
+    {
+      name        = "${key_name}-key"
+      enable_HMAC = true
+      role        = "Writer"
+    }
+  ]
+
+  atracker_cos = var.create_atracker_storage && !var.use_existing_cos_for_atracker ? [
+    # Activity Tracker COS instance, existing COS or new, plus bucket for atracker
     {
       name           = "atracker-cos"
       use_data       = false
       resource_group = "${var.prefix}-service-rg"
       plan           = "standard"
-      buckets = [
-        {
-          name          = "atracker-bucket"
-          storage_class = "standard"
-          endpoint_type = "public"
-          kms_key       = "${var.prefix}-atracker-key"
-          force_delete  = true
-        }
-      ]
-      keys          = []
-      access_tags   = []
-      random_suffix = var.use_random_cos_suffix
-    },
-    # COS instance for everything else
+      buckets        = local.atracker_buckets
+      keys           = []
+      access_tags    = []
+      random_suffix  = var.use_random_cos_suffix
+    }
+  ] : []
+
+  # LZ COS
+  main_cos = [
     {
       name           = "cos"
       use_data       = false
       resource_group = "${var.prefix}-service-rg"
       plan           = "standard"
-      buckets = [
-        # Create one flow log bucket for each VPC network
-        for network in concat(var.vpc_list, var.bastion_resource_list) :
-        {
-          name          = "${network}-bucket"
-          storage_class = "standard"
-          kms_key       = "${var.prefix}-slz-key"
-          endpoint_type = "public"
-          force_delete  = true
-        }
-      ]
+      buckets        = var.use_existing_cos_for_vpc_flowlogs ? [] : local.flow_log_buckets
       keys = [
         # Create Bastion COS key
         for key_name in var.bastion_resource_list :
@@ -97,6 +150,33 @@ output "value" {
       random_suffix = var.use_random_cos_suffix
     }
   ]
+
+  # if existing COS is to be used, include that, if not leave empty
+  existing_cos = var.existing_cos_instance_name != null ? [
+    {
+      name           = var.existing_cos_instance_name
+      use_data       = true
+      resource_group = var.existing_cos_resource_group
+      plan           = "standard"
+      buckets = concat(
+        (var.use_existing_cos_for_vpc_flowlogs ? local.flow_log_buckets : []),
+        (var.use_existing_cos_for_atracker ? local.atracker_buckets : [])
+      )
+      keys                     = []
+      access_tags              = []
+      random_suffix            = var.use_random_cos_suffix
+      skip_kms_s2s_auth_policy = var.skip_kms_auth_for_existing_cos
+    }
+  ] : []
+}
+
+##############################################################################
+# Output
+##############################################################################
+
+output "value" {
+  description = "A list of cloud object storage instances, keys, and buckets to create."
+  value       = concat(local.atracker_cos, local.main_cos, local.existing_cos)
 }
 
 ##############################################################################

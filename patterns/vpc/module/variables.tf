@@ -375,7 +375,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-4"
 }
 
 variable "teleport_license" {
@@ -495,6 +495,17 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   default     = ""
   type        = string
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+}
+
+##############################################################################
+
+##############################################################################
+# CBR variables
+##############################################################################
+variable "existing_vpc_cbr_zone_id" {
+  type        = string
+  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  default     = null
 }
 
 ##############################################################################

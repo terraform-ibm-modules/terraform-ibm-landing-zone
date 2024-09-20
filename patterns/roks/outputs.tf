@@ -87,9 +87,59 @@ output "workload_cluster_id" {
   value       = module.roks_landing_zone.workload_cluster_id
 }
 
+output "workload_cluster_name" {
+  description = "The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
+  value       = module.roks_landing_zone.workload_cluster_name
+}
+
 output "management_cluster_id" {
   description = "The id of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null."
   value       = module.roks_landing_zone.management_cluster_id
+}
+
+output "management_cluster_name" {
+  description = "The name of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null."
+  value       = module.roks_landing_zone.management_cluster_name
+}
+
+output "workload_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Workload cluster ingress subdomain, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_ingress_hostname
+}
+
+output "management_cluster_ingress_hostname" {
+  description = "The hostname assigned for the Management cluster ingress subdomain, if not then null."
+  value       = module.roks_landing_zone.management_cluster_ingress_hostname
+}
+
+output "workload_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Workload cluster, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_private_service_endpoint_url
+}
+
+output "management_cluster_private_service_endpoint_url" {
+  description = "The private service endpoint URL of the Management cluster, if not then null."
+  value       = module.roks_landing_zone.management_cluster_private_service_endpoint_url
+}
+
+output "workload_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Workload cluster, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_public_service_endpoint_url
+}
+
+output "management_cluster_public_service_endpoint_url" {
+  description = "The public service endpoint URL of the Management cluster, if not then null."
+  value       = module.roks_landing_zone.management_cluster_public_service_endpoint_url
+}
+
+output "workload_cluster_console_url" {
+  description = "Workload cluster console URL, if not then null."
+  value       = module.roks_landing_zone.workload_cluster_console_url
+}
+
+output "management_cluster_console_url" {
+  description = "Management cluster console URL, if not then null."
+  value       = module.roks_landing_zone.management_cluster_console_url
 }
 
 output "key_management_name" {
@@ -143,4 +193,4 @@ output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics"
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
-##############################################################################
+#############################################################################

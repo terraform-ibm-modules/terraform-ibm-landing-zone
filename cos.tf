@@ -86,7 +86,7 @@ resource "ibm_cos_bucket" "buckets" {
   bucket_name           = "${var.prefix}-${each.value.name}${each.value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
   resource_instance_id  = local.cos_instance_ids[each.value.instance]
   storage_class         = each.value.storage_class
-  endpoint_type         = each.value.endpoint_type
+  endpoint_type         = coalesce(each.value.endpoint_type, "public")
   force_delete          = each.value.force_delete
   single_site_location  = each.value.single_site_location
   region_location       = (each.value.region_location == null && each.value.single_site_location == null && each.value.cross_region_location == null) ? var.region : each.value.region_location
@@ -141,6 +141,7 @@ resource "ibm_cos_bucket" "buckets" {
       activity_tracker_crn = activity_tracking.value.activity_tracker_crn
       read_data_events     = activity_tracking.value.read_data_events
       write_data_events    = activity_tracking.value.write_data_events
+      management_events    = activity_tracking.value.management_events
     }
   }
 

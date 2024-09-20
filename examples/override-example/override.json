@@ -77,6 +77,7 @@
     }
   ],
   "service_endpoints": "public-and-private",
+  "existing_vpc_cbr_zone_id" : null,
   "security_groups": [],
   "vpn_gateways": [
     {
@@ -387,7 +388,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-4",
       "machine_type": "cx2-2x4",
       "name": "jump-box",
       "resource_group": "slz-management-rg",
@@ -420,7 +421,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-4",
       "machine_type": "cx2-2x4",
       "name": "private-svs",
       "resource_group": "slz-workload-rg",
@@ -453,7 +454,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-minimal-amd64-4",
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",

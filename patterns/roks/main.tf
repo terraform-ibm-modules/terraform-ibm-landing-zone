@@ -27,6 +27,7 @@ module "roks_landing_zone" {
   wait_till                              = var.wait_till
   network_cidr                           = var.network_cidr
   vpcs                                   = var.vpcs
+  ignore_vpcs_for_cluster_deployment     = var.ignore_vpcs_for_cluster_deployment
   enable_transit_gateway                 = var.enable_transit_gateway
   transit_gateway_global                 = var.transit_gateway_global
   ssh_public_key                         = var.ssh_public_key
@@ -40,6 +41,14 @@ module "roks_landing_zone" {
   add_atracker_route                     = var.add_atracker_route
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
+  existing_kms_instance_name             = var.existing_kms_instance_name
+  existing_kms_resource_group            = var.existing_kms_resource_group
+  existing_kms_endpoint_type             = var.existing_kms_endpoint_type
+  existing_cos_instance_name             = var.existing_cos_instance_name
+  existing_cos_resource_group            = var.existing_cos_resource_group
+  existing_cos_endpoint_type             = var.existing_cos_endpoint_type
+  use_existing_cos_for_atracker          = var.use_existing_cos_for_atracker
+  use_existing_cos_for_vpc_flowlogs      = var.use_existing_cos_for_vpc_flowlogs
   use_random_cos_suffix                  = var.use_random_cos_suffix
   add_edge_vpc                           = var.add_edge_vpc
   create_f5_network_on_management_vpc    = var.create_f5_network_on_management_vpc
@@ -96,6 +105,9 @@ module "roks_landing_zone" {
   teleport_management_zones              = var.teleport_management_zones
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
   kms_wait_for_apply                     = var.kms_wait_for_apply
+  verify_cluster_network_readiness       = var.verify_cluster_network_readiness
+  use_ibm_cloud_private_api_endpoints    = var.use_ibm_cloud_private_api_endpoints
+  existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
 }
 
 moved {

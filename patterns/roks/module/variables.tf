@@ -50,6 +50,13 @@ variable "vpcs" {
   }
 }
 
+variable "ignore_vpcs_for_cluster_deployment" {
+  description = "List of VPCs from input `vpcs` that should be ignored when deploying OpenShift clusters. If empty then a cluster will be deployed in all VPCs specified in input `vpcs`."
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
 variable "enable_transit_gateway" {
   description = "Create transit gateway"
   type        = bool
@@ -87,6 +94,29 @@ variable "hs_crypto_resource_group" {
   default     = null
 }
 
+variable "existing_kms_instance_name" {
+  description = "Specify the name of an existing Key Management Service instance for key management. Leave as null to deploy a new Key Protect service."
+  type        = string
+  default     = null
+}
+
+variable "existing_kms_resource_group" {
+  description = "For using an existing Key Management Service (KMS), specify the name of the resource group for the instance in `existing_kms_instance_name`. Leave as null for the `Default` resource group or if not using an existing KMS."
+  type        = string
+  default     = null
+}
+
+variable "existing_kms_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing KMS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_kms_endpoint_type)
+  }
+}
+
 ##############################################################################
 
 
@@ -98,6 +128,43 @@ variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
   type        = bool
   default     = true
+}
+
+variable "existing_cos_instance_name" {
+  description = "Specify the name of an existing Cloud Object Storage (COS) instance that can be used for new buckets, if required."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_resource_group" {
+  description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  type        = string
+  default     = "public"
+
+  validation {
+    error_message = "Endpoint type can only be `public` or `private`."
+    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+  }
+}
+
+variable "use_existing_cos_for_vpc_flowlogs" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "use_existing_cos_for_atracker" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your Activity Tracker (atracker) routing. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 ##############################################################################
@@ -210,6 +277,19 @@ variable "operating_system" {
     error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
     condition     = var.operating_system == null || var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
   }
+}
+
+# Exposing these two variables is necessary since GitHub Runtime cannot execute the verify_worker_network_readiness script during the upgrade test. We can remove these variables once we enable the ability to run upgrade tests through Schematics.
+variable "verify_cluster_network_readiness" {
+  type        = bool
+  description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
+  default     = true
+}
+
+variable "use_ibm_cloud_private_api_endpoints" {
+  type        = bool
+  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
+  default     = true
 }
 
 ##############################################################################
@@ -493,7 +573,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-minimal-amd64-4"
 }
 
 variable "teleport_license" {
@@ -612,6 +692,17 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   default     = ""
   type        = string
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+}
+
+##############################################################################
+
+##############################################################################
+# CBR variables
+##############################################################################
+variable "existing_vpc_cbr_zone_id" {
+  type        = string
+  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  default     = null
 }
 
 ##############################################################################

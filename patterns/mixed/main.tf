@@ -34,6 +34,7 @@ module "landing_zone" {
   virtual_private_endpoints              = local.env.virtual_private_endpoints
   cos                                    = local.env.cos
   service_endpoints                      = local.env.service_endpoints
+  existing_vpc_cbr_zone_id               = local.env.existing_vpc_cbr_zone_id
   key_management                         = local.env.key_management
   skip_kms_block_storage_s2s_auth_policy = local.env.skip_kms_block_storage_s2s_auth_policy
   skip_all_s2s_auth_policies             = local.env.skip_all_s2s_auth_policies
