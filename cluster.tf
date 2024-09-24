@@ -292,8 +292,8 @@ module "cluster" {
   use_existing_cos                      = true
   existing_cos_id                       = each.value.cos_instance_crn
   disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
-  verify_worker_network_readiness       = each.value.verify_worker_network_readiness
-  use_private_endpoint                  = each.value.use_private_endpoint
+  verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
+  use_private_endpoint                  = each.value.use_ibm_cloud_private_api_endpoints
   addons                                = each.value.addons
   manage_all_addons                     = each.value.manage_all_addons
   disable_outbound_traffic_protection   = each.value.disable_outbound_traffic_protection
