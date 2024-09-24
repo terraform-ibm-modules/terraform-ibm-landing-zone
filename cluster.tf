@@ -30,6 +30,7 @@ locals {
     cluster.name => {
       crn                          = cluster.crn
       id                           = cluster.id
+      cluster_name                 = cluster.name
       resource_group_name          = cluster.resource_group_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
@@ -45,6 +46,7 @@ locals {
     cluster.cluster_name => {
       crn                          = cluster.cluster_crn
       id                           = cluster.cluster_id
+      cluster_name                 = cluster.cluster_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
       region                       = var.region
