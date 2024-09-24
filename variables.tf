@@ -836,27 +836,32 @@ variable "clusters" {
   description = "A list describing clusters workloads to create"
   type = list(
     object({
-      name                                = string           # Name of Cluster
-      vpc_name                            = string           # Name of VPC
-      subnet_names                        = list(string)     # List of vpc subnets for cluster
-      workers_per_subnet                  = number           # Worker nodes per subnet.
-      machine_type                        = string           # Worker node flavor
-      kube_type                           = string           # iks or openshift
-      kube_version                        = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
-      entitlement                         = optional(string) # entitlement option for openshift
-      secondary_storage                   = optional(string) # Secondary storage type
-      pod_subnet                          = optional(string) # Portable subnet for pods
-      service_subnet                      = optional(string) # Portable subnet for services
-      resource_group                      = string           # Resource Group used for cluster
-      cos_name                            = optional(string) # Name of COS instance Required only for OpenShift clusters
-      access_tags                         = optional(list(string), [])
-      boot_volume_crk_name                = optional(string)       # Boot volume encryption key name
-      disable_public_endpoint             = optional(bool, true)   # disable cluster public, leaving only private endpoint
-      disable_outbound_traffic_protection = optional(bool, false)  # public outbound access from the cluster workers
-      cluster_force_delete_storage        = optional(bool, false)  # force the removal of persistent storage associated with the cluster during cluster deletion
-      operating_system                    = optional(string, null) #The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
-      kms_wait_for_apply                  = optional(bool, true)   # make terraform wait until KMS is applied to master and it is ready and deployed
-      addons = optional(object({                                   # Map of OCP cluster add-on versions to install
+      name                                  = string           # Name of Cluster
+      vpc_name                              = string           # Name of VPC
+      subnet_names                          = list(string)     # List of vpc subnets for cluster
+      workers_per_subnet                    = number           # Worker nodes per subnet.
+      machine_type                          = string           # Worker node flavor
+      kube_type                             = string           # iks or openshift
+      kube_version                          = optional(string) # Can be a version from `ibmcloud ks versions` or `default`
+      entitlement                           = optional(string) # entitlement option for openshift
+      secondary_storage                     = optional(string) # Secondary storage type
+      pod_subnet                            = optional(string) # Portable subnet for pods
+      service_subnet                        = optional(string) # Portable subnet for services
+      resource_group                        = string           # Resource Group used for cluster
+      cos_name                              = optional(string) # Name of COS instance Required only for OpenShift clusters
+      access_tags                           = optional(list(string), [])
+      boot_volume_crk_name                  = optional(string)       # Boot volume encryption key name
+      disable_public_endpoint               = optional(bool, true)   # disable cluster public, leaving only private endpoint
+      disable_outbound_traffic_protection   = optional(bool, false)  # public outbound access from the cluster workers
+      cluster_force_delete_storage          = optional(bool, false)  # force the removal of persistent storage associated with the cluster during cluster deletion
+      operating_system                      = optional(string, null) #The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+      kms_wait_for_apply                    = optional(bool, true)   # make terraform wait until KMS is applied to master and it is ready and deployed
+      verify_worker_network_readiness       = optional(bool, true)   # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.
+      use_private_endpoint                  = optional(bool, true)   # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.
+      import_default_worker_pool_on_create  = optional(bool)         # (Advanced users) Whether to handle the default worker pool as a stand-alone ibm_container_vpc_worker_pool resource on cluster creation. Only set to false if you understand the implications of managing the default worker pool as part of the cluster resource. Set to true to import the default worker pool as a separate resource. Set to false to manage the default worker pool as part of the cluster resource.
+      allow_default_worker_pool_replacement = optional(bool)         # (Advanced users) Set to true to allow the module to recreate a default worker pool. Only use in the case where you are getting an error indicating that the default worker pool cannot be replaced on apply. Once the default worker pool is handled as a stand-alone ibm_container_vpc_worker_pool, if you wish to make any change to the default worker pool which requires the re-creation of the default pool set this variable to true
+      labels                                = optional(map(string))  # A list of labels that you want to add to the default worker pool.
+      addons = optional(object({                                     # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)
@@ -873,19 +878,19 @@ variable "clusters" {
           private_endpoint = optional(bool) # Private endpoint
         })
       )
-
       worker_pools = optional(
         list(
           object({
-            name                 = string           # Worker pool name
-            vpc_name             = string           # VPC name
-            workers_per_subnet   = number           # Worker nodes per subnet
-            flavor               = string           # Worker node flavor
-            subnet_names         = list(string)     # List of vpc subnets for worker pool
-            entitlement          = optional(string) # entitlement option for openshift
-            secondary_storage    = optional(string) # Secondary storage type
-            boot_volume_crk_name = optional(string) # Boot volume encryption key name
-            operating_system     = optional(string) # The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+            name                 = string                # Worker pool name
+            vpc_name             = string                # VPC name
+            workers_per_subnet   = number                # Worker nodes per subnet
+            flavor               = string                # Worker node flavor
+            subnet_names         = list(string)          # List of vpc subnets for worker pool
+            entitlement          = optional(string)      # entitlement option for openshift
+            secondary_storage    = optional(string)      # Secondary storage type
+            boot_volume_crk_name = optional(string)      # Boot volume encryption key name
+            operating_system     = optional(string)      # The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+            labels               = optional(map(string)) # A list of labels that you want to add to all the worker nodes in the worker pool.
           })
         )
       )
@@ -1331,6 +1336,17 @@ variable "skip_all_s2s_auth_policies" {
   description = "Whether to skip the creation of all of the service-to-service authorization policies. If setting to true, policies must be in place on the account before provisioning."
   type        = bool
   default     = false
+}
+
+##############################################################################
+
+##############################################################################
+# CBR variables
+##############################################################################
+variable "existing_vpc_cbr_zone_id" {
+  type        = string
+  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  default     = null
 }
 
 ##############################################################################

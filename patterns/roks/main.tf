@@ -27,6 +27,7 @@ module "roks_landing_zone" {
   wait_till                              = var.wait_till
   network_cidr                           = var.network_cidr
   vpcs                                   = var.vpcs
+  ignore_vpcs_for_cluster_deployment     = var.ignore_vpcs_for_cluster_deployment
   enable_transit_gateway                 = var.enable_transit_gateway
   transit_gateway_global                 = var.transit_gateway_global
   ssh_public_key                         = var.ssh_public_key
@@ -104,6 +105,9 @@ module "roks_landing_zone" {
   teleport_management_zones              = var.teleport_management_zones
   IC_SCHEMATICS_WORKSPACE_ID             = var.IC_SCHEMATICS_WORKSPACE_ID
   kms_wait_for_apply                     = var.kms_wait_for_apply
+  verify_cluster_network_readiness       = var.verify_cluster_network_readiness
+  use_ibm_cloud_private_api_endpoints    = var.use_ibm_cloud_private_api_endpoints
+  existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
 }
 
 moved {

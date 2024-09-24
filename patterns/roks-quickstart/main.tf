@@ -3,12 +3,7 @@
 ##############################################################################
 
 locals {
-  default_ocp_version = "${data.ibm_container_cluster_versions.cluster_versions.default_openshift_version}_openshift"
-  ocp_version         = var.kube_version == null || var.kube_version == "default" ? local.default_ocp_version : "${var.kube_version}_openshift"
-  entitlement_val     = var.entitlement == null ? "null" : "\"${var.entitlement}\""
-}
-
-data "ibm_container_cluster_versions" "cluster_versions" {
+  entitlement_val = var.entitlement == null ? "null" : "\"${var.entitlement}\""
 }
 
 module "landing_zone" {
@@ -33,7 +28,7 @@ locals {
          "boot_volume_crk_name": "slz-vsi-volume-key",
          "cos_name": "cos",
          "kube_type": "openshift",
-         "kube_version": "${local.ocp_version}",
+         "kube_version": "${var.kube_version}",
          "machine_type": "${var.flavor}",
          "name": "workload-cluster",
          "resource_group": "workload-rg",
@@ -53,7 +48,8 @@ locals {
          "worker_pools": [],
          "workers_per_subnet": 1,
          "entitlement": ${local.entitlement_val},
-         "disable_public_endpoint": false
+         "disable_public_endpoint": false,
+         "import_default_worker_pool_on_create" : false
       }
    ],
    "cos": [
