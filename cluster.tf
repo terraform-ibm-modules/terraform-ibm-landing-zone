@@ -263,7 +263,6 @@ module "cluster" {
         operating_system  = each.value.operating_system
         labels            = each.value.labels
         secondary_storage = each.value.secondary_storage
-        entitlement       = each.value.entitlement
         boot_volume_encryption_kms_config = {
           crk             = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_instance_id = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -281,7 +280,6 @@ module "cluster" {
         operating_system  = pool.operating_system
         labels            = pool.labels
         secondary_storage = pool.secondary_storage
-        entitlement       = pool.entitlement
         boot_volume_encryption_kms_config = {
           crk             = pool.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_instance_id = pool.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
