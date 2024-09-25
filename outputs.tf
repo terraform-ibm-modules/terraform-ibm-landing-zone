@@ -87,7 +87,7 @@ output "workload_cluster_id" {
 
 output "workload_cluster_name" {
   description = "The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
-  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-workload-cluster", null) != null ? local.cluster_data["${var.prefix}-workload-cluster"].cluster_name : null
+  value       = lookup(local.cluster_data, "${var.prefix}-workload-cluster", null) != null ? local.cluster_data["${var.prefix}-workload-cluster"].cluster_name : null
 }
 
 output "management_cluster_id" {
@@ -97,7 +97,7 @@ output "management_cluster_id" {
 
 output "management_cluster_name" {
   description = "The name of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null."
-  value       = lookup(ibm_container_vpc_cluster.cluster, "${var.prefix}-management-cluster", null) != null ? local.cluster_data["${var.prefix}-management-cluster"].cluster_name : null
+  value       = lookup(local.cluster_data, "${var.prefix}-management-cluster", null) != null ? local.cluster_data["${var.prefix}-management-cluster"].cluster_name : null
 }
 
 output "cluster_data" {
