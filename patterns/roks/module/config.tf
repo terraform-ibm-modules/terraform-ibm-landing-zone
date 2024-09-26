@@ -106,8 +106,8 @@ locals {
         cluster_force_delete_storage         = var.cluster_force_delete_storage
         operating_system                     = var.operating_system
         kms_wait_for_apply                   = var.kms_wait_for_apply
-        use_private_endpoint                 = var.use_ibm_cloud_private_api_endpoints
-        verify_worker_network_readiness      = var.verify_cluster_network_readiness
+        use_ibm_cloud_private_api_endpoints  = var.use_ibm_cloud_private_api_endpoints
+        verify_cluster_network_readiness     = var.verify_cluster_network_readiness
         import_default_worker_pool_on_create = false
         # By default, create dedicated pool for logging
         worker_pools = [

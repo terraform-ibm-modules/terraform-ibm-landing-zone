@@ -30,6 +30,7 @@ locals {
     cluster.name => {
       crn                          = cluster.crn
       id                           = cluster.id
+      cluster_name                 = cluster.name
       resource_group_name          = cluster.resource_group_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
@@ -45,6 +46,7 @@ locals {
     cluster.cluster_name => {
       crn                          = cluster.cluster_crn
       id                           = cluster.cluster_id
+      cluster_name                 = cluster.cluster_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
       region                       = var.region
@@ -241,24 +243,26 @@ module "cluster" {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "openshift"
   }
-  source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version           = "3.30.1"
-  resource_group_id = local.resource_groups[each.value.resource_group]
-  region            = var.region
-  cluster_name      = each.value.cluster_name
-  vpc_id            = each.value.vpc_id
-  ocp_entitlement   = each.value.entitlement
-  vpc_subnets       = each.value.vpc_subnets
-  access_tags       = each.value.access_tags
+  source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version            = "3.31.0"
+  resource_group_id  = local.resource_groups[each.value.resource_group]
+  region             = var.region
+  cluster_name       = each.value.cluster_name
+  vpc_id             = each.value.vpc_id
+  ocp_entitlement    = each.value.entitlement
+  vpc_subnets        = each.value.vpc_subnets
+  cluster_ready_when = var.wait_till
+  access_tags        = each.value.access_tags
   worker_pools = concat(
     [
       {
-        subnet_prefix    = each.value.subnet_names[0]
-        pool_name        = "default"
-        machine_type     = each.value.machine_type
-        workers_per_zone = each.value.workers_per_subnet
-        operating_system = each.value.operating_system
-        labels           = each.value.labels
+        subnet_prefix     = each.value.subnet_names[0]
+        pool_name         = "default"
+        machine_type      = each.value.machine_type
+        workers_per_zone  = each.value.workers_per_subnet
+        operating_system  = each.value.operating_system
+        labels            = each.value.labels
+        secondary_storage = each.value.secondary_storage
         boot_volume_encryption_kms_config = {
           crk             = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_instance_id = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -269,12 +273,13 @@ module "cluster" {
     each.value.worker != null ? [
       for pool in each.value.worker :
       {
-        vpc_subnets      = pool.vpc_subnets
-        pool_name        = pool.name
-        machine_type     = pool.flavor
-        workers_per_zone = pool.workers_per_subnet
-        operating_system = pool.operating_system
-        labels           = pool.labels
+        vpc_subnets       = pool.vpc_subnets
+        pool_name         = pool.name
+        machine_type      = pool.flavor
+        workers_per_zone  = pool.workers_per_subnet
+        operating_system  = pool.operating_system
+        labels            = pool.labels
+        secondary_storage = pool.secondary_storage
         boot_volume_encryption_kms_config = {
           crk             = pool.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_instance_id = pool.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
@@ -292,8 +297,8 @@ module "cluster" {
   use_existing_cos                      = true
   existing_cos_id                       = each.value.cos_instance_crn
   disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
-  verify_worker_network_readiness       = each.value.verify_worker_network_readiness
-  use_private_endpoint                  = each.value.use_private_endpoint
+  verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
+  use_private_endpoint                  = each.value.use_ibm_cloud_private_api_endpoints
   addons                                = each.value.addons
   manage_all_addons                     = each.value.manage_all_addons
   disable_outbound_traffic_protection   = each.value.disable_outbound_traffic_protection
