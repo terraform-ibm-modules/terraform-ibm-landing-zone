@@ -18,6 +18,8 @@
       "name": "workload-cluster",
       "secondary_storage": "300gb.5iops-tier",
       "resource_group": "slz-workload-rg",
+      "use_ibm_cloud_private_api_endpoints": false,
+      "verify_cluster_network_readiness": false,
       "kms_config": {
           "crk_name": "slz-key",
           "private_endpoint": true
@@ -77,6 +79,7 @@
     }
   ],
   "service_endpoints": "public-and-private",
+  "existing_vpc_cbr_zone_id" : null,
   "security_groups": [],
   "vpn_gateways": [
     {

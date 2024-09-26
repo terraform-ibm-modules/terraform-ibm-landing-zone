@@ -79,12 +79,14 @@ locals {
       [
         for pool in cluster.worker_pools :
         merge(pool, {
-          composed_name  = "${var.prefix}-${cluster.name}-${pool.name}"            # Composed name
-          cluster_name   = "${var.prefix}-${cluster.name}"                         # Cluster name with prefix
-          entitlement    = cluster.kube_type == "iks" ? null : cluster.entitlement # Add entitlement for roks pools
-          resource_group = cluster.resource_group                                  # add cluster rg
-          vpc_id         = var.vpc_modules[pool.vpc_name].vpc_id                   # add vpc_id
-          subnets        = module.worker_pool_subnets["${var.prefix}-${cluster.name}-${pool.name}"].subnets
+          composed_name    = "${var.prefix}-${cluster.name}-${pool.name}"            # Composed name
+          cluster_name     = "${var.prefix}-${cluster.name}"                         # Cluster name with prefix
+          entitlement      = cluster.kube_type == "iks" ? null : cluster.entitlement # Add entitlement for roks pools
+          resource_group   = cluster.resource_group                                  # add cluster rg
+          vpc_id           = var.vpc_modules[pool.vpc_name].vpc_id                   # add vpc_id
+          subnets          = module.worker_pool_subnets["${var.prefix}-${cluster.name}-${pool.name}"].subnets
+          kube_type        = cluster.kube_type
+          operating_system = lookup(pool, "operating_system", null)
         }) if pool != null
       ] if cluster.worker_pools != null
     ]

@@ -91,21 +91,24 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet                  = var.workers_per_zone
-        machine_type                        = var.flavor
-        kube_type                           = "openshift"
-        kube_version                        = var.kube_version
-        resource_group                      = "${var.prefix}-${network}-rg"
-        cos_name                            = "cos"
-        entitlement                         = var.entitlement
-        secondary_storage                   = var.secondary_storage
-        addons                              = var.cluster_addons
-        manage_all_addons                   = var.manage_all_cluster_addons
-        boot_volume_crk_name                = "${var.prefix}-roks-key"
-        disable_outbound_traffic_protection = var.disable_outbound_traffic_protection
-        cluster_force_delete_storage        = var.cluster_force_delete_storage
-        operating_system                    = var.operating_system
-        kms_wait_for_apply                  = var.kms_wait_for_apply
+        workers_per_subnet                   = var.workers_per_zone
+        machine_type                         = var.flavor
+        kube_type                            = "openshift"
+        kube_version                         = var.kube_version
+        resource_group                       = "${var.prefix}-${network}-rg"
+        cos_name                             = "cos"
+        entitlement                          = var.entitlement
+        secondary_storage                    = var.secondary_storage
+        addons                               = var.cluster_addons
+        manage_all_addons                    = var.manage_all_cluster_addons
+        boot_volume_crk_name                 = "${var.prefix}-roks-key"
+        disable_outbound_traffic_protection  = var.disable_outbound_traffic_protection
+        cluster_force_delete_storage         = var.cluster_force_delete_storage
+        operating_system                     = var.operating_system
+        kms_wait_for_apply                   = var.kms_wait_for_apply
+        use_ibm_cloud_private_api_endpoints  = var.use_ibm_cloud_private_api_endpoints
+        verify_cluster_network_readiness     = var.verify_cluster_network_readiness
+        import_default_worker_pool_on_create = false
         # By default, create dedicated pool for logging
         worker_pools = [
           # {
@@ -244,6 +247,7 @@ locals {
     virtual_private_endpoints              = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
     cos                                    = lookup(local.override[local.override_type], "cos", local.config.object_storage)
     service_endpoints                      = lookup(local.override[local.override_type], "service_endpoints", var.service_endpoints)
+    existing_vpc_cbr_zone_id               = lookup(local.override[local.override_type], "existing_vpc_cbr_zone_id", var.existing_vpc_cbr_zone_id)
     skip_kms_block_storage_s2s_auth_policy = lookup(local.override[local.override_type], "skip_kms_block_storage_s2s_auth_policy", local.config.skip_kms_block_storage_s2s_auth_policy)
     skip_all_s2s_auth_policies             = lookup(local.override[local.override_type], "skip_all_s2s_auth_policies", local.config.skip_all_s2s_auth_policies)
     key_management                         = lookup(local.override[local.override_type], "key_management", local.config.key_management)
