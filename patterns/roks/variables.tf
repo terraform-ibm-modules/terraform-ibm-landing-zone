@@ -247,6 +247,12 @@ variable "entitlement" {
   default     = null
 }
 
+variable "secondary_storage" {
+  description = "Optionally specify a secondary storage option to attach to all cluster worker nodes. This value is immutable and can't be changed after provisioning. Use the IBM Cloud CLI command ibmcloud ks flavors to find valid options, e.g ibmcloud ks flavor get --flavor bx2.16x64 --provider vpc-gen2 --zone us-south-1."
+  type        = string
+  default     = null
+}
+
 variable "cluster_addons" {
   type = object({
     debug-tool                = optional(string)
@@ -584,7 +590,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-minimal-amd64-4"
+  default     = "ibm-ubuntu-24-04-6-minimal-amd64-1"
 }
 
 variable "teleport_license" {
