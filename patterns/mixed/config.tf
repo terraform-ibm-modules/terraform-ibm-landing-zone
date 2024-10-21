@@ -133,6 +133,7 @@ locals {
               "vsi-zone-${zone}"
             ]
             entitlement          = var.entitlement
+            operating_system     = "REDHAT_8_64"
             workers_per_subnet   = var.workers_per_zone
             flavor               = var.flavor
             secondary_storage    = var.secondary_storage

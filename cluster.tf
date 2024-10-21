@@ -244,7 +244,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version            = "3.32.1"
+  version            = "3.34.0"
   resource_group_id  = local.resource_groups[each.value.resource_group]
   region             = var.region
   cluster_name       = each.value.cluster_name
@@ -289,7 +289,6 @@ module "cluster" {
     ] : []
   )
   force_delete_storage                  = each.value.cluster_force_delete_storage
-  operating_system                      = each.value.operating_system
   ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
   import_default_worker_pool_on_create  = each.value.import_default_worker_pool_on_create
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement
