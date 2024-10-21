@@ -86,7 +86,7 @@ locals {
           vpc_id           = var.vpc_modules[pool.vpc_name].vpc_id                   # add vpc_id
           subnets          = module.worker_pool_subnets["${var.prefix}-${cluster.name}-${pool.name}"].subnets
           kube_type        = cluster.kube_type
-          operating_system = lookup(pool, "operating_system", null)
+          operating_system = lookup(pool, "operating_system", "REDHAT_8_64")
         }) if pool != null
       ] if cluster.worker_pools != null
     ]

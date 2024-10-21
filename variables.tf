@@ -889,7 +889,7 @@ variable "clusters" {
             entitlement          = optional(string)      # entitlement option for openshift
             secondary_storage    = optional(string)      # Secondary storage type
             boot_volume_crk_name = optional(string)      # Boot volume encryption key name
-            operating_system     = optional(string)      # The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
+            operating_system     = string                # The operating system of the workers in the default worker pool. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
             labels               = optional(map(string)) # A list of labels that you want to add to all the worker nodes in the worker pool.
           })
         )
