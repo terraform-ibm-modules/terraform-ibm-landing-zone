@@ -185,7 +185,7 @@
             "profiles": [
               {
                 "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.6.0"
+                "profile_version": "1.7.0"
               }
             ]
           },
@@ -646,7 +646,7 @@
             "profiles": [
               {
                 "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.6.0"
+                "profile_version": "1.7.0"
               }
             ]
           },
@@ -1108,7 +1108,7 @@
             "profiles": [
               {
                 "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.6.0"
+                "profile_version": "1.7.0"
               }
             ]
           },
