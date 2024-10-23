@@ -36,6 +36,7 @@
           "flavor": "bx2.16x64",
           "name": "logging-worker-pool",
           "secondary_storage": "300gb.5iops-tier",
+          "operating_system" : "REDHAT_8_64",
           "subnet_names": [
             "vsi-zone-1",
             "vsi-zone-2",
