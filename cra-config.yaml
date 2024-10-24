@@ -20,4 +20,3 @@ CRA_TARGETS:
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "slz-roks"
       TF_VAR_region: "us-south"
-      TF_VAR_operating_system: "REDHAT_8_64"

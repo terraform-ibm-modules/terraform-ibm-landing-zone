@@ -209,7 +209,6 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"enable_transit_gateway":              false,
 		"use_ibm_cloud_private_api_endpoints": false,
 		"verify_cluster_network_readiness":    false,
-		"operating_system":                    "REDHAT_8_64",
 	}
 
 	return options

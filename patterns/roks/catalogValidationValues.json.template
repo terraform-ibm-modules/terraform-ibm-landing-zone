@@ -5,6 +5,5 @@
   "tags": $TAGS,
   "prefix": $PREFIX,
   "enable_transit_gateway": false,
-  "add_atracker_route": false,
-  "operating_system": "REDHAT_8_64"
+  "add_atracker_route": false
 }
