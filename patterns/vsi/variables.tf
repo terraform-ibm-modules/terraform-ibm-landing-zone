@@ -526,3 +526,11 @@ variable "existing_vpc_cbr_zone_id" {
 }
 
 ##############################################################################
+
+variable "user_data" {
+  description = "value"
+  type = map(object({
+    user_data = string
+  }))
+  default = {}
+}

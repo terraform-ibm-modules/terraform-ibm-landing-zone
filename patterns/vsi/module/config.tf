@@ -93,6 +93,7 @@ locals {
         image_name                      = var.vsi_image_name
         vsi_per_subnet                  = var.vsi_per_subnet
         machine_type                    = var.vsi_instance_profile
+        user_data                       = lookup(var.user_data, network, null) != null ? var.user_data[network].user_data : null
         boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
         security_group = {
           name     = "${var.prefix}-${network}"
@@ -281,9 +282,9 @@ locals {
 # Convert Environment to escaped readable string
 ##############################################################################
 
-data "external" "format_output" {
-  program = ["python3", "${path.module}/scripts/output.py", local.string]
-}
+# data "external" "format_output" {
+#   program = ["python3", "${path.module}/scripts/output.py", local.string]
+# }
 
 ##############################################################################
 

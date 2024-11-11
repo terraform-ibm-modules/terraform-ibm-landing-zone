@@ -140,3 +140,7 @@ output "config" {
 }
 
 ##############################################################################
+
+output "vsi_map" {
+  value = module.landing_zone.vsi_map
+}

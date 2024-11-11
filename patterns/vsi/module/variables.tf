@@ -542,3 +542,17 @@ variable "existing_vpc_cbr_zone_id" {
 }
 
 ##############################################################################
+
+variable "user_data" {
+  description = "value"
+  type = map(object({
+    user_data = string
+  }))
+  default = {}
+  validation {
+    condition = alltrue([for key, value in var.user_data :
+      contains(var.vpcs, key)
+    ])
+    error_message = "value"
+  }
+}
