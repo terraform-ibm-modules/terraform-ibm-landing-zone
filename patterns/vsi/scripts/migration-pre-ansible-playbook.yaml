@@ -1,0 +1,134 @@
+- name: migration pre playbook
+  hosts: localhost
+  tasks:
+    - name: get running ansible env variables
+      set_fact:
+        config_crn_token: "{{ lookup('env', 'config_crn_token') }}"
+        project_id: "{{ lookup('env', 'project_id') }}"
+        config_id: "{{ lookup('env', 'config_id') }}"
+        project_url: "{{ lookup('env', 'project_url') }}"
+    - name: Get Statefile
+      uri:
+        url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/retrieve_schematics_statefile"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ config_crn_token }}"
+      register: result
+    - name: Set Statefile
+      set_fact:
+        statefile: "{{ result.json | string }}"
+    - name: Creating script
+      copy:
+        dest: "script.sh"
+        content: |
+          #!/bin/bash
+          STATE="$(cat terraform.tfstate.tmp)"
+
+          SUBNET_LIST=()
+          while IFS='' read -r line; do SUBNET_LIST+=("$line"); done < <(echo $STATE | jq -r '.resources[] | select((.type == "ibm_is_vpc") and (.mode == "data") and (.name == "vpc_by_id")) | .instances[0] | .attributes | .subnets[] | .id')
+          ADDRESS_LIST=()
+          while IFS='' read -r line; do ADDRESS_LIST+=("$line"); done < <(echo $STATE | jq -r '.resources[] | select(.type == "ibm_is_instance") | .module')
+
+          for i in "${!SUBNET_LIST[@]}"; do
+              for j in "${!ADDRESS_LIST[@]}"; do
+                  VSI_RESOURCES="$(echo $STATE | jq -r --arg address "${ADDRESS_LIST[$j]}" '.resources[] | select((.type == "ibm_is_instance") and (.module == $address)) | .instances')"
+                  subnet_name=$(echo $STATE | jq -r --arg subnet_id "${SUBNET_LIST[$i]}" '.resources[] | select((.type == "ibm_is_vpc") and (.mode == "data") and (.name == "vpc_by_id")) | .instances[0] | .attributes | .subnets[] | select(.id == $subnet_id) | .name')
+                  vsi_names=$(echo "$VSI_RESOURCES" | jq -r --arg subnet_id "${SUBNET_LIST[$i]}" '.[] | select(.attributes.primary_network_interface[0].subnet == $subnet_id) | .index_key')
+                  VSI_LIST=()
+                  IFS=$'\n' read -r -d '' -a VSI_LIST <<<"$vsi_names"
+                  for x in "${!VSI_LIST[@]}"; do
+                      SOURCE="${ADDRESS_LIST[$j]}.ibm_is_instance.vsi[\"${VSI_LIST[$x]}\"]"
+                      DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_instance.vsi[\"${subnet_name}-${x}\"]"
+                      if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ]; then
+                          MOVED_PARAMS+=("$SOURCE, $DESTINATION")
+                      fi
+                      if [ -n "${VSI_LIST[$x]}" ]; then
+                          VOL_NAMES=$(echo "$VSI_RESOURCES" | jq -r --arg vsi "${VSI_LIST[$x]}" '.[] | select(.index_key == $vsi) | .attributes.volume_attachments[].volume_name')
+                      fi
+                      if [ -n "${VSI_LIST[$x]}" ]; then
+                          FIP_RESOURCES="$(echo $STATE | jq -r --arg address "${ADDRESS_LIST[$j]}" '.resources[] | select((.type == "ibm_is_floating_ip") and (.module == $address)) | .instances')"
+                      fi
+                      if [ -n "$FIP_RESOURCES" ]; then
+                          FIP_SOURCE="${ADDRESS_LIST[$j]}.ibm_is_floating_ip.vsi_fip[\"${VSI_LIST[$x]}\"]"
+                          FIP_DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_floating_ip.vsi_fip[\"${subnet_name}-${x}\"]"
+                          if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ]; then
+                              MOVED_PARAMS+=("$FIP_SOURCE, $FIP_DESTINATION")
+                          fi
+                      fi
+                      str="${VSI_LIST[$x]}"
+                      lastIndex=$(echo "$str" | awk '{print length}')
+                      for ((l = lastIndex; l >= 0; l--)); do
+                          if [[ "${str:$l:1}" == "-" ]]; then
+                              str="${str::l}"
+                              break
+                          fi
+                      done
+                      if [ -n "$VOL_NAMES" ]; then
+                          VOL_ADDRESS_LIST=()
+                          while IFS='' read -r line; do VOL_ADDRESS_LIST+=("$line"); done < <(echo $STATE | jq -r '.resources[] | select(.type == "ibm_is_volume") | .module')
+                          VOL_NAME=()
+                          IFS=$'\n' read -r -d '' -a VOL_NAME <<<"$VOL_NAMES"
+                          for a in "${!VOL_NAME[@]}"; do
+                              for b in "${!VOL_ADDRESS_LIST[@]}"; do
+                                  VOL_RESOURCES="$(echo $STATE | jq -r --arg address "${VOL_ADDRESS_LIST[$b]}" '.resources[] | select((.type == "ibm_is_volume") and (.module == $address)) | .instances')"
+                                  vol_names=$(echo "$VOL_RESOURCES" | jq -r --arg vol1 "${VOL_NAME[$a]}" '.[] | select(.attributes.name == $vol1) | .index_key')
+                                  VOL_LIST=()
+                                  IFS=$'\n' read -r -d '' -a VOL_LIST <<<"$vol_names"
+                                  for c in "${!VOL_LIST[@]}"; do
+                                      if [ -n "${VOL_LIST[$c]}" ]; then
+                                          VOL_SOURCE="${ADDRESS_LIST[$j]}.ibm_is_volume.volume[\"${VOL_LIST[$c]}\"]"
+                                          test="${VOL_LIST[$c]/$str/}"
+                                          vol=$(echo "$test" | cut -d"-" -f3-)
+                                          VOL_DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_volume.volume[\"${subnet_name}-${x}-${vol}\"]"
+                                          if [ -n "${VOL_LIST[$c]}" ] || [ -n "${subnet_name}" ]; then
+                                              MOVED_PARAMS+=("$VOL_SOURCE, $VOL_DESTINATION")
+                                          fi
+                                      fi
+                                  done
+                              done
+                          done
+                      fi
+                  done
+              done
+          done
+          for ab in "${!MOVED_PARAMS[@]}"; do
+              echo "${MOVED_PARAMS[$ab]}"
+          done
+
+    - name: Create state file
+      copy: content="{{ statefile }}" dest="terraform.tfstate.tmp"
+    - name: Run the script
+      ansible.builtin.script:
+        cmd: ./script.sh
+      register: move_list
+    - name: Initiate Commands List
+      set_fact:
+        commands: []
+    - name: Add new JSON Objects to List
+      set_fact:
+        commands: "{{ commands +
+          [{ 'command': 'state mv',
+          'command_params': item,
+          'command_name': 'Move' + count|string,
+          'command_onerror': 'abort'}] }}"
+      loop: "{{ move_list.stdout_lines }}"
+      loop_control:
+        index_var: count
+    - name: Create complete JSON body
+      set_fact:
+        commands: "{{
+          { 'commands': commands ,
+          'operation_name': 'workspace Command',
+          'description': 'Executing command'}
+          }}"
+    - name: Run Terraform commands
+      uri:
+        url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ config_crn_token }}"
+          Content-Type: application/json
+        body: "{{ commands }}"
+        body_format: json
+        status_code: [200, 202]
+      register: result
