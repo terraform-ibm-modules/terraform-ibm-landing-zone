@@ -30,6 +30,7 @@ locals {
     cluster.name => {
       crn                          = cluster.crn
       id                           = cluster.id
+      cluster_name                 = cluster.name
       resource_group_name          = cluster.resource_group_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
@@ -45,6 +46,7 @@ locals {
     cluster.cluster_name => {
       crn                          = cluster.cluster_crn
       id                           = cluster.cluster_id
+      cluster_name                 = cluster.cluster_name
       resource_group_id            = cluster.resource_group_id
       vpc_id                       = cluster.vpc_id
       region                       = var.region
@@ -241,24 +243,26 @@ module "cluster" {
     for index, cluster in local.clusters_map : index => cluster
     if cluster.kube_type == "openshift"
   }
-  source            = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version           = "3.30.1"
-  resource_group_id = local.resource_groups[each.value.resource_group]
-  region            = var.region
-  cluster_name      = each.value.cluster_name
-  vpc_id            = each.value.vpc_id
-  ocp_entitlement   = each.value.entitlement
-  vpc_subnets       = each.value.vpc_subnets
-  access_tags       = each.value.access_tags
+  source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
+  version            = "3.34.0"
+  resource_group_id  = local.resource_groups[each.value.resource_group]
+  region             = var.region
+  cluster_name       = each.value.cluster_name
+  vpc_id             = each.value.vpc_id
+  ocp_entitlement    = each.value.entitlement
+  vpc_subnets        = each.value.vpc_subnets
+  cluster_ready_when = var.wait_till
+  access_tags        = each.value.access_tags
   worker_pools = concat(
     [
       {
-        subnet_prefix    = each.value.subnet_names[0]
-        pool_name        = "default"
-        machine_type     = each.value.machine_type
-        workers_per_zone = each.value.workers_per_subnet
-        operating_system = each.value.operating_system
-        labels           = each.value.labels
+        subnet_prefix     = each.value.subnet_names[0]
+        pool_name         = "default"
+        machine_type      = each.value.machine_type
+        workers_per_zone  = each.value.workers_per_subnet
+        operating_system  = each.value.operating_system
+        labels            = each.value.labels
+        secondary_storage = each.value.secondary_storage
         boot_volume_encryption_kms_config = {
           crk             = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_instance_id = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -269,12 +273,13 @@ module "cluster" {
     each.value.worker != null ? [
       for pool in each.value.worker :
       {
-        vpc_subnets      = pool.vpc_subnets
-        pool_name        = pool.name
-        machine_type     = pool.flavor
-        workers_per_zone = pool.workers_per_subnet
-        operating_system = pool.operating_system
-        labels           = pool.labels
+        vpc_subnets       = pool.vpc_subnets
+        pool_name         = pool.name
+        machine_type      = pool.flavor
+        workers_per_zone  = pool.workers_per_subnet
+        operating_system  = pool.operating_system
+        labels            = pool.labels
+        secondary_storage = pool.secondary_storage
         boot_volume_encryption_kms_config = {
           crk             = pool.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_instance_id = pool.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
@@ -284,7 +289,6 @@ module "cluster" {
     ] : []
   )
   force_delete_storage                  = each.value.cluster_force_delete_storage
-  operating_system                      = each.value.operating_system
   ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
   import_default_worker_pool_on_create  = each.value.import_default_worker_pool_on_create
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement

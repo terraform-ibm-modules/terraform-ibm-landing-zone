@@ -34,7 +34,7 @@ locals {
          "resource_group": "workload-rg",
          "disable_outbound_traffic_protection": true,
          "cluster_force_delete_storage": true,
-         "operating_system": null,
+         "operating_system": "REDHAT_8_64",
          "kms_wait_for_apply": true,
          "kms_config": {
             "crk_name": "roks-key",

@@ -29,6 +29,7 @@
                     "entitlement": "cloud_pak",
                     "flavor": "bx2.16x64",
                     "name": "logging-worker-pool",
+                    "operating_system": "REDHAT_8_64",
                     "subnet_names": [
                         "vsi-zone-1",
                         "vsi-zone-2",
@@ -406,7 +407,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-24-04-minimal-amd64-4",
+            "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {

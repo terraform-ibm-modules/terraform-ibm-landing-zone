@@ -33,6 +33,7 @@ module "roks_landing_zone" {
   ssh_public_key                         = var.ssh_public_key
   existing_ssh_key_name                  = var.existing_ssh_key_name
   entitlement                            = var.entitlement
+  secondary_storage                      = var.secondary_storage
   workers_per_zone                       = var.workers_per_zone
   flavor                                 = var.flavor
   kube_version                           = var.kube_version
