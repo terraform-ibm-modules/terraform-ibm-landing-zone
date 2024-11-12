@@ -140,6 +140,12 @@ variable "vsi_per_subnet" {
   default     = 1
 }
 
+variable "use_legacy_network_interface" {
+  description = "Set this to true to use legacy network interface for the created instances."
+  type        = bool
+  default     = false
+}
+
 ##############################################################################
 
 

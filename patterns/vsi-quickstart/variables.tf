@@ -272,7 +272,8 @@ variable "override_json_string" {
          ],
          "vpc_name": "management",
          "vsi_per_subnet": 1,
-         "enable_floating_ip": true
+         "enable_floating_ip": true,
+         "use_legacy_network_interface": false
       },
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
@@ -308,7 +309,8 @@ variable "override_json_string" {
          ],
          "vpc_name": "workload",
          "vsi_per_subnet": 1,
-         "enable_floating_ip": false
+         "enable_floating_ip": false,
+         "use_legacy_network_interface": false
       }
    ]
 }

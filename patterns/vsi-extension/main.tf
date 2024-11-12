@@ -38,27 +38,29 @@ locals {
 }
 
 module "vsi" {
-  source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "4.2.0"
-  resource_group_id             = data.ibm_is_vpc.vpc_by_id.resource_group
-  create_security_group         = true
-  prefix                        = "${var.prefix}-vsi"
-  vpc_id                        = var.vpc_id
-  subnets                       = var.subnet_names != null ? local.subnets : data.ibm_is_vpc.vpc_by_id.subnets
-  tags                          = var.resource_tags
-  access_tags                   = var.access_tags
-  kms_encryption_enabled        = true
-  skip_iam_authorization_policy = true
-  user_data                     = var.user_data
-  image_id                      = data.ibm_is_image.image.id
-  boot_volume_encryption_key    = var.boot_volume_encryption_key
-  security_group_ids            = var.security_group_ids
-  ssh_key_ids                   = [local.ssh_key_id]
-  machine_type                  = var.vsi_instance_profile
-  vsi_per_subnet                = var.vsi_per_subnet
-  security_group                = local.env.security_groups[0]
-  load_balancers                = var.load_balancers
-  block_storage_volumes         = var.block_storage_volumes
-  enable_floating_ip            = var.enable_floating_ip
-  placement_group_id            = var.placement_group_id
+  source                          = "terraform-ibm-modules/landing-zone-vsi/ibm"
+  version                         = "4.3.0"
+  resource_group_id               = data.ibm_is_vpc.vpc_by_id.resource_group
+  create_security_group           = true
+  prefix                          = "${var.prefix}-vsi"
+  vpc_id                          = var.vpc_id
+  subnets                         = var.subnet_names != null ? local.subnets : data.ibm_is_vpc.vpc_by_id.subnets
+  tags                            = var.resource_tags
+  access_tags                     = var.access_tags
+  kms_encryption_enabled          = true
+  skip_iam_authorization_policy   = true
+  user_data                       = var.user_data
+  image_id                        = data.ibm_is_image.image.id
+  boot_volume_encryption_key      = var.boot_volume_encryption_key
+  security_group_ids              = var.security_group_ids
+  ssh_key_ids                     = [local.ssh_key_id]
+  machine_type                    = var.vsi_instance_profile
+  vsi_per_subnet                  = var.vsi_per_subnet
+  security_group                  = local.env.security_groups[0]
+  load_balancers                  = var.load_balancers
+  block_storage_volumes           = var.block_storage_volumes
+  enable_floating_ip              = var.enable_floating_ip
+  placement_group_id              = var.placement_group_id
+  primary_vni_additional_ip_count = var.primary_vni_additional_ip_count
+  use_legacy_network_interface    = var.use_legacy_network_interface
 }
