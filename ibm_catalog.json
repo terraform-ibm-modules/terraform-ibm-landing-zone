@@ -68,6 +68,14 @@
             },
             {
               "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "textarea"
+              },
+              "key": "user_data"
+            },
+            {
+              "custom_config": {
                 "config_constraints": {
                   "generationType": "2"
                 },
@@ -326,6 +334,14 @@
                 "type": "json_editor"
               },
               "key": "override_json_string"
+            },
+            {
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "textarea"
+              },
+              "key": "user_data"
             },
             {
               "hidden": true,

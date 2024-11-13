@@ -32,6 +32,10 @@ variable "ssh_keys" {
   description = "Direct reference to SSH keys"
 }
 
+variable "user_data" {
+  description = "Direct reference to user_data"
+}
+
 ##############################################################################
 
 ##############################################################################

@@ -13,6 +13,7 @@ module "vsi" {
   vpc_modules     = var.vpc_modules
   vsi             = var.vsi
   bastion_vsi     = var.bastion_vsi
+  user_data       = var.user_data
 }
 
 ##############################################################################
@@ -42,6 +43,7 @@ module "ut_ssh_key" {
     }
   ]
   vpc_modules = {}
+  user_data   = {}
   vsi         = []
   bastion_vsi = []
 }
@@ -63,6 +65,7 @@ module "ut_vsi_images" {
   prefix          = "ut"
   resource_groups = {}
   ssh_keys        = []
+  user_data       = {}
   vpc_modules = {
     test = {
       vpc_id = "1234"

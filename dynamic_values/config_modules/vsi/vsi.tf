@@ -33,8 +33,9 @@ module "composed_vsi_map" {
   list = [
     for vsi_group in var.vsi :
     merge(vsi_group, {
-      vpc_id  = var.vpc_modules[vsi_group.vpc_name].vpc_id
-      subnets = module.vsi_subnets["${var.prefix}-${vsi_group.name}"].subnets
+      vpc_id    = var.vpc_modules[vsi_group.vpc_name].vpc_id
+      subnets   = module.vsi_subnets["${var.prefix}-${vsi_group.name}"].subnets
+      user_data = lookup(var.user_data, vsi_group.vpc_name, null) != null ? var.user_data[vsi_group.vpc_name].user_data : null
     })
   ]
 }

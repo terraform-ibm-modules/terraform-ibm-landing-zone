@@ -33,6 +33,7 @@ module "dynamic_values" {
   skip_kms_kube_s2s_auth_policy          = var.skip_kms_kube_s2s_auth_policy
   skip_all_s2s_auth_policies             = var.skip_all_s2s_auth_policies
   atracker_cos_bucket                    = var.atracker.add_route == true ? var.atracker.collector_bucket_name : null
+  user_data                              = var.user_data
 }
 
 ##############################################################################

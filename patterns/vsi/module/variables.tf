@@ -146,12 +146,6 @@ variable "user_data" {
     user_data = string
   }))
   default = {}
-  validation {
-    condition = alltrue([for key, value in var.user_data :
-      contains(var.vpcs, key)
-    ])
-    error_message = "Keys should match the name of the vpc passed in `var.vpcs`."
-  }
 }
 
 ##############################################################################
