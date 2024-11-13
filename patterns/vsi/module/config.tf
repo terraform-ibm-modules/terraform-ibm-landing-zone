@@ -282,9 +282,9 @@ locals {
 # Convert Environment to escaped readable string
 ##############################################################################
 
-# data "external" "format_output" {
-#   program = ["python3", "${path.module}/scripts/output.py", local.string]
-# }
+data "external" "format_output" {
+  program = ["python3", "${path.module}/scripts/output.py", local.string]
+}
 
 ##############################################################################
 

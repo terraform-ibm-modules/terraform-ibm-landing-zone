@@ -366,7 +366,6 @@
             "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "management-server",
-            "user_data": "override-management-test1",
             "security_group": {
                 "name": "management",
                 "rules": [
@@ -431,7 +430,6 @@
             "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "workload-server",
-            "user_data": "override-workload-test2",
             "security_group": {
                 "name": "workload",
                 "rules": [
