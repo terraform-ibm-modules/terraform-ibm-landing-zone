@@ -94,6 +94,7 @@ locals {
         vsi_per_subnet                  = var.vsi_per_subnet
         machine_type                    = var.vsi_instance_profile
         boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
+        use_legacy_network_interface    = var.use_legacy_network_interface
         security_group = {
           name     = "${var.prefix}-${network}"
           vpc_name = var.vpcs[0]

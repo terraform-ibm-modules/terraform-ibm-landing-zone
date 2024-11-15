@@ -420,7 +420,8 @@
         "vsi-zone-1"
       ],
       "vpc_name": "management",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "use_legacy_network_interface": false
     },
     {
       "access_tags": [],
@@ -453,7 +454,8 @@
         "vsi-zone-1"
       ],
       "vpc_name": "workload",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "use_legacy_network_interface": false
     },
     {
       "access_tags": [],
@@ -502,7 +504,8 @@
           "health_type": "tcp",
           "idle_connection_timeout": 50
         }
-      ]
+      ],
+      "use_legacy_network_interface": false
     }
   ],
   "wait_till": "IngressReady"

@@ -305,6 +305,8 @@ variable "vsi" {
       enable_floating_ip              = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
+      primary_vni_additional_ip_count = optional(number)
+      use_legacy_network_interface    = optional(bool)
       access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
