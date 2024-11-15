@@ -126,7 +126,7 @@ func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
 }
 
 func TestRunQuickStartPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if enableSchematicsTests {
 		t.Skip("Skipping terratest for Quickstart Pattern, running Schematics test instead")
 	}
@@ -139,7 +139,7 @@ func TestRunQuickStartPattern(t *testing.T) {
 }
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
 
@@ -166,7 +166,7 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 }
 
 func TestRunROKSQuickStartPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if enableSchematicsTests {
 		t.Skip("Skipping terratest for ROKS Quickstart Pattern, running Schematics test instead")
 	}
@@ -179,7 +179,7 @@ func TestRunROKSQuickStartPattern(t *testing.T) {
 }
 
 func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
@@ -215,7 +215,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 }
 
 func TestRunRoksPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if enableSchematicsTests {
 		t.Skip("Skipping terratest for ROKS Pattern, running Schematics test instead")
 	}
@@ -228,7 +228,7 @@ func TestRunRoksPattern(t *testing.T) {
 }
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsRoksPattern(t, "ocp-u")
 
@@ -264,7 +264,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 }
 
 func TestRunVSIPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if enableSchematicsTests {
 		t.Skip("Skipping terratest for VSI Pattern, running Schematics test instead")
 	}
@@ -277,7 +277,7 @@ func TestRunVSIPattern(t *testing.T) {
 }
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsVsiPattern(t, "vsi-u")
 
@@ -310,7 +310,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 }
 
 func TestRunVpcPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if enableSchematicsTests {
 		t.Skip("Skipping terratest for VPC Pattern, running Schematics test instead")
 	}
@@ -323,7 +323,7 @@ func TestRunVpcPattern(t *testing.T) {
 }
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsVpcPattern(t, "vpc-ug")
 
@@ -335,7 +335,7 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 }
 
 func TestRunOverride(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	options := setupOptionsQuickStartPattern(t, "slz-ovr", quickStartPatternTerraformDir)
 	options.SkipTestTearDown = true
@@ -460,7 +460,7 @@ func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existi
 }
 
 func TestRunVsiExtention(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 
 	// ------------------------------------------------------------------------------------
 	// Deploy SLZ VPC first since it is needed for the landing-zone extension input
@@ -529,7 +529,7 @@ If not set, the normal terratest will be run for the patterns.
 ****************************************************************************/
 
 func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if !enableSchematicsTests {
 		t.Skip("Skipping Schematics Test for QuickStart Pattern, running terratest instead")
 	}
@@ -548,7 +548,7 @@ func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 }
 
 func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if !enableSchematicsTests {
 		t.Skip("Skipping Schematics Test for ROKS QuickStart Pattern, running terratest instead")
 	}
@@ -567,7 +567,7 @@ func TestRunROKSQuickStartPatternSchematics(t *testing.T) {
 }
 
 func TestRunVSIPatternSchematics(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if !enableSchematicsTests {
 		t.Skip("Skipping Schematics Test for VSI Pattern, running terratest instead")
 	}
@@ -588,7 +588,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 }
 
 func TestRunRoksPatternSchematics(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if !enableSchematicsTests {
 		t.Skip("Skipping Schematics Test for ROKS Pattern, running terratest instead")
 	}
@@ -612,7 +612,7 @@ func TestRunRoksPatternSchematics(t *testing.T) {
 }
 
 func TestRunVPCPatternSchematics(t *testing.T) {
-	t.Skip()
+	t.Parallel()
 	if !enableSchematicsTests {
 		t.Skip("Skipping Schematics Test for VPC Pattern, running terratest instead")
 	}
