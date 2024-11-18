@@ -106,7 +106,6 @@ variable "block_storage_volumes" {
       iops              = optional(number)
       encryption_key    = optional(string)
       resource_group_id = optional(string)
-      snapshot_id       = optional(string) # set if you would like to base volume on a snapshot
     })
   )
   default = []
