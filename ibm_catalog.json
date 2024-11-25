@@ -555,7 +555,7 @@
             }
           ],
           "architecture": {
-            "descriptions": "This architecture creates virtual server instances (VSI) in some or all of the subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.\r\n\r\n## Before you begin\r\n\r\n- You must have either the [VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.\r\n- You need an authorization policy that grants access between block storage and the KMS. The policy exists if you set the `skip_kms_block_storage_s2s_auth_policy` input variable to `false` (the default value) in your existing landing zone deployable architecture.\r\n- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https:\/\/cloud.ibm.com\/docs\/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).",
+            "descriptions": "This architecture creates virtual server instances (VSI) in some or all of the subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.\r\n\r\n## Before you begin\r\n\r\n- You must have either the [VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.\r\n- You need an authorization policy that grants access between block storage and the KMS. The policy exists if you set the `skip_kms_block_storage_s2s_auth_policy` input variable to `false` (the default value) in your existing landing zone deployable architecture.\r\n- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).",
             "features": [
               {
                 "title": "Adds a virtual server instance in every VPC subnet",
@@ -1357,6 +1357,259 @@
             {
               "hidden": true,
               "key": "template_source"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "containers-kubernetes"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            }
+          ],
+          "architecture": {
+            "descriptions": "",
+            "features": [
+              {
+                "title": "Separate VPC for management",
+                "description": "Yes"
+              },
+              {
+                "title": "Separate VPC for workloads",
+                "description": "Yes"
+              },
+              {
+                "title": "Red Hat OpenShift",
+                "description": "Yes"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Reduces failure events by using multizone regions",
+                "description": "Yes"
+              },
+              {
+                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
+                "description": "Yes"
+              },
+              {
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
+                "description": "Yes"
+              },
+              {
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
+                "description": "Yes"
+              },
+              {
+                "title": "Uses an edge VPC for secure access through the public internet",
+                "description": "Yes, if enabled"
+              },
+              {
+                "title": "Uses Floating IP address for access through the public internet",
+                "description": "No"
+              },
+              {
+                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
+                "title": "Configures CBR"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+              }
+            ]
+          }
+        },
+        {
+          "label": "Testing - Cloud automation for SLZ(ROKS)",
+          "name": "addon",
+          "install_type": "extension",
+          "working_directory": "patterns/roks",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.7.0"
+              }
+            ],
+            "controls": []
+          },
+          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
+          "dependencies": [
+            {
+              "name": "testing-deploy-arch-ibm-kms",
+              "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
+              "version": ">=1.0.1",
+              "flavors": [
+                "standard"
+              ],
+              "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
+              "optional": true,
+              "input_mapping": [
+                {
+                  "dependency_output": "kms_instance_crn",
+                  "version_input": "existing_kms_instance_crn"
+                },
+                {
+                  "dependency_output": "resource_group_name",
+                  "version_input": "existing_kms_resource_group"
+                }
+              ]
+            },
+            {
+              "name": "deploy-arch-ibm-cos",
+              "id": "68921490-2778-4930-ac6d-bae7be6cd958",
+              "version": ">=1.0.1",
+              "flavors": [
+                "instance"
+              ],
+              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "optional": true,
+              "input_mapping": [
+                {
+                  "dependency_output": "cos_instance_name",
+                  "version_input": "existing_cos_instance_name"
+                },
+                {
+                  "dependency_output": "resource_group_name",
+                  "version_input": "existing_cos_resource_group"
+                }
+              ]
+            }
+          ],
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key",
+              "type": "password",
+              "description": "The API key to use for IBM Cloud.",
+              "required": true
+            },
+            {
+              "key": "prefix",
+              "type": "string",
+              "default_value": "",
+              "description": "The prefix to add to all resources created by this solution. Used to make sure that names are unique when you deploy the solution more than one time.",
+              "required": true
+            },
+            {
+              "key": "region",
+              "type": "string",
+              "description": "The region where resources are created.",
+              "required": true,
+              "custom_config": {
+                "type": "vpc_region",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "generationType": "2"
+                }
+              }
+            },
+            {
+              "key": "vpcs",
+              "value": [
+                "management",
+                "workload"
+              ]
+            },
+            {
+              "key": "ignore_vpcs_for_cluster_deployment",
+              "value": [
+                "management"
+              ]
+            },
+            {
+              "key": "enable_transit_gateway",
+              "default_value": false
+            },
+            {
+              "key": "add_atracker_route",
+              "default_value": false
+            },
+            {
+              "key": "existing_kms_instance_name",
+              "default_value": ""
+            },
+            {
+              "key": "existing_kms_resource_group",
+              "default_value": ""
+            },
+            {
+              "key": "existing_kms_endpoint_type",
+              "default_value": "private"
+            },
+            {
+              "key": "existing_cos_instance_name",
+              "default_value": ""
+            },
+            {
+              "key": "existing_cos_resource_group",
+              "default_value": ""
+            },
+            {
+              "key": "existing_cos_endpoint_type",
+              "default_value": "private"
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs",
+              "default_value": true
+            },
+            {
+              "key": "cluster_zones",
+              "default_value": "2"
+            },
+            {
+              "key": "flavor",
+              "default_value": "bx2.4x16"
+            },
+            {
+              "key": "workers_per_zone",
+              "default_value": 1
             }
           ],
           "iam_permissions": [
