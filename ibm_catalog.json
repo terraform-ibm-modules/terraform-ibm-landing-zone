@@ -257,7 +257,7 @@
           ],
           "dependency_version_2": true,
           "outputs": [],
-          "install_type": "extension"
+          "install_type": "fullstack"
         },
         {
           "label": "Standard (Deploy on Red Hat OpenShift)",
@@ -505,7 +505,7 @@
           ],
           "dependency_version_2": true,
           "outputs": [],
-          "install_type": "extension"
+          "install_type": "fullstack"
         }
       ]
     }
