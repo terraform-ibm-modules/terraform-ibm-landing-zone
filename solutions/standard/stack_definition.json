@@ -194,7 +194,7 @@
       "value": "ref:./Workload - Red Hat OpenShift Container Platform on VPC/outputs/workload_cluster_name"
     },
     {
-      "name": "clsuter_data",
+      "name": "cluster_data",
       "value": "ref:./Workload - Red Hat OpenShift Container Platform on VPC/outputs/cluster_data"
     }
   ]
