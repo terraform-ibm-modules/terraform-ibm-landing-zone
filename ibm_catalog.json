@@ -5,7 +5,8 @@
       "name": "testing-container-platform-stack",
       "product_kind": "solution",
       "tags": [
-        "ibm_created"
+        "ibm_created",
+        "converged_infra"
       ],
       "keywords": [
         "ibmcloud"
