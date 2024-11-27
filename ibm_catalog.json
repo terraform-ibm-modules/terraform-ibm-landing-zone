@@ -2,7 +2,7 @@
   "products": [
     {
       "label": "[Add-ons Beta] Container Platform Automation",
-      "name": "testing-container-platform-stack",
+      "name": "Testing_Retrieval_Augmented_Generation_Pattern_dev",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
