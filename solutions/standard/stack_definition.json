@@ -191,11 +191,11 @@
   "outputs": [
     {
       "name": "workload_cluster_name",
-      "value": "ref:../Workload - Red Hat OpenShift Container Platform on VPC/outputs/workload_cluster_name"
+      "value": "ref:../../members/Workload - Red Hat OpenShift Container Platform on VPC/outputs/workload_cluster_name"
     },
     {
       "name": "cluster_data",
-      "value": "ref:../Workload - Red Hat OpenShift Container Platform on VPC/outputs/cluster_data"
+      "value": "ref:../../members/Workload - Red Hat OpenShift Container Platform on VPC/outputs/cluster_data"
     }
   ]
 }
