@@ -1,0 +1,182 @@
+{
+  "inputs": [
+    {
+      "name": "prefix",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": "rag"
+    },
+    {
+      "name": "existing_resource_group_name",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": null
+    },
+    {
+      "name": "region",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": "us-south"
+    },
+    {
+      "name": "sample_app_git_url",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": "https://github.com/IBM/gen-ai-rag-watsonx-sample-application"
+    },
+    {
+      "name": "signing_key",
+      "required": false,
+      "type": "password",
+      "hidden": false,
+      "default": "replace"
+    }
+  ],
+  "members": [
+    {
+      "name": "Workload - Code Engine Projects",
+      "version_locator": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3.45457859-aaf7-4f87-8c1e-09422a0da2b8-global",
+      "inputs": [
+        {
+          "name": "ibmcloud_api_key",
+          "value": ""
+        },
+        {
+          "name": "resource_group_name",
+          "value": "ref:../../inputs/existing_resource_group_name"
+        },
+        {
+          "name": "existing_resource_group",
+          "value": true
+        },
+        {
+          "name": "prefix",
+          "value": "ref:../../inputs/prefix"
+        },
+        {
+          "name": "project_names",
+          "value": [
+            "Generative_AI_Sample_App_CI_Project",
+            "Generative_AI_Sample_App_CD_Project"
+          ]
+        },
+        {
+          "name": "region",
+          "value": "ref:../../inputs/region"
+        }
+      ]
+    },
+    {
+      "name": "Workload - Application Lifecycle Management",
+      "version_locator": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.fba3ffcb-9f24-4ed8-83a7-5d3f5ac2122d-global",
+      "inputs": [
+        {
+          "name": "ibmcloud_api_key",
+          "value": ""
+        },
+        {
+          "name": "toolchain_name",
+          "value": "rag-sample-app"
+        },
+        {
+          "name": "toolchain_region",
+          "value": "ref:../../inputs/region"
+        },
+        {
+          "name": "toolchain_resource_group",
+          "value": "ref:../Account Infrastructure Base/outputs/devops_resource_group_name"
+        },
+        {
+          "name": "sm_resource_group",
+          "value": "ref:../Essential Security - Secrets Manager/outputs/resource_group_name"
+        },
+        {
+          "name": "sm_name",
+          "value": "ref:../Essential Security - Secrets Manager/outputs/secrets_manager_name"
+        },
+        {
+          "name": "sm_location",
+          "value": "ref:../Essential Security - Secrets Manager/outputs/secrets_manager_region"
+        },
+        {
+          "name": "ci_code_engine_project",
+          "value": "ref:../Workload - Code Engine Projects/outputs/project_1_name"
+        },
+        {
+          "name": "cd_code_engine_project",
+          "value": "ref:../Workload - Code Engine Projects/outputs/project_2_name"
+        },
+        {
+          "name": "registry_namespace",
+          "value": "rag-app"
+        },
+        {
+          "name": "ci_app_repo_clone_from_url",
+          "value": "ref:../../inputs/sample_app_git_url"
+        },
+        {
+          "name": "repositories_prefix",
+          "value": "ref:../../inputs/prefix"
+        },
+        {
+          "name": "ci_app_name",
+          "value": "rag-sample-app"
+        },
+        {
+          "name": "ci_code_engine_image_name",
+          "value": "code-engine-rag-app"
+        },
+        {
+          "name": "ci_code_engine_context_dir",
+          "value": "."
+        },
+        {
+          "name": "ci_code_engine_env_from_configmaps",
+          "value": "app.properties"
+        },
+        {
+          "name": "cd_code_engine_env_from_configmaps",
+          "value": "app.properties"
+        },
+        {
+          "name": "ci_code_engine_app_min_scale",
+          "value": "1"
+        },
+        {
+          "name": "cd_code_engine_app_min_scale",
+          "value": "1"
+        },
+        {
+          "name": "ci_signing_key_secret_name",
+          "value": "signing-key"
+        },
+        {
+          "name": "pipeline_ibmcloud_api_key_secret_name",
+          "value": "ibmcloud-api-key"
+        },
+        {
+          "name": "prefix",
+          "value": "ref:../../inputs/prefix"
+        },
+        {
+          "name": "create_icr_namespace",
+          "value": true
+        },
+        {
+          "name": "add_container_name_suffix",
+          "value": true
+        },
+        {
+          "name": "add_code_engine_prefix",
+          "value": false
+        }
+      ]
+    }
+  ],
+  "outputs": [
+  ]
+}
