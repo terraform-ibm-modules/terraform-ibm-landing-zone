@@ -196,6 +196,38 @@
     {
       "name": "cluster_data",
       "value": "ref:../../members/Workload - Red Hat OpenShift Container Platform on VPC/outputs/cluster_data"
+    },
+    {
+      "name": "cc_pipeline_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/cc_pipeline_id"
+    },
+    {
+      "name": "cd_pipeline_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/cd_pipeline_id"
+    },
+    {
+      "name": "ci_pipeline_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/ci_pipeline_id"
+    },
+    {
+      "name": "compliance_cc_toolchain_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/compliance_cc_toolchain_id"
+    },
+    {
+      "name": "compliance_cd_toolchain_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/compliance_cd_toolchain_id"
+    },
+    {
+      "name": "compliance_ci_toolchain_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/compliance_ci_toolchain_id"
+    },
+    {
+      "name": "pr_pipeline_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/pr_pipeline_id"
+    },
+    {
+      "name": "secrets_manager_instance_id",
+      "value": "ref:../../members/Workload - Application Lifecycle Management/outputs/secrets_manager_instance_id"
     }
   ]
 }
