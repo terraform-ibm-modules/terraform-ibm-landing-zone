@@ -207,10 +207,10 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                {
-                  "dependency_output": "devops_resource_group_name",
-                  "version_input": "existing_resource_group_name"
-                }
+								{
+									"dependency_output": "devops_resource_group_name",
+									"version_input": "toolchain_resource_group"
+								}
               ]
             }
           ],
@@ -264,7 +264,7 @@
               "required": false
             },
             {
-              "key": "devops_resource_group_name",
+              "key": "toolchain_resource_group",
               "required": false
             },
             {
@@ -492,10 +492,10 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                {
-                  "dependency_output": "devops_resource_group_name",
-                  "version_input": "existing_resource_group_name"
-                }
+								{
+									"dependency_output": "devops_resource_group_name",
+									"version_input": "toolchain_resource_group"
+								}
               ]
             }
           ],
@@ -549,7 +549,7 @@
               "required": false
             },
             {
-              "key": "devops_resource_group_name",
+              "key": "toolchain_resource_group",
               "required": false
             },
             {
