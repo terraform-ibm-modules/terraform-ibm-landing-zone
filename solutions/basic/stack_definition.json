@@ -178,7 +178,11 @@
     }
   ],
   "outputs": [
-      {
+    {
+      "name": "cluster_zone_count",
+      "value": "__NULL__"
+    },
+    {
       "name": "workload_cluster_name",
       "value": "__NULL__"
     },
