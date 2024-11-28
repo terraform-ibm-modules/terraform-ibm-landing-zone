@@ -319,6 +319,8 @@ variable "vsi" {
       enable_floating_ip              = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
+      primary_vni_additional_ip_count = optional(number)
+      use_legacy_network_interface    = optional(bool)
       access_tags                     = optional(list(string), [])
       security_group = optional(
         object({
@@ -361,19 +363,30 @@ variable "vsi" {
       ))
       load_balancers = optional(list(
         object({
-          name                    = string
-          type                    = string
-          listener_port           = number
-          listener_protocol       = string
-          connection_limit        = number
-          algorithm               = string
-          protocol                = string
-          health_delay            = number
-          health_retries          = number
-          health_timeout          = number
-          health_type             = string
-          pool_member_port        = string
-          idle_connection_timeout = optional(number)
+          name                       = string
+          type                       = string
+          listener_port              = optional(number)
+          listener_port_max          = optional(number)
+          listener_port_min          = optional(number)
+          listener_protocol          = string
+          connection_limit           = optional(number)
+          idle_connection_timeout    = optional(number)
+          algorithm                  = string
+          protocol                   = string
+          health_delay               = number
+          health_retries             = number
+          health_timeout             = number
+          health_type                = string
+          pool_member_port           = string
+          profile                    = optional(string)
+          accept_proxy_protocol      = optional(bool)
+          subnet_id_to_provision_nlb = optional(string) # Required for Network Load Balancer. If no value is provided, the first one from the VPC subnet list will be selected.
+          dns = optional(
+            object({
+              instance_crn = string
+              zone_id      = string
+            })
+          )
           security_group = optional(
             object({
               name = string
