@@ -34,6 +34,41 @@
       "type": "password",
       "hidden": false,
       "default": "replace"
+    },
+    {
+      "name": "devops_resource_group_name",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": null
+    },
+    {
+      "name": "secrets_manager_name",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": null
+    },
+    {
+      "name": "secrets_manager_region",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": null
+    },
+    {
+      "name": "project_1_name",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": "Generative_AI_Sample_App_CI_Project"
+    },
+    {
+      "name": "project_2_name",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": "Generative_AI_Sample_App_CD_Project"
     }
   ],
   "members": [
@@ -88,27 +123,27 @@
         },
         {
           "name": "toolchain_resource_group",
-          "value": "ref:../Account Infrastructure Base/outputs/devops_resource_group_name"
+          "value": "ref:../../inputs/devops_resource_group_name"
         },
         {
           "name": "sm_resource_group",
-          "value": "ref:../Essential Security - Secrets Manager/outputs/resource_group_name"
+          "value": "ref:../../inputs/resource_group_name"
         },
         {
           "name": "sm_name",
-          "value": "ref:../Essential Security - Secrets Manager/outputs/secrets_manager_name"
+          "value": "ref:../../inputs/secrets_manager_name"
         },
         {
           "name": "sm_location",
-          "value": "ref:../Essential Security - Secrets Manager/outputs/secrets_manager_region"
+          "value": "ref:../../inputs/secrets_manager_region"
         },
         {
           "name": "ci_code_engine_project",
-          "value": "ref:../Workload - Code Engine Projects/outputs/project_1_name"
+          "value": "ref:../../inputs/project_1_name"
         },
         {
           "name": "cd_code_engine_project",
-          "value": "ref:../Workload - Code Engine Projects/outputs/project_2_name"
+          "value": "ref:../../inputs/project_2_name"
         },
         {
           "name": "registry_namespace",

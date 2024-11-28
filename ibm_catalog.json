@@ -254,6 +254,26 @@
             {
               "key": "sample_app_git_url",
               "required": false
+            },
+            {
+              "key": "secrets_manager_name",
+              "required": false
+            },
+            {
+              "key": "secrets_manager_region",
+              "required": false
+            },
+            {
+              "key": "devops_resource_group_name",
+              "required": false
+            },
+            {
+              "key": "project_1_name",
+              "required": false
+            },
+            {
+              "key": "project_2_name",
+              "required": false
             }
           ],
           "dependency_version_2": true,
@@ -429,6 +449,14 @@
                 {
                   "dependency_output": "kms_instance_crn",
                   "version_input": "existing_kms_instance_crn"
+                },
+                {
+                  "dependency_output": "resource_group_name",
+                  "version_input": "existing_kms_resource_group"
+                },
+                {
+                  "dependency_output": "key_protect_name",
+                  "version_input": "existing_kms_instance_name"
                 }
               ]
             },
@@ -442,7 +470,16 @@
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
-              "input_mapping": []
+              "input_mapping": [
+                {
+                  "dependency_output": "secrets_manager_name",
+                  "version_input": "secrets_manager_name"
+                },
+                {
+                  "dependency_output": "secrets_manager_region",
+                  "version_input": "secrets_manager_region"
+                }
+              ]
             },
             {
               "name": "deploy-arch-ibm-account-infra-base",
@@ -501,6 +538,34 @@
             },
             {
               "key": "sample_app_git_url",
+              "required": false
+            },
+            {
+              "key": "secrets_manager_name",
+              "required": false
+            },
+            {
+              "key": "secrets_manager_region",
+              "required": false
+            },
+            {
+              "key": "devops_resource_group_name",
+              "required": false
+            },
+            {
+              "key": "existing_kms_resource_group",
+              "required": false
+            },
+            {
+              "key": "existing_kms_instance_name",
+              "required": false
+            },
+            {
+              "key": "existing_cos_resource_group",
+              "required": false
+            },
+            {
+              "key": "existing_cos_instance_name",
               "required": false
             }
           ],
