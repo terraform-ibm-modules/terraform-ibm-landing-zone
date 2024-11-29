@@ -158,10 +158,10 @@
             {
               "name": "testing-deploy-arch-ibm-observability",
               "flavors": [
-                "instances"
+                "standard"
               ],
               "id": "daf2cf91-2384-4205-b7f4-621299a4896d",
-              "version": ">=1.0.7",
+              "version": ">=1.2.2",
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
@@ -170,7 +170,7 @@
             {
               "name": "testing-deploy-arch-ibm-kms",
               "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
-              "version": ">=1.0.1",
+              "version": ">=1.0.5",
               "flavors": [
                 "standard"
               ],
@@ -187,7 +187,7 @@
             {
               "name": "testing-deploy-arch-ibm-secrets-manager",
               "id": "5f149ae6-d781-460a-977d-c8c4171ad0fa",
-              "version": ">=1.0.1",
+              "version": ">=1.2.0",
               "on_by_default": true,
               "flavors": [
                 "standard"
@@ -199,7 +199,7 @@
             {
               "name": "deploy-arch-ibm-account-infra-base",
               "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "version": ">=v1.14.6",
+              "version": ">=v1.16.2",
               "flavors": [
                 "standard"
               ],
@@ -207,10 +207,10 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-								{
-									"dependency_output": "devops_resource_group_name",
-									"version_input": "toolchain_resource_group"
-								}
+                {
+                  "dependency_output": "devops_resource_group_name",
+                  "version_input": "toolchain_resource_group"
+                }
               ]
             }
           ],
@@ -426,10 +426,10 @@
             {
               "name": "testing-deploy-arch-ibm-observability",
               "flavors": [
-                "instances"
+                "standard"
               ],
               "id": "daf2cf91-2384-4205-b7f4-621299a4896d",
-              "version": ">=1.0.7",
+              "version": ">=1.2.2",
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
@@ -438,7 +438,7 @@
             {
               "name": "testing-deploy-arch-ibm-kms",
               "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
-              "version": ">=1.0.1",
+              "version": ">=1.0.5",
               "flavors": [
                 "standard"
               ],
@@ -463,7 +463,7 @@
             {
               "name": "testing-deploy-arch-ibm-secrets-manager",
               "id": "5f149ae6-d781-460a-977d-c8c4171ad0fa",
-              "version": ">=1.0.1",
+              "version": ">=1.2.0",
               "flavors": [
                 "standard"
               ],
@@ -484,7 +484,7 @@
             {
               "name": "deploy-arch-ibm-account-infra-base",
               "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "version": ">=v1.14.6",
+              "version": ">=v1.16.2",
               "flavors": [
                 "standard"
               ],
@@ -492,11 +492,23 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-								{
-									"dependency_output": "devops_resource_group_name",
-									"version_input": "toolchain_resource_group"
-								}
+                {
+                  "dependency_output": "devops_resource_group_name",
+                  "version_input": "toolchain_resource_group"
+                }
               ]
+            },
+            {
+              "name": "testing-deploy-arch-ibm-observability-agents",
+              "id": "d4c29f77-c55d-4a53-a218-4f026cde32c0",
+              "version": ">=1.2.3",
+              "flavors": [
+                "standard"
+              ],
+              "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
+              "optional": true,
+              "on_by_default": true,
+              "input_mapping": []
             }
           ],
           "configuration": [
