@@ -291,7 +291,7 @@
           ],
           "dependency_version_2": true,
           "outputs": [],
-          "install_type": "fullstack"
+          "install_type": "extension"
         },
         {
           "label": "Standard (Deploy on Red Hat OpenShift)",
@@ -484,7 +484,7 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                  {
+                {
                   "dependency_output": "secrets_manager_name",
                   "version_input": "secrets_manager_name"
                 },
@@ -600,7 +600,7 @@
           ],
           "dependency_version_2": true,
           "outputs": [],
-          "install_type": "fullstack"
+          "install_type": "extension"
         }
       ]
     }
