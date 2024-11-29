@@ -1118,7 +1118,6 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.15_openshift",
               "options": [
                 {
                   "displayname": "4.12_openshift",
