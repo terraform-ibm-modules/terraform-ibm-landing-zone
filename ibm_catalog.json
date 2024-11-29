@@ -116,20 +116,7 @@
                 "standard"
               ],
               "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "input_mapping": [
-                {
-                  "dependency_output": "devops_resource_group_name",
-                  "version_input": ""
-                },
-                {
-                  "version_input": "use_existing_resource_group",
-                  "value": true
-                },
-                {
-                  "dependency_output": "devops_resource_group_name",
-                  "version_input": ""
-                }
-              ],
+              "input_mapping": [],
               "optional": true,
               "on_by_default": true,
               "version": ">=1.11.6"
