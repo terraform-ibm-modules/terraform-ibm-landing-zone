@@ -57,6 +57,13 @@
       "default": null
     },
     {
+      "name": "existing_secrets_manager_resource_group",
+      "required": false,
+      "type": "string",
+      "hidden": false,
+      "default": null
+    },
+    {
       "name": "project_1_name",
       "required": false,
       "type": "string",
@@ -127,7 +134,7 @@
         },
         {
           "name": "sm_resource_group",
-          "value": "ref:../../inputs/resource_group_name"
+          "value": "ref:../../inputs/existing_secrets_manager_resource_group"
         },
         {
           "name": "sm_name",

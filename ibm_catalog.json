@@ -194,7 +194,20 @@
               ],
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
-              "input_mapping": []
+              "input_mapping": [
+                {
+                  "dependency_output": "secrets_manager_name",
+                  "version_input": "secrets_manager_name"
+                },
+                {
+                  "dependency_output": "resource_group_name",
+                  "version_input": "existing_secrets_manager_resource_group"
+                },
+                {
+                  "dependency_output": "secrets_manager_region",
+                  "version_input": "region"
+                }
+              ]
             },
             {
               "name": "deploy-arch-ibm-account-infra-base",
@@ -249,6 +262,10 @@
             },
             {
               "key": "existing_resource_group_name",
+              "required": false
+            },
+            {
+              "key": "existing_secrets_manager_resource_group",
               "required": false
             },
             {
@@ -471,13 +488,17 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-                {
+                  {
                   "dependency_output": "secrets_manager_name",
                   "version_input": "secrets_manager_name"
                 },
                 {
+                  "dependency_output": "resource_group_name",
+                  "version_input": "existing_secrets_manager_resource_group"
+                },
+                {
                   "dependency_output": "secrets_manager_region",
-                  "version_input": "secrets_manager_region"
+                  "version_input": "region"
                 }
               ]
             },
@@ -546,6 +567,10 @@
             },
             {
               "key": "existing_resource_group_name",
+              "required": false
+            },
+            {
+              "key": "existing_secrets_manager_resource_group",
               "required": false
             },
             {
