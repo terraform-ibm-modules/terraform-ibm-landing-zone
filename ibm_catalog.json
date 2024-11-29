@@ -202,10 +202,6 @@
                 {
                   "dependency_output": "resource_group_name",
                   "version_input": "existing_secrets_manager_resource_group"
-                },
-                {
-                  "dependency_output": "secrets_manager_region",
-                  "version_input": "region"
                 }
               ]
             },
@@ -495,10 +491,6 @@
                 {
                   "dependency_output": "resource_group_name",
                   "version_input": "existing_secrets_manager_resource_group"
-                },
-                {
-                  "dependency_output": "secrets_manager_region",
-                  "version_input": "region"
                 }
               ]
             },
