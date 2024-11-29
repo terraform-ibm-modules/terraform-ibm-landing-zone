@@ -22,8 +22,8 @@
       "use_ibm_cloud_private_api_endpoints": false,
       "verify_cluster_network_readiness": false,
       "kms_config": {
-          "crk_name": "slz-key",
-          "private_endpoint": true
+        "crk_name": "slz-key",
+        "private_endpoint": true
       },
       "subnet_names": [
         "vsi-zone-1",
@@ -81,7 +81,7 @@
     }
   ],
   "service_endpoints": "public-and-private",
-  "existing_vpc_cbr_zone_id" : null,
+  "existing_vpc_cbr_zone_id": null,
   "security_groups": [],
   "vpn_gateways": [
     {
