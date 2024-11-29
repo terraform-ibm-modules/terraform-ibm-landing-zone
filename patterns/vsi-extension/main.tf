@@ -31,20 +31,24 @@ data "ibm_is_image" "image" {
 }
 
 locals {
-  subnets = [
+  default_subnet_name = "vsi-zone"
+  subnets = var.subnet_names != null ? [
     for subnet in data.ibm_is_vpc.vpc_by_id.subnets :
     subnet if can(regex(join("|", var.subnet_names), subnet.name))
+    ] : [
+    for subnet in data.ibm_is_vpc.vpc_by_id.subnets :
+    subnet if can(regex(local.default_subnet_name, subnet.name))
   ]
 }
 
 module "vsi" {
   source                          = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                         = "4.3.0"
+  version                         = "4.4.0"
   resource_group_id               = data.ibm_is_vpc.vpc_by_id.resource_group
   create_security_group           = true
   prefix                          = "${var.prefix}-vsi"
   vpc_id                          = var.vpc_id
-  subnets                         = var.subnet_names != null ? local.subnets : data.ibm_is_vpc.vpc_by_id.subnets
+  subnets                         = local.subnets
   tags                            = var.resource_tags
   access_tags                     = var.access_tags
   kms_encryption_enabled          = true
