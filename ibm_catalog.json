@@ -219,6 +219,10 @@
                 {
                   "dependency_output": "devops_resource_group_name",
                   "version_input": "toolchain_resource_group"
+                },
+                {
+                  "dependency_output": "workload_resource_group_name",
+                  "version_input": "existing_resource_group_name"
                 }
               ]
             }
@@ -508,6 +512,10 @@
                 {
                   "dependency_output": "devops_resource_group_name",
                   "version_input": "toolchain_resource_group"
+                },
+                {
+                  "dependency_output": "workload_resource_group_name",
+                  "version_input": "existing_resource_group_name"
                 }
               ]
             },
