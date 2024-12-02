@@ -54,7 +54,7 @@
       "required": false,
       "type": "string",
       "hidden": false,
-      "default": null
+      "default": "us-south"
     },
     {
       "name": "existing_secrets_manager_resource_group",
