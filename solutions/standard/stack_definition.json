@@ -90,6 +90,13 @@
       "type": "string",
       "hidden": false,
       "default": null
+    },
+    {
+      "name": "use_existing_cos_for_vpc_flowlogs",
+      "required": false,
+      "type": "boolean",
+      "hidden": false,
+      "default": false
     }
   ],
   "members": [
@@ -149,7 +156,7 @@
         },
         {
           "name": "use_existing_cos_for_vpc_flowlogs",
-          "value": true
+          "value": "ref:../../inputs/use_existing_cos_for_vpc_flowlogs"
         },
         {
           "name": "cluster_zones",

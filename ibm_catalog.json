@@ -450,7 +450,21 @@
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
-              "input_mapping": []
+              "input_mapping": [
+
+                {
+                  "dependency_output": "cos_instance_name",
+                  "version_input": "existing_cos_instance_name"
+                },
+                {
+                  "value": true,
+                  "version_input": "use_existing_cos_for_vpc_flowlogs"
+                },
+                {
+                  "dependency_input": "resource_group_name",
+                  "version_input": "existing_cos_resource_group"
+                }
+              ]
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
@@ -607,6 +621,10 @@
             },
             {
               "key": "existing_cos_instance_name",
+              "required": false
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs",
               "required": false
             }
           ],
