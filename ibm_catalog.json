@@ -229,17 +229,14 @@
           ],
           "configuration": [
             {
-              "key": "prefix",
-              "required": true
+              "key": "prefix"
             },
             {
-              "key": "ibmcloud_api_key",
-              "required": true
+              "key": "ibmcloud_api_key"
             },
             {
               "key": "signing_key",
               "display_name": "Multiline secure value",
-              "required": false,
               "custom_config": {
                 "type": "multiline_secure_value",
                 "grouping": "deployment",
@@ -248,7 +245,6 @@
             },
             {
               "key": "region",
-              "required": false,
               "options": [
                 {
                   "displayname": "us-south",
@@ -261,36 +257,28 @@
               ]
             },
             {
-              "key": "existing_resource_group_name",
-              "required": false
+              "key": "existing_resource_group_name"
             },
             {
-              "key": "existing_secrets_manager_resource_group",
-              "required": false
+              "key": "existing_secrets_manager_resource_group"
             },
             {
-              "key": "sample_app_git_url",
-              "required": false
+              "key": "sample_app_git_url"
             },
             {
-              "key": "secrets_manager_name",
-              "required": false
+              "key": "secrets_manager_name"
             },
             {
-              "key": "secrets_manager_region",
-              "required": false
+              "key": "secrets_manager_region"
             },
             {
-              "key": "toolchain_resource_group",
-              "required": false
+              "key": "toolchain_resource_group"
             },
             {
-              "key": "project_1_name",
-              "required": false
+              "key": "project_1_name"
             },
             {
-              "key": "project_2_name",
-              "required": false
+              "key": "project_2_name"
             }
           ],
           "dependency_version_2": true,
@@ -451,7 +439,6 @@
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
-
                 {
                   "dependency_output": "cos_instance_name",
                   "version_input": "existing_cos_instance_name"
@@ -552,17 +539,14 @@
           ],
           "configuration": [
             {
-              "key": "prefix",
-              "required": true
+              "key": "prefix"
             },
             {
-              "key": "ibmcloud_api_key",
-              "required": true
+              "key": "ibmcloud_api_key"
             },
             {
               "key": "signing_key",
               "display_name": "Multiline secure value",
-              "required": false,
               "custom_config": {
                 "type": "multiline_secure_value",
                 "grouping": "deployment",
@@ -571,7 +555,6 @@
             },
             {
               "key": "region",
-              "required": false,
               "options": [
                 {
                   "displayname": "us-south",
@@ -584,48 +567,37 @@
               ]
             },
             {
-              "key": "existing_resource_group_name",
-              "required": false
+              "key": "existing_resource_group_name"
             },
             {
-              "key": "existing_secrets_manager_resource_group",
-              "required": false
+              "key": "existing_secrets_manager_resource_group"
             },
             {
-              "key": "sample_app_git_url",
-              "required": false
+              "key": "sample_app_git_url"
             },
             {
-              "key": "secrets_manager_name",
-              "required": false
+              "key": "secrets_manager_name"
             },
             {
-              "key": "secrets_manager_region",
-              "required": false
+              "key": "secrets_manager_region"
             },
             {
-              "key": "toolchain_resource_group",
-              "required": false
+              "key": "toolchain_resource_group"
             },
             {
-              "key": "existing_kms_resource_group",
-              "required": false
+              "key": "existing_kms_resource_group"
             },
             {
-              "key": "existing_kms_instance_name",
-              "required": false
+              "key": "existing_kms_instance_name"
             },
             {
-              "key": "existing_cos_resource_group",
-              "required": false
+              "key": "existing_cos_resource_group"
             },
             {
-              "key": "existing_cos_instance_name",
-              "required": false
+              "key": "existing_cos_instance_name"
             },
             {
-              "key": "use_existing_cos_for_vpc_flowlogs",
-              "required": false
+              "key": "use_existing_cos_for_vpc_flowlogs"
             }
           ],
           "dependency_version_2": true,

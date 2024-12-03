@@ -37,28 +37,42 @@
     },
     {
       "name": "toolchain_resource_group",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
     },
     {
+      "name": "toolchain_region",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": "us-south"
+    },
+    {
+      "name": "registry_namespace",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": "rag-app"
+    },
+    {
       "name": "secrets_manager_name",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
     },
     {
       "name": "secrets_manager_region",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": "us-south"
     },
     {
       "name": "existing_secrets_manager_resource_group",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
@@ -210,7 +224,7 @@
         },
         {
           "name": "registry_namespace",
-          "value": "rag-app"
+          "value": "ref:/../../inputs/registry_namespace"
         },
         {
           "name": "ci_app_repo_clone_from_url",
