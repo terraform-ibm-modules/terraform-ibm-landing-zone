@@ -275,6 +275,12 @@
               "key": "toolchain_resource_group"
             },
             {
+              "key": "toolchain_region"
+            },
+            {
+              "key": "registry_namespace"
+            },
+            {
               "key": "project_1_name"
             },
             {
@@ -583,6 +589,12 @@
             },
             {
               "key": "toolchain_resource_group"
+            },
+            {
+              "key": "toolchain_region"
+            },
+            {
+              "key": "registry_namespace"
             },
             {
               "key": "existing_kms_resource_group"
