@@ -159,6 +159,7 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		CloudInfoService: sharedInfoSvc,
 		TerraformVars: map[string]interface{}{
 			"entitlement": "cloud_pak",
+			"provider_visibility":     "public",
 		},
 	})
 
