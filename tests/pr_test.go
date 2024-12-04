@@ -76,7 +76,8 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
+			"ssh_key":             sshPublicKey,
+			"provider_visibility": "public",
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -599,6 +600,7 @@ func TestRunVsiExtention(t *testing.T) {
 		Vars: map[string]interface{}{
 			"prefix":                 prefix,
 			"region":                 region,
+			"provider_visibility":    "public",
 			"tags":                   tags,
 			"enable_transit_gateway": false,
 		},
