@@ -11,8 +11,8 @@
       "keywords": [
         "ibmcloud"
       ],
-      "short_description": "Deploys Application Lifecycle Management (ALM) services for container hosting on IBM Cloud.",
-      "long_description": "This deployable architecture Deploys CI/CD/CC Pipelines: for secure application lifecycle management",
+      "short_description": "Deploys infrastructure to security build and run application containers on IBM Cloud.",
+      "long_description": "This is an experimental version with upcoming features. \n\n Deploys a container runtime (IBM Cloud Code Engine or IBM Cloud Landing Zone) and the CI/CD/CC infrastructure for secure application lifecycle management.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
       "provider_name": "IBM",
