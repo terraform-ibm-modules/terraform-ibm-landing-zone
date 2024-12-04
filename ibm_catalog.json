@@ -170,7 +170,7 @@
             {
               "name": "testing-deploy-arch-ibm-kms",
               "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
-              "version": ">=1.0.5",
+              "version": ">=1.0.6",
               "flavors": [
                 "standard"
               ],
@@ -187,7 +187,7 @@
             {
               "name": "testing-deploy-arch-ibm-secrets-manager",
               "id": "5f149ae6-d781-460a-977d-c8c4171ad0fa",
-              "version": ">=1.2.0",
+              "version": ">=1.2.1",
               "on_by_default": true,
               "flavors": [
                 "standard"
@@ -229,17 +229,14 @@
           ],
           "configuration": [
             {
-              "key": "prefix",
-              "required": true
+              "key": "prefix"
             },
             {
-              "key": "ibmcloud_api_key",
-              "required": true
+              "key": "ibmcloud_api_key"
             },
             {
               "key": "signing_key",
               "display_name": "Multiline secure value",
-              "required": false,
               "custom_config": {
                 "type": "multiline_secure_value",
                 "grouping": "deployment",
@@ -248,7 +245,6 @@
             },
             {
               "key": "region",
-              "required": false,
               "options": [
                 {
                   "displayname": "us-south",
@@ -261,36 +257,34 @@
               ]
             },
             {
-              "key": "existing_resource_group_name",
-              "required": false
+              "key": "existing_resource_group_name"
             },
             {
-              "key": "existing_secrets_manager_resource_group",
-              "required": false
+              "key": "existing_secrets_manager_resource_group"
             },
             {
-              "key": "sample_app_git_url",
-              "required": false
+              "key": "sample_app_git_url"
             },
             {
-              "key": "secrets_manager_name",
-              "required": false
+              "key": "secrets_manager_name"
             },
             {
-              "key": "secrets_manager_region",
-              "required": false
+              "key": "secrets_manager_region"
             },
             {
-              "key": "toolchain_resource_group",
-              "required": false
+              "key": "toolchain_resource_group"
             },
             {
-              "key": "project_1_name",
-              "required": false
+              "key": "toolchain_region"
             },
             {
-              "key": "project_2_name",
-              "required": false
+              "key": "registry_namespace"
+            },
+            {
+              "key": "project_1_name"
+            },
+            {
+              "key": "project_2_name"
             }
           ],
           "dependency_version_2": true,
@@ -450,12 +444,25 @@
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
-              "input_mapping": []
+              "input_mapping": [
+                {
+                  "dependency_output": "cos_instance_name",
+                  "version_input": "existing_cos_instance_name"
+                },
+                {
+                  "value": true,
+                  "version_input": "use_existing_cos_for_vpc_flowlogs"
+                },
+                {
+                  "dependency_input": "resource_group_name",
+                  "version_input": "existing_cos_resource_group"
+                }
+              ]
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
               "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
-              "version": ">=1.0.5",
+              "version": ">=1.0.6",
               "flavors": [
                 "standard"
               ],
@@ -480,7 +487,7 @@
             {
               "name": "testing-deploy-arch-ibm-secrets-manager",
               "id": "5f149ae6-d781-460a-977d-c8c4171ad0fa",
-              "version": ">=1.2.0",
+              "version": ">=1.2.1",
               "flavors": [
                 "standard"
               ],
@@ -495,6 +502,10 @@
                 {
                   "dependency_output": "resource_group_name",
                   "version_input": "existing_secrets_manager_resource_group"
+                },
+                {
+                  "dependency_output": "secrets_manager_region",
+                  "version_input": "secrets_manager_region"
                 }
               ]
             },
@@ -522,7 +533,7 @@
             {
               "name": "testing-deploy-arch-ibm-observability-agents",
               "id": "d4c29f77-c55d-4a53-a218-4f026cde32c0",
-              "version": ">=1.2.3",
+              "version": ">=1.2.4",
               "flavors": [
                 "standard"
               ],
@@ -534,17 +545,14 @@
           ],
           "configuration": [
             {
-              "key": "prefix",
-              "required": true
+              "key": "prefix"
             },
             {
-              "key": "ibmcloud_api_key",
-              "required": true
+              "key": "ibmcloud_api_key"
             },
             {
               "key": "signing_key",
               "display_name": "Multiline secure value",
-              "required": false,
               "custom_config": {
                 "type": "multiline_secure_value",
                 "grouping": "deployment",
@@ -553,7 +561,6 @@
             },
             {
               "key": "region",
-              "required": false,
               "options": [
                 {
                   "displayname": "us-south",
@@ -566,44 +573,43 @@
               ]
             },
             {
-              "key": "existing_resource_group_name",
-              "required": false
+              "key": "existing_resource_group_name"
             },
             {
-              "key": "existing_secrets_manager_resource_group",
-              "required": false
+              "key": "existing_secrets_manager_resource_group"
             },
             {
-              "key": "sample_app_git_url",
-              "required": false
+              "key": "sample_app_git_url"
             },
             {
-              "key": "secrets_manager_name",
-              "required": false
+              "key": "secrets_manager_name"
             },
             {
-              "key": "secrets_manager_region",
-              "required": false
+              "key": "secrets_manager_region"
             },
             {
-              "key": "toolchain_resource_group",
-              "required": false
+              "key": "toolchain_resource_group"
             },
             {
-              "key": "existing_kms_resource_group",
-              "required": false
+              "key": "toolchain_region"
             },
             {
-              "key": "existing_kms_instance_name",
-              "required": false
+              "key": "registry_namespace"
             },
             {
-              "key": "existing_cos_resource_group",
-              "required": false
+              "key": "existing_kms_resource_group"
             },
             {
-              "key": "existing_cos_instance_name",
-              "required": false
+              "key": "existing_kms_instance_name"
+            },
+            {
+              "key": "existing_cos_resource_group"
+            },
+            {
+              "key": "existing_cos_instance_name"
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs"
             }
           ],
           "dependency_version_2": true,

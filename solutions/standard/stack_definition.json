@@ -5,7 +5,7 @@
       "required": true,
       "type": "string",
       "hidden": false,
-      "default": "rag"
+      "default": null
     },
     {
       "name": "existing_resource_group_name",
@@ -37,28 +37,42 @@
     },
     {
       "name": "toolchain_resource_group",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
     },
     {
+      "name": "toolchain_region",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": "us-south"
+    },
+    {
+      "name": "registry_namespace",
+      "required": true,
+      "type": "string",
+      "hidden": false,
+      "default": "rag-app"
+    },
+    {
       "name": "secrets_manager_name",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
     },
     {
       "name": "secrets_manager_region",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
-      "default": null
+      "default": "us-south"
     },
     {
       "name": "existing_secrets_manager_resource_group",
-      "required": false,
+      "required": true,
       "type": "string",
       "hidden": false,
       "default": null
@@ -90,6 +104,13 @@
       "type": "string",
       "hidden": false,
       "default": null
+    },
+    {
+      "name": "use_existing_cos_for_vpc_flowlogs",
+      "required": false,
+      "type": "boolean",
+      "hidden": false,
+      "default": false
     }
   ],
   "members": [
@@ -149,7 +170,7 @@
         },
         {
           "name": "use_existing_cos_for_vpc_flowlogs",
-          "value": true
+          "value": "ref:../../inputs/use_existing_cos_for_vpc_flowlogs"
         },
         {
           "name": "cluster_zones",
@@ -203,7 +224,7 @@
         },
         {
           "name": "registry_namespace",
-          "value": "rag-app"
+          "value": "ref:/../../inputs/registry_namespace"
         },
         {
           "name": "ci_app_repo_clone_from_url",
