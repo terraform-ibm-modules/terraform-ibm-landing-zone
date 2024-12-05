@@ -458,6 +458,7 @@ func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existi
 			"boot_volume_encryption_key": keyID,
 			"vpc_id":                     managementVpcID,
 			"ssh_public_key":             sshPublicKey,
+			"provider_visibility":        "public",
 		},
 	})
 
@@ -662,9 +663,10 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix": prefix,
-			"region": region,
-			"tags":   tags,
+			"prefix":              prefix,
+			"region":              region,
+			"provider_visibility": "public",
+			"tags":                tags,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
