@@ -211,6 +211,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"enable_transit_gateway":              false,
 		"use_ibm_cloud_private_api_endpoints": false,
 		"verify_cluster_network_readiness":    false,
+		"provider_visibility":                 "public",
 	}
 
 	return options
@@ -260,6 +261,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"region":                 options.Region,
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
+		"provider_visibility":    "public",
 	}
 
 	return options
@@ -306,6 +308,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"region":                 options.Region,
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
+		"provider_visibility":    "public",
 	}
 
 	return options
