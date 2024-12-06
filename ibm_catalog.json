@@ -500,6 +500,7 @@
           "name": "existing-vpc",
           "install_type": "extension",
           "working_directory": "patterns/vsi-extension",
+          "dependency_version_2": true,
           "dependencies": [
             {
               "flavors": [
