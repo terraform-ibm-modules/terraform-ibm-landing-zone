@@ -34,6 +34,7 @@ module "landing_zone" {
   teleport_config_data                   = local.env.teleport_config
   teleport_vsi                           = local.env.teleport_vsi
   vpc_placement_groups                   = local.env.vpc_placement_groups
+  user_data                              = var.user_data
 }
 
 ##############################################################################

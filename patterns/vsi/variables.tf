@@ -146,6 +146,14 @@ variable "vsi_per_subnet" {
   default     = 1
 }
 
+variable "user_data" {
+  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data."
+  type = map(object({
+    user_data = string
+  }))
+  default = {}
+}
+
 variable "use_legacy_network_interface" {
   description = "Set this to true to use legacy network interface for the created instances."
   type        = bool
