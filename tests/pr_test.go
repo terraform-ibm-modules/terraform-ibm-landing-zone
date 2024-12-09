@@ -76,7 +76,8 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformDir: dir,
 		Prefix:       prefix,
 		TerraformVars: map[string]interface{}{
-			"ssh_key": sshPublicKey,
+			"ssh_key":             sshPublicKey,
+			"provider_visibility": "public",
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -158,7 +159,8 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		Prefix:           prefix,
 		CloudInfoService: sharedInfoSvc,
 		TerraformVars: map[string]interface{}{
-			"entitlement": "cloud_pak",
+			"entitlement":         "cloud_pak",
+			"provider_visibility": "public",
 		},
 	})
 
@@ -209,6 +211,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"enable_transit_gateway":              false,
 		"use_ibm_cloud_private_api_endpoints": false,
 		"verify_cluster_network_readiness":    false,
+		"provider_visibility":                 "public",
 	}
 
 	return options
@@ -258,6 +261,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"region":                 options.Region,
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
+		"provider_visibility":    "public",
 	}
 
 	return options
@@ -304,6 +308,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"region":                 options.Region,
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
+		"provider_visibility":    "public",
 	}
 
 	return options
@@ -453,6 +458,7 @@ func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existi
 			"boot_volume_encryption_key": keyID,
 			"vpc_id":                     managementVpcID,
 			"ssh_public_key":             sshPublicKey,
+			"provider_visibility":        "public",
 		},
 	})
 
@@ -598,6 +604,7 @@ func TestRunVsiExtention(t *testing.T) {
 		Vars: map[string]interface{}{
 			"prefix":                 prefix,
 			"region":                 region,
+			"provider_visibility":    "public",
 			"tags":                   tags,
 			"enable_transit_gateway": false,
 		},
@@ -656,9 +663,10 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
 		Vars: map[string]interface{}{
-			"prefix": prefix,
-			"region": region,
-			"tags":   tags,
+			"prefix":              prefix,
+			"region":              region,
+			"provider_visibility": "public",
+			"tags":                tags,
 		},
 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
 		// This is the same as setting the -upgrade=true flag with terraform.
