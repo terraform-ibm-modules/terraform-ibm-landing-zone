@@ -40,8 +40,8 @@ data "ibm_is_image" "image" {
 ##############################################################################
 
 module "vsi" {
-  source                          = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                         = "4.4.0"
+  source                          = "./../terraform-ibm-landing-zone-vsi"
+#  version                         = "4.4.0"
   for_each                        = local.vsi_map
   resource_group_id               = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group           = each.value.security_group == null ? false : true
@@ -56,6 +56,7 @@ module "vsi" {
   image_id                        = data.ibm_is_image.image["${var.prefix}-${each.value.name}"].id
   primary_vni_additional_ip_count = each.value.primary_vni_additional_ip_count
   use_legacy_network_interface    = each.value.use_legacy_network_interface
+  dedicated_host_id               = var.enable_dedicated_host ? try(module.dedicated_host[each.key].id,null) : null
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
     for keys in module.key_management.keys :
     keys.crn if keys.name == each.value.boot_volume_encryption_key_name
@@ -89,6 +90,26 @@ module "vsi" {
   ]
   enable_floating_ip = each.value.enable_floating_ip == true ? true : false
   depends_on         = [module.ssh_keys]
+}
+
+##############################################################################
+
+
+module "dedicated_host" {
+  source = "./../terraform-ibm-dedicated-host"
+
+  for_each = var.enable_dedicated_host ? {
+    for dh_key, dh_value in local.vsi_map :
+    dh_key => {
+      name              = "${var.prefix}-${dh_value.name}-dh"
+      resource_group_id = dh_value.resource_group == null ? null : local.resource_groups[dh_value.resource_group]
+      zone              = [for subnet in dh_value.subnets : subnet.zone][0]
+    }
+  } : {}
+
+  name              = each.value.name
+  resource_group_id = each.value.resource_group_id
+  zone              = each.value.zone
 }
 
 ##############################################################################
