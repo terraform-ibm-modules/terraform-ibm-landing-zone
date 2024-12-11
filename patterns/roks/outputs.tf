@@ -107,16 +107,6 @@ output "workload_cluster_id" {
   value       = module.roks_landing_zone.workload_cluster_id
 }
 
-output "workload_cluster_rg_id" {
-  description = "The resource group id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
-  value       = module.roks_landing_zone.workload_cluster_rg_id
-}
-
-output "workload_cluster_rg_name" {
-  description = "The resource group name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
-  value       = module.roks_landing_zone.workload_cluster_rg_name
-}
-
 output "workload_cluster_name" {
   description = "The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
   value       = module.roks_landing_zone.workload_cluster_name

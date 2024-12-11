@@ -994,8 +994,6 @@ module "cluster_pattern" {
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 | <a name="output_workload_cluster_id"></a> [workload\_cluster\_id](#output\_workload\_cluster\_id) | The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_cluster_name"></a> [workload\_cluster\_name](#output\_workload\_cluster\_name) | The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
-| <a name="output_workload_cluster_rg_id"></a> [workload\_cluster\_rg\_id](#output\_workload\_cluster\_rg\_id) | The resource group id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
-| <a name="output_workload_cluster_rg_name"></a> [workload\_cluster\_rg\_name](#output\_workload\_cluster\_rg\_name) | The resource group name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_rg_id"></a> [workload\_rg\_id](#output\_workload\_rg\_id) | Resource group ID for the workload resource group used within landing zone. |
 | <a name="output_workload_rg_name"></a> [workload\_rg\_name](#output\_workload\_rg\_name) | Resource group name for the workload resource group used within landing zone. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
