@@ -559,7 +559,8 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		{Name: "region", Value: options.Region, DataType: "string"},
+		// Here Region is set explicitly to 'us-east' to plug the test gap as mentioned here : https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/928
+		{Name: "region", Value: "us-east", DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
