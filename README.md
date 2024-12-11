@@ -967,6 +967,8 @@ module "cluster_pattern" {
 | <a name="output_key_rings"></a> [key\_rings](#output\_key\_rings) | Key rings created by module |
 | <a name="output_management_cluster_id"></a> [management\_cluster\_id](#output\_management\_cluster\_id) | The id of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null. |
 | <a name="output_management_cluster_name"></a> [management\_cluster\_name](#output\_management\_cluster\_name) | The name of the management cluster. If the cluster name does not exactly match the prefix-management-cluster pattern it will be null. |
+| <a name="output_management_rg_id"></a> [management\_rg\_id](#output\_management\_rg\_id) | Resource group ID for the management resource group used within landing zone. |
+| <a name="output_management_rg_name"></a> [management\_rg\_name](#output\_management\_rg\_name) | Resource group name for the management resource group used within landing zone. |
 | <a name="output_placement_groups"></a> [placement\_groups](#output\_placement\_groups) | List of placement groups. |
 | <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_resource_group_names"></a> [resource\_group\_names](#output\_resource\_group\_names) | List of resource groups names used within landing zone. |
@@ -992,6 +994,8 @@ module "cluster_pattern" {
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 | <a name="output_workload_cluster_id"></a> [workload\_cluster\_id](#output\_workload\_cluster\_id) | The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_cluster_name"></a> [workload\_cluster\_name](#output\_workload\_cluster\_name) | The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
+| <a name="output_workload_rg_id"></a> [workload\_rg\_id](#output\_workload\_rg\_id) | Resource group ID for the workload resource group used within landing zone. |
+| <a name="output_workload_rg_name"></a> [workload\_rg\_name](#output\_workload\_rg\_name) | Resource group name for the workload resource group used within landing zone. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->

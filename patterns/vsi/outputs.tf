@@ -17,6 +17,26 @@ output "resource_group_data" {
   value       = module.vsi_landing_zone.resource_group_data
 }
 
+output "management_rg_id" {
+  description = "Resource group ID for the management resource group used within landing zone."
+  value       = module.vsi_landing_zone.resource_group_data[module.vsi_landing_zone.management_rg_name]
+}
+
+output "management_rg_name" {
+  description = "Resource group name for the management resource group used within landing zone."
+  value       = module.vsi_landing_zone.management_rg_name
+}
+
+output "workload_rg_id" {
+  description = "Resource group ID for the workload resource group used within landing zone."
+  value       = module.vsi_landing_zone.resource_group_data[module.vsi_landing_zone.workload_rg_name]
+}
+
+output "workload_rg_name" {
+  description = "Resource group name for the workload resource group used within landing zone."
+  value       = module.vsi_landing_zone.workload_rg_name
+}
+
 output "vpc_names" {
   description = "A list of the names of the VPC"
   value       = module.vsi_landing_zone.vpc_names
