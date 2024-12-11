@@ -92,6 +92,11 @@ output "workload_cluster_rg_id" {
   value       = module.landing_zone.workload_cluster_rg_id
 }
 
+output "workload_cluster_rg_name" {
+  description = "The resource group name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
+  value       = module.landing_zone.workload_cluster_rg_name
+}
+
 output "workload_cluster_name" {
   description = "The name of the worload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
   value       = module.landing_zone.workload_cluster_name
