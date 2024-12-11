@@ -242,6 +242,49 @@ func TestRunUpgradeRoksPattern(t *testing.T) {
 	}
 }
 
+func TestValidateOverrideRoks(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptionsRoksPattern(t, "slzovr")
+	options.SkipTestTearDown = true
+	output, err := options.RunTestConsistency()
+	defer options.TestTearDown()
+
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+	assert.NotNil(t, options.LastTestTerraformOutputs, "Expected some Terraform outputs")
+
+	if err == nil {
+		override_json, err0 := os.ReadFile("../patterns/roks/override.json")
+		require.Nil(t, err0, "Error while reading override json")
+		config_json := options.LastTestTerraformOutputs["config"]
+		ignored_keys := []string{"resource_groups"}
+
+		//Parse the json into a map
+		var override_json_map map[string]interface{}
+		err1 := json.Unmarshal([]byte(override_json), &override_json_map)
+		require.Nil(t, err1, "Error while unmasrshalling override json map")
+
+		var config_map map[string]interface{}
+		err2 := json.Unmarshal([]byte(config_json.(string)), &config_map)
+		require.Nil(t, err2, "Error while unmarshalling config map")
+
+		//Delete the ignored keys from the map
+		for _, key := range ignored_keys {
+			delete(override_json_map, key)
+			delete(config_map, key)
+		}
+
+		for key, value1 := range override_json_map {
+			value2, ok := config_map[key]
+
+			require.Nil(t, ok, "The override and config values did not match")
+			require.Equal(t, value1, value2, "The override and config values did not match")
+		}
+
+	}
+}
+
 func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
