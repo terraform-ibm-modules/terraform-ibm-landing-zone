@@ -992,6 +992,7 @@ module "cluster_pattern" {
 | <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | List of VSI names |
 | <a name="output_workload_cluster_id"></a> [workload\_cluster\_id](#output\_workload\_cluster\_id) | The id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_cluster_name"></a> [workload\_cluster\_name](#output\_workload\_cluster\_name) | The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
+| <a name="output_workload_cluster_rg_id"></a> [workload\_cluster\_rg\_id](#output\_workload\_cluster\_rg\_id) | The resource group id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->

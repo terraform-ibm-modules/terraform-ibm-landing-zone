@@ -85,6 +85,11 @@ output "workload_cluster_id" {
   value       = lookup(local.cluster_data, "${var.prefix}-workload-cluster", null) != null ? local.cluster_data["${var.prefix}-workload-cluster"].id : null
 }
 
+output "workload_cluster_rg_id" {
+  description = "The resource group id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
+  value       = lookup(local.cluster_data, "${var.prefix}-workload-cluster", null) != null ? local.cluster_data["${var.prefix}-workload-cluster"].resource_group_id : null
+}
+
 output "workload_cluster_name" {
   description = "The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null."
   value       = lookup(local.cluster_data, "${var.prefix}-workload-cluster", null) != null ? local.cluster_data["${var.prefix}-workload-cluster"].cluster_name : null
