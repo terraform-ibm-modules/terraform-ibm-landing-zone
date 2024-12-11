@@ -17,23 +17,23 @@ output "resource_group_data" {
   value       = module.vpc_landing_zone.resource_group_data
 }
 
-output "workload_management_rg_id" {
-  description = "List of resource groups data used within landing zone."
+output "management_rg_id" {
+  description = "Resource group ID for the management resource group used within landing zone."
   value       = module.vpc_landing_zone.resource_group_data["${var.prefix}-management-rg"]
 }
 
-output "workload_management_rg_name" {
-  description = "List of resource groups data used within landing zone."
+output "management_rg_name" {
+  description = "Resource group name for the management resource group used within landing zone."
   value       = "${var.prefix}-management-rg"
 }
 
-output "workload_workload_rg_id" {
-  description = "List of resource groups data used within landing zone."
+output "workload_rg_id" {
+  description = "Resource group ID for the workload resource group used within landing zone."
   value       = module.vpc_landing_zone.resource_group_data["${var.prefix}-workload-rg"]
 }
 
-output "workload_workload_rg_name" {
-  description = "List of resource groups data used within landing zone."
+output "workload_rg_name" {
+  description = "Resource group name for the workload resource group used within landing zone."
   value       = "${var.prefix}-workload-rg"
 }
 
