@@ -18,7 +18,6 @@ func TestRunRoksPatternWithHPCS(t *testing.T) {
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 	options.TerraformVars["skip_kms_block_storage_s2s_auth_policy"] = true
-	options.TerraformVars["provider_visibility"] = "public"
 	// If "jp-osa" was the best region selected, default to us-south instead.
 	// "jp-osa" is currently not allowing hs-crypto be used for encrypting buckets in that region.
 	currentRegion, ok := options.TerraformVars["region"]
@@ -40,7 +39,6 @@ func TestRunVSIPatternWithHPCS(t *testing.T) {
 	options.TerraformVars["hs_crypto_instance_name"] = permanentResources["hpcs_name_south"]
 	options.TerraformVars["hs_crypto_resource_group"] = permanentResources["hpcs_rg_south"]
 	options.TerraformVars["skip_kms_block_storage_s2s_auth_policy"] = true
-	options.TerraformVars["provider_visibility"] = "public"
 	// If "jp-osa" was the best region selected, default to us-south instead.
 	// "jp-osa" is currently not allowing hs-crypto be used for encrypting buckets in that region.
 	currentRegion, ok := options.TerraformVars["region"]
