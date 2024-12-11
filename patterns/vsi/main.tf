@@ -6,6 +6,7 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   ibmcloud_timeout = 60
+  visibility       = var.provider_visibility
 }
 
 ##############################################################################
@@ -87,6 +88,7 @@ module "vsi_landing_zone" {
   override_json_string                   = var.override_json_string
   override_json_path                     = local.override_json_path
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
+  use_legacy_network_interface           = var.use_legacy_network_interface
 }
 
 moved {

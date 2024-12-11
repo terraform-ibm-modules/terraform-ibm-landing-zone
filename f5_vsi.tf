@@ -117,7 +117,7 @@ locals {
 
 module "f5_vsi" {
   source                        = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                       = "4.2.0"
+  version                       = "4.4.0"
   for_each                      = local.f5_vsi_map
   resource_group_id             = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group         = each.value.security_group == null ? false : true
@@ -136,12 +136,14 @@ module "f5_vsi" {
       interface_name    = group.interface_name
     }
   ]
-  image_id       = local.public_image_map[each.value.f5_image_name][var.region]
-  user_data      = module.dynamic_values.f5_template_map[each.key].user_data
-  machine_type   = each.value.machine_type
-  vsi_per_subnet = 1
-  security_group = each.value.security_group
-  load_balancers = each.value.load_balancers == null ? [] : each.value.load_balancers
+  image_id                        = local.public_image_map[each.value.f5_image_name][var.region]
+  user_data                       = module.dynamic_values.f5_template_map[each.key].user_data
+  machine_type                    = each.value.machine_type
+  vsi_per_subnet                  = 1
+  security_group                  = each.value.security_group
+  primary_vni_additional_ip_count = each.value.primary_vni_additional_ip_count
+  use_legacy_network_interface    = each.value.use_legacy_network_interface
+  load_balancers                  = each.value.load_balancers == null ? [] : each.value.load_balancers
   # Get boot volume
   boot_volume_encryption_key = each.value.boot_volume_encryption_key_name == null ? "" : [
     for keys in module.key_management.keys :

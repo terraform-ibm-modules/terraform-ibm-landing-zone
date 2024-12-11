@@ -22,8 +22,8 @@
       "use_ibm_cloud_private_api_endpoints": false,
       "verify_cluster_network_readiness": false,
       "kms_config": {
-          "crk_name": "slz-key",
-          "private_endpoint": true
+        "crk_name": "slz-key",
+        "private_endpoint": true
       },
       "subnet_names": [
         "vsi-zone-1",
@@ -81,7 +81,7 @@
     }
   ],
   "service_endpoints": "public-and-private",
-  "existing_vpc_cbr_zone_id" : null,
+  "existing_vpc_cbr_zone_id": null,
   "security_groups": [],
   "vpn_gateways": [
     {
@@ -420,7 +420,8 @@
         "vsi-zone-1"
       ],
       "vpc_name": "management",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "use_legacy_network_interface": false
     },
     {
       "access_tags": [],
@@ -453,7 +454,8 @@
         "vsi-zone-1"
       ],
       "vpc_name": "workload",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "use_legacy_network_interface": false
     },
     {
       "access_tags": [],
@@ -502,7 +504,8 @@
           "health_type": "tcp",
           "idle_connection_timeout": 50
         }
-      ]
+      ],
+      "use_legacy_network_interface": false
     }
   ],
   "wait_till": "IngressReady"

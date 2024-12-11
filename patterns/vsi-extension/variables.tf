@@ -3,7 +3,16 @@ variable "ibmcloud_api_key" {
   type        = string
   sensitive   = true
 }
+variable "provider_visibility" {
+  description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
+  type        = string
+  default     = "private"
 
+  validation {
+    condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
+    error_message = "Invalid visibility option. Allowed values are 'public', 'private', or 'public-and-private'."
+  }
+}
 variable "region" {
   description = "The region of the landing zone VPC."
   type        = string
@@ -80,7 +89,7 @@ variable "vsi_per_subnet" {
 }
 
 variable "subnet_names" {
-  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
+  description = "A list of subnet names where you want to deploy a VSI. If not specified, the VSI is deployed to all the `<prefix>-vsi-zone-*` subnets in the VPC. [Learn more](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi)."
   type        = list(string)
   default     = null
 
@@ -185,4 +194,17 @@ variable "load_balancers" {
     })
   )
   default = []
+}
+
+variable "primary_vni_additional_ip_count" {
+  description = "The number of secondary reversed IPs to attach to a Virtual Network Interface (VNI). Additional IPs are created only if `manage_reserved_ips` is set to true."
+  type        = number
+  nullable    = false
+  default     = 0
+}
+
+variable "use_legacy_network_interface" {
+  description = "Set this to true to use legacy network interface for the created instances."
+  type        = bool
+  default     = false
 }
