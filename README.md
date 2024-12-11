@@ -994,6 +994,10 @@ module "cluster_pattern" {
 | <a name="output_workload_cluster_name"></a> [workload\_cluster\_name](#output\_workload\_cluster\_name) | The name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_cluster_rg_id"></a> [workload\_cluster\_rg\_id](#output\_workload\_cluster\_rg\_id) | The resource group id of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
 | <a name="output_workload_cluster_rg_name"></a> [workload\_cluster\_rg\_name](#output\_workload\_cluster\_rg\_name) | The resource group name of the workload cluster. If the cluster name does not exactly match the prefix-workload-cluster pattern it will be null. |
+| <a name="output_workload_management_rg_id"></a> [workload\_management\_rg\_id](#output\_workload\_management\_rg\_id) | List of resource groups data used within landing zone. |
+| <a name="output_workload_management_rg_name"></a> [workload\_management\_rg\_name](#output\_workload\_management\_rg\_name) | List of resource groups data used within landing zone. |
+| <a name="output_workload_workload_rg_id"></a> [workload\_workload\_rg\_id](#output\_workload\_workload\_rg\_id) | List of resource groups data used within landing zone. |
+| <a name="output_workload_workload_rg_name"></a> [workload\_workload\_rg\_name](#output\_workload\_workload\_rg\_name) | List of resource groups data used within landing zone. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
