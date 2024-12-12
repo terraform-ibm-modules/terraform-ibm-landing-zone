@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 6.0.1
+version: 6.6.0
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
