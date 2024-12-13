@@ -285,6 +285,25 @@ output "resource_group_data" {
   value       = local.resource_groups_info
 }
 
+output "management_rg_id" {
+  description = "Resource group ID for the management resource group used within landing zone."
+  value       = local.resource_groups_info["${var.prefix}-management-rg"]
+}
+
+output "management_rg_name" {
+  description = "Resource group name for the management resource group used within landing zone."
+  value       = "${var.prefix}-management-rg"
+}
+
+output "workload_rg_id" {
+  description = "Resource group ID for the workload resource group used within landing zone."
+  value       = local.resource_groups_info["${var.prefix}-workload-rg"]
+}
+
+output "workload_rg_name" {
+  description = "Resource group name for the workload resource group used within landing zone."
+  value       = "${var.prefix}-workload-rg"
+}
 
 ##############################################################################
 
