@@ -289,20 +289,6 @@ variable "ssh_keys" {
   }
 }
 
-variable "user_data" {
-  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data."
-  type = map(object({
-    user_data = string
-  }))
-  default = {}
-  validation {
-    condition = alltrue([for key, value in var.user_data :
-      contains(var.vpcs[*].prefix, key)
-    ])
-    error_message = "Keys should match the name of the vpc passed in `var.vpcs`."
-  }
-}
-
 variable "vsi" {
   description = "A list describing VSI workloads to create"
   type = list(
