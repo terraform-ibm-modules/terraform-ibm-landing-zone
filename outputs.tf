@@ -287,26 +287,34 @@ output "resource_group_data" {
 
 output "management_rg_id" {
   description = "Resource group ID for the management resource group used within landing zone."
-  value = [for key, value in local.resource_groups_info :
-  key if endswith(key, "management-rg")][0]
+  value = [
+    for group in var.resource_groups :
+    local.resource_groups_info[group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name] if endswith(group.name, "management-rg")
+  ][0]
 }
 
 output "management_rg_name" {
   description = "Resource group name for the management resource group used within landing zone."
-  value = [for key, value in local.resource_groups :
-  key if endswith(key, "management-rg")][0]
+  value = [
+    for group in var.resource_groups :
+    group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name if endswith(group.name, "management-rg")
+  ][0]
 }
 
 output "workload_rg_id" {
   description = "Resource group ID for the workload resource group used within landing zone."
-  value = [for key, value in local.resource_groups_info :
-  key if endswith(key, "workload-rg")][0]
+  value = [
+    for group in var.resource_groups :
+    local.resource_groups_info[group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name] if endswith(group.name, "workload-rg")
+  ][0]
 }
 
 output "workload_rg_name" {
   description = "Resource group name for the workload resource group used within landing zone."
-  value = [for key, value in local.resource_groups :
-  key if endswith(key, "workload-rg")][0]
+  value = [
+    for group in var.resource_groups :
+    group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name if endswith(group.name, "management-rg")
+  ][0]
 }
 
 ##############################################################################
