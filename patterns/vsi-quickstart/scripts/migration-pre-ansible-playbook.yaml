@@ -88,7 +88,7 @@
                                               test="${VOL_LIST[$c]/$str/}"
                                               vol=$(echo "$test" | cut -d"-" -f3-)
                                               VOL_DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_volume.volume[\"${subnet_name}-${x}-${vol}\"]"
-                                              if [ -n "${VOL_LIST[$c]}" ] || [ -n "${subnet_name}" ]; then
+                                              if [ -n "${VOL_LIST[$c]}" ] && [ -n "${subnet_name}" ]; then
                                                   MOVED_PARAMS+=("$VOL_SOURCE, $VOL_DESTINATION")
                                               fi
                                           fi
