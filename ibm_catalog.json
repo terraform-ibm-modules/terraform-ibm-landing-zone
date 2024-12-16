@@ -90,7 +90,7 @@
             },
             {
               "name": "deploy-arch-ibm-cos",
-              "id": "68921490-2778-4930-ac6d-bae7be6cd958",
+              "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
               "flavors": [
                 "instance"
               ],
@@ -106,7 +106,7 @@
                 }
               ],
               "optional": true,
-              "version": ">=1.0.1",
+              "version": ">=8.15.0",
               "on_by_default": true
             },
             {
