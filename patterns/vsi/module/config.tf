@@ -94,6 +94,7 @@ locals {
         vsi_per_subnet                  = var.vsi_per_subnet
         machine_type                    = var.vsi_instance_profile
         boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
+        user_data                       = lookup(var.user_data, network, null) != null ? var.user_data[network].user_data : null
         use_legacy_network_interface    = var.use_legacy_network_interface
         security_group = {
           name     = "${var.prefix}-${network}"
@@ -216,9 +217,12 @@ locals {
     transit_gateway_resource_group = lookup(local.override[local.override_type], "transit_gateway_resource_group", local.config.transit_gateway_resource_group)
     transit_gateway_connections    = lookup(local.override[local.override_type], "transit_gateway_connections", local.config.transit_gateway_connections)
 
-    ssh_keys                               = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
-    network_cidr                           = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
-    vsi                                    = lookup(local.override[local.override_type], "vsi", local.config.vsi)
+    ssh_keys     = lookup(local.override[local.override_type], "ssh_keys", local.ssh_keys)
+    network_cidr = lookup(local.override[local.override_type], "network_cidr", var.network_cidr)
+    vsi = [for vsi in lookup(local.override[local.override_type], "vsi", local.config.vsi) :
+      merge({
+        user_data = lookup(var.user_data, vsi.vpc_name, null) != null ? var.user_data[vsi.vpc_name].user_data : null
+    }, vsi)]
     security_groups                        = lookup(local.override[local.override_type], "security_groups", local.config.security_groups)
     virtual_private_endpoints              = lookup(local.override[local.override_type], "virtual_private_endpoints", local.config.virtual_private_endpoints)
     cos                                    = lookup(local.override[local.override_type], "cos", local.config.object_storage)
