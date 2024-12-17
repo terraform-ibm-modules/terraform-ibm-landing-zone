@@ -21,11 +21,63 @@ resource "ibm_iam_authorization_policy" "policy" {
   source_resource_type        = lookup(each.value, "source_resource_type", null)
   source_resource_instance_id = lookup(each.value, "source_resource_instance_id", null)
   source_resource_group_id    = lookup(each.value, "source_resource_group_id", null)
-  target_service_name         = each.value.target_service_name
-  target_resource_instance_id = lookup(each.value, "target_resource_instance_id", null)
-  target_resource_group_id    = lookup(each.value, "target_resource_group", null)
   roles                       = each.value.roles
   description                 = each.value.description
+
+  resource_attributes {
+    name     = "accountId"
+    operator = "stringEquals"
+    value    = data.ibm_iam_account_settings.iam_account_settings.account_id
+  }
+
+  dynamic "resource_attributes" {
+    for_each = lookup(each.value, "target_service_name", null) != null ? [1] : []
+    content {
+      name     = "serviceName"
+      operator = "stringEquals"
+      value    = each.value.target_service_name
+    }
+  }
+
+  dynamic "resource_attributes" {
+    for_each = lookup(each.value, "target_resource_instance_id", null) != null ? [1] : []
+    content {
+      name     = "serviceInstance"
+      operator = "stringEquals"
+      value    = each.value.target_resource_instance_id
+    }
+  }
+
+  dynamic "resource_attributes" {
+    for_each = lookup(each.value, "target_resource_group", null) != null ? [1] : []
+    content {
+      name     = "resourceGroupId"
+      operator = "stringEquals"
+      value    = each.value.target_resource_group
+    }
+  }
+
+  dynamic "resource_attributes" {
+    for_each = lookup(each.value, "target_resource_type", null) != null ? [1] : []
+    content {
+      name     = "resourceType"
+      operator = "stringEquals"
+      value    = each.value.target_resource_type
+    }
+  }
+
+  dynamic "resource_attributes" {
+    for_each = lookup(each.value, "target_resource_id", null) != null ? [1] : []
+    content {
+      name     = "resource"
+      operator = "stringEquals"
+      value    = each.value.target_resource_id
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # workaround for https://github.com/IBM-Cloud/terraform-provider-ibm/issues/4478
