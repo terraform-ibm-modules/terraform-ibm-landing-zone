@@ -147,7 +147,7 @@ variable "vsi_per_subnet" {
 }
 
 variable "user_data" {
-  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data."
+  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data. For information on using the user_data variable, please refer: https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-user-data"
   type = map(object({
     user_data = string
   }))
