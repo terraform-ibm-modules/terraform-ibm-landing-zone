@@ -313,7 +313,7 @@ output "workload_rg_name" {
   description = "Resource group name for the workload resource group used within landing zone."
   value = try([
     for group in var.resource_groups :
-    group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name if endswith(group.name, "management-rg")
+    group.use_prefix == true ? "${var.prefix}-${group.name}" : group.name if endswith(group.name, "workload-rg")
   ][0], null)
 }
 
