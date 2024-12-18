@@ -14,6 +14,7 @@ module "service_authorizations" {
   skip_kms_kube_s2s_auth_policy          = var.skip_kms_kube_s2s_auth_policy
   atracker_cos_bucket                    = var.atracker_cos_bucket
   clusters                               = var.clusters
+  vsi                                    = var.vsi
 }
 
 ##############################################################################

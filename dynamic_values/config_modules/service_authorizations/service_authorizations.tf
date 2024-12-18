@@ -42,6 +42,10 @@ variable "clusters" {
   description = "Add cluster to kms auth policies"
 }
 
+variable "vsi" {
+  description = "Add vsi block storage to auth policies"
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -50,22 +54,62 @@ variable "clusters" {
 
 locals {
   target_key_management_service = lookup(var.key_management, "name", null) != null ? lookup(var.key_management, "use_hs_crypto", false) == true ? "hs-crypto" : "kms" : null
+
+  # create a list of keys used for all buckets, since we are going to scope the auth policy to keys.
+  # doing this in a local first becase it needs a distinct to get rid of duplicates from same keys used
+  # on multiple buckets, and a distinct on the final map may error in terraform for_each before first apply.
+  cos_bucket_key_list_distinct = distinct(
+    flatten([
+      for instance in var.cos :
+      [
+        for bucket in instance.buckets :
+        [
+          {
+            instance_name   = instance.name
+            bucket_key_name = lookup(bucket, "kms_key", null)
+          }
+        ]
+      ] if !instance.skip_kms_s2s_auth_policy
+    ])
+  )
+
+  # get all keys that will be used for VSI block storage
+  # this is combination of all boot volume keys, plus the extra storage volume keys
+  block_storage_key_list_distinct = distinct(
+    flatten([
+      [
+        for vsi in var.vsi :
+        [
+          { block_key_name = lookup(vsi, "boot_volume_encryption_key_name", null) }
+        ]
+      ],
+      [
+        for vsi in var.vsi :
+        [
+          for block in coalesce(lookup(vsi, "block_storage_volumes", null), []) :
+          [
+            { block_key_name = lookup(block, "encryption_key", null) }
+          ]
+        ]
+      ]
+    ])
+  )
 }
 
 module "kms_to_block_storage" {
   source = "../list_to_map"
   list = [
-    for instance in(var.skip_kms_block_storage_s2s_auth_policy ? [] : ["block-storage"]) :
+    for instance in local.block_storage_key_list_distinct :
     {
-      name                        = instance
+      name                        = "block-storage-to-${instance.block_key_name}"
       source_service_name         = "server-protect"
-      description                 = "Allow block storage volumes to be encrypted by KMS instance"
+      description                 = "Allow block storage volumes to be encrypted by KMS key"
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-      target_resource_type        = null
-      target_resource_id          = null
-    } if local.target_key_management_service != null
+      target_resource_type        = "key"
+      target_resource_id          = var.key_management_key_map[instance.block_key_name].key_id
+    } if local.target_key_management_service != null && !var.skip_kms_block_storage_s2s_auth_policy && instance.block_key_name != null
   ]
 }
 
@@ -95,25 +139,6 @@ module "kube_to_kms" {
 # COS to Key Management
 ##############################################################################
 
-locals {
-  # create a list of keys used for all buckets, since we are going to scope the auth policy to keys.
-  # doing this in a local first becase it needs a distinct to get rid of duplicates from same keys used
-  # on multiple buckets, and a distinct on the final map may error in terraform for_each before first apply.
-  cos_bucket_key_list_distinct = distinct(
-    flatten([
-      for instance in var.cos :
-      [
-        for bucket in instance.buckets :
-        [
-          {
-            instance_name   = instance.name
-            bucket_key_name = bucket.kms_key
-          }
-        ]
-      ] if local.target_key_management_service != null && !instance.skip_kms_s2s_auth_policy
-    ])
-  )
-}
 module "cos_to_key_management" {
   source = "../list_to_map"
   list = [
@@ -128,7 +153,7 @@ module "cos_to_key_management" {
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
       target_resource_id          = var.key_management_key_map[bucket_key.bucket_key_name].key_id
-    }
+    } if local.target_key_management_service != null && bucket_key.bucket_key_name != null
   ]
 }
 
