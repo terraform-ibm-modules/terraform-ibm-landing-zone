@@ -94,6 +94,25 @@ locals {
       ]
     ])
   )
+
+  # get all keys used in clusters
+  # is combination of boot keys and config keys
+  kube_key_list_distinct = distinct(
+    flatten([
+      [
+        for cluster in var.clusters :
+        [
+          { cluster_key_name = lookup(cluster, "boot_volume_crk_name", null) }
+        ]
+      ],
+      [
+        for cluster in var.clusters :
+        [
+          { cluster_key_name = lookup(cluster.kms_config, "crk_name", null) }
+        ] if lookup(cluster, "kms_config", null) != null
+      ]
+    ])
+  )
 }
 
 module "kms_to_block_storage" {
@@ -108,7 +127,8 @@ module "kms_to_block_storage" {
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
-      target_resource_id          = var.key_management_key_map[instance.block_key_name].key_id
+      target_resource_id          = split(":", var.key_management_key_map[instance.block_key_name].crn)[7]
+      target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[instance.block_key_name].crn)[6], "a/")
     } if local.target_key_management_service != null && !var.skip_kms_block_storage_s2s_auth_policy && instance.block_key_name != null
   ]
 }
@@ -119,7 +139,7 @@ module "kms_to_block_storage" {
 module "kube_to_kms" {
   source = "../list_to_map"
   list = [
-    for instance in(length(var.clusters) > 0 ? ["containers-kubernetes"] : []) :
+    for instance in local.kube_key_list_distinct :
     {
       name                        = instance
       source_service_name         = "containers-kubernetes"
@@ -127,9 +147,10 @@ module "kube_to_kms" {
       roles                       = ["Reader"]
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
-      target_resource_type        = null
-      target_resource_id          = null
-    } if local.target_key_management_service != null && !var.skip_kms_kube_s2s_auth_policy
+      target_resource_type        = "key"
+      target_resource_id          = split(":", var.key_management_key_map[instance.cluster_key_name].crn)[7]
+      target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[instance.cluster_key_name].crn)[6], "a/")
+    } if local.target_key_management_service != null && !var.skip_kms_kube_s2s_auth_policy && instance.cluster_key_name != null
   ]
 }
 
@@ -152,7 +173,8 @@ module "cos_to_key_management" {
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
-      target_resource_id          = var.key_management_key_map[bucket_key.bucket_key_name].key_id
+      target_resource_id          = split(":", var.key_management_key_map[bucket_key.bucket_key_name].crn)[7]
+      target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[bucket_key.bucket_key_name].crn)[6], "a/")
     } if local.target_key_management_service != null && bucket_key.bucket_key_name != null
   ]
 }
@@ -171,6 +193,7 @@ module "flow_logs_to_cos" {
       target_resource_instance_id = split(":", var.cos_instance_ids[instance.name])[7]
       target_resource_type        = null
       target_resource_id          = null
+      target_resource_account_id  = null
     } if !instance.skip_flowlogs_s2s_auth_policy
   ]
 }
@@ -204,6 +227,7 @@ module "atracker_to_cos" {
       target_resource_instance_id = split(":", var.cos_instance_ids[local.atracker_cos_instance])[7]
       target_resource_type        = null
       target_resource_id          = null
+      target_resource_account_id  = null
     }
   ]
 }
