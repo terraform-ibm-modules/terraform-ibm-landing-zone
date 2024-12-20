@@ -28,6 +28,7 @@ const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
+const overrideExampleTerraformDir = "examples/override-example"
 const resourceGroup = "geretain-test-resources"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
@@ -690,4 +691,30 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
+}
+
+func TestRunOverrideExample(t *testing.T) {
+	t.Parallel()
+
+	sshPublicKey := sshPublicKey(t)
+
+	overrideJsonString, err := os.ReadFile("resources/override-example.json")
+	if err != nil {
+		panic(err)
+	}
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: overrideExampleTerraformDir,
+		Prefix:       "slz-ex",
+		TerraformVars: map[string]interface{}{
+			"ssh_key":              sshPublicKey,
+			"override_json_string": string(overrideJsonString),
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
