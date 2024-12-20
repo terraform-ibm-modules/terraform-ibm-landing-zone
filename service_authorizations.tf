@@ -27,7 +27,7 @@ resource "ibm_iam_authorization_policy" "policy" {
   resource_attributes {
     name     = "accountId"
     operator = "stringEquals"
-    value    = data.ibm_iam_account_settings.iam_account_settings.account_id
+    value    = coalesce(each.value.target_resource_account_id, data.ibm_iam_account_settings.iam_account_settings.account_id)
   }
 
   dynamic "resource_attributes" {

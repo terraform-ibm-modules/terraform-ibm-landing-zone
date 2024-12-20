@@ -127,7 +127,7 @@ module "kms_to_block_storage" {
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
-      target_resource_id          = split(":", var.key_management_key_map[instance.block_key_name].crn)[7]
+      target_resource_id          = split(":", var.key_management_key_map[instance.block_key_name].crn)[9]
       target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[instance.block_key_name].crn)[6], "a/")
     } if local.target_key_management_service != null && !var.skip_kms_block_storage_s2s_auth_policy && instance.block_key_name != null
   ]
@@ -148,7 +148,7 @@ module "kube_to_kms" {
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
-      target_resource_id          = split(":", var.key_management_key_map[instance.cluster_key_name].crn)[7]
+      target_resource_id          = split(":", var.key_management_key_map[instance.cluster_key_name].crn)[9]
       target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[instance.cluster_key_name].crn)[6], "a/")
     } if local.target_key_management_service != null && !var.skip_kms_kube_s2s_auth_policy && instance.cluster_key_name != null
   ]
@@ -173,7 +173,7 @@ module "cos_to_key_management" {
       target_service_name         = local.target_key_management_service
       target_resource_instance_id = var.key_management_guid
       target_resource_type        = "key"
-      target_resource_id          = split(":", var.key_management_key_map[bucket_key.bucket_key_name].crn)[7]
+      target_resource_id          = split(":", var.key_management_key_map[bucket_key.bucket_key_name].crn)[9]
       target_resource_account_id  = trimprefix(split(":", var.key_management_key_map[bucket_key.bucket_key_name].crn)[6], "a/")
     } if local.target_key_management_service != null && bucket_key.bucket_key_name != null
   ]
