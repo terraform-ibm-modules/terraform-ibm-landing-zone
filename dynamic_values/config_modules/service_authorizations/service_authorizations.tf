@@ -141,7 +141,7 @@ module "kube_to_kms" {
   list = [
     for instance in local.kube_key_list_distinct :
     {
-      name                        = instance
+      name                        = "kube-to-${instance.cluster_key_name}"
       source_service_name         = "containers-kubernetes"
       description                 = "Allow cluster to be encrypted by KMS instance"
       roles                       = ["Reader"]
