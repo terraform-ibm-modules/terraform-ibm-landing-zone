@@ -46,7 +46,39 @@ variable "vsi" {
   description = "Add vsi block storage to auth policies"
 }
 
+variable "vpcs" {
+  description = "Direct reference to vpcs variable"
+}
+
 ##############################################################################
+
+##############################################################################
+# BUCKET MAP
+# Create a flattened out map of all configured cos buckets.
+# This map will have the bucket name as the key, and have attributes
+# from both the bucket and the parent instance that we need in further queries.
+# This map will be used to perform lookups based on bucket name to get data related to either
+# the bucket itself or its parent instance.
+##############################################################################
+module "cos_bucket_map" {
+  source = "../list_to_map"
+  list = flatten([
+    for instance in var.cos :
+    [
+      for bucket in instance.buckets :
+      [
+        {
+          name                          = bucket.name
+          instance_name                 = instance.name
+          bucket_key_name               = lookup(bucket, "kms_key", null)
+          skip_kms_s2s_auth_policy      = lookup(instance, "skip_kms_s2s_auth_policy", false)
+          skip_flowlogs_s2s_auth_policy = lookup(instance, "skip_flowlogs_s2s_auth_policy", false)
+          skip_atracker_s2s_auth_policy = lookup(instance, "skip_atracker_s2s_auth_policy", false)
+        }
+      ]
+    ]
+  ])
+}
 
 ##############################################################################
 # Locals
@@ -60,16 +92,13 @@ locals {
   # on multiple buckets, and a distinct on the final map may error in terraform for_each before first apply.
   cos_bucket_key_list_distinct = distinct(
     flatten([
-      for instance in var.cos :
+      for bucket in module.cos_bucket_map.value :
       [
-        for bucket in instance.buckets :
-        [
-          {
-            instance_name   = instance.name
-            bucket_key_name = lookup(bucket, "kms_key", null)
-          }
-        ]
-      ] if !instance.skip_kms_s2s_auth_policy
+        {
+          instance_name   = bucket.instance_name
+          bucket_key_name = lookup(bucket, "bucket_key_name", null)
+        }
+      ] if !bucket.skip_kms_s2s_auth_policy
     ])
   )
 
@@ -179,22 +208,42 @@ module "cos_to_key_management" {
   ]
 }
 
+##############################################################################
+# VPC Flow Logs to COS bucket
+##############################################################################
+locals {
+  flow_log_bucket_list_distinct = distinct(
+    flatten([
+      for vpc in var.vpcs :
+      [
+        {
+          bucket_name = vpc.flow_logs_bucket_name
+        }
+      ] if lookup(vpc, "flow_logs_bucket_name", null) != null
+    ])
+  )
+}
+
+# NOTE:
+# Due to terraform plan cycle issues, we cannot reference the true bucket instance here in this module,
+# so we will pass back the reference name of the bucket in `target_resource_id` and look up details 
+# when applying the auth policy
 module "flow_logs_to_cos" {
   source = "../list_to_map"
   list = [
-    for instance in var.cos :
+    for instance in local.flow_log_bucket_list_distinct :
     {
-      name                        = "flow-logs-${instance.name}"
+      name                        = "flow-logs-${instance.bucket_name}"
       source_service_name         = "is"
       source_resource_type        = "flow-log-collector"
       description                 = "Allow flow logs write access cloud object storage instance"
       roles                       = ["Writer"]
       target_service_name         = "cloud-object-storage"
-      target_resource_instance_id = split(":", var.cos_instance_ids[instance.name])[7]
-      target_resource_type        = null
-      target_resource_id          = null
+      target_resource_instance_id = null
+      target_resource_type        = "bucket"
+      target_resource_id          = instance.bucket_name
       target_resource_account_id  = null
-    } if !instance.skip_flowlogs_s2s_auth_policy
+    } if !module.cos_bucket_map.value[instance.bucket_name].skip_flowlogs_s2s_auth_policy
   ]
 }
 
@@ -204,33 +253,29 @@ module "flow_logs_to_cos" {
 # Atracker to COS
 ##############################################################################
 
-locals {
-  atracker_cos_instance = var.atracker_cos_bucket == null ? null : one(flatten([
-    for instance in var.cos :
-    [
-      for bucket in instance.buckets :
-      [instance.name] if bucket.name == var.atracker_cos_bucket
-    ] if !instance.skip_atracker_s2s_auth_policy
-  ]))
-}
-
+# NOTE:
+# Due to terraform plan cycle issues, we cannot reference the true bucket instance here in this module,
+# so we will pass back the reference name of the bucket in `target_resource_id` and look up details 
+# when applying the auth policy
 module "atracker_to_cos" {
   source = "../list_to_map"
   list = [
-    for instance in(var.atracker_cos_bucket != null && local.atracker_cos_instance != null ? ["atracker-to-cos"] : []) :
+    for instance in ["atracker-to-cos"] :
     {
       name                        = instance
       source_service_name         = "atracker"
-      description                 = "Allow atracker to write to COS"
+      description                 = "Allow atracker to write to COS bucket"
       roles                       = ["Object Writer"]
       target_service_name         = "cloud-object-storage"
-      target_resource_instance_id = split(":", var.cos_instance_ids[local.atracker_cos_instance])[7]
-      target_resource_type        = null
-      target_resource_id          = null
+      target_resource_instance_id = null
+      target_resource_type        = "bucket"
+      target_resource_id          = var.atracker_cos_bucket
       target_resource_account_id  = null
-    }
+    } if var.atracker_cos_bucket != null && !try(module.cos_bucket_map.value[var.atracker_cos_bucket].skip_atracker_s2s_auth_policy, false)
   ]
 }
+# DEV NOTE: needed a `try()` on the `cos_bucket_map` lookup above to take care of the case where atracker is turned off
+# and a bucket name is NULL. This causes plan errors which the try should catch.
 
 ##############################################################################
 # Outputs

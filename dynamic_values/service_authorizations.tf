@@ -15,6 +15,7 @@ module "service_authorizations" {
   atracker_cos_bucket                    = var.atracker_cos_bucket
   clusters                               = var.clusters
   vsi                                    = var.vsi
+  vpcs                                   = var.vpcs
 }
 
 ##############################################################################
