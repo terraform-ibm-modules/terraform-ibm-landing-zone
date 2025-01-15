@@ -8,6 +8,7 @@ module "dynamic_values" {
   prefix                                 = var.prefix
   key_management                         = var.key_management
   key_management_guid                    = module.key_management.key_management_guid
+  key_management_key_map                 = module.key_management.key_map
   clusters                               = var.clusters
   vpcs                                   = var.vpcs
   resource_groups                        = local.resource_groups

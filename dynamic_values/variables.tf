@@ -108,6 +108,10 @@ variable "key_management_guid" {
   description = "Key Management GUID"
 }
 
+variable "key_management_key_map" {
+  description = "Key management key IDs"
+}
+
 ##############################################################################
 
 ##############################################################################
