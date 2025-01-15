@@ -35,6 +35,31 @@ const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-res
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
 
+const user_data = `{
+  management = {
+    user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    # This is management
+
+  path: /etc/sysconfig/management
+EOT
+  }
+  workload = {
+    user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    # This is workload
+
+  path: /etc/sysconfig/workload
+EOT
+  }
+}`
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
 
@@ -520,6 +545,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
 		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
+		{Name: "user_data", Value: user_data, DataType: "map(object({ user_data = string }))"},
 	}
 
 	err := options.RunSchematicTest()

@@ -3,12 +3,12 @@
 ##############################################################################
 
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.9"
   # renovate is set up to keep provider version at the latest for all DA solutions
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.73.0"
+      version = "1.74.0"
     }
     # tflint-ignore: terraform_unused_required_providers
     external = {
