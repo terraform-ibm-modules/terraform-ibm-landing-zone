@@ -226,7 +226,7 @@ locals {
 
 # NOTE:
 # Due to terraform plan cycle issues, we cannot reference the true bucket instance here in this module,
-# so we will pass back the reference name of the bucket in `target_resource_id` and look up details 
+# so we will pass back the reference name of the bucket in `target_resource_id` and look up details
 # when applying the auth policy
 module "flow_logs_to_cos" {
   source = "../list_to_map"
@@ -255,7 +255,7 @@ module "flow_logs_to_cos" {
 
 # NOTE:
 # Due to terraform plan cycle issues, we cannot reference the true bucket instance here in this module,
-# so we will pass back the reference name of the bucket in `target_resource_id` and look up details 
+# so we will pass back the reference name of the bucket in `target_resource_id` and look up details
 # when applying the auth policy
 module "atracker_to_cos" {
   source = "../list_to_map"
