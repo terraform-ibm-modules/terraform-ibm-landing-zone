@@ -28,11 +28,37 @@ const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
+const overrideExampleTerraformDir = "examples/override-example"
 const resourceGroup = "geretain-test-resources"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Setting "add_atracker_route" to false for VPC and VSI tests to avoid hitting AT route quota, right now its 4 routes per account.
 const add_atracker_route = false
+
+const user_data = `{
+  management = {
+    user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    # This is management
+
+  path: /etc/sysconfig/management
+EOT
+  }
+  workload = {
+    user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    # This is workload
+
+  path: /etc/sysconfig/workload
+EOT
+  }
+}`
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 var permanentResources map[string]interface{}
@@ -356,7 +382,7 @@ func TestRunOverride(t *testing.T) {
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
 			assert.NotNil(t, planStruct, "Expected some output") {
-			options.CheckConsistency(planStruct)
+			testhelper.CheckConsistency(planStruct, options)
 		}
 	}
 	options.TestTearDown()
@@ -519,6 +545,7 @@ func TestRunVSIPatternSchematics(t *testing.T) {
 		{Name: "ssh_public_key", Value: sshPublicKey(t), DataType: "string"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
 		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
+		{Name: "user_data", Value: user_data, DataType: "map(object({ user_data = string }))"},
 	}
 
 	err := options.RunSchematicTest()
@@ -690,4 +717,30 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
+}
+
+func TestRunOverrideExample(t *testing.T) {
+	t.Parallel()
+
+	sshPublicKey := sshPublicKey(t)
+
+	overrideJsonString, err := os.ReadFile("resources/override-example.json")
+	if err != nil {
+		panic(err)
+	}
+
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: overrideExampleTerraformDir,
+		Prefix:       "slz-ex",
+		TerraformVars: map[string]interface{}{
+			"ssh_key":              sshPublicKey,
+			"override_json_string": string(overrideJsonString),
+		},
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }

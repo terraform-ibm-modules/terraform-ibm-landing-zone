@@ -125,7 +125,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-1"
+  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -138,6 +138,20 @@ variable "vsi_per_subnet" {
   description = "Number of Virtual Servers to create on each VSI subnet."
   type        = number
   default     = 1
+}
+
+variable "user_data" {
+  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data. For information on using the user_data variable, please refer: https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-user-data"
+  type = map(object({
+    user_data = string
+  }))
+  default = {}
+  validation {
+    condition = alltrue([for key, value in var.user_data :
+      contains(var.vpcs, key)
+    ])
+    error_message = "Keys should match the name of the vpc passed in `var.vpcs`."
+  }
 }
 
 variable "use_legacy_network_interface" {
@@ -413,7 +427,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-1"
+  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
 }
 
 variable "teleport_license" {
