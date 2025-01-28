@@ -102,6 +102,6 @@ resource "random_string" "rg_suffix" {
 }
 resource "ibm_resource_group" "resource_group" {
   # count    = var.existing_resource_group_name != null ? 0 : 1
-  name     = "rg-${random_string.rg_suffix[0].result}"
+  name     = "rg-${random_string.rg_suffix.result}"
   quota_id = null
 }

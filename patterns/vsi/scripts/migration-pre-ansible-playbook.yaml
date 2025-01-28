@@ -145,7 +145,3 @@
         status_code: [200, 202]
       register: result
       when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
-    - name: Print Message
-      debug:
-        msg: Nothig to migrate
-      when: move_list is not defined and move_list.stdout is not defined and move_list.stdout == ''
