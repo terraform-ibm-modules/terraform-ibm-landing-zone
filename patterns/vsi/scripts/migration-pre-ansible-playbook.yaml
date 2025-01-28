@@ -113,8 +113,7 @@
     - name: Initiate Commands List
       set_fact:
         commands: []
-      when:
-        - move_list is defined and move_list != ""
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Add new JSON Objects to List
       set_fact:
         commands: "{{ commands +
@@ -125,8 +124,7 @@
       loop: "{{ move_list.stdout_lines }}"
       loop_control:
         index_var: count
-      when:
-        - move_list is defined and move_list != ""
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Create complete JSON body
       set_fact:
         commands: "{{
@@ -134,8 +132,7 @@
           'operation_name': 'workspace Command',
           'description': 'Executing command'}
           }}"
-      when:
-        - move_list is defined and move_list != ""
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Run Terraform commands
       uri:
         url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
@@ -147,10 +144,8 @@
         body_format: json
         status_code: [200, 202]
       register: result
-      when:
-        - move_list is defined and move_list != ""
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Print Message
       debug:
         msg: Nothig to migrate
-      when:
-        - move_list is not defined and move_list == ""
+      when: move_list is not defined and move_list.stdout is not defined and move_list.stdout == ''
