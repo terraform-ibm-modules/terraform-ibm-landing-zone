@@ -114,7 +114,7 @@
       set_fact:
         commands: []
       when:
-        - move_list | length > 0
+        - move_list is defined and move_list != ""
     - name: Add new JSON Objects to List
       set_fact:
         commands: "{{ commands +
@@ -126,7 +126,7 @@
       loop_control:
         index_var: count
       when:
-        - move_list | length > 0
+        - move_list is defined and move_list != ""
     - name: Create complete JSON body
       set_fact:
         commands: "{{
@@ -135,7 +135,7 @@
           'description': 'Executing command'}
           }}"
       when:
-        - move_list | length > 0
+        - move_list is defined and move_list != ""
     - name: Run Terraform commands
       uri:
         url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
@@ -148,9 +148,9 @@
         status_code: [200, 202]
       register: result
       when:
-        - move_list | length > 0
-    - name: Run Terraform commands
+        - move_list is defined and move_list != ""
+    - name: Print Message
       debug:
         msg: Nothig to migrate
       when:
-        - move_list | length == 0
+        - move_list is not defined and move_list == ""
