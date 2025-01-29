@@ -852,7 +852,7 @@ module "cluster_pattern" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 4.4.0 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.34.0 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.35.8 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 4.4.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
