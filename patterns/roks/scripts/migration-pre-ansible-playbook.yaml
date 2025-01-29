@@ -1,0 +1,95 @@
+- name: migration pre playbook
+  hosts: localhost
+  tasks:
+    - name: get running ansible env variables
+      set_fact:
+        config_crn_token: "{{ lookup('env', 'config_crn_token') }}"
+        project_id: "{{ lookup('env', 'project_id') }}"
+        config_id: "{{ lookup('env', 'config_id') }}"
+        project_url: "{{ lookup('env', 'project_url') }}"
+    - name: Get Statefile
+      uri:
+        url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/retrieve_schematics_statefile"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ config_crn_token }}"
+      register: result
+    - name: Set Statefile
+      set_fact:
+        statefile: "{{ result.json | string }}"
+    - name: Creating script
+      copy:
+        dest: "script.sh"
+        content: |
+          #!/bin/bash
+          STATE="$(cat terraform.tfstate.tmp)"
+          CLUSTER_LIST=()
+          while IFS='' read -r line; do CLUSTER_LIST+=("$line"); done < <(echo "$STATE" | jq -r '.resources[] | select((.type == "ibm_container_vpc_cluster") and (.mode == "managed") and (.name == "cluster")) | .instances[] | .index_key')
+          WORKER_POOLS=()
+          while IFS='' read -r line; do WORKER_POOLS+=("$line"); done < <(echo "$STATE" | jq -r '.resources[] | select((.type == "ibm_container_vpc_worker_pool") and (.mode == "managed") and (.name == "pool")) | .instances[] | .index_key')
+          ADDRESS_LIST="$(echo "$STATE" | jq -r '.resources[] | select((.type == "ibm_container_vpc_cluster") and (.mode == "managed") and (.name == "cluster")) | .module')"
+
+          for i in "${!CLUSTER_LIST[@]}"; do
+              SOURCE="${ADDRESS_LIST}.ibm_container_vpc_cluster.cluster[\"${CLUSTER_LIST[$i]}\"]"
+              DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_cluster.cluster[0]"
+              if [ -n "${CLUSTER_LIST[$i]}" ]; then
+                  MOVED_PARAMS+=("$SOURCE, $DESTINATION")
+              fi
+
+              ADDONS_RESOURCE=$(echo "$STATE" | jq -r --arg CLUSTER "${CLUSTER_LIST[$i]}" '.resources[] | select((.type == "ibm_container_vpc_cluster") and (.mode == "managed") and (.name == "cluster")) | .instances[] |  select(.index_key == $CLUSTER) | .index_key')
+              if [ -n "$ADDONS_RESOURCE" ]; then
+                  ADDONS_SOURCE="${ADDRESS_LIST}.ibm_container_addons.addons[\"${CLUSTER_LIST[$i]}\"]"
+                  ADDONS_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_addons.addons"
+                  MOVED_PARAMS+=("$ADDONS_SOURCE, $ADDONS_DESTINATION")
+              fi
+
+              for x in "${!WORKER_POOLS[@]}"; do
+                  if [[ "${WORKER_POOLS[$x]}" == *"${CLUSTER_LIST[$i]}"* ]]; then
+                      pool_name=${WORKER_POOLS[$x]//"${CLUSTER_LIST[$i]}-"/}
+                      WORKER_POOL_SOURCE="${ADDRESS_LIST}.ibm_container_vpc_worker_pool.pool[\"${WORKER_POOLS[$x]}\"]"
+                      WORKER_POOL_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_worker_pool.pool[\"$pool_name\"]"
+                      MOVED_PARAMS+=("$WORKER_POOL_SOURCE, $WORKER_POOL_DESTINATION")
+                  fi
+              done
+          done
+          for mv in "${!MOVED_PARAMS[@]}"; do
+              echo "${MOVED_PARAMS[$mv]}"
+          done
+
+    - name: Create state file
+      copy: content="{{ statefile }}" dest="terraform.tfstate.tmp"
+    - name: Run the script
+      ansible.builtin.script:
+        cmd: ./script.sh
+      register: move_list
+    - name: Initiate Commands List
+      set_fact:
+        commands: []
+    - name: Add new JSON Objects to List
+      set_fact:
+        commands: "{{ commands +
+          [{ 'command': 'state mv',
+          'command_params': item,
+          'command_name': 'Move' + count|string,
+          'command_onerror': 'abort'}] }}"
+      loop: "{{ move_list.stdout_lines }}"
+      loop_control:
+        index_var: count
+    - name: Create complete JSON body
+      set_fact:
+        commands: "{{
+          { 'commands': commands ,
+          'operation_name': 'workspace Command',
+          'description': 'Executing command'}
+          }}"
+    - name: Run Terraform commands
+      uri:
+        url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
+        method: POST
+        headers:
+          Authorization: "Bearer {{ config_crn_token }}"
+          Content-Type: application/json
+        body: "{{ commands }}"
+        body_format: json
+        status_code: [200, 202]
+      register: result
