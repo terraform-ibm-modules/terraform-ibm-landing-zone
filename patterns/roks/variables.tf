@@ -192,9 +192,9 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.17_openshift', '4.16_openshift', '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
+  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.17_openshift"
+  default     = "4.16_openshift"
   validation {
     condition = anytrue([
       var.kube_version == null,
@@ -203,10 +203,8 @@ variable "kube_version" {
       var.kube_version == "4.16_openshift",
       var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
-      var.kube_version == "4.13_openshift",
-      var.kube_version == "4.12_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.17_openshift', '4.16_openshift', '4.15_openshift', '4.14_openshift', '4.13_openshift', or '4.12_openshift'"
+    error_message = "The kube_version value can currently only be '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'"
   }
 }
 

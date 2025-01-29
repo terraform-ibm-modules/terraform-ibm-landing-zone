@@ -1136,14 +1136,6 @@
               "required": true,
               "options": [
                 {
-                  "displayname": "4.12_openshift",
-                  "value": "4.12_openshift"
-                },
-                {
-                  "displayname": "4.13_openshift",
-                  "value": "4.13_openshift"
-                },
-                {
                   "displayname": "4.14_openshift",
                   "value": "4.14_openshift"
                 },
