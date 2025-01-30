@@ -32,7 +32,7 @@
           for i in "${!CLUSTER_LIST[@]}"; do
               SOURCE="${ADDRESS_LIST}.ibm_container_vpc_cluster.cluster[\"${CLUSTER_LIST[$i]}\"]"
               DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_cluster.cluster[0]"
-              if [ -n "${CLUSTER_LIST[$i]}" ] && [ -n "$SOURCE" ] && [ -n "$DESTINATION" ]; then
+              if [ -n "${CLUSTER_LIST[$i]}" ] && [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != "0" ]; then
                   MOVED_PARAMS+=("$SOURCE, $DESTINATION")
               fi
 
@@ -40,7 +40,7 @@
               if [ -n "$ADDONS_RESOURCE" ]; then
                   ADDONS_SOURCE="${ADDRESS_LIST}.ibm_container_addons.addons[\"${CLUSTER_LIST[$i]}\"]"
                   ADDONS_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_addons.addons"
-                  if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ]; then
+                  if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
                     MOVED_PARAMS+=("$ADDONS_SOURCE, $ADDONS_DESTINATION")
                   fi
               fi
@@ -50,7 +50,7 @@
                       pool_name=${WORKER_POOLS[$x]//"${CLUSTER_LIST[$i]}-"/}
                       WORKER_POOL_SOURCE="${ADDRESS_LIST}.ibm_container_vpc_worker_pool.pool[\"${WORKER_POOLS[$x]}\"]"
                       WORKER_POOL_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_worker_pool.pool[\"$pool_name\"]"
-                      if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ]; then
+                      if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
                         MOVED_PARAMS+=("$WORKER_POOL_SOURCE, $WORKER_POOL_DESTINATION")
                       fi
                   fi
