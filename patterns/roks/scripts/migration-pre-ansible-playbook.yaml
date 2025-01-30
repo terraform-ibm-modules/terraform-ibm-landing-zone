@@ -32,7 +32,7 @@
           for i in "${!CLUSTER_LIST[@]}"; do
               SOURCE="${ADDRESS_LIST}.ibm_container_vpc_cluster.cluster[\"${CLUSTER_LIST[$i]}\"]"
               DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_cluster.cluster[0]"
-              if [ -n "${CLUSTER_LIST[$i]}" ] && [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != "0" ]; then
+              if [ -n "${CLUSTER_LIST[$i]}" ] && [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
                   MOVED_PARAMS+=("$SOURCE, $DESTINATION")
               fi
 
