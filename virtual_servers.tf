@@ -92,16 +92,3 @@ module "vsi" {
 }
 
 ##############################################################################
-
-
-resource "random_string" "rg_suffix" {
-  # count   = var.add_bucket_name_suffix ? 1 : 0
-  length  = 4
-  special = false
-  upper   = false
-}
-resource "ibm_resource_group" "resource_group" {
-  # count    = var.existing_resource_group_name != null ? 0 : 1
-  name     = "rg-${random_string.rg_suffix.result}"
-  quota_id = null
-}
