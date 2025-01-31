@@ -39,7 +39,7 @@
                   for x in "${!VSI_LIST[@]}"; do
                       SOURCE="${ADDRESS_LIST[$j]}.ibm_is_instance.vsi[\"${VSI_LIST[$x]}\"]"
                       DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_instance.vsi[\"${subnet_name}-${x}\"]"
-                      if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ]; then
+                      if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ] && [ "$SOURCE" != "$DESTINATION" ]; then
                           MOVED_PARAMS+=("$SOURCE, $DESTINATION")
                       fi
                       if [ -n "${VSI_LIST[$x]}" ]; then
@@ -51,7 +51,7 @@
                       if [ -n "$FIP_RESOURCES" ]; then
                           FIP_SOURCE="${ADDRESS_LIST[$j]}.ibm_is_floating_ip.vsi_fip[\"${VSI_LIST[$x]}\"]"
                           FIP_DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_floating_ip.vsi_fip[\"${subnet_name}-${x}\"]"
-                          if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ]; then
+                          if [ -n "${VSI_LIST[$x]}" ] && [ -n "${subnet_name}" ] && [ "$SOURCE" != "$DESTINATION" ]; then
                               MOVED_PARAMS+=("$FIP_SOURCE, $FIP_DESTINATION")
                           fi
                       fi
@@ -80,7 +80,7 @@
                                           test="${VOL_LIST[$c]/$str/}"
                                           vol=$(echo "$test" | cut -d"-" -f3-)
                                           VOL_DESTINATION="${ADDRESS_LIST[$j]}.ibm_is_volume.volume[\"${subnet_name}-${x}-${vol}\"]"
-                                          if [ -n "${VOL_LIST[$c]}" ] && [ -n "${subnet_name}" ]; then
+                                          if [ -n "${VOL_LIST[$c]}" ] && [ -n "${subnet_name}" ] && [ "$SOURCE" != "$DESTINATION" ]; then
                                               MOVED_PARAMS+=("$VOL_SOURCE, $VOL_DESTINATION")
                                           fi
                                       fi
@@ -104,6 +104,7 @@
     - name: Initiate Commands List
       set_fact:
         commands: []
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Add new JSON Objects to List
       set_fact:
         commands: "{{ commands +
@@ -114,6 +115,7 @@
       loop: "{{ move_list.stdout_lines }}"
       loop_control:
         index_var: count
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Create complete JSON body
       set_fact:
         commands: "{{
@@ -121,6 +123,7 @@
           'operation_name': 'workspace Command',
           'description': 'Executing command'}
           }}"
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Run Terraform commands
       uri:
         url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
@@ -132,3 +135,4 @@
         body_format: json
         status_code: [200, 202]
       register: result
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''

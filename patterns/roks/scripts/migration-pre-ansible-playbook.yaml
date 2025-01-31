@@ -32,7 +32,7 @@
           for i in "${!CLUSTER_LIST[@]}"; do
               SOURCE="${ADDRESS_LIST}.ibm_container_vpc_cluster.cluster[\"${CLUSTER_LIST[$i]}\"]"
               DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_cluster.cluster[0]"
-              if [ -n "${CLUSTER_LIST[$i]}" ]; then
+              if [ -n "${CLUSTER_LIST[$i]}" ] && [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
                   MOVED_PARAMS+=("$SOURCE, $DESTINATION")
               fi
 
@@ -40,7 +40,9 @@
               if [ -n "$ADDONS_RESOURCE" ]; then
                   ADDONS_SOURCE="${ADDRESS_LIST}.ibm_container_addons.addons[\"${CLUSTER_LIST[$i]}\"]"
                   ADDONS_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_addons.addons"
-                  MOVED_PARAMS+=("$ADDONS_SOURCE, $ADDONS_DESTINATION")
+                  if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
+                    MOVED_PARAMS+=("$ADDONS_SOURCE, $ADDONS_DESTINATION")
+                  fi
               fi
 
               for x in "${!WORKER_POOLS[@]}"; do
@@ -48,7 +50,9 @@
                       pool_name=${WORKER_POOLS[$x]//"${CLUSTER_LIST[$i]}-"/}
                       WORKER_POOL_SOURCE="${ADDRESS_LIST}.ibm_container_vpc_worker_pool.pool[\"${WORKER_POOLS[$x]}\"]"
                       WORKER_POOL_DESTINATION="${ADDRESS_LIST}.module.cluster[\"${CLUSTER_LIST[$i]}\"].ibm_container_vpc_worker_pool.pool[\"$pool_name\"]"
-                      MOVED_PARAMS+=("$WORKER_POOL_SOURCE, $WORKER_POOL_DESTINATION")
+                      if [ -n "$SOURCE" ] && [ -n "$DESTINATION" ] && [ "${CLUSTER_LIST[$i]}" != 0 ]; then
+                        MOVED_PARAMS+=("$WORKER_POOL_SOURCE, $WORKER_POOL_DESTINATION")
+                      fi
                   fi
               done
           done
@@ -65,6 +69,7 @@
     - name: Initiate Commands List
       set_fact:
         commands: []
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Add new JSON Objects to List
       set_fact:
         commands: "{{ commands +
@@ -75,6 +80,7 @@
       loop: "{{ move_list.stdout_lines }}"
       loop_control:
         index_var: count
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Create complete JSON body
       set_fact:
         commands: "{{
@@ -82,6 +88,7 @@
           'operation_name': 'workspace Command',
           'description': 'Executing command'}
           }}"
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
     - name: Run Terraform commands
       uri:
         url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/execute_schematics_commands"
@@ -93,3 +100,4 @@
         body_format: json
         status_code: [200, 202]
       register: result
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
