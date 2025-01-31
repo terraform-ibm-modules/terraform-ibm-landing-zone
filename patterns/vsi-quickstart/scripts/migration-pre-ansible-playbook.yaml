@@ -7,6 +7,7 @@
         project_id: "{{ lookup('env', 'project_id') }}"
         config_id: "{{ lookup('env', 'config_id') }}"
         project_url: "{{ lookup('env', 'project_url') }}"
+        workspace_id: "{{ lookup('env', 'workspace_id') }}"
     - name: Get Statefile
       uri:
         url: "{{ project_url }}/v1/projects/{{ project_id }}/configs/{{ config_id }}/retrieve_schematics_statefile"
@@ -144,4 +145,23 @@
         body_format: json
         status_code: [200, 202]
       register: result
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
+    - name: PRint activity ID
+      debug:
+        msg: "Activity ID: {{ result.stdout }}"
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
+    - name: set activity ID
+      set_fact:
+        activityID: "{{ result.json.activityid }}"
+      when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
+    - name: Poll API until status is completed
+      ansible.builtin.uri:
+        url: "https://schematics.cloud.ibm.com/v1/workspaces/{{ workspace_id }}/actions/{{ activityID }}"
+        method: GET
+        headers:
+          Authorization: "Bearer {{ config_crn_token }}"
+      register: api_response
+      until: "'COMPLETED' in api_response.json.status"
+      retries: 20  # Number of attempts
+      delay: 30  # Delay between attempts (in seconds)
       when: move_list is defined and move_list.stdout is defined and move_list.stdout != ''
