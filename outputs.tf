@@ -348,14 +348,20 @@ output "security_group_data" {
 
 output "service_authorization_names" {
   description = "List of service authorization names"
-  value       = keys(ibm_iam_authorization_policy.policy)
+  value       = concat(keys(ibm_iam_authorization_policy.policy), keys(ibm_iam_authorization_policy.cos_bucket_policy))
 }
 
 output "service_authorization_data" {
   description = "List of service authorization data"
   value = flatten([
-    for policy in ibm_iam_authorization_policy.policy :
-    policy
+    [
+      for policy in ibm_iam_authorization_policy.policy :
+      policy
+    ],
+    [
+      for bucket_policy in ibm_iam_authorization_policy.cos_bucket_policy :
+      bucket_policy
+    ]
   ])
 }
 
