@@ -113,6 +113,7 @@ variable "block_storage_volumes" {
 
 variable "skip_iam_authorization_policy" {
   description = "Set to true to skip the creation of an IAM authorization policy that permits all Storage Blocks to read the encryption key from the KMS instance. If set to false, pass in a value for the KMS instance in the existing_kms_instance_guid variable. In addition, no policy is created if var.kms_encryption_enabled is set to false."
+  type        = bool
   default     = false
 }
 
