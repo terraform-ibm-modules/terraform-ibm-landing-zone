@@ -224,7 +224,7 @@
         },
         {
           "name": "registry_namespace",
-          "value": "ref:/../../inputs/registry_namespace"
+          "value": "ref:../../inputs/registry_namespace"
         },
         {
           "name": "ci_app_repo_clone_from_url",
