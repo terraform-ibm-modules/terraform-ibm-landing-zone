@@ -165,7 +165,11 @@
               "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
               "optional": true,
               "on_by_default": true,
-              "input_mapping": []
+              "input_mapping": [],
+              "ignore_auto_referencing": [
+                "ibmcloud_cos_api_key",
+                "ibmcloud_kms_api_key"
+              ]
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
