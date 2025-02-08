@@ -58,7 +58,7 @@ module "vpc" {
   existing_subnets                       = each.value.existing_subnets
   enable_vpc_flow_logs                   = (each.value.flow_logs_bucket_name != null) ? true : false
   create_authorization_policy_vpc_to_cos = false
-  existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null && time_sleep.wait_for_authorization_policy_buckets.id != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
+  existing_storage_bucket_name           = (each.value.flow_logs_bucket_name != null && try(time_sleep.wait_for_authorization_policy_buckets.id, "IGNORE_ERROR") != null) ? ibm_cos_bucket.buckets[each.value.flow_logs_bucket_name].bucket_name : null
   clean_default_sg_acl                   = (each.value.clean_default_sg_acl == null) ? false : each.value.clean_default_sg_acl
   dns_binding_name                       = each.value.dns_binding_name
   dns_instance_name                      = each.value.dns_instance_name
