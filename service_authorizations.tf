@@ -170,7 +170,7 @@ resource "time_sleep" "wait_for_authorization_policy" {
 
 # This time_sleep is a for_each, and will have one instance per bucket we are creating,
 # and dependent (timer start) on the bucket authorization creations.
-# The triggers serve two purposes: 
+# The triggers serve two purposes:
 #   - the create timer will be used again if the bucket itself is changed (the crn changes)
 #   - if we need to reference any bucket attributes from this sleep directly, to create implicity dependency on this wait
 resource "time_sleep" "wait_for_authorization_policy_buckets" {
