@@ -24,14 +24,11 @@ resource "ibm_atracker_target" "atracker_target" {
   cos_endpoint {
     endpoint                   = "s3.private.${var.region}.cloud-object-storage.appdomain.cloud"
     target_crn                 = local.bucket_to_instance_map[var.atracker.collector_bucket_name].id
-    bucket                     = ibm_cos_bucket.buckets[replace(var.atracker.collector_bucket_name, var.prefix, "")].bucket_name
+    bucket                     = time_sleep.wait_for_authorization_policy_buckets[replace(var.atracker.collector_bucket_name, var.prefix, "")].triggers["bucket_name"]
     service_to_service_enabled = true
   }
   name        = "${var.prefix}-atracker"
   target_type = "cloud_object_storage"
-
-  # Wait for buckets and auth policies to ensure successful provision
-  depends_on = [ibm_cos_bucket.buckets, ibm_iam_authorization_policy.policy, ibm_iam_authorization_policy.cos_bucket_policy]
 }
 
 resource "ibm_atracker_route" "atracker_route" {
