@@ -852,7 +852,7 @@ module "cluster_pattern" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 4.4.0 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.34.0 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.37.3 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 4.4.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
@@ -875,6 +875,7 @@ module "cluster_pattern" {
 | [ibm_container_vpc_worker_pool.pool](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/container_vpc_worker_pool) | resource |
 | [ibm_cos_bucket.buckets](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket) | resource |
 | [ibm_cos_bucket_lifecycle_configuration.cos_bucket_lifecycle](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket_lifecycle_configuration) | resource |
+| [ibm_iam_authorization_policy.cos_bucket_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
 | [ibm_iam_authorization_policy.policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
 | [ibm_is_placement_group.placement_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_placement_group) | resource |
 | [ibm_is_security_group.security_group](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group) | resource |
@@ -897,6 +898,7 @@ module "cluster_pattern" {
 | [time_sleep.wait_30_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.wait_for_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.wait_for_cos_bucket_lifecycle](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_authorization_policy_buckets](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [time_sleep.wait_for_vpc_creation_data](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ibm_container_addons.existing_addons](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_addons) | data source |
 | [ibm_container_cluster_versions.cluster_versions](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_versions) | data source |
