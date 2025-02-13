@@ -140,7 +140,7 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
 
   depends_on = [time_sleep.wait_for_cos_bucket_lifecycle]
 
-  bucket_crn      = ibm_cos_bucket.buckets[each.value].crn
+  bucket_crn      = ibm_cos_bucket.buckets[each.key].crn
   bucket_location = compact([var.region, each.value.cross_region_location, each.value.single_site_location])[0]
 
   dynamic "lifecycle_rule" {
