@@ -86,6 +86,18 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "resource_tags"
+            },
+            {
+              "key": "ssh_key"
             }
           ],
           "iam_permissions": [
@@ -411,6 +423,66 @@
             {
               "hidden": true,
               "key": "template_source"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID"
+            },
+            {
+              "key": "add_atracker_route"
+            },
+            {
+              "key": "enable_transit_gateway"
+            },
+            {
+              "key": "existing_ssh_key_name"
+            },
+            {
+              "key": "existing_vpc_cbr_zone_id"
+            },
+            {
+              "key": "hs_crypto_instance_name"
+            },
+            {
+              "key": "hs_crypto_resource_group"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "network_cidr"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "skip_all_s2s_auth_policies"
+            },
+            {
+              "key": "skip_kms_block_storage_s2s_auth_policy"
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "transit_gateway_global"
+            },
+            {
+              "key": "use_legacy_network_interface"
+            },
+            {
+              "key": "use_random_cos_suffix"
+            },
+            {
+              "key": "vpcs"
+            },
+            {
+              "key": "vsi_image_name"
+            },
+            {
+              "key": "vsi_instance_profile"
+            },
+            {
+              "key": "vsi_per_subnet"
             }
           ],
           "iam_permissions": [
@@ -560,6 +632,66 @@
               },
               "key": "region",
               "required": true
+            },
+            {
+              "key": "access_tags"
+            },
+            {
+              "key": "block_storage_volumes"
+            },
+            {
+              "key": "boot_volume_encryption_key"
+            },
+            {
+              "key": "enable_floating_ip"
+            },
+            {
+              "key": "existing_ssh_key_name"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "image_name"
+            },
+            {
+              "key": "load_balancers"
+            },
+            {
+              "key": "placement_group_id"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "primary_vni_additional_ip_count"
+            },
+            {
+              "key": "resource_tags"
+            },
+            {
+              "key": "security_group_ids"
+            },
+            {
+              "key": "skip_iam_authorization_policy"
+            },
+            {
+              "key": "subnet_names"
+            },
+            {
+              "key": "use_legacy_network_interface"
+            },
+            {
+              "key": "user_data"
+            },
+            {
+              "key": "vpc_id"
+            },
+            {
+              "key": "vsi_instance_profile"
+            },
+            {
+              "key": "vsi_per_subnet"
             }
           ],
           "iam_permissions": [
@@ -871,6 +1003,51 @@
             {
               "key": "override",
               "hidden": true
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID"
+            },
+            {
+              "key": "add_atracker_route"
+            },
+            {
+              "key": "enable_transit_gateway"
+            },
+            {
+              "key": "existing_vpc_cbr_zone_id"
+            },
+            {
+              "key": "hs_crypto_instance_name"
+            },
+            {
+              "key": "hs_crypto_resource_group"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "network_cidr"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "skip_all_s2s_auth_policies"
+            },
+            {
+              "key": "skip_kms_block_storage_s2s_auth_policy"
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "transit_gateway_global"
+            },
+            {
+              "key": "use_random_cos_suffix"
+            },
+            {
+              "key": "vpcs"
             }
           ],
           "iam_permissions": [
@@ -1039,6 +1216,24 @@
               "key": "region",
               "required": true,
               "type": "string"
+            },
+            {
+              "key": "entitlement"
+            },
+            {
+              "key": "flavor"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "kube_version"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "resource_tags"
             }
           ],
           "iam_permissions": [
@@ -1368,6 +1563,114 @@
             {
               "hidden": true,
               "key": "template_source"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID"
+            },
+            {
+              "key": "add_atracker_route"
+            },
+            {
+              "key": "cluster_addons"
+            },
+            {
+              "key": "cluster_force_delete_storage"
+            },
+            {
+              "key": "disable_outbound_traffic_protection"
+            },
+            {
+              "key": "enable_transit_gateway"
+            },
+            {
+              "key": "entitlement"
+            },
+            {
+              "key": "existing_cos_endpoint_type"
+            },
+            {
+              "key": "existing_cos_instance_name"
+            },
+            {
+              "key": "existing_cos_resource_group"
+            },
+            {
+              "key": "existing_kms_endpoint_type"
+            },
+            {
+              "key": "existing_kms_instance_name"
+            },
+            {
+              "key": "existing_kms_resource_group"
+            },
+            {
+              "key": "existing_vpc_cbr_zone_id"
+            },
+            {
+              "key": "flavor"
+            },
+            {
+              "key": "hs_crypto_instance_name"
+            },
+            {
+              "key": "hs_crypto_resource_group"
+            },
+            {
+              "key": "ibmcloud_api_key"
+            },
+            {
+              "key": "ignore_vpcs_for_cluster_deployment"
+            },
+            {
+              "key": "kms_wait_for_apply"
+            },
+            {
+              "key": "manage_all_cluster_addons"
+            },
+            {
+              "key": "network_cidr"
+            },
+            {
+              "key": "operating_system"
+            },
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "secondary_storage"
+            },
+            {
+              "key": "skip_all_s2s_auth_policies"
+            },
+            {
+              "key": "skip_kms_block_storage_s2s_auth_policy"
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "transit_gateway_global"
+            },
+            {
+              "key": "use_existing_cos_for_atracker"
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs"
+            },
+            {
+              "key": "use_ibm_cloud_private_api_endpoints"
+            },
+            {
+              "key": "use_random_cos_suffix"
+            },
+            {
+              "key": "verify_cluster_network_readiness"
+            },
+            {
+              "key": "vpcs"
+            },
+            {
+              "key": "wait_till"
             }
           ],
           "iam_permissions": [
