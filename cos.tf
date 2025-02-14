@@ -136,7 +136,13 @@ resource "time_sleep" "wait_for_cos_bucket_lifecycle" {
 }
 
 resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
-  for_each = local.buckets_map
+  for_each = {
+    for key, value in local.buckets_map :
+    key => value if(
+      (value.expire_rule != null && value.expire_rule.days != null) ||
+      (value.archive_rule != null && value.archive_rule.days != null)
+    )
+  }
 
   depends_on = [time_sleep.wait_for_cos_bucket_lifecycle]
 
