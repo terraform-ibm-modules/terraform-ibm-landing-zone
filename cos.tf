@@ -139,8 +139,8 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
   for_each = {
     for key, value in local.buckets_map :
     key => value if(
-      (value.expire_rule != null && value.expire_rule.days != null) ||
-      (value.archive_rule != null && value.archive_rule.days != null)
+      (value.expire_rule != null && value.expire_rule.enable) ||
+      (value.archive_rule != null && value.archive_rule.enable)
     )
   }
 
@@ -153,7 +153,7 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
     ## This for_each block is NOT a loop to attach to multiple expiration blocks.
     ## This block is only used to conditionally add expiration block depending on expire rule is enabled.
     for_each = (
-      each.value.expire_rule == null
+      each.value.expire_rule == null || (each.value.expire_rule != null && !each.value.expire_rule.enable)
       ? []
       : [each.value.expire_rule]
     )
@@ -172,7 +172,7 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
     ## This for_each block is NOT a loop to attach to multiple transition blocks.
     ## This block is only used to conditionally add retention block depending on archive rule is enabled.
     for_each = (
-      each.value.archive_rule == null
+      each.value.archive_rule == null || (each.value.archive_rule != null && !each.value.archive_rule.enable)
       ? []
       : [each.value.archive_rule]
     )
