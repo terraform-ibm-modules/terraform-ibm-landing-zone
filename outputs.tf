@@ -254,6 +254,10 @@ output "vpc_dns" {
     {
       dns_instance_id        = vpc.dns_instance_id
       dns_custom_resolver_id = vpc.dns_custom_resolver_id
+      dns_zone_state         = vpc.dns_zone_state
+      dns_zone_id            = vpc.dns_zone_id
+      dns_zone               = vpc.dns_zone
+      dns_record_ids         = vpc.dns_record_ids
     }
   ]
 }
