@@ -98,38 +98,6 @@ resource "ibm_cos_bucket" "buckets" {
     key.crn if key.name == each.value.kms_key
   ][0]
 
-  dynamic "expire_rule" {
-    for_each = (
-      each.value.expire_rule == null
-      ? []
-      : [each.value.expire_rule]
-    )
-
-    content {
-      days                         = expire_rule.value.days
-      date                         = expire_rule.value.date
-      enable                       = expire_rule.value.enable
-      expired_object_delete_marker = expire_rule.value.expired_object_delete_marker
-      prefix                       = expire_rule.value.prefix
-      rule_id                      = expire_rule.value.rule_id
-    }
-  }
-
-  dynamic "archive_rule" {
-    for_each = (
-      each.value.archive_rule == null
-      ? []
-      : [each.value.archive_rule]
-    )
-
-    content {
-      days    = archive_rule.value.days
-      enable  = archive_rule.value.enable
-      rule_id = archive_rule.value.rule_id
-      type    = archive_rule.value.type
-    }
-  }
-
   dynamic "activity_tracking" {
     for_each = (
       each.value.activity_tracking == null
@@ -156,6 +124,69 @@ resource "ibm_cos_bucket" "buckets" {
       metrics_monitoring_crn  = metrics_monitoring.value.metrics_monitoring_crn
       request_metrics_enabled = metrics_monitoring.value.request_metrics_enabled
       usage_metrics_enabled   = metrics_monitoring.value.usage_metrics_enabled
+    }
+  }
+}
+
+resource "time_sleep" "wait_for_cos_bucket_lifecycle" {
+  count = length(local.buckets_map) > 0 ? 1 : 0
+
+  # workaround for https://github.com/IBM-Cloud/terraform-provider-ibm/issues/5778
+  create_duration = "90s"
+}
+
+resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
+  for_each = {
+    for key, value in local.buckets_map :
+    key => value if(
+      value.expire_rule != null || value.archive_rule != null
+    )
+  }
+
+  depends_on = [time_sleep.wait_for_cos_bucket_lifecycle]
+
+  bucket_crn      = ibm_cos_bucket.buckets[each.key].crn
+  bucket_location = compact([var.region, each.value.cross_region_location, each.value.single_site_location])[0]
+
+  dynamic "lifecycle_rule" {
+    ## This for_each block is NOT a loop to attach to multiple expiration blocks.
+    ## This block is only used to conditionally add expiration block depending on expire rule is enabled.
+    for_each = (
+      each.value.expire_rule == null
+      ? []
+      : [each.value.expire_rule]
+    )
+    content {
+      expiration {
+        days = expire_rule.value.days
+      }
+      filter {
+        prefix = expire_rule.value.expire_filter_prefix != null ? expire_rule.value.expire_filter_prefix : ""
+      }
+      rule_id = "expiry-rule"
+      status  = "enable"
+    }
+  }
+  dynamic "lifecycle_rule" {
+    ## This for_each block is NOT a loop to attach to multiple transition blocks.
+    ## This block is only used to conditionally add retention block depending on archive rule is enabled.
+    for_each = (
+      each.value.archive_rule == null
+      ? []
+      : [each.value.archive_rule]
+    )
+    content {
+      transition {
+        days = archive_rule.value.days
+        ## The new values changed from Capatalized to all Upper case, avoid having to change values in new release
+        storage_class = upper(each.value.archive_type)
+
+      }
+      filter {
+        prefix = archive_rule.value.archive_filter_prefix != null ? archive_rule.value.archive_filter_prefix : ""
+      }
+      rule_id = "archive-rule"
+      status  = "enable"
     }
   }
 }
