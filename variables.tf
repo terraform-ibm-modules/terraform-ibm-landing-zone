@@ -554,13 +554,15 @@ variable "cos" {
         allowed_ip            = optional(list(string), [])
         hard_quota            = optional(number)
         archive_rule = optional(object({
-          days    = number
-          enable  = bool
-          rule_id = optional(string)
-          type    = string
+          days                  = number
+          archive_filter_prefix = optional(string)
+          enable                = bool
+          rule_id               = optional(string)
+          type                  = string
         }))
         expire_rule = optional(object({
           days                         = optional(number)
+          expire_filter_prefix         = optional(string)
           date                         = optional(string)
           enable                       = bool
           expired_object_delete_marker = optional(string)
