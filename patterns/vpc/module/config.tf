@@ -83,20 +83,9 @@ locals {
     ##############################################################################
     # VPE
     ##############################################################################
-    virtual_private_endpoints = [{
-      service_name   = "cos"
-      service_type   = "cloud-object-storage"
-      resource_group = "${var.prefix}-service-rg"
-      vpcs = [
-        # Create VPE for each VPC in VPE tier
-        for network in module.dynamic_values.vpc_list :
-        {
-          name                = network
-          subnets             = ["vpe-zone-1", "vpe-zone-2", "vpe-zone-3"]
-          security_group_name = "${network}-vpe-sg"
-        }
-      ]
-    }]
+    # By default, do not create any VPEs
+    virtual_private_endpoints = []
+
     ##############################################################################
 
     ##############################################################################
