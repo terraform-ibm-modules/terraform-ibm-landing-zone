@@ -109,7 +109,19 @@
           "force_delete": true,
           "kms_key": "slz-atracker-key",
           "name": "atracker-bucket",
-          "storage_class": "standard"
+          "storage_class": "standard",
+          "expire_rule": {
+            "rule_id": "a-bucket-expire-rule",
+            "enable": true,
+            "days": 30,
+            "prefix": "logs/"
+        },
+        "archive_rule": {
+            "rule_id": "a-bucket-arch-rule",
+            "enable": true,
+            "days": 0,
+            "type": "Glacier"
+        }
         }
       ],
       "keys": [
