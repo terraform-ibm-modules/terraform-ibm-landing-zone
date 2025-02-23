@@ -7,7 +7,7 @@ toolchain go1.24.0
 require (
 	github.com/gruntwork-io/terratest v0.48.2
 	github.com/stretchr/testify v1.10.0
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.46.1
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.46.2
 )
 
 require github.com/IBM/schematics-go-sdk v0.4.0 // indirect
