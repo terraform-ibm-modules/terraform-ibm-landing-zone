@@ -1,6 +1,0 @@
-- name: migration pre playbook
-  hosts: localhost
-  tasks:
-    - name: Print message
-      debug:
-        msg: No migration needed.
