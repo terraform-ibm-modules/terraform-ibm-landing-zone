@@ -21,7 +21,6 @@
             "operating_system": "REDHAT_8_64",
             "use_ibm_cloud_private_api_endpoints": false,
             "verify_cluster_network_readiness": false,
-            "import_default_worker_pool_on_create": false,
             "kms_config": {
                 "crk_name": "slz-key",
                 "private_endpoint": true
