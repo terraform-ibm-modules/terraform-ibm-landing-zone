@@ -843,7 +843,7 @@ module "cluster_pattern" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.70.0, < 2.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.71.0, < 2.0.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3, < 4.0.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1, < 1.0.0 |
 
