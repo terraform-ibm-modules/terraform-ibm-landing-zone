@@ -73,17 +73,31 @@ variable "vpcs" {
           })
         )
       )
-      resource_group                    = optional(string) # Name of the group where VPC will be created
-      access_tags                       = optional(list(string), [])
-      classic_access                    = optional(bool)
-      default_network_acl_name          = optional(string)
-      default_security_group_name       = optional(string)
-      clean_default_sg_acl              = optional(bool, false)
-      dns_binding_name                  = optional(string, null)
-      dns_instance_name                 = optional(string, null)
-      dns_custom_resolver_name          = optional(string, null)
-      dns_location                      = optional(string, "global")
-      dns_plan                          = optional(string, "standard-dns")
+      resource_group              = optional(string) # Name of the group where VPC will be created
+      access_tags                 = optional(list(string), [])
+      default_network_acl_name    = optional(string)
+      default_security_group_name = optional(string)
+      clean_default_sg_acl        = optional(bool, false)
+      dns_binding_name            = optional(string, null)
+      dns_instance_name           = optional(string, null)
+      dns_custom_resolver_name    = optional(string, null)
+      dns_location                = optional(string, "global")
+      dns_plan                    = optional(string, "standard-dns")
+      dns_zone_name               = optional(string, null)
+      dns_zone_description        = optional(string, null)
+      dns_zone_label              = optional(string, null)
+      dns_records = optional(list(object({
+        name       = string
+        type       = string
+        ttl        = number
+        rdata      = string
+        preference = optional(number, null)
+        service    = optional(string, null)
+        protocol   = optional(string, null)
+        priority   = optional(number, null)
+        weight     = optional(number, null)
+        port       = optional(number, null)
+      })), [])
       existing_dns_instance_id          = optional(string, null)
       use_existing_dns_instance         = optional(bool, false)
       enable_hub                        = optional(bool, false)
