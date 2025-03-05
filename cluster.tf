@@ -244,7 +244,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version            = "3.41.3"
+  version            = "3.41.5"
   resource_group_id  = local.resource_groups[each.value.resource_group]
   region             = var.region
   cluster_name       = each.value.cluster_name
