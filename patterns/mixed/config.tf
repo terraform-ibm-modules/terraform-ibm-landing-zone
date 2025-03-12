@@ -111,19 +111,18 @@ locals {
           crk_name         = "${var.prefix}-roks-key"
           private_endpoint = true
         }
-        workers_per_subnet                   = var.workers_per_zone
-        machine_type                         = var.flavor
-        kube_type                            = "openshift"
-        kube_version                         = var.kube_version
-        resource_group                       = "${var.prefix}-${var.vpcs[1]}-rg"
-        cos_name                             = "cos"
-        entitlement                          = var.entitlement
-        secondary_storage                    = var.secondary_storage
-        use_private_endpoint                 = var.use_private_endpoint
-        operating_system                     = "REDHAT_8_64"
-        verify_worker_network_readiness      = var.verify_worker_network_readiness
-        boot_volume_crk_name                 = "${var.prefix}-roks-key"
-        import_default_worker_pool_on_create = false
+        workers_per_subnet              = var.workers_per_zone
+        machine_type                    = var.flavor
+        kube_type                       = "openshift"
+        kube_version                    = var.kube_version
+        resource_group                  = "${var.prefix}-${var.vpcs[1]}-rg"
+        cos_name                        = "cos"
+        entitlement                     = var.entitlement
+        secondary_storage               = var.secondary_storage
+        use_private_endpoint            = var.use_private_endpoint
+        operating_system                = "REDHAT_8_64"
+        verify_worker_network_readiness = var.verify_worker_network_readiness
+        boot_volume_crk_name            = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
         worker_pools = [
           {

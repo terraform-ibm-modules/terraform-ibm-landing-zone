@@ -49,7 +49,6 @@ locals {
          "workers_per_subnet": 1,
          "entitlement": ${local.entitlement_val},
          "disable_public_endpoint": false,
-         "import_default_worker_pool_on_create" : false,
          "use_ibm_cloud_private_api_endpoints": false
       }
    ],
