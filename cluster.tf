@@ -298,6 +298,7 @@ module "cluster" {
   verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
   use_private_endpoint                  = each.value.use_ibm_cloud_private_api_endpoints
   addons                                = each.value.addons
+  enable_ocp_console                    = each.value.enable_ocp_console
   manage_all_addons                     = each.value.manage_all_addons
   disable_outbound_traffic_protection   = each.value.disable_outbound_traffic_protection
   kms_config = each.value.kms_config == null ? {} : {

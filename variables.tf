@@ -889,6 +889,7 @@ variable "clusters" {
       use_ibm_cloud_private_api_endpoints   = optional(bool, true)  # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.
       allow_default_worker_pool_replacement = optional(bool)        # (Advanced users) Set to true to allow the module to recreate a default worker pool. If you wish to make any change to the default worker pool which requires the re-creation of the default pool follow these [steps](https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#important-considerations-for-terraform-and-default-worker-pool).
       labels                                = optional(map(string)) # A list of labels that you want to add to the default worker pool.
+      enable_ocp_console                    = optional(bool, false) # Flag to specify whether to enable or disable the OpenShift console.
       addons = optional(object({                                    # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
