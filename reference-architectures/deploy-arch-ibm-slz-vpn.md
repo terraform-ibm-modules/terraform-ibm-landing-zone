@@ -1,5 +1,4 @@
 ---
-
 copyright:
   years: 2025
 lastupdated: "2025-03-05"
@@ -63,11 +62,6 @@ This deployable architecture pattern configures client-to-site VPN secure and en
 
 ![Design requirements for VPN on management VPC landing zone](heat-map-deploy-arch-slz-vpn "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
 
-<!--
-TODO: Add the typical use case for the architecture.
-The use case might include the motivation for the architecture composition,
-business challenge, or target cloud environments.
--->
 ## Components
 {: #ra-vpn-components}
 
@@ -86,13 +80,6 @@ business challenge, or target cloud environments.
 | Create two subnets to achieve high availability | VPC | Distributing resources across two subnets allows for load balancing between them, ensuring that no single point of failure affects the performance or availability of client-to-site VPN | |
 | * Create connection to isolated existing management VPC and allow only a limited number of network connections  \n * All other connections from or to existing management VPC are forbidden | ACL and security group rules in client-to-site VPN| | More ports might be opened in preset or added manually after deployment |
 {: caption="Table 2. Network security architecture decisions" caption-side="bottom"}
-
-<!--
-## Compliance
-{: #ra-vpn-ext-compliance}
-
-_Optional section._ Feedback from users implies that architects want only the high-level compliance items and links off to control details that team members can review. Include the list of control profiles or compliance audits that this architecture meets. For controls, provide "learn more" links to the control library that is published in the IBM Cloud Docs. For audits, provide information about the compliance item.
--->
 
 ## Next steps
 {: #ra-vpn-ext-next-steps}
