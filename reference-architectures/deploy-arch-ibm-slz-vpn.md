@@ -51,7 +51,7 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="2.1.0"}
 
-This deployable architecture pattern configures client-to-site VPN secure and encrypted server connectivity within an existing management VPC using only a few required inputs. Once deployed, you can install an OpenVPN client application on the devices you wish to use for VPN access, and import a profile from the VPN server. The configuration also allows you to specify a list of users who will have access to the private network, with access control managed by IBM Cloud IAM.
+This deployable architecture pattern configures client-to-site VPN secure and encrypted server connectivity within an existing management VPC using only a few required inputs. After it's been deployed, you can install an OpenVPN client application on the devices that you wish to use for VPN access, and import a profile from the VPN server. The configuration also allows you to specify a list of users that can have access to the private network, with access control managed by IBM Cloud Identity and Access Management.
 
 ## Architecture diagram
 {: #ra-vpn-ext-architecture-diagram}
