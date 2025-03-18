@@ -43,7 +43,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Cloud automation for Client to Site VPN
+# Cloud automation for Client-to-Site VPN
 {: #vpn-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
