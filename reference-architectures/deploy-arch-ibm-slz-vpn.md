@@ -31,7 +31,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-client-to-s
 related_links:
   - title: "VPC landing zone - Standard variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
-    description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
+    description: "A deployable architecture that is based on the IBM Cloud for Financial Services Framework reference and that provides virtual servers in a secure VPC for your workloads."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
