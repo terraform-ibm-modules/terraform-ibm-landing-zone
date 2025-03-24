@@ -244,7 +244,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version            = "3.37.3"
+  version            = "3.41.7"
   resource_group_id  = local.resource_groups[each.value.resource_group]
   region             = var.region
   cluster_name       = each.value.cluster_name
@@ -290,7 +290,6 @@ module "cluster" {
   )
   force_delete_storage                  = each.value.cluster_force_delete_storage
   ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
-  import_default_worker_pool_on_create  = each.value.import_default_worker_pool_on_create
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement
   tags                                  = var.tags
   use_existing_cos                      = true
@@ -299,6 +298,7 @@ module "cluster" {
   verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
   use_private_endpoint                  = each.value.use_ibm_cloud_private_api_endpoints
   addons                                = each.value.addons
+  enable_ocp_console                    = each.value.enable_ocp_console
   manage_all_addons                     = each.value.manage_all_addons
   disable_outbound_traffic_protection   = each.value.disable_outbound_traffic_protection
   kms_config = each.value.kms_config == null ? {} : {
