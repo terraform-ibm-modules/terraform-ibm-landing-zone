@@ -1,6 +1,6 @@
 module github.com/terraform-ibm-modules/terraform-ibm-landing-zone
 
-go 1.23.0
+go 1.23.4
 
 toolchain go1.24.1
 
