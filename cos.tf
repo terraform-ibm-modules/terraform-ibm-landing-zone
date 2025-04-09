@@ -147,6 +147,7 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
 
   bucket_crn      = ibm_cos_bucket.buckets[each.key].crn
   bucket_location = compact([var.region, each.value.cross_region_location, each.value.single_site_location])[0]
+  endpoint_type   = coalesce(each.value.endpoint_type, "public")
 
   dynamic "lifecycle_rule" {
     ## This for_each block is NOT a loop to attach to multiple expiration blocks.
@@ -158,10 +159,10 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
     )
     content {
       expiration {
-        days = expire_rule.value.days
+        days = lookup(lifecycle_rule.value, "days", null)
       }
       filter {
-        prefix = expire_rule.value.expire_filter_prefix != null ? expire_rule.value.expire_filter_prefix : ""
+        prefix = lookup(lifecycle_rule.value, "expire_filter_prefix", "")
       }
       rule_id = "expiry-rule"
       status  = "enable"
@@ -177,13 +178,13 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
     )
     content {
       transition {
-        days = archive_rule.value.days
-        ## The new values changed from Capatalized to all Upper case, avoid having to change values in new release
-        storage_class = upper(each.value.archive_type)
+        days = lookup(lifecycle_rule.value, "days", null)
 
+        ## The new values changed from Capatalized to all Upper case, avoid having to change values in new release
+        storage_class = upper(lookup(lifecycle_rule.value, "type", ""))
       }
       filter {
-        prefix = archive_rule.value.archive_filter_prefix != null ? archive_rule.value.archive_filter_prefix : ""
+        prefix = lookup(lifecycle_rule.value, "archive_filter_prefix", "")
       }
       rule_id = "archive-rule"
       status  = "enable"

@@ -109,7 +109,19 @@
           "force_delete": true,
           "kms_key": "slz-atracker-key",
           "name": "atracker-bucket",
-          "storage_class": "standard"
+          "storage_class": "standard",
+          "expire_rule": {
+            "rule_id": "a-bucket-expire-rule",
+            "enable": true,
+            "days": 30,
+            "prefix": "logs/"
+        },
+        "archive_rule": {
+            "rule_id": "a-bucket-arch-rule",
+            "enable": true,
+            "days": 0,
+            "type": "Glacier"
+        }
         }
       ],
       "keys": [
@@ -392,7 +404,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-2-minimal-amd64-1",
       "machine_type": "cx2-2x4",
       "name": "jump-box",
       "resource_group": "slz-management-rg",
@@ -426,7 +438,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-2-minimal-amd64-1",
       "machine_type": "cx2-2x4",
       "name": "private-svs",
       "resource_group": "slz-workload-rg",
@@ -460,7 +472,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-6-minimal-amd64-2",
+      "image_name": "ibm-ubuntu-24-04-2-minimal-amd64-1",
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",
