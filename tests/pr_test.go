@@ -443,9 +443,9 @@ func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existi
 		fmt.Println(err)
 		return nil
 	}
-	// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management-vpc"
+	// Loop through the vpcs and find the vpc_id when vpc_name is "<prefix>-management"
 	for _, vpc := range vpcs {
-		if vpc.VpcName == fmt.Sprintf("%s-management-vpc", prefix) {
+		if vpc.VpcName == fmt.Sprintf("%s-management", prefix) {
 			managementVpcID = vpc.VpcID
 		}
 	}
