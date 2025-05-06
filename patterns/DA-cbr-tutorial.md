@@ -36,10 +36,12 @@ For more information, see [Assigning users access to projects](https://cloud.ibm
 To access the CBR VPC Zone ID, which becomes available as an output after the Account Base DA deployment completes -
 
 1. Navigate to Account Infrastructure Base deployment and select the configuration as shown in the reference image below.
-![Projects Account Infrastructure Base Deployment](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-deployed.png)
+
+   ![Projects Account Infrastructure Base Deployment](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-deployed.png)
 
 2. In the outputs section, locate the output variable named `cbr_map_vpc_zoneid` and copy the `zone_id` value as illustrated below.
-![Projects Account Infrastructure Base Deployment CBR Zone VPC ID Output](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-cbr-vpc-zone-id.png)
+
+   ![Projects Account Infrastructure Base Deployment CBR Zone VPC ID Output](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-cbr-vpc-zone-id.png)
 
 ## Step 3:  Configure Landing Zone with the CBR Zone ID
 
@@ -53,9 +55,11 @@ To properly configure landing zone with the retrieved CBR Zone ID -
 2. Configure the required variables present under **security**, **required** and **optional** sections.
 
 3. Within the **optional** section, locate the field labeled `existing_vpc_cbr_zone_id` and paste the `zone_id` value copied in step 2, as shown below.
-![Adding CBR VPC Zone ID](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/existing_vpc_cbr_zone_id.png)
+
+   ![Adding CBR VPC Zone ID](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/existing_vpc_cbr_zone_id.png)
 
 4. Click on deploy.
 
 5. Once deployed, CBR VPC zone will contain the required VPCs IDs as shown below.
-![CBR VPC zone containing required VPC IDs](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/cbr-vpc-zone.png)
+
+   ![CBR VPC zone containing required VPC IDs](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/cbr-vpc-zone.png)
