@@ -33,13 +33,13 @@ For more information, see [Assigning users access to projects](https://cloud.ibm
 
 ## Step 2: Retrieve the CBR VPC Zone ID
 
-To access the CBR VPC Zone ID, which becomes available as an output after the Account Base DA deployment completes -
+To access the **CBR VPC Zone ID**, which becomes available as an output after the Account Base DA deployment completes -
 
-1. Navigate to Account Infrastructure Base deployment and select the configuration as shown in the reference image below.
+1. Navigate to **Account Infrastructure Base** deployment and select the configuration as shown in the reference image below.
 
    ![Projects Account Infrastructure Base Deployment](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-deployed.png)
 
-2. In the outputs section, locate the output variable named `cbr_map_vpc_zoneid` and copy the `zone_id` value as illustrated below.
+2. In the **outputs** section, locate the output variable named `cbr_map_vpc_zoneid` and copy the `zone_id` value as illustrated below.
 
    ![Projects Account Infrastructure Base Deployment CBR Zone VPC ID Output](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/fix-cbr-docs/reference-architectures/infra-base-cbr-vpc-zone-id.png)
 
