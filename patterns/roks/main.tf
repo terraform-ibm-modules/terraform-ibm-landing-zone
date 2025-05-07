@@ -68,9 +68,9 @@ module "roks_landing_zone" {
   license_sku_keyword_1                  = var.license_sku_keyword_1
   license_sku_keyword_2                  = var.license_sku_keyword_2
   license_unit_of_measure                = var.license_unit_of_measure
-  do_declaration_url                     = var.do_declaration_url
-  as3_declaration_url                    = var.as3_declaration_url
-  ts_declaration_url                     = var.ts_declaration_url
+  do_declaration_url                     = var.f5_declarative_onboarding_declaration_url
+  as3_declaration_url                    = var.f5_appsvcs_extension_declaration_url
+  ts_declaration_url                     = var.f5_telemetry_streaming_declaration_url
   phone_home_url                         = var.phone_home_url
   template_source                        = var.template_source
   template_version                       = var.template_version
@@ -78,8 +78,8 @@ module "roks_landing_zone" {
   tgactive_url                           = var.tgactive_url
   tgstandby_url                          = var.tgstandby_url
   tgrefresh_url                          = var.tgrefresh_url
-  enable_f5_management_fip               = var.enable_f5_management_fip
-  enable_f5_external_fip                 = var.enable_f5_external_fip
+  enable_f5_management_fip               = var.enable_f5_management_interface_floating_ip
+  enable_f5_external_fip                 = var.enable_f5_external_interface_floating_ip
   use_existing_appid                     = var.use_existing_appid
   appid_name                             = var.appid_name
   appid_resource_group                   = var.appid_resource_group
