@@ -94,7 +94,14 @@
               "key": "prefix"
             },
             {
-              "key": "resource_tags"
+              "key": "resource_tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "ssh_key"
@@ -237,7 +244,14 @@
               "key": "existing_ssh_key_name"
             },
             {
-              "key": "tags"
+              "key": "tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "network_cidr"
@@ -646,10 +660,24 @@
               "key": "existing_ssh_key_name"
             },
             {
-              "key": "resource_tags"
+              "key": "resource_tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
-              "key": "access_tags"
+              "key": "access_tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "image_name"
@@ -819,7 +847,14 @@
               "key": "prefix"
             },
             {
-              "key": "tags"
+              "key": "tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "network_cidr"
@@ -1224,7 +1259,14 @@
               "key": "prefix"
             },
             {
-              "key": "resource_tags"
+              "key": "resource_tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "kube_version"
@@ -1368,7 +1410,14 @@
               "key": "prefix"
             },
             {
-              "key": "tags"
+              "key": "tags",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "config_constraints": {
+                      "type": "string"
+                  }
+              }
             },
             {
               "key": "network_cidr"
