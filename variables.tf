@@ -1374,7 +1374,7 @@ variable "skip_all_s2s_auth_policies" {
 ##############################################################################
 variable "existing_vpc_cbr_zone_id" {
   type        = string
-  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/DA-cbr-tutorial.md)."
   default     = null
 }
 
