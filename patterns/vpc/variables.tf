@@ -264,19 +264,19 @@ variable "license_unit_of_measure" {
   default     = "hourly"
 }
 
-variable "f5_declarative_onboarding_declaration_url" {
+variable "do_declaration_url" {
   description = "URL to fetch the f5-declarative-onboarding declaration"
   type        = string
   default     = "null"
 }
 
-variable "f5_appsvcs_extension_declaration_url" {
+variable "as3_declaration_url" {
   description = "URL to fetch the f5-appsvcs-extension declaration"
   type        = string
   default     = "null"
 }
 
-variable "f5_telemetry_streaming_declaration_url" {
+variable "ts_declaration_url" {
   description = "URL to fetch the f5-telemetry-streaming declaration"
   type        = string
   default     = "null"
@@ -324,13 +324,13 @@ variable "tgrefresh_url" {
   default     = "null"
 }
 
-variable "enable_f5_management_interface_floating_ip" {
+variable "enable_f5_management_fip" {
   description = "Enable F5 management interface floating IP. Conflicts with `enable_f5_external_fip`, VSI can only have one floating IP per instance."
   type        = bool
   default     = false
 }
 
-variable "enable_f5_external_interface_floating_ip" {
+variable "enable_f5_external_fip" {
   description = "Enable F5 external interface floating IP. Conflicts with `enable_f5_management_fip`, VSI can only have one floating IP per instance."
   type        = bool
   default     = false

@@ -372,15 +372,15 @@
             },
             {
               "hidden": true,
-              "key": "f5_declarative_onboarding_declaration_url"
+              "key": "do_declaration_url"
             },
             {
               "hidden": true,
-              "key": "f5_telemetry_streaming_declaration_url"
+              "key": "ts_declaration_url"
             },
             {
               "hidden": true,
-              "key": "f5_appsvcs_extension_declaration_url"
+              "key": "as3_declaration_url"
             },
             {
               "hidden": true,
@@ -412,11 +412,11 @@
             },
             {
               "hidden": true,
-              "key": "enable_f5_management_interface_floating_ip"
+              "key": "enable_f5_management_fip"
             },
             {
               "hidden": true,
-              "key": "enable_f5_external_interface_floating_ip"
+              "key": "enable_f5_external_fip"
             },
             {
               "hidden": true,
@@ -957,15 +957,15 @@
               "hidden": true
             },
             {
-              "key": "f5_declarative_onboarding_declaration_url",
+              "key": "do_declaration_url",
               "hidden": true
             },
             {
-              "key": "f5_appsvcs_extension_declaration_url",
+              "key": "as3_declaration_url",
               "hidden": true
             },
             {
-              "key": "f5_telemetry_streaming_declaration_url",
+              "key": "ts_declaration_url",
               "hidden": true
             },
             {
@@ -997,11 +997,11 @@
               "hidden": true
             },
             {
-              "key": "enable_f5_management_interface_floating_ip",
+              "key": "enable_f5_management_fip",
               "hidden": true
             },
             {
-              "key": "enable_f5_external_interface_floating_ip",
+              "key": "enable_f5_external_fip",
               "hidden": true
             },
             {
@@ -1595,15 +1595,15 @@
             },
             {
               "hidden": true,
-              "key": "f5_declarative_onboarding_declaration_url"
+              "key": "do_declaration_url"
             },
             {
               "hidden": true,
-              "key": "f5_appsvcs_extension_declaration_url"
+              "key": "as3_declaration_url"
             },
             {
               "hidden": true,
-              "key": "f5_telemetry_streaming_declaration_url"
+              "key": "ts_declaration_url"
             },
             {
               "key": "phone_home_url",
@@ -1635,11 +1635,11 @@
             },
             {
               "hidden": true,
-              "key": "enable_f5_management_interface_floating_ip"
+              "key": "enable_f5_management_fip"
             },
             {
               "hidden": true,
-              "key": "enable_f5_external_interface_floating_ip"
+              "key": "enable_f5_external_fip"
             },
             {
               "hidden": true,
