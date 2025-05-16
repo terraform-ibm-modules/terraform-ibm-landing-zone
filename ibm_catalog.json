@@ -55,7 +55,6 @@
           "name": "quickstart",
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
-          "compliance": {},
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -96,11 +95,11 @@
             {
               "key": "resource_tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -147,7 +146,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Separate VPC for management",
@@ -246,11 +244,11 @@
             {
               "key": "tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -538,7 +536,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Separate VPC for management",
@@ -662,21 +659,21 @@
             {
               "key": "resource_tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
               "key": "access_tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -731,7 +728,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "This architecture creates virtual server instances (VSI) in some or all of the VSI subnets of one VPC of an existing landing zone deployable architecture. To create VSIs in multiple VPCs, deploy the extension once for each VPC.\r\n\r\n## Before you begin\r\n\r\n- You must have either the [VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-vpc-9fc0fa64-27af-4fed-9dce-47b3640ba739-global) or [Red Hat OpenShift Container Platform on VPC landing zone](https:\/\/cloud.ibm.com\/catalog\/architecture\/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global) deployable architecture deployed.\r\n- You need an authorization policy that grants access between block storage and the KMS. The policy exists if you set the `skip_kms_block_storage_s2s_auth_policy` input variable to `false` (the default value) in your existing landing zone deployable architecture.\r\n- You need the VPC ID, subnet names, and boot volume encryption key from your existing landing zone deployable architecture. For information about finding these values, see [Adding a VSI to your VPC landing zone deployable architecture](https:\/\/cloud.ibm.com\/docs\/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ext-with-vsi).",
             "features": [
               {
                 "title": "Adds a virtual server instance in every VPC subnet",
@@ -849,11 +845,11 @@
             {
               "key": "tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -1124,7 +1120,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Separate VPC for management",
@@ -1236,7 +1231,6 @@
           "name": "quickstart",
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
-          "compliance": {},
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1261,11 +1255,11 @@
             {
               "key": "resource_tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -1312,7 +1306,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Management VPC with one subnet, allow-all ACL and Security Group",
@@ -1412,11 +1405,11 @@
             {
               "key": "tags",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "config_constraints": {
-                      "type": "string"
-                  }
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
               }
             },
             {
@@ -1768,7 +1761,6 @@
             }
           ],
           "architecture": {
-            "descriptions": "",
             "features": [
               {
                 "title": "Separate VPC for management",
