@@ -528,6 +528,14 @@ variable "override_json_string" {
   description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
+
+  validation {
+    condition = !(
+      var.override == false && length(var.override_json_string) == 0 &&
+      var.ssh_public_key == null && var.existing_ssh_key_name == null
+    )
+    error_message = "The ssh_public_key and existing_ssh_key_name cannot both be null when override is false and override_json_string is empty."
+  }
 }
 
 variable "override_json_path" {

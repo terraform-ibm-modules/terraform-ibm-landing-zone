@@ -36,6 +36,11 @@ variable "ssh_public_key" {
     error_message = "The public SSH key must be a valid SSH RSA public key."
     condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
+
+  validation {
+    condition     = var.ssh_public_key != null || var.existing_ssh_key_name != null
+    error_message = "Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them."
+  }
 }
 
 variable "resource_tags" {
