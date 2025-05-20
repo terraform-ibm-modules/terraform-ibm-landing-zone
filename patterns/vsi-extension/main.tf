@@ -40,7 +40,6 @@ locals {
     subnet if can(regex(local.default_subnet_name, subnet.name))
   ]
 
-  existing_kms_instance_guid = var.boot_volume_encryption_key == null ? null : split(":", var.boot_volume_encryption_key)[7]
 }
 
 module "vsi" {
@@ -58,7 +57,6 @@ module "vsi" {
   user_data                       = var.user_data
   image_id                        = data.ibm_is_image.image.id
   boot_volume_encryption_key      = var.boot_volume_encryption_key
-  existing_kms_instance_guid      = local.existing_kms_instance_guid
   security_group_ids              = var.security_group_ids
   ssh_key_ids                     = [local.ssh_key_id]
   machine_type                    = var.vsi_instance_profile
