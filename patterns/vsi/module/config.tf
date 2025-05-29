@@ -86,6 +86,7 @@ locals {
         boot_volume_encryption_key_name = "${var.prefix}-vsi-volume-key"
         user_data                       = lookup(var.user_data, network, null) != null ? var.user_data[network].user_data : null
         use_legacy_network_interface    = var.use_legacy_network_interface
+        allow_ip_spoofing               = var.allow_ip_spoofing
         security_group = {
           name     = "${var.prefix}-${network}"
           vpc_name = var.vpcs[0]

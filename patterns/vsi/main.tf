@@ -89,6 +89,7 @@ module "vsi_landing_zone" {
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
   user_data                              = var.user_data
   use_legacy_network_interface           = var.use_legacy_network_interface
+  allow_ip_spoofing                      = var.allow_ip_spoofing
 }
 
 moved {

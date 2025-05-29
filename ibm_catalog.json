@@ -296,6 +296,9 @@
               "key": "use_legacy_network_interface"
             },
             {
+              "key": "allow_ip_spoofing"
+            },
+            {
               "key": "add_edge_vpc",
               "hidden": true
             },
@@ -717,6 +720,9 @@
             },
             {
               "key": "use_legacy_network_interface"
+            },
+            {
+              "key": "allow_ip_spoofing"
             }
           ],
           "iam_permissions": [

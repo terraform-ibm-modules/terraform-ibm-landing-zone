@@ -209,3 +209,9 @@ variable "use_legacy_network_interface" {
   type        = bool
   default     = false
 }
+
+variable "allow_ip_spoofing" {
+  description = "Allow IP spoofing on the primary network interface"
+  type        = bool
+  default     = false
+}

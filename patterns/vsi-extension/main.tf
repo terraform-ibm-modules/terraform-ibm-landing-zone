@@ -68,4 +68,5 @@ module "vsi" {
   placement_group_id              = var.placement_group_id
   primary_vni_additional_ip_count = var.primary_vni_additional_ip_count
   use_legacy_network_interface    = var.use_legacy_network_interface
+  allow_ip_spoofing               = var.allow_ip_spoofing
 }
