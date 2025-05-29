@@ -423,7 +423,8 @@
                 "vsi-zone-3"
             ],
             "vpc_name": "management",
-            "vsi_per_subnet": 1
+            "vsi_per_subnet": 1,
+            "allow_ip_spoofing": false
         },
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
