@@ -317,6 +317,7 @@ variable "vsi" {
       user_data                       = optional(string)
       resource_group                  = optional(string)
       enable_floating_ip              = optional(bool)
+      allow_ip_spoofing               = optional(bool)
       security_groups                 = optional(list(string))
       boot_volume_encryption_key_name = optional(string)
       primary_vni_additional_ip_count = optional(number)
