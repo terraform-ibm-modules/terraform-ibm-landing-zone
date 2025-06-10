@@ -763,7 +763,7 @@ variable "cos" {
           for instance in var.cos :
           [
             for bucket in instance.buckets :
-            true if bucket.retention_rule.minimum <= bucket.retention_rule.default
+            bucket.retention_rule == null ? true : bucket.retention_rule.minimum <= bucket.retention_rule.default
           ]
         ]
       )
@@ -778,7 +778,7 @@ variable "cos" {
           for instance in var.cos :
           [
             for bucket in instance.buckets :
-            true if bucket.retention_rule.default <= bucket.retention_rule.maximum
+            bucket.retention_rule == null ? true : bucket.retention_rule.default <= bucket.retention_rule.maximum
           ]
         ]
       )
