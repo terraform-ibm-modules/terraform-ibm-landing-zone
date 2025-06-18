@@ -126,6 +126,21 @@ resource "ibm_cos_bucket" "buckets" {
       usage_metrics_enabled   = metrics_monitoring.value.usage_metrics_enabled
     }
   }
+
+  dynamic "retention_rule" {
+    for_each = (
+      each.value.retention_rule == null
+      ? []
+      : [each.value.retention_rule]
+    )
+
+    content {
+      default   = retention_rule.value.default
+      minimum   = retention_rule.value.minimum
+      maximum   = retention_rule.value.maximum
+      permanent = retention_rule.value.permanent
+    }
+  }
 }
 
 resource "time_sleep" "wait_for_cos_bucket_lifecycle" {
