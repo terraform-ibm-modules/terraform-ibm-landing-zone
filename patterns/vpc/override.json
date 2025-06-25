@@ -29,6 +29,12 @@
                         "enable": true,
                         "days": 0,
                         "type": "Glacier"
+                    },
+                    "retention_rule": {
+                        "default": 1,
+                        "maximum": 1,
+                        "minimum": 1,
+                        "permanent": false
                     }
                 }
             ],

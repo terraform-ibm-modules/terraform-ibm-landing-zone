@@ -581,6 +581,12 @@ variable "cos" {
           request_metrics_enabled = optional(bool)
           usage_metrics_enabled   = optional(bool)
         }))
+        retention_rule = optional(object({
+          default   = number
+          maximum   = number
+          minimum   = number
+          permanent = optional(bool)
+        }))
       }))
       keys = optional(
         list(object({
@@ -747,6 +753,36 @@ variable "cos" {
         ) : site_bucket if !contains(["Glacier", "Accelerated"], site_bucket.archive_rule.type)
       ]
     ) == 0
+  }
+
+  validation {
+    error_message = "`retention_rule.minimum` value must be less than or equal to the `retention_rule.default` value."
+    condition = length(
+      flatten(
+        [
+          for instance in var.cos :
+          [
+            for bucket in instance.buckets :
+            bucket.retention_rule == null ? true : bucket.retention_rule.minimum <= bucket.retention_rule.default
+          ]
+        ]
+      )
+    ) == length(flatten([for instance in var.cos : [for bucket in instance.buckets : true]]))
+  }
+
+  validation {
+    error_message = "`retention_rule.default` value must be less than or equal to the `retention_rule.maximum` value."
+    condition = length(
+      flatten(
+        [
+          for instance in var.cos :
+          [
+            for bucket in instance.buckets :
+            bucket.retention_rule == null ? true : bucket.retention_rule.default <= bucket.retention_rule.maximum
+          ]
+        ]
+      )
+    ) == length(flatten([for instance in var.cos : [for bucket in instance.buckets : true]]))
   }
 }
 
