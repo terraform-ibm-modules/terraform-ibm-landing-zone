@@ -960,6 +960,7 @@ module "cluster_pattern" {
 | <a name="output_cos_bucket_data"></a> [cos\_bucket\_data](#output\_cos\_bucket\_data) | List of data for COS buckets creaed |
 | <a name="output_cos_bucket_names"></a> [cos\_bucket\_names](#output\_cos\_bucket\_names) | List of names for COS buckets created |
 | <a name="output_cos_data"></a> [cos\_data](#output\_cos\_data) | List of Cloud Object Storage instance data |
+| <a name="output_cos_key_credentials_map"></a> [cos\_key\_credentials\_map](#output\_cos\_key\_credentials\_map) | Map of resource key credentials created for COS instances, organized by the key name supplied in the `cos.keys[]` input variable. Contains sensitive output including API keys and HMAC credentials. |
 | <a name="output_cos_key_names"></a> [cos\_key\_names](#output\_cos\_key\_names) | List of names for created COS keys |
 | <a name="output_cos_names"></a> [cos\_names](#output\_cos\_names) | List of Cloud Object Storage instance names |
 | <a name="output_f5_hosts"></a> [f5\_hosts](#output\_f5\_hosts) | List of bastion host names |
