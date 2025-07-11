@@ -147,6 +147,21 @@ output "cos_key_names" {
   ]
 }
 
+output "cos_key_credentials_map" {
+  description = "Map of resource key credentials created for COS instances, organized by the key name supplied in the `cos.keys[]` input variable. Contains sensitive output including API keys and HMAC credentials."
+  value = {
+    for k, v in ibm_resource_key.key : k => {
+      guid : v.guid
+      id : v.id
+      crn : v.crn
+      name : v.name
+      credentials : v.credentials
+      credentials_json : v.credentials_json
+    }
+  }
+  sensitive = true
+}
+
 output "cos_bucket_names" {
   description = "List of names for COS buckets created"
   value = [
