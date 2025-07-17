@@ -5,12 +5,13 @@
       "label": "VSI on VPC landing zone",
       "product_kind": "solution",
       "tags": [
-        "virtualservers",
         "ibm_created",
         "target_terraform",
         "terraform",
+        "solution",
+        "virtualservers",
         "reference_architecture",
-        "solution"
+        "converged_infra"
       ],
       "keywords": [
         "vpc",
@@ -771,12 +772,13 @@
       "label": "VPC landing zone",
       "product_kind": "solution",
       "tags": [
-        "network_vpc",
         "ibm_created",
         "target_terraform",
         "terraform",
+        "solution",
+        "network_vpc",
         "reference_architecture",
-        "solution"
+        "converged_infra"
       ],
       "keywords": [
         "vpc",
@@ -1187,12 +1189,13 @@
       "label": "Red Hat OpenShift Container Platform on VPC landing zone",
       "product_kind": "solution",
       "tags": [
-        "compute",
         "ibm_created",
         "target_terraform",
         "terraform",
+        "solution",
+        "compute",
         "reference_architecture",
-        "solution"
+        "converged_infra"
       ],
       "keywords": [
         "vpc",
