@@ -1317,28 +1317,8 @@
           "architecture": {
             "features": [
               {
-                "title": "Management VPC with one subnet, allow-all ACL and Security Group",
-                "description": "Yes"
-              },
-              {
-                "title": "Workload VPC with two subnets, in two zones, allow-all ACL and Security Group",
-                "description": "Yes"
-              },
-              {
-                "title": "Transit Gateway connecting VPCs",
-                "description": "Yes"
-              },
-              {
-                "title": "One OCP cluster in workload VPC with two worker nodes, public endpoint enabled",
-                "description": "Yes"
-              },
-              {
-                "title": "Key Protect for cluster encryption keys",
-                "description": "Yes"
-              },
-              {
-                "title": "Cloud Object Storage instance (required for cluster)",
-                "description": "Yes"
+                "title": " ",
+                "description": "Configures a management VPC (one subnet) and a workload VPC (two subnets, two zones), both with allow-all ACLs and Security Groups, connected by a Transit Gateway. It deploys an OCP cluster (two worker nodes, public endpoint), enables Key Protect for encryption keys, and provisions a required Cloud Object Storage instance."
               }
             ],
             "diagrams": [
@@ -1773,47 +1753,7 @@
             "features": [
               {
                 "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Red Hat OpenShift",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "description": "Configures separate VPCs for management and workloads, Red Hat OpenShift deployment, Key Management, multizone resilience, IP traffic logging, secure site-to-site VPN, financial compliance support, optional edge VPC for secure public access, and CBR rules for restricted cloud service traffic."
               }
             ],
             "diagrams": [
