@@ -1238,6 +1238,7 @@
         {
           "label": "QuickStart",
           "name": "quickstart",
+          "index": 1,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
@@ -1336,6 +1337,7 @@
         {
           "label": "Standard",
           "name": "standard",
+          "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
           "compliance": {
@@ -1752,7 +1754,7 @@
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
+                "title": " ",
                 "description": "Configures separate VPCs for management and workloads, Red Hat OpenShift deployment, Key Management, multizone resilience, IP traffic logging, secure site-to-site VPN, financial compliance support, optional edge VPC for secure public access, and CBR rules for restricted cloud service traffic."
               }
             ],
