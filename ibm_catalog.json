@@ -1317,8 +1317,16 @@
           "architecture": {
             "features": [
               {
-                "title": " ",
-                "description": "Configures a management VPC (one subnet) and a workload VPC (two subnets, two zones), both with allow-all ACLs and Security Groups, connected by a Transit Gateway. It deploys an OCP cluster (two worker nodes, public endpoint), enables Key Protect for encryption keys, and provisions a required Cloud Object Storage instance."
+                "description": " ",
+                "title": "Management VPC with one subnet & Workload VPC with two subnets in two zones , allow-all ACL and Security Group"
+              },
+              {
+                "description": " ",
+                "title": "Transit Gateway connecting VPCs"
+              },
+              {
+                "description": " ",
+                "title": "One OCP cluster in workload VPC with two worker nodes, public endpoint enabled"
               }
             ],
             "diagrams": [
@@ -1752,10 +1760,21 @@
           "architecture": {
             "features": [
               {
-                "description": "Configures separate VPCs for management and workloads, Red Hat OpenShift deployment, Key Management, multizone resilience, IP traffic logging, secure site-to-site VPN, financial compliance support, optional edge VPC for secure public access, and CBR rules for restricted cloud service traffic.",
-                "title": " "
+                "description": " ",
+                "title": "Separate VPCs for management and workloads, respectively."
+              },
+              {
+                "description": " ",
+                "title": "Uses an edge VPC for secure access through the public internet"
+              },
+              {
+                "description": " ",
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network"
+              },
+              {
+                "description": " ",
+                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services"
               }
-
             ],
             "diagrams": [
               {
