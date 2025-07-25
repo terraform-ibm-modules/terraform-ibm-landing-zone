@@ -1317,8 +1317,8 @@
           "architecture": {
             "features": [
               {
-                "title": " ",
-                "description": "Management VPC with one subnet & Workload VPC with two subnets in two zones , allow-all ACL and Security Group"
+                "description": " ",
+                "title": "Management VPC with one subnet & Workload VPC with two subnets in two zones , allow-all ACL and Security Group"
               },
               {
                 "description": " ",
