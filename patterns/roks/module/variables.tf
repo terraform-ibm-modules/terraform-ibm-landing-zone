@@ -238,16 +238,46 @@ variable "secondary_storage" {
 
 variable "cluster_addons" {
   type = object({
-    debug-tool                = optional(string)
-    image-key-synchronizer    = optional(string)
-    openshift-data-foundation = optional(string)
-    vpc-file-csi-driver       = optional(string)
-    static-route              = optional(string)
-    cluster-autoscaler        = optional(string)
-    vpc-block-csi-driver      = optional(string)
+    debug-tool = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    image-key-synchronizer = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    openshift-data-foundation = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    vpc-file-csi-driver = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    static-route = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    cluster-autoscaler = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    vpc-block-csi-driver = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    ibm-storage-operator = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
+    openshift-ai = optional(object({
+      version         = optional(string)
+      parameters_json = optional(string)
+    }))
   })
-  description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
-  default     = null
+  description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters and 'ibm-storage-operator' is installed by default in OCP 4.15 and later, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
+  nullable    = false
+  default     = {}
 }
 
 variable "manage_all_cluster_addons" {
@@ -274,8 +304,8 @@ variable "operating_system" {
   description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
   default     = "REDHAT_8_64"
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS" || var.operating_system == "RHEL_9_64"
   }
 }
 

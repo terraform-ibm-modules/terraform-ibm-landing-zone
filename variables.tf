@@ -928,14 +928,42 @@ variable "clusters" {
       labels                                = optional(map(string)) # A list of labels that you want to add to the default worker pool.
       enable_ocp_console                    = optional(bool)        # Flag to specify whether to enable or disable the OpenShift console. If set to `null` the module will not modify the setting currently set on the cluster. Bare in mind when setting this to `true` or `false` on a cluster with private only endpoint enabled, the runtime must be able to access the private endpoint.
       addons = optional(object({                                    # Map of OCP cluster add-on versions to install
-        debug-tool                = optional(string)
-        image-key-synchronizer    = optional(string)
-        openshift-data-foundation = optional(string)
-        vpc-file-csi-driver       = optional(string)
-        static-route              = optional(string)
-        cluster-autoscaler        = optional(string)
-        vpc-block-csi-driver      = optional(string)
-        ibm-storage-operator      = optional(string)
+        debug-tool = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        image-key-synchronizer = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        openshift-data-foundation = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        vpc-file-csi-driver = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        static-route = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        cluster-autoscaler = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        vpc-block-csi-driver = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        ibm-storage-operator = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
+        openshift-ai = optional(object({
+          version         = optional(string)
+          parameters_json = optional(string)
+        }))
       }), {})
       manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
@@ -1007,8 +1035,8 @@ variable "clusters" {
 
   # operating_system validation
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS" || cluster.operating_system == "RHEL_9_64"]) == length(var.clusters)
   }
 
 }
