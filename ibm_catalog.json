@@ -199,7 +199,8 @@
                 "description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         },
         {
           "label": "Standard",
@@ -596,7 +597,8 @@
                 "description": "The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         },
         {
           "label": "Existing VPC",
@@ -763,7 +765,8 @@
                 "description": "The extension to an existing VPC deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure with virtual servers to run your workloads with IBM Cloud VPC in multizone regions."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         }
       ]
     },
@@ -1180,7 +1183,8 @@
                 "description": "The Standard variation of the VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. The Standard variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         }
       ]
     },
@@ -1351,7 +1355,8 @@
                 "description": "The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled. The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         },
         {
           "label": "Standard",
@@ -1826,7 +1831,8 @@
                 "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
               }
             ]
-          }
+          },
+          "terraform_version": "1.10.5"
         }
       ]
     }
