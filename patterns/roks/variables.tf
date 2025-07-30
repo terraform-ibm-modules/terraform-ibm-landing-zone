@@ -351,10 +351,10 @@ variable "ssh_public_key" {
   description = "A public SSH key that does not exist in the deployment region. Used only if you provision F5 or Bastion Host. Must be an RSA key with a key size of either 2048 or 4096 bits (recommended). See https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys. To use an existing key, specify a value in the `existing_ssh_key_name` variable instead."
   type        = string
   default     = null
-  validation {
-    error_message = "Public SSH Key must be a valid ssh rsa public key."
-    condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
-  }
+  # validation {
+  #   error_message = "Public SSH Key must be a valid ssh rsa public key."
+  #   condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
+  # }
 }
 
 variable "existing_ssh_key_name" {
@@ -398,15 +398,15 @@ variable "tmos_admin_password" {
   sensitive   = true
   default     = null
 
-  validation {
-    error_message = "Value for tmos_password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character."
-    condition = var.tmos_admin_password == null ? true : (
-      length(var.tmos_admin_password) >= 15
-      && can(regex("[A-Z]", var.tmos_admin_password))
-      && can(regex("[a-z]", var.tmos_admin_password))
-      && can(regex("[0-9]", var.tmos_admin_password))
-    )
-  }
+  # validation {
+  #   error_message = "Value for tmos_password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character."
+  #   condition = var.tmos_admin_password == null ? true : (
+  #     length(var.tmos_admin_password) >= 15
+  #     && can(regex("[A-Z]", var.tmos_admin_password))
+  #     && can(regex("[a-z]", var.tmos_admin_password))
+  #     && can(regex("[0-9]", var.tmos_admin_password))
+  #   )
+  # }
 }
 
 variable "license_type" {

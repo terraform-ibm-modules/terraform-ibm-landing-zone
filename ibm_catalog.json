@@ -1579,9 +1579,15 @@
               "key": "domain"
             },
             {
-              "hidden": true,
+              "hidden": false,
               "key": "tmos_admin_password",
-              "type": "password"
+              "type": "password",
+              "value_constraint": {
+								"type": "regex",
+								"description": "Value for tmos_password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
+								"value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{15,}$"
+							}
+
             },
             {
               "hidden": true,
