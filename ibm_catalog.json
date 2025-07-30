@@ -1267,7 +1267,7 @@
               "value_constraint": {
 								"type": "regex",
 								"description": "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It must not end with a hyphen('-'), and cannot contain consecutive hyphens ('--').",
-								"value": "^[a-z]{0,1}[-a-z0-9]{0,11}[a-z0-9]{0,1}$"
+								"value": "^(?!.*--)[a-z](?:[-a-z0-9]{0,11}[a-z0-9])?$"
 							},
 							"description": "The prefix to add to all resources that this solution creates (e.g `prod`, `test`, `dev`). To not use any prefix value, you can enter the string `__NULL__`."
             },
@@ -1424,7 +1424,7 @@
 							"value_constraint": {
 								"type": "regex",
 								"description": "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It must not end with a hyphen('-'), and cannot contain consecutive hyphens ('--').",
-								"value": "^[a-z]{0,1}[-a-z0-9]{0,11}[a-z0-9]{0,1}$"
+								"value": "^(?!.*--)[a-z](?:[-a-z0-9]{0,11}[a-z0-9])?$"
 							},
 							"description": "The prefix to add to all resources that this solution creates (e.g `prod`, `test`, `dev`). To not use any prefix value, you can enter the string `__NULL__`."
             },
