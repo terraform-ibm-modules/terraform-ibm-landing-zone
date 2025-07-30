@@ -1442,7 +1442,20 @@
               "key": "network_cidr"
             },
             {
-              "key": "vpcs"
+              "key": "vpcs",
+              "value_constraint": {
+								"type": "regex",
+								"description": "vpc",
+								"value": "^(?!.*--)[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+							},
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
+
             },
             {
               "key": "ignore_vpcs_for_cluster_deployment"

@@ -42,13 +42,13 @@ variable "vpcs" {
   type        = list(string)
   default     = ["management", "workload"]
 
-  validation {
-    error_message = "VPCs names can only be a maximum of 16 characters and can only contain lowercase letters, numbers, and - characters. Names must also begin with a lowercase letter and end with a lowercase letter or number."
-    condition = length([
-      for name in var.vpcs :
-      name if length(name) > 16 || !can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", name))
-    ]) == 0
-  }
+  # validation {
+  #   error_message = "VPCs names can only be a maximum of 16 characters and can only contain lowercase letters, numbers, and - characters. Names must also begin with a lowercase letter and end with a lowercase letter or number."
+  #   condition = length([
+  #     for name in var.vpcs :
+  #     name if length(name) > 16 || !can(regex("^([a-z]|[a-z][-a-z0-9]*[a-z0-9])$", name))
+  #   ]) == 0
+  # }
 }
 
 variable "ignore_vpcs_for_cluster_deployment" {
