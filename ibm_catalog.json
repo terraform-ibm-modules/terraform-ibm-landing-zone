@@ -1442,20 +1442,8 @@
               "key": "network_cidr"
             },
             {
-              "key": "vpcs",
-              "value_constraint": {
-								"type": "regex",
-								"description": "vpc",
-								"value": "^(?!.*--)[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
-							},
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
-
+              "key": "vpcs"
+              
             },
             {
               "key": "ignore_vpcs_for_cluster_deployment"
@@ -1561,8 +1549,14 @@
               "key": "vpn_firewall_type"
             },
             {
-              "hidden": true,
-              "key": "ssh_public_key"
+              "hidden": false,
+              "key": "ssh_public_key",
+              "value_constraint": {
+								"type": "regex",
+								"description": "Public SSH Key must be a valid ssh rsa public key.",
+								"value": "ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+							},
+							"description": "A public SSH key that does not exist in the deployment region."
             },
             {
               "hidden": true,
