@@ -1277,6 +1277,10 @@
               "required": true,
               "options": [
                 {
+                  "displayname": "Default",
+                  "value": "default"
+                },
+                {
                   "displayname": "4.14_openshift",
                   "value": "4.14_openshift"
                 },
@@ -1586,6 +1590,10 @@
               "type": "string",
               "required": true,
               "options": [
+                {
+                  "displayname": "Default",
+                  "value": "default"
+                },
                 {
                   "displayname": "4.14_openshift",
                   "value": "4.14_openshift"
