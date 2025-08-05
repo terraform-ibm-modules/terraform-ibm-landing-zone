@@ -744,7 +744,6 @@ func TestRunOverrideExample(t *testing.T) {
 		TerraformVars: map[string]interface{}{
 			"ssh_key":              sshPublicKey,
 			"override_json_string": string(overrideJsonString),
-			"provider_visibility":  "public",
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
