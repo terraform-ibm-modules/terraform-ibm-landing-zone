@@ -1193,13 +1193,12 @@
       "label": "Red Hat OpenShift Container Platform on VPC landing zone",
       "product_kind": "solution",
       "tags": [
+        "compute",
         "ibm_created",
         "target_terraform",
         "terraform",
-        "solution",
-        "compute",
         "reference_architecture",
-        "converged_infra"
+        "solution"
       ],
       "keywords": [
         "vpc",
@@ -1211,36 +1210,56 @@
         "Red Hat OpenShift Container Platform",
         "OCP"
       ],
-      "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
-      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
+      "short_description": "Creates Red Hat OpenShift workload clusters on IBM Cloud within a secure VPC network, with optional integration of security and logging services",
+      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster within an IBM Cloud Virtual Private Cloud (VPC), enabling a scalable and flexible cloud environment for containerized applications with seamless integration to security and observability services. The VPC is implemented as a multi-zone, multi-subnet architecture, ensuring that your environment remains secure and highly available.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
-          "title": "Creates Open Shift Container Platform clusters for workloads"
+          "title": "Red Hat OpenShift Cluster",
+          "description": "Creates a [Red Hat OpenShift Cluster](https://cloud.ibm.com/docs/openshift) on IBM Cloud that helps businesses manage their containerized applications at scale with added enterprise features such as security, scalability, and automation."
         },
         {
-          "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
-          "title": "Creates worker pools"
+          "description": "Configures worker pools in cluster through which you can group and manage [worker nodes](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) of similar configurations, such as compute resources and availability zones.\n",
+          "title": "Worker pools"
         },
         {
-          "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
-          "title": "Configures subnets for containers"
+          "description": "Configures the [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets) for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
+          "title": "Subnets"
         },
         {
-          "description": "Configures private and public endpoints for the cluster.\n",
-          "title": "Supports private and public endpoints"
+          "title": "Access Endpoints",
+          "description": "Offers support for [private and public endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) to connect to the cluster. If the cluster is accessed only by applications running on IBM Cloud, the private endpoint can be enabled for enhanced security."
         },
         {
-          "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
-          "title": "Configures ingress"
+          "title": "Ingress Controller",
+          "description": "Sets up the [ingress controller](https://cloud.ibm.com/docs/openshift?topic=openshift-ingress-configure) for the cluster, responsible for routing external traffic to the appropriate services within the cluster."
+        },
+        {
+          "title": "Object Storage",
+          "description": "Creates and configures an [Object Storage bucket](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand) which acts as OpenShift internal registry storage. You can provide an existing COS Instance or use the [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) for creating a new instance."
+        },
+        {
+          "title": "KMS Encryption",
+          "description": "Optionally you can enable key management services(KMS) [encryption](https://cloud.ibm.com/docs/openshift?topic=openshift-encryption-secrets) of the Kubernetes Secrets and Object Storage bucket using either a newly created key or an existing one."
+        },
+        {
+          "title": "Secrets Manager",
+          "description": "Optional integration with [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) for centrally managing Ingress subdomain certificates."
+        },
+        {
+          "title": "Observability",
+          "description": "This solution can leverage Observability that supports configuring resources for logging, monitoring and activity tracker event routing (optional)."
+        },
+        {
+          "title": "Kube Audit",
+          "description": "Deploys the Kube Audit solution to monitor and log Kubernetes API server activity. It captures events such as user actions, configuration changes, and access attempts, helping meet security and compliance requirements through centralized [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server)."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart",
+          "label": "QuickStart FS Cloud",
           "name": "quickstart",
           "index": 1,
           "install_type": "fullstack",
@@ -1552,7 +1571,7 @@
           "terraform_version": "1.10.5"
         },
         {
-          "label": "Standard",
+          "label": "Standard FS Cloud",
           "name": "standard",
           "index": 2,
           "install_type": "fullstack",
