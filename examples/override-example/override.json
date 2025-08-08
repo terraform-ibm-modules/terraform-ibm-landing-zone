@@ -18,7 +18,7 @@
       "name": "workload-cluster",
       "secondary_storage": "300gb.5iops-tier",
       "resource_group": "slz-workload-rg",
-      "operating_system": "REDHAT_8_64",
+      "operating_system": "RHCOS",
       "use_ibm_cloud_private_api_endpoints": false,
       "verify_cluster_network_readiness": false,
       "kms_config": {
@@ -37,7 +37,7 @@
           "flavor": "bx2.16x64",
           "name": "logging-worker-pool",
           "secondary_storage": "300gb.5iops-tier",
-          "operating_system" : "REDHAT_8_64",
+          "operating_system": "RHCOS",
           "subnet_names": [
             "vsi-zone-1",
             "vsi-zone-2",
@@ -115,13 +115,13 @@
             "enable": true,
             "days": 30,
             "prefix": "logs/"
-        },
-        "archive_rule": {
+          },
+          "archive_rule": {
             "rule_id": "a-bucket-arch-rule",
             "enable": true,
             "days": 0,
             "type": "Glacier"
-        }
+          }
         }
       ],
       "keys": [
