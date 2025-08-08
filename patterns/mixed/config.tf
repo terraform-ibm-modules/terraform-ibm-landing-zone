@@ -110,7 +110,7 @@ locals {
         entitlement                     = var.entitlement
         secondary_storage               = var.secondary_storage
         use_private_endpoint            = var.use_private_endpoint
-        operating_system                = "REDHAT_8_64"
+        operating_system                = "RHCOS"
         verify_worker_network_readiness = var.verify_worker_network_readiness
         boot_volume_crk_name            = "${var.prefix}-roks-key"
         # By default, create dedicated pool for logging
@@ -123,7 +123,7 @@ locals {
               "vsi-zone-${zone}"
             ]
             entitlement          = var.entitlement
-            operating_system     = "REDHAT_8_64"
+            operating_system     = "RHCOS"
             workers_per_subnet   = var.workers_per_zone
             flavor               = var.flavor
             secondary_storage    = var.secondary_storage

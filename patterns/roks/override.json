@@ -16,7 +16,7 @@
             "resource_group": "slz-management-rg",
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
-            "operating_system": "REDHAT_8_64",
+            "operating_system": "RHCOS",
             "kms_wait_for_apply": true,
             "kms_config": {
                 "crk_name": "slz-roks-key",
@@ -39,7 +39,7 @@
                         "vsi-zone-3"
                     ],
                     "vpc_name": "management",
-                    "operating_system": "REDHAT_8_64",
+                    "operating_system": "RHCOS",
                     "workers_per_subnet": 2
                 }
             ],
@@ -53,7 +53,7 @@
             "machine_type": "bx2.16x64",
             "name": "workload-cluster",
             "resource_group": "slz-workload-rg",
-            "operating_system": "REDHAT_8_64",
+            "operating_system": "RHCOS",
             "disable_outbound_traffic_protection": false,
             "cluster_force_delete_storage": false,
             "kms_wait_for_apply": true,
@@ -78,7 +78,7 @@
                         "vsi-zone-3"
                     ],
                     "vpc_name": "workload",
-                    "operating_system": "REDHAT_8_64",
+                    "operating_system": "RHCOS",
                     "workers_per_subnet": 2
                 }
             ],
