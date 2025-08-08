@@ -1259,8 +1259,8 @@
       ],
       "flavors": [
         {
-          "label": "QuickStart FS Cloud",
-          "name": "quickstart",
+          "label": "QuickStart FSCloud",
+          "name": "quickstart-fscloud",
           "index": 1,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
@@ -1571,7 +1571,7 @@
           "terraform_version": "1.10.5"
         },
         {
-          "label": "Standard FS Cloud",
+          "label": "Standard FSCloud",
           "name": "standard",
           "index": 2,
           "install_type": "fullstack",
