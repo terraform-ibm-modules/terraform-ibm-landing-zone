@@ -2178,7 +2178,7 @@
               },
               {
                 "description": " ",
-                "title": "Configures 2 OpenShift clusters in each vpc with a single worker pool distributed across all three zones, with two worker nodes per zone"
+                "title": "Configures 2 OpenShift clusters in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone"
               },
               {
                 "description": " ",
