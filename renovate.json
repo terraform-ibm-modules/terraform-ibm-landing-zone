@@ -9,10 +9,7 @@
       "matchManagers": ["terraform"],
       "matchDepTypes": ["required_provider"],
       "rangeStrategy": "bump",
-      "semanticCommitType": "fix",
-      "group": true,
-      "groupName": "required_provider",
-      "commitMessageExtra": "to latest for the landing zone DAs"
+      "semanticCommitType": "fix"
     }
   ]
 }
