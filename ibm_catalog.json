@@ -1550,11 +1550,11 @@
               },
               {
                 "description": " ",
-                "title": "Transit Gateway connecting VPCs"
+                "title": "One OpenShift cluster in workload VPC with two worker nodes, public endpoint enabled"
               },
               {
                 "description": " ",
-                "title": "One OCP cluster in workload VPC with two worker nodes, public endpoint enabled"
+                "title": "Creates Transit Gateway connecting to VPCs"
               }
             ],
             "diagrams": [
@@ -2178,15 +2178,19 @@
               },
               {
                 "description": " ",
+                "title": "Configures 2 OpenShift clusters in each vpc with a single worker pool distributed across all three zones, with two worker nodes per zone"
+              },
+              {
+                "description": " ",
                 "title": "Uses an edge VPC for secure access through the public internet"
               },
               {
                 "description": " ",
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network"
+                "title": "Creates Transit Gateway connecting to VPCs"
               },
               {
                 "description": " ",
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services"
+                "title": "Securely connects to multiple networks with a site-to-site virtual private network"
               }
             ],
             "diagrams": [
