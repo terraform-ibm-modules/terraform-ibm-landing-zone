@@ -1211,7 +1211,7 @@
         "OCP"
       ],
       "short_description": "Creates Red Hat OpenShift workload clusters on IBM Cloud within a secure VPC network, with optional integration of security and logging services",
-      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster within an IBM Cloud Virtual Private Cloud (VPC), enabling a scalable and flexible cloud environment for containerized applications with seamless integration to security and observability services. The VPC is implemented as a multi-zone, multi-subnet architecture, ensuring that your environment remains secure and highly available.",
+      "long_description": "This Deployable Architecture deploys a Red Hat OpenShift Container Platform cluster on Virtual Private Cloud (VPC), enabling a scalable and flexible cloud environment for containerized applications with seamless integration to security and observability services. The VPC is implemented as a multi-zone, multi-subnet architecture, ensuring that your environment remains secure and highly available.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
       "provider_name": "IBM",
@@ -1221,11 +1221,11 @@
           "description": "Creates a [Red Hat OpenShift Cluster](https://cloud.ibm.com/docs/openshift) on IBM Cloud that helps businesses manage their containerized applications at scale with added enterprise features such as security, scalability, and automation."
         },
         {
-          "description": "Configures worker pools in cluster through which you can group and manage [worker nodes](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) of similar configurations, such as compute resources and availability zones.\n",
+          "description": "Configures worker pools in cluster through which you can group and manage [worker nodes](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) of similar configurations, such as compute resources and availability zones.",
           "title": "Worker pools"
         },
         {
-          "description": "Configures the [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets) for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
+          "description": "Configures the [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets) for the cluster, and specifies the subnets to deploy the worker nodes in.",
           "title": "Subnets"
         },
         {
@@ -1546,16 +1546,8 @@
           "architecture": {
             "features": [
               {
-                "description": " ",
-                "title": "Management VPC with one subnet & Workload VPC with two subnets in two zones , allow-all ACL and Security Group"
-              },
-              {
-                "description": " ",
-                "title": "One OpenShift cluster in workload VPC with two worker nodes, public endpoint enabled"
-              },
-              {
-                "description": " ",
-                "title": "Creates Transit Gateway connecting to VPCs"
+                "title": " ",
+                "description": "description"
               }
             ],
             "diagrams": [
@@ -1565,7 +1557,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> This variation includes integration with <b>IBM Key Protect</b> for managing the cluster encryption keys and requires a <b>Cloud Object Storage instance</b> for provisioning the cluster. <br> <br> The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> Configures Management VPC with one subnet & Workload VPC with two subnets in two zones , allow-all ACL and Security Group <br> <br> Creates Transit Gateway connecting to VPCs <br> <br> This variation includes integration with <b>IBM Key Protect</b> for managing the cluster encryption keys and requires a <b>Cloud Object Storage instance</b> for provisioning the cluster. <br> <br> The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
               }
             ]
           },
@@ -2175,24 +2167,8 @@
           "architecture": {
             "features": [
               {
-                "description": " ",
-                "title": "Separate VPCs for management and workloads, respectively."
-              },
-              {
-                "description": " ",
-                "title": "Configures 2 OpenShift clusters in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone"
-              },
-              {
-                "description": " ",
-                "title": "Uses an edge VPC for secure access through the public internet"
-              },
-              {
-                "description": " ",
-                "title": "Creates Transit Gateway connecting to VPCs"
-              },
-              {
-                "description": " ",
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network"
+                "title": " ",
+                "description": "description"
               }
             ],
             "diagrams": [
@@ -2202,7 +2178,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture.<br> <br>  It increases security with <b>Key Management</b> , reduces failure events by using multizone regions, and collects and stores Internet Protocol (IP) traffic information through <b>Activity Tracker</b> and Flow Logs. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures existing <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "The Standard variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone is based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture Separate <b>VPCs</b> for management and workloads, respectively. <br> <br> It Configures 2 OpenShift clusters in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. <br> <br> It also Uses an edge VPC for secure access through the public internet and creates Transit Gateway connecting to VPCs  <br> <br> It increases security with <b>Key Management</b> , reduces failure events by using multizone regions, and collects and stores Internet Protocol (IP) traffic information through <b>Activity Tracker</b> and Flow Logs. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures existing <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
               }
             ]
           },
