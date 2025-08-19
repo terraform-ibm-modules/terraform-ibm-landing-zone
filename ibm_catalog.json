@@ -1198,7 +1198,8 @@
         "target_terraform",
         "terraform",
         "reference_architecture",
-        "solution"
+        "solution",
+        "redhat"
       ],
       "keywords": [
         "vpc",
@@ -1210,8 +1211,8 @@
         "Red Hat OpenShift Container Platform",
         "OCP"
       ],
-      "short_description": "Creates Red Hat OpenShift workload clusters on IBM Cloud within a secure VPC network, with optional integration of security and logging services",
-      "long_description": "This Deployable Architecture deploys a Red Hat OpenShift Container Platform cluster on Virtual Private Cloud (VPC), enabling a scalable and flexible cloud environment for containerized applications with seamless integration to security and observability services. The VPC is implemented as a multi-zone, multi-subnet architecture, ensuring that your environment remains secure and highly available.",
+      "short_description": "Deploys Red Hat OpenShift workload clusters on IBM Cloud within a secure VPC network, with optional integration of security and logging services",
+      "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
       "provider_name": "IBM",
@@ -1238,7 +1239,7 @@
         },
         {
           "title": "Object Storage",
-          "description": "Creates and configures an [Object Storage bucket](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand) which acts as OpenShift internal registry storage. You can provide an existing COS Instance or use the [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) for creating a new instance."
+          "description": "Creates and configures an [Object Storage bucket](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand) which acts as OpenShift internal registry storage. You can provide an existing COS instance or use the [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) for creating a new instance."
         },
         {
           "title": "KMS Encryption",
@@ -1246,21 +1247,21 @@
         },
         {
           "title": "Secrets Manager",
-          "description": "Optional integration with [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) for centrally managing Ingress subdomain certificates."
+          "description": "Optionally you can integrate with [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) for centrally managing Ingress subdomain certificates."
         },
         {
           "title": "Observability",
-          "description": "This solution can leverage Observability that supports configuring resources for logging, monitoring and activity tracker event routing (optional)."
+          "description": "You can optionally leverage Observability services that supports configuring resources for logging, monitoring and activity tracker event routing."
         },
         {
           "title": "Kube Audit",
-          "description": "Deploys the Kube Audit solution to monitor and log Kubernetes API server activity. It captures events such as user actions, configuration changes, and access attempts, helping meet security and compliance requirements through centralized [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server)."
+          "description": "You can deploy Kube Audit to monitor and log Kubernetes API server activity. It captures events such as user actions, configuration changes, and access attempts to meet security and compliance requirements through centralized [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server)."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart FSCloud",
-          "name": "quickstart-fscloud",
+          "label": "QuickStart - Financial Services Sandbox",
+          "name": "quickstart",
           "index": 1,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
@@ -1557,14 +1558,14 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> Configures <b>Management VPC</b> with one subnet & <b>Workload VPC</b> with two subnets in two zones , allow-all ACL and Security Group <br> <br> Creates <b>Transit Gateway</b> connecting to VPCs <br> <br> This variation includes integration with <b>IBM Key Protect</b> for managing the cluster encryption keys and requires a <b>Cloud Object Storage instance</b> for provisioning the cluster. <br> <br> The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "The QuickStart FSCloud variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet & <b>Workload VPC</b> with two subnets in two zones , allow-all ACL and Security Group. <br> <br> It Creates <b>Transit Gateway</b> connecting to VPCs <br> <br> It integrates with <b>IBM Key Protect</b> for managing the cluster encryption keys and requires a <b>Cloud Object Storage instance</b> to provision the cluster. <br> <br> It helps you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
               }
             ]
           },
           "terraform_version": "1.10.5"
         },
         {
-          "label": "Standard FSCloud",
+          "label": "Standard - Financial Services Edition",
           "name": "standard",
           "index": 2,
           "install_type": "fullstack",
@@ -2178,7 +2179,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone is based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates Separate <b>VPCs</b> for management and workloads, respectively. <br> <br> It Configures 2 <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. <br> <br> It also Uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to VPCs  <br> <br> It increases security with <b>Key Management</b> , reduces failure events by using multizone regions, and collects and stores Internet Protocol (IP) traffic information through <b>Activity Tracker</b> and Flow Logs. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures existing <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "The Standard FSCloud variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone is based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates Separate <b>VPCs</b> for management and workloads, respectively. <br> <br> It Configures 2 <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. <br> <br> It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs  <br> <br> It increases security with <b>Key Management</b> , reduces failure events by using multizone regions, and collects and stores Internet Protocol (IP) traffic information through <b>Activity Tracker</b> and Flow Logs. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures existing <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> This architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
               }
             ]
           },
