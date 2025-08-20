@@ -1211,51 +1211,31 @@
         "Red Hat OpenShift Container Platform",
         "OCP"
       ],
-      "short_description": "Deploys Red Hat OpenShift workload clusters on IBM Cloud within a secure VPC network, with optional integration of security and logging services",
+      "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance.",
       "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "title": "Red Hat OpenShift Cluster",
-          "description": "Creates a [Red Hat OpenShift Cluster](https://cloud.ibm.com/docs/openshift) on IBM Cloud that helps businesses manage their containerized applications at scale with added enterprise features such as security, scalability, and automation."
+          "title": "Configurable OpenShift Deployment Options",
+          "description": "Provides multiple configuration paths for provisioning [Red Hat OpenShift clusters](https://cloud.ibm.com/docs/openshift) on IBM Cloud VPC. Supports use cases ranging from quick experimentation to production-grade deployments in regulated environments. Capabilities vary by variation, with some offering simplified onboarding and others enabling advanced integrations and compliance alignment."
         },
         {
-          "description": "Configures worker pools in cluster through which you can group and manage [worker nodes](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) of similar configurations, such as compute resources and availability zones.",
-          "title": "Worker pools"
+          "title": "OpenShift Cluster with Scalable Access and Worker Management",
+          "description": "Deploys a Red Hat OpenShift cluster with Kubernetes-native orchestration and automated lifecycle management. All variations support [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) and [worker pool](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) configurations, enabling secure connectivity and scalable workload deployment."
         },
         {
-          "description": "Configures the [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets) for the cluster, and specifies the subnets to deploy the worker nodes in.",
-          "title": "Subnets"
+          "title": "Infrastructure Setup",
+          "description": "Automatically provisions multi-zone VPCs, [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets), and networking components. QuickStart variations abstract this setup to minimize required IBM Cloud knowledge, while other configurations expose full control for advanced users."
         },
         {
-          "title": "Access Endpoints",
-          "description": "Offers support for [private and public endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) to connect to the cluster. If the cluster is accessed only by applications running on IBM Cloud, the private endpoint can be enabled for enhanced security."
+          "title": "IBM Cloud Services Integrations",
+          "description": "Depending on the variation, clusters may include integrations with IBM Cloud services such as [Key Protect](https://cloud.ibm.com/docs/openshift?topic=openshift-encryption-setup&interface=ui), [Hyper Protect Crypto Services](https://cloud.ibm.com/catalog/services/hyper-protect-crypto-services), [Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global), [Object Storage](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand), and Observability services."
         },
         {
-          "title": "Ingress Controller",
-          "description": "Sets up the [ingress controller](https://cloud.ibm.com/docs/openshift?topic=openshift-ingress-configure) for the cluster, responsible for routing external traffic to the appropriate services within the cluster."
-        },
-        {
-          "title": "Object Storage",
-          "description": "Creates and configures an [Object Storage bucket](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand) which acts as OpenShift internal registry storage. You can provide an existing COS instance or use the [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) for creating a new instance."
-        },
-        {
-          "title": "KMS Encryption",
-          "description": "Optionally you can enable key management services(KMS) [encryption](https://cloud.ibm.com/docs/openshift?topic=openshift-encryption-secrets) of the Kubernetes Secrets and Object Storage bucket using either a newly created key or an existing one."
-        },
-        {
-          "title": "Secrets Manager",
-          "description": "Optionally you can integrate with [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) for centrally managing Ingress subdomain certificates."
-        },
-        {
-          "title": "Observability",
-          "description": "You can optionally leverage Observability services that supports configuring resources for logging, monitoring and activity tracker event routing."
-        },
-        {
-          "title": "Kube Audit",
-          "description": "You can deploy Kube Audit to monitor and log Kubernetes API server activity. It captures events such as user actions, configuration changes, and access attempts to meet security and compliance requirements through centralized [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server)."
+          "title": "Security and Compliance Alignment",
+          "description": "Advanced configurations include features such as [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server) and encryption key management, and may align with [IBM Cloud Framework for Financial Services](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-about) for production use in regulated environments."
         }
       ],
       "flavors": [
@@ -1548,7 +1528,15 @@
             "features": [
               {
                 "title": " ",
-                "description": "description"
+                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC) with minimal setup, tailored for demonstration use cases."
+              },
+              {
+                "title": " ",
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Ideal for sandbox environments, experimentation, and familiarization with architecture patterns. Not suitable for production workloads or upgrade paths."
+              },
+              {
+                "title": " ",
+                "description": "Deploy Red Hat OpenShift Container Platform with minimal setup in a secure and compliant Virtual Private Cloud (VPC) aligned with the Financial Services Cloud topology , tailored for demonstration use cases."
               }
             ],
             "diagrams": [
@@ -2169,7 +2157,15 @@
             "features": [
               {
                 "title": " ",
-                "description": "description"
+                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC), configured to support production use cases."
+              },
+              {
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services. Suitable for production workloads requiring compliance with financial services standards."
+              },
+              {
+                "title": " ",
+                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC) aligned with IBM Cloud Framework for Financial Services, a validated configuration to support production use cases."
               }
             ],
             "diagrams": [
