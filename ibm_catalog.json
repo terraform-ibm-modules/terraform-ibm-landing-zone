@@ -1528,15 +1528,11 @@
             "features": [
               {
                 "title": " ",
-                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC) with minimal setup, tailored for demonstration use cases."
+                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
               },
               {
                 "title": " ",
-                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Ideal for sandbox environments, experimentation, and familiarization with architecture patterns. Not suitable for production workloads or upgrade paths."
-              },
-              {
-                "title": " ",
-                "description": "Deploy Red Hat OpenShift Container Platform with minimal setup in a secure and compliant Virtual Private Cloud (VPC) aligned with the Financial Services Cloud topology , tailored for demonstration use cases."
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
             "diagrams": [
@@ -2157,15 +2153,11 @@
             "features": [
               {
                 "title": " ",
-                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC), configured to support production use cases."
+                "description": "Ideal for production workloads requiring compliance with financial services standards."
               },
               {
                 "title": " ",
-                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services. Suitable for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
-                "description": "Deploy Red Hat OpenShift Container Platform in a secure and compliant Virtual Private Cloud (VPC) aligned with IBM Cloud Framework for Financial Services, a validated configuration to support production use cases."
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services"
               }
             ],
             "diagrams": [
