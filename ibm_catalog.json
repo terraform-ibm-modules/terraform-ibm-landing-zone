@@ -1190,7 +1190,7 @@
     },
     {
       "name": "deploy-arch-ibm-slz-ocp",
-      "label": "Red Hat OpenShift Container Platform on VPC landing zone",
+      "label": "Landing zone for containerized applications with Red Hat Openshift",
       "product_kind": "solution",
       "tags": [
         "compute",
@@ -1207,9 +1207,11 @@
         "IaC",
         "infrastructure as code",
         "terraform",
-        "solution",
-        "Red Hat OpenShift Container Platform",
-        "OCP"
+        "ocp",
+        "cluster",
+        "red_hat_openshift",
+        "redhat",
+        "ROKS"
       ],
       "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance.",
       "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
