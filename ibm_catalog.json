@@ -1540,11 +1540,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - QuickStart variation",
+                  "caption": "Red Hat OpenShift cluster topology - QuickStart (Financial Services)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart FSCloud variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet & <b>Workload VPC</b> with two subnets in two zones , allow-all ACL and Security Group. <br> <br> It Creates <b>Transit Gateway</b> connecting to VPCs <br> <br> It integrates with <b>IBM Key Protect</b> for managing the cluster encryption keys and requires a <b>Cloud Object Storage instance</b> to provision the cluster. <br> <br> It helps you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "This deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet and <b>Workload VPC</b> with two subnets in two zones with allow-all ACL and security group. It creates <b>Transit Gateway</b> connecting to VPCs and integrates with <b>Key Protect</b> for managing the cluster encryption keys and requires a <b> Object Storage instance</b> to provision the cluster. <br> <br> It helps you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
               }
             ]
           },
@@ -2165,11 +2165,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
+                  "caption": "Red Hat OpenShift cluster topology - Standard (Financial Services)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard FSCloud variation of the <b>Red Hat OpenShift Container Platform on VPC</b> landing zone is based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates Separate <b>VPCs</b> for management and workloads, respectively. <br> <br> It Configures 2 <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. <br> <br> It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs  <br> <br> It increases security with <b>Key Management</b> , reduces failure events by using multizone regions, and collects and stores Internet Protocol (IP) traffic information through <b>Activity Tracker</b> and Flow Logs. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures existing <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> This architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "This deployable architecture deploys the <b>Red Hat OpenShift Container Platform on VPC</b> based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates two separate <b>VPCs</b> for management and workloads, respectively. It configures two <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs.  <br> <br> It integrates with <b>Key Management</b> services to enhance security and reduces failure events by using multizone regions. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> This architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
               }
             ]
           },
