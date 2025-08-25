@@ -412,7 +412,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-24-04-2-minimal-amd64-5",
+            "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-1",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {
