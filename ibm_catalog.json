@@ -772,7 +772,7 @@
     },
     {
       "name": "deploy-arch-ibm-slz-vpc",
-      "label": "VPC landing zone",
+      "label": "Cloud foundation for VPC",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -791,12 +791,12 @@
         "infrastructure as code",
         "solution"
       ],
-      "short_description": "Deploy a Virtual Private Cloud (VPC) on IBM Cloud, offering full configurability and flexibility for diverse workloads.",
+      "short_description": "Automates the deployment of Virtual Private Cloud (VPC) on IBM Cloud, offering full configurability and flexibility for diverse workloads.",
       "long_description":"The VPC landing zone deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. This architecture can be extended to support a variety of deployable architectures, such as [Cloud automation for Virtual Servers for Virtual Private Cloud](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Cloud automation for Red Hat OpenShift Container Platform on VPC](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global), and other cloud automation architectures. By setting up this foundational layer, it enables consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
       "provider_name": "IBM",
-     "features": [
+      "features": [
         {
           "title": "Subnets",
           "description": "Create [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) in three zones that divides your VPC into smaller, isolated networks across different availability zones. This helps you organize resources, improve availability, and control internal communication."
@@ -815,7 +815,7 @@
         },
         {
           "title": "VPE gateways",
-          "description": "Creates Virtual Private Endpoints (VPEs) gateways to allow private access to IBM Cloud services from within your VPC, avoiding public internet traffic. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe)."
+          "description": "Creates [Virtual Private Endpoints (VPEs)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe) gateways to allow private access to IBM Cloud services from within your VPC, avoiding public internet traffic."
         },
         {
           "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
@@ -827,7 +827,7 @@
         },
         {
           "title": "Security groups",
-          "description": "Has the ability to configure security groups that works like virtual firewalls for your instances, defining rules that control allowed inbound and outbound traffic. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups)."
+          "description": "Has the ability to configure [security groups](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups) that works like virtual firewalls for your instances, defining rules that control allowed inbound and outbound traffic."
         },
         {
           "title": "Address Prefixes",
@@ -835,15 +835,11 @@
         },
         {
           "title": "Routing Table and routes",
-          "description": "Creates routing tables and custom routes to determine how traffic is directed within your VPC and to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
-        },
-        {
-          "title": "VPC flow logs",
-          "description": "Creates and configures [VPC flow logs]((https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs)) capture data about traffic moving through your network, helping with monitoring, auditing, and troubleshooting."
+          "description": "Creates [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) and custom routes to determine how traffic is directed within your VPC and to external networks."
         },
         {
           "title": "Object Storage bucket for flow logs",
-          "description": "Creates and configures the Object storage bucket to store the network traffic data captured by VPC flow logs, enabling analysis and long-term storage."
+          "description": "Creates and configures the Object storage bucket to store the network traffic data captured by [VPC flow logs]((https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs)), enabling analysis and long-term storage."
         },
         {
           "title": "KMS encryption",
