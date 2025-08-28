@@ -820,7 +820,7 @@
       ],
       "flavors": [
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services Edition",
           "name": "standard",
            "index": 2,
           "install_type": "fullstack",
@@ -1135,11 +1135,11 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for users who need a secure, multi-zone VPC foundation with separate management and workload environments, connected through a transit gateway and private endpoints."
+                "description": "Ideal for production workloads requiring compliance with financial services standards."
               },
               {
                 "title": " ",
-                "description": "Designed for regulated workloads, this variation integrates Key Management, Flow Logs, Activity Tracker, and Context-Based Restrictions to enhance security, auditing, and regulatory compliance."
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
