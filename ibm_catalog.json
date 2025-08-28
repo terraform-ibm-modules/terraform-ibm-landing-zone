@@ -798,56 +798,24 @@
       "provider_name": "IBM",
       "features": [
         {
-          "title": "Subnets",
-          "description": "Create [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) in three zones that divides your VPC into smaller, isolated networks across different availability zones. This helps you organize resources, improve availability, and control internal communication."
+          "title": "VPC Networking and Subnet Management",
+          "description": "Automatically provisions [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) across three availability zones, dividing your VPC into smaller, isolated networks for improved organization, availability, and traffic control. Includes support for [address prefixes](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) to define IP ranges, and [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) with custom routes to manage how traffic flows within the VPC and to external networks."
         },
         {
-          "title": "Network ACLs",
-          "description": "Define rules for [Network Access Control Lists (ACLs)](https://cloud.ibm.com/docs/vpc?topic=vpc-using-acls) to allow or deny traffic to and from your subnets, providing an extra layer of network security."
+          "title": "Network Security Controls",
+          "description": "Provides multiple layers of network protection through [Network ACLs](https://cloud.ibm.com/docs/vpc?topic=vpc-using-acls) and [security groups](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups). ACLs define subnet-level rules to allow or deny traffic, while security groups act as virtual firewalls for instances, controlling inbound and outbound connections."
         },
         {
-          "title": "Public gateways",
-          "description": "Configures [public gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-public-gateways) to provide internet access to your VPC resources, acting as a bridge between private network components and the public internet."
+          "title": "Connectivity and Gateway Services",
+          "description": "Enables secure and flexible connectivity options with [public gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-public-gateways) for internet access, [VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-overview) for encrypted hybrid cloud connections, and [VPE gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe) for private access to IBM Cloud services. Also supports edge networking to isolate and optimize traffic to the public internet, and creates a transit gateway to connect the default VPCs in the deployable architecture."
         },
         {
-          "title": "VPN gateways",
-          "description": "Create and configures [VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-overview) to enable secure, encrypted connections between your on-premises environment and IBM Cloud, ideal for hybrid cloud setups."
+          "title": "Flow Logs and Secure Storage",
+          "description": "Captures and stores network traffic data using [VPC flow logs](https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs), with logs directed to an Object Storage bucket for analysis and long-term retention. Supports Key Management Service (KMS) encryption for the storage bucket, ensuring enhanced data security and compliance."
         },
         {
-          "title": "VPE gateways",
-          "description": "Creates [Virtual Private Endpoints (VPEs)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe) gateways to allow private access to IBM Cloud services from within your VPC, avoiding public internet traffic."
-        },
-        {
-          "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
-          "title": "Supports edge networking"
-        },
-        {
-          "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
-          "title": "Creates a transit gateway"
-        },
-        {
-          "title": "Security groups",
-          "description": "Has the ability to configure [security groups](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups) that works like virtual firewalls for your instances, defining rules that control allowed inbound and outbound traffic."
-        },
-        {
-          "title": "Address Prefixes",
-          "description": "Attaches address prefixes to define the IP address ranges used by your subnets, helping with IP management and planning in your VPC."
-        },
-        {
-          "title": "Routing Table and routes",
-          "description": "Creates [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) and custom routes to determine how traffic is directed within your VPC and to external networks."
-        },
-        {
-          "title": "Object Storage bucket for flow logs",
-          "description": "Creates and configures the Object storage bucket to store the network traffic data captured by [VPC flow logs]((https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs)), enabling analysis and long-term storage."
-        },
-        {
-          "title": "KMS encryption",
-          "description": "Supports Key Management Service (KMS) encryption for the Object Storage bucket where flow logs are stored, enhancing data security."
-        },
-        {
-          "title": "Optional Integrations",
-          "description": "This solution can be integrated with Observability that supports configuring resources for logging, monitoring and activity tracker event routing."
+          "title": "Optional Observability Integrations",
+          "description": "Can be integrated with IBM Cloud Observability services to configure logging, monitoring, and activity tracker event routing, providing deeper visibility into network and workload operations."
         }
       ],
       "flavors": [
@@ -1165,12 +1133,14 @@
           ],
           "architecture": {
             "features": [
-
               {
                 "title": " ",
-                "description": "description"
+                "description": "Ideal for users who need a secure, multi-zone VPC foundation with separate management and workload environments, connected through a transit gateway and private endpoints."
+              },
+              {
+                "title": " ",
+                "description": "Designed for regulated workloads, this variation integrates Key Management, Flow Logs, Activity Tracker, and Context-Based Restrictions to enhance security, auditing, and regulatory compliance."
               }
-
             ],
             "diagrams": [
               {
