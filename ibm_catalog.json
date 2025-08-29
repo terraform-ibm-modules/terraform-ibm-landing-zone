@@ -821,7 +821,6 @@
           "title": "Traffic Management",
           "description": "Configure routing tables and routes to control how traffic flows within the VPC and to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
         }
-        }
       ],
       "flavors": [
         {
