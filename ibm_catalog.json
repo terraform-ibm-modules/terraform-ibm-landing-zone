@@ -814,8 +814,13 @@
           "description": "Captures and stores network traffic data using [VPC flow logs](https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs), with logs directed to an Object Storage bucket for analysis and long-term retention. Supports Key Management Service (KMS) encryption for the storage bucket, ensuring enhanced data security and compliance."
         },
         {
-          "title": "Optional Observability Integrations",
+          "title": "Observability Integration",
           "description": "Can be integrated with IBM Cloud Observability services to configure logging, monitoring, and activity tracker event routing, providing deeper visibility into network and workload operations."
+        }
+        {
+          "title": "Traffic Management",
+          "description": "Configure routing tables and routes to control how traffic flows within the VPC and to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
+        }
         }
       ],
       "flavors": [
