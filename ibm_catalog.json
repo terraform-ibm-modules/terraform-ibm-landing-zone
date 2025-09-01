@@ -83,7 +83,7 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor"
               },
               "key": "user_data"
             },
@@ -290,7 +290,7 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor"
               },
               "key": "user_data"
             },
