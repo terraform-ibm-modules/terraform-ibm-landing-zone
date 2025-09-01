@@ -792,7 +792,7 @@
         "solution"
       ],
       "short_description": "Deploy Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
-      "long_description":"This deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. This architecture can be extended to support a variety of deployable architectures, such as [Cloud automation for Virtual Servers for Virtual Private Cloud](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Cloud automation for Red Hat OpenShift Container Platform on VPC](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global), and other cloud automation architectures. By setting up this foundational layer, it enables consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
+      "long_description":"The VPC landing zone deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. This architecture can be extended to support a variety of deployable architectures, such as [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat Openshift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global), and other cloud automation architectures. By setting up this foundational layer, it enables consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
       "provider_name": "IBM",
@@ -824,9 +824,9 @@
       ],
       "flavors": [
         {
-          "label": "Standard - Financial Services Edition",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
-           "index": 2,
+          "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
           "compliance": {
@@ -1149,8 +1149,8 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VPC landing zone - Standard variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/vpc_ref_arch/reference-architectures/vpc.drawio.svg",
+                  "caption": "VPC landing zone - Standard (Financial Services edition)",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key mangement services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
