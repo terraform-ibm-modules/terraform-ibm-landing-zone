@@ -202,19 +202,20 @@ variable "cluster_zones" {
 }
 
 variable "kube_version" {
-  description = "The version of the OpenShift cluster that should be provisioned. Current supported values are '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
+  description = "The version of the OpenShift cluster that should be provisioned. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
-  default     = "4.16_openshift"
+  default     = null
   validation {
     condition = anytrue([
       var.kube_version == null,
       var.kube_version == "default",
+      var.kube_version == "4.18_openshift",
       var.kube_version == "4.17_openshift",
       var.kube_version == "4.16_openshift",
       var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'"
+    error_message = "The kube_version value can currently only be '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'"
   }
 }
 
@@ -299,10 +300,10 @@ variable "cluster_force_delete_storage" {
 variable "operating_system" {
   type        = string
   description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
-  default     = "REDHAT_8_64"
+  default     = "RHCOS"
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHEL_9_64" || var.operating_system == "RHCOS"
   }
 }
 
@@ -600,7 +601,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-2-minimal-amd64-5"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-1"
 }
 
 variable "teleport_license" {
