@@ -29,7 +29,7 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/blob/main/reference-architecture/deployable-architecture-vpc.svg
 
 related_links:
-  - title: "Cloud automation for VPC"
+  - title: "Cloud foundation for VPC"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vpc-fully-configurable"
     description: "A deployable architecture that provides a foundational IBM Cloud Virtual Private Cloud (VPC) environment with full configurability and flexibility for diverse workloads."
 
@@ -43,7 +43,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Cloud automation for VPC - Fully configurable variation
+# Cloud foundation for VPC - Fully configurable variation
 {: #vpc-fully-configurable}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -51,14 +51,14 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="1.0.0"}
 
-The Cloud automation for VPC deployable architecture sets up a foundational IBM Cloud Virtual Private Cloud (VPC) environment with full configurability and flexibility. This deployable architecture provides complete control over VPC configuration, including subnets, network ACLs, security groups, public gateways, VPN gateways, and VPE gateways. Unlike pre-configured variations, this solution allows you to customize every aspect of your VPC infrastructure to meet specific requirements.
+The Cloud foundation for VPC deployable architecture sets up a foundational IBM Cloud Virtual Private Cloud (VPC) environment with full configurability and flexibility. This deployable architecture provides complete control over VPC configuration, including subnets, network ACLs, security groups, public gateways, VPN gateways, and VPE gateways. Unlike pre-configured variations, this solution allows you to customize every aspect of your VPC infrastructure to meet specific requirements.
 
 This architecture lays the groundwork for adding Virtual Server Instances (VSI), Red Hat OpenShift clusters, and other advanced resources. It can be used as a base deployable architecture for many other solutions or as a standalone VPC infrastructure deployment.
 
 ## Architecture diagram
 {: #ra-vpc-fully-configurable-architecture-diagram}
 
-![Architecture diagram for the Fully configurable variation of Cloud automation for VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/reference-architecture/deployable-architecture-vpc.svg "Architecture diagram of VPC deployable architecture"){: caption="Figure 1. Fully configurable variation of Cloud automation for VPC" caption-side="bottom"}{: external download="deployable-architecture-vpc.svg"}
+![Architecture diagram for the Fully configurable variation of Cloud foundation for VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/reference-architecture/deployable-architecture-vpc.svg "Architecture diagram of VPC deployable architecture"){: caption="Figure 1. Fully configurable variation of Cloud foundation for VPC" caption-side="bottom"}{: external download="deployable-architecture-vpc.svg"}
 
 ## Components
 {: #ra-vpc-fully-configurable-components}
