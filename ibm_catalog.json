@@ -792,14 +792,14 @@
         "solution"
       ],
       "short_description": "Deploy Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
-      "long_description": "The VPC landing zone deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. This architecture can be extended to support a variety of deployable architectures, such as [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global), and other cloud automation architectures. By setting up this foundational layer, it enables consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
+      "long_description": "The Cloud foundation for VPC deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. You can extend this deployable architecture to support a variety of others like [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global) and many more. You can set up a foundational layer to enable consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/images/vpc_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
           "title": "VPC Networking and Subnet Management",
-          "description": "Automatically provisions [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) across three availability zones, dividing your VPC into smaller, isolated networks for improved organization, availability, and traffic control. Includes support for [address prefixes](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) to define IP ranges, and [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) with custom routes to manage how traffic flows within the VPC and to external networks."
+          "description": "Provisions [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) across three availability zones, dividing your VPC into smaller, isolated networks for improved organization, availability, and traffic control. It Includes support for [address prefixes](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) to define IP ranges, and [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) with custom routes to manage flow of traffic not only within the VPC but also to the external networks."
         },
         {
           "title": "Network Security Controls",
@@ -815,7 +815,7 @@
         },
         {
           "title": "Traffic Management",
-          "description": "Configure routing tables and routes to control how traffic flows within the VPC and to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
+          "description": "Configures routing tables and routes to control the flow of traffic not only within the VPC but also to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
         },
         {
           "title": "Sets up logging for the VPC instance",
@@ -1116,31 +1116,36 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
