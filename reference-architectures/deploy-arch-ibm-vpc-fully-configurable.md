@@ -53,7 +53,7 @@ content-type: reference-architecture
 
 The Cloud foundation for VPC deployable architecture sets up a foundational IBM Cloud Virtual Private Cloud (VPC) environment with full configurability and flexibility. This deployable architecture provides complete control over VPC configuration, including subnets, network ACLs, security groups, public gateways, VPN gateways, and VPE gateways. Unlike pre-configured variations, this solution allows you to customize every aspect of your VPC infrastructure to meet specific requirements.
 
-This deployable architecture includes enterprise-grade security, observability, and compliance capabilities through integrated dependencies that are enabled by default: encryption services (Key Protect), observability services (logging, monitoring, Activity Tracker), and compliance services (Security and Compliance Center Workload Protection). These services provide comprehensive security, monitoring, and compliance coverage for your VPC infrastructure.
+This deployable architecture includes enterprise-grade security, observability, and compliance capabilities through integrated dependencies that are enabled by default: encryption services (Key Protect), observability services (IBM Cloud Flow Logs for VPC, logging, monitoring, Activity Tracker), and compliance services (Security and Compliance Center Workload Protection). These services provide comprehensive security, monitoring, and compliance coverage for your VPC infrastructure.
 
 This architecture lays the groundwork for adding Virtual Server Instances (VSI), Red Hat OpenShift clusters, and other advanced resources. It can be used as a base deployable architecture for many other solutions or as a standalone VPC infrastructure deployment.
 
