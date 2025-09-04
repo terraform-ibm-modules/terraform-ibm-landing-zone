@@ -29,9 +29,9 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks-quickstart.drawio.svg
 
 related_links:
-  - title: "Red Hat OpenShift Container Platform on VPC landing zone"
-    url: "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ocp-ra"
-    description: "Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+  - title: "Red Hat OpenShift Container Platform on VPC landing zone (QuiskStart)"
+    url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-roks-ra-qs"
+    description: "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
