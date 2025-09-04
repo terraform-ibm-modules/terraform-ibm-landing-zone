@@ -32,6 +32,9 @@ related_links:
   - title: "Red Hat OpenShift Container Platform on VPC landing zone (QuiskStart)"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-roks-ra-qs"
     description: "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
+  - title: "Red Hat OpenShift Container Platform on VPC landing zone (Standard)"
+    url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
+    description: "A deployable architecture that creates a secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network based on the IBM Cloud for Financial Services reference architecture."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
