@@ -31,7 +31,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zon
 related_links:
   - title: "Cloud foundation for VPC - Standard (Financial Services edition) variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vpc-ra"
-    description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
+    description: "A deployable architecture that deploys a Virtual Private Cloud (VPC) infrastructure without any compute resources and is based on the IBM Cloud for Financial Services reference."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
