@@ -32,6 +32,9 @@ related_links:
   - title: "Cloud foundation for VPC - Standard (Financial Services edition) variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vpc-ra"
     description: "A deployable architecture that deploys a Virtual Private Cloud (VPC) infrastructure without any compute resources and is based on the IBM Cloud for Financial Services reference."
+  - title: "Cloud foundation for VPC - Standard (Integrated setup with configurable services) variation"
+    url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vpc-fully-configurable"
+    description: "A deployable architecture that deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
