@@ -83,7 +83,7 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor"
               },
               "key": "user_data"
             },
@@ -290,7 +290,7 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor"
               },
               "key": "user_data"
             },
@@ -772,56 +772,69 @@
     },
     {
       "name": "deploy-arch-ibm-slz-vpc",
-      "label": "VPC landing zone",
+      "label": "Cloud foundation for VPC",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
         "target_terraform",
         "terraform",
         "solution",
+        "network",
         "network_vpc",
-        "reference_architecture",
         "converged_infra"
       ],
       "keywords": [
         "vpc",
         "slz",
-        "IaC",
-        "Infrastructure",
         "terraform",
+        "IaC",
+        "infrastructure as code",
         "solution"
       ],
-      "short_description": "Deploys a secure VPC network without compute resources",
-      "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: [VSI on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vsi-ef663980-4c71-4fac-af4f-4a510a9bcf68-global) and [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global).",
+      "short_description": "Deploy Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
+      "long_description": "The Cloud foundation for VPC deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. You can extend this deployable architecture to support a variety of others like [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global) and many more. You can set up a foundational layer to enable consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/images/vpc_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
-          "title": "Creates Virtual Private Clouds"
+          "title": "VPC Networking and Subnet Management",
+          "description": "Provisions [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) across three availability zones, dividing your VPC into smaller, isolated networks for improved organization, availability, and traffic control. It Includes support for [address prefixes](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) to define IP ranges, and [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) with custom routes to manage flow of traffic not only within the VPC but also to the external networks."
         },
         {
-          "description": "Defines multiple subnets in the VPC to define IP ranges and organize resources within the network.\n",
-          "title": "Configures subnets"
+          "title": "Network Security Controls",
+          "description": "Provides multiple layers of network protection through [Network ACLs](https://cloud.ibm.com/docs/vpc?topic=vpc-using-acls) and [security groups](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups). ACLs define subnet-level rules to allow or deny traffic, while security groups act as virtual firewalls for instances, controlling inbound and outbound connections."
         },
         {
-          "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
-          "title": "Creates a transit gateway"
+          "title": "Connectivity and Gateway Services",
+          "description": "Enables secure and flexible connectivity options with [public gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-public-gateways) for internet access, [VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-overview) for encrypted hybrid cloud connections, and [VPE gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe) for private access to IBM Cloud services. Also supports edge networking to isolate and optimize traffic to the public internet, and creates a transit gateway to connect the default VPCs in the deployable architecture."
         },
         {
-          "description": "IBM Cloud Object Storage is used for Flow Logs and Activity Tracker, which enhance the observability and auditing of your infrastructure.\n",
-          "title": "Integrates Flow Logs and Activity tracking"
+          "title": "Flow Logs and Secure Storage",
+          "description": "Captures and stores network traffic data using [VPC flow logs](https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs), with logs directed to an Object Storage bucket for analysis and long-term retention. Supports Key Management Service (KMS) encryption for the storage bucket, ensuring enhanced data security and compliance."
         },
         {
-          "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
-          "title": "Supports edge networking"
+          "title": "Traffic Management",
+          "description": "Configures routing tables and routes to control the flow of traffic not only within the VPC but also to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
+        },
+        {
+          "title": "Sets up logging for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Logs]((https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-logs-63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global)) to route, alert, and visualize platform logs that are generated by your VPC instance."
+        },
+        {
+          "title": "Sets up monitoring operational metrics for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Monitoring](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-monitoring-73debdbf-894f-4c14-81c7-5ece3a70b67d-global) to measure how users and applications interact with your VPC instance."
+        },
+        {
+          "title": "Sets up activity tracking for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your VPC instance."
         }
       ],
       "flavors": [
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
+          "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
           "compliance": {
@@ -1103,84 +1116,57 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for production workloads requiring compliance with financial services standards."
               },
               {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VPC landing zone - Standard variation",
+                  "caption": "VPC landing zone - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. The Standard variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services."
+                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key mangement services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
               }
             ]
           },
