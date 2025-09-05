@@ -1202,7 +1202,7 @@
       "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance.",
       "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc/main/images/ocp_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
@@ -1228,7 +1228,7 @@
       ],
       "flavors": [
         {
-          "label": "QuickStart - Financial Services Sandbox",
+          "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
           "index": 3,
           "install_type": "fullstack",
@@ -1484,32 +1484,37 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object storage bucket for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create the containers-kubernetes-key for the OpenShift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] [Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the Openshift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
@@ -1526,7 +1531,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift cluster topology - QuickStart (Financial Services Sandbox)",
+                  "caption": "Red Hat OpenShift cluster topology - QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
@@ -1537,7 +1542,7 @@
           "terraform_version": "1.10.5"
         },
         {
-          "label": "Standard - Financial Services Edition",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
           "index": 4,
           "install_type": "fullstack",
@@ -2103,13 +2108,15 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object storage bucket for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
@@ -2122,19 +2129,22 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the Openshift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
@@ -2151,7 +2161,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift cluster topology - Standard (Financial Services Edition)",
+                  "caption": "Red Hat OpenShift cluster topology - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
