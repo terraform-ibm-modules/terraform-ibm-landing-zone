@@ -80,6 +80,24 @@
               "key": "override_json_string"
             },
             {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
+            },
+            {
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -233,6 +251,24 @@
             {
               "key": "ssh_public_key",
               "required": true
+            },
+            {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
             },
             {
               "key": "ibmcloud_api_key"
@@ -639,6 +675,24 @@
               "required": true
             },
             {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
+            },
+            {
               "custom_config": {
                 "config_constraints": {
                   "generationType": "2"
@@ -859,6 +913,24 @@
               },
               "key": "region",
               "required": true
+            },
+            {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
             },
             {
               "key": "ibmcloud_api_key"
@@ -1246,6 +1318,24 @@
               "type": "string"
             },
             {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
+            },
+            {
               "key": "ibmcloud_api_key"
             },
             {
@@ -1576,6 +1666,24 @@
               },
               "key": "region",
               "required": true
+            },
+            {
+              "key": "provider_visibility",
+              "hidden":true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
             },
             {
               "key": "kube_version",
