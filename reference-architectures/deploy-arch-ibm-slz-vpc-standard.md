@@ -66,6 +66,10 @@ The Standard (Financial Services edition) variation of the Cloud foundation for 
 - IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services.
 - Adds key management by integrating the {{site.data.keyword.keymanagementservicefull_notm}} service or the {{site.data.keyword.hscrypto}}. These key management services help you create, manage, and use encryption keys to protect your sensitive data.
 
+For more information about the components of VPCs, see [VPC concepts](/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-concepts).
+
+For more information on how to create custom CBR (Context-based restrictions) zones and rules, see [CBR module](https://github.com/terraform-ibm-modules/terraform-ibm-cbr). Also refer [Pre-wired CBR configuration for FS Cloud](https://github.com/terraform-ibm-modules/terraform-ibm-cbr/tree/main/modules/fscloud) submodule to create default Financial Services compliant coarse-grained CBR rules.
+
 ## Architecture diagram
 {: #ra-vpc-architecture-diagram}
 
