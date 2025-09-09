@@ -200,7 +200,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         },
         {
           "label": "Standard",
@@ -598,7 +599,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         },
         {
           "label": "Existing VPC",
@@ -1170,7 +1172,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         }
       ]
     },
@@ -1539,7 +1542,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         },
         {
           "label": "Standard - Financial Services edition",
@@ -2169,7 +2173,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         }
       ]
     }
