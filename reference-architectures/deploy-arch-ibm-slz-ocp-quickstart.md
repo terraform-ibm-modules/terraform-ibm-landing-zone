@@ -12,7 +12,7 @@ authors:
   - name: "Todd Giguere"
 
 # The release that the reference architecture describes
-version: 6.6.0
+version: 8.5.0
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -29,9 +29,12 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/roks-quickstart.drawio.svg
 
 related_links:
-  - title: "Red Hat OpenShift Container Platform on VPC landing zone"
-    url: "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ocp-ra"
-    description: "Red Hat OpenShift Container Platform on VPC landing zone is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+  - title: "Red Hat OpenShift Container Platform on VPC landing zone (QuiskStart)"
+    url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-roks-ra-qs"
+    description: "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
+  - title: "Red Hat OpenShift Container Platform on VPC landing zone (Standard)"
+    url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-ocp-ra"
+    description: "A deployable architecture that creates a secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network based on the IBM Cloud for Financial Services reference architecture."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
@@ -47,7 +50,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="6.6.0"}
+{: toc-version="8.5.0"}
 
 The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
 
