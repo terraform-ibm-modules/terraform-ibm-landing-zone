@@ -54,9 +54,17 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="8.5.11"}
 
-The Standard (Financial Services edition) variation of the Cloud foundation for VPC deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
+The Standard (Financial Services edition) variation of the Cloud foundation for VPC deployable architecture uses two Virtual Private Clouds (VPC), a Management VPC, and a Workload VPC to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. This deployable architecture aligns with [VPC reference architecture for {{site.data.keyword.cloud_notm}} for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-vpc-architecture-about). It constitutes of the following capabilities:
 
-IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services. IBM Cloud Flow Logs for VPC and Activity Tracker are included in this deployable architecture. You can add more security services, such as Hyper Protect Crypto Services.
+- It defines multiple subnets in the VPC to define IP ranges and organize resources within the network.
+- Includes public gateways that provide connectivity between resources in a VPC and the public internet.
+- Creates ACLs and define rules for allowing or denying traffic between subnets within a VPC.
+- Creates a transit gateway to connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.
+- Creates security groups to control inbound and outbound traffic to resources within the VPC.
+- Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled
+- Adds landing zone VPC CRNs to an existing CBR (Context-based restrictions) network zone if the existing CBR zone ID is specified.
+- IBM Cloud Flow Logs for VPC enables the collection and storage of information about the internet protocol (IP) traffic that is going to and from network interfaces within your VPC. In addition, Activity Tracker logs events from enabled services.
+- Adds key management by integrating the {{site.data.keyword.keymanagementservicefull_notm}} service or the {{site.data.keyword.hscrypto}}. These key management services help you create, manage, and use encryption keys to protect your sensitive data.
 
 ## Architecture diagram
 {: #ra-vpc-architecture-diagram}
@@ -105,10 +113,8 @@ TODO: Decide whether to include a compliance section, and if so, add that inform
 _Optional section._ Feedback from users implies that architects want only the high-level compliance items and links off to control details that team members can review. Include the list of control profiles or compliance audits that this architecture meets. For controls, provide "learn more" links to the control library that is published in the IBM Cloud Docs. For audits, provide information about the compliance item.
  -->
 
-<!--
+
 ## Next steps
 {: #ra-vpc-next-steps}
 
-TODO: Decide what next steps to list, if any
-
-Optional section. Include links to your deployment guide or next steps to get started with the architecture. -->
+To deploy this architecture, understand [Deploying a landing zone deployable architecture](/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-deploy) steps.
