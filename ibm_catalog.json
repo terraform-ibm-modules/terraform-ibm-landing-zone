@@ -1500,7 +1500,7 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
               "service_name": "cloud-object-storage",
-              "notes": "Required to manage Object storage bucket for the cluster internal registry."
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
