@@ -2,7 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-slz-vsi",
-      "label": "VSI on VPC landing zone",
+      "label": "Landing zone for applications with virtual servers",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -1179,7 +1179,7 @@
     },
     {
       "name": "deploy-arch-ibm-slz-ocp",
-      "label": "Red Hat OpenShift Container Platform on VPC landing zone",
+      "label": "Landing zone for containerized applications with OpenShift",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
