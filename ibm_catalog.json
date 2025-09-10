@@ -1550,7 +1550,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet and <b>Workload VPC</b> with two subnets in two zones with allow-all ACL and security group. It creates <b>Transit Gateway</b> connecting to VPCs and integrates with <b>Key Protect</b> for managing the cluster encryption keys and requires a <b> Object Storage instance</b> to provision the cluster. <br> <br> It helps you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "This deployable architecture creates one Red Hat OpenShift Container Platform in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet and <b>Workload VPC</b> with two subnets in two zones with allow-all ACL and security group. It creates <b>Transit Gateway</b> connecting to VPCs. It requires a <b> Object Storage instance</b> to provision the cluster and integrates with <b>Key Protect</b> for managing the cluster encryption keys. <br> <br> It is ideal for sandbox environments and helps you get started quickly."
               }
             ]
           },
