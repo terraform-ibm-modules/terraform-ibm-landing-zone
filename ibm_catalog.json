@@ -1515,14 +1515,14 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
               "service_name": "kms",
-              "notes": "[Optional] [Optional] Required if Key Protect is used for encryption."
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
               "service_name": "containers-kubernetes",
-              "notes": "Required to create and manage the Openshift cluster."
+              "notes": "Required to create and manage the OpenShift cluster."
             },
             {
               "role_crns": [
@@ -2119,14 +2119,14 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
               "service_name": "appid",
-              "notes": "Required to create and manage App ID service instances"
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
               "service_name": "cloud-object-storage",
-              "notes": "Required to manage Object storage bucket for the cluster internal registry."
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
@@ -2183,7 +2183,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture deploys the <b>Red Hat OpenShift Container Platform on VPC</b> based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates two separate <b>VPCs</b> for management and workloads, respectively. It configures two <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs.  <br> <br> It integrates with <b>key management</b> services to enhance security and reduces failure events by using multizone regions. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> This architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "This deployable architecture deploys the <b>Red Hat OpenShift Container Platform on VPC</b> based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates two separate <b>VPCs</b> for management and workloads, respectively. It configures two <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs.  <br> <br> It integrates with <b>key management</b> services to enhance security and reduces failure events by using multizone regions. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> Using this architecture, secure and compliant Red Hat OpenShift Container Platform is created on a VPC network."
               }
             ]
           },
