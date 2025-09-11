@@ -69,7 +69,8 @@
               },
               "key": "region",
               "required": true,
-              "type": "string"
+              "type": "string",
+              "default_value": "__NOT_SET__"
             },
             {
               "custom_config": {
@@ -229,7 +230,8 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true
+              "required": true,
+              "default_value": "__NOT_SET__"
             },
             {
               "key": "ssh_public_key",
@@ -650,7 +652,8 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true
+              "required": true,
+              "default_value": "__NOT_SET__"
             },
             {
               "key": "ibmcloud_api_key"
@@ -860,7 +863,8 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true
+              "required": true,
+              "default_value": "__NOT_SET__"
             },
             {
               "key": "ibmcloud_api_key"
@@ -1168,7 +1172,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key mangement services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
+                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key management services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
               }
             ]
           },
@@ -1246,7 +1250,8 @@
               },
               "key": "region",
               "required": true,
-              "type": "string"
+              "type": "string",
+              "default_value": "__NOT_SET__"
             },
             {
               "key": "ibmcloud_api_key"
@@ -1296,6 +1301,7 @@
             {
               "key": "flavor",
               "required": true,
+              "default_value": "__NOT_SET__",
               "options": [
                 {
                   "displayname": "bx2.16x64",
@@ -1579,7 +1585,8 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true
+              "required": true,
+              "default_value": "__NOT_SET__"
             },
             {
               "key": "kube_version",
@@ -1613,6 +1620,7 @@
             {
               "key": "flavor",
               "required": true,
+              "default_value": "__NOT_SET__",
               "options": [
                 {
                   "displayname": "bx2.16x64",

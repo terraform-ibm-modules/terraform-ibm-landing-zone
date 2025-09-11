@@ -195,7 +195,7 @@ locals {
     )
   }
 
-  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
+  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corresponding csi_driver_version
   cluster_addons = {
     for cluster in local.clusters_map : "${var.prefix}-${cluster.name}" => {
       id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
