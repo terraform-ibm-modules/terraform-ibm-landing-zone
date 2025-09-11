@@ -55,6 +55,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "index": 1,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
@@ -181,6 +182,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
           "compliance": {
@@ -550,6 +552,7 @@
         {
           "label": "Existing VPC",
           "name": "existing-vpc",
+          "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-extension",
           "dependencies": [
