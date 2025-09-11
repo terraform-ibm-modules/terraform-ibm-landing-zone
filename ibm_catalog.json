@@ -113,81 +113,55 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
               },
               {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Adds a virtual server instance in every VPC subnet",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "No"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "No"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "No"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "No"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "No"
-              },
-              {
-                "title": "Uses floating IP addresses for access through the public internet",
-                "description": "Yes"
+                "title": " ",
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
             "diagrams": [
@@ -197,7 +171,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture implements the QuickStart variation of the VSI on VPC landing zone. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—in a single region to separate operations from workloads. Each VPC is a single‑zone, multi‑subnet design with <b>Virtual Server Instances (VSIs)</b> placed in every subnet for rapid demonstration and development.A <b>transit gateway</b> connects the VPCs and <b>Key Management</b> is integrated to enhance security of sensitive assets. This QuickStart favors speed and simplicity: it uses <b>floating IPs</b> for public access and does not include edge VPC, site‑to‑site VPN, Activity Tracker, Flow Logs, or Financial Services compliance controls.Use this variation to stand up a minimal, customizable environment quickly, then expand to the Standard variation as requirements grow."
+                "description": "This deployable architecture implements the QuickStart variation of the VSI on VPC landing zone. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—in a single region to separate operations from workloads. Each VPC is a single-zone, multi-subnet design with <b>Virtual Server Instances (VSIs)</b> placed in every subnet for rapid demonstration and development.<br><br>It configures a <b>transit gateway</b> that , connects the VPCs and <b>Key Protect</b> is integrated to enhance security of sensitive assets. This QuickStart favors speed and simplicity , it uses <b>floating IPs</b> for public access.<br><br>It is ideal for sandbox environments and helps you get started quickly."
               }
             ]
           },
@@ -509,84 +483,54 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for production workloads requiring compliance with financial services standards."
               },
               {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Virtual Server Instances for every subnet",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses floating IP addresses for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
@@ -596,7 +540,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture implements a Standard VSI on VPC landing zone aligned to the IBM Cloud for Financial Services reference architecture. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—to separate operations from workloads and improve security. Each VPC is a multi-zone, multi-subnet design with <b>Virtual Server Instances (VSIs)</b> in every subnet to host your applications across regions for resiliency.A <b>transit gateway</b> connects the VPCs and <b>Virtual Private Endpoints (VPEs)</b> provide private access to IBM Cloud services. The architecture integrates <b>Key Management</b> to protect sensitive data and uses <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.It securely connects to multiple networks through a <b>site‑to‑site VPN</b>. Optionally, an <b>edge VPC</b> enables controlled access through the public internet; <b>floating IPs are not used</b> for public access. It configures <b>CBR (Context‑based restrictions)</b> to allow traffic only from the landing zone VPCs to approved cloud services.This Standard variation simplifies risk management, increases availability with multizone regions, and demonstrates regulatory compliance for Financial Services."
+                "description": "This deployable architecture implements a Standard VSI on VPC landing zone aligned to the IBM Cloud for Financial Services reference architecture. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—to separate operations from workloads and improve security. Each VPC is a multi-zone, multi-subnet design with <b>Virtual Server Instances (VSIs)</b> in every subnet to host your applications across regions for resiliency.<br><br>It configures <b>transit gateway</b> connects the VPCs and <b>Virtual Private Endpoints (VPEs)</b> provide private access to IBM Cloud services. The architecture integrates <b>Key Protect</b> to protect sensitive data and uses <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks through a <b>site-to-site VPN</b>. Optionally, an <b>edge VPC</b> enables controlled access through the public internet. It configures <b>CBR (Context-based restrictions)</b> to allow traffic only from the landing zone VPCs to approved cloud services.<br><br>Using this architecture, secure and compliant Virtual Server Instances (VSIs) are created on a VPC network."
               }
             ]
           },
@@ -736,26 +680,19 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Adds a virtual server instance in every VPC subnet",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for extending existing VPC environments while maintaining compliance with financial services standards."
               },
               {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
+                "title": " ",
+                "description": "Validated configuration that enhances resiliency and security while aligning with financial services compliance requirements."
               }
             ],
             "diagrams": [
