@@ -17,42 +17,43 @@
         "vpc",
         "slz",
         "IaC",
-        "infrastructure as code",
         "terraform",
-        "solution",
+        "virtualservers",
         "vsi",
-        "virtual server instance"
+        "servers",
+        "solution",
+        "infrastructure as code"
       ],
-      "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
-      "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+      "short_description": "Deploys secure Virtual Server Instances on IBM Cloud VPC with flexible configurations, QuickStart options for simplified setup, and integrated security and logging features",
+      "long_description": "The Virtual Server Instance (VSI) on IBM Cloud VPC provides fast-provisioned, high-performance compute with network isolation and built-in security on your existing Virtual Private Cloud (VPC). It deploys VSIs and related resources using flexible configurations, with support for x86 and s390x profiles to match your compute and memory needs. Designed for secure, compliant, and customizable application workloads, this landing zone enables consistent, scalable deployments across multiple zones and subnets.[Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers).",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi/main/images/vsi-icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates and configures one or more virtual servers to handle workloads.\n",
-          "title": "Creates virtual servers for workloads"
+          "title": "Configurable Compute, Networking, and Placement",
+          "description": "Provisions IBM Cloud VPC with [Virtual Server Instances (VSIs)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers), multi-zone [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc&interface=ui), and placement control. Supports quick start or advanced setups with customizable VSI [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) and attachment to networking and security services."
         },
         {
-          "description": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.\n",
-          "title": "Configures subnets"
+          "title": "Resilient Traffic and Access Controls",
+          "description": "Enables  Network (Layer 4) and Application (Layer 7) [Load Balancers](https://cloud.ibm.com/docs/vpc?topic=vpc-nlb-vs-elb) with health checks, while enforcing least-privilege access via [security groups](https://cloud.ibm.com/docs/vpc?group=security-groups) and managed [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys&interface=ui). Integrates [Context-Based Restrictions (CBR)](https://cloud.ibm.com/docs/vpc?topic=vpc-cbr&interface=ui) to limit service access to approved landing zone VPCs."
         },
         {
-          "description": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.\n",
-          "title": "Associates security groups"
+          "title": "Secure Storage and Key Management",
+          "description": "Attaches high-performance [Block Storage volumes]( https://cloud.ibm.com/docs/vpc?topic=vpc-block_storage_about) with selectable profiles and capacity, with optional KMS encryption using new or existing keys."
         },
         {
-          "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
-          "title": "Provisions SSH keys"
+          "title": "Integrated Secrets Management",
+          "description": "Optionally Adds [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) to manage SSH private keys and application secrets across environments."
         },
         {
-          "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-          "title": "Configures CBR"
+          "title": "End-to-End Observability",
+          "description": "Optionally Leverages [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) to configure logging, monitoring, and Activity Tracker event routing."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart",
+          "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
@@ -192,11 +193,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI on VPC landing zone - QuickStart variation",
+                  "caption": "VSI on VPC landing zone - QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
+                "description": "This deployable architecture implements the QuickStart variation of the VSI on VPC landing zone. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—in a single region to separate operations from workloads. Each VPC is a single‑zone, multi‑subnet design with <b>Virtual Server Instances (VSIs)</b> placed in every subnet for rapid demonstration and development.A <b>transit gateway</b> connects the VPCs and <b>Key Management</b> is integrated to enhance security of sensitive assets. This QuickStart favors speed and simplicity: it uses <b>floating IPs</b> for public access and does not include edge VPC, site‑to‑site VPN, Activity Tracker, Flow Logs, or Financial Services compliance controls.Use this variation to stand up a minimal, customizable environment quickly, then expand to the Standard variation as requirements grow."
               }
             ]
           },
@@ -204,7 +205,7 @@
           "dependency_version_2": true
         },
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
@@ -595,7 +596,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions."
+                "description": "This deployable architecture implements a Standard VSI on VPC landing zone aligned to the IBM Cloud for Financial Services reference architecture. It provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—to separate operations from workloads and improve security. Each VPC is a multi-zone, multi-subnet design with <b>Virtual Server Instances (VSIs)</b> in every subnet to host your applications across regions for resiliency.A <b>transit gateway</b> connects the VPCs and <b>Virtual Private Endpoints (VPEs)</b> provide private access to IBM Cloud services. The architecture integrates <b>Key Management</b> to protect sensitive data and uses <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.It securely connects to multiple networks through a <b>site‑to‑site VPN</b>. Optionally, an <b>edge VPC</b> enables controlled access through the public internet; <b>floating IPs are not used</b> for public access. It configures <b>CBR (Context‑based restrictions)</b> to allow traffic only from the landing zone VPCs to approved cloud services.This Standard variation simplifies risk management, increases availability with multizone regions, and demonstrates regulatory compliance for Financial Services."
               }
             ]
           },
@@ -605,7 +606,7 @@
         {
           "label": "Existing VPC",
           "name": "existing-vpc",
-          "install_type": "extension",
+          "install_type": "fullstack",
           "working_directory": "patterns/vsi-extension",
           "dependencies": [
             {
@@ -764,11 +765,12 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The extension to an existing VPC deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure with virtual servers to run your workloads with IBM Cloud VPC in multizone regions."
+                "description": "This deployable architecture extends an existing Virtual Private Cloud (VPC) environment and is aligned to the IBM Cloud for Financial Services reference architecture. It provisions <b>Virtual Server Instances (VSIs)</b> in every subnet across multiple availability zones, delivering a resilient and secure multizone infrastructure to run your workloads.<br><br> The extension integrates <b>Key Management</b> to strengthen security of sensitive data and uses <b>Activity Tracker with Flow Logs</b> to collect and store Internet Protocol (IP) traffic data. A <b>transit gateway</b> connects the Management and Workload VPCs, while <b>Virtual Private Endpoints (VPEs)</b> provide private access to IBM Cloud services. Secure connectivity to enterprise environments is enabled through a <b>site-to-site VPN</b>, and <b>CBR (Context-based restrictions)</b> rules manage traffic flows to approved services.<br><br> This variation avoids the use of floating IPs for internet access, relying instead on private and controlled connections. It simplifies risk management and demonstrates regulatory compliance for Financial Services scenarios."
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "dependency_version_2": true
         }
       ]
     },
