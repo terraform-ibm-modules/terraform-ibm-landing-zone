@@ -69,8 +69,7 @@
               },
               "key": "region",
               "required": true,
-              "type": "string",
-              "default_value": "__NOT_SET__"
+              "type": "string"
             },
             {
               "custom_config": {
@@ -230,8 +229,7 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "key": "ssh_public_key",
@@ -863,8 +861,7 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "key": "ibmcloud_api_key"
@@ -1265,8 +1262,7 @@
               },
               "key": "region",
               "required": true,
-              "type": "string",
-              "default_value": "__NOT_SET__"
+              "type": "string"
             },
             {
               "key": "ibmcloud_api_key"
@@ -1590,8 +1586,7 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "key": "kube_version",

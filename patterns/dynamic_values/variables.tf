@@ -15,6 +15,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 ##############################################################################

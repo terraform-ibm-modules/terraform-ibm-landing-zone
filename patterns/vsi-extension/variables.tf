@@ -7,6 +7,7 @@ variable "ibmcloud_api_key" {
 variable "region" {
   description = "The region of the landing zone VPC."
   type        = string
+  default     = "us-south"
 }
 
 variable "prefix" {
