@@ -1196,41 +1196,56 @@
         "IaC",
         "infrastructure as code",
         "terraform",
-        "solution",
-        "Red Hat OpenShift Container Platform",
-        "OCP"
+        "ocp",
+        "cluster",
+        "red_hat_openshift",
+        "redhat",
+        "ROKS"
       ],
-      "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
-      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
+      "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance",
+      "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc/main/images/ocp_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
-          "title": "Creates Open Shift Container Platform clusters for workloads"
+          "title": "Configurable OpenShift deployment options",
+          "description": "Provides multiple configuration paths for provisioning [Red Hat OpenShift clusters](https://cloud.ibm.com/docs/openshift) on IBM Cloud VPC. Supports use cases ranging from quick experimentation to production-grade deployments in regulated environments. Capabilities vary by variation, with some offering simplified onboarding and others enabling advanced integrations and compliance alignment."
         },
         {
-          "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
-          "title": "Creates worker pools"
+          "title": "OpenShift Cluster with Scalable Access and Worker Management",
+          "description": "Deploys a Red Hat OpenShift cluster with Kubernetes-native orchestration and automated lifecycle management. All variations support [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) and [worker pool](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) configurations, enabling secure connectivity and scalable workload deployment."
         },
         {
-          "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
-          "title": "Configures subnets for containers"
+          "title": "Infrastructure Setup",
+          "description": "Automatically provisions multi-zone VPCs, [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets), and networking components. QuickStart variations abstract this setup to minimize required IBM Cloud knowledge, while other configurations expose full control for advanced users."
         },
         {
-          "description": "Configures private and public endpoints for the cluster.\n",
-          "title": "Supports private and public endpoints"
+          "title": "IBM Cloud Services Integrations",
+          "description": "Depending on the variation, clusters may include integrations with IBM Cloud services such as [Key Protect](https://cloud.ibm.com/docs/openshift?topic=openshift-encryption-setup&interface=ui), [Hyper Protect Crypto Services](https://cloud.ibm.com/catalog/services/hyper-protect-crypto-services), [Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global), [Object Storage](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand), and Observability services."
         },
         {
-          "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
-          "title": "Configures ingress"
+          "title": "Security and Compliance Alignment",
+          "description": "Advanced configurations include features such as [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server) and encryption key management, and may align with [IBM Cloud Framework for Financial Services](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-about) for production use in regulated environments."
+        },
+        {
+          "title": "Sets up logging for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Logs](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-logs-63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global) to route, alert, and visualize platform logs that are generated by your OpenShift cluster."
+        },
+        {
+          "title": "Sets up monitoring operational metrics for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Monitoring](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-monitoring-73debdbf-894f-4c14-81c7-5ece3a70b67d-global) to measure how users and applications interact with your OpenShift cluster."
+        },
+        {
+          "title": "Sets up activity tracking for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your OpenShift cluster."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart",
+          "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
@@ -1484,69 +1499,58 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create the containers-kubernetes-key for the OpenShift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the OpenShift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Management VPC with one subnet, allow-all ACL and Security Group",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
               },
               {
-                "title": "Workload VPC with two subnets, in two zones, allow-all ACL and Security Group",
-                "description": "Yes"
-              },
-              {
-                "title": "Transit Gateway connecting VPCs",
-                "description": "Yes"
-              },
-              {
-                "title": "One OCP cluster in workload VPC with two worker nodes, public endpoint enabled",
-                "description": "Yes"
-              },
-              {
-                "title": "Key Protect for cluster encryption keys",
-                "description": "Yes"
-              },
-              {
-                "title": "Cloud Object Storage instance (required for cluster)",
-                "description": "Yes"
+                "title": " ",
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - QuickStart variation",
+                  "caption": "Red Hat OpenShift cluster topology - QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled. The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "This deployable architecture creates one Red Hat OpenShift Container Platform in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet and <b>Workload VPC</b> with two subnets in two zones with allow-all ACL and security group. It creates <b>Transit Gateway</b> connecting to VPCs. It requires a <b> Object Storage instance</b> to provision the cluster and integrates with <b>Key Protect</b> for managing the cluster encryption keys. <br> <br> It is ideal for sandbox environments and helps you get started quickly."
               }
             ]
           },
@@ -1554,8 +1558,9 @@
           "dependency_version_2": true
         },
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
+          "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
           "compliance": {
@@ -2113,101 +2118,72 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the Openshift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
+                "title": " ",
+                "description": "Ideal for production workloads requiring compliance with financial services standards."
               },
               {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Red Hat OpenShift",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
+                  "caption": "Red Hat OpenShift cluster topology - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "This deployable architecture deploys the <b>Red Hat OpenShift Container Platform on VPC</b> based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates two separate <b>VPCs</b> for management and workloads, respectively. It configures two <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs.  <br> <br> It integrates with <b>key management</b> services to enhance security and reduces failure events by using multizone regions. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> Using this architecture, secure and compliant Red Hat OpenShift Container Platform is created on a VPC network."
               }
             ]
           },
