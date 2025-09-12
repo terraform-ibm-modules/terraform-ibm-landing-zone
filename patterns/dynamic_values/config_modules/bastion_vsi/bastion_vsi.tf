@@ -51,7 +51,7 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
 }
 
