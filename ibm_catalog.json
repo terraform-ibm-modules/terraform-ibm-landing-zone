@@ -233,8 +233,7 @@
             },
             {
               "key": "ssh_public_key",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "key": "ibmcloud_api_key"
@@ -243,8 +242,7 @@
               "key": "prefix"
             },
             {
-              "key": "existing_ssh_key_name",
-              "default_value": "__NOT_SET__"
+              "key": "existing_ssh_key_name"
             },
             {
               "key": "tags",
@@ -272,12 +270,10 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name",
-              "default_value": "__NOT_SET__"
+              "key": "hs_crypto_instance_name"
             },
             {
-              "key": "hs_crypto_resource_group",
-              "default_value": "__NOT_SET__"
+              "key": "hs_crypto_resource_group"
             },
             {
               "key": "use_random_cos_suffix"
@@ -504,8 +500,7 @@
               "key": "IC_SCHEMATICS_WORKSPACE_ID"
             },
             {
-              "key": "existing_vpc_cbr_zone_id",
-              "default_value": "__NOT_SET__"
+              "key": "existing_vpc_cbr_zone_id"
             }
           ],
           "iam_permissions": [
@@ -643,8 +638,7 @@
           "configuration": [
             {
               "key": "ssh_public_key",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "custom_config": {
@@ -656,8 +650,7 @@
                 "type": "vpc_region"
               },
               "key": "region",
-              "required": true,
-              "default_value": "__NOT_SET__"
+              "required": true
             },
             {
               "key": "ibmcloud_api_key"
@@ -669,8 +662,7 @@
               "key": "vpc_id"
             },
             {
-              "key": "existing_ssh_key_name",
-              "default_value": "__NOT_SET__"
+              "key": "existing_ssh_key_name"
             },
             {
               "key": "resource_tags",
@@ -902,12 +894,10 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name",
-              "default_value": "__NOT_SET__"
+              "key": "hs_crypto_instance_name"
             },
             {
-              "key": "hs_crypto_resource_group",
-              "default_value": "__NOT_SET__"
+              "key": "hs_crypto_resource_group"
             },
             {
               "key": "use_random_cos_suffix"
@@ -930,8 +920,7 @@
             },
             {
               "key": "ssh_public_key",
-              "hidden": true,
-              "default_value": "__NOT_SET__"
+              "hidden": true
             },
             {
               "key": "f5_image_name",
@@ -1115,8 +1104,7 @@
               "key": "IC_SCHEMATICS_WORKSPACE_ID"
             },
             {
-              "key": "existing_vpc_cbr_zone_id",
-              "default_value": "__NOT_SET__"
+              "key": "existing_vpc_cbr_zone_id"
             }
           ],
           "iam_permissions": [
