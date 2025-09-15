@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 8.5.0
+version: 8.5.17
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -46,20 +46,20 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for containerized applications with OpenShift
+# Landing zone for containerized applications with OpenShift - Standard (Financial Services edition)
 {: #ocp-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="8.5.0"}
+{: toc-version="8.5.17"}
 
 The Landing zone for containerized applications with OpenShift is a deployable architecture solution that is based on the IBM Cloud for Financial Services reference architecture. It creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network.
 
 ## Architecture diagram
 {: #ra-ocp-architecture-diagram}
 
-![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture](roks.drawio.svg "Architecture diagram of Landing zone for containerized applications with OpenShift deployable architecture"){: caption="Single region architecture diagram for Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks.drawio.svg"}
+![Architecture diagram of the OpenShift - Standard (Financial Services edition) on VPC deployable architecture](roks.drawio.svg "Architecture diagram of Landing zone for containerized applications with OpenShift - Standard (Financial Services edition) deployable architecture"){: caption="Single region architecture diagram for Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks.drawio.svg"}
 
 ## Design requirements
 {: #ra-ocp-design-requirements}
