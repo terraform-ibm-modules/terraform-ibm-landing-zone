@@ -46,7 +46,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Cloud foundation for VPC - Standard (Financial Services edition) variation
+# Cloud foundation for VPC - Standard (Financial Services edition)
 {: #vpc-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}

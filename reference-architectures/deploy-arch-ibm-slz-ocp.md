@@ -46,7 +46,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for containerized applications with OpenShift
+# Landing zone for containerized applications with OpenShift - Standard (Financial Services edition)
 {: #ocp-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -59,7 +59,7 @@ The Landing zone for containerized applications with OpenShift is a deployable a
 ## Architecture diagram
 {: #ra-ocp-architecture-diagram}
 
-![Architecture diagram of the OpenShift Container Platform on VPC deployable architecture](roks.drawio.svg "Architecture diagram of Landing zone for containerized applications with OpenShift deployable architecture"){: caption="Single region architecture diagram for Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks.drawio.svg"}
+![Architecture diagram of the OpenShift - Standard (Financial Services edition) on VPC deployable architecture](roks.drawio.svg "Architecture diagram of Landing zone for containerized applications with OpenShift - Standard (Financial Services edition) deployable architecture"){: caption="Single region architecture diagram for Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks.drawio.svg"}
 
 ## Design requirements
 {: #ra-ocp-design-requirements}

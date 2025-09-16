@@ -45,19 +45,19 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for containerized applications with OpenShift - QuickStart variation
+# Landing zone for containerized applications with OpenShift - QuickStart (Financial Services edition)
 {: #roks-ra-qs}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-version="8.5.0"}
 
-The QuickStart variation of the Landing zone for containerized applications with OpenShift deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
+The QuickStart (Financial Services edition) variation of the Landing zone for containerized applications with OpenShift deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides a single Red Hat OpenShift cluster in a secure VPC for your workloads. This variation is designed to deploy quickly for demonstration and development.
 
 ## Architecture diagram
 {: #ra-roks-qs-architecture-diagram}
 
-![Architecture diagram for the QuickStart variation of Landing zone for containerized applications with OpenShift](roks-quickstart.drawio.svg "Architecture diagram of QuickStart variation of Landing zone for containerized applications with OpenShift deployable architecture"){: caption="QuickStart variation of Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks-quickstart.drawio.svg"}
+![Architecture diagram for the QuickStart (Financial Services edition) variation of Landing zone for containerized applications with OpenShift](roks-quickstart.drawio.svg "Architecture diagram of QuickStart (Financial Services edition) variation of Landing zone for containerized applications with OpenShift deployable architecture"){: caption="QuickStart variation of Landing zone for containerized applications with OpenShift" caption-side="bottom"}{: external download="roks-quickstart.drawio.svg"}
 
 ## Design concepts
 {: #ra-roks-qs-design-concepts}

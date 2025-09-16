@@ -46,7 +46,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for applications with virtual servers - Standard variation
+# Landing zone for applications with virtual servers - Standard
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
