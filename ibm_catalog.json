@@ -25,7 +25,7 @@
         "infrastructure as code"
       ],
       "short_description": "Deploys secure Virtual Server Instances on IBM Cloud VPC with flexible configurations, QuickStart options for simplified setup, and integrated security and logging features",
-      "long_description": "Virtual Server Instances (VSIs) for IBM Cloud VPC deliver fast-provisioned, high-performance compute with network isolation and built-in security. VSIs can be deployed into new or existing Virtual Private Clouds (VPCs) with flexible configurations and integration to networking, storage, and security services. They support both x86 and s390x [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) to match compute and memory needs. Designed for secure, compliant, and customizable application workloads, VSIs enable consistent, scalable deployments across multiple zones and subnets within an IBM Cloud VPC.",
+      "long_description": "Landing zone for applications with virtual servers delivers fast-provisioned, high-performance compute with network isolation and built-in security. [VSIs](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) can be deployed into new or existing Virtual Private Clouds (VPCs) with flexible configurations and integration to networking, storage, and security services. They support both x86 and s390x [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) to match compute and memory needs. Designed for secure, compliant, and customizable application workloads, VSIs enable consistent, scalable deployments across multiple zones and subnets within an IBM Cloud VPC.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi/main/images/vsi-icon.svg",
       "provider_name": "IBM",
@@ -176,7 +176,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI for IBM Cloud VPC - QuickStart (Financial Services edition)",
+                  "caption": "Virtual Server Instance topology- QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
@@ -546,7 +546,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI for IBM Cloud VPC - Standard (Financial Services edition)",
+                  "caption": "Virtual Server Instance topology - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
@@ -710,7 +710,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI on existing VPC",
+                  "caption": "Virtual Server Instance topology - VSI on existing VPC",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
