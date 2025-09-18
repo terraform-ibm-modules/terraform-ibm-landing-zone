@@ -1007,8 +1007,8 @@ variable "clusters" {
 
   # operating_system validation
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHEL_9_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
   }
 
 }

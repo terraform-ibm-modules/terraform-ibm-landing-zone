@@ -272,10 +272,10 @@ variable "cluster_force_delete_storage" {
 variable "operating_system" {
   type        = string
   description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
-  default     = "REDHAT_8_64"
+  default     = "RHCOS"
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHEL_9_64" || var.operating_system == "RHCOS"
   }
 }
 
@@ -573,7 +573,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
   type        = string
-  default     = "ibm-ubuntu-24-04-2-minimal-amd64-5"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-1"
 }
 
 variable "teleport_license" {
