@@ -11,7 +11,7 @@
         "solution",
         "virtualservers",
         "reference_architecture",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
@@ -783,7 +783,7 @@
         "solution",
         "network",
         "network_vpc",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
@@ -1188,7 +1188,7 @@
         "solution",
         "compute",
         "reference_architecture",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
