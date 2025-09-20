@@ -1393,7 +1393,7 @@ variable "skip_kms_block_storage_s2s_auth_policy" {
 }
 
 variable "skip_kms_kube_s2s_auth_policy" {
-  description = "Whether to skip the creation of a service-to-serivce authorization policy between kubernetes and the key management service."
+  description = "Whether to skip the creation of a service-to-service authorization policy between kubernetes and the key management service."
   type        = bool
   default     = false
 }
