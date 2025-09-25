@@ -29,12 +29,12 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
-  - title: "VSI on VPC landing zone - Standard variation"
+  - title: "Landing zone for applications with virtual servers - Standard variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
-  - title: "VSI on VPC landing zone - QuickStart variation"
+  - title: "Landing zone for applications with virtual servers - QuickStart variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "The VSI on VPC landing zone QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
+    description: "The Landing zone for applications with virtual servers QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
@@ -46,7 +46,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# VSI on VPC landing zone - Standard variation
+# Landing zone for applications with virtual servers - Standard
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
@@ -54,17 +54,17 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="8.5.0"}
 
-The Standard variation of the VSI on VPC landing zone deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
+The Standard variation of the Landing zone for applications with virtual servers deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of VSI on VPC landing zone](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the VPC landing zone deployable architecture"){: caption="Figure 1. Standard variation of VSI on VPC landing zone" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
+![Architecture diagram for the Standard variation of Landing zone for applications with virtual servers](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the Landing zone for applications with virtual servers deployable architecture"){: caption="Standard variation of Landing zone for applications with virtual servers" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
 
-![Design requirements for VSI on VPC landing zone](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
+![Design requirements for Landing zone for applications with virtual servers](heat-map-deploy-arch-slz-vsi.svg "Design requirements"){: caption="Scope of the design requirements" caption-side="bottom"}
 
 <!--
 TODO: Add the typical use case for the architecture.
@@ -104,17 +104,13 @@ business challenge, or target cloud environments.
 
 | Requirement | Component | Reasons for choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-| * Use public SSH key to access virtual server instances by using SSH | Public SSH key provided by customer | Ask customer to specify the key. Accept the input as secure parameter. | |
+| * Use public SSH key to access virtual server instances by using SSH | Public SSH key provided by customer | Ask the customer to specify the key. Accept the input as a secure parameter. | |
 {: caption="Table 3. Key and password management architecture decisions" caption-side="bottom"}
 
-<!--
-## Compliance
-{: #ra-vsi-compliance}
-
-_Optional section._ Feedback from users implies that architects want only the high-level compliance items and links off to control details that team members can review. Include the list of control profiles or compliance audits that this architecture meets. For controls, provide "learn more" links to the control library that is published in the IBM Cloud Docs. For audits, provide information about the compliance item.
--->
 
 ## Next steps
 {: #ra-vsi-next-steps}
 
-Read about [IBM Cloud for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-about)
+- Read about [IBM Cloud for Financial Services](/docs/framework-financial-services?topic=framework-financial-services-about)
+
+- To deploy this architecture, understand [Deploying a landing zone deployable architecture](/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-deploy) steps.
