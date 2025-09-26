@@ -54,12 +54,12 @@ content-type: reference-architecture
 {: toc-compliance="FedRAMP"}
 {: toc-version="8.5.22"}
 
-The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation of the Landing zone for applications with virtual servers deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
+The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the The Landing zone for applications with virtual servers - Standard (Financial Services edition)](vsi-vsi.drawio.svg "Architecture diagram for the The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation of the Landing zone for applications with virtual servers deployable architecture"){: caption="The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
+![Architecture diagram for The Landing zone for applications with virtual servers - Standard (Financial Services edition)](vsi-vsi.drawio.svg "Architecture diagram for The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation"){: caption="The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
