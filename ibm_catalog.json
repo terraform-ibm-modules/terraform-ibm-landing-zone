@@ -93,12 +93,12 @@
             {
               "key": "prefix",
               "value_constraints": [
-              {
-                "type": "regex",
-                "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
-                "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
-              }
-            ]
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -262,12 +262,12 @@
             {
               "key": "prefix",
               "value_constraints": [
-              {
-                "type": "regex",
-                "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
-                "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
-              }
-            ]
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "existing_ssh_key_name"
@@ -903,12 +903,12 @@
             {
               "key": "prefix",
               "value_constraints": [
-              {
-                "type": "regex",
-                "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
-                "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
-              }
-            ]
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
@@ -1311,13 +1311,12 @@
             {
               "key": "prefix",
               "value_constraints": [
-              {
-                "type": "regex",
-                "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
-                "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
-              }
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
               ]
-
             },
             {
               "key": "resource_tags",
@@ -1853,13 +1852,12 @@
             {
               "key": "prefix",
               "value_constraints": [
-              {
-                "type": "regex",
-                "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
-                "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
-              }
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
               ]
-
             },
             {
               "key": "tags",
