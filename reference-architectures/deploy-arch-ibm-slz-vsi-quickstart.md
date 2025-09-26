@@ -29,10 +29,10 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/reference-architectures/vsi-pattern.png
 
 related_links:
-  - title: "Landing zone for applications with virtual servers - QuickStart variation"
+  - title: "QuickStart - Financial Services edition variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "The Landing zone for applications with virtual servers QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
-  - title: "Landing zone for applications with virtual servers - Standard variation"
+    description: "QuickStart - Financial Services edition variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart - Financial Services edition variation is designed to deploy quickly for demonstration and development."
+  - title: "Standard - Financial Services edition variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
 
@@ -45,19 +45,19 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for applications with virtual servers - QuickStart
+# QuickStart - Financial Services edition variation
 {: #vsi-ra-qs}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-version="8.5.0"}
 
-The QuickStart variation of the Landing zone for applications with virtual servers deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development.
+The QuickStart - Financial Services edition variation of the Landing zone for applications with virtual servers deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart - Financial Services edition variation is designed to deploy quickly for demonstration and development.
 
 ## Architecture diagram
 {: #ra-vsi-qs-architecture-diagram}
 
-![Architecture diagram for the QuickStart variation of Landing zone for applications with virtual servers](vsi-quickstart.drawio.svg "Architecture diagram of Landing zone for applications with virtual servers deployable architecture"){: caption="QuickStart variation of Landing zone for applications with virtual servers" caption-side="bottom"}{: external download="vsi-quickstart.drawio.svg"}
+![Architecture diagram for the QuickStart - Financial Services edition variation of Landing zone for applications with virtual servers](vsi-quickstart.drawio.svg "Architecture diagram of Landing zone for applications with virtual servers deployable architecture"){: caption="QuickStart - Financial Services edition variation of Landing zone for applications with virtual servers" caption-side="bottom"}{: external download="vsi-quickstart.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-qs-qs-design-requirements}
