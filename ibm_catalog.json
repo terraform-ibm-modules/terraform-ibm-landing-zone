@@ -115,7 +115,7 @@
               "value_constraints": [
                 {
                   "type": "regex",
-                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "description": "The value provided for 'ssh_key' is not valid.",
                   "value": "^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
                 }
               ]
