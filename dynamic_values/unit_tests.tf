@@ -82,7 +82,7 @@ module "ut_nest_to_map" {
 
 locals {
   actual_netested_map    = module.ut_nest_to_map.value
-  assert_2_childen       = regex("child-1;child-2", join(";", keys(local.actual_netested_map)))
+  assert_2_children      = regex("child-1;child-2", join(";", keys(local.actual_netested_map)))
   assert_children_groups = regex("ut-parent-name", local.actual_netested_map["child-1"].group)
   assert_children_test   = regex("test-field", local.actual_netested_map["child-2"].test)
 }
@@ -137,7 +137,7 @@ module "ut_nest_to_map_prepend" {
 locals {
   actual_add_prefix_netested_map    = module.ut_nest_to_map_prepend.value
   prefix_join                       = join(";", keys(local.actual_add_prefix_netested_map))
-  assert_add_prefix_2_childen       = regex("parent-name-child-1;parent-name-child-2", local.prefix_join)
+  assert_add_prefix_2_children      = regex("parent-name-child-1;parent-name-child-2", local.prefix_join)
   assert_add_prefix_children_groups = regex("ut-parent-name", local.actual_add_prefix_netested_map["parent-name-child-1"].group)
   assert_add_prefix_children_test   = regex("test-field", local.actual_add_prefix_netested_map["parent-name-child-2"].test)
   assert_child_2_has_parameters     = regex("true", local.actual_add_prefix_netested_map["parent-name-child-2"].parameters.HMAC)
