@@ -29,7 +29,7 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
-  - title: "Standard - Financial Services edition variation"
+  - title: "The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
   - title: "Landing zone for applications with virtual servers - QuickStart - Financial Services edition variation"
@@ -46,20 +46,20 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Standard - Financial Services edition
+# The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="8.5.0"}
+{: toc-version="8.5.22"}
 
-The Standard - Financial Services edition variation of the Landing zone for applications with virtual servers deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
+The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation of the Landing zone for applications with virtual servers deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard - Financial Services edition variation of Landing zone for applications with virtual servers](vsi-vsi.drawio.svg "Architecture diagram for the Standard - Financial Services edition variation of the Landing zone for applications with virtual servers deployable architecture"){: caption="Standard - Financial Services edition variation of Landing zone for applications with virtual servers" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
+![Architecture diagram for the The Landing zone for applications with virtual servers - Standard (Financial Services edition)](vsi-vsi.drawio.svg "Architecture diagram for the The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation of the Landing zone for applications with virtual servers deployable architecture"){: caption="The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
