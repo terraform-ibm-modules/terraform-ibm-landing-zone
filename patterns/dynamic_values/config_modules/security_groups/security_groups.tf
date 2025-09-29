@@ -31,9 +31,11 @@ variable "bastion_vsi_rules" {
   description = "List of rules for F5 External security group."
   type = list(
     object({
-      name      = string
-      source    = string
-      direction = string
+      name       = string
+      source     = string
+      direction  = string
+      local      = optional(string)
+      ip_version = optional(string)
       tcp = object({
         port_min = string
         port_max = string
@@ -46,9 +48,11 @@ variable "f5_management_rules" {
   description = "List of rules for F5 Management security group."
   type = list(
     object({
-      name      = string
-      source    = string
-      direction = string
+      name       = string
+      source     = string
+      direction  = string
+      local      = optional(string)
+      ip_version = optional(string)
       tcp = object({
         port_min = string
         port_max = string
@@ -61,9 +65,11 @@ variable "f5_external_rules" {
   description = "List of rules for F5 External security group."
   type = list(
     object({
-      name      = string
-      source    = string
-      direction = string
+      name       = string
+      source     = string
+      direction  = string
+      local      = optional(string)
+      ip_version = optional(string)
       tcp = object({
         port_min = string
         port_max = string
@@ -76,9 +82,11 @@ variable "f5_bastion_rules" {
   description = "List of rules for F5 External security group."
   type = list(
     object({
-      name      = string
-      source    = string
-      direction = string
+      name       = string
+      source     = string
+      direction  = string
+      local      = optional(string)
+      ip_version = optional(string)
       tcp = object({
         port_min = string
         port_max = string
@@ -91,9 +99,11 @@ variable "f5_workload_rules" {
   description = "List of rules for F5 Workload security group."
   type = list(
     object({
-      name      = string
-      source    = string
-      direction = string
+      name       = string
+      source     = string
+      direction  = string
+      local      = optional(string)
+      ip_version = optional(string)
       tcp = object({
         port_min = string
         port_max = string
