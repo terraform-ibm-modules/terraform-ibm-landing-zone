@@ -20,6 +20,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 variable "ssh_public_key" {
@@ -129,7 +130,7 @@ variable "use_random_cos_suffix" {
 ##############################################################################
 
 variable "vsi_image_name" {
-  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
   default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
 }
@@ -431,7 +432,7 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
   default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
 }
