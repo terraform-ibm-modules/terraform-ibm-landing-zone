@@ -117,9 +117,11 @@ variable "vpcs" {
       default_security_group_rules = optional(
         list(
           object({
-            name      = string
-            direction = string
-            remote    = string
+            name       = string
+            direction  = string
+            remote     = string
+            local      = optional(string)
+            ip_version = optional(string)
             tcp = optional(
               object({
                 port_max = optional(number)
@@ -328,9 +330,11 @@ variable "vsi" {
           name = string
           rules = list(
             object({
-              name      = string
-              direction = string
-              source    = string
+              name       = string
+              direction  = string
+              source     = string
+              local      = optional(string)
+              ip_version = optional(string)
               tcp = optional(
                 object({
                   port_max = number
@@ -393,9 +397,11 @@ variable "vsi" {
               name = string
               rules = list(
                 object({
-                  name      = string
-                  direction = string
-                  source    = string
+                  name       = string
+                  direction  = string
+                  source     = string
+                  local      = optional(string)
+                  ip_version = optional(string)
                   tcp = optional(
                     object({
                       port_max = number
@@ -441,9 +447,11 @@ variable "security_groups" {
       access_tags    = optional(list(string), [])
       rules = list(
         object({
-          name      = string
-          direction = string
-          source    = string
+          name       = string
+          direction  = string
+          source     = string
+          local      = optional(string)
+          ip_version = optional(string)
           tcp = optional(
             object({
               port_max = number
@@ -1125,9 +1133,11 @@ variable "teleport_vsi" {
             name = string
             rules = list(
               object({
-                name      = string
-                direction = string
-                source    = string
+                name       = string
+                direction  = string
+                source     = string
+                local      = optional(string)
+                ip_version = optional(string)
                 tcp = optional(
                   object({
                     port_max = number
@@ -1200,9 +1210,11 @@ variable "f5_vsi" {
           name = string
           rules = list(
             object({
-              name      = string
-              direction = string
-              source    = string
+              name       = string
+              direction  = string
+              source     = string
+              local      = optional(string)
+              ip_version = optional(string)
               tcp = optional(
                 object({
                   port_max = number
@@ -1254,9 +1266,11 @@ variable "f5_vsi" {
               name = string
               rules = list(
                 object({
-                  name      = string
-                  direction = string
-                  source    = string
+                  name       = string
+                  direction  = string
+                  source     = string
+                  local      = optional(string)
+                  ip_version = optional(string)
                   tcp = optional(
                     object({
                       port_max = number

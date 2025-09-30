@@ -101,7 +101,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -114,7 +121,14 @@
               }
             },
             {
-              "key": "ssh_key"
+              "key": "ssh_key",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_key' is not valid.",
+                  "value": "^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -218,13 +232,27 @@
             },
             {
               "key": "ssh_public_key",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             },
             {
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "existing_ssh_key_name"
@@ -595,7 +623,14 @@
           "configuration": [
             {
               "key": "ssh_public_key",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             },
             {
               "custom_config": {
@@ -817,7 +852,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
@@ -1218,7 +1260,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -1754,7 +1803,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
