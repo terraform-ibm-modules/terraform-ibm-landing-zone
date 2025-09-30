@@ -1311,7 +1311,6 @@
             {
               "key": "flavor",
               "required": true,
-              "default_value": "__NOT_SET__",
               "options": [
                 {
                   "displayname": "bx2.16x64",
@@ -1619,7 +1618,6 @@
             {
               "key": "flavor",
               "required": true,
-              "default_value": "__NOT_SET__",
               "options": [
                 {
                   "displayname": "bx2.16x64",
