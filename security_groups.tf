@@ -31,13 +31,15 @@ resource "ibm_is_security_group" "security_group" {
 ##############################################################################
 
 resource "ibm_is_security_group_rule" "security_group_rules" {
-  for_each  = local.security_group_rules_map
-  group     = ibm_is_security_group.security_group[each.value.sg_name].id
-  direction = each.value.direction
-  remote    = each.value.source
+  for_each   = local.security_group_rules_map
+  group      = ibm_is_security_group.security_group[each.value.sg_name].id
+  direction  = each.value.direction
+  remote     = each.value.source
+  local      = each.value.local
+  ip_version = each.value.ip_version
 
   ##############################################################################
-  # Dynamicaly create ICMP Block
+  # Dynamically create ICMP Block
   ##############################################################################
 
   dynamic "icmp" {
@@ -50,7 +52,7 @@ resource "ibm_is_security_group_rule" "security_group_rules" {
     # This allows the use of the optional variable in landing zone patterns
     # to convert to a single typed list by adding 'null' as the value.
     for_each = (each.value.icmp == null ? [] : length([for value in ["type", "code"] : true if lookup(each.value["icmp"], value, null) == null]) == 2 ? [] : [each.value])
-    # Conditianally add content if sg has icmp
+    # Conditionally add content if sg has icmp
     content {
       type = lookup(
         each.value["icmp"],

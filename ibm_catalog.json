@@ -101,7 +101,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -114,7 +121,14 @@
               }
             },
             {
-              "key": "ssh_key"
+              "key": "ssh_key",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_key' is not valid.",
+                  "value": "^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -218,13 +232,27 @@
             },
             {
               "key": "ssh_public_key",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             },
             {
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "existing_ssh_key_name"
@@ -595,7 +623,14 @@
           "configuration": [
             {
               "key": "ssh_public_key",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             },
             {
               "custom_config": {
@@ -817,7 +852,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
@@ -1119,7 +1161,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key mangement services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
+                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key management services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
               }
             ]
           },
@@ -1218,7 +1260,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -1752,7 +1801,14 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",

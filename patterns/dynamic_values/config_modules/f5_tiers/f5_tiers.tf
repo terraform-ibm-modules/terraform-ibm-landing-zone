@@ -44,7 +44,7 @@ variable "provision_teleport_in_f5" {
 locals {
   # Bastion if provisioning teleport in f5, otherwise empty array
   bastion_subnet_tiers = var.provision_teleport_in_f5 == true ? ["bastion"] : []
-  # List of network tiers, if firewall type is null empty, otherwsie list of tiers
+  # List of network tiers, if firewall type is null empty, otherwise list of tiers
   f5_network_tiers = var.vpn_firewall_type == null ? [] : var.vpn_firewall_types[var.vpn_firewall_type]
   vpn_tiers        = var.vpn_firewall_type == "waf" || var.vpn_firewall_type == null ? [] : ["vpn-1", "vpn-2"]
 }

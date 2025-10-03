@@ -88,7 +88,7 @@ locals {
   target_key_management_service = lookup(var.key_management, "name", null) != null ? lookup(var.key_management, "use_hs_crypto", false) == true ? "hs-crypto" : "kms" : null
 
   # create a list of keys used for all buckets, since we are going to scope the auth policy to keys.
-  # doing this in a local first becase it needs a distinct to get rid of duplicates from same keys used
+  # doing this in a local first because it needs a distinct to get rid of duplicates from same keys used
   # on multiple buckets, and a distinct on the final map may error in terraform for_each before first apply.
   cos_bucket_key_list_distinct = distinct(
     flatten([
