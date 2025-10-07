@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 8.5.0
+version: 8.5.22
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -29,12 +29,12 @@ docs: https://cloud.ibm.com/docs/secure-infrastructure-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/reference-architectures/vsi-vsi.drawio.svg
 
 related_links:
-  - title: "Landing zone for applications with virtual servers - Standard variation"
+  - title: "The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra"
     description: "A deployable architecture that is based on the IBM Cloud for Financial Services reference and that provides virtual servers in a secure VPC for your workloads."
-  - title: "Landing zone for applications with virtual servers - QuickStart variation"
+  - title: "Landing zone for applications with virtual servers - QuickStart - Financial Services edition variation"
     url: "https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra-qs"
-    description: "The Landing zone for applications with virtual servers QuickStart variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart variation is designed to deploy quickly for demonstration and development."
+    description: "The Landing zone for applications with virtual servers QuickStart - Financial Services edition variation is a deployable architecture that provides virtual servers in a VPC in a single region. The QuickStart - Financial Services edition variation is designed to deploy quickly for demonstration and development."
 
 use-case: Cybersecurity
 industry: Banking,FinancialSector
@@ -46,20 +46,20 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Landing zone for applications with virtual servers - Standard
+# The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation
 {: #vsi-ra}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="8.5.0"}
+{: toc-version="8.5.22"}
 
-The Standard variation of the Landing zone for applications with virtual servers deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
+The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
 ## Architecture diagram
 {: #ra-vsi-architecture-diagram}
 
-![Architecture diagram for the Standard variation of Landing zone for applications with virtual servers](vsi-vsi.drawio.svg "Architecture diagram for the Standard variation of the Landing zone for applications with virtual servers deployable architecture"){: caption="Standard variation of Landing zone for applications with virtual servers" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
+![Architecture diagram for The Landing zone for applications with virtual servers - Standard (Financial Services edition)](vsi-vsi.drawio.svg "Architecture diagram for The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation"){: caption="The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation" caption-side="bottom"}{: external download="vsi-vsi.drawio.svg"}
 
 ## Design requirements
 {: #ra-vsi-design-requirements}
