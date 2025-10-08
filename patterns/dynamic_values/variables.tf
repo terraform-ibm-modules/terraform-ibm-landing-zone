@@ -15,6 +15,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 ##############################################################################
@@ -302,7 +303,7 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
 }
 
