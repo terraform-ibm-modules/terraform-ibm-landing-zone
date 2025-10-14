@@ -173,7 +173,7 @@ output "next_step_primary_label" {
 }
 
 output "next_step_primary_url" {
-  value       = length(module.landing_zone.ids) > 0 ? "https://cloud.ibm.com/infrastructure/compute/vs" : null
+  value       = "https://cloud.ibm.com/infrastructure/compute/vs"
   description = "Primary URL"
 }
 
