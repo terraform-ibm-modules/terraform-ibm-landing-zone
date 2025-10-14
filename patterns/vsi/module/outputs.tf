@@ -160,3 +160,30 @@ output "config" {
 }
 
 ##############################################################################
+
+
+output "next_steps_text" {
+  value       = "Your Virtual Server Instances are ready."
+  description = "Next steps text"
+}
+
+output "next_step_primary_label" {
+  value       = "Go to Virtual Server Instances"
+  description = "Primary label"
+}
+
+output "next_step_primary_url" {
+  value       = length(module.landing_zone.ids) > 0 ? "https://cloud.ibm.com/infrastructure/compute/vs" : null
+  description = "Primary URL"
+}
+
+
+output "next_step_secondary_label" {
+  value       = "Guide to Expose your app to the internet"
+  description = "Secondary label"
+}
+
+output "next_step_secondary_url" {
+  value       = "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-access-public-app"
+  description = "Secondary URL"
+}
