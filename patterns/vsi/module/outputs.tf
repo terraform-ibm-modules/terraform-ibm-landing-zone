@@ -179,7 +179,7 @@ output "next_step_primary_url" {
 
 
 output "next_step_secondary_label" {
-  value       = "Guide to Expose your app to the internet"
+  value       = "Expose app to internett"
   description = "Secondary label"
 }
 
