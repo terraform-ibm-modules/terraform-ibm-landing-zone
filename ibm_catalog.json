@@ -1261,6 +1261,12 @@
             },
             {
               "key": "prefix",
+              "required": false,
+              "type": "string",
+              "default_value": "slz",
+              "random_string": {
+                "length": 5
+              },
               "value_constraints": [
                 {
                   "type": "regex",
