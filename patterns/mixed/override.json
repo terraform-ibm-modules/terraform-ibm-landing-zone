@@ -46,7 +46,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
@@ -89,7 +89,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
@@ -111,7 +111,7 @@
                     }
                 },
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",
