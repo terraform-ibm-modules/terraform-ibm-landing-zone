@@ -167,7 +167,7 @@ output "next_step_secondary_label" {
 }
 
 output "next_step_secondary_url" {
-  value       = "https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers"
+  value       = "https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpc"
   description = "Secondary URL"
 }
 ##############################################################################
