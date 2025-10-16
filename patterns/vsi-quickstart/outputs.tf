@@ -32,12 +32,3 @@ output "next_step_secondary_url" {
   description = "Secondary URL"
 }
 
-
-
-# output "next_step_vsi_urls" {
-#   description = "Map of VSI names to their IBM Cloud console URLs"
-#   value = {
-#     for vsi in module.landing_zone.vsi_list :
-#     vsi.name => "https://cloud.ibm.com/infrastructure/compute/vs/${var.region}~${vsi.id}/overview"
-#   }
-# }
