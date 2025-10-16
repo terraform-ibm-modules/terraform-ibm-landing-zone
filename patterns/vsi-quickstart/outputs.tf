@@ -13,7 +13,7 @@ output "next_steps_text" {
 }
 
 output "next_step_primary_label" {
-  value       = "View jump-box instance"
+  value       = "View management VSI"
   description = "Primary label"
 }
 
@@ -23,7 +23,7 @@ output "next_step_primary_url" {
 }
 
 output "next_step_secondary_label" {
-  value       = "View workload-server instance"
+  value       = "View workload VSI"
   description = "Secondary label"
 }
 
