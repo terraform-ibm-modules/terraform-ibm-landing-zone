@@ -1206,8 +1206,12 @@
           "description": "Provides multiple configuration paths for provisioning [Red Hat OpenShift clusters](https://cloud.ibm.com/docs/openshift) on IBM Cloud VPC. Supports use cases ranging from quick experimentation to production-grade deployments in regulated environments. Capabilities vary by variation, with some offering simplified onboarding and others enabling advanced integrations and compliance alignment."
         },
         {
-          "title": "OpenShift Cluster with Scalable Access and Worker Management",
-          "description": "Deploys a Red Hat OpenShift cluster with Kubernetes-native orchestration and automated lifecycle management. All variations support [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) and [worker pool](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) configurations, enabling secure connectivity and scalable workload deployment."
+          "title": "Cluster connectivity",
+          "description": "Supports both [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster), enabling secure and flexible connectivity to the cluster based on your requirements."
+        },
+        {
+          "title": "Custom worker pools",
+          "description": "Supports configurable [worker pools](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) to scale the cluster's compute capacity. Enables efficient management of worker nodes to support application growth, high availability, and workload distribution."
         },
         {
           "title": "Infrastructure Setup",
