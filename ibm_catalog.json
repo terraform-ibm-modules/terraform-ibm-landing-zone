@@ -102,6 +102,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -246,6 +252,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -648,7 +660,13 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              }
             },
             {
               "key": "vpc_id"
@@ -853,6 +871,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -1265,6 +1289,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -1806,6 +1836,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
