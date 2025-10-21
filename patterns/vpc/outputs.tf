@@ -147,7 +147,7 @@ output "schematics_workspace_id" {
 ##############################################################################
 
 output "next_steps_text" {
-  value       = "Your Virtual Private Cloud are ready."
+  value       = "Your Virtual Private Clouds are ready."
   description = "Next steps text"
 }
 
