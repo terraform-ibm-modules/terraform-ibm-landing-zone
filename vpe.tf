@@ -48,4 +48,4 @@ resource "ibm_is_virtual_endpoint_gateway_ip" "endpoint_gateway_ip" {
   reserved_ip = ibm_is_subnet_reserved_ip.ip[each.key].reserved_ip
 }
 
-##############################################################################\
+##############################################################################
