@@ -428,7 +428,7 @@ func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschema
 	return options
 }
 
-func setupOptionsVsiExstention(t *testing.T, prefix string, region string, existingTerraformOptions *terraform.Options) *testhelper.TestOptions {
+func setupOptionsVsiExtention(t *testing.T, prefix string, region string, existingTerraformOptions *terraform.Options) *testhelper.TestOptions {
 
 	sshPublicKey := sshPublicKey(t)
 	outputVpcJson := terraform.OutputJson(t, existingTerraformOptions, "vpc_data")
@@ -598,7 +598,7 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 	assert.NoError(t, err, "Schematic Test had unexpected error")
 }
 
-func TestRunVsiExstention(t *testing.T) {
+func TestRunVsiExtention(t *testing.T) {
 	t.Parallel()
 
 	// ------------------------------------------------------------------------------------
@@ -620,6 +620,11 @@ func TestRunVsiExstention(t *testing.T) {
 	// Programmatically determine region to use based on availability
 	region, _ := testhelper.GetBestVpcRegion(val, "../common-dev-assets/common-go-assets/cloudinfo-region-vpc-gen2-prefs.yaml", "eu-de")
 
+	// Exclude br-sao due to direct endpoint connectivity issues with CI/CD infrastructure
+	if region == "br-sao" {
+		region = "us-south" // Fallback to us-south if br-sao is selected
+	}
+
 	logger.Log(t, "Tempdir: ", tempTerraformDir)
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
@@ -639,7 +644,7 @@ func TestRunVsiExstention(t *testing.T) {
 	if existErr != nil {
 		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
 	} else {
-		options := setupOptionsVsiExstention(t, prefix, region, existingTerraformOptions)
+		options := setupOptionsVsiExtention(t, prefix, region, existingTerraformOptions)
 		output, err := options.RunTestConsistency()
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
@@ -660,7 +665,7 @@ func TestRunVsiExstention(t *testing.T) {
 	}
 }
 
-func TestRunUpgradeVsiExstention(t *testing.T) {
+func TestRunUpgradeVsiExtention(t *testing.T) {
 	// ------------------------------------------------------------------------------------
 	// Deploy SLZ VPC first since it is needed for the landing-zone extension input
 	// ------------------------------------------------------------------------------------
@@ -680,6 +685,11 @@ func TestRunUpgradeVsiExstention(t *testing.T) {
 	// Programmatically determine region to use based on availability
 	region, _ := testhelper.GetBestVpcRegion(val, "../common-dev-assets/common-go-assets/cloudinfo-region-vpc-gen2-prefs.yaml", "eu-de")
 
+	// Exclude br-sao due to direct endpoint connectivity issues with CI/CD infrastructure
+	if region == "br-sao" {
+		region = "us-south" // Fallback to us-south if br-sao is selected
+	}
+
 	logger.Log(t, "Tempdir: ", tempTerraformDir)
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
@@ -698,7 +708,7 @@ func TestRunUpgradeVsiExstention(t *testing.T) {
 	if existErr != nil {
 		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
 	} else {
-		options := setupOptionsVsiExstention(t, prefix, region, existingTerraformOptions)
+		options := setupOptionsVsiExtention(t, prefix, region, existingTerraformOptions)
 		output, err := options.RunTestUpgrade()
 		if !options.UpgradeTestSkipped {
 			assert.Nil(t, err, "This should not have errored")
