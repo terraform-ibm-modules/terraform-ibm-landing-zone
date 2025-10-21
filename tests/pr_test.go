@@ -620,11 +620,6 @@ func TestRunVsiExtention(t *testing.T) {
 	// Programmatically determine region to use based on availability
 	region, _ := testhelper.GetBestVpcRegion(val, "../common-dev-assets/common-go-assets/cloudinfo-region-vpc-gen2-prefs.yaml", "eu-de")
 
-	// Exclude br-sao due to direct endpoint connectivity issues with CI/CD infrastructure
-	if region == "br-sao" {
-		region = "us-south" // Fallback to us-south if br-sao is selected
-	}
-
 	logger.Log(t, "Tempdir: ", tempTerraformDir)
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: vpcTerraformDir,
@@ -684,11 +679,6 @@ func TestRunUpgradeVsiExtention(t *testing.T) {
 
 	// Programmatically determine region to use based on availability
 	region, _ := testhelper.GetBestVpcRegion(val, "../common-dev-assets/common-go-assets/cloudinfo-region-vpc-gen2-prefs.yaml", "eu-de")
-
-	// Exclude br-sao due to direct endpoint connectivity issues with CI/CD infrastructure
-	if region == "br-sao" {
-		region = "us-south" // Fallback to us-south if br-sao is selected
-	}
 
 	logger.Log(t, "Tempdir: ", tempTerraformDir)
 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
