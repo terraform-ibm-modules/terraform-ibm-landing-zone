@@ -2,33 +2,28 @@
 # Output Variables
 ##############################################################################
 
-output "config" {
-  description = "Output configuration as encoded JSON"
-  value       = module.landing_zone.config
-}
-
 output "next_steps_text" {
-  value       = "Your Virtual Server Instances are ready."
+  value       = module.vsi_landing_zone.next_steps_text
   description = "Next steps text"
 }
 
 output "next_step_primary_label" {
-  value       = "View management VSI"
+  value       = module.vsi_landing_zone.next_step_primary_label
   description = "Primary label"
 }
 
 output "next_step_primary_url" {
-  value       = "https://cloud.ibm.com/infrastructure/compute/vs/${var.region}~${module.landing_zone.vsi_list[0].id}/overview"
+  value       = module.vsi_landing_zone.next_step_primary_url
   description = "Primary URL"
 }
 
+
 output "next_step_secondary_label" {
-  value       = "View workload VSI"
+  value       = module.vsi_landing_zone.next_step_secondary_label
   description = "Secondary label"
 }
 
 output "next_step_secondary_url" {
-  value       = "https://cloud.ibm.com/infrastructure/compute/vs/${var.region}~${module.landing_zone.vsi_list[1].id}/overview"
+  value       = module.vsi_landing_zone.next_step_secondary_url
   description = "Secondary URL"
 }
-
