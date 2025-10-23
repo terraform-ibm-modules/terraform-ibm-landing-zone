@@ -205,7 +205,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
@@ -595,7 +596,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Existing VPC",
@@ -772,7 +774,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -1190,7 +1193,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -1589,7 +1593,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
@@ -2235,7 +2240,8 @@
             ]
           },
           "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     }
