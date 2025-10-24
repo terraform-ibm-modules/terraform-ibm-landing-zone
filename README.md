@@ -44,12 +44,6 @@ For more information about the default configuration, see [Default Secure Landin
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
-## Reference architectures
-- [VPC landing zone - Standard variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vpc-ra)
-- [VSI on VPC landing zone - Standard variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vsi-ra)
-- [VSI on VPC landing zone - QuickStart variation](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-vsi-ra-qs)
-- [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-ocp-ra)
-
 ## terraform-ibm-landing-zone
 
 Complete the following steps before you deploy the Secure Landing Zone module.
