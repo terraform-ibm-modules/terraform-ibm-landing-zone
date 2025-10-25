@@ -58,7 +58,7 @@ variable "access_tags" {
 variable "image_name" {
   description = "The image ID used for the VSI. You can run the `ibmcloud is images` CLI command to find available images. The IDs are different in each region."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-3"
 }
 
 variable "vsi_instance_profile" {
