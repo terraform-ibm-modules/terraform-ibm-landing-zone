@@ -81,7 +81,9 @@ resource "ibm_resource_key" "key" {
 resource "ibm_cos_bucket" "buckets" {
   for_each = local.buckets_map
 
-  depends_on = [time_sleep.wait_for_authorization_policy]
+  depends_on = [
+    time_sleep.wait_for_authorization_policy
+  ]
 
   bucket_name           = "${var.prefix}-${each.value.name}${each.value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
   resource_instance_id  = local.cos_instance_ids[each.value.instance]
