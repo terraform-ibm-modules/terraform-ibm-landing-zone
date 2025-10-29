@@ -141,3 +141,33 @@ output "schematics_workspace_id" {
 }
 
 ##############################################################################
+
+##############################################################################
+# VPC Next Steps URLs outputs
+##############################################################################
+
+output "next_steps_text" {
+  value       = "Your Virtual Private Clouds are ready."
+  description = "Next steps text"
+}
+
+output "next_step_primary_label" {
+  value       = "Go to Virtual Private Clouds"
+  description = "Primary label"
+}
+
+output "next_step_primary_url" {
+  value       = "https://cloud.ibm.com/infrastructure/network/vpcs"
+  description = "Primary URL"
+}
+
+output "next_step_secondary_label" {
+  value       = "Learn more about VPCs"
+  description = "Secondary label"
+}
+
+output "next_step_secondary_url" {
+  value       = "https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpc"
+  description = "Secondary URL"
+}
+##############################################################################
