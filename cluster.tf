@@ -83,15 +83,14 @@ resource "ibm_container_vpc_cluster" "cluster" {
     lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null
     ? local.default_kube_version[each.value.kube_type] : each.value.kube_version
   )
-  tags              = var.tags
-  wait_till         = var.wait_till
-  entitlement       = each.value.entitlement
-  secondary_storage = each.value.secondary_storage
-  cos_instance_crn  = each.value.cos_instance_crn
-  pod_subnet        = each.value.pod_subnet
-  service_subnet    = each.value.service_subnet
-  # if kube_version is older than 4.15, default this value to null, otherwise provider will fail
-  disable_outbound_traffic_protection = startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.14") ? null : each.value.disable_outbound_traffic_protection
+  tags                                = var.tags
+  wait_till                           = var.wait_till
+  entitlement                         = each.value.entitlement
+  secondary_storage                   = each.value.secondary_storage
+  cos_instance_crn                    = each.value.cos_instance_crn
+  pod_subnet                          = each.value.pod_subnet
+  service_subnet                      = each.value.service_subnet
+  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
   force_delete_storage                = each.value.cluster_force_delete_storage
   operating_system                    = each.value.operating_system
   crk                                 = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -244,7 +243,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version            = "3.67.3"
+  version            = "3.69.0"
   resource_group_id  = local.resource_groups[each.value.resource_group]
   region             = var.region
   cluster_name       = each.value.cluster_name
