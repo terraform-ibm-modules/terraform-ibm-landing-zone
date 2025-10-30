@@ -109,7 +109,6 @@ locals {
         cos_name                            = "cos"
         entitlement                         = var.entitlement
         secondary_storage                   = var.secondary_storage
-        use_ibm_cloud_private_api_endpoints = var.use_private_endpoint
         operating_system                    = "RHCOS"
         verify_worker_network_readiness     = var.verify_worker_network_readiness
         boot_volume_crk_name                = "${var.prefix}-roks-key"
