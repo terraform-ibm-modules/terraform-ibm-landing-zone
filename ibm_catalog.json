@@ -1143,7 +1143,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.15_openshift",
@@ -1451,7 +1451,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.15_openshift",

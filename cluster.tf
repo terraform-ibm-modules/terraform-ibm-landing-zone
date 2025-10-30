@@ -83,14 +83,15 @@ resource "ibm_container_vpc_cluster" "cluster" {
     lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null
     ? local.default_kube_version[each.value.kube_type] : each.value.kube_version
   )
-  tags                                = var.tags
-  wait_till                           = var.wait_till
-  entitlement                         = each.value.entitlement
-  secondary_storage                   = each.value.secondary_storage
-  cos_instance_crn                    = each.value.cos_instance_crn
-  pod_subnet                          = each.value.pod_subnet
-  service_subnet                      = each.value.service_subnet
-  disable_outbound_traffic_protection = each.value.disable_outbound_traffic_protection
+  tags              = var.tags
+  wait_till         = var.wait_till
+  entitlement       = each.value.entitlement
+  secondary_storage = each.value.secondary_storage
+  cos_instance_crn  = each.value.cos_instance_crn
+  pod_subnet        = each.value.pod_subnet
+  service_subnet    = each.value.service_subnet
+  # if kube_version is older than 4.15, default this value to null, otherwise provider will fail
+  disable_outbound_traffic_protection = startswith((lookup(each.value, "kube_version", null) == "default" || lookup(each.value, "kube_version", null) == null ? local.default_kube_version[each.value.kube_type] : each.value.kube_version), "4.14") ? null : each.value.disable_outbound_traffic_protection
   force_delete_storage                = each.value.cluster_force_delete_storage
   operating_system                    = each.value.operating_system
   crk                                 = each.value.boot_volume_crk_name == null ? null : regex("key:(.*)", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
@@ -295,7 +296,6 @@ module "cluster" {
   existing_cos_id                       = each.value.cos_instance_crn
   disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
   verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
-  cluster_config_endpoint_type          = each.value.use_ibm_cloud_private_api_endpoints ? "private" : "default"
   addons                                = { for addon_name, addon_version in each.value.addons : addon_name => { version = addon_version } if addon_version != null }
   enable_ocp_console                    = each.value.enable_ocp_console
   manage_all_addons                     = each.value.manage_all_addons
