@@ -200,13 +200,14 @@ variable "kube_version" {
     condition = anytrue([
       var.kube_version == null,
       var.kube_version == "default",
+      var.kube_version == "4.19_openshift",
       var.kube_version == "4.18_openshift",
       var.kube_version == "4.17_openshift",
       var.kube_version == "4.16_openshift",
       var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'"
+    error_message = "The kube_version value can currently only be '4.19_openshift', '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift', or '4.14_openshift'"
   }
 }
 
