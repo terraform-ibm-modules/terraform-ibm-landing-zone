@@ -1392,7 +1392,21 @@
               "key": "existing_cos_resource_group"
             },
             {
-              "key": "existing_cos_endpoint_type"
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
             },
             {
               "key": "use_existing_cos_for_vpc_flowlogs"
