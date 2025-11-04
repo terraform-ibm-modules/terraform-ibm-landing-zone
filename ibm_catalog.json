@@ -63,6 +63,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
@@ -186,10 +187,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads."
               }
             ],
@@ -211,6 +208,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
@@ -577,10 +575,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -665,6 +659,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
@@ -996,10 +991,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -1092,6 +1083,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
@@ -1400,10 +1392,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
@@ -1425,6 +1413,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
@@ -2063,10 +2052,6 @@
           ],
           "architecture": {
             "features": [
-              {
-                "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
               {
                 "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
