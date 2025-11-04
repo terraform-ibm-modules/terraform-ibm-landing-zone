@@ -1174,16 +1174,12 @@
             },
             {
               "key": "flavor",
-              "type": "string",
-              "default_value": "",
-              "description": "A worker node flavor that defines the architecture, virtual CPU, memory, and disk space in the default worker pool.",
               "required": true,
               "custom_config": {
                 "type": "worker_node_flavors",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
-              },
-              "virtual": false
+              }
             },
             {
               "key": "entitlement"
@@ -1317,16 +1313,12 @@
             },
             {
               "key": "flavor",
-              "type": "string",
-              "default_value": "",
-              "description": "A worker node flavor that defines the architecture, virtual CPU, memory, and disk space in the default worker pool.",
               "required": true,
               "custom_config": {
                 "type": "worker_node_flavors",
                 "grouping": "deployment",
                 "original_grouping": "deployment"
-              },
-              "virtual": false
+              }
             },
             {
               "key": "ibmcloud_api_key"
