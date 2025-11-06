@@ -163,6 +163,9 @@ func TestRunQuickStartPattern(t *testing.T) {
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Quickstart Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
 
@@ -203,6 +206,9 @@ func TestRunROKSQuickStartPattern(t *testing.T) {
 
 func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Quickstart Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
@@ -252,6 +258,9 @@ func TestRunRoksPattern(t *testing.T) {
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsRoksPattern(t, "ocp-u")
 
@@ -301,6 +310,9 @@ func TestRunVSIPattern(t *testing.T) {
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VSI Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsVsiPattern(t, "vsi-u")
 
@@ -347,6 +359,9 @@ func TestRunVpcPattern(t *testing.T) {
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VPC Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsVpcPattern(t, "vpc-ug")
 
@@ -430,7 +445,7 @@ SCHEMATICS TESTS
 These schematics tests will only be run if the "RUN_SCHEMATICS_TESTS"
 environment variable is set to "true" or "yes".
 If not set, the normal terratest will be run for the patterns.
-****************************************************************************/
+***************************************************************************/
 
 func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 	t.Parallel()

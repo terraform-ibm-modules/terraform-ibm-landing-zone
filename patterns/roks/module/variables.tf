@@ -143,13 +143,13 @@ variable "existing_cos_resource_group" {
 }
 
 variable "existing_cos_endpoint_type" {
-  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
   type        = string
-  default     = "public"
+  default     = "direct"
 
   validation {
-    error_message = "Endpoint type can only be `public` or `private`."
-    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct", null], var.existing_cos_endpoint_type)
   }
 }
 

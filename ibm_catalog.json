@@ -63,6 +63,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
@@ -186,10 +187,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads."
               }
             ],
@@ -204,12 +201,14 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
@@ -576,10 +575,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -594,8 +589,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -663,6 +659,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
@@ -994,10 +991,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -1012,8 +1005,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -1089,6 +1083,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
@@ -1140,7 +1135,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.14_openshift",
@@ -1161,6 +1156,10 @@
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
+                },
+                {
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 }
               ],
               "custom_config": {}
@@ -1393,10 +1392,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
@@ -1411,12 +1406,14 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
@@ -1447,7 +1444,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.14_openshift",
@@ -1468,6 +1465,10 @@
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
+                },
+                {
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 }
               ],
               "custom_config": {}
@@ -1726,7 +1727,21 @@
               "key": "existing_cos_resource_group"
             },
             {
-              "key": "existing_cos_endpoint_type"
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
             },
             {
               "key": "use_existing_cos_for_vpc_flowlogs"
@@ -2039,10 +2054,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -2057,8 +2068,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     }
