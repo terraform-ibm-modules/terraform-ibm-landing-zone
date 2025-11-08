@@ -39,8 +39,8 @@ For more information about the default configuration, see [Default Secure Landin
 ## Overview
 * [terraform-ibm-landing-zone](#terraform-ibm-landing-zone)
 * [Examples](./examples)
-    * [One VPC with one VSI example](./examples/one-vpc-one-vsi)
-    * [Override.json example](./examples/override-example)
+    * <div style="display: inline-block;"><a href="./examples/one-vpc-one-vsi">One VPC with one VSI example</a></div> <div style="display: inline-block; vertical-align: middle;"><a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=lz-one-vpc-one-vsi-example&repository=github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/one-vpc-one-vsi" target="_blank"><img src="https://cloud.ibm.com/media/docs/images/icons/Deploy_to_cloud.svg" alt="Deploy to IBM Cloud button"></a></div>
+    * <div style="display: inline-block;"><a href="./examples/override-example">Override.json example</a></div> <div style="display: inline-block; vertical-align: middle;"><a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=lz-override-example-example&repository=github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/override-example" target="_blank"><img src="https://cloud.ibm.com/media/docs/images/icons/Deploy_to_cloud.svg" alt="Deploy to IBM Cloud button"></a></div>
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -846,7 +846,7 @@ module "cluster_pattern" {
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 5.15.3 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.70.0 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.71.3 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
 | <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 5.15.3 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
@@ -854,7 +854,7 @@ module "cluster_pattern" {
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.33.8 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 8.8.2 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 8.8.4 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 5.15.3 |
 
 ### Resources
