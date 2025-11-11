@@ -1426,7 +1426,27 @@
               "key": "workers_per_zone"
             },
             {
-              "key": "wait_till"
+              "key": "wait_till",
+              "type": "string",
+              "type_metadata": "string",
+              "default_value": "IngressReady",
+              "options": [
+                {
+                  "description": "Wait for ingress controller to be operational",
+                  "displayname": "Ingress Ready",
+                  "value": "IngressReady"
+                },
+                {
+                  "description": "At least one worker node is fully ready",
+                  "displayname": "One Worker Ready",
+                  "value": "OneWorkerNodeReady"
+                },
+                {
+                  "description": "Master node components are operational",
+                  "displayname": "Master Ready",
+                  "value": "MasterNodeReady"
+                }
+              ]
             },
             {
               "key": "kms_wait_for_apply"
