@@ -1109,7 +1109,7 @@
               "key": "prefix",
               "required": true,
               "type": "string",
-              "default_value": "dev",
+              "default_value": "ocp",
               "random_string": {
                 "length": 4
               },
@@ -1332,7 +1332,7 @@
               "key": "prefix",
               "required": true,
               "type": "string",
-              "default_value": "dev",
+              "default_value": "ocp",
               "random_string": {
                 "length": 4
               },
