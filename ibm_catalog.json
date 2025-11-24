@@ -1186,7 +1186,7 @@
               "type_metadata": "string",
               "options": [
                 {
-                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select `cloud_pak` only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
                   "displayname": "Cloud Pak",
                   "value": "cloud_pak"
                 },
@@ -1467,7 +1467,7 @@
               "type_metadata": "string",
               "options": [
                 {
-                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select `cloud_pak` only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
                   "displayname": "Cloud Pak",
                   "value": "cloud_pak"
                 },
