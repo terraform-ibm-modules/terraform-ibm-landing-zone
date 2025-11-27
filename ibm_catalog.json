@@ -216,15 +216,6 @@
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -671,15 +662,6 @@
           "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1194,7 +1176,20 @@
               }
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -1264,15 +1259,6 @@
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1438,13 +1424,44 @@
               "key": "workers_per_zone"
             },
             {
-              "key": "wait_till"
+              "key": "wait_till",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Wait for ingress controller to be operational.",
+                  "displayname": "Ingress Ready",
+                  "value": "IngressReady"
+                },
+                {
+                  "description": "At least one worker node is fully ready.",
+                  "displayname": "One Worker Ready",
+                  "value": "OneWorkerNodeReady"
+                },
+                {
+                  "description": "Master node components are operational.",
+                  "displayname": "Master Ready",
+                  "value": "MasterNodeReady"
+                }
+              ]
             },
             {
               "key": "kms_wait_for_apply"
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             },
             {
               "key": "secondary_storage"
