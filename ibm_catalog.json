@@ -289,7 +289,18 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
@@ -721,7 +732,18 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
@@ -1371,13 +1393,35 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
             },
             {
-              "key": "existing_kms_instance_name"
+              "key": "existing_kms_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "kms",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_kms_resource_group"
@@ -1389,7 +1433,18 @@
               "key": "use_random_cos_suffix"
             },
             {
-              "key": "existing_cos_instance_name"
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_cos_resource_group"
