@@ -90,7 +90,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -532,7 +537,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -955,7 +965,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -1751,7 +1766,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
