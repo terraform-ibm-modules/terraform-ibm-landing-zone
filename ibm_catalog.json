@@ -25,7 +25,7 @@
         "infrastructure as code"
       ],
       "short_description": "Deploys secure Virtual Server Instances on IBM Cloud VPC with flexible configurations, QuickStart options for simplified setup, and integrated security and logging features",
-      "long_description": "Landing zone for applications with virtual servers delivers fast-provisioned, high-performance compute with network isolation and built-in security. [VSIs](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) can be deployed into new or existing Virtual Private Clouds (VPCs) with flexible configurations and integration to networking, storage, and security services. They support both x86 and s390x [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) to match compute and memory needs. Designed for secure, compliant, and customizable application workloads, VSIs enable consistent, scalable deployments across multiple zones and subnets within an IBM Cloud VPC.",
+      "long_description": "Landing zone for applications with virtual servers delivers fast-provisioned, high-performance compute with network isolation and built-in security. [VSIs](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) can be deployed into new or existing Virtual Private Clouds (VPCs) with flexible configurations and integration to networking, storage, and security services. They support both x86 and s390x [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) to match compute and memory needs. Designed for secure, compliant, and customizable application workloads, VSIs enable consistent, scalable deployments across multiple zones and subnets within an IBM Cloud VPC. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi/main/images/vsi-icon.svg",
       "provider_name": "IBM",
@@ -57,6 +57,10 @@
         {
           "title": "Sets up activity tracking for the Virtual Server Instance",
           "description": "Optionally, you can deploy Cloud automation for Activity Tracker Event Routing to route and securely store auditing events that are related to your Virtual Server Instance. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-at_events)"
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
@@ -235,15 +239,6 @@
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -335,7 +330,18 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
@@ -663,7 +669,7 @@
         "solution"
       ],
       "short_description": "Deploy Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
-      "long_description": "The Cloud foundation for VPC deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. You can extend this deployable architecture to support a variety of others like [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global) and many more. You can set up a foundational layer to enable consistent, scalable, and secure deployments across multiple IBM Cloud workloads.",
+      "long_description": "The Cloud foundation for VPC deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. You can extend this deployable architecture to support a variety of others like [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global) and many more. You can set up a foundational layer to enable consistent, scalable, and secure deployments across multiple IBM Cloud workloads. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/images/vpc_icon.svg",
       "provider_name": "IBM",
@@ -699,6 +705,10 @@
         {
           "title": "Sets up activity tracking for the VPC instance",
           "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your VPC instance."
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
@@ -709,15 +719,6 @@
           "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -795,7 +796,18 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
@@ -1101,7 +1113,7 @@
         "ROKS"
       ],
       "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance",
-      "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey.",
+      "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc/main/images/ocp_icon.svg",
       "provider_name": "IBM",
@@ -1141,6 +1153,10 @@
         {
           "title": "Sets up activity tracking for the OpenShift cluster",
           "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your OpenShift cluster."
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
@@ -1264,7 +1280,20 @@
               }
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -1334,15 +1363,6 @@
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1473,13 +1493,35 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
             },
             {
-              "key": "existing_kms_instance_name"
+              "key": "existing_kms_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "kms",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_kms_resource_group"
@@ -1491,7 +1533,18 @@
               "key": "use_random_cos_suffix"
             },
             {
-              "key": "existing_cos_instance_name"
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_cos_resource_group"
@@ -1526,13 +1579,44 @@
               "key": "workers_per_zone"
             },
             {
-              "key": "wait_till"
+              "key": "wait_till",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Wait for ingress controller to be operational.",
+                  "displayname": "Ingress Ready",
+                  "value": "IngressReady"
+                },
+                {
+                  "description": "At least one worker node is fully ready.",
+                  "displayname": "One Worker Ready",
+                  "value": "OneWorkerNodeReady"
+                },
+                {
+                  "description": "Master node components are operational.",
+                  "displayname": "Master Ready",
+                  "value": "MasterNodeReady"
+                }
+              ]
             },
             {
               "key": "kms_wait_for_apply"
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             },
             {
               "key": "secondary_storage"
