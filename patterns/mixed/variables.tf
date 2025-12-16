@@ -143,7 +143,7 @@ variable "use_random_cos_suffix" {
 variable "vsi_image_name" {
   description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-3"
 }
 
 variable "vsi_instance_profile" {
@@ -226,12 +226,6 @@ variable "wait_till" {
 variable "verify_worker_network_readiness" {
   type        = bool
   description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
-  default     = true
-}
-
-variable "use_private_endpoint" {
-  type        = bool
-  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
   default     = true
 }
 
@@ -500,7 +494,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-3"
 }
 
 variable "teleport_license" {

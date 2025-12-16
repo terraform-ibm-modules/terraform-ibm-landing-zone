@@ -83,10 +83,12 @@ variable "vpcs" {
       dns_custom_resolver_name    = optional(string, null)
       dns_location                = optional(string, "global")
       dns_plan                    = optional(string, "standard-dns")
-      dns_zone_name               = optional(string, null)
-      dns_zone_description        = optional(string, null)
-      dns_zone_label              = optional(string, null)
-      dns_records = optional(list(object({
+      dns_zones = optional(list(object({
+        name        = string
+        description = optional(string)
+        label       = optional(string, "dns-zone")
+      })), [])
+      dns_records = optional(map(list(object({
         name       = string
         type       = string
         ttl        = number
@@ -97,7 +99,7 @@ variable "vpcs" {
         priority   = optional(number, null)
         weight     = optional(number, null)
         port       = optional(number, null)
-      })), [])
+      }))), {})
       existing_dns_instance_id          = optional(string, null)
       use_existing_dns_instance         = optional(bool, false)
       enable_hub                        = optional(bool, false)

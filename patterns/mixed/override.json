@@ -46,7 +46,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
@@ -89,7 +89,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
@@ -111,7 +111,7 @@
                     }
                 },
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",
@@ -412,7 +412,7 @@
     "vsi": [
         {
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-2",
+            "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-3",
             "machine_type": "cx2-4x8",
             "name": "management-server",
             "security_group": {

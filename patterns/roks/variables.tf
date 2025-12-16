@@ -160,13 +160,13 @@ variable "existing_cos_resource_group" {
 }
 
 variable "existing_cos_endpoint_type" {
-  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
   type        = string
-  default     = "public"
+  default     = "direct"
 
   validation {
-    error_message = "Endpoint type can only be `public` or `private`."
-    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct", null], var.existing_cos_endpoint_type)
   }
 }
 
@@ -210,13 +210,14 @@ variable "kube_version" {
     condition = anytrue([
       var.kube_version == null,
       var.kube_version == "default",
+      var.kube_version == "4.19_openshift",
       var.kube_version == "4.18_openshift",
       var.kube_version == "4.17_openshift",
       var.kube_version == "4.16_openshift",
       var.kube_version == "4.15_openshift",
       var.kube_version == "4.14_openshift",
     ])
-    error_message = "The kube_version value can currently only be '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift' or '4.14_openshift'"
+    error_message = "The kube_version value can currently only be '4.19_openshift', '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift', or '4.14_openshift'"
   }
 }
 
@@ -602,7 +603,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-3"
 }
 
 variable "teleport_license" {

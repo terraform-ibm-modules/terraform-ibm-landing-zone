@@ -63,6 +63,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
@@ -91,7 +92,7 @@
             },
             {
               "key": "provider_visibility",
-              "hidden":true,
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -111,7 +112,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "code_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "hcl"
+                  ]
+                }
               },
               "key": "user_data"
             },
@@ -120,6 +126,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -198,10 +210,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads."
               }
             ],
@@ -216,12 +224,14 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
@@ -261,7 +271,7 @@
             },
             {
               "key": "provider_visibility",
-              "hidden":true,
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -282,6 +292,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -340,7 +356,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "code_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "hcl"
+                  ]
+                }
               },
               "key": "user_data"
             },
@@ -600,10 +621,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -618,197 +635,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
-        },
-        {
-          "label": "Existing VPC",
-          "name": "existing-vpc",
-          "index": 5,
-          "install_type": "fullstack",
-          "working_directory": "patterns/vsi-extension",
-          "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
-          "dependencies": [
-            {
-              "flavors": [
-                "standard"
-              ],
-              "id": "95fccffc-ae3b-42df-b6d9-80be5914d852-global",
-              "name": "deploy-arch-ibm-slz-ocp",
-              "version": ">=1.0.0",
-              "optional": false
-            },
-            {
-              "flavors": [
-                "standard"
-              ],
-              "id": "9fc0fa64-27af-4fed-9dce-47b3640ba739-global",
-              "name": "deploy-arch-ibm-slz-vpc",
-              "version": ">=1.0.0"
-            }
-          ],
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
-          "configuration": [
-            {
-              "key": "ssh_public_key",
-              "required": true,
-              "value_constraints": [
-                {
-                  "type": "regex",
-                  "description": "The value provided for 'ssh_public_key' is not valid.",
-                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
-                }
-              ]
-            },
-            {
-              "key": "provider_visibility",
-              "hidden":true,
-              "options": [
-                {
-                  "displayname": "private",
-                  "value": "private"
-                },
-                {
-                  "displayname": "public",
-                  "value": "public"
-                },
-                {
-                  "displayname": "public-and-private",
-                  "value": "public-and-private"
-                }
-              ]
-            },
-            {
-              "custom_config": {
-                "config_constraints": {
-                  "generationType": "2"
-                },
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "vpc_region"
-              },
-              "key": "region",
-              "required": true
-            },
-            {
-              "key": "ibmcloud_api_key"
-            },
-            {
-              "key": "prefix"
-            },
-            {
-              "key": "vpc_id"
-            },
-            {
-              "key": "existing_ssh_key_name"
-            },
-            {
-              "key": "resource_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "key": "access_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "key": "image_name"
-            },
-            {
-              "key": "vsi_instance_profile"
-            },
-            {
-              "key": "user_data"
-            },
-            {
-              "key": "boot_volume_encryption_key"
-            },
-            {
-              "key": "vsi_per_subnet"
-            },
-            {
-              "key": "subnet_names"
-            },
-            {
-              "key": "security_group_ids"
-            },
-            {
-              "key": "block_storage_volumes"
-            },
-            {
-              "key": "skip_iam_authorization_policy"
-            },
-            {
-              "key": "enable_floating_ip"
-            },
-            {
-              "key": "placement_group_id"
-            },
-            {
-              "key": "load_balancers"
-            },
-            {
-              "key": "primary_vni_additional_ip_count"
-            },
-            {
-              "key": "use_legacy_network_interface"
-            },
-            {
-              "key": "allow_ip_spoofing"
-            }
-          ],
-          "iam_permissions": [
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "is.vpc",
-              "notes": "Required to create Virtual Private Cloud(VPC)."
-            }
-          ],
-          "architecture": {
-            "features": [
-              {
-                "title": " ",
-                "description": "Ideal for extending existing VPC environments"
-              },
-              {
-                "title": " ",
-                "description": "Validated configuration that enhances resiliency and security while aligning with financial services compliance requirements."
-              }
-            ],
-            "diagrams": [
-              {
-                "diagram": {
-                  "caption": "Virtual Server Instance topology - VSI on existing VPC",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
-                  "type": "image/svg+xml"
-                },
-                "description": "This variation is aligned to the IBM Cloud for Financial Services reference architecture. It provisions <b>Virtual Server Instances (VSIs)</b> in every subnet across multiple availability zones, delivering a resilient and secure multizone infrastructure to run your workloads.<br><br> The extension integrates <b>Key Management</b> to strengthen security of sensitive data and uses <b>Activity Tracker with Flow Logs</b> to collect and store Internet Protocol (IP) traffic data. A <b>transit gateway</b> connects the Management and Workload VPCs, while <b>Virtual Private Endpoints (VPEs)</b> provide private access to IBM Cloud services. Secure connectivity to enterprise environments is enabled through a <b>site-to-site VPN</b>, and <b>CBR (Context-based restrictions)</b> rules manage traffic flows to approved services.<br><br> This variation avoids the use of floating IPs for internet access, relying instead on private and controlled connections. It simplifies risk management and demonstrates regulatory compliance for Financial Services scenarios."
-              }
-            ]
-          },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -876,6 +705,7 @@
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
@@ -904,7 +734,7 @@
             },
             {
               "key": "provider_visibility",
-              "hidden":true,
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -925,6 +755,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -1219,10 +1055,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -1237,8 +1069,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
@@ -1278,8 +1111,12 @@
           "description": "Provides multiple configuration paths for provisioning [Red Hat OpenShift clusters](https://cloud.ibm.com/docs/openshift) on IBM Cloud VPC. Supports use cases ranging from quick experimentation to production-grade deployments in regulated environments. Capabilities vary by variation, with some offering simplified onboarding and others enabling advanced integrations and compliance alignment."
         },
         {
-          "title": "OpenShift Cluster with Scalable Access and Worker Management",
-          "description": "Deploys a Red Hat OpenShift cluster with Kubernetes-native orchestration and automated lifecycle management. All variations support [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster) and [worker pool](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) configurations, enabling secure connectivity and scalable workload deployment."
+          "title": "Cluster connectivity",
+          "description": "Supports both [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster), enabling secure and flexible connectivity to the cluster based on your requirements."
+        },
+        {
+          "title": "Custom worker pools",
+          "description": "Supports configurable [worker pools](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) to scale the cluster's compute capacity. Enables efficient management of worker nodes to support application growth, high availability, and workload distribution."
         },
         {
           "title": "Infrastructure Setup",
@@ -1310,6 +1147,7 @@
         {
           "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
           "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
@@ -1330,7 +1168,7 @@
             },
             {
               "key": "provider_visibility",
-              "hidden":true,
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -1351,6 +1189,12 @@
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "ocp",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -1373,7 +1217,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.14_openshift",
@@ -1394,6 +1238,10 @@
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
+                },
+                {
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 }
               ],
               "custom_config": {}
@@ -1401,184 +1249,19 @@
             {
               "key": "flavor",
               "required": true,
-              "options": [
-                {
-                  "displayname": "bx2.16x64",
-                  "value": "bx2.16x64"
-                },
-                {
-                  "displayname": "bx2.32x128",
-                  "value": "bx2.32x128"
-                },
-                {
-                  "displayname": "bx2.48x192",
-                  "value": "bx2.48x192"
-                },
-                {
-                  "displayname": "bx2.8x32",
-                  "value": "bx2.8x32"
-                },
-                {
-                  "displayname": "bx3d.128x640",
-                  "value": "bx3d.128x640"
-                },
-                {
-                  "displayname": "bx3d.16x80",
-                  "value": "bx3d.16x80"
-                },
-                {
-                  "displayname": "bx3d.24x120",
-                  "value": "bx3d.24x120"
-                },
-                {
-                  "displayname": "bx3d.32x160",
-                  "value": "bx3d.32x160"
-                },
-                {
-                  "displayname": "bx3d.48x240",
-                  "value": "bx3d.48x240"
-                },
-                {
-                  "displayname": "bx3d.64x320",
-                  "value": "bx3d.64x320"
-                },
-                {
-                  "displayname": "bx3d.8x40",
-                  "value": "bx3d.8x40"
-                },
-                {
-                  "displayname": "bx3d.96x480",
-                  "value": "bx3d.96x480"
-                },
-                {
-                  "displayname": "cx2.16x32",
-                  "value": "cx2.16x32"
-                },
-                {
-                  "displayname": "cx2.32x64",
-                  "value": "cx2.32x64"
-                },
-                {
-                  "displayname": "cx2.48x96",
-                  "value": "cx2.48x96"
-                },
-                {
-                  "displayname": "cx3d.128x320",
-                  "value": "cx3d.128x320"
-                },
-                {
-                  "displayname": "cx3d.16x40",
-                  "value": "cx3d.16x40"
-                },
-                {
-                  "displayname": "cx3d.24x60",
-                  "value": "cx3d.24x60"
-                },
-                {
-                  "displayname": "cx3d.32x80",
-                  "value": "cx3d.32x80"
-                },
-                {
-                  "displayname": "cx3d.48x120",
-                  "value": "cx3d.48x120"
-                },
-                {
-                  "displayname": "cx3d.64x160",
-                  "value": "cx3d.64x160"
-                },
-                {
-                  "displayname": "cx3d.96x240",
-                  "value": "cx3d.96x240"
-                },
-                {
-                  "displayname": "mx2.128x1024",
-                  "value": "mx2.128x1024"
-                },
-                {
-                  "displayname": "mx2.16x128",
-                  "value": "mx2.16x128"
-                },
-                {
-                  "displayname": "mx2.32x256",
-                  "value": "mx2.32x256"
-                },
-                {
-                  "displayname": "mx2.48x384",
-                  "value": "mx2.48x384"
-                },
-                {
-                  "displayname": "mx2.64x512",
-                  "value": "mx2.64x512"
-                },
-                {
-                  "displayname": "mx2.8x64",
-                  "value": "mx2.8x64"
-                },
-                {
-                  "displayname": "mx3d.128x1280",
-                  "value": "mx3d.128x1280"
-                },
-                {
-                  "displayname": "mx3d.24x240",
-                  "value": "mx3d.24x240"
-                },
-                {
-                  "displayname": "mx3d.32x320",
-                  "value": "mx3d.32x320"
-                },
-                {
-                  "displayname": "mx3d.48x480",
-                  "value": "mx3d.48x480"
-                },
-                {
-                  "displayname": "mx3d.64x640",
-                  "value": "mx3d.64x640"
-                },
-                {
-                  "displayname": "mx3d.96x960",
-                  "value": "mx3d.96x960"
-                },
-                {
-                  "displayname": "bx2d.metal.96x384 (Only available in Toronto (ca-tor))",
-                  "value": "bx2d.metal.96x384"
-                },
-                {
-                  "displayname": "cx2d.metal.96x192 (Only available in Toronto (ca-tor)) ",
-                  "value": "cx2d.metal.96x192"
-                },
-                {
-                  "displayname": "mx2d.metal.96x768 (Only available in Toronto (ca-tor))) ",
-                  "value": "mx2d.metal.96x768"
-                },
-                {
-                  "displayname": "mx2.16x128.2000gb (Not available in Sao Paulo (br-sao), Montreal (ca-mon), Madrid (eu-es), Osaka (jp-osa))",
-                  "value": "mx2.16x128.2000gb"
-                },
-                {
-                  "displayname": "ox2.128x1024 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.128x1024"
-                },
-                {
-                  "displayname": "ox2.16x128 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.16x128"
-                },
-                {
-                  "displayname": "ox2.32x256 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.32x256"
-                },
-                {
-                  "displayname": "ox2.64x512 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.64x512"
-                },
-                {
-                  "displayname": "ox2.8x64 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.8x64"
-                },
-                {
-                  "displayname": "ox2.96x768 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.96x768"
+              "custom_config": {
+                "type": "worker_node_flavors",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "associations": {
+                  "parameters": [
+                    {
+                      "name": "region",
+                      "optionsRefresh": true
+                    }
+                  ]
                 }
-              ]
+              }
             },
             {
               "key": "entitlement"
@@ -1626,10 +1309,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns."
-              },
-              {
-                "title": " ",
                 "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
@@ -1644,12 +1323,14 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
           "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
           "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
@@ -1678,7 +1359,7 @@
             },
             {
               "key": "provider_visibility",
-              "hidden":true,
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
@@ -1698,7 +1379,7 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.18_openshift",
+              "default_value": "4.19_openshift",
               "options": [
                 {
                   "displayname": "4.14_openshift",
@@ -1719,6 +1400,10 @@
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
+                },
+                {
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 }
               ],
               "custom_config": {}
@@ -1726,190 +1411,31 @@
             {
               "key": "flavor",
               "required": true,
-              "options": [
-                {
-                  "displayname": "bx2.16x64",
-                  "value": "bx2.16x64"
-                },
-                {
-                  "displayname": "bx2.32x128",
-                  "value": "bx2.32x128"
-                },
-                {
-                  "displayname": "bx2.48x192",
-                  "value": "bx2.48x192"
-                },
-                {
-                  "displayname": "bx2.8x32",
-                  "value": "bx2.8x32"
-                },
-                {
-                  "displayname": "bx3d.128x640",
-                  "value": "bx3d.128x640"
-                },
-                {
-                  "displayname": "bx3d.16x80",
-                  "value": "bx3d.16x80"
-                },
-                {
-                  "displayname": "bx3d.24x120",
-                  "value": "bx3d.24x120"
-                },
-                {
-                  "displayname": "bx3d.32x160",
-                  "value": "bx3d.32x160"
-                },
-                {
-                  "displayname": "bx3d.48x240",
-                  "value": "bx3d.48x240"
-                },
-                {
-                  "displayname": "bx3d.64x320",
-                  "value": "bx3d.64x320"
-                },
-                {
-                  "displayname": "bx3d.8x40",
-                  "value": "bx3d.8x40"
-                },
-                {
-                  "displayname": "bx3d.96x480",
-                  "value": "bx3d.96x480"
-                },
-                {
-                  "displayname": "cx2.16x32",
-                  "value": "cx2.16x32"
-                },
-                {
-                  "displayname": "cx2.32x64",
-                  "value": "cx2.32x64"
-                },
-                {
-                  "displayname": "cx2.48x96",
-                  "value": "cx2.48x96"
-                },
-                {
-                  "displayname": "cx3d.128x320",
-                  "value": "cx3d.128x320"
-                },
-                {
-                  "displayname": "cx3d.16x40",
-                  "value": "cx3d.16x40"
-                },
-                {
-                  "displayname": "cx3d.24x60",
-                  "value": "cx3d.24x60"
-                },
-                {
-                  "displayname": "cx3d.32x80",
-                  "value": "cx3d.32x80"
-                },
-                {
-                  "displayname": "cx3d.48x120",
-                  "value": "cx3d.48x120"
-                },
-                {
-                  "displayname": "cx3d.64x160",
-                  "value": "cx3d.64x160"
-                },
-                {
-                  "displayname": "cx3d.96x240",
-                  "value": "cx3d.96x240"
-                },
-                {
-                  "displayname": "mx2.128x1024",
-                  "value": "mx2.128x1024"
-                },
-                {
-                  "displayname": "mx2.16x128",
-                  "value": "mx2.16x128"
-                },
-                {
-                  "displayname": "mx2.32x256",
-                  "value": "mx2.32x256"
-                },
-                {
-                  "displayname": "mx2.48x384",
-                  "value": "mx2.48x384"
-                },
-                {
-                  "displayname": "mx2.64x512",
-                  "value": "mx2.64x512"
-                },
-                {
-                  "displayname": "mx2.8x64",
-                  "value": "mx2.8x64"
-                },
-                {
-                  "displayname": "mx3d.128x1280",
-                  "value": "mx3d.128x1280"
-                },
-                {
-                  "displayname": "mx3d.24x240",
-                  "value": "mx3d.24x240"
-                },
-                {
-                  "displayname": "mx3d.32x320",
-                  "value": "mx3d.32x320"
-                },
-                {
-                  "displayname": "mx3d.48x480",
-                  "value": "mx3d.48x480"
-                },
-                {
-                  "displayname": "mx3d.64x640",
-                  "value": "mx3d.64x640"
-                },
-                {
-                  "displayname": "mx3d.96x960",
-                  "value": "mx3d.96x960"
-                },
-                {
-                  "displayname": "bx2d.metal.96x384 (Only available in Toronto (ca-tor))",
-                  "value": "bx2d.metal.96x384"
-                },
-                {
-                  "displayname": "cx2d.metal.96x192 (Only available in Toronto (ca-tor)) ",
-                  "value": "cx2d.metal.96x192"
-                },
-                {
-                  "displayname": "mx2d.metal.96x768 (Only available in Toronto (ca-tor))) ",
-                  "value": "mx2d.metal.96x768"
-                },
-                {
-                  "displayname": "mx2.16x128.2000gb (Not available in Sao Paulo (br-sao), Montreal (ca-mon), Madrid (eu-es), Osaka (jp-osa))",
-                  "value": "mx2.16x128.2000gb"
-                },
-                {
-                  "displayname": "ox2.128x1024 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.128x1024"
-                },
-                {
-                  "displayname": "ox2.16x128 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.16x128"
-                },
-                {
-                  "displayname": "ox2.32x256 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.32x256"
-                },
-                {
-                  "displayname": "ox2.64x512 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.64x512"
-                },
-                {
-                  "displayname": "ox2.8x64 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.8x64"
-                },
-                {
-                  "displayname": "ox2.96x768 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.96x768"
+              "custom_config": {
+                "type": "worker_node_flavors",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "associations": {
+                  "parameters": [
+                    {
+                      "name": "region",
+                      "optionsRefresh": true
+                    }
+                  ]
                 }
-              ]
+              }
             },
             {
               "key": "ibmcloud_api_key"
             },
             {
               "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "ocp",
+              "random_string": {
+                "length": 4
+              },
               "value_constraints": [
                 {
                   "type": "regex",
@@ -1971,7 +1497,21 @@
               "key": "existing_cos_resource_group"
             },
             {
-              "key": "existing_cos_endpoint_type"
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
             },
             {
               "key": "use_existing_cos_for_vpc_flowlogs"
@@ -2284,10 +1824,6 @@
             "features": [
               {
                 "title": " ",
-                "description": "Ideal for production workloads requiring compliance with financial services standards."
-              },
-              {
-                "title": " ",
                 "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
@@ -2302,8 +1838,9 @@
               }
             ]
           },
-          "terraform_version": "1.10.5",
-          "dependency_version_2": true
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     }

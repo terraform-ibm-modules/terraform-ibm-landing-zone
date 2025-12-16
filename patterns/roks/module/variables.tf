@@ -143,13 +143,13 @@ variable "existing_cos_resource_group" {
 }
 
 variable "existing_cos_endpoint_type" {
-  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
   type        = string
-  default     = "public"
+  default     = "direct"
 
   validation {
-    error_message = "Endpoint type can only be `public` or `private`."
-    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct", null], var.existing_cos_endpoint_type)
   }
 }
 
@@ -573,7 +573,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-2"
+  default     = "ibm-ubuntu-24-04-3-minimal-amd64-3"
 }
 
 variable "teleport_license" {
