@@ -357,10 +357,7 @@ func TestRunOverride(t *testing.T) {
 
 func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschematic.TestSchematicOptions {
 
-	excludeDirs := []string{}
-	includeFiletypes := []string{}
-
-	tarIncludePatterns, recurseErr := testhelper.GetTarIncludeDirsWithDefaults("..", excludeDirs, includeFiletypes)
+	tarIncludePatterns, recurseErr := testhelper.GetTarIncludeDirsWithDefaults("..", []string{}, []string{})
 
 	// if error producing tar patterns (very unexpected) fail test immediately
 	require.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree")
