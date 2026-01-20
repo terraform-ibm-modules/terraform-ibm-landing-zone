@@ -51,7 +51,7 @@ content-type: reference-architecture
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
 {: toc-compliance="FedRAMP"}
-{: toc-version="8.5.22"}
+{: toc-version="8.14.11"}
 
 The Landing zone for applications with virtual servers - Standard (Financial Services edition) variation deployable architecture is based on the IBM Cloud for Financial Services reference architecture. The architecture creates a customizable and secure infrastructure, with virtual servers, to run your workloads with a Virtual Private Cloud (VPC) in multizone regions.
 
