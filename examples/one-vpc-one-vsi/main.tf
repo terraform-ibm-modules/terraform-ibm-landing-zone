@@ -3,7 +3,8 @@
 ##############################################################################
 
 module "landing_zone" {
-  source         = "../../patterns/vsi/module"
+  source         = "terraform-ibm-modules/landing-zone/ibm"
+  version        = "8.14.15"
   prefix         = var.prefix
   region         = var.region
   ssh_public_key = var.ssh_key
