@@ -3,7 +3,7 @@
 ##############################################################################
 
 module "landing_zone" {
-  source         = "terraform-ibm-modules/landing-zone/ibm"
+  source         = "terraform-ibm-modules/landing-zone/ibm//patterns/vsi/module"
   version        = "8.14.15"
   prefix         = var.prefix
   region         = var.region
