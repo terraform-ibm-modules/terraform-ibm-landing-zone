@@ -249,7 +249,7 @@ variable "override_json_string" {
    "vsi": [
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-3",
+         "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-4",
          "machine_type": "cx2-4x8",
          "name": "jump-box",
          "resource_group": "management-rg",
@@ -295,7 +295,7 @@ variable "override_json_string" {
       },
       {
          "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-         "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-3",
+         "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-4",
          "machine_type": "cx2-4x8",
          "name": "workload-server",
          "resource_group": "workload-rg",
