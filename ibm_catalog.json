@@ -1179,28 +1179,20 @@
               "default_value": "4.19_openshift",
               "options": [
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
-                },
-                {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
-                },
-                {
-                  "displayname": "4.17_openshift",
-                  "value": "4.17_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
                 },
                 {
-                  "displayname": "4.19_openshift",
-                  "value": "4.19_openshift"
+                  "displayname": "4.17_openshift",
+                  "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1327,28 +1319,20 @@
               "default_value": "4.19_openshift",
               "options": [
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
-                },
-                {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
-                },
-                {
-                  "displayname": "4.17_openshift",
-                  "value": "4.17_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
                 },
                 {
-                  "displayname": "4.19_openshift",
-                  "value": "4.19_openshift"
+                  "displayname": "4.17_openshift",
+                  "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
