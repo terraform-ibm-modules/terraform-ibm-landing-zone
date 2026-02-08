@@ -3,7 +3,7 @@
   "transit_gateway_global": false,
   "virtual_private_endpoints": [],
   "service_endpoints": "public-and-private",
-  "existing_vpc_cbr_zone_id" : null,
+  "existing_vpc_cbr_zone_id": null,
   "security_groups": [],
   "vpn_gateways": [],
   "atracker": {
@@ -152,7 +152,7 @@
     {
       "access_tags": [],
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-4",
+      "image_name": "ibm-ubuntu-24-04-3-minimal-amd64-5",
       "machine_type": "cx2-2x4",
       "name": "jump-box",
       "resource_group": "slz-management-rg",
