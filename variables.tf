@@ -967,6 +967,9 @@ variable "clusters" {
             boot_volume_crk_name = optional(string)      # Boot volume encryption key name
             operating_system     = string                # The operating system of the workers in the worker pool. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
             labels               = optional(map(string)) # A list of labels that you want to add to all the worker nodes in the worker pool.
+            minSize              = optional(number)      # Specify the minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to. The value must be 2 or greater so that your ALB pods can be spread for high availability.
+            maxSize              = optional(number)      # Specify the maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to. The value must be equal to or greater than the value that you set for the minSize.
+            enableAutoscaling    = optional(bool)        # Set the value to true for the cluster autoscaler to manage scaling for the worker pool. Set the value to false to stop the cluster autoscaler from scaling the worker pool.
           })
         )
       )
