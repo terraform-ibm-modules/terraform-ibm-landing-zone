@@ -8,7 +8,7 @@ terraform {
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.87.3"
+      version = "1.88.2"
     }
     # tflint-ignore: terraform_unused_required_providers
     external = {
