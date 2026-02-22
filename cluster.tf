@@ -268,6 +268,9 @@ module "cluster" {
           kms_instance_id = each.value.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
           kms_account_id  = each.value.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[each.value.boot_volume_crk_name].crn)[0]
         }
+        minSize           = each.value.minSize
+        maxSize           = each.value.maxSize
+        enableAutoscaling = each.value.enableAutoscaling
       }
     ],
     each.value.worker != null ? [
@@ -285,6 +288,9 @@ module "cluster" {
           kms_instance_id = pool.boot_volume_crk_name == null ? null : regex(".*:(.*):key:.*", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
           kms_account_id  = pool.boot_volume_crk_name == null ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0] == data.ibm_iam_account_settings.iam_account_settings.account_id ? null : regex("a/([a-f0-9]{32})", module.key_management.key_map[pool.boot_volume_crk_name].crn)[0]
         }
+        minSize           = pool.minSize
+        maxSize           = pool.maxSize
+        enableAutoscaling = pool.enableAutoscaling
       }
     ] : []
   )

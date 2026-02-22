@@ -937,7 +937,10 @@ variable "clusters" {
       allow_default_worker_pool_replacement = optional(bool)        # (Advanced users) Set to true to allow the module to recreate a default worker pool. If you wish to make any change to the default worker pool which requires the re-creation of the default pool follow these [steps](https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#important-considerations-for-terraform-and-default-worker-pool).
       labels                                = optional(map(string)) # A list of labels that you want to add to the default worker pool.
       enable_ocp_console                    = optional(bool)        # Flag to specify whether to enable or disable the OpenShift console. If set to `null` the module will not modify the setting currently set on the cluster. Bare in mind when setting this to `true` or `false` on a cluster with private only endpoint enabled, the runtime must be able to access the private endpoint.
-      addons = optional(object({                                    # Map of OCP cluster add-on versions to install
+      minSize                               = optional(number)      # Specify the minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to. The value must be 2 or greater so that your ALB pods can be spread for high availability.
+      maxSize                               = optional(number)      # Specify the maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to. The value must be equal to or greater than the value that you set for the minSize.
+      enableAutoscaling                     = optional(bool)
+      addons = optional(object({ # Map of OCP cluster add-on versions to install
         debug-tool                = optional(string)
         image-key-synchronizer    = optional(string)
         openshift-data-foundation = optional(string)
@@ -967,6 +970,9 @@ variable "clusters" {
             boot_volume_crk_name = optional(string)      # Boot volume encryption key name
             operating_system     = string                # The operating system of the workers in the worker pool. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .
             labels               = optional(map(string)) # A list of labels that you want to add to all the worker nodes in the worker pool.
+            minSize              = optional(number)      # Specify the minimum number of worker nodes per zone that the cluster autoscaler can scale down the worker pool to. The value must be 2 or greater so that your ALB pods can be spread for high availability.
+            maxSize              = optional(number)      # Specify the maximum number of worker nodes per zone that the cluster autoscaler can scale up the worker pool to. The value must be equal to or greater than the value that you set for the minSize.
+            enableAutoscaling    = optional(bool)        # Set the value to true for the cluster autoscaler to manage scaling for the worker pool. Set the value to false to stop the cluster autoscaler from scaling the worker pool.
           })
         )
       )
