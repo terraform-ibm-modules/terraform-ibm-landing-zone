@@ -21,6 +21,9 @@
       "operating_system": "RHCOS",
       "use_ibm_cloud_private_api_endpoints": false,
       "verify_cluster_network_readiness": false,
+      "addons": {
+        "cluster-autoscaler": "1.2.4"
+      },
       "kms_config": {
         "crk_name": "slz-key",
         "private_endpoint": true
@@ -44,7 +47,10 @@
             "vsi-zone-3"
           ],
           "vpc_name": "workload",
-          "workers_per_subnet": 2
+          "workers_per_subnet": 2,
+          "minSize": 2,
+          "maxSize": 3,
+          "enableAutoscaling": true
         }
       ],
       "workers_per_subnet": 2
