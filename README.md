@@ -855,7 +855,7 @@ module "cluster_pattern" {
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.18 |
+| <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.19 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 8.15.8 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.2.4 |
 
