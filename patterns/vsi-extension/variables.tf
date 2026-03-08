@@ -10,7 +10,7 @@ variable "region" {
 }
 
 variable "prefix" {
-  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "The prefix to add to the VSI, block storage, security group, floating IP, and load balancer resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
   default     = "slz-vsi"
 }
