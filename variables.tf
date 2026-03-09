@@ -943,7 +943,7 @@ variable "clusters" {
         openshift-data-foundation = optional(string)
         vpc-file-csi-driver       = optional(string)
         static-route              = optional(string)
-        # cluster-autoscaler        = optional(string)   Add-ons are not supported in the Landing Zone module due to a Terraform limitation that prevents dynamically creating the Kubernetes provider.
+        # cluster-autoscaler        = optional(string)   Due to a Terraform limitation that prevents dynamically creating the Kubernetes provider, the cluster-autoscaler add-on cannot currently be deployed through this module.
         vpc-block-csi-driver = optional(string)
         ibm-storage-operator = optional(string)
       }), {})
