@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
 
   validation {
@@ -375,7 +375,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-5"
+  default     = "ibm-ubuntu-24-04-4-minimal-amd64-2"
 }
 
 variable "teleport_license" {

@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate). "
   type        = string
 
   validation {
@@ -943,9 +943,9 @@ variable "clusters" {
         openshift-data-foundation = optional(string)
         vpc-file-csi-driver       = optional(string)
         static-route              = optional(string)
-        cluster-autoscaler        = optional(string)
-        vpc-block-csi-driver      = optional(string)
-        ibm-storage-operator      = optional(string)
+        # cluster-autoscaler        = optional(string)   Due to a Terraform limitation that prevents dynamically creating the Kubernetes provider, the cluster-autoscaler add-on cannot currently be deployed through this module.
+        vpc-block-csi-driver = optional(string)
+        ibm-storage-operator = optional(string)
       }), {})
       manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
