@@ -772,6 +772,23 @@
               "key": "use_random_cos_suffix"
             },
             {
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
               "key": "add_edge_vpc",
               "hidden": true
             },

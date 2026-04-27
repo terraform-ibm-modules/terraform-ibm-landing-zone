@@ -100,6 +100,17 @@ variable "use_random_cos_suffix" {
   default     = true
 }
 
+variable "existing_cos_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
+  type        = string
+  default     = "direct"
+
+  validation {
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct"], var.existing_cos_endpoint_type)
+  }
+}
+
 ##############################################################################
 
 
