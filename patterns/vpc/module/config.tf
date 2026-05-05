@@ -27,7 +27,11 @@ module "dynamic_values" {
   domain                              = var.domain
   hostname                            = var.hostname
   use_random_cos_suffix               = var.use_random_cos_suffix
+  existing_cos_instance_name          = var.existing_cos_instance_name
+  existing_cos_resource_group         = var.existing_cos_resource_group
   existing_cos_endpoint_type          = var.existing_cos_endpoint_type
+  use_existing_cos_for_vpc_flowlogs   = var.use_existing_cos_for_vpc_flowlogs
+  use_existing_cos_for_atracker       = var.use_existing_cos_for_atracker
 }
 
 ##############################################################################

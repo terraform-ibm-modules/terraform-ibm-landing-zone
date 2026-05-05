@@ -107,6 +107,18 @@ variable "use_random_cos_suffix" {
   default     = true
 }
 
+variable "existing_cos_instance_name" {
+  description = "Specify the name of an existing Cloud Object Storage (COS) instance that can be used for new buckets, if required."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_resource_group" {
+  description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
+  type        = string
+  default     = null
+}
+
 variable "existing_cos_endpoint_type" {
   description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
   type        = string
@@ -116,6 +128,20 @@ variable "existing_cos_endpoint_type" {
     error_message = "Endpoint type can only be `public`, `private`, or `direct`."
     condition     = contains(["public", "private", "direct"], var.existing_cos_endpoint_type)
   }
+}
+
+variable "use_existing_cos_for_vpc_flowlogs" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "use_existing_cos_for_atracker" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your Activity Tracker (atracker) routing. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 ##############################################################################
