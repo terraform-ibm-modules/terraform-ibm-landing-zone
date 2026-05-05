@@ -34,6 +34,11 @@ module "vpc_landing_zone" {
   hs_crypto_instance_name                = var.hs_crypto_instance_name
   hs_crypto_resource_group               = var.hs_crypto_resource_group
   use_random_cos_suffix                  = var.use_random_cos_suffix
+  existing_cos_instance_name             = var.existing_cos_instance_name
+  existing_cos_resource_group            = var.existing_cos_resource_group
+  existing_cos_endpoint_type             = var.existing_cos_endpoint_type
+  use_existing_cos_for_vpc_flowlogs      = var.use_existing_cos_for_vpc_flowlogs
+  use_existing_cos_for_atracker          = var.use_existing_cos_for_atracker
   add_edge_vpc                           = var.add_edge_vpc
   create_f5_network_on_management_vpc    = var.create_f5_network_on_management_vpc
   provision_teleport_in_f5               = var.provision_teleport_in_f5
