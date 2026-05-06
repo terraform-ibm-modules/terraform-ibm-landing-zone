@@ -91,6 +91,7 @@ module "vsi_landing_zone" {
   user_data                              = var.user_data
   use_legacy_network_interface           = var.use_legacy_network_interface
   allow_ip_spoofing                      = var.allow_ip_spoofing
+  provider_visibility                    = var.provider_visibility
 }
 
 moved {

@@ -12,6 +12,7 @@ module "landing_zone" {
   region               = var.region
   override_json_string = local.override_string
   tags                 = var.resource_tags
+  provider_visibility  = var.provider_visibility
 }
 
 locals {

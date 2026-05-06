@@ -10,4 +10,5 @@ module "landing_zone" {
   override_json_string = var.override_json_string
   user_data            = var.user_data
   tags                 = var.resource_tags
+  provider_visibility  = var.provider_visibility
 }
