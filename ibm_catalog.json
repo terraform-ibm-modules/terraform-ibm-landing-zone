@@ -772,6 +772,46 @@
               "key": "use_random_cos_suffix"
             },
             {
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
+            },
+            {
+              "key": "existing_cos_resource_group"
+            },
+            {
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs"
+            },
+            {
+              "key": "use_existing_cos_for_atracker"
+            },
+            {
               "key": "add_edge_vpc",
               "hidden": true
             },
