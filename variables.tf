@@ -124,24 +124,11 @@ variable "vpcs" {
             remote     = string
             local      = optional(string)
             ip_version = optional(string)
-            tcp = optional(
-              object({
-                port_max = optional(number)
-                port_min = optional(number)
-              })
-            )
-            udp = optional(
-              object({
-                port_max = optional(number)
-                port_min = optional(number)
-              })
-            )
-            icmp = optional(
-              object({
-                type = optional(number)
-                code = optional(number)
-              })
-            )
+            protocol   = optional(string)
+            port_min   = optional(number)
+            port_max   = optional(number)
+            type       = optional(number)
+            code       = optional(number)
           })
         )
       )
@@ -162,33 +149,18 @@ variable "vpcs" {
           prepend_ibm_rules            = optional(bool)
           rules = list(
             object({
-              name        = string
-              action      = string
-              destination = string
-              direction   = string
-              source      = string
-              tcp = optional(
-                object({
-                  port_max        = optional(number)
-                  port_min        = optional(number)
-                  source_port_max = optional(number)
-                  source_port_min = optional(number)
-                })
-              )
-              udp = optional(
-                object({
-                  port_max        = optional(number)
-                  port_min        = optional(number)
-                  source_port_max = optional(number)
-                  source_port_min = optional(number)
-                })
-              )
-              icmp = optional(
-                object({
-                  type = optional(number)
-                  code = optional(number)
-                })
-              )
+              name            = string
+              action          = string
+              destination     = string
+              direction       = string
+              source          = string
+              protocol        = optional(string)
+              port_min        = optional(number)
+              port_max        = optional(number)
+              source_port_min = optional(number)
+              source_port_max = optional(number)
+              type            = optional(number)
+              code            = optional(number)
             })
           )
         })
@@ -337,24 +309,11 @@ variable "vsi" {
               source     = string
               local      = optional(string)
               ip_version = optional(string)
-              tcp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              udp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              icmp = optional(
-                object({
-                  type = number
-                  code = number
-                })
-              )
+              protocol   = optional(string)
+              port_min   = optional(number)
+              port_max   = optional(number)
+              type       = optional(number)
+              code       = optional(number)
             })
           )
         })
@@ -404,24 +363,11 @@ variable "vsi" {
                   source     = string
                   local      = optional(string)
                   ip_version = optional(string)
-                  tcp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  udp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  icmp = optional(
-                    object({
-                      type = number
-                      code = number
-                    })
-                  )
+                  protocol   = optional(string)
+                  port_min   = optional(number)
+                  port_max   = optional(number)
+                  type       = optional(number)
+                  code       = optional(number)
                 })
               )
             })
@@ -454,24 +400,11 @@ variable "security_groups" {
           source     = string
           local      = optional(string)
           ip_version = optional(string)
-          tcp = optional(
-            object({
-              port_max = number
-              port_min = number
-            })
-          )
-          udp = optional(
-            object({
-              port_max = number
-              port_min = number
-            })
-          )
-          icmp = optional(
-            object({
-              type = number
-              code = number
-            })
-          )
+          protocol   = optional(string)
+          port_min   = optional(number)
+          port_max   = optional(number)
+          type       = optional(number)
+          code       = optional(number)
         })
       )
     })
@@ -1140,24 +1073,11 @@ variable "teleport_vsi" {
                 source     = string
                 local      = optional(string)
                 ip_version = optional(string)
-                tcp = optional(
-                  object({
-                    port_max = number
-                    port_min = number
-                  })
-                )
-                udp = optional(
-                  object({
-                    port_max = number
-                    port_min = number
-                  })
-                )
-                icmp = optional(
-                  object({
-                    type = number
-                    code = number
-                  })
-                )
+                protocol   = optional(string)
+                port_min   = optional(number)
+                port_max   = optional(number)
+                type       = optional(number)
+                code       = optional(number)
               })
             )
           })
@@ -1217,24 +1137,11 @@ variable "f5_vsi" {
               source     = string
               local      = optional(string)
               ip_version = optional(string)
-              tcp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              udp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              icmp = optional(
-                object({
-                  type = number
-                  code = number
-                })
-              )
+              protocol   = optional(string)
+              port_min   = optional(number)
+              port_max   = optional(number)
+              type       = optional(number)
+              code       = optional(number)
             })
           )
         })
@@ -1273,24 +1180,11 @@ variable "f5_vsi" {
                   source     = string
                   local      = optional(string)
                   ip_version = optional(string)
-                  tcp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  udp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  icmp = optional(
-                    object({
-                      type = number
-                      code = number
-                    })
-                  )
+                  protocol   = optional(string)
+                  port_min   = optional(number)
+                  port_max   = optional(number)
+                  type       = optional(number)
+                  code       = optional(number)
                 })
               )
             })
