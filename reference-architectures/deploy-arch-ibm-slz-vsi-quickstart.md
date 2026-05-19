@@ -12,7 +12,7 @@ authors:
   - name: "Vincent Burckhardt"
 
 # The release that the reference architecture describes
-version: 8.14.11
+version: 8.15.1
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -49,7 +49,7 @@ content-type: reference-architecture
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Banking,FinancialSector"}
 {: toc-use-case="Cybersecurity"}
-{: toc-version="8.14.11"}
+{: toc-version="8.15.1"}
 
 The Quickstart (Financial Services edition) variation of the Landing zone for applications with virtual servers deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The Quickstart (Financial Services edition) variation is designed to deploy quickly for demonstration and development.
 

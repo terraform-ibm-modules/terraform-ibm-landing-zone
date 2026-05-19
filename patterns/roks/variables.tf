@@ -9,7 +9,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
 
   validation {
@@ -196,19 +196,6 @@ variable "kube_version" {
   description = "The version of the OpenShift cluster that should be provisioned. NOTE: This is only used during initial cluster provisioning, but ignored for future updates. Cluster version updates should be done outside of terraform to prevent possible destructive changes."
   type        = string
   default     = null
-  validation {
-    condition = anytrue([
-      var.kube_version == null,
-      var.kube_version == "default",
-      var.kube_version == "4.19_openshift",
-      var.kube_version == "4.18_openshift",
-      var.kube_version == "4.17_openshift",
-      var.kube_version == "4.16_openshift",
-      var.kube_version == "4.15_openshift",
-      var.kube_version == "4.14_openshift",
-    ])
-    error_message = "The kube_version value can currently only be '4.19_openshift', '4.18_openshift', '4.17_openshift', '4.16_openshift', '4.15_openshift', or '4.14_openshift'"
-  }
 }
 
 variable "flavor" {
@@ -263,7 +250,6 @@ variable "cluster_addons" {
     openshift-data-foundation = optional(string)
     vpc-file-csi-driver       = optional(string)
     static-route              = optional(string)
-    cluster-autoscaler        = optional(string)
     vpc-block-csi-driver      = optional(string)
   })
   description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
@@ -593,7 +579,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-4"
+  default     = "ibm-ubuntu-24-04-4-minimal-amd64-2"
 }
 
 variable "teleport_license" {

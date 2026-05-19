@@ -9,7 +9,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
 
   validation {
@@ -105,6 +105,43 @@ variable "use_random_cos_suffix" {
   description = "Add a random 8 character string to the end of each cos instance, bucket, and key."
   type        = bool
   default     = true
+}
+
+variable "existing_cos_instance_name" {
+  description = "Specify the name of an existing Cloud Object Storage (COS) instance that can be used for new buckets, if required."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_resource_group" {
+  description = "For using an existing Cloud Object Storage (COS) instance, specify the name of the resource group for the instance in `existing_cos_instance_name`. Leave as null for the `Default` resource group or if not using an existing COS."
+  type        = string
+  default     = null
+}
+
+variable "existing_cos_endpoint_type" {
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
+  type        = string
+  default     = "direct"
+
+  validation {
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct"], var.existing_cos_endpoint_type)
+  }
+}
+
+variable "use_existing_cos_for_vpc_flowlogs" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your VPC Flow Log bucket. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "use_existing_cos_for_atracker" {
+  description = "Set to `true` if you have chosen to include an `existing_cos_instance_name` and wish to use that instance for your Activity Tracker (atracker) routing. This setting will only be used if an `existing_cos_instance_name` is supplied."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 ##############################################################################
@@ -382,7 +419,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-3-minimal-amd64-4"
+  default     = "ibm-ubuntu-24-04-4-minimal-amd64-2"
 }
 
 variable "teleport_license" {

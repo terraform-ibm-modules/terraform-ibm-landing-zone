@@ -772,6 +772,46 @@
               "key": "use_random_cos_suffix"
             },
             {
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
+            },
+            {
+              "key": "existing_cos_resource_group"
+            },
+            {
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs"
+            },
+            {
+              "key": "use_existing_cos_for_atracker"
+            },
+            {
               "key": "add_edge_vpc",
               "hidden": true
             },
@@ -1179,28 +1219,24 @@
               "default_value": "4.19_openshift",
               "options": [
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
-                },
-                {
-                  "displayname": "4.17_openshift",
-                  "value": "4.17_openshift"
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
                 },
                 {
-                  "displayname": "4.19_openshift",
-                  "value": "4.19_openshift"
+                  "displayname": "4.17_openshift",
+                  "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1327,28 +1363,24 @@
               "default_value": "4.19_openshift",
               "options": [
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
-                },
-                {
-                  "displayname": "4.17_openshift",
-                  "value": "4.17_openshift"
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
                   "displayname": "4.18_openshift",
                   "value": "4.18_openshift"
                 },
                 {
-                  "displayname": "4.19_openshift",
-                  "value": "4.19_openshift"
+                  "displayname": "4.17_openshift",
+                  "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
