@@ -1,6 +1,7 @@
 package test
 
 import (
+	"context"
 	"log"
 	"os"
 	"testing"
@@ -352,7 +353,7 @@ func TestRunOverride(t *testing.T) {
 		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
 		// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
 		options.TerraformOptions.Logger = logger.Discard
-		planStruct, planErr := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
+		planStruct, planErr := terraform.InitAndPlanAndShowWithStructContextE(options.Testing, context.Background(), options.TerraformOptions)
 		options.TerraformOptions.Logger = logger.Default // turn log back on
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
