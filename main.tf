@@ -53,7 +53,7 @@ module "vpc" {
   use_public_gateways         = each.value.use_public_gateways
   create_subnets              = length(coalesce(each.value.existing_subnets, [])) == 0 ? true : false
   # NOTE: for existing subnets scenario, current VPC module does not accept null for subnets map, so sending in a map with empty arrays instead
-  subnets                                = length(coalesce(each.value.existing_subnets, [])) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [] }
+  subnets                                = length(coalesce(each.value.existing_subnets, [])) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [] , "zone-4" : []}
   existing_subnets                       = each.value.existing_subnets
   enable_vpc_flow_logs                   = (each.value.flow_logs_bucket_name != null) ? true : false
   create_authorization_policy_vpc_to_cos = false
