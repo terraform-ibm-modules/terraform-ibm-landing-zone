@@ -106,6 +106,18 @@ locals {
         ? ["vsi", "vpe", "bastion"]
         : ["vsi", "vpe"]
       )
+      zone-4 = (
+        # If f5 on management and use teleport and management vpc
+        var.create_f5_network_on_management_vpc && network == var.vpcs[0]
+        # F5 tiers and vsi
+        ? concat(var.f5_tiers, ["vsi"])
+        # if edge and edge
+        : var.add_edge_vpc && network == var.vpc_list[0]
+        # F5 tiers
+        ? var.f5_tiers
+        # Otherwise just vsi and vpe
+        : ["vsi", "vpe"]
+      )
     }
   }
 }
