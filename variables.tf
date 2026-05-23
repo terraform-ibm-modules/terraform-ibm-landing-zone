@@ -152,6 +152,7 @@ variable "vpcs" {
           zone-1 = optional(list(string))
           zone-2 = optional(list(string))
           zone-3 = optional(list(string))
+          zone-4 = optional(list(string))
         })
       )
       network_acls = list(
@@ -197,6 +198,7 @@ variable "vpcs" {
         zone-1 = optional(bool)
         zone-2 = optional(bool)
         zone-3 = optional(bool)
+        zone-4 = optional(bool)
       })
       subnets = optional(object({
         zone-1 = list(object({
@@ -220,6 +222,13 @@ variable "vpcs" {
           acl_name       = string
           no_addr_prefix = optional(bool, false)
         }))
+        zone-4 = optional(list(object({
+          name           = string
+          cidr           = string
+          public_gateway = optional(bool)
+          acl_name       = string
+          no_addr_prefix = optional(bool, false)
+        })))
       }))
     })
   )

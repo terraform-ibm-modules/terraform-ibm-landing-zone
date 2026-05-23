@@ -42,7 +42,7 @@ output "value" {
     # for each network
     for network in var.vpc_list :
     (network) => {
-      for zone in [1, 2, 3] :
+      for zone in [1, 2, 3, 4] :
       "zone-${zone}" => (
         # If adding edge and is edge
         network == var.vpc_list[0] && var.add_edge_vpc

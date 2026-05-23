@@ -176,17 +176,20 @@ locals {
                }
             ],
             "zone-2": [],
-            "zone-3": []
+            "zone-3": [],
+            "zone-4": []
          },
          "use_public_gateways": {
             "zone-1": false,
             "zone-2": false,
-            "zone-3": false
+            "zone-3": false,
+            "zone-4": false
          },
          "address_prefixes": {
             "zone-1": [],
             "zone-2": [],
-            "zone-3": []
+            "zone-3": [],
+            "zone-4": []
          }
       },
       {
@@ -234,17 +237,20 @@ locals {
                   "public_gateway": true
                }
             ],
-            "zone-3": []
+            "zone-3": [],
+            "zone-4": []
          },
          "use_public_gateways": {
             "zone-1": true,
             "zone-2": true,
-            "zone-3": false
+            "zone-3": false,
+            "zone-4": false
          },
          "address_prefixes": {
             "zone-1": [],
             "zone-2": [],
-            "zone-3": []
+            "zone-3": [],
+            "zone-4": []
          }
       }
    ],

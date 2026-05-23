@@ -7,16 +7,21 @@ variable "f5_teleport_zones" {
   type        = list(number)
 
   validation {
-    error_message = "F5 Teleport Zones must either have a length of 0 or a length of 3."
-    condition     = length(var.f5_teleport_zones) == 0 || length(var.f5_teleport_zones) == 3
+    error_message = "F5 Teleport Zones must either have a length of 0, 3, or 4."
+    condition     = length(var.f5_teleport_zones) == 0 || length(var.f5_teleport_zones) == 3 || length(var.f5_teleport_zones) == 4
   }
 
   validation {
-    error_message = "Zones must be [1, 2, 3] or empty."
-    condition = length(var.f5_teleport_zones) == 0 ? true : length([
-      for zone in [1, 2, 3] :
-      true if index(var.f5_teleport_zones, zone) + 1 == zone
-    ]) == 3
+    error_message = "Zones must be [1, 2, 3], [1, 2, 3, 4], or empty."
+    condition = length(var.f5_teleport_zones) == 0 ? true : (
+      length(var.f5_teleport_zones) == 3 ? length([
+        for zone in [1, 2, 3] :
+        true if index(var.f5_teleport_zones, zone) + 1 == zone
+        ]) == 3 : length([
+        for zone in [1, 2, 3, 4] :
+        true if index(var.f5_teleport_zones, zone) + 1 == zone
+      ]) == 4
+    )
   }
 }
 
@@ -103,7 +108,7 @@ output "workload_rules" {
 output "bastion_rules" {
   description = "List of rules for F5 Bastion interface."
   value = flatten([
-    for zone in [1, 2, 3] :
+    for zone in [1, 2, 3, 4] :
     [
       for ports in [[3023, 3025], [3080, 3080]] :
       {

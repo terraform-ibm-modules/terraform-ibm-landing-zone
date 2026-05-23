@@ -8,6 +8,7 @@ locals {
     zone-1 = false
     zone-2 = false
     zone-3 = false
+    zone-4 = false
   }
 
   # Static list for bastion tiers by type
@@ -25,14 +26,14 @@ locals {
 ##############################################################################
 
 locals {
-  bastion_resource_list = var.provision_teleport_in_f5 == true || local.use_management_zones ? ["bastion"] : []     # ["bastion"] if using teleport [] if not
-  bastion_vpc           = local.use_management_zones ? var.vpcs[0] : local.vpc_list[0]                              # if bastion on management, management, otherwise vpc where f5 provisioned
-  f5_deployment_zones   = var.vpn_firewall_type != null && local.use_f5 ? [1, 2, 3] : []                            # three zones if using f5
-  f5_network_rg         = "${var.prefix}-${local.vpc_list[0]}-rg"                                                   # f5 network resource group
-  f5_teleport_zones     = var.teleport_management_zones <= 0 && local.use_teleport && local.use_f5 ? [1, 2, 3] : [] # If using f5 and teleport not on management three zones, otherwise 0
-  use_f5                = var.add_edge_vpc || var.create_f5_network_on_management_vpc                               # true if pattern using f5
-  use_management_zones  = var.teleport_management_zones > 0                                                         # true if teleport zones in management
-  use_teleport          = length(local.bastion_resource_list) > 0                                                   # true if bastion resources are created
+  bastion_resource_list = var.provision_teleport_in_f5 == true || local.use_management_zones ? ["bastion"] : []        # ["bastion"] if using teleport [] if not
+  bastion_vpc           = local.use_management_zones ? var.vpcs[0] : local.vpc_list[0]                                 # if bastion on management, management, otherwise vpc where f5 provisioned
+  f5_deployment_zones   = var.vpn_firewall_type != null && local.use_f5 ? [1, 2, 3, 4] : []                            # four zones if using f5
+  f5_network_rg         = "${var.prefix}-${local.vpc_list[0]}-rg"                                                      # f5 network resource group
+  f5_teleport_zones     = var.teleport_management_zones <= 0 && local.use_teleport && local.use_f5 ? [1, 2, 3, 4] : [] # If using f5 and teleport not on management four zones, otherwise 0
+  use_f5                = var.add_edge_vpc || var.create_f5_network_on_management_vpc                                  # true if pattern using f5
+  use_management_zones  = var.teleport_management_zones > 0                                                            # true if teleport zones in management
+  use_teleport          = length(local.bastion_resource_list) > 0                                                      # true if bastion resources are created
   vpc_list              = var.add_edge_vpc ? concat(["edge"], var.vpcs) : var.vpcs
 }
 

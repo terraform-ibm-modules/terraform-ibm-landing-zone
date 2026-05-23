@@ -117,7 +117,7 @@ output "value" {
         : local.vpc_gateways
       )
       subnets = {
-        for zone in [1, 2, 3] :
+        for zone in [1, 2, 3, 4] :
         "zone-${zone}" => [
           for subnet in keys(module.subnet_cidr[network].value["zone-${zone}"]) :
           {
