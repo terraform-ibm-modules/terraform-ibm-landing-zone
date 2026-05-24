@@ -115,8 +115,8 @@ locals {
         : var.add_edge_vpc && network == var.vpc_list[0]
         # F5 tiers
         ? var.f5_tiers
-        # Otherwise just vsi and vpe
-        : ["vsi", "vpe"]
+        # Otherwise empty - no zone-4 subnets for standard deployments
+        : []
       )
     }
   }

@@ -126,7 +126,7 @@ output "value" {
             public_gateway = subnet == "bastion" ? true : null
             acl_name       = subnet == "bastion" ? "bastion-acl" : subnet == "f5-external" ? "f5-external-acl" : "${network}-acl"
           }
-        ]
+        ] if length(keys(module.subnet_cidr[network].value["zone-${zone}"])) > 0
       }
     }
   ]
