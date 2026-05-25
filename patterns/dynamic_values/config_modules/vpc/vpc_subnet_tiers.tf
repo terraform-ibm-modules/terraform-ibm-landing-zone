@@ -110,7 +110,6 @@ module "f5_management_vpc_subnet_tiers" {
 locals {
   f5_management_vpc_subnet_tiers_network_length = regex("2", length(keys(module.f5_management_vpc_subnet_tiers.value)))
   f5_management_vpc_subnet_tiers_f5_match       = regex("f5;f6;f7;vsi;vpn", join(";", module.f5_management_vpc_subnet_tiers.value["management"]["zone-1"]))
-  f5_management_vpc_subnet_tiers_zone_4_match   = regex("f5;f6;f7;vsi", join(";", module.f5_management_vpc_subnet_tiers.value["management"]["zone-4"]))
   f5_management_vpc_subnet_tiers_rest_same = regex("true", tostring(
     length(
       distinct(
