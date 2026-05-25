@@ -22,6 +22,7 @@ const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
+const mixedPatternTerraformDir = "patterns/mixed"
 const overrideExampleTerraformDir = "examples/override-example"
 const resourceGroup = "geretain-test-resources"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
@@ -329,6 +330,47 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func setupOptionsMixedPattern(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	sshPublicKey := sshPublicKey(t)
+
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:          t,
+		TerraformDir:     mixedPatternTerraformDir,
+		Prefix:           prefix,
+		ResourceGroup:    resourceGroup,
+		CloudInfoService: sharedInfoSvc,
+	})
+
+	options.TerraformVars = map[string]interface{}{
+		"ssh_public_key":                      sshPublicKey,
+		"prefix":                              options.Prefix,
+		"tags":                                options.Tags,
+		"region":                              "us-south", // Zone-4 only available in us-south
+		"add_atracker_route":                  add_atracker_route,
+		"enable_transit_gateway":              false,
+		"entitlement":                         "cloud_pak",
+		"flavor":                              "bx2.4x16",
+		"create_f5_network_on_management_vpc": true, // Enable F5 to create zone-4 subnets
+		"verify_cluster_network_readiness":    false,
+	}
+
+	return options
+}
+
+func TestRunMixedPatternWithZone4(t *testing.T) {
+	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Mixed Pattern with Zone-4, running Schematics test instead")
+	}
+
+	options := setupOptionsMixedPattern(t, "mixed-z4")
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunOverride(t *testing.T) {
