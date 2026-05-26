@@ -143,6 +143,18 @@ resource "ibm_cos_bucket" "buckets" {
       permanent = retention_rule.value.permanent
     }
   }
+
+  dynamic "object_versioning" {
+    for_each = (
+      each.value.object_versioning == null
+      ? []
+      : [each.value.object_versioning]
+    )
+
+    content {
+      enable = object_versioning.value.enable
+    }
+  }
 }
 
 resource "time_sleep" "wait_for_cos_bucket_lifecycle" {

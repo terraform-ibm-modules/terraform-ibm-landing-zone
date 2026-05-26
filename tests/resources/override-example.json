@@ -121,6 +121,9 @@
                         "enable": true,
                         "days": 0,
                         "type": "Glacier"
+                    },
+                    "object_versioning": {
+                        "enable": false
                     }
                 }
             ],
@@ -146,7 +149,10 @@
                     "force_delete": true,
                     "kms_key": "slz-key",
                     "name": "management-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "object_versioning": {
+                        "enable": false
+                    }
                 },
                 {
                     "access_tags": [],
@@ -154,7 +160,10 @@
                     "force_delete": true,
                     "kms_key": "slz-key",
                     "name": "workload-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "object_versioning": {
+                        "enable": false
+                    }
                 },
                 {
                     "access_tags": [],
@@ -162,7 +171,10 @@
                     "force_delete": true,
                     "kms_key": "slz-key",
                     "name": "edge-bucket",
-                    "storage_class": "standard"
+                    "storage_class": "standard",
+                    "object_versioning": {
+                        "enable": false
+                    }
                 }
             ],
             "keys": [],

@@ -72,6 +72,9 @@
                         "enable": true,
                         "days": 0,
                         "type": "Glacier"
+                    },
+                    "object_versioning": {
+                        "enable": false
                     }
                 },
                 {
@@ -94,6 +97,9 @@
                         "enable": true,
                         "days": 0,
                         "type": "Glacier"
+                    },
+                    "object_versioning": {
+                        "enable": false
                     }
                 }
             ],
