@@ -4,7 +4,7 @@ terraform {
     # renovate is set up to keep provider version at the latest for all DA solutions
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "2.1.0"
+      version = "2.2.2"
     }
   }
 }
