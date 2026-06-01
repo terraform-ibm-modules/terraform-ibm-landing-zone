@@ -146,8 +146,7 @@
                     "force_delete": true,
                     "kms_key": "slz-key",
                     "name": "management-bucket",
-                    "storage_class": "standard",
-                    "enable_object_versioning": false
+                    "storage_class": "standard"
                 },
                 {
                     "access_tags": [],
