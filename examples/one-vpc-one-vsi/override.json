@@ -22,10 +22,7 @@
           "force_delete": true,
           "kms_key": "slz-atracker-key",
           "name": "atracker-bucket",
-          "storage_class": "standard",
-          "object_versioning": {
-            "enable": false
-          }
+          "storage_class": "standard"
         }
       ],
       "keys": [
@@ -49,10 +46,7 @@
           "force_delete": true,
           "kms_key": "slz-key",
           "name": "management-bucket",
-          "storage_class": "standard",
-          "object_versioning": {
-            "enable": false
-          }
+          "storage_class": "standard"
         }
       ],
       "keys": [],

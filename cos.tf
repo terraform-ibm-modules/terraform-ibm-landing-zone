@@ -146,13 +146,13 @@ resource "ibm_cos_bucket" "buckets" {
 
   dynamic "object_versioning" {
     for_each = (
-      each.value.object_versioning == null
-      ? []
-      : [each.value.object_versioning]
+      each.value.enable_object_versioning != null
+      ? [each.value.enable_object_versioning]
+      : []
     )
 
     content {
-      enable = object_versioning.value.enable
+      enable = each.value.enable_object_versioning
     }
   }
 }

@@ -597,9 +597,7 @@ variable "cos" {
           minimum   = number
           permanent = optional(bool)
         }))
-        object_versioning = optional(object({ # Use to keep multiple versions of an object in a bucket
-          enable = optional(bool)
-        }))
+        enable_object_versioning = optional(bool, null)
       }))
       keys = optional(
         list(object({
@@ -800,7 +798,7 @@ variable "cos" {
 
   # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#object_versioning-1
   validation {
-    error_message = "COS `object_versioning` and `retention_rule` cannot be used together."
+    error_message = "COS `enable_object_versioning` and `retention_rule` cannot be used together."
     condition = length(
       flatten(
         [
@@ -808,7 +806,7 @@ variable "cos" {
           [
             for bucket in instance.buckets :
             true if(
-              bucket.object_versioning != null &&
+              bucket.enable_object_versioning != null &&
               bucket.retention_rule != null
             )
           ]
