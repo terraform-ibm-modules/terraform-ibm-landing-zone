@@ -22,7 +22,6 @@ const roksQuickstartPatternTerraformDir = "patterns/roks-quickstart"
 const roksPatternTerraformDir = "patterns/roks"
 const vsiPatternTerraformDir = "patterns/vsi"
 const vpcPatternTerraformDir = "patterns/vpc"
-const mixedPatternTerraformDir = "patterns/mixed"
 const overrideExampleTerraformDir = "examples/override-example"
 const resourceGroup = "geretain-test-resources"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
@@ -296,9 +295,10 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                 options.Prefix,
 		"tags":                   options.Tags,
-		"region":                 options.Region,
+		"region":                 "us-south", // Zone-4 is only supported in us-south region
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
+		"add_edge_vpc":           true,
 	}
 
 	return options
@@ -330,47 +330,6 @@ func TestRunUpgradeVpcPattern(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
-}
-
-func setupOptionsMixedPattern(t *testing.T, prefix string) *testhelper.TestOptions {
-
-	sshPublicKey := sshPublicKey(t)
-
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:          t,
-		TerraformDir:     mixedPatternTerraformDir,
-		Prefix:           prefix,
-		ResourceGroup:    resourceGroup,
-		CloudInfoService: sharedInfoSvc,
-	})
-
-	options.TerraformVars = map[string]interface{}{
-		"ssh_public_key":                      sshPublicKey,
-		"prefix":                              options.Prefix,
-		"tags":                                options.Tags,
-		"region":                              "us-south", // Zone-4 only available in us-south
-		"add_atracker_route":                  add_atracker_route,
-		"enable_transit_gateway":              false,
-		"entitlement":                         "cloud_pak",
-		"flavor":                              "bx2.4x16",
-		"create_f5_network_on_management_vpc": true, // Enable F5 to create zone-4 subnets
-		"verify_cluster_network_readiness":    false,
-	}
-
-	return options
-}
-
-func TestRunMixedPatternWithZone4(t *testing.T) {
-	t.Parallel()
-	if enableSchematicsTests {
-		t.Skip("Skipping terratest for Mixed Pattern with Zone-4, running Schematics test instead")
-	}
-
-	options := setupOptionsMixedPattern(t, "mixed-z4")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 func TestRunOverride(t *testing.T) {
@@ -524,12 +483,13 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		// Here Region is set explicitly to 'us-east' to plug the test gap as mentioned here : https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/928
-		{Name: "region", Value: "us-east", DataType: "string"},
+		// Region is set explicitly to 'us-south' because zone-4 is only supported in us-south region
+		{Name: "region", Value: "us-south", DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
 		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
+		{Name: "add_edge_vpc", Value: true, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
