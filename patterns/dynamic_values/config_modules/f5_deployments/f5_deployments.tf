@@ -22,21 +22,16 @@ variable "f5_zones" {
   type        = list(number)
 
   validation {
-    error_message = "F5 Teleport Zones must either have a length of 0, 3, or 4."
-    condition     = length(var.f5_zones) == 0 || length(var.f5_zones) == 3 || length(var.f5_zones) == 4
+    error_message = "F5 Teleport Zones must either have a length of 0 or a length of 3."
+    condition     = length(var.f5_zones) == 0 || length(var.f5_zones) == 3
   }
 
   validation {
-    error_message = "Zones must be [1, 2, 3], [1, 2, 3, 4], or empty."
-    condition = length(var.f5_zones) == 0 ? true : (
-      length(var.f5_zones) == 3 ? length([
-        for zone in [1, 2, 3] :
-        true if index(var.f5_zones, zone) + 1 == zone
-        ]) == 3 : length([
-        for zone in [1, 2, 3, 4] :
-        true if index(var.f5_zones, zone) + 1 == zone
-      ]) == 4
-    )
+    error_message = "Zones must be [1, 2, 3] or empty."
+    condition = length(var.f5_zones) == 0 ? true : length([
+      for zone in [1, 2, 3] :
+      true if index(var.f5_zones, zone) + 1 == zone
+    ]) == 3
   }
 }
 

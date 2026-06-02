@@ -117,7 +117,7 @@ output "value" {
         : local.vpc_gateways
       )
       subnets = {
-        for zone in [1, 2, 3, 4] :
+        for zone in [1, 2, 3] :
         "zone-${zone}" => [
           for subnet in keys(module.subnet_cidr[network].value["zone-${zone}"]) :
           {
@@ -126,7 +126,7 @@ output "value" {
             public_gateway = subnet == "bastion" ? true : null
             acl_name       = subnet == "bastion" ? "bastion-acl" : subnet == "f5-external" ? "f5-external-acl" : "${network}-acl"
           }
-        ] if length(keys(module.subnet_cidr[network].value["zone-${zone}"])) > 0
+        ]
       }
     }
   ]

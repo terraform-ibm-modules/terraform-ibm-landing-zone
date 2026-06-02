@@ -14,7 +14,6 @@ module "ut_f5_on_management_cidr" {
     zone-1 = ["vpn-1", "vpn-2", "f5-management", "f5-external", "f5-workload", "f5-bastion", "vsi", "vpe", "vpn"]
     zone-2 = ["vpn-1", "vpn-2", "f5-management", "f5-external", "f5-workload", "f5-bastion", "vsi", "vpe"]
     zone-3 = ["vpn-1", "vpn-2", "f5-management", "f5-external", "f5-workload", "f5-bastion", "vsi", "vpe"]
-    zone-4 = ["vpn-1", "vpn-2", "f5-management", "f5-external", "f5-workload", "f5-bastion", "vsi", "vpe"]
   }
 }
 

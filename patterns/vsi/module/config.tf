@@ -79,7 +79,7 @@ locals {
         name                            = "${network}-server"
         vpc_name                        = network
         resource_group                  = "${var.prefix}-${network}-rg"
-        subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3", "vsi-zone-4"]
+        subnet_names                    = ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"]
         image_name                      = var.vsi_image_name
         vsi_per_subnet                  = var.vsi_per_subnet
         machine_type                    = var.vsi_instance_profile

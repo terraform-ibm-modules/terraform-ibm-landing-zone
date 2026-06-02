@@ -7,8 +7,8 @@ variable "bastion_zone_list" {
   type        = list(number)
 
   validation {
-    error_message = "Bastion zone list can only contain 0, 1, 2, 3, or 4 zones."
-    condition     = length(var.bastion_zone_list) < 5 && length(var.bastion_zone_list) >= 0
+    error_message = "Bastion zone list can only contain 0, 1, 2, or 3 zones."
+    condition     = length(var.bastion_zone_list) < 4 && length(var.bastion_zone_list) >= 0
   }
 
   validation {
@@ -17,14 +17,14 @@ variable "bastion_zone_list" {
   }
 
   validation {
-    error_message = "Bastion zones can only be 1, 2, 3, or 4."
+    error_message = "Bastion zones can only be 1, 2, or 3."
     condition = (
       length(var.bastion_zone_list) == 0 # if length is 0
       ? true                             # true
       : length([
-        # Return true for array values that are not 1, 2, 3, 4
+        # Return true for array values that are not 1, 2, 3
         for zone in var.bastion_zone_list :
-        true if !contains([1, 2, 3, 4], zone)
+        true if !contains([1, 2, 3], zone)
       ]) == 0 # length should be zero
     )
   }

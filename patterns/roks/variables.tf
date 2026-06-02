@@ -182,13 +182,13 @@ variable "use_existing_cos_for_atracker" {
 ##############################################################################
 
 variable "cluster_zones" {
-  description = "Number of zones to provision clusters for each VPC. At least one zone is required. Can be 1, 2, 3, or 4 zones."
+  description = "Number of zones to provision clusters for each VPC. At least one zone is required. Can be 1, 2, or 3 zones."
   type        = number
   default     = 3
 
   validation {
-    error_message = "Cluster can be provisioned only across 1, 2, 3, or 4 zones."
-    condition     = var.cluster_zones > 0 && var.cluster_zones < 5
+    error_message = "Cluster can be provisioned only across 1, 2, or 3 zones."
+    condition     = var.cluster_zones > 0 && var.cluster_zones < 4
   }
 }
 

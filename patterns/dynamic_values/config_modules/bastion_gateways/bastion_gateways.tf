@@ -28,7 +28,7 @@ variable "teleport_management_zones" {
 output "value" {
   description = "Public Gateway object for Bastion VPC"
   value = {
-    for zone in [1, 2, 3, 4] : # for each zone
+    for zone in [1, 2, 3] : # for each zone
     "zone-${zone}" => (
       var.provision_teleport_in_f5 == true
       ? true # true if enable bastion host

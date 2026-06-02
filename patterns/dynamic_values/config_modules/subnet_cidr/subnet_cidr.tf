@@ -59,7 +59,6 @@ variable "subnet_tiers" {
     zone-1 = list(string)
     zone-2 = list(string)
     zone-3 = list(string)
-    zone-4 = list(string)
   })
 }
 
@@ -72,7 +71,7 @@ variable "subnet_tiers" {
 output "value" {
   description = "Map of subnet cidr by zone"
   value = {
-    for zone in [1, 2, 3, 4] :
+    for zone in [1, 2, 3] :
     "zone-${zone}" => {
       for tier in var.subnet_tiers["zone-${zone}"] :
       (tier) => (

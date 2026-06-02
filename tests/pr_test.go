@@ -295,10 +295,9 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                 options.Prefix,
 		"tags":                   options.Tags,
-		"region":                 "us-south", // Zone-4 is only supported in us-south region
+		"region":                 options.Region,
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
-		"add_edge_vpc":           true,
 	}
 
 	return options
@@ -483,13 +482,12 @@ func TestRunVPCPatternSchematics(t *testing.T) {
 
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
-		// Region is set explicitly to 'us-south' because zone-4 is only supported in us-south region
-		{Name: "region", Value: "us-south", DataType: "string"},
+		// Here Region is set explicitly to 'us-east' to plug the test gap as mentioned here : https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/issues/928
+		{Name: "region", Value: "us-east", DataType: "string"},
 		{Name: "prefix", Value: options.Prefix, DataType: "string"},
 		{Name: "tags", Value: options.Tags, DataType: "list(string)"},
 		{Name: "add_atracker_route", Value: add_atracker_route, DataType: "bool"},
 		{Name: "enable_transit_gateway", Value: false, DataType: "bool"},
-		{Name: "add_edge_vpc", Value: true, DataType: "bool"},
 	}
 
 	err := options.RunSchematicTest()
