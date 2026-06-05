@@ -28,7 +28,8 @@
       "subnet_names": [
         "vsi-zone-1",
         "vsi-zone-2",
-        "vsi-zone-3"
+        "vsi-zone-3",
+        "vsi-zone-4"
       ],
       "vpc_name": "workload",
       "worker_pools": [
@@ -41,7 +42,8 @@
           "subnet_names": [
             "vsi-zone-1",
             "vsi-zone-2",
-            "vsi-zone-3"
+            "vsi-zone-3",
+            "vsi-zone-4"
           ],
           "vpc_name": "workload",
           "workers_per_subnet": 2
@@ -226,7 +228,8 @@
       "address_prefixes": {
         "zone-1": [],
         "zone-2": [],
-        "zone-3": []
+        "zone-3": [],
+        "zone-4": []
       },
       "default_security_group_rules": [],
       "clean_default_security_group": true,
@@ -276,20 +279,62 @@
             "public_gateway": false
           }
         ],
-        "zone-2": null,
-        "zone-3": null
+        "zone-2": [
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.11.10.0/24",
+            "name": "vsi-zone-2",
+            "public_gateway": false
+          },
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.11.20.0/24",
+            "name": "vpe-zone-2",
+            "public_gateway": false
+          }
+        ],
+        "zone-3": [
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.12.10.0/24",
+            "name": "vsi-zone-3",
+            "public_gateway": false
+          },
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.12.20.0/24",
+            "name": "vpe-zone-3",
+            "public_gateway": false
+          }
+        ],
+        "zone-4": [
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.13.10.0/24",
+            "name": "vsi-zone-4",
+            "public_gateway": false
+          },
+          {
+            "acl_name": "management-acl",
+            "cidr": "10.13.20.0/24",
+            "name": "vpe-zone-4",
+            "public_gateway": false
+          }
+        ]
       },
       "use_public_gateways": {
         "zone-1": false,
         "zone-2": false,
-        "zone-3": false
+        "zone-3": false,
+        "zone-4": false
       }
     },
     {
       "address_prefixes": {
         "zone-1": [],
         "zone-2": [],
-        "zone-3": []
+        "zone-3": [],
+        "zone-4": []
       },
       "default_security_group_rules": [],
       "clean_default_security_group": true,
@@ -333,20 +378,62 @@
             "public_gateway": false
           }
         ],
-        "zone-2": null,
-        "zone-3": null
+        "zone-2": [
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.21.10.0/24",
+            "name": "vsi-zone-2",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.21.20.0/24",
+            "name": "vpe-zone-2",
+            "public_gateway": false
+          }
+        ],
+        "zone-3": [
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.22.10.0/24",
+            "name": "vsi-zone-3",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.22.20.0/24",
+            "name": "vpe-zone-3",
+            "public_gateway": false
+          }
+        ],
+        "zone-4": [
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.23.10.0/24",
+            "name": "vsi-zone-4",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "workload-acl",
+            "cidr": "10.23.20.0/24",
+            "name": "vpe-zone-4",
+            "public_gateway": false
+          }
+        ]
       },
       "use_public_gateways": {
         "zone-1": false,
         "zone-2": false,
-        "zone-3": false
+        "zone-3": false,
+        "zone-4": false
       }
     },
     {
       "address_prefixes": {
         "zone-1": [],
         "zone-2": [],
-        "zone-3": []
+        "zone-3": [],
+        "zone-4": []
       },
       "default_security_group_rules": [],
       "clean_default_security_group": true,
@@ -390,13 +477,54 @@
             "public_gateway": false
           }
         ],
-        "zone-2": null,
-        "zone-3": null
+        "zone-2": [
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.31.10.0/24",
+            "name": "vsi-zone-2",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.31.20.0/24",
+            "name": "vpe-zone-2",
+            "public_gateway": false
+          }
+        ],
+        "zone-3": [
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.32.10.0/24",
+            "name": "vsi-zone-3",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.32.20.0/24",
+            "name": "vpe-zone-3",
+            "public_gateway": false
+          }
+        ],
+        "zone-4": [
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.33.10.0/24",
+            "name": "vsi-zone-4",
+            "public_gateway": true
+          },
+          {
+            "acl_name": "edge-acl",
+            "cidr": "10.33.20.0/24",
+            "name": "vpe-zone-4",
+            "public_gateway": false
+          }
+        ]
       },
       "use_public_gateways": {
         "zone-1": true,
         "zone-2": false,
-        "zone-3": false
+        "zone-3": false,
+        "zone-4": false
       }
     }
   ],
