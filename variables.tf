@@ -152,6 +152,7 @@ variable "vpcs" {
           zone-1 = optional(list(string))
           zone-2 = optional(list(string))
           zone-3 = optional(list(string))
+          zone-4 = optional(list(string))
         })
       )
       network_acls = list(
@@ -197,6 +198,7 @@ variable "vpcs" {
         zone-1 = optional(bool)
         zone-2 = optional(bool)
         zone-3 = optional(bool)
+        zone-4 = optional(bool)
       })
       subnets = optional(object({
         zone-1 = list(object({
@@ -220,6 +222,13 @@ variable "vpcs" {
           acl_name       = string
           no_addr_prefix = optional(bool, false)
         }))
+        zone-4 = optional(list(object({
+          name           = string
+          cidr           = string
+          public_gateway = optional(bool)
+          acl_name       = string
+          no_addr_prefix = optional(bool, false)
+        })))
       }))
     })
   )
@@ -597,6 +606,7 @@ variable "cos" {
           minimum   = number
           permanent = optional(bool)
         }))
+        object_versioning_enabled = optional(bool, false)
       }))
       keys = optional(
         list(object({
@@ -793,6 +803,25 @@ variable "cos" {
         ]
       )
     ) == length(flatten([for instance in var.cos : [for bucket in instance.buckets : true]]))
+  }
+
+  # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#object_versioning-1
+  validation {
+    error_message = "COS `object_versioning_enabled` and `retention_rule` cannot be used together."
+    condition = length(
+      flatten(
+        [
+          for instance in var.cos :
+          [
+            for bucket in instance.buckets :
+            true if(
+              (bucket.object_versioning_enabled == true) &&
+              bucket.retention_rule != null
+            )
+          ]
+        ]
+      )
+    ) == 0
   }
 }
 
