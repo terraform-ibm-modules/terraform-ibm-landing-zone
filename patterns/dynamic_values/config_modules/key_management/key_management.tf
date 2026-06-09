@@ -74,7 +74,7 @@ locals {
             interval_month = 12
         } }
       )
-      endpoint = var.endpoint_type
+      endpoint = null
     }
   ]
 }

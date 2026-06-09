@@ -12,6 +12,7 @@ module "key_management" {
     use_hs_crypto     = var.key_management.use_hs_crypto
     tags              = var.tags
     service_endpoints = var.key_management.service_endpoints
+    kms_endpoint_type = var.key_management.kms_endpoint_type
   }
   keys = var.key_management.keys == null ? [] : var.key_management.keys
 }

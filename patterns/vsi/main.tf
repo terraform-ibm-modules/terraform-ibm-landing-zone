@@ -6,6 +6,7 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   ibmcloud_timeout = 60
+  visibility       = var.provider_visibility
 }
 
 ##############################################################################
@@ -90,6 +91,7 @@ module "vsi_landing_zone" {
   user_data                              = var.user_data
   use_legacy_network_interface           = var.use_legacy_network_interface
   allow_ip_spoofing                      = var.allow_ip_spoofing
+  provider_visibility                    = var.provider_visibility
 }
 
 moved {

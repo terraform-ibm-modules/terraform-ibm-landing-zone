@@ -6,6 +6,7 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   ibmcloud_timeout = 60
+  visibility       = var.provider_visibility
 }
 
 ##############################################################################
@@ -87,6 +88,7 @@ module "vpc_landing_zone" {
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
+  provider_visibility                    = var.provider_visibility
 }
 
 moved {
