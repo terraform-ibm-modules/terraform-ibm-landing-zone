@@ -229,3 +229,34 @@ resource "ibm_resource_tag" "bucket_tag" {
 }
 
 ##############################################################################
+# Bucket backup policies
+##############################################################################
+
+locals {
+  # Flatten backup policies from all buckets
+  backup_policies_flat = flatten([
+    for bucket_key, bucket_value in local.buckets_map : [
+      for policy in bucket_value.backup_policies : {
+        key                       = "${bucket_key}-${policy.policy_name}"
+        bucket_key                = bucket_key
+        policy_name               = policy.policy_name
+        target_backup_vault_crn   = policy.target_backup_vault_crn
+        initial_delete_after_days = policy.initial_delete_after_days
+      }
+    ]
+  ])
+}
+
+# Create backup policies
+resource "ibm_cos_backup_policy" "backup_policy" {
+  for_each = { for policy in local.backup_policies_flat : policy.key => policy }
+
+  bucket_crn                = ibm_cos_bucket.buckets[each.value.bucket_key].crn
+  policy_name               = each.value.policy_name
+  target_backup_vault_crn   = each.value.target_backup_vault_crn
+  backup_type               = "continuous"
+  initial_delete_after_days = each.value.initial_delete_after_days
+}
+
+##############################################################################
+##############################################################################

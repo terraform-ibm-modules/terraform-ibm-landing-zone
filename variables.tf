@@ -607,6 +607,11 @@ variable "cos" {
           permanent = optional(bool)
         }))
         object_versioning_enabled = optional(bool, false)
+        backup_policies = optional(list(object({
+          policy_name               = string
+          target_backup_vault_crn   = string
+          initial_delete_after_days = number
+        })), [])
       }))
       keys = optional(
         list(object({
@@ -821,6 +826,74 @@ variable "cos" {
           ]
         ]
       )
+    ) == 0
+  }
+
+  validation {
+    error_message = "A maximum of 3 backup policies can be configured per bucket."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          true if length(bucket.backup_policies) > 3
+        ]
+      ])
+    ) == 0
+  }
+
+  validation {
+    error_message = "Each backup policy must have a unique policy_name within a bucket."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          true if length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.policy_name]))
+        ]
+      ])
+    ) == 0
+  }
+
+  validation {
+    error_message = "Each backup policy must have a unique target_backup_vault_crn within a bucket."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          true if length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.target_backup_vault_crn]))
+        ]
+      ])
+    ) == 0
+  }
+
+  validation {
+    error_message = "The initial_delete_after_days must be greater than 0 for all backup policies."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          [
+            for policy in bucket.backup_policies :
+            true if policy.initial_delete_after_days <= 0
+          ]
+        ]
+      ])
+    ) == 0
+  }
+
+  validation {
+    error_message = "Backup policies require object versioning to be enabled. Set `object_versioning_enabled` to `true` for buckets with backup policies."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          true if length(bucket.backup_policies) > 0 && bucket.object_versioning_enabled == false
+        ]
+      ])
     ) == 0
   }
 }
