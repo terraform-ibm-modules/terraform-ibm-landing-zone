@@ -195,7 +195,7 @@ locals {
     )
   }
 
-  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corosponding csi_driver_version
+  # for each cluster in the clusters_map, get the addons and their versions and create an addons map including the corresponding csi_driver_version
   cluster_addons = {
     for cluster in local.clusters_map : "${var.prefix}-${cluster.name}" => {
       id                = ibm_container_vpc_cluster.cluster["${var.prefix}-${cluster.name}"].id
@@ -244,7 +244,7 @@ module "cluster" {
     if cluster.kube_type == "openshift"
   }
   source             = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version            = "3.37.3"
+  version            = "3.87.4"
   resource_group_id  = local.resource_groups[each.value.resource_group]
   region             = var.region
   cluster_name       = each.value.cluster_name
@@ -290,15 +290,14 @@ module "cluster" {
   )
   force_delete_storage                  = each.value.cluster_force_delete_storage
   ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
-  import_default_worker_pool_on_create  = each.value.import_default_worker_pool_on_create
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement
   tags                                  = var.tags
   use_existing_cos                      = true
   existing_cos_id                       = each.value.cos_instance_crn
   disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null
   verify_worker_network_readiness       = each.value.verify_cluster_network_readiness
-  use_private_endpoint                  = each.value.use_ibm_cloud_private_api_endpoints
-  addons                                = each.value.addons
+  addons                                = { for addon_name, addon_version in each.value.addons : addon_name => { version = addon_version } if addon_version != null }
+  enable_ocp_console                    = each.value.enable_ocp_console
   manage_all_addons                     = each.value.manage_all_addons
   disable_outbound_traffic_protection   = each.value.disable_outbound_traffic_protection
   kms_config = each.value.kms_config == null ? {} : {

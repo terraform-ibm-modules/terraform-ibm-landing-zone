@@ -9,7 +9,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
 
   validation {
@@ -37,6 +37,7 @@ variable "existing_ssh_key_name" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 variable "tags" {
@@ -130,9 +131,9 @@ variable "use_random_cos_suffix" {
 ##############################################################################
 
 variable "vsi_image_name" {
-  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -215,12 +216,6 @@ variable "wait_till" {
 variable "verify_worker_network_readiness" {
   type        = bool
   description = "By setting this to true, a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false."
-  default     = true
-}
-
-variable "use_private_endpoint" {
-  type        = bool
-  description = "Set this to true to force all api calls to use the IBM Cloud private endpoints."
   default     = true
 }
 
@@ -487,9 +482,9 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -589,6 +584,14 @@ variable "override_json_string" {
   description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
+
+  validation {
+    condition = !(
+      var.override == false && length(var.override_json_string) == 0 &&
+      var.ssh_public_key == null && var.existing_ssh_key_name == null
+    )
+    error_message = "The ssh_public_key and existing_ssh_key_name cannot both be null when override is false and override_json_string is empty."
+  }
 }
 
 ##############################################################################

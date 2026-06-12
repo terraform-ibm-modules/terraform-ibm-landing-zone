@@ -9,7 +9,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
@@ -20,6 +20,7 @@ variable "prefix" {
 variable "region" {
   description = "Region where VPC will be created. To find your VPC region, use `ibmcloud is regions` command to find available regions."
   type        = string
+  default     = "us-south"
 }
 
 variable "ssh_public_key" {
@@ -129,9 +130,9 @@ variable "use_random_cos_suffix" {
 ##############################################################################
 
 variable "vsi_image_name" {
-  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -156,6 +157,12 @@ variable "user_data" {
 
 variable "use_legacy_network_interface" {
   description = "Set this to true to use legacy network interface for the created instances."
+  type        = bool
+  default     = false
+}
+
+variable "allow_ip_spoofing" {
+  description = "Allow IP spoofing on the primary network interface"
   type        = bool
   default     = false
 }
@@ -425,9 +432,9 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -535,7 +542,7 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
 
 variable "existing_vpc_cbr_zone_id" {
   type        = string
-  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services."
+  description = "ID of the existing CBR (Context-based restrictions) network zone, with context set to the VPC. This zone is used in a CBR rule, which allows traffic to flow only from the landing zone VPCs to specific cloud services. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/blob/main/patterns/DA-cbr-tutorial.md)."
   default     = null
 }
 

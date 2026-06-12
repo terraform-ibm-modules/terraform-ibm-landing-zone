@@ -3,16 +3,16 @@
 ##############################################################################
 
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.9.0"
   # renovate is set up to keep provider version at the latest for all DA solutions
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.76.1"
+      version = "2.2.2"
     }
     external = {
       source  = "hashicorp/external"
-      version = "2.3.4"
+      version = "2.4.0"
     }
   }
 }

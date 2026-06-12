@@ -10,7 +10,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-atracker-key",
                     "name": "atracker-bucket",
@@ -29,6 +29,12 @@
                         "enable": true,
                         "days": 0,
                         "type": "Glacier"
+                    },
+                    "retention_rule": {
+                        "default": 1,
+                        "maximum": 1,
+                        "minimum": 1,
+                        "permanent": false
                     }
                 }
             ],
@@ -47,7 +53,7 @@
         {
             "buckets": [
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "management-bucket",
@@ -69,7 +75,7 @@
                     }
                 },
                 {
-                    "endpoint_type": "public",
+                    "endpoint_type": "direct",
                     "force_delete": true,
                     "kms_key": "slz-slz-key",
                     "name": "workload-bucket",

@@ -6,7 +6,7 @@
 
 locals {
   valid_atracker_region = contains(
-    ["us-south", "us-east", "eu-de", "eu-es", "eu-gb", "eu-fr2", "au-syd"],
+    ["in-che", "jp-osa", "jp-tok", "br-sao", "us-south", "ca-tor", "us-east", "eu-de", "eu-es", "eu-gb", "eu-fr2", "au-syd"],
     var.region
   )
 }

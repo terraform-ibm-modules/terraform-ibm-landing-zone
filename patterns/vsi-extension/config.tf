@@ -16,15 +16,6 @@ module "default_vsi_sg_rules" {
 
 locals {
   ##############################################################################
-  # VALIDATION FOR SSH_KEY
-  ##############################################################################
-
-  sshkey_var_validation = (var.ssh_public_key == null && var.existing_ssh_key_name == null) ? true : false
-
-  # tflint-ignore: terraform_unused_declarations
-  validate_ssh = local.sshkey_var_validation ? tobool("Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them.") : true
-
-  ##############################################################################
   # Default SSH key
   ##############################################################################
 

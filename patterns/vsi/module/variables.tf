@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
   validation {
     error_message = "Prefix must begin with a lowercase letter and contain only lowercase letters, numbers, and - characters. Prefixes must end with a lowercase letter or number and be 16 or fewer characters."
@@ -123,9 +123,9 @@ variable "use_random_cos_suffix" {
 ##############################################################################
 
 variable "vsi_image_name" {
-  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -156,6 +156,12 @@ variable "user_data" {
 
 variable "use_legacy_network_interface" {
   description = "Set this to true to use legacy network interface for the created instances."
+  type        = bool
+  default     = false
+}
+
+variable "allow_ip_spoofing" {
+  description = "Allow IP spoofing on the primary network interface"
   type        = bool
   default     = false
 }
@@ -425,9 +431,9 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {
@@ -528,6 +534,14 @@ variable "override_json_string" {
   description = "Override default values with a JSON object. Any JSON other than an empty string overrides other configuration changes. You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON."
   type        = string
   default     = ""
+
+  validation {
+    condition = !(
+      var.override == false && length(var.override_json_string) == 0 &&
+      var.ssh_public_key == null && var.existing_ssh_key_name == null
+    )
+    error_message = "The ssh_public_key and existing_ssh_key_name cannot both be null when override is false and override_json_string is empty."
+  }
 }
 
 variable "override_json_path" {

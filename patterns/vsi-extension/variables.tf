@@ -36,6 +36,11 @@ variable "ssh_public_key" {
     error_message = "The public SSH key must be a valid SSH RSA public key."
     condition     = var.ssh_public_key == null || can(regex("ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?", var.ssh_public_key))
   }
+
+  validation {
+    condition     = var.ssh_public_key != null || var.existing_ssh_key_name != null
+    error_message = "Invalid input: both ssh_public_key and existing_ssh_key_name variables cannot be null together. Please provide a value for at least one of them."
+  }
 }
 
 variable "resource_tags" {
@@ -53,7 +58,7 @@ variable "access_tags" {
 variable "image_name" {
   description = "The image ID used for the VSI. You can run the `ibmcloud is images` CLI command to find available images. The IDs are different in each region."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "vsi_instance_profile" {
@@ -162,9 +167,11 @@ variable "load_balancers" {
           name = string
           rules = list(
             object({
-              name      = string
-              direction = string
-              source    = string
+              name       = string
+              direction  = string
+              source     = string
+              local      = optional(string)
+              ip_version = optional(string)
               tcp = optional(
                 object({
                   port_max = number
@@ -201,6 +208,12 @@ variable "primary_vni_additional_ip_count" {
 
 variable "use_legacy_network_interface" {
   description = "Set this to true to use legacy network interface for the created instances."
+  type        = bool
+  default     = false
+}
+
+variable "allow_ip_spoofing" {
+  description = "Allow IP spoofing on the primary network interface"
   type        = bool
   default     = false
 }

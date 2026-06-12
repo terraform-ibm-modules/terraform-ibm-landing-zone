@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 13 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string
 
   validation {
@@ -143,13 +143,13 @@ variable "existing_cos_resource_group" {
 }
 
 variable "existing_cos_endpoint_type" {
-  description = "The endpoint type to use when accessing the existing COS instance, default is `public`."
+  description = "The endpoint type to use when accessing the existing COS instance. `direct` is the preferred endpoint type for re-platformed regions."
   type        = string
-  default     = "public"
+  default     = "direct"
 
   validation {
-    error_message = "Endpoint type can only be `public` or `private`."
-    condition     = contains(["public", "private", null], var.existing_cos_endpoint_type)
+    error_message = "Endpoint type can only be `public`, `private`, or `direct`."
+    condition     = contains(["public", "private", "direct", null], var.existing_cos_endpoint_type)
   }
 }
 
@@ -243,7 +243,6 @@ variable "cluster_addons" {
     openshift-data-foundation = optional(string)
     vpc-file-csi-driver       = optional(string)
     static-route              = optional(string)
-    cluster-autoscaler        = optional(string)
     vpc-block-csi-driver      = optional(string)
   })
   description = "Map of OCP cluster add-on versions to install (NOTE: The 'vpc-block-csi-driver' add-on is installed by default for VPC clusters, however you can explicitly specify it here if you wish to choose a later version than the default one). For full list of all supported add-ons and versions, see https://cloud.ibm.com/docs/containers?topic=containers-supported-cluster-addon-versions"
@@ -272,10 +271,10 @@ variable "cluster_force_delete_storage" {
 variable "operating_system" {
   type        = string
   description = "The operating system of the workers in the default worker pool. If no value is specified, the current default version OS will be used. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available ."
-  default     = "REDHAT_8_64"
+  default     = "RHCOS"
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHCOS"
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = var.operating_system == "REDHAT_8_64" || var.operating_system == "RHEL_9_64" || var.operating_system == "RHCOS"
   }
 }
 
@@ -571,9 +570,9 @@ variable "teleport_instance_profile" {
 }
 
 variable "teleport_vsi_image_name" {
-  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see availabled images."
+  description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-24-04-6-minimal-amd64-2"
+  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
 }
 
 variable "teleport_license" {

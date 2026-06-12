@@ -81,7 +81,9 @@ resource "ibm_resource_key" "key" {
 resource "ibm_cos_bucket" "buckets" {
   for_each = local.buckets_map
 
-  depends_on = [time_sleep.wait_for_authorization_policy]
+  depends_on = [
+    time_sleep.wait_for_authorization_policy
+  ]
 
   bucket_name           = "${var.prefix}-${each.value.name}${each.value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
   resource_instance_id  = local.cos_instance_ids[each.value.instance]
@@ -126,6 +128,33 @@ resource "ibm_cos_bucket" "buckets" {
       usage_metrics_enabled   = metrics_monitoring.value.usage_metrics_enabled
     }
   }
+
+  dynamic "retention_rule" {
+    for_each = (
+      each.value.retention_rule == null
+      ? []
+      : [each.value.retention_rule]
+    )
+
+    content {
+      default   = retention_rule.value.default
+      minimum   = retention_rule.value.minimum
+      maximum   = retention_rule.value.maximum
+      permanent = retention_rule.value.permanent
+    }
+  }
+
+  dynamic "object_versioning" {
+    for_each = (
+      each.value.object_versioning_enabled == true
+      ? [each.value.object_versioning_enabled]
+      : []
+    )
+
+    content {
+      enable = each.value.object_versioning_enabled
+    }
+  }
 }
 
 resource "time_sleep" "wait_for_cos_bucket_lifecycle" {
@@ -147,6 +176,7 @@ resource "ibm_cos_bucket_lifecycle_configuration" "cos_bucket_lifecycle" {
 
   bucket_crn      = ibm_cos_bucket.buckets[each.key].crn
   bucket_location = compact([var.region, each.value.cross_region_location, each.value.single_site_location])[0]
+  endpoint_type   = coalesce(each.value.endpoint_type, "public")
 
   dynamic "lifecycle_rule" {
     ## This for_each block is NOT a loop to attach to multiple expiration blocks.

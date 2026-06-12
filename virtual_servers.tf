@@ -41,7 +41,7 @@ data "ibm_is_image" "image" {
 
 module "vsi" {
   source                          = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                         = "4.4.0"
+  version                         = "6.5.4"
   for_each                        = local.vsi_map
   resource_group_id               = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   create_security_group           = each.value.security_group == null ? false : true
@@ -88,6 +88,7 @@ module "vsi" {
     }
   ]
   enable_floating_ip = each.value.enable_floating_ip == true ? true : false
+  allow_ip_spoofing  = each.value.allow_ip_spoofing
   depends_on         = [module.ssh_keys]
 }
 

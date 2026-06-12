@@ -34,7 +34,7 @@ locals {
          "resource_group": "workload-rg",
          "disable_outbound_traffic_protection": true,
          "cluster_force_delete_storage": true,
-         "operating_system": "REDHAT_8_64",
+         "operating_system": "RHCOS",
          "kms_wait_for_apply": true,
          "kms_config": {
             "crk_name": "roks-key",
@@ -49,7 +49,6 @@ locals {
          "workers_per_subnet": 1,
          "entitlement": ${local.entitlement_val},
          "disable_public_endpoint": false,
-         "import_default_worker_pool_on_create" : false,
          "use_ibm_cloud_private_api_endpoints": false
       }
    ],
