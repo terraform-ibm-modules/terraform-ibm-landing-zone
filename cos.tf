@@ -236,20 +236,96 @@ locals {
   # Flatten backup policies from all buckets
   backup_policies_flat = flatten([
     for bucket_key, bucket_value in local.buckets_map : [
-      for policy in bucket_value.backup_policies : {
+      for policy in(bucket_value.backup_policies != null ? bucket_value.backup_policies : []) : {
         key                       = "${bucket_key}-${policy.policy_name}"
         bucket_key                = bucket_key
+        bucket_name               = "${var.prefix}-${bucket_value.name}${bucket_value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
+        instance                  = bucket_value.instance
         policy_name               = policy.policy_name
         target_backup_vault_crn   = policy.target_backup_vault_crn
         initial_delete_after_days = policy.initial_delete_after_days
       }
     ]
   ])
+
+  # Gather the details needed to create the IAM s2s auth policies required for the Vault Backup policies
+  backup_vault_auth = [
+    for policy in local.backup_policies_flat : {
+      vault_account_id = split("/", coalescelist(split(":", policy.target_backup_vault_crn))[6])[1]
+      vault_cos_guid   = coalescelist(split(":", policy.target_backup_vault_crn))[7]
+      vault_name       = coalescelist(split(":", policy.target_backup_vault_crn))[9]
+      bucket_key       = policy.bucket_key
+      bucket_name      = policy.bucket_name
+      instance         = policy.instance
+    }
+  ]
+}
+
+# Create an IAM authorization policy granting sync permissions from the source to the target bucket for each vault specified
+resource "ibm_iam_authorization_policy" "backup_vault_policy" {
+  count = length(local.backup_vault_auth)
+  roles = ["Backup Manager", "Writer"]
+
+  subject_attributes {
+    name  = "accountId"
+    value = local.backup_vault_auth[count.index].vault_account_id
+  }
+  subject_attributes {
+    name  = "serviceName"
+    value = "cloud-object-storage"
+  }
+  subject_attributes {
+    name  = "serviceInstance"
+    value = split(":", local.cos_instance_ids[local.backup_vault_auth[count.index].instance])[7]
+  }
+  subject_attributes {
+    name  = "resource"
+    value = local.backup_vault_auth[count.index].bucket_name
+  }
+  subject_attributes {
+    name  = "resourceType"
+    value = "bucket"
+  }
+
+  resource_attributes {
+    name     = "accountId"
+    operator = "stringEquals"
+    value    = local.backup_vault_auth[count.index].vault_account_id
+  }
+  resource_attributes {
+    name     = "serviceName"
+    operator = "stringEquals"
+    value    = "cloud-object-storage"
+  }
+  resource_attributes {
+    name     = "serviceInstance"
+    operator = "stringEquals"
+    value    = local.backup_vault_auth[count.index].vault_cos_guid
+  }
+  resource_attributes {
+    name     = "resource"
+    operator = "stringEquals"
+    value    = local.backup_vault_auth[count.index].vault_name
+  }
+  resource_attributes {
+    name     = "resourceType"
+    operator = "stringEquals"
+    value    = "backup-vault"
+  }
+}
+
+# Wait for auth policy to be fully synced on the backend before creating backup policy
+resource "time_sleep" "wait_for_backup_vault_authorization_policy" {
+  depends_on       = [ibm_iam_authorization_policy.backup_vault_policy]
+  count            = length(local.backup_vault_auth) > 0 ? 1 : 0
+  create_duration  = "30s"
+  destroy_duration = "30s"
 }
 
 # Create backup policies
 resource "ibm_cos_backup_policy" "backup_policy" {
-  for_each = { for policy in local.backup_policies_flat : policy.key => policy }
+  depends_on = [time_sleep.wait_for_backup_vault_authorization_policy]
+  for_each   = { for policy in local.backup_policies_flat : policy.key => policy }
 
   bucket_crn                = ibm_cos_bucket.buckets[each.value.bucket_key].crn
   policy_name               = each.value.policy_name

@@ -611,7 +611,7 @@ variable "cos" {
           policy_name               = string
           target_backup_vault_crn   = string
           initial_delete_after_days = number
-        })), [])
+        })))
       }))
       keys = optional(
         list(object({
@@ -631,9 +631,9 @@ variable "cos" {
         [
           for instance in var.cos :
           [
-            for keys in instance.keys :
+            for keys in(instance.keys != null ? instance.keys : []) :
             keys.name
-          ] if lookup(instance, "keys", false) != false
+          ] if instance.keys != null && length(instance.keys) > 0
         ]
       )
       ) == length(
@@ -642,9 +642,9 @@ variable "cos" {
           [
             for instance in var.cos :
             [
-              for keys in instance.keys :
+              for keys in(instance.keys != null ? instance.keys : []) :
               keys.name
-            ] if lookup(instance, "keys", false) != false
+            ] if instance.keys != null && length(instance.keys) > 0
           ]
         )
       )
@@ -836,7 +836,7 @@ variable "cos" {
         for instance in var.cos :
         [
           for bucket in instance.buckets :
-          true if length(bucket.backup_policies) > 3
+          true if bucket.backup_policies != null && length(bucket.backup_policies) > 3
         ]
       ])
     ) == 0
@@ -849,7 +849,7 @@ variable "cos" {
         for instance in var.cos :
         [
           for bucket in instance.buckets :
-          true if length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.policy_name]))
+          true if bucket.backup_policies != null && length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.policy_name]))
         ]
       ])
     ) == 0
@@ -862,7 +862,7 @@ variable "cos" {
         for instance in var.cos :
         [
           for bucket in instance.buckets :
-          true if length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.target_backup_vault_crn]))
+          true if bucket.backup_policies != null && length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.target_backup_vault_crn]))
         ]
       ])
     ) == 0
@@ -876,7 +876,7 @@ variable "cos" {
         [
           for bucket in instance.buckets :
           [
-            for policy in bucket.backup_policies :
+            for policy in(bucket.backup_policies != null ? bucket.backup_policies : []) :
             true if policy.initial_delete_after_days <= 0
           ]
         ]
@@ -891,7 +891,7 @@ variable "cos" {
         for instance in var.cos :
         [
           for bucket in instance.buckets :
-          true if length(bucket.backup_policies) > 0 && bucket.object_versioning_enabled == false
+          true if bucket.backup_policies != null && length(bucket.backup_policies) > 0 && bucket.object_versioning_enabled == false
         ]
       ])
     ) == 0
