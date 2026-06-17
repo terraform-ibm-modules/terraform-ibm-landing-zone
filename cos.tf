@@ -233,6 +233,32 @@ resource "ibm_resource_tag" "bucket_tag" {
 ##############################################################################
 
 locals {
+  # Flatten backup vaults to create from all buckets
+  backup_vaults_to_create = flatten([
+    for bucket_key, bucket_value in local.buckets_map : [
+      for policy in(bucket_value.backup_policies != null ? bucket_value.backup_policies : []) : {
+        key                    = "${bucket_key}-${policy.backup_vault_name}"
+        vault_name             = policy.backup_vault_name
+        instance               = bucket_value.instance
+        bucket_key             = bucket_key
+        policy_name            = policy.policy_name
+        region                 = bucket_value.region_location
+        kms_encryption_enabled = policy.backup_vault_kms_encryption_enabled != null ? policy.backup_vault_kms_encryption_enabled : false
+        kms_key_crn            = policy.backup_vault_kms_key_crn
+      } if policy.backup_vault_name != null
+    ]
+  ])
+
+  # Create a map of unique backup vaults to create (deduplicate by vault_name and instance)
+  # Group by instance-vault_name combination and take the first occurrence
+  backup_vaults_map = {
+    for key, vaults in {
+      for v in local.backup_vaults_to_create :
+      "${v.instance}-${v.vault_name}" => v...
+    } :
+    key => vaults[0]
+  }
+
   # Flatten backup policies from all buckets
   backup_policies_flat = flatten([
     for bucket_key, bucket_value in local.buckets_map : [
@@ -242,82 +268,64 @@ locals {
         bucket_name               = "${var.prefix}-${bucket_value.name}${bucket_value.random_suffix == "true" ? "-${random_string.random_cos_suffix.result}" : ""}"
         instance                  = bucket_value.instance
         policy_name               = policy.policy_name
-        target_backup_vault_crn   = policy.target_backup_vault_crn
+        target_backup_vault_crn   = policy.target_backup_vault_crn != null ? policy.target_backup_vault_crn : (policy.backup_vault_name != null ? module.backup_vault["${bucket_value.instance}-${policy.backup_vault_name}"].backup_vault_crn : null)
+        backup_type               = "continuous"
         initial_delete_after_days = policy.initial_delete_after_days
       }
     ]
   ])
 
-  # Gather the details needed to create the IAM s2s auth policies required for the Vault Backup policies
-  backup_vault_auth = [
-    for policy in local.backup_policies_flat : {
-      vault_account_id = split("/", coalescelist(split(":", policy.target_backup_vault_crn))[6])[1]
-      vault_cos_guid   = coalescelist(split(":", policy.target_backup_vault_crn))[7]
-      vault_name       = coalescelist(split(":", policy.target_backup_vault_crn))[9]
-      bucket_key       = policy.bucket_key
-      bucket_name      = policy.bucket_name
-      instance         = policy.instance
+  # Prepare service_map for s2s-auth module
+  backup_vault_service_map = {
+    for policy in local.backup_policies_flat :
+    policy.key => {
+      source_service_name         = "cloud-object-storage"
+      target_service_name         = "cloud-object-storage"
+      roles                       = ["Backup Manager", "Writer"]
+      description                 = "S2S authorization for COS backup from bucket ${policy.bucket_name}"
+      source_service_account_id   = null
+      source_resource_instance_id = split(":", local.cos_instance_ids[policy.instance])[7]
+      target_resource_instance_id = coalescelist(split(":", policy.target_backup_vault_crn))[7]
+      source_resource_group_id    = null
+      target_resource_group_id    = null
+      source_resource_type        = "bucket"
+      target_resource_type        = "backup-vault"
+      subject_attributes          = []
+      resource_attributes         = []
     }
-  ]
+  }
 }
 
-# Create an IAM authorization policy granting sync permissions from the source to the target bucket for each vault specified
-resource "ibm_iam_authorization_policy" "backup_vault_policy" {
-  count = length(local.backup_vault_auth)
-  roles = ["Backup Manager", "Writer"]
+# Create backup vaults using the terraform-ibm-cos backup_vault module
+module "backup_vault" {
+  source  = "terraform-ibm-modules/cos/ibm//modules/backup_vault"
+  version = "10.16.5"
 
-  subject_attributes {
-    name  = "accountId"
-    value = local.backup_vault_auth[count.index].vault_account_id
-  }
-  subject_attributes {
-    name  = "serviceName"
-    value = "cloud-object-storage"
-  }
-  subject_attributes {
-    name  = "serviceInstance"
-    value = split(":", local.cos_instance_ids[local.backup_vault_auth[count.index].instance])[7]
-  }
-  subject_attributes {
-    name  = "resource"
-    value = local.backup_vault_auth[count.index].bucket_name
-  }
-  subject_attributes {
-    name  = "resourceType"
-    value = "bucket"
-  }
+  for_each = local.backup_vaults_map
 
-  resource_attributes {
-    name     = "accountId"
-    operator = "stringEquals"
-    value    = local.backup_vault_auth[count.index].vault_account_id
-  }
-  resource_attributes {
-    name     = "serviceName"
-    operator = "stringEquals"
-    value    = "cloud-object-storage"
-  }
-  resource_attributes {
-    name     = "serviceInstance"
-    operator = "stringEquals"
-    value    = local.backup_vault_auth[count.index].vault_cos_guid
-  }
-  resource_attributes {
-    name     = "resource"
-    operator = "stringEquals"
-    value    = local.backup_vault_auth[count.index].vault_name
-  }
-  resource_attributes {
-    name     = "resourceType"
-    operator = "stringEquals"
-    value    = "backup-vault"
-  }
+  name                     = each.value.vault_name
+  add_name_suffix          = false
+  existing_cos_instance_id = local.cos_instance_ids[each.value.instance]
+  region                   = coalesce(each.value.region, "us-south")
+  kms_encryption_enabled   = each.value.kms_encryption_enabled
+  kms_key_crn              = each.value.kms_key_crn
+}
+
+# Create IAM authorization policies using s2s-auth module
+module "backup_vault_s2s_auth" {
+  source  = "terraform-ibm-modules/s2s-auth/ibm"
+  version = "2.3.0"
+
+  count = length(local.backup_vault_service_map) > 0 ? 1 : 0
+
+  service_map = local.backup_vault_service_map
+  enable_cbr  = false
 }
 
 # Wait for auth policy to be fully synced on the backend before creating backup policy
 resource "time_sleep" "wait_for_backup_vault_authorization_policy" {
-  depends_on       = [ibm_iam_authorization_policy.backup_vault_policy]
-  count            = length(local.backup_vault_auth) > 0 ? 1 : 0
+  depends_on       = [module.backup_vault_s2s_auth]
+  count            = length(local.backup_vault_service_map) > 0 ? 1 : 0
   create_duration  = "30s"
   destroy_duration = "30s"
 }
@@ -330,7 +338,7 @@ resource "ibm_cos_backup_policy" "backup_policy" {
   bucket_crn                = ibm_cos_bucket.buckets[each.value.bucket_key].crn
   policy_name               = each.value.policy_name
   target_backup_vault_crn   = each.value.target_backup_vault_crn
-  backup_type               = "continuous"
+  backup_type               = each.value.backup_type
   initial_delete_after_days = each.value.initial_delete_after_days
 }
 

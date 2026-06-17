@@ -608,9 +608,12 @@ variable "cos" {
         }))
         object_versioning_enabled = optional(bool, false)
         backup_policies = optional(list(object({
-          policy_name               = string
-          target_backup_vault_crn   = string
-          initial_delete_after_days = number
+          policy_name                         = string
+          target_backup_vault_crn             = optional(string)
+          backup_vault_name                   = optional(string)
+          backup_vault_kms_encryption_enabled = optional(bool, false)
+          backup_vault_kms_key_crn            = optional(string)
+          initial_delete_after_days           = number
         })))
       }))
       keys = optional(
@@ -856,13 +859,16 @@ variable "cos" {
   }
 
   validation {
-    error_message = "Each backup policy must have a unique target_backup_vault_crn within a bucket."
+    error_message = "Each backup policy must have a unique vault (either target_backup_vault_crn or backup_vault_name) within a bucket."
     condition = length(
       flatten([
         for instance in var.cos :
         [
           for bucket in instance.buckets :
-          true if bucket.backup_policies != null && length(bucket.backup_policies) != length(distinct([for policy in bucket.backup_policies : policy.target_backup_vault_crn]))
+          true if bucket.backup_policies != null && length(bucket.backup_policies) != length(distinct([
+            for policy in bucket.backup_policies :
+            policy.target_backup_vault_crn != null ? policy.target_backup_vault_crn : policy.backup_vault_name
+          ]))
         ]
       ])
     ) == 0
@@ -896,6 +902,42 @@ variable "cos" {
       ])
     ) == 0
   }
+
+  validation {
+    error_message = "Each backup policy must specify either target_backup_vault_crn or backup_vault_name, but not both."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          [
+            for policy in(bucket.backup_policies != null ? bucket.backup_policies : []) :
+            true if(
+              (policy.target_backup_vault_crn != null && policy.backup_vault_name != null) ||
+              (policy.target_backup_vault_crn == null && policy.backup_vault_name == null)
+            )
+          ]
+        ]
+      ])
+    ) == 0
+  }
+
+  validation {
+    error_message = "backup_vault_kms_key_crn must be provided when backup_vault_kms_encryption_enabled is true."
+    condition = length(
+      flatten([
+        for instance in var.cos :
+        [
+          for bucket in instance.buckets :
+          [
+            for policy in(bucket.backup_policies != null ? bucket.backup_policies : []) :
+            true if policy.backup_vault_name != null && policy.backup_vault_kms_encryption_enabled == true && policy.backup_vault_kms_key_crn == null
+          ]
+        ]
+      ])
+    ) == 0
+  }
+
 }
 
 ##############################################################################
