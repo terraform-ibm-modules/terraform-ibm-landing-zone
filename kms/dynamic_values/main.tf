@@ -77,7 +77,7 @@ locals {
   key_rings = distinct([for encryption_key in var.keys :
     {
       key_ring_name = encryption_key.key_ring
-      endpoint      = lookup(encryption_key, "endpoint")
+      endpoint      = lookup(encryption_key, "endpoint", null)
     } if encryption_key.key_ring != null
   ])
 
