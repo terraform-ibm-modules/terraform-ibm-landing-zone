@@ -1,5 +1,14 @@
 # One VPC with one VSI example
 
+<!-- BEGIN SCHEMATICS DEPLOY HOOK -->
+<p>
+  <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=landing-zone-one-vpc-one-vsi-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/one-vpc-one-vsi">
+    <img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics">
+  </a><br>
+  ℹ️ Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab.
+</p>
+<!-- END SCHEMATICS DEPLOY HOOK -->
+
 The examples shows how you can use the landing zone module to create a basic, minimal topology by using an `override.json` file.
 
 :information_source: **Tip:** You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to further customize the `override.json` file.

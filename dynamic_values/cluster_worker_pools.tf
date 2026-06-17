@@ -36,7 +36,7 @@ module "ut_worker_pools" {
           workers_per_subnet = 2
           flavor             = "spicy"
           secondary_storage  = "300gb.5iops-tier"
-          operating_system   = "REDHAT_8_64"
+          operating_system   = "RHCOS"
         }
       ]
     }

@@ -33,7 +33,7 @@ locals {
 # Due to existing implicit dependencies we do not think this will be an issue, including auth policies for activity tracker.
 module "vpc" {
   source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                     = "7.23.12"
+  version                     = "9.0.7"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id
@@ -53,7 +53,7 @@ module "vpc" {
   use_public_gateways         = each.value.use_public_gateways
   create_subnets              = length(coalesce(each.value.existing_subnets, [])) == 0 ? true : false
   # NOTE: for existing subnets scenario, current VPC module does not accept null for subnets map, so sending in a map with empty arrays instead
-  subnets                                = length(coalesce(each.value.existing_subnets, [])) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [] }
+  subnets                                = length(coalesce(each.value.existing_subnets, [])) == 0 ? each.value.subnets : { "zone-1" : [], "zone-2" : [], "zone-3" : [], "zone-4" : [] }
   existing_subnets                       = each.value.existing_subnets
   enable_vpc_flow_logs                   = (each.value.flow_logs_bucket_name != null) ? true : false
   create_authorization_policy_vpc_to_cos = false
@@ -64,9 +64,7 @@ module "vpc" {
   dns_custom_resolver_name               = each.value.dns_custom_resolver_name
   dns_location                           = each.value.dns_location
   dns_plan                               = each.value.dns_plan
-  dns_zone_name                          = each.value.dns_zone_name
-  dns_zone_description                   = each.value.dns_zone_description
-  dns_zone_label                         = each.value.dns_zone_label
+  dns_zones                              = each.value.dns_zones
   dns_records                            = each.value.dns_records
   existing_dns_instance_id               = each.value.existing_dns_instance_id
   use_existing_dns_instance              = each.value.use_existing_dns_instance

@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "prefix" {
-  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters."
+  description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate). "
   type        = string
 
   validation {
@@ -83,10 +83,12 @@ variable "vpcs" {
       dns_custom_resolver_name    = optional(string, null)
       dns_location                = optional(string, "global")
       dns_plan                    = optional(string, "standard-dns")
-      dns_zone_name               = optional(string, null)
-      dns_zone_description        = optional(string, null)
-      dns_zone_label              = optional(string, null)
-      dns_records = optional(list(object({
+      dns_zones = optional(list(object({
+        name        = string
+        description = optional(string)
+        label       = optional(string, "dns-zone")
+      })), [])
+      dns_records = optional(map(list(object({
         name       = string
         type       = string
         ttl        = number
@@ -97,7 +99,7 @@ variable "vpcs" {
         priority   = optional(number, null)
         weight     = optional(number, null)
         port       = optional(number, null)
-      })), [])
+      }))), {})
       existing_dns_instance_id          = optional(string, null)
       use_existing_dns_instance         = optional(bool, false)
       enable_hub                        = optional(bool, false)
@@ -117,9 +119,11 @@ variable "vpcs" {
       default_security_group_rules = optional(
         list(
           object({
-            name      = string
-            direction = string
-            remote    = string
+            name       = string
+            direction  = string
+            remote     = string
+            local      = optional(string)
+            ip_version = optional(string)
             tcp = optional(
               object({
                 port_max = optional(number)
@@ -148,6 +152,7 @@ variable "vpcs" {
           zone-1 = optional(list(string))
           zone-2 = optional(list(string))
           zone-3 = optional(list(string))
+          zone-4 = optional(list(string))
         })
       )
       network_acls = list(
@@ -193,6 +198,7 @@ variable "vpcs" {
         zone-1 = optional(bool)
         zone-2 = optional(bool)
         zone-3 = optional(bool)
+        zone-4 = optional(bool)
       })
       subnets = optional(object({
         zone-1 = list(object({
@@ -216,6 +222,13 @@ variable "vpcs" {
           acl_name       = string
           no_addr_prefix = optional(bool, false)
         }))
+        zone-4 = optional(list(object({
+          name           = string
+          cidr           = string
+          public_gateway = optional(bool)
+          acl_name       = string
+          no_addr_prefix = optional(bool, false)
+        })))
       }))
     })
   )
@@ -328,9 +341,11 @@ variable "vsi" {
           name = string
           rules = list(
             object({
-              name      = string
-              direction = string
-              source    = string
+              name       = string
+              direction  = string
+              source     = string
+              local      = optional(string)
+              ip_version = optional(string)
               tcp = optional(
                 object({
                   port_max = number
@@ -393,9 +408,11 @@ variable "vsi" {
               name = string
               rules = list(
                 object({
-                  name      = string
-                  direction = string
-                  source    = string
+                  name       = string
+                  direction  = string
+                  source     = string
+                  local      = optional(string)
+                  ip_version = optional(string)
                   tcp = optional(
                     object({
                       port_max = number
@@ -441,9 +458,11 @@ variable "security_groups" {
       access_tags    = optional(list(string), [])
       rules = list(
         object({
-          name      = string
-          direction = string
-          source    = string
+          name       = string
+          direction  = string
+          source     = string
+          local      = optional(string)
+          ip_version = optional(string)
           tcp = optional(
             object({
               port_max = number
@@ -587,6 +606,7 @@ variable "cos" {
           minimum   = number
           permanent = optional(bool)
         }))
+        object_versioning_enabled = optional(bool, false)
       }))
       keys = optional(
         list(object({
@@ -784,6 +804,25 @@ variable "cos" {
       )
     ) == length(flatten([for instance in var.cos : [for bucket in instance.buckets : true]]))
   }
+
+  # https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cos_bucket#object_versioning-1
+  validation {
+    error_message = "COS `object_versioning_enabled` and `retention_rule` cannot be used together."
+    condition = length(
+      flatten(
+        [
+          for instance in var.cos :
+          [
+            for bucket in instance.buckets :
+            true if(
+              (bucket.object_versioning_enabled == true) &&
+              bucket.retention_rule != null
+            )
+          ]
+        ]
+      )
+    ) == 0
+  }
 }
 
 ##############################################################################
@@ -933,9 +972,9 @@ variable "clusters" {
         openshift-data-foundation = optional(string)
         vpc-file-csi-driver       = optional(string)
         static-route              = optional(string)
-        cluster-autoscaler        = optional(string)
-        vpc-block-csi-driver      = optional(string)
-        ibm-storage-operator      = optional(string)
+        # cluster-autoscaler        = optional(string)   Due to a Terraform limitation that prevents dynamically creating the Kubernetes provider, the cluster-autoscaler add-on cannot currently be deployed through this module.
+        vpc-block-csi-driver = optional(string)
+        ibm-storage-operator = optional(string)
       }), {})
       manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.
       kms_config = optional(
@@ -1007,8 +1046,8 @@ variable "clusters" {
 
   # operating_system validation
   validation {
-    error_message = "RHEL 8 (REDHAT_8_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
-    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
+    error_message = "RHEL 8 (REDHAT_8_64), RHEL 9 (RHEL_9_64) or Red Hat Enterprise Linux CoreOS (RHCOS) are the allowed OS values. RHCOS requires VPC clusters created from 4.15 onwards. Upgraded clusters from 4.14 cannot use RHCOS."
+    condition     = length([for cluster in var.clusters : true if cluster.operating_system == null || cluster.operating_system == "REDHAT_8_64" || cluster.operating_system == "RHEL_9_64" || cluster.operating_system == "RHCOS"]) == length(var.clusters)
   }
 
 }
@@ -1125,9 +1164,11 @@ variable "teleport_vsi" {
             name = string
             rules = list(
               object({
-                name      = string
-                direction = string
-                source    = string
+                name       = string
+                direction  = string
+                source     = string
+                local      = optional(string)
+                ip_version = optional(string)
                 tcp = optional(
                   object({
                     port_max = number
@@ -1200,9 +1241,11 @@ variable "f5_vsi" {
           name = string
           rules = list(
             object({
-              name      = string
-              direction = string
-              source    = string
+              name       = string
+              direction  = string
+              source     = string
+              local      = optional(string)
+              ip_version = optional(string)
               tcp = optional(
                 object({
                   port_max = number
@@ -1254,9 +1297,11 @@ variable "f5_vsi" {
               name = string
               rules = list(
                 object({
-                  name      = string
-                  direction = string
-                  source    = string
+                  name       = string
+                  direction  = string
+                  source     = string
+                  local      = optional(string)
+                  ip_version = optional(string)
                   tcp = optional(
                     object({
                       port_max = number
@@ -1393,7 +1438,7 @@ variable "skip_kms_block_storage_s2s_auth_policy" {
 }
 
 variable "skip_kms_kube_s2s_auth_policy" {
-  description = "Whether to skip the creation of a service-to-serivce authorization policy between kubernetes and the key management service."
+  description = "Whether to skip the creation of a service-to-service authorization policy between kubernetes and the key management service."
   type        = bool
   default     = false
 }

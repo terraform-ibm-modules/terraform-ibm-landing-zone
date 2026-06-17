@@ -2,7 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-slz-vsi",
-      "label": "VSI on VPC landing zone",
+      "label": "Landing zone for applications with virtual servers",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -11,49 +11,64 @@
         "solution",
         "virtualservers",
         "reference_architecture",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
         "slz",
         "IaC",
-        "infrastructure as code",
         "terraform",
-        "solution",
+        "virtualservers",
         "vsi",
-        "virtual server instance"
+        "servers",
+        "solution",
+        "infrastructure as code"
       ],
-      "short_description": "Creates a secure infrastructure with virtual servers to run your workloads on a VPC network",
-      "long_description": "The VSI on VPC landing zone provides secure and customizable compute resources for running your applications and services. It creates secure and compliant Virtual Server Instances (VSI) on top of an existing Virtual Private Cloud (VPC) network.",
+      "short_description": "Deploys secure Virtual Server Instances on IBM Cloud VPC with flexible configurations, QuickStart options for simplified setup, and integrated security and logging features",
+      "long_description": "Landing zone for applications with virtual servers delivers fast-provisioned, high-performance compute with network isolation and built-in security. [VSIs](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) can be deployed into new or existing Virtual Private Clouds (VPCs) with flexible configurations and integration to networking, storage, and security services. They support both x86 and s390x [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) to match compute and memory needs. Designed for secure, compliant, and customizable application workloads, VSIs enable consistent, scalable deployments across multiple zones and subnets within an IBM Cloud VPC. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vsi",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vsi-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi/main/images/vsi-icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates and configures one or more virtual servers to handle workloads.\n",
-          "title": "Creates virtual servers for workloads"
+          "title": "Configurable Compute, Networking, and Placement",
+          "description": "Creates and configures one or more [IBM Cloud Virtual Server Instances (VSIs)](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) into a fully configurable IBM Cloud VPC with multi-zone [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc&interface=ui), and placement control. Supports quick start or advanced setups with customizable VSI [profiles](https://cloud.ibm.com/docs/vpc?group=profiles) and attachment to networking and security services."
         },
         {
-          "description": "Configures the subnets for the VSIs and specifies which subnets the instances are deployed in.\n",
-          "title": "Configures subnets"
+          "title": "Resilient Traffic and Access Controls",
+          "description": "Enables  Network (Layer 4) and Application (Layer 7) [Load Balancers](https://cloud.ibm.com/docs/vpc?topic=vpc-nlb-vs-elb) with health checks, while enforcing least-privilege access via [security groups](https://cloud.ibm.com/docs/vpc?group=security-groups) and managed [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys&interface=ui). Integrates [Context-Based Restrictions (CBR)](https://cloud.ibm.com/docs/vpc?topic=vpc-cbr&interface=ui) to limit service access to approved landing zone VPCs."
         },
         {
-          "description": "Associates security groups with the VSIs to control inbound and outbound traffic to instances.\n",
-          "title": "Associates security groups"
+          "title": "Secure Storage and Key Management",
+          "description": "Attaches high-performance [Block Storage volumes]( https://cloud.ibm.com/docs/vpc?topic=vpc-block_storage_about) with selectable profiles and capacity, with optional [Key Management Services](https://cloud.ibm.com/docs/vpc?topic=vpc-vpc-encryption-about&interface=ui) for encryption using new or existing keys."
         },
         {
-          "description": "Provisions and manages SSH keys for the VSIs so that you can securely administer the instances.\n",
-          "title": "Provisions SSH keys"
+          "title": "Secrets Management Integration",
+          "description": "Optionally adds [Cloud automation for Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global) to manage SSH private keys and other secrets."
         },
         {
-          "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-          "title": "Configures CBR"
+          "title": "Sets up logging for the Virtual Server Instance",
+          "description": "Optionally, you can deploy Cloud automation for Cloud Logs to route, alert, and visualize platform logs that are generated by your Virtual Server Instance. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-logging)"
+        },
+        {
+          "title": "Sets up monitoring operational metrics for the Virtual Server Instance",
+          "description": "Optionally, you can deploy Cloud automation for Cloud Monitoring to measure how users and applications interact with your Virtual Server Instance. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-ibm-monitoring)"
+        },
+        {
+          "title": "Sets up activity tracking for the Virtual Server Instance",
+          "description": "Optionally, you can deploy Cloud automation for Activity Tracker Event Routing to route and securely store auditing events that are related to your Virtual Server Instance. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-at_events)"
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart",
+          "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
+          "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi-quickstart",
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
@@ -75,7 +90,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -101,7 +121,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "hcl"
+                  ]
+                }
               },
               "key": "user_data"
             },
@@ -109,7 +134,20 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -122,7 +160,14 @@
               }
             },
             {
-              "key": "ssh_key"
+              "key": "ssh_key",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_key' is not valid.",
+                  "value": "^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -130,110 +175,75 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Adds a virtual server instance in every VPC subnet",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "No"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "No"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "No"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "No"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "No"
-              },
-              {
-                "title": "Uses floating IP addresses for access through the public internet",
-                "description": "Yes"
+                "title": " ",
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI on VPC landing zone - QuickStart variation",
+                  "caption": "Virtual Server Instance topology- QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the VSI on VPC landing zone deployable architecture creates a fully customizable Virtual Private Cloud (VPC) environment in a single region. The solution provides virtual servers in a secure VPC for your workloads. The QuickStart variation is designed to deploy quickly for demonstration and development."
+                "description": "This variation provisions two Virtual Private Clouds (VPCs)—a <b>Management VPC</b> and a <b>Workload VPC</b>—in a single region to separate operations from workloads. Each VPC is a single-zone, multi-subnet design with <b>Virtual Server Instances (VSIs)</b> placed in every subnet for rapid demonstration and development.<br><br>It configures a <b>transit gateway</b> that , connects the VPCs and <b>Key Protect</b> is integrated to enhance security of sensitive assets. This QuickStart favors speed and simplicity , it uses <b>floating IPs</b> for public access.<br><br>It is ideal for sandbox environments and helps you get started quickly."
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
+          "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/vsi",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -250,7 +260,14 @@
             },
             {
               "key": "ssh_public_key",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'ssh_public_key' is not valid.",
+                  "value": "^__NULL__$|^ssh-rsa AAAA[0-9A-Za-z+/]+[=]{0,3} ?([^@]+@[^@]+)?"
+                }
+              ]
             },
             {
               "key": "provider_visibility",
@@ -274,7 +291,20 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "existing_ssh_key_name"
@@ -305,7 +335,18 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
@@ -326,7 +367,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "textarea"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "hcl"
+                  ]
+                }
               },
               "key": "user_data"
             },
@@ -527,7 +573,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -543,90 +594,56 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Virtual Server Instances for every subnet",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses floating IP addresses for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VSI on VPC landing zone - Standard variation",
+                  "caption": "Virtual Server Instance topology - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg",
                   "type": "image/svg+xml"
                 },
@@ -673,24 +690,6 @@
             {
               "key": "ssh_public_key",
               "required": true
-            },
-            {
-              "key": "provider_visibility",
-              "hidden":true,
-              "options": [
-                {
-                  "displayname": "private",
-                  "value": "private"
-                },
-                {
-                  "displayname": "public",
-                  "value": "public"
-                },
-                {
-                  "displayname": "public-and-private",
-                  "value": "public-and-private"
-                }
-              ]
             },
             {
               "custom_config": {
@@ -820,73 +819,84 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
     {
       "name": "deploy-arch-ibm-slz-vpc",
-      "label": "VPC landing zone",
+      "label": "Cloud foundation for VPC",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
         "target_terraform",
         "terraform",
         "solution",
+        "network",
         "network_vpc",
-        "reference_architecture",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
         "slz",
-        "IaC",
-        "Infrastructure",
         "terraform",
+        "IaC",
+        "infrastructure as code",
         "solution"
       ],
-      "short_description": "Deploys a secure VPC network without compute resources",
-      "long_description": "The VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources, such as Virtual Server Instances (VSI) or Red Hat OpenShift clusters. You can use this architecture as a base on which to deploy compute resources. Or you can deploy those resources by using the other landing zone deployable architectures: [VSI on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-vsi-ef663980-4c71-4fac-af4f-4a510a9bcf68-global) and [Red Hat OpenShift Container Platform on VPC landing zone](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-slz-ocp-95fccffc-ae3b-42df-b6d9-80be5914d852-global).",
+      "short_description": "Deploy Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
+      "long_description": "The Cloud foundation for VPC deployable architecture provides a foundational IBM Cloud [Virtual Private Cloud (VPC)](https://www.ibm.com/cloud/vpc) environment that serves as the base for deploying compute and advanced resources. It establishes the core networking and security framework without including Virtual Server Instances (VSI) or Red Hat OpenShift clusters by default. You can extend this deployable architecture to support a variety of others like [Landing zone for applications with virtual servers](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-vsi-vpc-28e2b12c-858f-4ae8-8717-60db8cec2e6e-global), [Landing zone for containerized applications with Red Hat OpenShift](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-vpc-1728a4fd-f561-4cf9-82ef-2b1eeb5da1a8-global), [Cloud automation for Red Hat OpenShift AI](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-ocp-ai-ba708aed-bb8a-4ac0-83a7-53a066701db5-global) and many more. You can set up a foundational layer to enable consistent, scalable, and secure deployments across multiple IBM Cloud workloads. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-vpc",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-vpc-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc/main/images/vpc_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates a VPC-based topology based on two VPCs, by default.\n",
-          "title": "Creates Virtual Private Clouds"
+          "title": "VPC Networking and Subnet Management",
+          "description": "Provisions [subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) across three availability zones, dividing your VPC into smaller, isolated networks for improved organization, availability, and traffic control. It Includes support for [address prefixes](https://cloud.ibm.com/docs/vpc?topic=vpc-about-subnets-vpc) to define IP ranges, and [routing tables](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui) with custom routes to manage flow of traffic not only within the VPC but also to the external networks."
         },
         {
-          "description": "Defines multiple subnets in the VPC to define IP ranges and organize resources within the network.\n",
-          "title": "Configures subnets"
+          "title": "Network Security Controls",
+          "description": "Provides multiple layers of network protection through [Network ACLs](https://cloud.ibm.com/docs/vpc?topic=vpc-using-acls) and [security groups](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups). ACLs define subnet-level rules to allow or deny traffic, while security groups act as virtual firewalls for instances, controlling inbound and outbound connections."
         },
         {
-          "description": "The transit gateway connects the two default VPCs that the deployable architecture creates.\n",
-          "title": "Creates a transit gateway"
+          "title": "Connectivity and Gateway Services",
+          "description": "Enables secure and flexible connectivity options with [public gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-public-gateways) for internet access, [VPN gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-overview) for encrypted hybrid cloud connections, and [VPE gateways](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpe) for private access to IBM Cloud services. Also supports edge networking to isolate and optimize traffic to the public internet, and creates a transit gateway to connect the default VPCs in the deployable architecture."
         },
         {
-          "description": "IBM Cloud Object Storage is used for Flow Logs and Activity Tracker, which enhance the observability and auditing of your infrastructure.\n",
-          "title": "Integrates Flow Logs and Activity tracking"
+          "title": "Flow Logs and Secure Storage",
+          "description": "Captures and stores network traffic data using [VPC flow logs](https://cloud.ibm.com/docs/vpc?topic=vpc-flow-logs), with logs directed to an Object Storage bucket for analysis and long-term retention. Supports Key Management Service (KMS) encryption for the storage bucket, ensuring enhanced data security and compliance."
         },
         {
-          "description": "Isolates and speeds traffic to the public internet by using an edge VPC in a specific location, if enabled.\n",
-          "title": "Supports edge networking"
+          "title": "Traffic Management",
+          "description": "Configures routing tables and routes to control the flow of traffic not only within the VPC but also to external networks. [Learn more](https://cloud.ibm.com/docs/vpc?topic=vpc-create-vpc-routing-table&interface=ui)."
+        },
+        {
+          "title": "Sets up logging for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Logs]((https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-logs-63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global)) to route, alert, and visualize platform logs that are generated by your VPC instance."
+        },
+        {
+          "title": "Sets up monitoring operational metrics for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Monitoring](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-monitoring-73debdbf-894f-4c14-81c7-5ece3a70b67d-global) to measure how users and applications interact with your VPC instance."
+        },
+        {
+          "title": "Sets up activity tracking for the VPC instance",
+          "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your VPC instance."
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
+          "index": 2,
           "install_type": "fullstack",
           "working_directory": "patterns/vpc",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -923,7 +933,20 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 16 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
@@ -951,13 +974,64 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
             },
             {
               "key": "use_random_cos_suffix"
+            },
+            {
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
+            },
+            {
+              "key": "existing_cos_resource_group"
+            },
+            {
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
+              "key": "use_existing_cos_for_vpc_flowlogs"
+            },
+            {
+              "key": "use_existing_cos_for_atracker"
             },
             {
               "key": "add_edge_vpc",
@@ -1153,7 +1227,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -1175,94 +1254,65 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "[Optional] Required if VPC Flow Logs are enabled."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create Virtual Private Cloud(VPC)"
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "VPC landing zone - Standard variation",
+                  "caption": "VPC landing zone - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the VPC landing zone deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. The Standard variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services."
+                "description": "This deployable architecture deploys a simple Virtual Private Cloud (VPC) infrastructure without any compute resources. You can use this architecture as a base on which to deploy compute resources. This variation uses two Virtual Private Clouds (VPC) - a Management VPC and a Workload VPC - to manage the environment and the deployed workload. Each VPC is a multi-zoned, multi-subnet implementation that keeps your workloads secure. A transit gateway connects the VPCs to each other and Virtual Private Endpoints are used connect to IBM Cloud services.<br><br> This variation integrates <b>key management services</b> to enhance security. It also leverages <b>Activity Tracker and Flow Logs</b> to collect and store Internet Protocol (IP) traffic information.<br><br> It securely connects to multiple networks with a <b>site-to-site</b> virtual private network and uses an <b>edge VPC</b> for secure access through the public internet . It configures <b>CBR (Context-based restrictions)</b> rules to allow traffic to flow only from the landing zone VPCs to specific cloud services. <br><br>This deployable architecture simplifies risk management and demonstrates regulatory compliance with Financial Services."
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     },
     {
       "name": "deploy-arch-ibm-slz-ocp",
-      "label": "Red Hat OpenShift Container Platform on VPC landing zone",
+      "label": "Landing zone for containerized applications with OpenShift",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -1271,7 +1321,7 @@
         "solution",
         "compute",
         "reference_architecture",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "vpc",
@@ -1279,41 +1329,65 @@
         "IaC",
         "infrastructure as code",
         "terraform",
-        "solution",
-        "Red Hat OpenShift Container Platform",
-        "OCP"
+        "ocp",
+        "cluster",
+        "red_hat_openshift",
+        "redhat",
+        "ROKS"
       ],
-      "short_description": "Creates Red Hat OpenShift workload clusters on a secure VPC network",
-      "long_description": "The Red Hat OpenShift Container Platform on VPC landing zone provides the tools to deploy a Red Hat OpenShift Container Platform cluster in a single Virtual Private Cloud (VPC) network. The VPC is a multi-zoned, multi-subnet implementation that keeps your VPC secure and highly available.\n",
+      "short_description": "Deploys an OpenShift topology on VPC with flexible configurations, QuickStart options for simplified setup, and advanced features for security and compliance",
+      "long_description": "This solution enables the provisioning of Red Hat OpenShift clusters on IBM Cloud VPC using a range of configurations tailored to different needs — from sandbox experimentation to validated financial services deployments. Each variation offers a distinct balance of customization, integration with security and observability features, and readiness for production or evaluation use. Whether you're exploring OpenShift capabilities or deploying in regulated environments, these configurations help accelerate your cloud-native journey. \n\nLeverage [Terraform IBM Modules](https://github.com/terraform-ibm-modules) to shape and scale your solutions. You can integrate Terraform IBM Modules (TIM) to extend functionality and design a solution tailored to your environment and operations needs. These modules offer reusable, customizable elements that follow IBM Cloud's recommended practices. You can access the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) and use it to extend your current architecture or create new solutions.",
       "offering_docs_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-overview#overview-ocp",
-      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/deploy-arch-slz-ocp-lt.svg",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc/main/images/ocp_icon.svg",
       "provider_name": "IBM",
       "features": [
         {
-          "description": "Creates and configures one or more clusters to handle workloads. You can specify the version and cluster size.\n",
-          "title": "Creates Open Shift Container Platform clusters for workloads"
+          "title": "Configurable OpenShift deployment options",
+          "description": "Provides multiple configuration paths for provisioning [Red Hat OpenShift clusters](https://cloud.ibm.com/docs/openshift) on IBM Cloud VPC. Supports use cases ranging from quick experimentation to production-grade deployments in regulated environments. Capabilities vary by variation, with some offering simplified onboarding and others enabling advanced integrations and compliance alignment."
         },
         {
-          "description": "With worker pools, you can group and manage worker nodes with similar configurations, such as compute resources and availability zones.\n",
-          "title": "Creates worker pools"
+          "title": "Cluster connectivity",
+          "description": "Supports both [public and private access endpoints](https://cloud.ibm.com/docs/openshift?topic=openshift-access_cluster), enabling secure and flexible connectivity to the cluster based on your requirements."
         },
         {
-          "description": "Configures the subnets for the cluster, and specifies the subnets to deploy the worker nodes in.\n",
-          "title": "Configures subnets for containers"
+          "title": "Custom worker pools",
+          "description": "Supports configurable [worker pools](https://cloud.ibm.com/docs/openshift?topic=openshift-add-workers-vpc) to scale the cluster's compute capacity. Enables efficient management of worker nodes to support application growth, high availability, and workload distribution."
         },
         {
-          "description": "Configures private and public endpoints for the cluster.\n",
-          "title": "Supports private and public endpoints"
+          "title": "Infrastructure Setup",
+          "description": "Automatically provisions multi-zone VPCs, [subnets](https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-subnets&interface=ui#vpc_basics_subnets), and networking components. QuickStart variations abstract this setup to minimize required IBM Cloud knowledge, while other configurations expose full control for advanced users."
         },
         {
-          "description": "Configures the ingress controller for the cluster, responsible for routing external traffic to the appropriate services within the cluster.\n",
-          "title": "Configures ingress"
+          "title": "IBM Cloud Services Integrations",
+          "description": "Depending on the variation, clusters may include integrations with IBM Cloud services such as [Key Protect](https://cloud.ibm.com/docs/openshift?topic=openshift-encryption-setup&interface=ui), [Hyper Protect Crypto Services](https://cloud.ibm.com/catalog/services/hyper-protect-crypto-services), [Secrets Manager](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-secrets-manager-6d6ebc76-7bbd-42f5-8bc7-78f4fabd5944-global), [Object Storage](https://cloud.ibm.com/docs/openshift?topic=openshift-storage-cos-understand), and Observability services."
+        },
+        {
+          "title": "Security and Compliance Alignment",
+          "description": "Advanced configurations include features such as [audit logging](https://cloud.ibm.com/docs/containers?topic=containers-health-audit#audit-api-server) and encryption key management, and may align with [IBM Cloud Framework for Financial Services](https://cloud.ibm.com/docs/framework-financial-services?topic=framework-financial-services-about) for production use in regulated environments."
+        },
+        {
+          "title": "Sets up logging for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Logs](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-logs-63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global) to route, alert, and visualize platform logs that are generated by your OpenShift cluster."
+        },
+        {
+          "title": "Sets up monitoring operational metrics for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Cloud Monitoring](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-monitoring-73debdbf-894f-4c14-81c7-5ece3a70b67d-global) to measure how users and applications interact with your OpenShift cluster."
+        },
+        {
+          "title": "Sets up activity tracking for the OpenShift cluster",
+          "description": "Optionally, you can deploy [Cloud automation for Activity Tracker Event Routing](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) to route and securely store auditing events that are related to your OpenShift cluster."
+        },
+        {
+          "title": "Composable and Extensible Architecture",
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "flavors": [
         {
-          "label": "QuickStart",
+          "label": "QuickStart - Financial Services edition",
           "name": "quickstart",
+          "short_description": "Ideal for sandbox environments, experimentation, and familiarization with architecture patterns.",
+          "index": 3,
           "install_type": "fullstack",
           "working_directory": "patterns/roks-quickstart",
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
@@ -1353,7 +1427,20 @@
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "ocp",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -1369,26 +1456,31 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
+              "default_value": "4.20_openshift",
               "options": [
                 {
-                  "displayname": "Default",
-                  "value": "default"
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
+                  "displayname": "4.21_openshift",
+                  "value": "4.21_openshift"
                 },
                 {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
+                  "displayname": "4.18_openshift",
+                  "value": "4.18_openshift"
                 },
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1396,187 +1488,35 @@
             {
               "key": "flavor",
               "required": true,
-              "options": [
-                {
-                  "displayname": "bx2.16x64",
-                  "value": "bx2.16x64"
-                },
-                {
-                  "displayname": "bx2.32x128",
-                  "value": "bx2.32x128"
-                },
-                {
-                  "displayname": "bx2.48x192",
-                  "value": "bx2.48x192"
-                },
-                {
-                  "displayname": "bx2.8x32",
-                  "value": "bx2.8x32"
-                },
-                {
-                  "displayname": "bx3d.128x640",
-                  "value": "bx3d.128x640"
-                },
-                {
-                  "displayname": "bx3d.16x80",
-                  "value": "bx3d.16x80"
-                },
-                {
-                  "displayname": "bx3d.24x120",
-                  "value": "bx3d.24x120"
-                },
-                {
-                  "displayname": "bx3d.32x160",
-                  "value": "bx3d.32x160"
-                },
-                {
-                  "displayname": "bx3d.48x240",
-                  "value": "bx3d.48x240"
-                },
-                {
-                  "displayname": "bx3d.64x320",
-                  "value": "bx3d.64x320"
-                },
-                {
-                  "displayname": "bx3d.8x40",
-                  "value": "bx3d.8x40"
-                },
-                {
-                  "displayname": "bx3d.96x480",
-                  "value": "bx3d.96x480"
-                },
-                {
-                  "displayname": "cx2.16x32",
-                  "value": "cx2.16x32"
-                },
-                {
-                  "displayname": "cx2.32x64",
-                  "value": "cx2.32x64"
-                },
-                {
-                  "displayname": "cx2.48x96",
-                  "value": "cx2.48x96"
-                },
-                {
-                  "displayname": "cx3d.128x320",
-                  "value": "cx3d.128x320"
-                },
-                {
-                  "displayname": "cx3d.16x40",
-                  "value": "cx3d.16x40"
-                },
-                {
-                  "displayname": "cx3d.24x60",
-                  "value": "cx3d.24x60"
-                },
-                {
-                  "displayname": "cx3d.32x80",
-                  "value": "cx3d.32x80"
-                },
-                {
-                  "displayname": "cx3d.48x120",
-                  "value": "cx3d.48x120"
-                },
-                {
-                  "displayname": "cx3d.64x160",
-                  "value": "cx3d.64x160"
-                },
-                {
-                  "displayname": "cx3d.96x240",
-                  "value": "cx3d.96x240"
-                },
-                {
-                  "displayname": "mx2.128x1024",
-                  "value": "mx2.128x1024"
-                },
-                {
-                  "displayname": "mx2.16x128",
-                  "value": "mx2.16x128"
-                },
-                {
-                  "displayname": "mx2.32x256",
-                  "value": "mx2.32x256"
-                },
-                {
-                  "displayname": "mx2.48x384",
-                  "value": "mx2.48x384"
-                },
-                {
-                  "displayname": "mx2.64x512",
-                  "value": "mx2.64x512"
-                },
-                {
-                  "displayname": "mx2.8x64",
-                  "value": "mx2.8x64"
-                },
-                {
-                  "displayname": "mx3d.128x1280",
-                  "value": "mx3d.128x1280"
-                },
-                {
-                  "displayname": "mx3d.24x240",
-                  "value": "mx3d.24x240"
-                },
-                {
-                  "displayname": "mx3d.32x320",
-                  "value": "mx3d.32x320"
-                },
-                {
-                  "displayname": "mx3d.48x480",
-                  "value": "mx3d.48x480"
-                },
-                {
-                  "displayname": "mx3d.64x640",
-                  "value": "mx3d.64x640"
-                },
-                {
-                  "displayname": "mx3d.96x960",
-                  "value": "mx3d.96x960"
-                },
-                {
-                  "displayname": "bx2d.metal.96x384 (Only available in Toronto (ca-tor))",
-                  "value": "bx2d.metal.96x384"
-                },
-                {
-                  "displayname": "cx2d.metal.96x192 (Only available in Toronto (ca-tor)) ",
-                  "value": "cx2d.metal.96x192"
-                },
-                {
-                  "displayname": "mx2d.metal.96x768 (Only available in Toronto (ca-tor))) ",
-                  "value": "mx2d.metal.96x768"
-                },
-                {
-                  "displayname": "mx2.16x128.2000gb (Not available in Sao Paulo (br-sao), Montreal (ca-mon), Madrid (eu-es), Osaka (jp-osa))",
-                  "value": "mx2.16x128.2000gb"
-                },
-                {
-                  "displayname": "ox2.128x1024 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.128x1024"
-                },
-                {
-                  "displayname": "ox2.16x128 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.16x128"
-                },
-                {
-                  "displayname": "ox2.32x256 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.32x256"
-                },
-                {
-                  "displayname": "ox2.64x512 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.64x512"
-                },
-                {
-                  "displayname": "ox2.8x64 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.8x64"
-                },
-                {
-                  "displayname": "ox2.96x768 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.96x768"
+              "custom_config": {
+                "type": "worker_node_flavors",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "associations": {
+                  "parameters": [
+                    {
+                      "name": "region",
+                      "optionsRefresh": true
+                    }
+                  ]
                 }
-              ]
+              }
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             }
           ],
           "iam_permissions": [
@@ -1584,88 +1524,68 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create the containers-kubernetes-key for the OpenShift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the OpenShift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Management VPC with one subnet, allow-all ACL and Security Group",
-                "description": "Yes"
-              },
-              {
-                "title": "Workload VPC with two subnets, in two zones, allow-all ACL and Security Group",
-                "description": "Yes"
-              },
-              {
-                "title": "Transit Gateway connecting VPCs",
-                "description": "Yes"
-              },
-              {
-                "title": "One OCP cluster in workload VPC with two worker nodes, public endpoint enabled",
-                "description": "Yes"
-              },
-              {
-                "title": "Key Protect for cluster encryption keys",
-                "description": "Yes"
-              },
-              {
-                "title": "Cloud Object Storage instance (required for cluster)",
-                "description": "Yes"
+                "title": " ",
+                "description": "An introductory, non-certified deployment aligned with the Financial Services Cloud VPCs topology. Not suitable for production workloads or upgrade paths."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - QuickStart variation",
+                  "caption": "Red Hat OpenShift cluster topology - QuickStart (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks-quickstart.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The QuickStart variation of the Red Hat OpenShift Container Platform on VPC landing zone deployable architecture creates one Red Hat OpenShift Container Platform cluster in workload VPC with two worker nodes and public endpoint enabled. The QuickStart variation is designed to help you get started quickly, but is not highly available or validated for the IBM Cloud Framework for Financial Services."
+                "description": "This deployable architecture creates one Red Hat OpenShift Container Platform in workload VPC with two worker nodes and public endpoint enabled.<br> <br> It configures <b>Management VPC</b> with one subnet and <b>Workload VPC</b> with two subnets in two zones with allow-all ACL and security group. It creates <b>Transit Gateway</b> connecting to VPCs. It requires a <b> Object Storage instance</b> to provision the cluster and integrates with <b>Key Protect</b> for managing the cluster encryption keys. <br> <br> It is ideal for sandbox environments and helps you get started quickly."
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         },
         {
-          "label": "Standard",
+          "label": "Standard - Financial Services edition",
           "name": "standard",
+          "short_description": "Ideal for production workloads requiring compliance with financial services standards.",
+          "index": 4,
           "install_type": "fullstack",
           "working_directory": "patterns/roks",
-          "compliance": {
-            "authority": "scc-v3",
-            "profiles": [
-              {
-                "profile_name": "IBM Cloud Framework for Financial Services",
-                "profile_version": "1.7.0"
-              }
-            ]
-          },
           "release_notes_url": "https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-secure-infrastructure-vpc-relnotes",
           "configuration": [
             {
@@ -1702,26 +1622,31 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
+              "default_value": "4.20_openshift",
               "options": [
                 {
-                  "displayname": "Default",
-                  "value": "default"
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
-                  "displayname": "4.14_openshift",
-                  "value": "4.14_openshift"
+                  "displayname": "4.21_openshift",
+                  "value": "4.21_openshift"
                 },
                 {
-                  "displayname": "4.15_openshift",
-                  "value": "4.15_openshift"
+                  "displayname": "4.19_openshift",
+                  "value": "4.19_openshift"
                 },
                 {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
+                  "displayname": "4.18_openshift",
+                  "value": "4.18_openshift"
                 },
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
+                },
+                {
+                  "displayname": "4.16_openshift",
+                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1729,190 +1654,38 @@
             {
               "key": "flavor",
               "required": true,
-              "options": [
-                {
-                  "displayname": "bx2.16x64",
-                  "value": "bx2.16x64"
-                },
-                {
-                  "displayname": "bx2.32x128",
-                  "value": "bx2.32x128"
-                },
-                {
-                  "displayname": "bx2.48x192",
-                  "value": "bx2.48x192"
-                },
-                {
-                  "displayname": "bx2.8x32",
-                  "value": "bx2.8x32"
-                },
-                {
-                  "displayname": "bx3d.128x640",
-                  "value": "bx3d.128x640"
-                },
-                {
-                  "displayname": "bx3d.16x80",
-                  "value": "bx3d.16x80"
-                },
-                {
-                  "displayname": "bx3d.24x120",
-                  "value": "bx3d.24x120"
-                },
-                {
-                  "displayname": "bx3d.32x160",
-                  "value": "bx3d.32x160"
-                },
-                {
-                  "displayname": "bx3d.48x240",
-                  "value": "bx3d.48x240"
-                },
-                {
-                  "displayname": "bx3d.64x320",
-                  "value": "bx3d.64x320"
-                },
-                {
-                  "displayname": "bx3d.8x40",
-                  "value": "bx3d.8x40"
-                },
-                {
-                  "displayname": "bx3d.96x480",
-                  "value": "bx3d.96x480"
-                },
-                {
-                  "displayname": "cx2.16x32",
-                  "value": "cx2.16x32"
-                },
-                {
-                  "displayname": "cx2.32x64",
-                  "value": "cx2.32x64"
-                },
-                {
-                  "displayname": "cx2.48x96",
-                  "value": "cx2.48x96"
-                },
-                {
-                  "displayname": "cx3d.128x320",
-                  "value": "cx3d.128x320"
-                },
-                {
-                  "displayname": "cx3d.16x40",
-                  "value": "cx3d.16x40"
-                },
-                {
-                  "displayname": "cx3d.24x60",
-                  "value": "cx3d.24x60"
-                },
-                {
-                  "displayname": "cx3d.32x80",
-                  "value": "cx3d.32x80"
-                },
-                {
-                  "displayname": "cx3d.48x120",
-                  "value": "cx3d.48x120"
-                },
-                {
-                  "displayname": "cx3d.64x160",
-                  "value": "cx3d.64x160"
-                },
-                {
-                  "displayname": "cx3d.96x240",
-                  "value": "cx3d.96x240"
-                },
-                {
-                  "displayname": "mx2.128x1024",
-                  "value": "mx2.128x1024"
-                },
-                {
-                  "displayname": "mx2.16x128",
-                  "value": "mx2.16x128"
-                },
-                {
-                  "displayname": "mx2.32x256",
-                  "value": "mx2.32x256"
-                },
-                {
-                  "displayname": "mx2.48x384",
-                  "value": "mx2.48x384"
-                },
-                {
-                  "displayname": "mx2.64x512",
-                  "value": "mx2.64x512"
-                },
-                {
-                  "displayname": "mx2.8x64",
-                  "value": "mx2.8x64"
-                },
-                {
-                  "displayname": "mx3d.128x1280",
-                  "value": "mx3d.128x1280"
-                },
-                {
-                  "displayname": "mx3d.24x240",
-                  "value": "mx3d.24x240"
-                },
-                {
-                  "displayname": "mx3d.32x320",
-                  "value": "mx3d.32x320"
-                },
-                {
-                  "displayname": "mx3d.48x480",
-                  "value": "mx3d.48x480"
-                },
-                {
-                  "displayname": "mx3d.64x640",
-                  "value": "mx3d.64x640"
-                },
-                {
-                  "displayname": "mx3d.96x960",
-                  "value": "mx3d.96x960"
-                },
-                {
-                  "displayname": "bx2d.metal.96x384 (Only available in Toronto (ca-tor))",
-                  "value": "bx2d.metal.96x384"
-                },
-                {
-                  "displayname": "cx2d.metal.96x192 (Only available in Toronto (ca-tor)) ",
-                  "value": "cx2d.metal.96x192"
-                },
-                {
-                  "displayname": "mx2d.metal.96x768 (Only available in Toronto (ca-tor))) ",
-                  "value": "mx2d.metal.96x768"
-                },
-                {
-                  "displayname": "mx2.16x128.2000gb (Not available in Sao Paulo (br-sao), Montreal (ca-mon), Madrid (eu-es), Osaka (jp-osa))",
-                  "value": "mx2.16x128.2000gb"
-                },
-                {
-                  "displayname": "ox2.128x1024 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.128x1024"
-                },
-                {
-                  "displayname": "ox2.16x128 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.16x128"
-                },
-                {
-                  "displayname": "ox2.32x256 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.32x256"
-                },
-                {
-                  "displayname": "ox2.64x512 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.64x512"
-                },
-                {
-                  "displayname": "ox2.8x64 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.8x64"
-                },
-                {
-                  "displayname": "ox2.96x768 (Not available in Sao Paulo (br-sao), Montreal (ca-mon))",
-                  "value": "ox2.96x768"
+              "custom_config": {
+                "type": "worker_node_flavors",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "associations": {
+                  "parameters": [
+                    {
+                      "name": "region",
+                      "optionsRefresh": true
+                    }
+                  ]
                 }
-              ]
+              }
             },
             {
               "key": "ibmcloud_api_key"
             },
             {
-              "key": "prefix"
+              "key": "prefix",
+              "required": true,
+              "type": "string",
+              "default_value": "ocp",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter, may contain only lowercase letters, digits, and hyphens '-', must end with a lowercase letter or digit, and must not exceed 13 characters.",
+                  "value": "^[a-z]([-a-z0-9]{0,11}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "tags",
@@ -1943,13 +1716,35 @@
               "key": "add_atracker_route"
             },
             {
-              "key": "hs_crypto_instance_name"
+              "key": "hs_crypto_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "hs-crypto",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "hs_crypto_resource_group"
             },
             {
-              "key": "existing_kms_instance_name"
+              "key": "existing_kms_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "kms",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_kms_resource_group"
@@ -1961,13 +1756,38 @@
               "key": "use_random_cos_suffix"
             },
             {
-              "key": "existing_cos_instance_name"
+              "key": "existing_cos_instance_name",
+              "type": "string",
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "name"
+                }
+              }
             },
             {
               "key": "existing_cos_resource_group"
             },
             {
-              "key": "existing_cos_endpoint_type"
+              "key": "existing_cos_endpoint_type",
+              "options": [
+                {
+                  "displayname": "direct",
+                  "value": "direct"
+                },
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
             },
             {
               "key": "use_existing_cos_for_vpc_flowlogs"
@@ -1982,13 +1802,44 @@
               "key": "workers_per_zone"
             },
             {
-              "key": "wait_till"
+              "key": "wait_till",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Wait for ingress controller to be operational.",
+                  "displayname": "Ingress Ready",
+                  "value": "IngressReady"
+                },
+                {
+                  "description": "At least one worker node is fully ready.",
+                  "displayname": "One Worker Ready",
+                  "value": "OneWorkerNodeReady"
+                },
+                {
+                  "description": "Master node components are operational.",
+                  "displayname": "Master Ready",
+                  "value": "MasterNodeReady"
+                }
+              ]
             },
             {
               "key": "kms_wait_for_apply"
             },
             {
-              "key": "entitlement"
+              "key": "entitlement",
+              "type_metadata": "string",
+              "options": [
+                {
+                  "description": "Use Cloud Pak with OCP License entitlement to create the OpenShift cluster. Select this option only if you use the cluster with a Cloud Pak that has an OpenShift entitlement.",
+                  "displayname": "Cloud Pak",
+                  "value": "cloud_pak"
+                },
+                {
+                  "description": "Purchase an OCP license for your worker pool. The license will be provided by IBM Cloud and there is no need to handle OpenShift licensing separately.",
+                  "displayname": "None",
+                  "value": "__NULL__"
+                }
+              ]
             },
             {
               "key": "secondary_storage"
@@ -2213,7 +2064,12 @@
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
-                "type": "json_editor"
+                "type": "code_editor",
+                "config_constraints": {
+                  "supportedLanguages": [
+                    "json"
+                  ]
+                }
               },
               "key": "override_json_string"
             },
@@ -2229,105 +2085,74 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "appid"
+              "service_name": "appid",
+              "notes": "Required to create and manage App ID service instance."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "cloud-object-storage"
+              "service_name": "cloud-object-storage",
+              "notes": "Required to manage Object Storage for the cluster internal registry."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "hs-crypto"
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam-identity::::serviceRole:UserApiKeyCreator"
               ],
-              "service_name": "iam-identity"
+              "service_name": "iam-identity",
+              "notes": "Required to create foundational IBM Cloud account resources, like IAM settings, resource groups."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
               ],
-              "service_name": "kms"
+              "service_name": "kms",
+              "notes": "[Optional] Required if Key Protect is used for encryption."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "containers-kubernetes"
+              "service_name": "containers-kubernetes",
+              "notes": "Required to create and manage the Openshift cluster."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
-              "service_name": "is.vpc"
+              "service_name": "is.vpc",
+              "notes": "Required to create VPC."
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for workloads",
-                "description": "Yes"
-              },
-              {
-                "title": "Red Hat OpenShift",
-                "description": "Yes"
-              },
-              {
-                "title": "Increases security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Reduces failure events by using multizone regions",
-                "description": "Yes"
-              },
-              {
-                "title": "Collects and stores Internet Protocol (IP) traffic information with Activity Tracker and Flow Logs",
-                "description": "Yes"
-              },
-              {
-                "title": "Securely connects to multiple networks with a site-to-site virtual private network",
-                "description": "Yes"
-              },
-              {
-                "title": "Simplifies risk management and demonstrates regulatory compliance with Financial Services",
-                "description": "Yes"
-              },
-              {
-                "title": "Uses an edge VPC for secure access through the public internet",
-                "description": "Yes, if enabled"
-              },
-              {
-                "title": "Uses Floating IP address for access through the public internet",
-                "description": "No"
-              },
-              {
-                "description": "Configures existing CBR (Context-based restrictions) rules to allow traffic to flow only from the landing zone VPCs to specific cloud services.\n",
-                "title": "Configures CBR"
+                "title": " ",
+                "description": "Validated configuration aligned with IBM Cloud Framework for Financial Services."
               }
             ],
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Red Hat OpenShift Container Platform on VPC landing zone - Standard variation",
+                  "caption": "Red Hat OpenShift cluster topology - Standard (Financial Services edition)",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Standard variation of the Red Hat OpenShift Container Platform on VPC landing zone is based on the IBM Cloud for Financial Services reference architecture. The architecture creates secure and compliant Red Hat OpenShift Container Platform workload clusters on a Virtual Private Cloud (VPC) network."
+                "description": "This deployable architecture deploys the <b>Red Hat OpenShift Container Platform on VPC</b> based on the IBM Cloud for Financial Services reference architecture.<br> <br> This architecture creates two separate <b>VPCs</b> for management and workloads, respectively. It configures two <b>OpenShift clusters</b> in each VPC with a single worker pool distributed across all three zones, with two worker nodes per zone. It uses an <b>edge VPC</b> for secure access through the public internet and creates <b>Transit Gateway</b> connecting to the VPCs.  <br> <br> It integrates with <b>key management</b> services to enhance security and reduces failure events by using multizone regions. It securely connects to multiple networks using a <b>site-to-site virtual private network</b> and configures <b>CBR (Context-based Restrictions)</b> rules to restrict traffic flow only between landing zone VPCs and specific IBM Cloud services. <br> <br> Using this architecture, secure and compliant Red Hat OpenShift Container Platform is created on a VPC network."
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2",
+          "dependency_version_2": true,
+          "ignore_readme": true
         }
       ]
     }

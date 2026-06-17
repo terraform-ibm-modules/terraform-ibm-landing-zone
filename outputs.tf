@@ -171,7 +171,7 @@ output "cos_bucket_names" {
 }
 
 output "cos_bucket_data" {
-  description = "List of data for COS buckets creaed"
+  description = "List of data for COS buckets created"
   value = [
     for instance in ibm_cos_bucket.buckets :
     instance

@@ -1,18 +1,12 @@
 package test
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/fs"
+	"context"
 	"log"
 	"os"
-	"path/filepath"
-	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
@@ -69,9 +63,12 @@ var enableSchematicsTests bool
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
-	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
-
 	var err error
+	sharedInfoSvc, err = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
 	if err != nil {
 		log.Fatal(err)
@@ -111,47 +108,6 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 	return options
 }
 
-type tarIncludePatterns struct {
-	excludeDirs []string
-
-	includeFiletypes []string
-
-	includeDirs []string
-}
-
-func getTarIncludePatternsRecursively(dir string, dirsToExclude []string, fileTypesToInclude []string) ([]string, error) {
-	r := tarIncludePatterns{dirsToExclude, fileTypesToInclude, nil}
-	err := filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
-		return walk(&r, path, entry, err)
-	})
-	if err != nil {
-		fmt.Println("error")
-		return r.includeDirs, err
-	}
-	return r.includeDirs, nil
-}
-
-func walk(r *tarIncludePatterns, s string, d fs.DirEntry, err error) error {
-	if err != nil {
-		return err
-	}
-	if d.IsDir() {
-		for _, excludeDir := range r.excludeDirs {
-			if strings.Contains(s, excludeDir) {
-				return nil
-			}
-		}
-		if s == ".." {
-			r.includeDirs = append(r.includeDirs, "*.tf")
-			return nil
-		}
-		for _, includeFiletype := range r.includeFiletypes {
-			r.includeDirs = append(r.includeDirs, strings.ReplaceAll(s+"/*"+includeFiletype, "../", ""))
-		}
-	}
-	return nil
-}
-
 func TestRunQuickStartPattern(t *testing.T) {
 	t.Parallel()
 	if enableSchematicsTests {
@@ -167,6 +123,9 @@ func TestRunQuickStartPattern(t *testing.T) {
 
 func TestRunUpgradeQuickStartPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for Quickstart Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsQuickStartPattern(t, "vsi-qs-u", quickStartPatternTerraformDir)
 
@@ -208,6 +167,9 @@ func TestRunROKSQuickStartPattern(t *testing.T) {
 
 func TestRunUpgradeROKSQuickStartPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Quickstart Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsROKSQuickStartPattern(t, "rokqsu", roksQuickstartPatternTerraformDir)
 
@@ -258,6 +220,9 @@ func TestRunRoksPattern(t *testing.T) {
 
 func TestRunUpgradeRoksPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for ROKS Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsRoksPattern(t, "ocp-u")
 
@@ -308,6 +273,9 @@ func TestRunVSIPattern(t *testing.T) {
 
 func TestRunUpgradeVsiPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VSI Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsVsiPattern(t, "vsi-u")
 
@@ -355,6 +323,9 @@ func TestRunVpcPattern(t *testing.T) {
 
 func TestRunUpgradeVpcPattern(t *testing.T) {
 	t.Parallel()
+	if enableSchematicsTests {
+		t.Skip("Skipping terratest for VPC Pattern upgrade, running Schematics test instead")
+	}
 
 	options := setupOptionsVpcPattern(t, "vpc-ug")
 
@@ -382,7 +353,7 @@ func TestRunOverride(t *testing.T) {
 		// The "show" command will produce a very large JSON to stdout which is printed by the logger.
 		// We are temporarily turning the terratest logger OFF (discard) while running "show" to prevent large JSON stdout.
 		options.TerraformOptions.Logger = logger.Discard
-		planStruct, planErr := terraform.InitAndPlanAndShowWithStructE(options.Testing, options.TerraformOptions)
+		planStruct, planErr := terraform.InitAndPlanAndShowWithStructContextE(options.Testing, context.Background(), options.TerraformOptions)
 		options.TerraformOptions.Logger = logger.Default // turn log back on
 
 		if assert.Nil(t, planErr, "This should not have errored") &&
@@ -395,25 +366,7 @@ func TestRunOverride(t *testing.T) {
 
 func setupOptionsSchematics(t *testing.T, prefix string, dir string) *testschematic.TestSchematicOptions {
 
-	excludeDirs := []string{
-		".terraform",
-		".docs",
-		".github",
-		".git",
-		".idea",
-		"common-dev-assets",
-		"examples",
-		"tests",
-		"reference-architectures",
-	}
-	includeFiletypes := []string{
-		".tf",
-		".yaml",
-		".py",
-		".tpl",
-	}
-
-	tarIncludePatterns, recurseErr := getTarIncludePatternsRecursively("..", excludeDirs, includeFiletypes)
+	tarIncludePatterns, recurseErr := testhelper.GetTarIncludeDirsWithDefaults("..", []string{}, []string{})
 
 	// if error producing tar patterns (very unexpected) fail test immediately
 	require.NoError(t, recurseErr, "Schematic Test had unexpected error traversing directory tree")
@@ -496,7 +449,7 @@ SCHEMATICS TESTS
 These schematics tests will only be run if the "RUN_SCHEMATICS_TESTS"
 environment variable is set to "true" or "yes".
 If not set, the normal terratest will be run for the patterns.
-****************************************************************************/
+***************************************************************************/
 
 func TestRunVSIQuickStartPatternSchematics(t *testing.T) {
 	t.Parallel()
