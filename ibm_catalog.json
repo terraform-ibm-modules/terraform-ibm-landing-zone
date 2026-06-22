@@ -118,6 +118,20 @@
               ]
             },
             {
+              "key": "kms_endpoint_type",
+              "hidden": true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -284,6 +298,20 @@
                 {
                   "displayname": "public-and-private",
                   "value": "public-and-private"
+                }
+              ]
+            },
+            {
+              "key": "kms_endpoint_type",
+              "hidden": true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
                 }
               ]
             },
@@ -758,6 +786,20 @@
                 {
                   "displayname": "public-and-private",
                   "value": "public-and-private"
+                }
+              ]
+            },
+            {
+              "key": "kms_endpoint_type",
+              "hidden": true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
                 }
               ]
             },
@@ -1256,6 +1298,20 @@
               ]
             },
             {
+              "key": "kms_endpoint_type",
+              "hidden": true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                }
+              ]
+            },
+            {
               "key": "ibmcloud_api_key"
             },
             {
@@ -1447,6 +1503,20 @@
                 {
                   "displayname": "public-and-private",
                   "value": "public-and-private"
+                }
+              ]
+            },
+            {
+              "key": "kms_endpoint_type",
+              "hidden": true,
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
                 }
               ]
             },

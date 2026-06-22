@@ -24,7 +24,7 @@ variable "key_management" {
     tags              = list(string)
     access_tags       = optional(list(string), [])
     service_endpoints = optional(string)
-    kms_endpoint_type = optional(string, "public") # default endpoint type for KMS resource API calls (public or private)
+    kms_endpoint_type = optional(string, "private") # default endpoint type (public or private) for KMS resource API calls
   })
 }
 

@@ -88,7 +88,7 @@ module "vpc_landing_zone" {
   license_type                           = var.license_type
   teleport_management_zones              = var.teleport_management_zones
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
-  provider_visibility                    = var.provider_visibility
+  kms_endpoint_type                      = var.kms_endpoint_type
 }
 
 moved {

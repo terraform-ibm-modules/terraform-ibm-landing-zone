@@ -545,13 +545,13 @@ variable "existing_vpc_cbr_zone_id" {
   default     = null
 }
 
-variable "provider_visibility" {
-  description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
+variable "kms_endpoint_type" {
+  description = "The type of endpoint (`public` or `private`) to use when creating keys, key rings, and key policies for the Key Management Service (KMS) instance. Defaults to `private`. Set this to `private` when the provider visibility is `private`."
   type        = string
-  default     = "public"
+  default     = "private"
   validation {
-    condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
-    error_message = "Invalid visibility option. Allowed values are 'public', 'private', or 'public-and-private'."
+    condition     = contains(["public", "private"], var.kms_endpoint_type)
+    error_message = "The kms_endpoint_type value must be `public` or `private`."
   }
 }
 

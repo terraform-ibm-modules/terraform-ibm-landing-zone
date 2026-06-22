@@ -12,7 +12,7 @@ module "landing_zone" {
   region               = var.region
   override_json_string = local.override_string
   tags                 = var.resource_tags
-  provider_visibility  = var.provider_visibility
+  kms_endpoint_type    = var.kms_endpoint_type
 }
 
 locals {

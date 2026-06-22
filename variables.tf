@@ -852,7 +852,7 @@ variable "key_management" {
     use_hs_crypto     = optional(bool)
     access_tags       = optional(list(string), [])
     service_endpoints = optional(string, "public-and-private")
-    kms_endpoint_type = optional(string, "public") # endpoint type for KMS resource API calls; set to "private" when provider_visibility is "private"
+    kms_endpoint_type = optional(string, "private") # endpoint type (public or private) used for KMS resource API calls when creating keys, key rings, and key policies
     keys = optional(
       list(
         object({

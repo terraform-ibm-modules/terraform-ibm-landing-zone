@@ -101,6 +101,7 @@ func setupOptionsQuickStartPattern(t *testing.T, prefix string, dir string) *tes
 		TerraformVars: map[string]interface{}{
 			"ssh_key":             sshPublicKey,
 			"provider_visibility": "public",
+			"kms_endpoint_type":   "public",
 		},
 		CloudInfoService: sharedInfoSvc,
 	})
@@ -146,6 +147,7 @@ func setupOptionsROKSQuickStartPattern(t *testing.T, prefix string, dir string) 
 		TerraformVars: map[string]interface{}{
 			"entitlement":         "cloud_pak",
 			"provider_visibility": "public",
+			"kms_endpoint_type":   "public",
 		},
 	})
 
@@ -200,6 +202,7 @@ func setupOptionsRoksPattern(t *testing.T, prefix string) *testhelper.TestOption
 		"use_ibm_cloud_private_api_endpoints": false,
 		"verify_cluster_network_readiness":    false,
 		"provider_visibility":                 "public",
+		"kms_endpoint_type":                   "public",
 	}
 
 	return options
@@ -253,6 +256,7 @@ func setupOptionsVsiPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
 		"provider_visibility":    "public",
+		"kms_endpoint_type":      "public",
 	}
 
 	return options
@@ -303,6 +307,7 @@ func setupOptionsVpcPattern(t *testing.T, prefix string) *testhelper.TestOptions
 		"add_atracker_route":     add_atracker_route,
 		"enable_transit_gateway": false,
 		"provider_visibility":    "public",
+		"kms_endpoint_type":      "public",
 	}
 
 	return options

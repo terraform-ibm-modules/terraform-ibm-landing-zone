@@ -22,7 +22,7 @@ module "landing_zone" {
   cos                                    = local.env.cos
   service_endpoints                      = local.env.service_endpoints
   existing_vpc_cbr_zone_id               = local.env.existing_vpc_cbr_zone_id
-  key_management                         = merge(local.env.key_management, { kms_endpoint_type = var.provider_visibility == "private" ? "private" : "public" })
+  key_management                         = merge(local.env.key_management, { kms_endpoint_type = var.kms_endpoint_type })
   skip_kms_block_storage_s2s_auth_policy = local.env.skip_kms_block_storage_s2s_auth_policy
   skip_all_s2s_auth_policies             = local.env.skip_all_s2s_auth_policies
   atracker                               = local.env.atracker
