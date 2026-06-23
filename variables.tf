@@ -124,24 +124,11 @@ variable "vpcs" {
             remote     = string
             local      = optional(string)
             ip_version = optional(string)
-            tcp = optional(
-              object({
-                port_max = optional(number)
-                port_min = optional(number)
-              })
-            )
-            udp = optional(
-              object({
-                port_max = optional(number)
-                port_min = optional(number)
-              })
-            )
-            icmp = optional(
-              object({
-                type = optional(number)
-                code = optional(number)
-              })
-            )
+            protocol   = optional(string)
+            port_min   = optional(number)
+            port_max   = optional(number)
+            type       = optional(number)
+            code       = optional(number)
           })
         )
       )
@@ -163,33 +150,18 @@ variable "vpcs" {
           prepend_ibm_rules            = optional(bool)
           rules = list(
             object({
-              name        = string
-              action      = string
-              destination = string
-              direction   = string
-              source      = string
-              tcp = optional(
-                object({
-                  port_max        = optional(number)
-                  port_min        = optional(number)
-                  source_port_max = optional(number)
-                  source_port_min = optional(number)
-                })
-              )
-              udp = optional(
-                object({
-                  port_max        = optional(number)
-                  port_min        = optional(number)
-                  source_port_max = optional(number)
-                  source_port_min = optional(number)
-                })
-              )
-              icmp = optional(
-                object({
-                  type = optional(number)
-                  code = optional(number)
-                })
-              )
+              name            = string
+              action          = string
+              destination     = string
+              direction       = string
+              source          = string
+              protocol        = optional(string)
+              port_min        = optional(number)
+              port_max        = optional(number)
+              source_port_min = optional(number)
+              source_port_max = optional(number)
+              type            = optional(number)
+              code            = optional(number)
             })
           )
         })
@@ -232,6 +204,28 @@ variable "vpcs" {
       }))
     })
   )
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min`, `port_max`, `source_port_min`, and `source_port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([for vpc in var.vpcs : [for acl in vpc.network_acls : acl.rules]]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null || rule.source_port_min != null || rule.source_port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
+  }
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min` and `port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([for vpc in var.vpcs : vpc.default_security_group_rules != null ? vpc.default_security_group_rules : []]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
+  }
 }
 
 variable "vpn_gateways" {
@@ -346,24 +340,11 @@ variable "vsi" {
               source     = string
               local      = optional(string)
               ip_version = optional(string)
-              tcp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              udp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              icmp = optional(
-                object({
-                  type = number
-                  code = number
-                })
-              )
+              protocol   = optional(string)
+              port_min   = optional(number)
+              port_max   = optional(number)
+              type       = optional(number)
+              code       = optional(number)
             })
           )
         })
@@ -413,24 +394,11 @@ variable "vsi" {
                   source     = string
                   local      = optional(string)
                   ip_version = optional(string)
-                  tcp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  udp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  icmp = optional(
-                    object({
-                      type = number
-                      code = number
-                    })
-                  )
+                  protocol   = optional(string)
+                  port_min   = optional(number)
+                  port_max   = optional(number)
+                  type       = optional(number)
+                  code       = optional(number)
                 })
               )
             })
@@ -439,6 +407,22 @@ variable "vsi" {
       ))
     })
   )
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min` and `port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([
+        for v in var.vsi : flatten([
+          v.security_group != null ? v.security_group.rules : [],
+          v.load_balancers != null ? [for lb in v.load_balancers : lb.security_group != null ? lb.security_group.rules : []] : []
+        ])
+      ]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
+  }
 }
 
 ##############################################################################
@@ -463,24 +447,11 @@ variable "security_groups" {
           source     = string
           local      = optional(string)
           ip_version = optional(string)
-          tcp = optional(
-            object({
-              port_max = number
-              port_min = number
-            })
-          )
-          udp = optional(
-            object({
-              port_max = number
-              port_min = number
-            })
-          )
-          icmp = optional(
-            object({
-              type = number
-              code = number
-            })
-          )
+          protocol   = optional(string)
+          port_min   = optional(number)
+          port_max   = optional(number)
+          type       = optional(number)
+          code       = optional(number)
         })
       )
     })
@@ -511,6 +482,17 @@ variable "security_groups" {
         ) != 0
       ]
     ) == 0
+  }
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min` and `port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([for sg in var.security_groups : sg.rules]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
   }
 
 }
@@ -1284,24 +1266,11 @@ variable "teleport_vsi" {
                 source     = string
                 local      = optional(string)
                 ip_version = optional(string)
-                tcp = optional(
-                  object({
-                    port_max = number
-                    port_min = number
-                  })
-                )
-                udp = optional(
-                  object({
-                    port_max = number
-                    port_min = number
-                  })
-                )
-                icmp = optional(
-                  object({
-                    type = number
-                    code = number
-                  })
-                )
+                protocol   = optional(string)
+                port_min   = optional(number)
+                port_max   = optional(number)
+                type       = optional(number)
+                code       = optional(number)
               })
             )
           })
@@ -1316,6 +1285,17 @@ variable "teleport_vsi" {
   validation {
     condition     = length(distinct([for name in flatten(var.teleport_vsi[*].name) : name])) == length(flatten(var.teleport_vsi[*].name))
     error_message = "Duplicate teleport_vsi name. Please provide unique teleport_vsi names."
+  }
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min` and `port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([for t in var.teleport_vsi : t.security_group != null ? t.security_group.rules : []]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
   }
 }
 
@@ -1361,24 +1341,11 @@ variable "f5_vsi" {
               source     = string
               local      = optional(string)
               ip_version = optional(string)
-              tcp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              udp = optional(
-                object({
-                  port_max = number
-                  port_min = number
-                })
-              )
-              icmp = optional(
-                object({
-                  type = number
-                  code = number
-                })
-              )
+              protocol   = optional(string)
+              port_min   = optional(number)
+              port_max   = optional(number)
+              type       = optional(number)
+              code       = optional(number)
             })
           )
         })
@@ -1417,24 +1384,11 @@ variable "f5_vsi" {
                   source     = string
                   local      = optional(string)
                   ip_version = optional(string)
-                  tcp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  udp = optional(
-                    object({
-                      port_max = number
-                      port_min = number
-                    })
-                  )
-                  icmp = optional(
-                    object({
-                      type = number
-                      code = number
-                    })
-                  )
+                  protocol   = optional(string)
+                  port_min   = optional(number)
+                  port_max   = optional(number)
+                  type       = optional(number)
+                  code       = optional(number)
                 })
               )
             })
@@ -1465,6 +1419,22 @@ variable "f5_vsi" {
         )
       ]
     ) == 0
+  }
+
+  validation {
+    error_message = "When protocol is `icmp`, `port_min` and `port_max` must be null. When protocol is `tcp` or `udp`, `type` and `code` must be null."
+    condition = length(distinct(flatten([
+      for rule in flatten([
+        for f5 in var.f5_vsi : flatten([
+          f5.security_group != null ? f5.security_group.rules : [],
+          f5.load_balancers != null ? [for lb in f5.load_balancers : lb.security_group != null ? lb.security_group.rules : []] : []
+        ])
+      ]) :
+      false if(
+        (rule.protocol == "icmp" && (rule.port_min != null || rule.port_max != null)) ||
+        ((rule.protocol == "tcp" || rule.protocol == "udp") && (rule.type != null || rule.code != null))
+      )
+    ]))) == 0
   }
 }
 

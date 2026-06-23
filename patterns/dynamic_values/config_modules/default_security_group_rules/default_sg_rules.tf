@@ -29,10 +29,9 @@ locals {
   add_port_network_ibm_rules = [
     for rule in local.no_port_netork_ibm_rules :
     merge(rule, {
-      tcp = {
-        port_min = null
-        port_max = null
-      }
+      protocol = null
+      port_min = null
+      port_max = null
     })
   ]
 
@@ -42,10 +41,9 @@ locals {
       name      = "allow-ibm-tcp-${port}-outbound"
       source    = "161.26.0.0/16"
       direction = "outbound"
-      tcp = {
-        port_min = port
-        port_max = port
-      }
+      protocol  = "tcp"
+      port_min  = port
+      port_max  = port
     }
   ]
 }
