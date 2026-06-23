@@ -40,14 +40,14 @@ For more information about the default configuration, see [Default Secure Landin
 ## Overview
 <ul>
   <li><a href="#terraform-ibm-landing-zone">terraform-ibm-landing-zone</a></li>
-  <li><a href="./examples">Examples</a>
+  <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples">Examples</a>
     <ul>
       <li>
-        <a href="./examples/one-vpc-one-vsi">One VPC with one VSI example</a>
+        <a href="https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/one-vpc-one-vsi">One VPC with one VSI example</a>
         <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=landing-zone-one-vpc-one-vsi-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/one-vpc-one-vsi"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
       </li>
       <li>
-        <a href="./examples/override-example">Override.json example</a>
+        <a href="https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/override-example">Override.json example</a>
         <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=landing-zone-override-example-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/tree/main/examples/override-example"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
       </li>
     </ul>
@@ -861,17 +861,17 @@ module "cluster_pattern" {
 |------|--------|---------|
 | <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 10.16.5 |
 | <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.0 |
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.4 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.87.4 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.5 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.88.2 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.4 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.5 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.36.5 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 9.0.7 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.4 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 9.0.8 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.5 |
 
 ### Resources
 
