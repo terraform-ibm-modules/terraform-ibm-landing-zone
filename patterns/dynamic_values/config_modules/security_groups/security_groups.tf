@@ -36,10 +36,11 @@ variable "bastion_vsi_rules" {
       direction  = string
       local      = optional(string)
       ip_version = optional(string)
-      tcp = object({
-        port_min = string
-        port_max = string
-      })
+      protocol   = optional(string)
+      port_min   = optional(number)
+      port_max   = optional(number)
+      type       = optional(number)
+      code       = optional(number)
     })
   )
 }
@@ -53,10 +54,11 @@ variable "f5_management_rules" {
       direction  = string
       local      = optional(string)
       ip_version = optional(string)
-      tcp = object({
-        port_min = string
-        port_max = string
-      })
+      protocol   = optional(string)
+      port_min   = optional(number)
+      port_max   = optional(number)
+      type       = optional(number)
+      code       = optional(number)
     })
   )
 }
@@ -70,10 +72,11 @@ variable "f5_external_rules" {
       direction  = string
       local      = optional(string)
       ip_version = optional(string)
-      tcp = object({
-        port_min = string
-        port_max = string
-      })
+      protocol   = optional(string)
+      port_min   = optional(number)
+      port_max   = optional(number)
+      type       = optional(number)
+      code       = optional(number)
     })
   )
 }
@@ -87,10 +90,11 @@ variable "f5_bastion_rules" {
       direction  = string
       local      = optional(string)
       ip_version = optional(string)
-      tcp = object({
-        port_min = string
-        port_max = string
-      })
+      protocol   = optional(string)
+      port_min   = optional(number)
+      port_max   = optional(number)
+      type       = optional(number)
+      code       = optional(number)
     })
   )
 }
@@ -104,10 +108,11 @@ variable "f5_workload_rules" {
       direction  = string
       local      = optional(string)
       ip_version = optional(string)
-      tcp = object({
-        port_min = string
-        port_max = string
-      })
+      protocol   = optional(string)
+      port_min   = optional(number)
+      port_max   = optional(number)
+      type       = optional(number)
+      code       = optional(number)
     })
   )
 }

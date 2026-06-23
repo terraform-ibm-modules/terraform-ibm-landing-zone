@@ -120,10 +120,9 @@ variable "override_json_string" {
                      "name": "allow-ssh-inbound",
                      "action": "allow",
                      "direction": "inbound",
-                     "tcp": {
-                        "port_min": 22,
-                        "port_max": 22
-                     },
+                     "protocol": "tcp",
+                     "port_min": 22,
+                     "port_max": 22,
                      "source": "0.0.0.0/0",
                      "destination": "10.0.0.0/8"
                   },
@@ -249,10 +248,9 @@ variable "override_json_string" {
                {
                   "name": "allow-ssh-inbound",
                   "direction": "inbound",
-                  "tcp": {
-                     "port_min": 22,
-                     "port_max": 22
-                  },
+                  "protocol": "tcp",
+                  "port_min": 22,
+                  "port_max": 22,
                   "source": "0.0.0.0/0"
                },
                {
