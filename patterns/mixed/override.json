@@ -437,28 +437,25 @@
             "direction": "outbound",
             "name": "allow-ibm-tcp-53-outbound",
             "source": "161.26.0.0/16",
-            "tcp": {
-              "port_max": 53,
-              "port_min": 53
-            }
+            "protocol": "tcp",
+            "port_min": 53,
+            "port_max": 53
           },
           {
             "direction": "outbound",
             "name": "allow-ibm-tcp-80-outbound",
             "source": "161.26.0.0/16",
-            "tcp": {
-              "port_max": 80,
-              "port_min": 80
-            }
+            "protocol": "tcp",
+            "port_min": 80,
+            "port_max": 80
           },
           {
             "direction": "outbound",
             "name": "allow-ibm-tcp-443-outbound",
             "source": "161.26.0.0/16",
-            "tcp": {
-              "port_max": 443,
-              "port_min": 443
-            }
+            "protocol": "tcp",
+            "port_min": 443,
+            "port_max": 443
           }
         ],
         "vpc_name": "management"
