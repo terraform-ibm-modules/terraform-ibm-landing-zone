@@ -60,10 +60,11 @@ output "management_bastion_rules" {
         name      = "${zone}-inbound-${port}"
         direction = "inbound"
         source    = "10.${4 + zone}.${1 + index(var.f5_tiers, "bastion")}0.0/24"
-        tcp = {
-          port_max = port
-          port_min = port
-        }
+        protocol  = "tcp"
+        port_min  = port
+        port_max  = port
+        type      = null
+        code      = null
       }
     ]
   ])
@@ -76,10 +77,11 @@ output "external_rules" {
       name      = "allow-inbound-443"
       direction = "inbound"
       source    = "0.0.0.0/0"
-      tcp = {
-        port_max = 443
-        port_min = 443
-      }
+      protocol  = "tcp"
+      port_min  = 443
+      port_max  = 443
+      type      = null
+      code      = null
     }
   ]
 }
@@ -92,10 +94,11 @@ output "workload_rules" {
       name      = "allow-workload-subnet-${index(local.workload_subnets, subnet) + 1}"
       source    = subnet
       direction = "inbound"
-      tcp = {
-        port_max = 443
-        port_min = 443
-      }
+      protocol  = "tcp"
+      port_min  = 443
+      port_max  = 443
+      type      = null
+      code      = null
     }
   ]
 }
@@ -110,10 +113,11 @@ output "bastion_rules" {
         name      = "${zone}-inbound-${ports[0]}"
         direction = "inbound"
         source    = "10.${4 + zone}.${1 + index(concat(var.f5_tiers, ["bastion"]), "bastion")}0.0/24"
-        tcp = {
-          port_min = ports[0]
-          port_max = ports[1]
-        }
+        protocol  = "tcp"
+        port_min  = ports[0]
+        port_max  = ports[1]
+        type      = null
+        code      = null
       }
     ]
   ])
@@ -126,19 +130,21 @@ output "bastion_vsi_rules" {
       name      = "allow-inbound-443"
       direction = "inbound"
       source    = "0.0.0.0/0"
-      tcp = {
-        port_max = 443
-        port_min = 443
-      }
+      protocol  = "tcp"
+      port_min  = 443
+      port_max  = 443
+      type      = null
+      code      = null
     },
     {
       name      = "allow-all-outbound"
       direction = "outbound"
       source    = "0.0.0.0/0"
-      tcp = {
-        port_max = null
-        port_min = null
-      }
+      protocol  = null
+      port_min  = null
+      port_max  = null
+      type      = null
+      code      = null
     }
   ]
 }
