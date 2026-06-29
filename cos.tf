@@ -316,7 +316,7 @@ module "backup_vault_s2s_auth" {
   source  = "terraform-ibm-modules/s2s-auth/ibm"
   version = "2.3.0"
 
-  count = length(local.backup_vault_service_map) > 0 ? 1 : 0
+  count = length(local.backup_vault_service_map) > 0 && !var.skip_all_s2s_auth_policies ? 1 : 0
 
   service_map = local.backup_vault_service_map
   enable_cbr  = false
@@ -325,7 +325,7 @@ module "backup_vault_s2s_auth" {
 # Wait for auth policy to be fully synced on the backend before creating backup policy
 resource "time_sleep" "wait_for_backup_vault_authorization_policy" {
   depends_on       = [module.backup_vault_s2s_auth]
-  count            = length(local.backup_vault_service_map) > 0 ? 1 : 0
+  count            = length(local.backup_vault_service_map) > 0 && !var.skip_all_s2s_auth_policies ? 1 : 0
   create_duration  = "30s"
   destroy_duration = "30s"
 }
