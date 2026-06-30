@@ -8,6 +8,26 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
+variable "provider_visibility" {
+  description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
+  type        = string
+  default     = "private"
+  validation {
+    condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
+    error_message = "Invalid visibility option. Allowed values are 'public', 'private', or 'public-and-private'."
+  }
+}
+
+variable "kms_endpoint_type" {
+  description = "The type of endpoint (`public` or `private`) to use when creating keys, key rings, and key policies for the Key Management Service (KMS) instance. Defaults to `private`. Set this to `private` when the provider visibility is `private`."
+  type        = string
+  default     = "private"
+  validation {
+    condition     = contains(["public", "private"], var.kms_endpoint_type)
+    error_message = "The kms_endpoint_type value must be `public` or `private`."
+  }
+}
+
 variable "prefix" {
   description = "A unique identifier for resources that is prepended to resources that are provisioned. Must begin with a lowercase letter and end with a lowercase letter or number. Must be 16 or fewer characters. **Important:** Updating the prefix after the initial deployment may require recreating certain resources. Learn more about this limitation [here](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues#ki-vpc-prefix-change-recreate)."
   type        = string

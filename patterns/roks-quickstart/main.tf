@@ -12,6 +12,7 @@ module "landing_zone" {
   region               = var.region
   override_json_string = local.override_string
   tags                 = var.resource_tags
+  kms_endpoint_type    = var.kms_endpoint_type
 }
 
 locals {
