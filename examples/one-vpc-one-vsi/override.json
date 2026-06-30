@@ -46,7 +46,15 @@
           "force_delete": true,
           "kms_key": "slz-key",
           "name": "management-bucket",
-          "storage_class": "standard"
+          "storage_class": "standard",
+          "object_versioning_enabled": true,
+          "backup_policies": [
+            {
+              "policy_name": "continuous-backup",
+              "backup_vault_name": "management-vault",
+              "initial_delete_after_days": 30
+            }
+          ]
         }
       ],
       "keys": [],
