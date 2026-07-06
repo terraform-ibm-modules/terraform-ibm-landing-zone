@@ -419,7 +419,7 @@ variable "teleport_instance_profile" {
 variable "teleport_vsi_image_name" {
   description = "Teleport VSI image name. Use the IBM Cloud CLI command `ibmcloud is images` to see available images."
   type        = string
-  default     = "ibm-ubuntu-26-04-minimal-amd64-2"
+  default     = "ibm-ubuntu-22-04-5-minimal-amd64-16"
 }
 
 variable "teleport_license" {
