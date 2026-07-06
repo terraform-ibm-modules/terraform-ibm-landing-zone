@@ -291,7 +291,7 @@ module "cluster" {
   force_delete_storage                  = each.value.cluster_force_delete_storage
   ocp_version                           = each.value.kube_version == null || each.value.kube_version == "default" ? each.value.kube_version : replace(each.value.kube_version, "_openshift", "")
   allow_default_worker_pool_replacement = each.value.allow_default_worker_pool_replacement
-  tags                                  = var.tags
+  resource_tags                         = var.tags
   use_existing_cos                      = true
   existing_cos_id                       = each.value.cos_instance_crn
   disable_public_endpoint               = coalesce(each.value.disable_public_endpoint, true) # disable if not set or null

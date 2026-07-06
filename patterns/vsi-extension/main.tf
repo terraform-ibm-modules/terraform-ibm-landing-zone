@@ -50,7 +50,7 @@ module "vsi" {
   prefix                          = "${var.prefix}-vsi"
   vpc_id                          = var.vpc_id
   subnets                         = local.subnets
-  tags                            = var.resource_tags
+  resource_tags                   = var.resource_tags
   access_tags                     = var.access_tags
   kms_encryption_enabled          = true
   skip_iam_authorization_policy   = var.skip_iam_authorization_policy

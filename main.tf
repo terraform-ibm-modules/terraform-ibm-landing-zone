@@ -38,7 +38,7 @@ module "vpc" {
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id
   create_vpc                  = each.value.existing_vpc_id == null ? true : false
-  tags                        = var.tags
+  resource_tags               = var.tags
   access_tags                 = each.value.access_tags
   resource_group_id           = each.value.resource_group == null ? null : local.resource_groups[each.value.resource_group]
   region                      = var.region
