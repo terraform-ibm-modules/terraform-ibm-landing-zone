@@ -44,13 +44,13 @@ locals {
 
 module "vsi" {
   source                          = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version                         = "6.5.6"
+  version                         = "6.6.0"
   resource_group_id               = data.ibm_is_vpc.vpc_by_id.resource_group
   create_security_group           = true
   prefix                          = "${var.prefix}-vsi"
   vpc_id                          = var.vpc_id
   subnets                         = local.subnets
-  tags                            = var.resource_tags
+  resource_tags                   = var.resource_tags
   access_tags                     = var.access_tags
   kms_encryption_enabled          = true
   skip_iam_authorization_policy   = var.skip_iam_authorization_policy
