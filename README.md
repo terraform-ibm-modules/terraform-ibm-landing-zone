@@ -31,7 +31,6 @@ Each pattern creates the following infrastructure on the VPC:
 
 For more information about the default configuration, see [Default Secure Landing Zone configuration](.docs/pattern-defaults.md).
 
-
 |  VPC pattern                   |  QuickStart VSI pattern        |  Virtual server pattern          |  Red Hat OpenShift pattern       | Mixed pattern                      |
 | ------------------------------ | ------------------------------ | -------------------------------- | -------------------------------- | ---------------------------------- |
 | [![VPC](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vpc.drawio.svg)](patterns/vpc/README.md) | [![QuickStart VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-quickstart.drawio.svg)](patterns/vsi-quickstart/README.md) | [![VSI](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/vsi-vsi.drawio.svg)](patterns/vsi/README.md) | [![ROKS](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/reference-architectures/roks.drawio.svg)](patterns/roks/README.md) |  [![Mixed](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-landing-zone/main/.docs/images/mixed.png)](patterns/mixed/README.md) |
@@ -61,24 +60,26 @@ For more information about the default configuration, see [Default Secure Landin
 ## terraform-ibm-landing-zone
 
 Complete the following steps before you deploy the Secure Landing Zone module.
+
 ### Set up an IBM Cloud Account
-1.  Make sure that you have an IBM Cloud Pay-As-You-Go or Subscription account:
+
+1. Make sure that you have an IBM Cloud Pay-As-You-Go or Subscription account:
 
     - If you don't have an IBM Cloud account, [create one](https://cloud.ibm.com/docs/account?topic=account-account-getting-started).
     - If you have a Trial or Lite account, [upgrade your account](https://cloud.ibm.com/docs/account?topic=account-upgrading-account).
 
 ### Configure your IBM Cloud account for Secure Landing Zone
 
-1.  Log in to [IBM Cloud](https://cloud.ibm.com) with the IBMid you used to set up the account. This IBMid user is the account owner and has full IAM access.
-1.  [Complete the company profile](https://cloud.ibm.com/docs/account?topic=account-contact-info) and contact information for the account. This profile is required to stay in compliance with IBM Cloud Financial Service profile.
-1.  [Enable the Financial Services Validated option](https://cloud.ibm.com/docs/account?topic=account-enabling-fs-validated) for your account.
-1.  Enable virtual routing and forwarding (VRF) and service endpoints by creating a support case. Follow the instructions in enabling VRF and service endpoints](https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint&interface=ui#vrf).
+1. Log in to [IBM Cloud](https://cloud.ibm.com) with the IBMid you used to set up the account. This IBMid user is the account owner and has full IAM access.
+1. [Complete the company profile](https://cloud.ibm.com/docs/account?topic=account-contact-info) and contact information for the account. This profile is required to stay in compliance with IBM Cloud Financial Service profile.
+1. [Enable the Financial Services Validated option](https://cloud.ibm.com/docs/account?topic=account-enabling-fs-validated) for your account.
+1. Enable virtual routing and forwarding (VRF) and service endpoints by creating a support case. Follow the instructions in enabling VRF and service endpoints](<https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint&interface=ui#vrf>).
 
 ### Set up account access (Cloud IAM)
 
-1.  Create an IBM Cloud [API key](https://cloud.ibm.com/docs/account?topic=account-userapikey#create_user_key). The user who owns this key must have the Administrator role.
-1.  Require users in your account to use [multifactor authentication (MFA)](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-mfa).
-1.  [Set up access groups](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-accessgroups).
+1. Create an IBM Cloud [API key](https://cloud.ibm.com/docs/account?topic=account-userapikey#create_user_key). The user who owns this key must have the Administrator role.
+1. Require users in your account to use [multifactor authentication (MFA)](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-mfa).
+1. [Set up access groups](https://cloud.ibm.com/docs/account?topic=account-account-getting-started#account-gs-accessgroups).
     User access to IBM Cloud resources is controlled by using the access policies that are assigned to access groups. For IBM Cloud Financial Services validation, all IAM users must not be assigned direct access to any IBM Cloud resources.
 
     Select **All Identity and Access enabled services** when you assign access to the group.
@@ -87,13 +88,13 @@ Complete the following steps before you deploy the Secure Landing Zone module.
 
 For Key Management services, you can use IBM Cloud Hyper Protect Crypto Services. Create an instance before you create the Secure Landing Zone.
 
-1.  Create the service instance:
+1. Create the service instance:
 
-    1.  (Optional) [Create a resource group](https://cloud.ibm.com/docs/account?topic=account-rgs&interface=ui) for your instance.
-    1.  On the Hyper Protect Crypto Services (https://cloud.ibm.com/catalog/services/hyper-protect-crypto-services) details page, select a plan.
-    1.  Complete the required details that are required and click **Create**.
+    1. (Optional) [Create a resource group](https://cloud.ibm.com/docs/account?topic=account-rgs&interface=ui) for your instance.
+    1. On the Hyper Protect Crypto Services (<https://cloud.ibm.com/catalog/services/hyper-protect-crypto-services>) details page, select a plan.
+    1. Complete the required details that are required and click **Create**.
 
-1.  Initialize Hyper Protect Crypto Services:
+1. Initialize Hyper Protect Crypto Services:
 
     To initialize the provisioned Hyper Protect Crypto Service instance, follow the steps in [Getting started with IBM Cloud Hyper Protect Crypto Services](https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-get-started).
 
@@ -130,7 +131,7 @@ The second route is to use the `override.json` to create a fully customized envi
 
 #### Supported variables
 
-Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf ](variables.tf) file.
+Through the `override.json`, you can pass any variable or supported optional variable attributes from this root module, which each pattern uses to provision infrastructure. For a complete list of supported variables and attributes, see the [variables.tf](variables.tf) file.
 
 :information_source: **Tip:** You can use the [landing zone configuration tool](https://terraform-ibm-modules.github.io/landing-zone-config-tool/#/home) to create the JSON.
 
@@ -753,7 +754,6 @@ This module can provision a Cloud Object Storage instance or retrieve an existin
 
 You define Cloud Object Storage components in the [cos.tf](cos.tf) file.
 
-
 ## VPC placement groups
 
 You can create multiple VPC placement groups in the [vpc_placement_groups.tf](/vpc_placement_groups.tf) file. For more information about VPC placement groups, see [About placement groups](https://cloud.ibm.com/docs/vpc?topic=vpc-about-placement-groups-for-vpc&interface=ui) in the IBM Cloud Docs.
@@ -861,17 +861,17 @@ module "cluster_pattern" {
 |------|--------|---------|
 | <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 10.16.5 |
 | <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.0 |
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.6 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.89.0 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.6.0 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.90.0 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.6 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.6.0 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.36.6 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 9.0.9 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.5.6 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 9.1.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 6.6.0 |
 
 ### Resources
 
@@ -1018,6 +1018,7 @@ module "cluster_pattern" {
 ## Known issues
 
 For a list of common known issues see:
+
 - [Known issues with landing zone deployable architectures](https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-known-issues)
 
 <!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
