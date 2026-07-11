@@ -299,7 +299,7 @@ locals {
 # Create backup vaults using the terraform-ibm-cos backup_vault module
 module "backup_vault" {
   source  = "terraform-ibm-modules/cos/ibm//modules/backup_vault"
-  version = "10.16.5"
+  version = "10.17.4"
 
   for_each = local.backup_vaults_map
 
@@ -314,7 +314,7 @@ module "backup_vault" {
 # Create IAM authorization policies using s2s-auth module
 module "backup_vault_s2s_auth" {
   source  = "terraform-ibm-modules/s2s-auth/ibm"
-  version = "2.3.0"
+  version = "2.3.1"
 
   count = length(local.backup_vault_service_map) > 0 && !var.skip_all_s2s_auth_policies ? 1 : 0
 
