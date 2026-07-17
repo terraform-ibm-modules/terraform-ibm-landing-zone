@@ -75,7 +75,6 @@ module "vpc" {
   hub_vpc_id                             = each.value.hub_vpc_id
   enable_hub_vpc_crn                     = each.value.enable_hub_vpc_crn
   hub_vpc_crn                            = each.value.hub_vpc_crn
-  update_delegated_resolver              = each.value.update_delegated_resolver
   skip_custom_resolver_hub_creation      = each.value.skip_custom_resolver_hub_creation
   resolver_type                          = each.value.resolver_type
   manual_servers                         = each.value.manual_servers
