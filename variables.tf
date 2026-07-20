@@ -109,7 +109,6 @@ variable "vpcs" {
       hub_vpc_id                        = optional(string, null)
       enable_hub_vpc_crn                = optional(bool, false)
       hub_vpc_crn                       = optional(string, null)
-      update_delegated_resolver         = optional(bool, false)
       skip_custom_resolver_hub_creation = optional(bool, false)
       resolver_type                     = optional(string, null)
       manual_servers = optional(list(object({
