@@ -10,4 +10,5 @@ module "landing_zone" {
   override             = true
   tags                 = var.resource_tags
   override_json_string = var.override_json_string
+  kms_endpoint_type    = var.kms_endpoint_type
 }

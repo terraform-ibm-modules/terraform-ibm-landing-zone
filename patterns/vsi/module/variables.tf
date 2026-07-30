@@ -575,4 +575,14 @@ variable "existing_vpc_cbr_zone_id" {
   default     = null
 }
 
+variable "kms_endpoint_type" {
+  description = "The type of endpoint (`public` or `private`) to use when creating keys, key rings, and key policies for the Key Management Service (KMS) instance. Defaults to `private`. Set this to `private` when the provider visibility is `private`."
+  type        = string
+  default     = "private"
+  validation {
+    condition     = contains(["public", "private"], var.kms_endpoint_type)
+    error_message = "The kms_endpoint_type value must be `public` or `private`."
+  }
+}
+
 ##############################################################################

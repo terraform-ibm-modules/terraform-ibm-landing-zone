@@ -6,6 +6,7 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
   ibmcloud_timeout = 60
+  visibility       = var.provider_visibility
 }
 
 ##############################################################################
@@ -109,6 +110,7 @@ module "roks_landing_zone" {
   verify_cluster_network_readiness       = var.verify_cluster_network_readiness
   use_ibm_cloud_private_api_endpoints    = var.use_ibm_cloud_private_api_endpoints
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
+  kms_endpoint_type                      = var.kms_endpoint_type
 }
 
 moved {

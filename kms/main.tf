@@ -62,7 +62,7 @@ resource "ibm_kms_key_rings" "rings" {
   for_each      = { for ring in local.key_rings : ring.key_ring_name => ring }
   instance_id   = local.key_management_guid
   key_ring_id   = each.value.key_ring_name
-  endpoint_type = each.value.endpoint
+  endpoint_type = coalesce(each.value.endpoint, var.key_management.kms_endpoint_type)
 }
 
 ##############################################################################
@@ -80,7 +80,7 @@ resource "ibm_kms_key" "key" {
   payload         = each.value.payload
   key_ring_id     = each.value.key_ring == null ? null : ibm_kms_key_rings.rings[each.value.key_ring].key_ring_id
   force_delete    = each.value.force_delete != false ? true : each.value.force_delete
-  endpoint_type   = each.value.endpoint
+  endpoint_type   = coalesce(each.value.endpoint, var.key_management.kms_endpoint_type)
   iv_value        = each.value.iv_value
   encrypted_nonce = each.value.encrypted_nonce
 }
@@ -95,7 +95,7 @@ resource "ibm_kms_key" "key" {
 resource "ibm_kms_key_policies" "key_policy" {
   for_each      = local.policies
   instance_id   = local.key_management_guid
-  endpoint_type = each.value.endpoint
+  endpoint_type = coalesce(each.value.endpoint, var.key_management.kms_endpoint_type)
   key_id        = ibm_kms_key.key[each.key].key_id
   # Dynamically create rotation block
   dynamic "rotation" {
