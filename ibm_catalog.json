@@ -1344,15 +1344,15 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.20_openshift",
+              "default_value": "4.21_openshift",
               "options": [
-                {
-                  "displayname": "4.20_openshift",
-                  "value": "4.20_openshift"
-                },
                 {
                   "displayname": "4.21_openshift",
                   "value": "4.21_openshift"
+                },
+                {
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
                   "displayname": "4.19_openshift",
@@ -1524,15 +1524,15 @@
               "key": "kube_version",
               "type": "string",
               "required": true,
-              "default_value": "4.20_openshift",
+              "default_value": "4.21_openshift",
               "options": [
-                {
-                  "displayname": "4.20_openshift",
-                  "value": "4.20_openshift"
-                },
                 {
                   "displayname": "4.21_openshift",
                   "value": "4.21_openshift"
+                },
+                {
+                  "displayname": "4.20_openshift",
+                  "value": "4.20_openshift"
                 },
                 {
                   "displayname": "4.19_openshift",
