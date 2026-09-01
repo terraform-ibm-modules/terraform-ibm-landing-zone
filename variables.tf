@@ -132,6 +132,7 @@ variable "vpcs" {
         )
       )
       default_routing_table_name = optional(string)
+      incremental_rule_update    = optional(bool, false)
       flow_logs_bucket_name      = optional(string)
       address_prefixes = optional(
         object({
