@@ -299,7 +299,7 @@ locals {
 # Create backup vaults using the terraform-ibm-cos backup_vault module
 module "backup_vault" {
   source  = "terraform-ibm-modules/cos/ibm//modules/backup_vault"
-  version = "10.17.7"
+  version = "10.17.8"
 
   for_each = local.backup_vaults_map
 
