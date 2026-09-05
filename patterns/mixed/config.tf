@@ -27,6 +27,7 @@ module "dynamic_values" {
   domain                              = var.domain
   hostname                            = var.hostname
   use_random_cos_suffix               = var.use_random_cos_suffix
+  incremental_rule_update             = var.incremental_rule_update
 }
 
 ##############################################################################

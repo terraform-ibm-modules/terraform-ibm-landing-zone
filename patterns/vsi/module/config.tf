@@ -28,6 +28,7 @@ module "dynamic_values" {
   hostname                            = var.hostname
   add_cluster_encryption_key          = false
   use_random_cos_suffix               = var.use_random_cos_suffix
+  incremental_rule_update             = var.incremental_rule_update
 }
 
 ##############################################################################

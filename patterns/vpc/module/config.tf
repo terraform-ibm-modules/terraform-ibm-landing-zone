@@ -32,6 +32,7 @@ module "dynamic_values" {
   existing_cos_endpoint_type          = var.existing_cos_endpoint_type
   use_existing_cos_for_vpc_flowlogs   = var.use_existing_cos_for_vpc_flowlogs
   use_existing_cos_for_atracker       = var.use_existing_cos_for_atracker
+  incremental_rule_update             = var.incremental_rule_update
 }
 
 ##############################################################################

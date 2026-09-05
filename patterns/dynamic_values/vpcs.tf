@@ -16,6 +16,7 @@ module "vpcs" {
   add_ibm_cloud_internal_rules        = var.add_ibm_cloud_internal_rules
   add_vpc_connectivity_rules          = var.add_vpc_connectivity_rules
   prepend_ibm_rules                   = var.prepend_ibm_rules
+  incremental_rule_update             = var.incremental_rule_update
   f5_tiers                            = local.f5_tiers
   teleport_management_zones           = var.teleport_management_zones
   provision_teleport_in_f5            = var.provision_teleport_in_f5

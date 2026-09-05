@@ -45,6 +45,12 @@ variable "add_ibm_cloud_internal_rules" {
   default     = true
 }
 
+variable "incremental_rule_update" {
+  description = "When set to true, enables inline rule updates (add, remove, reorder, patch, recreate only changed rules). When false, any change to inline rules deletes all existing rules and recreates them from the configuration."
+  type        = bool
+  default     = true
+}
+
 variable "add_vpc_connectivity_rules" {
   description = "Add connectivity rules across any subnet within VPC"
   type        = bool
