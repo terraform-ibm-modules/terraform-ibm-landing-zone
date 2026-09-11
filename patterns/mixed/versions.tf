@@ -8,11 +8,11 @@ terraform {
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "2.5.0"
+      version = "2.6.1"
     }
     external = {
       source  = "hashicorp/external"
-      version = "2.4.1"
+      version = "2.4.2"
     }
   }
 }
