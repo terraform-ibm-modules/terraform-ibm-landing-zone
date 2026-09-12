@@ -78,6 +78,7 @@ module "vpc" {
   skip_custom_resolver_hub_creation      = each.value.skip_custom_resolver_hub_creation
   resolver_type                          = each.value.resolver_type
   manual_servers                         = each.value.manual_servers
+  incremental_rule_update                = each.value.incremental_rule_update
 }
 
 

@@ -363,6 +363,9 @@
               "key": "add_atracker_route"
             },
             {
+              "key": "incremental_rule_update"
+            },
+            {
               "key": "hs_crypto_instance_name",
               "type": "string",
               "custom_config": {
@@ -846,6 +849,9 @@
             },
             {
               "key": "add_atracker_route"
+            },
+            {
+              "key": "incremental_rule_update"
             },
             {
               "key": "hs_crypto_instance_name",
@@ -1616,6 +1622,9 @@
             },
             {
               "key": "add_atracker_route"
+            },
+            {
+              "key": "incremental_rule_update"
             },
             {
               "key": "hs_crypto_instance_name",

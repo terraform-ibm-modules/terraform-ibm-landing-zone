@@ -110,6 +110,7 @@ output "value" {
       flow_logs_bucket_name        = "${network}-bucket"
       address_prefixes             = module.vpc_address_prefixes.value[network]
       network_acls                 = module.network_acls.value[network]
+      incremental_rule_update      = var.incremental_rule_update
       use_public_gateways = (
         # If network is edge, use teleport and no teleport zones OR teleport zones is greater than 0 && management
         (network == var.vpc_list[0] && var.use_teleport && var.teleport_management_zones == 0) || (var.teleport_management_zones > 0 && network == var.vpcs[0])

@@ -89,6 +89,7 @@ module "vpc_landing_zone" {
   teleport_management_zones              = var.teleport_management_zones
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
   kms_endpoint_type                      = var.kms_endpoint_type
+  incremental_rule_update                = var.incremental_rule_update
 }
 
 moved {
