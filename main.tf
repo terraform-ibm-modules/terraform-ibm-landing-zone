@@ -33,7 +33,7 @@ locals {
 # Due to existing implicit dependencies we do not think this will be an issue, including auth policies for activity tracker.
 module "vpc" {
   source                      = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version                     = "10.0.5"
+  version                     = "10.0.6"
   for_each                    = local.vpc_map
   name                        = each.value.prefix
   existing_vpc_id             = each.value.existing_vpc_id
@@ -78,6 +78,7 @@ module "vpc" {
   skip_custom_resolver_hub_creation      = each.value.skip_custom_resolver_hub_creation
   resolver_type                          = each.value.resolver_type
   manual_servers                         = each.value.manual_servers
+  incremental_rule_update                = each.value.incremental_rule_update
 }
 
 

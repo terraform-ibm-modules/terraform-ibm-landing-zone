@@ -40,7 +40,8 @@ module "dynamic_values" {
     ? true
     : false
   )
-  add_atracker_route = var.add_atracker_route
+  add_atracker_route      = var.add_atracker_route
+  incremental_rule_update = var.incremental_rule_update
 }
 
 ##############################################################################

@@ -111,6 +111,7 @@ module "roks_landing_zone" {
   use_ibm_cloud_private_api_endpoints    = var.use_ibm_cloud_private_api_endpoints
   existing_vpc_cbr_zone_id               = var.existing_vpc_cbr_zone_id
   kms_endpoint_type                      = var.kms_endpoint_type
+  incremental_rule_update                = var.incremental_rule_update
 }
 
 moved {
