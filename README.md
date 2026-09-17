@@ -162,202 +162,29 @@ The `override.json` file does not need to contain all elements. For example,
 
 #### Example: Opening internet access by customizing network ACLs
 
-By default, the landing zone patterns restrict inbound traffic to RFC-1918 private ranges and IBM Cloud service endpoints (`161.26.0.0/16`). A common customization is to open inbound internet access on a VPC — for example, to allow HTTPS traffic from the internet to a workload subnet.
+By default, the landing zone patterns restrict inbound traffic to RFC-1918 private ranges and IBM Cloud service endpoints (`161.26.0.0/16`). A common customization is to open inbound HTTPS access from the internet on the workload VPC.
 
-To do this, copy the default `patterns/vsi/override.json` into your working directory, set `override = true`, and add the `allow-internet-https-inbound` rule to the workload ACL as shown below. The highlighted rule is the only addition to the default configuration:
+Start from the default `patterns/vsi/override.json`, set `override = true`, and add the following rule to the `rules` list of the workload VPC's ACL:
 
 ```json
 {
-  "vpcs": [
-    {
-      "prefix": "management",
-      "resource_group": "slz-management-rg",
-      "flow_logs_bucket_name": "management-bucket",
-      "default_security_group_rules": [],
-      "network_acls": [
-        {
-          "name": "management-acl",
-          "rules": [
-            {
-              "name": "allow-ibm-inbound",
-              "action": "allow",
-              "direction": "inbound",
-              "source": "161.26.0.0/16",
-              "destination": "10.0.0.0/8"
-            },
-            {
-              "name": "allow-all-network-inbound",
-              "action": "allow",
-              "direction": "inbound",
-              "source": "10.0.0.0/8",
-              "destination": "10.0.0.0/8"
-            },
-            {
-              "name": "allow-all-outbound",
-              "action": "allow",
-              "direction": "outbound",
-              "source": "0.0.0.0/0",
-              "destination": "0.0.0.0/0"
-            }
-          ]
-        }
-      ],
-      "subnets": {
-        "zone-1": [
-          { "name": "vsi-zone-1", "cidr": "10.10.10.0/24", "acl_name": "management-acl", "public_gateway": false },
-          { "name": "vpe-zone-1", "cidr": "10.10.20.0/24", "acl_name": "management-acl", "public_gateway": false },
-          { "name": "vpn-zone-1", "cidr": "10.10.30.0/24", "acl_name": "management-acl", "public_gateway": false }
-        ],
-        "zone-2": [
-          { "name": "vsi-zone-2", "cidr": "10.20.10.0/24", "acl_name": "management-acl", "public_gateway": false },
-          { "name": "vpe-zone-2", "cidr": "10.20.20.0/24", "acl_name": "management-acl", "public_gateway": false }
-        ],
-        "zone-3": [
-          { "name": "vsi-zone-3", "cidr": "10.30.10.0/24", "acl_name": "management-acl", "public_gateway": false },
-          { "name": "vpe-zone-3", "cidr": "10.30.20.0/24", "acl_name": "management-acl", "public_gateway": false }
-        ]
-      },
-      "use_public_gateways": { "zone-1": false, "zone-2": false, "zone-3": false }
-    },
-    {
-      "prefix": "workload",
-      "resource_group": "slz-workload-rg",
-      "flow_logs_bucket_name": "workload-bucket",
-      "default_security_group_rules": [],
-      "network_acls": [
-        {
-          "name": "workload-acl",
-          "rules": [
-            {
-              "name": "allow-ibm-inbound",
-              "action": "allow",
-              "direction": "inbound",
-              "source": "161.26.0.0/16",
-              "destination": "10.0.0.0/8"
-            },
-            {
-              "name": "allow-all-network-inbound",
-              "action": "allow",
-              "direction": "inbound",
-              "source": "10.0.0.0/8",
-              "destination": "10.0.0.0/8"
-            },
-            {
-              "name": "allow-internet-https-inbound",
-              "action": "allow",
-              "direction": "inbound",
-              "source": "0.0.0.0/0",
-              "destination": "0.0.0.0/0",
-              "protocol": "tcp",
-              "port_min": 443,
-              "port_max": 443
-            },
-            {
-              "name": "allow-all-outbound",
-              "action": "allow",
-              "direction": "outbound",
-              "source": "0.0.0.0/0",
-              "destination": "0.0.0.0/0"
-            }
-          ]
-        }
-      ],
-      "subnets": {
-        "zone-1": [
-          { "name": "vsi-zone-1", "cidr": "10.40.10.0/24", "acl_name": "workload-acl", "public_gateway": true },
-          { "name": "vpe-zone-1", "cidr": "10.40.20.0/24", "acl_name": "workload-acl", "public_gateway": false }
-        ],
-        "zone-2": [
-          { "name": "vsi-zone-2", "cidr": "10.50.10.0/24", "acl_name": "workload-acl", "public_gateway": true },
-          { "name": "vpe-zone-2", "cidr": "10.50.20.0/24", "acl_name": "workload-acl", "public_gateway": false }
-        ],
-        "zone-3": [
-          { "name": "vsi-zone-3", "cidr": "10.60.10.0/24", "acl_name": "workload-acl", "public_gateway": true },
-          { "name": "vpe-zone-3", "cidr": "10.60.20.0/24", "acl_name": "workload-acl", "public_gateway": false }
-        ]
-      },
-      "use_public_gateways": { "zone-1": true, "zone-2": true, "zone-3": true }
-    }
-  ]
+  "name": "allow-internet-https-inbound",
+  "action": "allow",
+  "direction": "inbound",
+  "source": "0.0.0.0/0",
+  "destination": "0.0.0.0/0",
+  "protocol": "tcp",
+  "port_min": 443,
+  "port_max": 443
 }
 ```
-
-After updating `override.json`, set `override = true` in your pattern's input variables for the changes to take effect.
 
 A few things to keep in mind:
 
-- **The `vpcs` array is a full replacement.** Both VPCs must be present — omitting one removes it entirely. Use the full default `patterns/vsi/override.json` as your starting point and only change what you need.
-- **ACL rules are stateless and evaluated top-to-bottom.** Place specific rules (like the HTTPS rule above) before broad rules.
-- **A public gateway is required for internet egress.** The `use_public_gateways` and `public_gateway: true` flags attach a public gateway so that outbound return traffic can leave the VPC.
-- **The `rules` list replaces the ACL's rules entirely.** Always re-include the existing IBM service and private-network rules alongside your new rules.
-
----
-
-#### Validating the example locally
-
-You can verify this example is structurally correct without deploying anything. Run the following Python script from the repo root — it parses the workload VPC snippet and confirms every field is present:
-
-```python
-import json, sys
-
-snippet = """
-{
-  "vpcs": [
-    {
-      "prefix": "workload",
-      "resource_group": "slz-workload-rg",
-      "flow_logs_bucket_name": "workload-bucket",
-      "default_security_group_rules": [],
-      "use_public_gateways": { "zone-1": true, "zone-2": true, "zone-3": true },
-      "network_acls": [
-        {
-          "name": "workload-acl",
-          "rules": [
-            { "name": "allow-ibm-inbound", "action": "allow", "direction": "inbound", "source": "161.26.0.0/16", "destination": "10.0.0.0/8" },
-            { "name": "allow-all-network-inbound", "action": "allow", "direction": "inbound", "source": "10.0.0.0/8", "destination": "10.0.0.0/8" },
-            { "name": "allow-internet-https-inbound", "action": "allow", "direction": "inbound", "source": "0.0.0.0/0", "destination": "0.0.0.0/0", "protocol": "tcp", "port_min": 443, "port_max": 443 },
-            { "name": "allow-all-outbound", "action": "allow", "direction": "outbound", "source": "0.0.0.0/0", "destination": "0.0.0.0/0" }
-          ]
-        }
-      ]
-    }
-  ]
-}
-"""
-
-parsed = json.loads(snippet)
-vpc = parsed['vpcs'][0]
-print('JSON valid')
-print('  prefix          :', vpc['prefix'])
-print('  ACL name        :', vpc['network_acls'][0]['name'])
-print('  rules           :', [r['name'] for r in vpc['network_acls'][0]['rules']])
-print('  public gateways :', vpc['use_public_gateways'])
-```
-
-Save as `validate_acl.py` and run with `python3 validate_acl.py`.
-
-**Expected output:**
-```
-JSON valid
-  prefix          : workload
-  ACL name        : workload-acl
-  rules           : ['allow-ibm-inbound', 'allow-all-network-inbound', 'allow-internet-https-inbound', 'allow-all-outbound']
-  public gateways : {'zone-1': True, 'zone-2': True, 'zone-3': True}
-```
-
-To do a full Terraform type-check without deploying, run `terraform plan` from `patterns/vsi` with a real API key and `provider_visibility=public` (required when running from a local machine — without it the provider tries to reach IBM Cloud private endpoints that are only reachable from within IBM Cloud):
-
-```sh
-cd patterns/vsi && terraform plan \
-  -var="ibmcloud_api_key=YOUR_REAL_KEY" \
-  -var="prefix=slz" \
-  -var="region=us-south" \
-  -var="provider_visibility=public" \
-  -var="ssh_public_key=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC test@test" \
-  -var='override_json_string={"resource_groups":[{"create":true,"name":"slz-service-rg"},{"create":true,"name":"slz-management-rg"},{"create":true,"name":"slz-workload-rg"}],"vpcs":[{"default_security_group_rules":[],"clean_default_sg_acl":true,"flow_logs_bucket_name":"management-bucket","network_acls":[{"name":"management-acl","rules":[{"action":"allow","destination":"10.0.0.0/8","direction":"inbound","name":"allow-ibm-inbound","source":"161.26.0.0/16"},{"action":"allow","destination":"10.0.0.0/8","direction":"inbound","name":"allow-all-network-inbound","source":"10.0.0.0/8"},{"action":"allow","destination":"0.0.0.0/0","direction":"outbound","name":"allow-all-outbound","source":"0.0.0.0/0"}]}],"prefix":"management","resource_group":"slz-management-rg","subnets":{"zone-1":[{"acl_name":"management-acl","cidr":"10.10.10.0/24","name":"vsi-zone-1","public_gateway":false},{"acl_name":"management-acl","cidr":"10.10.20.0/24","name":"vpe-zone-1","public_gateway":false},{"acl_name":"management-acl","cidr":"10.10.30.0/24","name":"vpn-zone-1","public_gateway":false}],"zone-2":[{"acl_name":"management-acl","cidr":"10.20.10.0/24","name":"vsi-zone-2","public_gateway":false},{"acl_name":"management-acl","cidr":"10.20.20.0/24","name":"vpe-zone-2","public_gateway":false}],"zone-3":[{"acl_name":"management-acl","cidr":"10.30.10.0/24","name":"vsi-zone-3","public_gateway":false},{"acl_name":"management-acl","cidr":"10.30.20.0/24","name":"vpe-zone-3","public_gateway":false}]},"use_public_gateways":{"zone-1":false,"zone-2":false,"zone-3":false}},{"default_security_group_rules":[],"clean_default_sg_acl":true,"flow_logs_bucket_name":"workload-bucket","network_acls":[{"name":"workload-acl","rules":[{"action":"allow","destination":"10.0.0.0/8","direction":"inbound","name":"allow-ibm-inbound","source":"161.26.0.0/16"},{"action":"allow","destination":"10.0.0.0/8","direction":"inbound","name":"allow-all-network-inbound","source":"10.0.0.0/8"},{"action":"allow","destination":"0.0.0.0/0","direction":"inbound","name":"allow-internet-https-inbound","source":"0.0.0.0/0","protocol":"tcp","port_min":443,"port_max":443},{"action":"allow","destination":"0.0.0.0/0","direction":"outbound","name":"allow-all-outbound","source":"0.0.0.0/0"}]}],"prefix":"workload","resource_group":"slz-workload-rg","subnets":{"zone-1":[{"acl_name":"workload-acl","cidr":"10.40.10.0/24","name":"vsi-zone-1","public_gateway":true},{"acl_name":"workload-acl","cidr":"10.40.20.0/24","name":"vpe-zone-1","public_gateway":false}],"zone-2":[{"acl_name":"workload-acl","cidr":"10.50.10.0/24","name":"vsi-zone-2","public_gateway":true},{"acl_name":"workload-acl","cidr":"10.50.20.0/24","name":"vpe-zone-2","public_gateway":false}],"zone-3":[{"acl_name":"workload-acl","cidr":"10.60.10.0/24","name":"vsi-zone-3","public_gateway":true},{"acl_name":"workload-acl","cidr":"10.60.20.0/24","name":"vpe-zone-3","public_gateway":false}]},"use_public_gateways":{"zone-1":true,"zone-2":true,"zone-3":true}}]}'
-```
-
-This produces a clean plan with zero errors — `ibm_is_network_acl["workload-acl"]`, public gateways for all three workload zones, and `allow-internet-https-inbound` all present in the output. ✅
+- **The `rules` list replaces the ACL's rules entirely.** Always re-include the existing `allow-ibm-inbound` and `allow-all-network-inbound` rules alongside your new one.
+- **ACL rules are stateless and evaluated top-to-bottom.** Place this rule before the broad `allow-all-outbound` rule.
+- **A public gateway is required for internet egress.** Set `use_public_gateways` to `true` on the workload VPC so that outbound return traffic can leave the VPC.
+- **The `vpcs` array is a full replacement.** Start from the full default `patterns/vsi/override.json` — do not omit other VPCs or subnets.
 
 ## (Optional) F5 BIG-IP
 
