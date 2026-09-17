@@ -92,6 +92,7 @@ module "vsi_landing_zone" {
   use_legacy_network_interface           = var.use_legacy_network_interface
   allow_ip_spoofing                      = var.allow_ip_spoofing
   kms_endpoint_type                      = var.kms_endpoint_type
+  incremental_rule_update                = var.incremental_rule_update
 }
 
 moved {

@@ -111,6 +111,12 @@ variable "add_atracker_route" {
   default     = true
 }
 
+variable "incremental_rule_update" {
+  description = "When set to true, enables inline rule updates (add, remove, reorder, patch, recreate only changed rules). When false, any change to inline rules deletes all existing rules and recreates them from the configuration."
+  type        = bool
+  default     = true
+}
+
 ##############################################################################
 
 
