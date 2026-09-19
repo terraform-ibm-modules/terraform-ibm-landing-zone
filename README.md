@@ -160,6 +160,32 @@ The `override.json` file does not need to contain all elements. For example,
 }
 ```
 
+#### Example: Opening internet access by customizing network ACLs
+
+By default, the landing zone patterns restrict inbound traffic to RFC-1918 private ranges and IBM Cloud service endpoints (`161.26.0.0/16`). A common customization is to open inbound HTTPS access from the internet on the workload VPC.
+
+Start from the default `patterns/vsi/override.json`, set `override = true`, and add the following rule to the `rules` list of the workload VPC's ACL:
+
+```json
+{
+  "name": "allow-internet-https-inbound",
+  "action": "allow",
+  "direction": "inbound",
+  "source": "0.0.0.0/0",
+  "destination": "0.0.0.0/0",
+  "protocol": "tcp",
+  "port_min": 443,
+  "port_max": 443
+}
+```
+
+A few things to keep in mind:
+
+- **The `rules` list replaces the ACL's rules entirely.** Always re-include the existing `allow-ibm-inbound` and `allow-all-network-inbound` rules alongside your new one.
+- **ACL rules are stateless and evaluated top-to-bottom.** Place this rule before the broad `allow-all-outbound` rule.
+- **A public gateway is required for internet egress.** Set `use_public_gateways` to `true` on the workload VPC so that outbound return traffic can leave the VPC.
+- **The `vpcs` array is a full replacement.** Start from the full default `patterns/vsi/override.json` — do not omit other VPCs or subnets.
+
 ## (Optional) F5 BIG-IP
 
 The F5 BIG-IP Virtual Edition supports setting up a client-to-site full tunnel VPN to connect to your management or edge VPC or a web application firewall (WAF). With this configuration, you can connect to your workload VPC over the public internet.
