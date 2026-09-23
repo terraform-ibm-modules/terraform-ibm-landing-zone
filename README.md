@@ -160,7 +160,7 @@ The `override.json` file does not need to contain all elements. For example,
 }
 ```
 
-#### Example: Opening internet access by customizing network ACLs
+#### Example: Opening Internet access by customizing Network Access Control List (ACLs)
 
 By default, the landing zone patterns restrict inbound traffic to RFC-1918 private ranges and IBM Cloud service endpoints (`161.26.0.0/16`). A common customization is to open inbound HTTPS access from the internet on the workload VPC.
 
