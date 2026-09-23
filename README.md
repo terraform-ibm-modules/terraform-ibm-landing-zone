@@ -164,19 +164,42 @@ The `override.json` file does not need to contain all elements. For example,
 
 By default, the landing zone patterns restrict inbound traffic to RFC-1918 private ranges and IBM Cloud service endpoints (`161.26.0.0/16`). A common customization is to open inbound HTTPS access from the internet on the workload VPC.
 
-Start from the default `patterns/vsi/override.json`, set `override = true`, and add the following rule to the `rules` list of the workload VPC's ACL:
+Start from the default `patterns/vsi/override.json`, set `override = true`, and update the `rules` list of the workload VPC's ACL to include the `allow-internet-https-inbound` rule:
 
 ```json
-{
-  "name": "allow-internet-https-inbound",
-  "action": "allow",
-  "direction": "inbound",
-  "source": "0.0.0.0/0",
-  "destination": "0.0.0.0/0",
-  "protocol": "tcp",
-  "port_min": 443,
-  "port_max": 443
-}
+[
+  {
+    "action": "allow",
+    "destination": "10.0.0.0/8",
+    "direction": "inbound",
+    "name": "allow-ibm-inbound",
+    "source": "161.26.0.0/16"
+  },
+  {
+    "action": "allow",
+    "destination": "10.0.0.0/8",
+    "direction": "inbound",
+    "name": "allow-all-network-inbound",
+    "source": "10.0.0.0/8"
+  },
+  {
+    "action": "allow",
+    "destination": "10.0.0.0/8",
+    "direction": "inbound",
+    "name": "allow-internet-https-inbound",
+    "source": "0.0.0.0/0",
+    "protocol": "tcp",
+    "port_min": 443,
+    "port_max": 443
+  },
+  {
+    "action": "allow",
+    "destination": "0.0.0.0/0",
+    "direction": "outbound",
+    "name": "allow-all-outbound",
+    "source": "0.0.0.0/0"
+  }
+]
 ```
 
 A few things to keep in mind:
