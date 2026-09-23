@@ -206,7 +206,7 @@ Start from the default `patterns/vsi/override.json`, set `override = true`, and 
 A few things to keep in mind:
 
 - **The `rules` list replaces the ACL's rules entirely.** Always re-include the existing `allow-ibm-inbound` and `allow-all-network-inbound` rules alongside your new one.
-- **ACL rules are stateless and evaluated top-to-bottom.** Place this rule before the broad `allow-all-outbound` rule.
+- **ACL rules are stateless and evaluated top-to-bottom.** Place this rule before the broad `allow-all-outbound` rule in the `override.json` file.
 - **A public gateway is required for internet egress.** Set `use_public_gateways` to `true` on the workload VPC so that outbound return traffic can leave the VPC.
 - **The `vpcs` array is a full replacement.** Start from the full default `patterns/vsi/override.json` — do not omit other VPCs or subnets.
 
