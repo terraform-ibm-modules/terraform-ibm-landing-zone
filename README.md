@@ -165,7 +165,9 @@ The `override.json` file does not need to contain all elements. For example,
 By default, the IBM Landing Zone follows a strict "zero trust" and least-privilege security model. When we provision a workload VPC using these patterns, the automatically generated Access Control Lists (ACLs) completely block incoming traffic from the public internet. They only permit inbound traffic originating from **_RFC-1918 private ranges_** and **_IBM Cloud Service Endpoints (`161.26.0.0/16`)_**.
 A common customization is to open inbound `https` access from the internet on the workload VPC.
 
-Start from the default `patterns/vsi/override.json`, set `override = true`, and update the `rules` list of the workload VPC's ACL to include the `allow-internet-https-inbound` rule:
+Start from the default [`patterns/vsi/override.json`](./patterns/vsi/override.json), set `override = true`, and update the `rules` list of the workload VPC's ACL to include the `allow-internet-https-inbound` rule:
+
+##### Example JSON structure:
 
 ```json
 [
@@ -208,7 +210,7 @@ A few things to keep in mind:
 - **The `rules` list replaces the ACL's rules entirely.** Always re-include the existing `allow-ibm-inbound` and `allow-all-network-inbound` rules alongside your new one.
 - **ACL rules are stateless and evaluated top-to-bottom.** Place this rule before the broad `allow-all-outbound` rule in the `override.json` file.
 - **A public gateway is required for internet egress.** Set `use_public_gateways` to `true` on the workload VPC so that the outbound traffic can leave from the VPC.
-- **The `vpcs` array is a full replacement.** Start from the full default `patterns/vsi/override.json` — do not omit other VPCs or subnets.
+- **The `vpcs` array is a full replacement.** Start from the full default [`patterns/vsi/override.json`](./patterns/vsi/override.json) — do not omit other VPCs or subnets.
 
 ## (Optional) F5 BIG-IP
 
