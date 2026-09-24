@@ -165,7 +165,7 @@ The `override.json` file does not need to contain all elements. For example,
 By default, the IBM Landing Zone follows a strict "zero trust" and least-privilege security model. When we provision a workload VPC using these patterns, the automatically generated Access Control Lists (ACLs) completely block incoming traffic from the public internet. They only permit inbound traffic originating from **_RFC-1918 private ranges_** and **_IBM Cloud Service Endpoints (`161.26.0.0/16`)_**.
 A common customization is to open inbound `https` access from the internet on the workload VPC.
 
-Start from the default [`patterns/vsi/override.json`](./patterns/vsi/override.json), set `override = true`, and update the `rules` list of the workload VPC's ACL to include the `allow-internet-https-inbound` rule:
+Start from the default [override.json](./patterns/vsi/override.json), set `override = true`, and update the `rules` list of the workload VPC's ACL to include the `allow-internet-https-inbound` rule:
 
 ##### Example JSON structure:
 
