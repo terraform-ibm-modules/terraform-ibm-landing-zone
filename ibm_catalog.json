@@ -1371,10 +1371,6 @@
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1551,10 +1547,6 @@
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
