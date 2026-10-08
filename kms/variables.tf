@@ -18,7 +18,7 @@ variable "key_management" {
   description = "Object describing the Key Protect instance"
   type = object({
     name              = string
-    use_hs_crypto     = optional(bool) # can be hpcs or keyprotect
+    use_hs_crypto     = optional(bool, false) # Default: false (Key Protect). Deprecated: set to true only if HPCS is still required. A deprecation warning is emitted but the module continues. Migrate to Key Protect.
     use_data          = optional(bool)
     resource_group_id = optional(string)
     tags              = list(string)

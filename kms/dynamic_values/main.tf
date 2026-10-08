@@ -3,9 +3,9 @@
 ##############################################################################
 
 variable "use_hs_crypto" {
-  description = "Use HS Crypto"
+  description = "Deprecated: Set to true only if Hyper Protect Crypto Services (HPCS) is still required. A deprecation warning is emitted but the module continues. Migrate to Key Protect. Default is false (Key Protect is used)."
   type        = bool
-  default     = null
+  default     = false
 }
 
 variable "use_data" {
