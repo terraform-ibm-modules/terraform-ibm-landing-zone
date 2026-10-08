@@ -13,6 +13,16 @@ locals {
 
 ##############################################################################
 
+##############################################################################
+# HPCS Deprecation Warning Check
+##############################################################################
+
+check "warn_hs_crypto_key" {
+  assert {
+    condition     = var.key_management.use_hs_crypto != true
+    error_message = "WARNING (Non-fatal, execution will continue): An IBM Cloud Hyper Protect Crypto Services (hs-crypto) instance or key CRN was provided. Note that IBM Cloud Hyper Protect Crypto Services is deprecated. Consider migrating to a supported alternative."
+  }
+}
 
 ##############################################################################
 # Create KMS instance or get from data
