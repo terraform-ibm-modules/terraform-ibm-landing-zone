@@ -901,7 +901,7 @@ module "cluster_pattern" {
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 2.5.0, < 3.0.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.4.3, < 4.0.0 |
@@ -910,25 +910,25 @@ module "cluster_pattern" {
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 11.0.0 |
-| <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.6 |
-| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.0 |
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 4.0.0 |
+| <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.7 |
+| <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.1 |
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 4.0.3 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
-| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.0 |
+| <a name="module_f5_vsi"></a> [f5\_vsi](#module\_f5\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.1 |
 | <a name="module_key_management"></a> [key\_management](#module\_key\_management) | ./kms | n/a |
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
 | <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.36.9 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.0.10 |
-| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.1.0 |
+| <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.2.1 |
 
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_appid_redirect_urls.urls](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/appid_redirect_urls) | resource |
 | [ibm_atracker_route.atracker_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_route) | resource |
 | [ibm_atracker_target.atracker_target](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/atracker_target) | resource |
@@ -976,7 +976,7 @@ module "cluster_pattern" {
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_appid"></a> [appid](#input\_appid) | The App ID instance to be used for the teleport vsi deployments | <pre>object({<br/>    name           = optional(string)<br/>    resource_group = optional(string)<br/>    use_data       = optional(bool)<br/>    keys           = optional(list(string))<br/>    use_appid      = bool<br/>  })</pre> | <pre>{<br/>  "use_appid": false<br/>}</pre> | no |
 | <a name="input_atracker"></a> [atracker](#input\_atracker) | atracker variables | <pre>object({<br/>    resource_group        = string<br/>    receive_global_events = bool<br/>    collector_bucket_name = string<br/>    add_route             = bool<br/>  })</pre> | n/a | yes |
 | <a name="input_clusters"></a> [clusters](#input\_clusters) | A list describing clusters workloads to create | <pre>list(<br/>    object({<br/>      name                                  = string           # Name of Cluster<br/>      vpc_name                              = string           # Name of VPC<br/>      subnet_names                          = list(string)     # List of vpc subnets for cluster<br/>      workers_per_subnet                    = number           # Worker nodes per subnet.<br/>      machine_type                          = string           # Worker node flavor<br/>      kube_type                             = string           # iks or openshift<br/>      kube_version                          = optional(string) # Can be a version from `ibmcloud ks versions` or `default`<br/>      entitlement                           = optional(string) # entitlement option for openshift<br/>      secondary_storage                     = optional(string) # Secondary storage type<br/>      pod_subnet                            = optional(string) # Portable subnet for pods<br/>      service_subnet                        = optional(string) # Portable subnet for services<br/>      resource_group                        = string           # Resource Group used for cluster<br/>      cos_name                              = optional(string) # Name of COS instance Required only for OpenShift clusters<br/>      access_tags                           = optional(list(string), [])<br/>      boot_volume_crk_name                  = optional(string)      # Boot volume encryption key name<br/>      disable_public_endpoint               = optional(bool, true)  # disable cluster public, leaving only private endpoint<br/>      disable_outbound_traffic_protection   = optional(bool, false) # public outbound access from the cluster workers<br/>      cluster_force_delete_storage          = optional(bool, false) # force the removal of persistent storage associated with the cluster during cluster deletion<br/>      operating_system                      = string                # The operating system of the workers in the default worker pool. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .<br/>      kms_wait_for_apply                    = optional(bool, true)  # make terraform wait until KMS is applied to master and it is ready and deployed<br/>      verify_cluster_network_readiness      = optional(bool, true)  # Flag to run a script will run kubectl commands to verify that all worker nodes can communicate successfully with the master. If the runtime does not have access to the kube cluster to run kubectl commands, this should be set to false.<br/>      use_ibm_cloud_private_api_endpoints   = optional(bool, true)  # Flag to force all cluster related api calls to use the IBM Cloud private endpoints.<br/>      allow_default_worker_pool_replacement = optional(bool)        # (Advanced users) Set to true to allow the module to recreate a default worker pool. If you wish to make any change to the default worker pool which requires the re-creation of the default pool follow these [steps](https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc?tab=readme-ov-file#important-considerations-for-terraform-and-default-worker-pool).<br/>      labels                                = optional(map(string)) # A list of labels that you want to add to the default worker pool.<br/>      enable_ocp_console                    = optional(bool)        # Flag to specify whether to enable or disable the OpenShift console. If set to `null` the module will not modify the setting currently set on the cluster. Bare in mind when setting this to `true` or `false` on a cluster with private only endpoint enabled, the runtime must be able to access the private endpoint.<br/>      addons = optional(object({                                    # Map of OCP cluster add-on versions to install<br/>        debug-tool                = optional(string)<br/>        image-key-synchronizer    = optional(string)<br/>        openshift-data-foundation = optional(string)<br/>        vpc-file-csi-driver       = optional(string)<br/>        static-route              = optional(string)<br/>        # cluster-autoscaler        = optional(string)   Due to a Terraform limitation that prevents dynamically creating the Kubernetes provider, the cluster-autoscaler add-on cannot currently be deployed through this module.<br/>        vpc-block-csi-driver = optional(string)<br/>        ibm-storage-operator = optional(string)<br/>      }), {})<br/>      manage_all_addons = optional(bool, false) # Instructs Terraform to manage all cluster addons, even if addons were installed outside of the module. If set to 'true' this module will destroy any addons that were installed by other sources.<br/>      kms_config = optional(<br/>        object({<br/>          crk_name         = string         # Name of key<br/>          private_endpoint = optional(bool) # Private endpoint<br/>        })<br/>      )<br/>      worker_pools = optional(<br/>        list(<br/>          object({<br/>            name                 = string                # Worker pool name<br/>            vpc_name             = string                # VPC name<br/>            workers_per_subnet   = number                # Worker nodes per subnet<br/>            flavor               = string                # Worker node flavor<br/>            subnet_names         = list(string)          # List of vpc subnets for worker pool<br/>            entitlement          = optional(string)      # entitlement option for openshift<br/>            secondary_storage    = optional(string)      # Secondary storage type<br/>            boot_volume_crk_name = optional(string)      # Boot volume encryption key name<br/>            operating_system     = string                # The operating system of the workers in the worker pool. See https://cloud.ibm.com/docs/openshift?topic=openshift-openshift_versions#openshift_versions_available .<br/>            labels               = optional(map(string)) # A list of labels that you want to add to all the worker nodes in the worker pool.<br/>          })<br/>        )<br/>      )<br/>    })<br/>  )</pre> | n/a | yes |
@@ -1012,7 +1012,7 @@ module "cluster_pattern" {
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_appid_key_names"></a> [appid\_key\_names](#output\_appid\_key\_names) | List of appid key names created |
 | <a name="output_appid_name"></a> [appid\_name](#output\_appid\_name) | Name of the appid instance used. |
 | <a name="output_appid_redirect_urls"></a> [appid\_redirect\_urls](#output\_appid\_redirect\_urls) | List of appid redirect urls |
