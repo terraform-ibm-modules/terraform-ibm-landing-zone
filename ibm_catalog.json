@@ -1357,6 +1357,10 @@
                   "value": "4.21_openshift"
                 },
                 {
+                  "displayname": "4.22_openshift",
+                  "value": "4.22_openshift"
+                },
+                {
                   "displayname": "4.20_openshift",
                   "value": "4.20_openshift"
                 },
@@ -1371,10 +1375,6 @@
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
@@ -1537,6 +1537,10 @@
                   "value": "4.21_openshift"
                 },
                 {
+                  "displayname": "4.22_openshift",
+                  "value": "4.22_openshift"
+                },
+                {
                   "displayname": "4.20_openshift",
                   "value": "4.20_openshift"
                 },
@@ -1551,10 +1555,6 @@
                 {
                   "displayname": "4.17_openshift",
                   "value": "4.17_openshift"
-                },
-                {
-                  "displayname": "4.16_openshift",
-                  "value": "4.16_openshift"
                 }
               ],
               "custom_config": {}
