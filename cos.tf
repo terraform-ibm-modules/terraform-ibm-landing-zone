@@ -314,7 +314,7 @@ module "backup_vault" {
 # Create IAM authorization policies using s2s-auth module
 module "backup_vault_s2s_auth" {
   source  = "terraform-ibm-modules/s2s-auth/ibm"
-  version = "2.3.6"
+  version = "2.3.7"
 
   count = length(local.backup_vault_service_map) > 0 && !var.skip_all_s2s_auth_policies ? 1 : 0
 
