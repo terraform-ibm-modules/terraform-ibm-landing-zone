@@ -3,7 +3,7 @@
 ##############################################################################
 
 variable "use_hs_crypto" {
-  description = "Use HS Crypto"
+  description = "Deprecated: Set to true only if Hyper Protect Crypto Services (HPCS) is still required."
   type        = bool
   default     = null
 }

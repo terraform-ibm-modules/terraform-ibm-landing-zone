@@ -18,7 +18,7 @@ variable "key_management" {
   description = "Object describing the Key Protect instance"
   type = object({
     name              = string
-    use_hs_crypto     = optional(bool) # can be hpcs or keyprotect
+    use_hs_crypto     = optional(bool) # Deprecated: Set to true only if Hyper Protect Crypto Services (HPCS) is still required.
     use_data          = optional(bool)
     resource_group_id = optional(string)
     tags              = list(string)

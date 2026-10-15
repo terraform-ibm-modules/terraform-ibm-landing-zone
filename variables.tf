@@ -946,7 +946,7 @@ variable "key_management" {
     name              = optional(string)
     resource_group    = optional(string)
     use_data          = optional(bool)
-    use_hs_crypto     = optional(bool)
+    use_hs_crypto     = optional(bool) # Deprecated: Set to true only if Hyper Protect Crypto Services (HPCS) is still required.
     access_tags       = optional(list(string), [])
     service_endpoints = optional(string, "public-and-private")
     kms_endpoint_type = optional(string, "private") # endpoint type (public or private) used for KMS resource API calls when creating keys, key rings, and key policies
