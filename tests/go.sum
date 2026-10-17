@@ -7,8 +7,8 @@ github.com/IBM-Cloud/power-go-client v1.17.0/go.mod h1:IoC+bOzXTLLlvw35CgHSUdVOp
 github.com/IBM/cloud-databases-go-sdk v0.8.1 h1:ULQ5L8V/9z79/qS185LqbIK2LD4kMtk3Hdhp4lFMVcw=
 github.com/IBM/cloud-databases-go-sdk v0.8.1/go.mod h1:JYucI1PdwqbAd8XGdDAchxzxRP7bxOh1zUnseovHKsc=
 github.com/IBM/go-sdk-core/v5 v5.9.2/go.mod h1:YlOwV9LeuclmT/qi/LAK2AsobbAP42veV0j68/rlZsE=
-github.com/IBM/go-sdk-core/v5 v5.25.0 h1:wQEw6Cb9akKekjF22GsreARg6lmEszonVk3pzzS1fWw=
-github.com/IBM/go-sdk-core/v5 v5.25.0/go.mod h1:B4JsTbYRtgrTY+jjDARcPtITOMLEbyYtB4FblDn2RdQ=
+github.com/IBM/go-sdk-core/v5 v5.25.1 h1:vLQ5/fjn7+Fc4tWmyALqLytMM4Lrh4XHLUogaZWZ2w8=
+github.com/IBM/go-sdk-core/v5 v5.25.1/go.mod h1:mhCkszCCPNBJiXo+CeDvABZMTs6A+GfmIgeVV95UfaI=
 github.com/IBM/networking-go-sdk v0.55.2 h1:sB3m67YVfwThqy5W3kNGJozUMHm6oTLs8/Bi5ysqWrE=
 github.com/IBM/networking-go-sdk v0.55.2/go.mod h1:gvdy8j9MqmrZ/RxXbUNclzVP7aI+4jS8Uz8XMflFCd8=
 github.com/IBM/platform-services-go-sdk v0.103.4 h1:vvEMFdlFic0w+3U7oWx94BY5gS2PSqRMUhcRz9n55k8=
@@ -259,8 +259,8 @@ github.com/onsi/ginkgo/v2 v2.9.7/go.mod h1:cxrmXWykAwTwhQsJOPfdIDiJ+l2RYq7U8hFU+
 github.com/onsi/ginkgo/v2 v2.11.0/go.mod h1:ZhrRA5XmEE3x3rhlzamx/JJvujdZoJ2uvgI7kR0iZvM=
 github.com/onsi/ginkgo/v2 v2.13.0/go.mod h1:TE309ZR8s5FsKKpuB1YAQYBzCaAfUgatB/xlT/ETL/o=
 github.com/onsi/ginkgo/v2 v2.15.0/go.mod h1:HlxMHtYF57y6Dpf+mc5529KKmSq9h2FpCF+/ZkwUxKM=
-github.com/onsi/ginkgo/v2 v2.33.0 h1:C8gBA6Uc2ZEubiV+SXiu5tZnMTwEmXHgkJwGozKtZf8=
-github.com/onsi/ginkgo/v2 v2.33.0/go.mod h1:+aXOY+vzZ5mu2iI2HpTZUPmM//oQfsNFX6gU9kNcA44=
+github.com/onsi/ginkgo/v2 v2.33.1 h1:62XfWJbEIjPSCSDYrsCPP/SHcmH7O0M8ne8zfqQ2iz4=
+github.com/onsi/ginkgo/v2 v2.33.1/go.mod h1:+aXOY+vzZ5mu2iI2HpTZUPmM//oQfsNFX6gU9kNcA44=
 github.com/onsi/gomega v1.7.1/go.mod h1:XdKZgCCFLUoM/7CFJVPcG8C1xQ1AJ0vpAezJrB7JYyY=
 github.com/onsi/gomega v1.10.1/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1ybHNo=
 github.com/onsi/gomega v1.10.5/go.mod h1:gza4q3jKQJijlu05nKWRCW/GavJumGt8aNRxWg7mt48=
@@ -314,8 +314,8 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.12.1 h1:EuwCh5fleGS7H32xRwO3wRGT7DxrDhLAT6FF8MpWDWE=
 github.com/stretchr/testify v1.12.1/go.mod h1:MDEgiDPPsNp5cuIrHPPCyornHKgEVbtFUmoNlxoYthg=
-github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.80.3 h1:cHdIMRnqLJOVMIKPZl30SQyA1zUbFLZsjvnB+E+MWC8=
-github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.80.3/go.mod h1:yKa7VmYLqW+64eKYkp5xC4XvYh7iLSAdHUtwZidNbwc=
+github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.80.4 h1:5BIaPhrr8JifbrC5Jj+1Am/r9jqvCqitkeJdCRY6wCc=
+github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.80.4/go.mod h1:Wu127DaQua/GFQfN0sywCkImTj2CbJ1ZsaUWJasqSeA=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tmccombs/hcl2json v0.6.4 h1:/FWnzS9JCuyZ4MNwrG4vMrFrzRgsWEOVi+1AyYUVLGw=
 github.com/tmccombs/hcl2json v0.6.4/go.mod h1:+ppKlIW3H5nsAsZddXPy2iMyvld3SHxyjswOZhavRDk=
