@@ -911,8 +911,8 @@ module "cluster_pattern" {
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 11.1.0 |
-| <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.7 |
+| <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 11.1.1 |
+| <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.8 |
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.3.0 |
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 4.0.4 |
 | <a name="module_dynamic_values"></a> [dynamic\_values](#module\_dynamic\_values) | ./dynamic_values | n/a |
@@ -921,8 +921,8 @@ module "cluster_pattern" {
 | <a name="module_placement_group_map"></a> [placement\_group\_map](#module\_placement\_group\_map) | ./dynamic_values/config_modules/list_to_map | n/a |
 | <a name="module_ssh_keys"></a> [ssh\_keys](#module\_ssh\_keys) | ./ssh_key | n/a |
 | <a name="module_teleport_config"></a> [teleport\_config](#module\_teleport\_config) | ./teleport_config | n/a |
-| <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.37.1 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.1.1 |
+| <a name="module_update_cbr_vpc_zone"></a> [update\_cbr\_vpc\_zone](#module\_update\_cbr\_vpc\_zone) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.37.2 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.1.2 |
 | <a name="module_vsi"></a> [vsi](#module\_vsi) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.3.0 |
 
 ### Resources
