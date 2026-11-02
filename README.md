@@ -911,7 +911,7 @@ module "cluster_pattern" {
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 11.2.3 |
+| <a name="module_backup_vault"></a> [backup\_vault](#module\_backup\_vault) | terraform-ibm-modules/cos/ibm//modules/backup_vault | 11.2.4 |
 | <a name="module_backup_vault_s2s_auth"></a> [backup\_vault\_s2s\_auth](#module\_backup\_vault\_s2s\_auth) | terraform-ibm-modules/s2s-auth/ibm | 2.3.12 |
 | <a name="module_bastion_host"></a> [bastion\_host](#module\_bastion\_host) | terraform-ibm-modules/landing-zone-vsi/ibm | 8.3.5 |
 | <a name="module_cluster"></a> [cluster](#module\_cluster) | terraform-ibm-modules/base-ocp-vpc/ibm | 4.1.0 |
